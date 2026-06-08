@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>강동미나 영어 · Colors in Soccer 통합학습</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Nunito:wght@700;900&display=swap');
+:root{
+  --c1:#f97316;--c2:#3b82f6;--c3:#10b981;--c4:#8b5cf6;--c5:#ec4899;--c6:#f59e0b;--c7:#06b6d4;--c8:#ef4444;
+  --bg:#fef9f0;--card:#fffdf7;--ink:#1a1a2e;--muted:#666;--shadow:rgba(0,0,0,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--ink);padding:22px 14px 90px}
+.page-title{text-align:center;margin-bottom:16px}
+.badge{display:inline-block;background:#1a1a2e;color:#fff;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:900;margin-bottom:8px}
+h1{font-family:'Nunito','Noto Sans KR',sans-serif;font-size:clamp(23px,6vw,38px);font-weight:900}
+.subtitle{font-size:13px;color:#666;margin-top:5px;line-height:1.5}
+.deco{width:90px;height:6px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));border-radius:99px;margin:10px auto 0}
+.tabs{max-width:960px;margin:0 auto 18px;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:10}
+.tab{border:none;border-radius:14px;padding:11px 8px;font-size:13px;font-weight:900;background:#fff;box-shadow:0 3px 12px var(--shadow);cursor:pointer}
+.tab.active{background:#1a1a2e;color:white}
+.ctrl{max-width:960px;margin:0 auto 18px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.btn{border:none;border-radius:999px;padding:10px 15px;font-weight:900;font-size:13px;box-shadow:0 3px 10px var(--shadow);cursor:pointer}
+.dark{background:#1a1a2e;color:#fff}.soft{background:#fff;color:#1a1a2e}.listen{background:#dbeafe;color:#1d4ed8}.green{background:#dcfce7;color:#166534}
+.progressBox{max-width:960px;margin:0 auto 16px;background:#fff;border:2px solid #e8e8e8;border-radius:16px;padding:12px;box-shadow:0 4px 14px var(--shadow)}
+.progressRow{display:flex;align-items:center;gap:10px}
+.progressLabel{font-size:13px;font-weight:900;color:#1a1a2e;white-space:nowrap}
+.progressWrap{height:12px;background:#e5e7eb;border-radius:999px;overflow:hidden;flex:1}
+.progressBar{height:100%;width:0;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));transition:.3s}
+.progressText{font-size:12px;font-weight:900;color:#555;min-width:55px;text-align:right}
+.section{display:none;max-width:960px;margin:0 auto}
+.section.active{display:block}
+.label{margin:24px auto 14px;display:flex;align-items:center;gap:10px}
+.label:before,.label:after{content:"";flex:1;height:2px;background:#e5e7eb}
+.label span{font-size:13px;font-weight:900;color:#777;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:720px){.tabs{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px var(--shadow);border:2px solid #e8e8e8}
+.card-head{display:flex;align-items:center;gap:10px;padding:11px 14px;color:#fff;font-size:13px;font-weight:900}
+.num{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0}
+.tag{margin-left:auto;background:rgba(255,255,255,.22);padding:4px 8px;border-radius:7px;font-size:11px;white-space:nowrap}
+.c1 .card-head{background:var(--c1)}.c2 .card-head{background:var(--c2)}.c3 .card-head{background:var(--c3)}.c4 .card-head{background:var(--c4)}.c5 .card-head{background:var(--c5)}.c6 .card-head{background:var(--c6)}.c7 .card-head{background:var(--c7)}.c8 .card-head{background:var(--c8)}
+.body{padding:15px}
+.sent{font-size:17px;font-weight:900;line-height:1.85}
+.blank{display:inline-block;min-width:42px;text-align:center;border-bottom:2.5px solid #999;padding:0 5px;cursor:pointer;border-radius:4px 4px 0 0}
+.blank.hidden{color:transparent;background:transparent}
+.blank.visible{color:#111;background:#fff9c4;border-bottom-color:transparent;border-radius:6px}
+.kr{font-size:12.5px;color:#666;line-height:1.6;margin-top:8px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.small{border:none;border-radius:999px;padding:6px 11px;font-weight:900;font-size:12px;cursor:pointer}
+.speak{background:#e0f2fe;color:#0369a1}.check{background:#dcfce7;color:#166534}.check.done{background:#166534;color:#fff}
+.answer{max-height:0;overflow:hidden;background:#f0f7ff;transition:.3s;padding:0 15px}
+.answer.open{max-height:340px;padding:13px 15px 15px;border-top:1px dashed #ddd}
+.explain{font-size:12.5px;line-height:1.7;color:#444}.explain b{color:#dc2626}
+.toggle{width:100%;padding:10px;border:none;background:white;border-top:1.5px dashed #e0e0e0;font-weight:900;color:#1a1a2e;cursor:pointer}
+.word-card{cursor:pointer;min-height:142px}.word-en{font-size:25px;font-family:Nunito;font-weight:900}.word-kr{margin-top:10px;font-size:16px;font-weight:900;color:#ef4444;display:none}.word-ex{margin-top:8px;font-size:12.5px;color:#666;line-height:1.5;display:none}.word-card.open .word-kr,.word-card.open .word-ex{display:block}
+.quiz-box{background:#fff;border:2px solid #e8e8e8;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 4px 15px var(--shadow)}
+.q{font-size:16px;font-weight:900;line-height:1.6;margin-bottom:10px}
+.opt{display:block;width:100%;text-align:left;margin:7px 0;padding:10px 12px;border:1.5px solid #ddd;background:#fff;border-radius:10px;font-weight:700;cursor:pointer}
+.opt.correct{background:#dcfce7;border-color:#16a34a;color:#166534}.opt.wrong{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+.score{font-size:15px;font-weight:900;text-align:center;margin:12px 0;color:#1a1a2e}
+.fullText{background:white;border:2px solid #e8e8e8;border-radius:16px;padding:18px;box-shadow:0 4px 16px var(--shadow);line-height:1.9}
+.fullText p{margin-bottom:10px;font-size:15px}
+.footerNote{max-width:960px;margin:24px auto 0;background:#fffbeb;border:2px solid #fcd34d;border-radius:16px;padding:15px;font-size:12.5px;line-height:1.8;color:#555}
+</style>
+</head>
+<body>
+<div class="page-title">
+  <div class="badge">강동미나 영어 · 천재 이상기 2학년 Lesson 3</div>
+  <h1>Colors in Soccer</h1>
+  <p class="subtitle">📖 본문 · 📝 문법 · 🔤 단어 · 🎧 전체본문 · 🎯 시험모드 통합 학습</p>
+  <div class="deco"></div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="openTab('reading',this)">📖 본문</button>
+  <button class="tab" onclick="openTab('grammar',this)">📝 문법</button>
+  <button class="tab" onclick="openTab('words',this)">🔤 단어</button>
+  <button class="tab" onclick="openTab('full',this)">🎧 전체본문</button>
+  <button class="tab" onclick="openTab('test',this)">🎯 시험</button>
+</div>
+
+<div class="progressBox">
+  <div class="progressRow">
+    <div class="progressLabel">학습 완료</div>
+    <div class="progressWrap"><div class="progressBar" id="progressBar"></div></div>
+    <div class="progressText" id="progressText">0/0</div>
+  </div>
+</div>
+
+<div class="ctrl">
+  <button class="btn dark" onclick="showAll()">✅ 정답 전체 보기</button>
+  <button class="btn soft" onclick="hideAll()">🙈 정답 숨기기</button>
+  <button class="btn listen" onclick="speakVisible()">🔊 현재 탭 전체 듣기</button>
+  <button class="btn green" onclick="resetProgress()">↩️ 완료 초기화</button>
+</div>
+
+<section id="reading" class="section active">
+  <div class="label"><span>📖 본문 빈칸 카드</span></div>
+  <div class="grid" id="readingGrid"></div>
+</section>
+
+<section id="grammar" class="section">
+  <div class="label"><span>📝 문법 패턴 카드</span></div>
+  <div class="grid" id="grammarGrid"></div>
+</section>
+
+<section id="words" class="section">
+  <div class="label"><span>🔤 단어 암기 카드 — 탭하면 뜻이 나와요</span></div>
+  <div class="grid" id="wordGrid"></div>
+</section>
+
+<section id="full" class="section">
+  <div class="label"><span>🎧 전체 본문 읽기</span></div>
+  <div class="fullText" id="fullText"></div>
+</section>
+
+<section id="test" class="section">
+  <div class="label"><span>🎯 시험 모드</span></div>
+  <div id="score" class="score">점수: 0 / 0</div>
+  <div id="quizArea"></div>
+</section>
+
+<div class="footerNote">
+  <b>학습 순서 추천</b><br>
+  ① 본문 카드에서 빈칸을 눌러 핵심 표현 확인 → ② 문법 카드로 패턴 정리 → ③ 단어 카드 암기 → ④ 시험 모드로 점검
+</div>
+
+<script>
+const sentences = [["Soccer is a popular sport all over the world.", "축구는 전 세계에서 인기 있는 스포츠이다.", "all over the world", "전 세계에서"], ["It is also quite simple.", "그것은 또한 꽤 간단하다.", "quite", "꽤, 상당히"], ["You just need a ball, a small open space, and the desire to kick.", "공, 작은 열린 공간, 그리고 차고 싶은 욕구만 있으면 된다.", "desire to kick", "차고 싶은 욕구"], ["Then, you can enjoy it with your friends.", "그러면 친구들과 함께 그것을 즐길 수 있다.", "with your friends", "친구들과 함께"], ["However, you need to understand the importance of colors to fully enjoy soccer.", "하지만 축구를 완전히 즐기기 위해서는 색의 중요성을 이해할 필요가 있다.", "need to understand", "~을 이해할 필요가 있다"], ["Soccer balls today come in various colors, but black and white balls are quite common.", "오늘날 축구공은 다양한 색으로 나오지만, 흑백 공은 꽤 흔하다.", "come in various colors", "다양한 색으로 나오다"], ["Have you heard about the origin of this popular design?", "이 인기 있는 디자인의 기원에 대해 들어본 적이 있니?", "Have you heard", "들어본 적 있니?"], ["Black and white balls came out during the 1970 World Cup in Mexico.", "흑백 공은 멕시코 1970 월드컵 동안 나왔다.", "during the 1970 World Cup", "1970 월드컵 동안"], ["People could spot them easily on their black and white TVs.", "사람들은 흑백 TV에서 그것들을 쉽게 알아볼 수 있었다.", "could spot", "알아볼 수 있었다"], ["Later, they became the standard design for soccer balls.", "나중에 그것들은 축구공의 표준 디자인이 되었다.", "became the standard design", "표준 디자인이 되었다"], ["Players on each team wear uniforms with their own colors.", "각 팀의 선수들은 자신들만의 색이 있는 유니폼을 입는다.", "with their own colors", "자신들만의 색으로"], ["Uniform colors have the power to unite the team under the same spirit.", "유니폼 색은 같은 정신 아래 팀을 하나로 묶는 힘이 있다.", "the power to unite", "하나로 묶는 힘"], ["They are also useful on the field.", "그것들은 경기장에서도 유용하다.", "useful on the field", "경기장에서 유용한"], ["Players can spot each other and make quick decisions thanks to their team's unique colors.", "선수들은 팀의 독특한 색 덕분에 서로를 알아보고 빠른 결정을 할 수 있다.", "thanks to", "~ 덕분에"], ["On the field, referees wear uniforms with special colors because they need to stand out from the players.", "경기장에서 심판들은 선수들 사이에서 눈에 띄어야 하기 때문에 특별한 색의 유니폼을 입는다.", "because they need to stand out", "눈에 띄어야 하기 때문에"], ["Among several colors, black has been their favorite.", "여러 색 중에서 검정색은 그들이 가장 좋아하는 색이었다.", "has been", "지금까지 ~이었다"], ["Black looks powerful, and it sends a strong Don't argue with me message.", "검정색은 강력해 보이고, ‘나와 다투지 마’라는 강한 메시지를 보낸다.", "looks powerful", "강력해 보인다"], ["Referees have used yellow and red cards since 1970.", "심판들은 1970년부터 노란색과 빨간색 카드를 사용해 왔다.", "have used", "사용해 왔다"], ["Different color cards send different messages to players.", "다른 색의 카드들은 선수들에게 서로 다른 메시지를 보낸다.", "send different messages", "서로 다른 메시지를 보내다"], ["Yellow cards say, Be careful with those fouls.", "노란 카드는 ‘그 반칙들을 조심해!’라고 말한다.", "those fouls", "그 반칙들"], ["Red cards say, You should leave the field.", "빨간 카드는 ‘너는 경기장을 떠나야 한다’라고 말한다.", "should leave", "떠나야 한다"], ["All players from different countries clearly understand the meaning of these cards.", "다른 나라 출신의 모든 선수들은 이 카드들의 의미를 분명히 이해한다.", "the meaning of these cards", "이 카드들의 의미"], ["Do you have a plan to watch a soccer match?", "축구 경기를 볼 계획이 있니?", "a plan to watch", "볼 계획"], ["Then check out the various colors on the field.", "그러면 경기장 위의 다양한 색들을 확인해 봐라.", "check out", "확인하다, 살펴보다"], ["It will be more fun.", "그것은 더 재미있을 것이다.", "more fun", "더 재미있는"]];
+const grammar = [["현재완료 의문문", "Have you heard about the origin of this popular design?", "Have you heard", "have/has + p.p. 형태로 경험을 묻는다."], ["현재완료 계속", "Referees have used yellow and red cards since 1970.", "have used", "since + 시작 시점과 함께 과거부터 현재까지 계속된 일을 나타낸다."], ["to부정사 형용사적 용법", "Do you have a plan to watch a soccer match?", "to watch", "to부정사가 앞의 명사 plan을 뒤에서 꾸민다."], ["명사 + to부정사", "Uniform colors have the power to unite the team.", "to unite", "power를 수식하여 ‘하나로 묶는 힘’이라는 의미를 만든다."], ["need to V", "You need to understand the importance of colors.", "need to understand", "~할 필요가 있다."], ["thanks to + 명사", "Players can make quick decisions thanks to their team's unique colors.", "thanks to", "~ 덕분에. 뒤에는 명사구가 온다."], ["because + 절", "Referees wear special colors because they need to stand out.", "because they need to stand out", "이유를 나타내는 접속사 because 뒤에는 주어+동사가 온다."], ["look + 형용사", "Black looks powerful.", "looks powerful", "감각동사 look 뒤에는 형용사가 온다."], ["during + 기간", "The balls came out during the 1970 World Cup.", "during", "~ 동안. 뒤에는 기간을 나타내는 명사가 온다."], ["should + 동사원형", "You should leave the field.", "should leave", "~해야 한다. 조동사 뒤에는 동사원형."]];
+const words = [["popular", "인기 있는", "Soccer is a popular sport."], ["simple", "간단한", "It is also quite simple."], ["desire", "욕구, 바람", "the desire to kick"], ["importance", "중요성", "the importance of colors"], ["various", "다양한", "various colors"], ["common", "흔한", "black and white balls are quite common"], ["origin", "기원, 유래", "the origin of this design"], ["design", "디자인", "this popular design"], ["during", "~ 동안", "during the World Cup"], ["spot", "알아보다, 발견하다", "People could spot them easily."], ["standard", "표준", "the standard design"], ["uniform", "유니폼, 제복", "wear uniforms"], ["unite", "하나로 묶다, 단결시키다", "unite the team"], ["spirit", "정신", "under the same spirit"], ["field", "경기장", "on the field"], ["decision", "결정", "make quick decisions"], ["thanks to", "~ 덕분에", "thanks to their team's colors"], ["unique", "독특한, 고유한", "unique colors"], ["referee", "심판", "referees wear uniforms"], ["stand out", "눈에 띄다", "stand out from the players"], ["several", "몇몇의", "among several colors"], ["favorite", "가장 좋아하는 것", "their favorite"], ["powerful", "강력한", "Black looks powerful."], ["argue", "다투다, 말다툼하다", "Don't argue with me."], ["foul", "반칙", "those fouls"], ["meaning", "의미", "the meaning of these cards"], ["match", "경기", "watch a soccer match"], ["check out", "확인하다, 살펴보다", "check out the colors"]];
+const quiz = [["Soccer is a popular sport ______.", ["all over the world", "on each card", "during black", "to unite"], 0], ["‘들어본 적 있니?’에 맞는 표현은?", ["Do you heard", "Have you heard", "Are you heard", "Did you hearing"], 1], ["Referees ______ yellow and red cards since 1970.", ["use", "used", "have used", "are use"], 2], ["‘~ 덕분에’에 해당하는 표현은?", ["during", "thanks to", "among", "quite"], 1], ["Uniform colors have the power ______ the team.", ["unite", "to unite", "uniting", "united"], 1], ["Black looks ______.", ["power", "powerful", "powerfully", "powered"], 1], ["Do you have a plan ______ a soccer match?", ["watch", "watching", "to watch", "watched"], 2], ["People could ______ them easily on TV.", ["argue", "spot", "unite", "foul"], 1], ["Yellow cards say, ‘Be careful with ______ fouls.’", ["this", "that", "these", "those"], 3], ["It will be ______.", ["fun more", "more fun", "most fun", "many fun"], 1]];
+
+function colorClass(i){return 'c'+((i%8)+1)}
+function escapeRegExp(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+function blankSentence(text, key){
+  const re = new RegExp(escapeRegExp(key), 'i');
+  return text.replace(re, '<span class="blank hidden">'+key+'</span>');
+}
+function makeReading(){
+  const grid=document.getElementById('readingGrid');
+  sentences.forEach((s,i)=>{
+    const div=document.createElement('div'); div.className='card '+colorClass(i); div.dataset.text=s[0];
+    div.innerHTML=`<div class="card-head"><div class="num">${i+1}</div>본문 ${String(i+1).padStart(2,'0')}<div class="tag">${s[2]}</div></div>
+    <div class="body"><div class="sent">${blankSentence(s[0],s[2])}</div><div class="kr">${s[1]}</div>
+    <div class="row"><button class="small speak" onclick="speakCard(this)">🔊 듣기</button><button class="small check" onclick="done(this)">완료</button></div></div>
+    <button class="toggle" onclick="toggleAns(this)">정답 & 해설 보기</button>
+    <div class="answer"><div class="explain"><b>${s[2]}</b> = ${s[3]}</div></div>`;
+    grid.appendChild(div);
+  });
+}
+function makeGrammar(){
+  const grid=document.getElementById('grammarGrid');
+  grammar.forEach((g,i)=>{
+    const div=document.createElement('div'); div.className='card '+colorClass(i); div.dataset.text=g[1];
+    div.innerHTML=`<div class="card-head"><div class="num">${i+1}</div>${g[0]}<div class="tag">${g[2]}</div></div>
+    <div class="body"><div class="sent">${blankSentence(g[1],g[2])}</div><div class="kr">${g[3]}</div>
+    <div class="row"><button class="small speak" onclick="speakCard(this)">🔊 듣기</button><button class="small check" onclick="done(this)">완료</button></div></div>
+    <button class="toggle" onclick="toggleAns(this)">해설 보기</button><div class="answer"><div class="explain"><b>${g[2]}</b><br>${g[3]}</div></div>`;
+    grid.appendChild(div);
+  });
+}
+function makeWords(){
+  const grid=document.getElementById('wordGrid');
+  words.forEach((w,i)=>{
+    const div=document.createElement('div'); div.className='card word-card '+colorClass(i); div.dataset.text=w[0];
+    div.onclick=()=>{div.classList.toggle('open'); speak(w[0])}
+    div.innerHTML=`<div class="body"><div class="word-en">${w[0]}</div><div class="word-kr">${w[1]}</div><div class="word-ex">${w[2]}</div></div>`;
+    grid.appendChild(div);
+  });
+}
+function makeFull(){
+  const box=document.getElementById('fullText');
+  sentences.forEach((s,i)=>{
+    const p=document.createElement('p');
+    p.innerHTML=`<b>${i+1}.</b> ${s[0]}<br><span style="color:#666;font-size:13px">${s[1]}</span>`;
+    p.onclick=()=>speak(s[0]);
+    box.appendChild(p);
+  });
+}
+function makeQuiz(){
+  const area=document.getElementById('quizArea');
+  quiz.forEach((q,i)=>{
+    const box=document.createElement('div'); box.className='quiz-box';
+    box.innerHTML=`<div class="q">${i+1}. ${q[0]}</div>` + q[1].map((o,j)=>`<button class="opt" onclick="choose(this,${j===q[2]?1:0})">${String.fromCharCode(9312+j)} ${o}</button>`).join('');
+    area.appendChild(box);
+  });
+}
+function openTab(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+}
+function speak(text){
+  if(!window.speechSynthesis)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US'; u.rate=.86; u.pitch=1;
+  speechSynthesis.speak(u);
+}
+function speakCard(btn){speak(btn.closest('.card').dataset.text)}
+function speakVisible(){
+  const texts=[...document.querySelector('.section.active').querySelectorAll('[data-text]')].map(x=>x.dataset.text);
+  let i=0; speechSynthesis.cancel();
+  function next(){ if(i>=texts.length)return; const u=new SpeechSynthesisUtterance(texts[i++]); u.lang='en-US'; u.rate=.86; u.onend=next; speechSynthesis.speak(u); }
+  next();
+}
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('blank')){e.target.classList.toggle('hidden');e.target.classList.toggle('visible')}
+});
+function toggleAns(btn){btn.nextElementSibling.classList.toggle('open')}
+function showAll(){document.querySelectorAll('.blank').forEach(b=>{b.classList.remove('hidden');b.classList.add('visible')});document.querySelectorAll('.answer').forEach(a=>a.classList.add('open'))}
+function hideAll(){document.querySelectorAll('.blank').forEach(b=>{b.classList.add('hidden');b.classList.remove('visible')});document.querySelectorAll('.answer').forEach(a=>a.classList.remove('open'))}
+function done(btn){btn.classList.toggle('done');btn.textContent=btn.classList.contains('done')?'완료됨':'완료';updateProgress()}
+function updateProgress(){
+  const checks=document.querySelectorAll('.check');
+  const done=document.querySelectorAll('.check.done');
+  document.getElementById('progressText').textContent=`${done.length}/${checks.length}`;
+  document.getElementById('progressBar').style.width=(checks.length?done.length/checks.length*100:0)+'%';
+}
+function resetProgress(){document.querySelectorAll('.check').forEach(b=>{b.classList.remove('done');b.textContent='완료'});updateProgress()}
+let correct=0, answered=0;
+function choose(btn,isCorrect){
+  const box=btn.closest('.quiz-box'); if(box.dataset.done)return; box.dataset.done='1'; answered++;
+  if(isCorrect){btn.classList.add('correct'); correct++;} else {btn.classList.add('wrong'); box.querySelectorAll('.opt').forEach(o=>{if(o.getAttribute('onclick').includes(',1)'))o.classList.add('correct')});}
+  document.getElementById('score').textContent=`점수: ${correct} / ${answered}`;
+}
+makeReading(); makeGrammar(); makeWords(); makeFull(); makeQuiz(); updateProgress();
+</script>
+</body>
+</html>
