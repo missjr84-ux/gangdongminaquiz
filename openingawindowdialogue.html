@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Lesson 4 대화문 — 3단계 학습</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nunito:wght@700;900&display=swap');
+:root{--c1:#f97316;--c2:#3b82f6;--c3:#10b981;--c4:#8b5cf6;--c5:#ec4899;--c6:#f59e0b;--c7:#06b6d4;--c8:#ef4444;
+--bg:#f0f9ff;--card-bg:#fffdf7;--shadow:rgba(0,0,0,0.10);--ink:#1a1a2e;--muted:#666;
+--ok:#10b981;--ok-bg:#dcfce7;--no:#ef4444;--no-bg:#fee2e2;--line:#e8e8e8;
+--a-bg:#e8f4ed;--a-co:#10b981;--b-bg:#e0f2fe;--b-co:#0369a1;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--ink);padding-bottom:70px;}
+.page-title{text-align:center;padding:22px 16px 8px;}
+.page-title h1{font-family:'Nunito','Noto Sans KR',sans-serif;font-size:clamp(20px,5vw,30px);font-weight:900;}
+.page-title .subtitle{font-size:13px;color:var(--muted);margin-top:5px;}
+.deco-bar{width:80px;height:5px;background:linear-gradient(90deg,var(--c5),var(--c2),var(--c3));border-radius:10px;margin:8px auto 0;}
+.steps{position:sticky;top:0;z-index:30;background:var(--bg);max-width:900px;margin:14px auto 0;padding:8px 12px;display:flex;gap:8px;}
+.step{flex:1;font-family:inherit;font-size:12.5px;font-weight:700;padding:11px 6px;border-radius:24px;border:none;cursor:pointer;background:#fff;color:var(--muted);box-shadow:0 2px 8px var(--shadow);transition:.2s;text-align:center;line-height:1.3;}
+.step.on{background:var(--ink);color:#fff;}
+.step .sn{display:block;font-size:10px;opacity:.7;}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px;}
+.intro{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:14px 18px;font-size:13px;color:#555;line-height:1.8;margin-bottom:18px;}
+.intro b{color:var(--ink);}
+.bar{height:7px;background:#dbeafe;border-radius:5px;overflow:hidden;margin-bottom:18px;}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--c5),var(--c3));border-radius:5px;width:0;transition:.4s;}
+.scene-pick{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.spb{padding:8px 16px;border:2px solid var(--line);border-radius:24px;background:#fff;font-family:inherit;font-size:12.5px;font-weight:700;color:var(--muted);cursor:pointer;box-shadow:0 2px 6px var(--shadow);}
+.spb.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+.scard{background:var(--card-bg);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);padding:16px;margin-bottom:14px;}
+.scene-title{font-size:14px;font-weight:900;color:var(--c5);margin-bottom:4px;}
+.scene-sub{font-size:12px;color:var(--muted);margin-bottom:12px;}
+.ctrl-bar{display:flex;gap:10px;justify-content:center;margin-bottom:14px;}
+.ctrl-btn{font-family:inherit;font-size:12.5px;font-weight:700;padding:8px 18px;border-radius:24px;border:none;cursor:pointer;box-shadow:0 2px 8px var(--shadow);}
+.btn-dark{background:var(--ink);color:#fff;}
+.row{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;}
+.row.right{flex-direction:row-reverse;}
+.av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+.av.a{background:var(--a-bg);color:var(--a-co);}.av.b{background:var(--b-bg);color:var(--b-co);}
+.bubble-wrap{max-width:78%;}
+.who{font-size:11px;color:var(--muted);margin-bottom:3px;}
+.bubble{padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.5;font-weight:500;}
+.bubble.a{background:var(--a-bg);color:#14532d;border-radius:4px 14px 14px 14px;}
+.bubble.b{background:var(--b-bg);color:#0c4a6e;border-radius:14px 4px 14px 14px;}
+.bubble .en{font-weight:700;}
+.bubble .kr{font-size:12px;opacity:.8;margin-top:3px;}
+.bubble .kr.hide{display:none;}
+.tts-btn{background:#fff;border:1px solid var(--line);border-radius:14px;padding:2px 9px;font-size:11px;font-weight:700;color:#0369a1;cursor:pointer;margin-top:6px;}
+.qkr{font-size:14px;color:var(--muted);background:#f0f7ff;padding:9px 12px;border-radius:9px;margin-bottom:10px;line-height:1.5;}
+.blank-sent{font-size:15px;font-weight:700;line-height:1.85;}
+.blank-word{display:inline-block;border-bottom:2.5px solid #999;padding:0 4px;cursor:pointer;transition:.25s;min-width:44px;text-align:center;border-radius:4px 4px 0 0;}
+.blank-word.hidden{color:transparent;}
+.blank-word.visible{background:#fff9c4;border-bottom-color:transparent;border-radius:6px;padding:0 6px;}
+.tap-hint{margin-top:8px;font-size:11px;color:#bbb;}
+.match-q{font-size:14px;font-weight:700;margin-bottom:10px;line-height:1.5;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt{padding:11px 14px;border:2px solid var(--line);border-radius:11px;background:#fff;font-size:13.5px;font-weight:500;cursor:pointer;transition:.12s;}
+.opt.pick{border-color:var(--c5);background:#fdf2f8;}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg);color:#14532d;font-weight:700;}
+.opt.no{border-color:var(--no);background:var(--no-bg);}
+.fb{font-size:13px;min-height:18px;font-weight:700;margin-top:8px;}.fb.ok{color:var(--ok);}.fb.no{color:var(--no);}
+.b{padding:9px 20px;border:none;border-radius:24px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px var(--shadow);}
+.b1{background:var(--c5);color:#fff;}.b3{background:var(--c3);color:#fff;}
+.nav2{display:flex;justify-content:space-between;align-items:center;margin-top:16px;}
+.nav2 .b{background:#fff;color:var(--ink);}.nav2 .b:disabled{opacity:.35;}
+.cnt{font-size:13px;color:var(--muted);font-weight:700;}
+.result{text-align:center;padding:30px 16px;}
+.score{font-size:60px;font-weight:900;background:linear-gradient(90deg,var(--c5),var(--c3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.rmsg{font-size:15px;color:var(--muted);margin:6px 0 22px;font-weight:700;}
+</style>
+</head>
+<body>
+<div class="page-title">
+  <h1>💬 Lesson 4 대화문</h1>
+  <p class="subtitle">시장 여행 의사소통 표현 · 3단계 점진 학습</p>
+  <div class="deco-bar"></div>
+</div>
+<div class="steps">
+  <button class="step on" id="s0" onclick="go(0)"><span class="sn">1단계</span>역할극 읽기</button>
+  <button class="step" id="s1" onclick="go(1)"><span class="sn">2단계</span>빈칸 채우기</button>
+  <button class="step" id="s2" onclick="go(2)"><span class="sn">3단계</span>응답 매칭</button>
+</div>
+<div class="wrap" id="app"></div>
+
+<script>
+const SCENES=[
+ {title:'대화 1 — 시장 방문 제안',sub:'A(가이드) · B(여행자)',
+  lines:[
+   {sp:0,en:"When it comes to travel, I always visit local markets first.",kr:"여행에 관한 한, 저는 항상 현지 시장을 먼저 방문해요."},
+   {sp:1,en:"Why is that?",kr:"왜 그런가요?"},
+   {sp:0,en:"Markets are places where you can meet people and taste local food.",kr:"시장은 사람들을 만나고 지역 음식을 맛볼 수 있는 곳이거든요."},
+   {sp:1,en:"That sounds great! Make sure to show me the best one.",kr:"좋네요! 가장 좋은 곳을 꼭 보여주세요."},
+   {sp:0,en:"No problem. The Grand Bazaar attracts over 250,000 visitors every day.",kr:"문제없어요. 그랜드 바자르는 매일 25만 명 이상을 끌어모으죠."}
+  ]},
+ {title:'대화 2 — 약속 잡기',
+  sub:'A(여행자) · B(상점 주인)',
+  lines:[
+   {sp:0,en:"I wonder whether you carry nazar boncugu.",kr:"나자르 본주를 파시는지 궁금해요."},
+   {sp:1,en:"Yes, it's a traditional Turkish symbol for good luck.",kr:"네, 그것은 행운을 비는 터키 전통 상징이에요."},
+   {sp:0,en:"Can I make an appointment to see more tomorrow?",kr:"내일 더 보러 올 약속을 잡을 수 있을까요?"},
+   {sp:1,en:"Sure. Make sure to come before noon.",kr:"물론이죠. 정오 전에 꼭 오세요."},
+   {sp:0,en:"Great. See you then!",kr:"좋아요. 그때 봬요!"}
+  ]},
+ {title:'대화 3 — 수상 시장에서',
+  sub:'A(관광객) · B(현지인)',
+  lines:[
+   {sp:0,en:"As the name suggests, this is a floating market, right?",kr:"이름에서 알 수 있듯이, 여기가 수상 시장이죠?"},
+   {sp:1,en:"That's right. In the past, people traded goods on rivers.",kr:"맞아요. 과거에 사람들은 강에서 물건을 거래했어요."},
+   {sp:0,en:"No wonder it's so popular with tourists!",kr:"관광객에게 인기 있는 게 놀랍지 않네요!"},
+   {sp:1,en:"You can even have a meal on water here.",kr:"여기서는 물 위에서 식사도 할 수 있어요."},
+   {sp:0,en:"When it comes to unique experiences, this is the best!",kr:"독특한 경험에 관한 한, 이게 최고예요!"}
+  ]}
+];
+const FILL=[
+ {kr:"여행에 관한 한, 나는 현지 시장을 먼저 방문한다.",sent:"[When it comes to] travel, I visit local markets first.",b:["When it comes to"]},
+ {kr:"가장 좋은 곳을 꼭 보여주세요.",sent:"[Make sure to] show me the best one.",b:["Make sure to"]},
+ {kr:"나자르 본주를 파시는지 궁금해요.",sent:"I wonder [whether] you carry nazar boncugu.",b:["whether"]},
+ {kr:"내일 약속을 잡을 수 있을까요?",sent:"Can I [make an appointment] tomorrow?",b:["make an appointment"]},
+ {kr:"이름에서 알 수 있듯이, 여기는 수상 시장이다.",sent:"[As the name suggests], this is a floating market.",b:["As the name suggests"]},
+ {kr:"관광객에게 인기 있는 게 놀랍지 않다.",sent:"[No wonder] it's so popular with tourists!",b:["No wonder"]},
+ {kr:"시장은 사람들을 만날 수 있는 곳이다.",sent:"Markets are places [where] you can meet people.",b:["where"]},
+ {kr:"정오 전에 꼭 오세요.",sent:"Make sure to come [before noon].",b:["before noon"]}
+];
+const MATCH=[
+ {q:"\"When it comes to travel, I visit markets first.\"에 대한 자연스러운 응답은?",opts:["Why is that?","No, thank you.","Good night.","I'm sorry."],ans:0,exp:"이유를 묻는 'Why is that?'이 자연스러워요."},
+ {q:"\"Make sure to show me the best one.\"에 대한 응답으로 알맞은 것은?",opts:["No problem.","You're welcome to leave.","That's too bad.","I disagree."],ans:0,exp:"수락·동의의 'No problem.'이 적절해요."},
+ {q:"\"Can I make an appointment tomorrow?\"에 대한 응답은?",opts:["Sure. Come before noon.","No wonder.","I have been writing.","It sits below sea level."],ans:0,exp:"약속을 수락하며 시간을 안내하는 응답이에요."},
+ {q:"\"As the name suggests, this is a floating market, right?\"에 대한 응답은?",opts:["That's right.","I can't swim.","Let's go home.","It's too expensive."],ans:0,exp:"확인에 동의하는 'That's right.'이 자연스러워요."},
+ {q:"상대의 제안을 기쁘게 수락하는 표현은?",opts:["That sounds great!","I can't, sorry.","Why not?","No wonder."],ans:0,exp:"제안 수락은 'That sounds great!'"},
+ {q:"\"No wonder it's so popular!\"의 의미로 알맞은 것은?",opts:["인기 있는 게 당연하다","인기가 전혀 없다","놀랍게도 인기가 없다","궁금하지 않다"],ans:0,exp:"no wonder = ~은 놀라운 일이 아니다(당연하다)."}
+];
+
+let view=0,scene=0,showKr=true;
+let fillDone=Array(FILL.length).fill(false);
+let mIdx=0,mAns=Array(MATCH.length).fill(null);
+function go(v){view=v;for(let i=0;i<3;i++)document.getElementById('s'+i).classList.toggle('on',i===v);render();}
+function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9가-힣\s]/g,'').replace(/\s+/g,' ').trim();}
+function render(){document.getElementById('app').innerHTML=[viewRole,viewFill,viewMatch][view]();if(view===1)setTimeout(bindBlanks,0);}
+function speak(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.85;speechSynthesis.speak(u);}
+
+/* 1단계 역할극 */
+function viewRole(){
+ let h=`<div class="intro">💡 <b>1단계 · 역할극 읽기</b><br>대화를 읽고 🔊로 발음을 들어보세요. '해석 숨기기'로 영어만 보며 연습할 수 있어요.</div>
+ <div class="scene-pick">`;
+ SCENES.forEach((s,i)=>{h+=`<button class="spb${i===scene?' on':''}" onclick="scene=${i};render()">대화 ${i+1}</button>`;});
+ h+=`</div><div class="ctrl-bar"><button class="ctrl-btn btn-dark" id="krtog" onclick="toggleKr()">${showKr?'🙈 해석 숨기기':'👁 해석 보기'}</button></div>`;
+ const s=SCENES[scene];
+ h+=`<div class="scard"><div class="scene-title">${s.title}</div><div class="scene-sub">${s.sub}</div>`;
+ s.lines.forEach(l=>{const side=l.sp===0?'a':'b';const sd=l.sp===0?'':'right';
+  h+=`<div class="row ${sd}"><div class="av ${side}">${l.sp===0?'A':'B'}</div>
+   <div class="bubble-wrap"><div class="bubble ${side}"><div class="en">${l.en}</div><div class="kr${showKr?'':' hide'}">${l.kr}</div></div>
+   <button class="tts-btn" onclick="speak(${JSON.stringify(l.en).replace(/"/g,'&quot;')})">🔊 듣기</button></div></div>`;});
+ h+=`</div>`;return h;
+}
+function toggleKr(){showKr=!showKr;render();}
+
+/* 2단계 빈칸 */
+function viewFill(){
+ let h=`<div class="intro">💡 <b>2단계 · 빈칸 채우기</b><br>한국어 뜻을 보고 빈칸을 탭하면 정답이 나옵니다. 대화 핵심 표현을 익히세요.</div>
+ <div class="ctrl-bar"><button class="ctrl-btn btn-dark" onclick="document.querySelectorAll('.blank-word').forEach(e=>{e.classList.remove('hidden');e.classList.add('visible')})">✅ 전체 보기</button></div>`;
+ FILL.forEach((f,i)=>{let s=f.sent;f.b.forEach(w=>{s=s.replace('['+w+']',`<span class="blank-word hidden">${w}</span>`);});
+  h+=`<div class="scard"><div class="qkr">${f.kr}</div><div class="blank-sent">${s}</div><div class="tap-hint">👆 빈칸 탭 → 정답</div></div>`;});
+ return h;
+}
+function bindBlanks(){document.querySelectorAll('.blank-word').forEach(el=>{el.onclick=function(){this.classList.toggle('hidden');this.classList.toggle('visible');};});}
+
+/* 3단계 응답 매칭 */
+function viewMatch(){
+ const done=mAns.filter(v=>v!==null).length;
+ if(done===MATCH.length){const ok=MATCH.filter((m,i)=>mAns[i]===m.ans).length;
+  return `<div class="intro">💡 <b>3단계 · 응답 매칭</b></div><div class="result"><div class="score">${ok}/${MATCH.length}</div>
+   <div class="rmsg">${ok>=4?'대화 완성! 훌륭해요 🎉':'대화를 다시 읽어보세요'}</div>
+   <button class="b b1" onclick="mIdx=0;mAns=Array(${MATCH.length}).fill(null);render()">다시 풀기</button></div>`;}
+ const m=MATCH[mIdx],picked=mAns[mIdx];
+ let opts=m.opts.map((o,i)=>{let cls='opt';if(picked!==null){if(i===m.ans)cls+=' ok';else if(i===picked)cls+=' no';}else if(picked===i)cls+=' pick';
+  return `<div class="${cls}" onclick="${picked===null?`pickM(${i})`:''}">${String.fromCharCode(9312+i)} ${o}</div>`;}).join('');
+ return `<div class="intro">💡 <b>3단계 · 응답 매칭 (상황↔표현 연결)</b><br>대화 상황에 가장 자연스러운 응답을 고르세요.</div>
+  <div class="bar"><div style="width:${Math.round(done/MATCH.length*100)}%"></div></div>
+  <div class="scard"><div class="qnum" style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:8px">문제 ${mIdx+1} / ${MATCH.length}</div>
+   <div class="match-q">${m.q}</div><div class="opts">${opts}</div>
+   <div class="fb${picked!==null?(picked===m.ans?' ok':' no'):''}">${picked!==null?(picked===m.ans?'✓ 정답! — '+m.exp:'✗ 오답 — '+m.exp):'&nbsp;'}</div></div>
+  <div class="nav2"><button class="b" onclick="mNav(-1)" ${mIdx===0?'disabled':''}>← 이전</button><span class="cnt">${done}/${MATCH.length} 완료</span><button class="b" onclick="mNav(1)">다음 →</button></div>`;
+}
+function pickM(i){mAns[mIdx]=i;render();}
+function mNav(d){mIdx=Math.max(0,Math.min(MATCH.length-1,mIdx+d));render();}
+render();
+</script>
+</body>
+</html>
