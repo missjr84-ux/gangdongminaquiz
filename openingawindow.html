@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Lesson 4 · Opening a Window to the World — 학습 & 시험</title>
+<style>
+  :root{
+    --bg:#f7f6f2; --card:#ffffff; --card2:#f0eee7; --primary:#1a5c38; --primary-light:#e8f4ed;
+    --accent:#e8a020; --accent-light:#fef3dc; --text:#1a1a1a; --muted:#6b6b6b; --border:#e0ddd5;
+    --success:#1a7a3c; --success-bg:#e8f5ec; --danger:#c0392b; --danger-bg:#fdecea;
+    --info:#1a5c9e; --info-bg:#e8f0fb; --radius:12px; --radius-sm:8px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  body{background:var(--bg);font-family:'Segoe UI','Apple SD Gothic Neo',sans-serif;color:var(--text);min-height:100vh;padding-bottom:60px;}
+  .header{background:var(--primary);color:white;padding:18px 20px 14px;position:sticky;top:0;z-index:20;}
+  .header h1{font-size:17px;font-weight:700;}
+  .header .unit{font-size:12px;opacity:.82;margin-top:3px;}
+  .tabs{display:flex;gap:6px;margin-top:13px;overflow-x:auto;}
+  .tab{flex:1;min-width:62px;background:rgba(255,255,255,.14);border:none;color:rgba(255,255,255,.82);font-family:inherit;font-size:11.5px;font-weight:600;padding:9px 4px;border-radius:var(--radius-sm);cursor:pointer;transition:.2s;text-align:center;white-space:nowrap;}
+  .tab.on{background:#fff;color:var(--primary);}
+  .wrap{max-width:740px;margin:0 auto;padding:16px;}
+  .desc{background:var(--primary-light);border-left:3px solid var(--primary);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:11px 14px;font-size:13px;color:var(--primary);line-height:1.6;margin-bottom:16px;}
+  .desc b{color:var(--text);}
+  .bar{height:6px;background:var(--card2);border-radius:3px;overflow:hidden;margin-bottom:16px;}
+  .bar>div{height:100%;background:var(--primary);border-radius:3px;transition:.4s;width:0;}
+  .glabel{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+  /* 단어 매치 */
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+  .mcol{display:flex;flex-direction:column;gap:8px;}
+  .chip{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:11px 8px;font-size:13.5px;font-weight:700;text-align:center;cursor:pointer;transition:.15s;}
+  .chip.sel{border-color:var(--accent);background:var(--accent-light);}
+  .chip.done{border-color:var(--success);background:var(--success-bg);color:var(--success);opacity:.6;pointer-events:none;}
+  .chip.kr{font-weight:500;}
+  .mmsg{text-align:center;font-size:13px;color:var(--muted);margin-top:12px;min-height:20px;}
+  /* 단어카드 */
+  .vcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;}
+  .vhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+  .ven{font-size:17px;font-weight:800;}
+  .vkr{font-size:14px;color:var(--primary);font-weight:700;}
+  .vrow{font-size:12.5px;margin-top:7px;line-height:1.6;}
+  .vrow .lab{display:inline-block;width:50px;font-weight:700;}
+  .syn .lab{color:var(--success);} .ant .lab{color:var(--danger);}
+  .def{font-size:12px;color:var(--muted);margin-top:7px;font-style:italic;line-height:1.5;background:var(--card2);padding:7px 10px;border-radius:7px;}
+  /* 빈칸/해석/카드 */
+  .qcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;}
+  .qnum{font-size:11px;color:var(--muted);margin-bottom:7px;}
+  .qkr{font-size:14px;color:var(--muted);background:var(--card2);padding:8px 11px;border-radius:8px;margin-bottom:10px;line-height:1.5;}
+  .qsent{font-size:15px;line-height:1.95;font-weight:500;}
+  .blank{display:inline-block;background:var(--accent-light);border-bottom:2px solid var(--accent);min-width:54px;padding:0 6px;border-radius:5px 5px 0 0;color:transparent;cursor:pointer;transition:.2s;font-weight:700;}
+  .blank.show{color:var(--accent);}
+  .inp{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--card2);color:var(--text);font-size:14px;font-family:inherit;margin:10px 0 8px;}
+  .inp:focus{outline:none;border-color:var(--primary);background:#fff;}
+  .inp.ok{border-color:var(--success);background:var(--success-bg);}
+  .inp.no{border-color:var(--danger);background:var(--danger-bg);}
+  .fb{font-size:13px;min-height:18px;}
+  .fb.ok{color:var(--success);} .fb.no{color:var(--danger);}
+  .ansbox{font-size:13px;color:var(--info);background:var(--info-bg);padding:8px 11px;border-radius:8px;margin-top:6px;display:none;}
+  .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+  .b{padding:8px 18px;border:none;border-radius:20px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;}
+  .b1{background:var(--primary);color:#fff;} .b2{background:var(--card2);color:var(--muted);border:1px solid var(--border);}
+  .b3{background:var(--accent);color:#fff;}
+  .nav2{display:flex;justify-content:space-between;align-items:center;margin-top:14px;}
+  .nav2 .b{background:var(--card);color:var(--text);border:1px solid var(--border);}
+  .nav2 .b:disabled{opacity:.3;}
+  .cnt{font-size:13px;color:var(--muted);}
+  /* 내용일치 OX */
+  .ox-row{display:flex;gap:10px;margin-top:10px;}
+  .ox{flex:1;padding:11px;border:1.5px solid var(--border);border-radius:10px;background:var(--card);font-size:15px;font-weight:700;cursor:pointer;text-align:center;}
+  .ox.pickO{border-color:var(--success);background:var(--success-bg);color:var(--success);}
+  .ox.pickX{border-color:var(--danger);background:var(--danger-bg);color:var(--danger);}
+  /* 시험 */
+  .gate{text-align:center;padding:36px 16px;}
+  .gate h2{font-size:20px;font-weight:800;margin-bottom:8px;}
+  .gate p{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6;}
+  .gate input{width:100%;max-width:280px;padding:12px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);color:var(--text);font-size:15px;font-family:inherit;text-align:center;margin-bottom:14px;}
+  .exq{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;}
+  .exq .cat{display:inline-block;font-size:10.5px;font-weight:700;color:var(--accent);background:var(--accent-light);padding:2px 9px;border-radius:10px;margin-bottom:8px;}
+  .exq .qtxt{font-size:14.5px;font-weight:500;line-height:1.65;margin-bottom:12px;}
+  .exq .qtxt b{color:var(--primary);}
+  .opts{display:flex;flex-direction:column;gap:7px;}
+  .opt{padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;background:var(--card2);font-size:14px;cursor:pointer;transition:.12s;}
+  .opt.pick{border-color:var(--primary);background:var(--primary-light);}
+  .exinp{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--card2);color:var(--text);font-size:14px;font-family:inherit;}
+  .result{text-align:center;padding:28px 16px;}
+  .score{font-size:54px;font-weight:800;color:var(--primary);}
+  .rmsg{font-size:15px;color:var(--muted);margin:6px 0 22px;}
+  .review{text-align:left;margin-top:20px;}
+  .rev{background:var(--card);border-radius:9px;padding:11px 13px;margin-bottom:8px;font-size:13px;line-height:1.6;border-left:3px solid var(--border);}
+  .rev.ok{border-left-color:var(--success);} .rev.no{border-left-color:var(--danger);}
+  .rev .ic{font-weight:800;} .rev.ok .ic{color:var(--success);} .rev.no .ic{color:var(--danger);}
+  .rev .corr{color:var(--info);font-weight:700;}
+  .board{margin-top:24px;}
+  .board table{width:100%;border-collapse:collapse;font-size:13px;}
+  .board th,.board td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;}
+  .board th{color:var(--muted);font-weight:700;font-size:11px;}
+  .board tr.me td{background:var(--primary-light);}
+  .rank{font-weight:800;color:var(--accent);}
+  @media(max-width:480px){.wrap{padding:12px;}.qsent,.ven{font-size:14px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🌍 Opening a Window to the World</h1>
+  <div class="unit">천재(이재영) 3학년 · Lesson 4 · 학습 4단계 + 종합시험 25문항</div>
+  <div class="tabs">
+    <button class="tab on" id="t0" onclick="go(0)">📝 단어</button>
+    <button class="tab" id="t1" onclick="go(1)">🔑 프레이즈</button>
+    <button class="tab" id="t2" onclick="go(2)">📖 본문암기</button>
+    <button class="tab" id="t3" onclick="go(3)">✅ 내용일치</button>
+    <button class="tab" id="t4" onclick="go(4)">🏆 시험</button>
+  </div>
+</div>
+<div class="wrap" id="app"></div>
+
+<script>
+/* ===================== DATA ===================== */
+const VOCAB=[
+  {en:"attract",kr:"끌어당기다",syn:"draw, appeal to",ant:"repel",def:"to cause someone or something to move toward a place"},
+  {en:"attractive",kr:"매력적인",syn:"appealing, charming",ant:"unattractive, ugly",def:"pleasing or interesting; able to draw attention"},
+  {en:"culture",kr:"문화",syn:"customs, civilization",ant:"—",def:"the way of life or customs of a particular people or group"},
+  {en:"effective",kr:"효과적인",syn:"successful, useful",ant:"ineffective",def:"producing the result that was intended"},
+  {en:"creative",kr:"창의적인",syn:"inventive, original",ant:"unimaginative",def:"having the ability to make new things or ideas"},
+  {en:"local",kr:"현지의, 지역의",syn:"regional, native",ant:"foreign, global",def:"existing in or belonging to a particular place or area"},
+  {en:"natural",kr:"자연스러운, 천연의",syn:"normal, organic",ant:"artificial",def:"existing in nature; not made by people"},
+  {en:"traditional",kr:"전통적인",syn:"customary, classic",ant:"modern, new",def:"following old customs or ways of doing things"},
+  {en:"ship",kr:"운송하다",syn:"send, transport",ant:"receive",def:"to send goods to a place far away"},
+  {en:"trade",kr:"교역하다, 거래하다",syn:"deal, exchange",ant:"—",def:"to buy or sell goods or services"},
+  {en:"suggest",kr:"암시하다, 제안하다",syn:"indicate, propose",ant:"—",def:"to indicate something usually in an indirect way"},
+  {en:"tradition",kr:"전통",syn:"custom, heritage",ant:"—",def:"a very old custom, belief, or way of doing something"},
+  {en:"wholesale",kr:"도매의",syn:"bulk",ant:"retail",def:"of or for the selling of goods in large amounts at low prices"},
+  {en:"wonder",kr:"궁금하다",syn:"ask oneself, be curious",ant:"know",def:"to feel a desire to know about something"},
+  {en:"transportation",kr:"교통, 운송",syn:"transit",ant:"—",def:"a system for carrying passengers or goods from one place to another"},
+  {en:"discover",kr:"발견하다",syn:"find, detect",ant:"miss, lose",def:"to find or learn something for the first time"},
+  {en:"disappear",kr:"사라지다",syn:"vanish, fade",ant:"appear",def:"to stop being visible; to go away"},
+  {en:"imaginable",kr:"상상할 수 있는",syn:"conceivable",ant:"unimaginable",def:"able to be thought of or imagined"},
+  {en:"mostly",kr:"주로, 대부분",syn:"mainly, largely",ant:"rarely",def:"in most cases; for the most part"},
+  {en:"directly",kr:"직접",syn:"straight, immediately",ant:"indirectly",def:"in a direct way, without anything in between"}
+];
+
+const PHRASE_FILL=[
+  {kr:"세계의 곳곳 (전 세계로 운송되다)",sent:"Around 20 million flowers are shipped to [all corners of the world].",b:["all corners of the world"]},
+  {kr:"~로 분주하다",sent:"The market is [busy with] thousands of flower-filled carts.",b:["busy with"]},
+  {kr:"~로 붐비다",sent:"It is [crowded with] tourists from all over the world.",b:["crowded with"]},
+  {kr:"반드시 ~하다",sent:"[Make sure to] try lokum, a traditional Turkish candy.",b:["Make sure to"]},
+  {kr:"~은 놀라운 일이 아니다",sent:"[No wonder] his works are popular to visitors from all over the world.",b:["No wonder"]},
+  {kr:"~이 풍부한, ~이 많은",sent:"Gondre is [rich in] vitamins A and C.",b:["rich in"]},
+  {kr:"~에 관한 한",sent:"[When it comes to] fishing, my uncle is an expert.",b:["When it comes to"]},
+  {kr:"낮잠을 자다",sent:"You can rest on a hot floor or [take a nap].",b:["take a nap"]},
+  {kr:"동양과 서양이 만나는 나라",sent:"Turkey is a country [where] East meets West.",b:["where"]},
+  {kr:"이름에서 알 수 있는 것처럼",sent:"[As the name suggests], it is a floating market.",b:["As the name suggests"]},
+  {kr:"그와 만날 약속을 잡다",sent:"I can [make an appointment] with him at 4 p.m.",b:["make an appointment"]},
+  {kr:"한 지붕 아래에 (4천 개 이상의 상점)",sent:"It has more than 4,000 shops [under one roof].",b:["under one roof"]}
+];
+
+const TEXT=[
+  {e:"I am Leah. I have been writing a travel blog since I was 18.",k:"나는 Leah이다. 나는 18살 이후로 여행 블로그를 써오고 있다.",keys:["have been writing","since"]},
+  {e:"I go places and share my experiences with my readers.",k:"나는 여기저기 다니며 내 경험을 독자들과 공유한다.",keys:["go places","share","experiences"]},
+  {e:"Visiting markets is a good way to learn about the culture of a country.",k:"시장 방문은 한 나라의 문화에 대해 배우는 좋은 방법이다.",keys:["Visiting markets","culture"]},
+  {e:"Markets are places where you can meet people, learn history, and taste local food.",k:"시장은 사람들을 만나고, 역사를 배우고, 지역 음식을 맛볼 수 있는 장소이다.",keys:["where","taste local food"]},
+  {e:"I wonder whether there is any better way to discover another culture.",k:"나는 다른 문화를 발견하는 더 좋은 방법이 있는지 궁금하다.",keys:["wonder whether","discover"]},
+  {e:"Turkey is a country where East meets West, so it has a long tradition of trade.",k:"터키는 동양과 서양이 만나는 나라여서, 오랜 교역의 전통을 가지고 있다.",keys:["where East meets West","tradition of trade"]},
+  {e:"It is a natural place for large markets like the Grand Bazaar.",k:"그곳은 Grand Bazaar 같은 대형 시장이 생겨나기에 자연스러운 곳이다.",keys:["natural place","like"]},
+  {e:"The market was built in 1455 in Istanbul.",k:"그 시장은 1455년에 이스탄불에 지어졌다.",keys:["was built","1455"]},
+  {e:"Back then, the market had two big buildings, and people traded goods like cloth and gold there.",k:"그 당시에, 시장에는 큰 건물이 두 개 있었고, 사람들은 직물이나 금 같은 물건을 거래했다.",keys:["Back then","traded goods"]},
+  {e:"Today the Grand Bazaar is much bigger, and it is the largest covered market in the world.",k:"오늘날 Grand Bazaar는 훨씬 더 크고, 세계에서 가장 큰 지붕 덮인 시장이다.",keys:["much bigger","largest covered market"]},
+  {e:"It has 64 streets and more than 4,000 shops under one roof.",k:"그것은 한 지붕 아래에 64개의 거리와 4,000개 이상의 상점이 있다.",keys:["more than","under one roof"]},
+  {e:"The market attracts over 250,000 visitors every day.",k:"그 시장은 매일 25만 명 이상의 방문객을 끌어모은다.",keys:["attracts","over"]},
+  {e:"You can buy almost any imaginable item there.",k:"당신은 그곳에서 상상할 수 있는 거의 모든 물건을 살 수 있다.",keys:["imaginable item"]},
+  {e:"Ask shop owners if they carry nazar boncugu, a traditional Turkish symbol for good luck.",k:"가게 주인에게 행운의 터키 전통 상징인 나자르 본주를 파는지 물어보라.",keys:["if they carry","symbol for good luck"]},
+  {e:"Also, if you want a nice snack, make sure to try lokum, a traditional Turkish candy.",k:"또한, 맛있는 간식을 원한다면, 터키 전통 사탕인 로쿰을 꼭 먹어봐라.",keys:["make sure to","snack"]},
+  {e:"In the past, Thai people traded goods on rivers.",k:"과거에, 태국 사람들은 강에서 물건을 거래했다.",keys:["In the past","traded goods on rivers"]},
+  {e:"This was the beginning of floating markets in Thailand.",k:"이것이 태국 수상 시장의 시작이었다.",keys:["beginning","floating markets"]},
+  {e:"With better road transportation, many floating markets disappeared.",k:"더 나은 도로 교통으로, 많은 수상 시장이 사라졌다.",keys:["road transportation","disappeared"]}
+];
+
+const OX=[
+  {q:"Leah는 18살 이후로 여행 블로그를 써오고 있다.",a:true},
+  {q:"Grand Bazaar는 1455년에 이스탄불에 지어졌다.",a:true},
+  {q:"Grand Bazaar는 세계에서 가장 작은 지붕 덮인 시장이다.",a:false,exp:"가장 '큰(largest)' 지붕 덮인 시장입니다."},
+  {q:"Grand Bazaar는 매일 25만 명 이상의 방문객을 끌어모은다.",a:true},
+  {q:"나자르 본주(nazar boncugu)는 행운을 기원하는 터키 전통 상징이다.",a:true},
+  {q:"과거에 태국 사람들은 도로에서 물건을 거래했다.",a:false,exp:"강(rivers)에서 거래했습니다."},
+  {q:"도로 교통이 좋아지면서 많은 수상 시장이 사라졌다.",a:true},
+  {q:"Grand Bazaar에는 한 지붕 아래 4,000개 이상의 상점이 있다.",a:true}
+];
+
+const EXAM=[
+  // 단어 (7)
+  {cat:"단어",type:"mc",q:"'attract'의 의미로 알맞은 것은?",opts:["사라지다","끌어당기다","교역하다","번역하다"],ans:1},
+  {cat:"단어",type:"mc",q:"'traditional'의 반의어로 알맞은 것은?",opts:["customary","classic","modern","native"],ans:2},
+  {cat:"단어",type:"mc",q:"'wholesale'의 반의어는?",opts:["bulk","retail","trade","local"],ans:1},
+  {cat:"단어",type:"mc",q:"영영풀이 'to buy or sell goods or services'에 맞는 단어는?",opts:["ship","trade","attract","wonder"],ans:1},
+  {cat:"단어",type:"mc",q:"'effective'를 만드는 명사 어근과 접미사가 바르게 짝지어진 것은?",opts:["effect + -al","effect + -ive","effective + -ly","affect + -ive"],ans:1},
+  {cat:"단어",type:"mc",q:"다의어 'carry'의 의미가 아닌 것은?",opts:["취급하다","나르다","휴대하다","번역하다"],ans:3},
+  {cat:"단어",type:"fill",q:"'문화'를 뜻하는 culture에 -al을 붙인 형용사는? (한 단어)",ans:"cultural"},
+  // 프레이즈 (6)
+  {cat:"프레이즈",type:"mc",q:"'반드시 ~하다'에 알맞은 표현은?",opts:["no wonder","make sure to","rich in","take a nap"],ans:1},
+  {cat:"프레이즈",type:"mc",q:"'~로 붐비다'에 알맞은 표현은?",opts:["busy with","crowded with","rich in","when it comes to"],ans:1},
+  {cat:"프레이즈",type:"mc",q:"빈칸: Gondre is ____ vitamins A and C. (~이 풍부한)",opts:["busy with","rich in","crowded with","no wonder"],ans:1},
+  {cat:"프레이즈",type:"fill",q:"'낮잠을 자다' → take a ____ (한 단어)",ans:"nap"},
+  {cat:"프레이즈",type:"mc",q:"'~에 관한 한'에 알맞은 표현은?",opts:["all corners of the world","when it comes to","under one roof","as the name suggests"],ans:1},
+  {cat:"프레이즈",type:"fill",q:"'한 지붕 아래에' → under one ____ (한 단어)",ans:"roof"},
+  // 문법 (6)
+  {cat:"문법",type:"mc",q:"빈칸에 알맞은 관계부사는? Turkey is a country ____ East meets West.",opts:["which","where","when","why"],ans:1},
+  {cat:"문법",type:"mc",q:"관계부사 'where'와 바꿔 쓸 수 있는 것은?",opts:["in which","for which","on which","at when"],ans:0},
+  {cat:"문법",type:"mc",q:"빈칸에 알맞은 것은? Friday evening is the time ____ my family takes a walk.",opts:["where","when","why","how"],ans:1},
+  {cat:"문법",type:"mc",q:"if와 whether에 대한 설명으로 틀린 것은?",opts:["둘 다 '~인지 아닌지' 뜻이다","whether는 주어 명사절에 쓸 수 있다","if는 주어 명사절에 자유롭게 쓸 수 있다","whether or not 형태로 쓸 수 있다"],ans:2},
+  {cat:"문법",type:"mc",q:"빈칸에 알맞은 것은? I wonder ____ there is a better way. (~인지 아닌지)",opts:["that","whether","because","which"],ans:1},
+  {cat:"문법",type:"fill",q:"관계부사: This is the house ____ she was born. (장소, 한 단어)",ans:"where"},
+  // 본문/내용일치 (6)
+  {cat:"본문",type:"mc",q:"Grand Bazaar가 지어진 연도는?",opts:["1405년","1455년","1545년","1970년"],ans:1},
+  {cat:"본문",type:"mc",q:"Grand Bazaar에 대한 설명으로 옳은 것은?",opts:["세계에서 가장 작은 시장","64개 거리와 4,000개 이상 상점","방문객이 거의 없다","태국에 있다"],ans:1},
+  {cat:"본문",type:"mc",q:"태국 수상 시장이 사라진 이유는?",opts:["전쟁 때문에","도로 교통이 좋아져서","관광객이 없어서","강이 말라서"],ans:1},
+  {cat:"본문",type:"mc",q:"Leah가 시장을 방문하는 이유로 알맞은 것은?",opts:["물건을 팔려고","한 나라의 문화를 배우려고","낮잠을 자려고","집을 사려고"],ans:1},
+  {cat:"내용일치",type:"mc",q:"본문 내용과 일치하지 <b>않는</b> 것은?",opts:["Leah는 여행 블로그를 쓴다","Grand Bazaar는 지붕 덮인 시장이다","태국 사람들은 과거에 강에서 거래했다","Grand Bazaar는 방문객이 거의 없다"],ans:3},
+  {cat:"내용일치",type:"fill",q:"빈칸을 영어로: The Grand Bazaar attracts over 250,000 ____ every day. (방문객, 한 단어)",ans:"visitors"}
+];
+
+/* ===================== STATE ===================== */
+let view=0;
+let mSel=null, matchData=null;
+let tIdx=0, tDone=Array(TEXT.length).fill(null);
+let oxAns=Array(OX.length).fill(null);
+let exName='', exIdx=0, exAns=Array(EXAM.length).fill(null), exSubmitted=false;
+
+function go(v){view=v;for(let i=0;i<5;i++)document.getElementById('t'+i).classList.toggle('on',i===v);render();}
+function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9가-힣\s]/g,'').replace(/\s+/g,' ').trim();}
+function render(){const a=document.getElementById('app');
+ a.innerHTML=[viewWord,viewPhrase,viewText,viewOX,viewExam][view]();}
+
+/* ===== 1. 단어 ===== */
+function buildMatch(){const pick=VOCAB.slice(0,8);
+ matchData={left:pick.map((v,i)=>({k:i,t:v.en})),right:pick.map((v,i)=>({k:i,t:v.kr})).sort(()=>Math.random()-.5),matched:[]};}
+function viewWord(){
+ if(!matchData)buildMatch();const m=matchData;
+ let h=`<div class="desc"><b>1단계 · 단어 학습</b><br>먼저 영어와 뜻을 짝지으세요. 그다음 유의어·반의어·영영풀이 카드로 깊이 익힙니다.</div>
+ <div class="glabel">🎯 단어 매치 게임</div><div class="match-grid"><div class="mcol">`;
+ m.left.forEach(x=>{const d=m.matched.includes(x.k);h+=`<div class="chip${d?' done':''}${mSel&&mSel.s==='L'&&mSel.k===x.k?' sel':''}" onclick="pk('L',${x.k})">${x.t}</div>`;});
+ h+=`</div><div class="mcol">`;
+ m.right.forEach(x=>{const d=m.matched.includes(x.k);h+=`<div class="chip kr${d?' done':''}${mSel&&mSel.s==='R'&&mSel.k===x.k?' sel':''}" onclick="pk('R',${x.k})">${x.t}</div>`;});
+ h+=`</div></div><div class="mmsg" id="mmsg">${m.matched.length}/8 짝 완성</div>`;
+ h+=`<div class="glabel">📖 유의어 · 반의어 · 영영풀이</div>`;
+ VOCAB.forEach(v=>{h+=`<div class="vcard"><div class="vhead"><span class="ven">${v.en}</span><span class="vkr">${v.kr}</span></div>
+  <div class="vrow syn"><span class="lab">유의어</span>${v.syn}</div>
+  <div class="vrow ant"><span class="lab">반의어</span>${v.ant}</div>
+  <div class="def">💬 ${v.def}</div></div>`;});
+ return h;
+}
+function pk(s,k){if(!mSel){mSel={s,k};render();return;}
+ if(mSel.s===s){mSel={s,k};render();return;}
+ if(mSel.k===k)matchData.matched.push(k);
+ mSel=null;render();
+ const m=document.getElementById('mmsg');if(m&&matchData.matched.length===8)m.innerHTML='✅ 모두 완성! 프레이즈 단계로 넘어가세요.';}
+
+/* ===== 2. 프레이즈 빈칸 ===== */
+function viewPhrase(){
+ const done=window._pDone||(window._pDone=Array(PHRASE_FILL.length).fill(false));
+ let h=`<div class="desc"><b>2단계 · 핵심 프레이즈 빈칸</b><br>한국어 뜻을 보고 노란 빈칸을 탭하면 정답이 나옵니다. 시험 단골 collocation을 익히세요.</div>`;
+ PHRASE_FILL.forEach((f,i)=>{let s=f.sent;
+  f.b.forEach(w=>{s=s.replace('['+w+']',`<span class="blank" onclick="this.classList.toggle('show')">${w}</span>`);});
+  h+=`<div class="qcard"><div class="qnum">표현 ${i+1} / ${PHRASE_FILL.length}</div><div class="qkr">${f.kr}</div><div class="qsent">${s}</div></div>`;});
+ return h;
+}
+
+/* ===== 3. 본문 암기(해석) ===== */
+function viewText(){
+ const done=tDone.filter(v=>v!==null).length;
+ if(done===TEXT.length){const ok=tDone.filter(v=>v==='ok').length;
+  return `<div class="desc"><b>3단계 · 본문 암기 (해석)</b></div><div class="result"><div class="score">${ok}/${TEXT.length}</div>
+   <div class="rmsg">${ok>=12?'훌륭해요! 내용일치 단계로 가세요 👏':'틀린 문장을 다시 확인해보세요'}</div>
+   <button class="b b1" onclick="tIdx=0;tDone=Array(${TEXT.length}).fill(null);render()">다시 풀기</button>
+   <button class="b b3" onclick="go(3)" style="margin-left:8px">내용일치 →</button></div>`;}
+ const t=TEXT[tIdx],st=tDone[tIdx];
+ return `<div class="desc"><b>3단계 · 본문 암기 (해석하기)</b><br>영어 문장을 읽고 한국어 해석을 입력하세요. (핵심 단어가 맞으면 정답 처리)</div>
+ <div class="bar"><div style="width:${Math.round(done/TEXT.length*100)}%"></div></div>
+ <div class="qcard"><div class="qnum">${tIdx+1} / ${TEXT.length}</div><div class="qsent" style="margin-bottom:10px">${t.e}</div>
+  <input class="inp${st==='ok'?' ok':st==='no'?' no':''}" id="tin" placeholder="한국어 해석을 입력하세요..." onkeydown="if(event.key==='Enter')checkT()">
+  <div class="fb${st==='ok'?' ok':st==='no'?' no':''}" id="tfb">${st==='ok'?'✓ 좋아요!':st==='no'?'✗ 모범답안 확인':'&nbsp;'}</div>
+  <div class="ansbox" id="tans" style="${st?'display:block':''}">모범 해석: ${t.k}</div>
+  <div class="btns"><button class="b b1" onclick="checkT()">확인</button><button class="b b2" onclick="showT()">해석 보기</button></div></div>
+ <div class="nav2"><button class="b" onclick="tNav(-1)" ${tIdx===0?'disabled':''}>← 이전</button>
+  <span class="cnt">${done}/${TEXT.length} 완료</span><button class="b" onclick="tNav(1)">다음 →</button></div>`;
+}
+function checkT(){const v=document.getElementById('tin').value,t=TEXT[tIdx];
+ const keys=t.k.replace(/[.,!?]/g,'').split(' ').filter(w=>w.length>1);
+ const hit=keys.filter(k=>norm(v).includes(norm(k))).length;
+ tDone[tIdx]=(hit>=Math.ceil(keys.length*0.4)&&v.trim().length>3)?'ok':'no';
+ render();}
+function showT(){tDone[tIdx]=tDone[tIdx]||'no';render();}
+function tNav(d){tIdx=Math.max(0,Math.min(TEXT.length-1,tIdx+d));render();}
+
+/* ===== 4. 내용일치 OX ===== */
+function viewOX(){
+ const done=oxAns.filter(v=>v!==null).length;
+ let h=`<div class="desc"><b>4단계 · 내용 일치 (O/X)</b><br>본문 내용과 맞으면 O, 틀리면 X를 고르세요. 독해 점검 단계입니다.</div>
+ <div class="bar"><div style="width:${Math.round(done/OX.length*100)}%"></div></div>`;
+ OX.forEach((o,i)=>{const picked=oxAns[i];const graded=picked!==null;
+  h+=`<div class="qcard"><div class="qnum">문제 ${i+1} / ${OX.length}</div><div class="qsent">${o.q}</div>
+   <div class="ox-row">
+     <div class="ox${picked===true?(o.a?' pickO':' pickX'):''}" onclick="pickOX(${i},true)">O (맞다)</div>
+     <div class="ox${picked===false?(!o.a?' pickO':' pickX'):''}" onclick="pickOX(${i},false)">X (틀리다)</div>
+   </div>`;
+  if(graded){const correct=picked===o.a;
+   h+=`<div class="fb ${correct?'ok':'no'}" style="margin-top:8px">${correct?'✓ 정답!':'✗ 오답'} ${o.exp?'— '+o.exp:'(정답: '+(o.a?'O':'X')+')'}</div>`;}
+  h+=`</div>`;});
+ if(done===OX.length){const ok=OX.filter((o,i)=>oxAns[i]===o.a).length;
+  h+=`<div class="result"><div class="score">${ok}/${OX.length}</div><div class="rmsg">${ok>=6?'좋아요! 이제 종합시험에 도전하세요 🏆':'본문을 한 번 더 읽어보세요'}</div>
+   <button class="b b3" onclick="go(4)">종합시험 보러 가기 →</button></div>`;}
+ return h;
+}
+function pickOX(i,v){oxAns[i]=v;render();}
+
+/* ===== 5. 종합시험 ===== */
+function viewExam(){
+ if(!exName)return `<div class="gate"><h2>🏆 종합 시험</h2>
+  <p>단어 · 프레이즈 · 문법 · 본문/내용일치<br><b>총 ${EXAM.length}문항</b> · 자동채점<br>이름을 입력하면 시작합니다.</p>
+  <input id="nameIn" placeholder="이름을 입력하세요" maxlength="12"><br>
+  <button class="b b1" style="padding:12px 36px" onclick="startExam()">시험 시작</button>${boardHTML()}</div>`;
+ if(exSubmitted)return examResult();
+ const q=EXAM[exIdx];
+ let body=`<div class="exq"><span class="cat">${q.cat}</span><div class="qtxt">${exIdx+1}. ${q.q}</div>`;
+ if(q.type==='mc'){body+=`<div class="opts">`;
+  q.opts.forEach((o,i)=>{body+=`<div class="opt${exAns[exIdx]===i?' pick':''}" onclick="exAns[${exIdx}]=${i};render()">${String.fromCharCode(9312+i)} ${o}</div>`;});
+  body+=`</div>`;}
+ else body+=`<input class="exinp" id="exin" value="${exAns[exIdx]||''}" placeholder="답을 입력하세요" oninput="exAns[${exIdx}]=this.value">`;
+ body+=`</div>`;
+ const ans=exAns.filter(v=>v!==null&&v!=='').length;
+ return `<div class="desc"><b>${exName}</b>님 · 진행 ${ans}/${EXAM.length}</div>
+  <div class="bar"><div style="width:${Math.round(ans/EXAM.length*100)}%"></div></div>${body}
+  <div class="nav2"><button class="b" onclick="exNav(-1)" ${exIdx===0?'disabled':''}>← 이전</button>
+   <span class="cnt">${exIdx+1}/${EXAM.length}</span>
+   ${exIdx<EXAM.length-1?`<button class="b" onclick="exNav(1)">다음 →</button>`:`<button class="b b3" onclick="submitExam()">제출하고 채점 🎯</button>`}</div>`;
+}
+function startExam(){const v=document.getElementById('nameIn').value.trim();if(!v){alert('이름을 입력해주세요');return;}exName=v;exIdx=0;render();}
+function exNav(d){if(EXAM[exIdx].type==='fill'){const el=document.getElementById('exin');if(el)exAns[exIdx]=el.value;}exIdx=Math.max(0,Math.min(EXAM.length-1,exIdx+d));render();}
+function submitExam(){if(EXAM[exIdx].type==='fill'){const el=document.getElementById('exin');if(el)exAns[exIdx]=el.value;}
+ let sc=0;EXAM.forEach((q,i)=>{if(q.type==='mc'){if(exAns[i]===q.ans)sc++;}else{if(norm(exAns[i])===norm(q.ans))sc++;}});
+ saveScore(exName,sc,EXAM.length);exSubmitted=true;render();}
+function examResult(){
+ let sc=0;EXAM.forEach((q,i)=>{const c=q.type==='mc'?exAns[i]===q.ans:norm(exAns[i])===norm(q.ans);if(c)sc++;});
+ const pct=Math.round(sc/EXAM.length*100);
+ let rev='';EXAM.forEach((q,i)=>{const c=q.type==='mc'?exAns[i]===q.ans:norm(exAns[i])===norm(q.ans);
+  const my=q.type==='mc'?(exAns[i]!=null?q.opts[exAns[i]]:'(무응답)'):(exAns[i]||'(무응답)');
+  const corr=q.type==='mc'?q.opts[q.ans]:q.ans;
+  rev+=`<div class="rev ${c?'ok':'no'}"><span class="ic">${c?'✓':'✗'}</span> ${i+1}. [${q.cat}] 내 답: ${my}${c?'':` · <span class="corr">정답: ${corr}</span>`}</div>`;});
+ return `<div class="result"><div class="score">${sc}/${EXAM.length}</div>
+  <div class="rmsg"><b>${exName}</b>님 · ${pct}점 · ${pct>=80?'최고예요! 🎉':pct>=60?'잘했어요! 👍':'조금 더 복습해요 💪'}</div>
+  <button class="b b1" onclick="resetExam()">다시 보기</button>
+  <div class="review"><div class="glabel">📋 문항별 채점 결과</div>${rev}</div>${boardHTML()}</div>`;
+}
+function resetExam(){exName='';exIdx=0;exAns=Array(EXAM.length).fill(null);exSubmitted=false;render();}
+function saveScore(name,score,total){try{const k='lesson4_scores';const arr=JSON.parse(localStorage.getItem(k)||'[]');
+ arr.push({name,score,total,date:new Date().toLocaleString('ko-KR')});localStorage.setItem(k,JSON.stringify(arr));}catch(e){}}
+function boardHTML(){let arr=[];try{arr=JSON.parse(localStorage.getItem('lesson4_scores')||'[]');}catch(e){}
+ if(!arr.length)return '';arr.sort((a,b)=>b.score-a.score);
+ let rows=arr.slice(0,30).map((r,i)=>`<tr class="${r.name===exName?'me':''}"><td class="rank">${i+1}</td><td>${r.name}</td><td>${r.score}/${r.total}</td><td style="color:var(--muted);font-size:11px">${r.date}</td></tr>`).join('');
+ return `<div class="board"><div class="glabel">🏅 이 기기의 점수 기록 (높은 순)</div>
+  <table><tr><th>순위</th><th>이름</th><th>점수</th><th>일시</th></tr>${rows}</table>
+  <div style="margin-top:10px"><button class="b b2" onclick="if(confirm('이 기기의 모든 점수 기록을 지울까요?')){localStorage.removeItem('lesson4_scores');render();}">기록 전체 삭제</button></div></div>`;
+}
+render();
+</script>
+</body>
+</html>
