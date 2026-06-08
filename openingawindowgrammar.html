@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Lesson 4 문법 — 3단계 학습</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nunito:wght@700;900&display=swap');
+:root{--c1:#f97316;--c2:#3b82f6;--c3:#10b981;--c4:#8b5cf6;--c5:#ec4899;--c6:#f59e0b;--c7:#06b6d4;--c8:#ef4444;
+--bg:#f0f9ff;--card-bg:#fffdf7;--shadow:rgba(0,0,0,0.10);--ink:#1a1a2e;--muted:#666;
+--ok:#10b981;--ok-bg:#dcfce7;--no:#ef4444;--no-bg:#fee2e2;--line:#e8e8e8;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--ink);padding-bottom:70px;}
+.page-title{text-align:center;padding:22px 16px 8px;}
+.page-title h1{font-family:'Nunito','Noto Sans KR',sans-serif;font-size:clamp(20px,5vw,30px);font-weight:900;}
+.page-title .subtitle{font-size:13px;color:var(--muted);margin-top:5px;}
+.deco-bar{width:80px;height:5px;background:linear-gradient(90deg,var(--c4),var(--c2),var(--c3));border-radius:10px;margin:8px auto 0;}
+.steps{position:sticky;top:0;z-index:30;background:var(--bg);max-width:900px;margin:14px auto 0;padding:8px 12px;display:flex;gap:8px;}
+.step{flex:1;font-family:inherit;font-size:12.5px;font-weight:700;padding:11px 6px;border-radius:24px;border:none;cursor:pointer;background:#fff;color:var(--muted);box-shadow:0 2px 8px var(--shadow);transition:.2s;text-align:center;line-height:1.3;}
+.step.on{background:var(--ink);color:#fff;}
+.step .sn{display:block;font-size:10px;opacity:.7;}
+.wrap{max-width:900px;margin:0 auto;padding:18px 16px;}
+.intro{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:14px 18px;font-size:13px;color:#555;line-height:1.8;margin-bottom:18px;}
+.intro b{color:var(--ink);}
+.bar{height:7px;background:#dbeafe;border-radius:5px;overflow:hidden;margin-bottom:18px;}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--c4),var(--c3));border-radius:5px;width:0;transition:.4s;}
+.ctrl-bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;}
+.ctrl-btn{font-family:inherit;font-size:13px;font-weight:700;padding:9px 20px;border-radius:30px;border:none;cursor:pointer;box-shadow:0 2px 8px var(--shadow);}
+.btn-dark{background:var(--ink);color:#fff;}.btn-gray{background:#e5e7eb;color:var(--ink);}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+@media(max-width:580px){.grid{grid-template-columns:1fr;}}
+.card{background:var(--card-bg);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);display:flex;flex-direction:column;}
+.card-header{display:flex;align-items:center;gap:10px;padding:11px 14px;font-size:13px;font-weight:700;color:#fff;}
+.card-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;font-size:13px;font-weight:900;background:rgba(255,255,255,.25);flex-shrink:0;}
+.pattern-formula{font-size:11px;font-weight:700;margin-left:auto;background:rgba(255,255,255,.22);padding:3px 8px;border-radius:6px;white-space:nowrap;}
+.card-q{padding:16px;flex:1;}
+.blank-sent{font-size:16px;font-weight:700;line-height:1.85;}
+.blank-word{display:inline-block;border-bottom:2.5px solid #999;padding:0 4px;cursor:pointer;transition:.25s;min-width:44px;text-align:center;border-radius:4px 4px 0 0;}
+.blank-word.hidden{color:transparent;}
+.blank-word.visible{background:#fff9c4;border-bottom-color:transparent;border-radius:6px;padding:0 6px;}
+.meaning{margin-top:10px;font-size:12.5px;color:var(--muted);font-style:italic;line-height:1.6;}
+.tap-hint{margin-top:8px;font-size:11px;color:#bbb;}
+.tts-row{margin-top:10px;}
+.tts-btn{background:#e0f2fe;border:none;border-radius:20px;padding:5px 12px;font-size:12px;font-weight:700;color:#0369a1;cursor:pointer;}
+.card-a{padding:0 16px;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;background:#f0f7ff;}
+.card-a.open{max-height:360px;padding:14px 16px 16px;}
+.ans-sent{font-size:15px;font-weight:700;line-height:1.75;}
+.ans-desc{margin-top:8px;font-size:12.5px;color:#444;line-height:1.7;}
+.ans-desc .meaning-kr{font-weight:700;font-size:13.5px;}
+.ans-desc .formula{font-weight:700;color:var(--ink);}
+.toggle-btn{width:100%;padding:10px;background:none;border:none;border-top:1.5px dashed var(--line);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
+.toggle-icon{font-size:16px;transition:transform .3s;}
+.toggle-btn.open .toggle-icon{transform:rotate(180deg);}
+.c1 .card-header{background:var(--c1);}.c1 .ans-sent .key,.c1 .ans-desc .meaning-kr,.c1 .toggle-btn{color:var(--c1);}
+.c2 .card-header{background:var(--c2);}.c2 .ans-sent .key,.c2 .ans-desc .meaning-kr,.c2 .toggle-btn{color:var(--c2);}
+.c3 .card-header{background:var(--c3);}.c3 .ans-sent .key,.c3 .ans-desc .meaning-kr,.c3 .toggle-btn{color:var(--c3);}
+.c4 .card-header{background:var(--c4);}.c4 .ans-sent .key,.c4 .ans-desc .meaning-kr,.c4 .toggle-btn{color:var(--c4);}
+.c5 .card-header{background:var(--c5);}.c5 .ans-sent .key,.c5 .ans-desc .meaning-kr,.c5 .toggle-btn{color:var(--c5);}
+.c6 .card-header{background:var(--c6);}.c6 .ans-sent .key,.c6 .ans-desc .meaning-kr,.c6 .toggle-btn{color:var(--c6);}
+.c7 .card-header{background:var(--c7);}.c7 .ans-sent .key,.c7 .ans-desc .meaning-kr,.c7 .toggle-btn{color:var(--c7);}
+.c8 .card-header{background:var(--c8);}.c8 .ans-sent .key,.c8 .ans-desc .meaning-kr,.c8 .toggle-btn{color:var(--c8);}
+.qcard{background:var(--card-bg);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);padding:18px;margin-bottom:14px;}
+.qnum{font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:700;}
+.qkr{font-size:14px;color:var(--muted);background:#f0f7ff;padding:9px 12px;border-radius:9px;margin-bottom:12px;line-height:1.5;}
+.qsent{font-size:16px;font-weight:700;line-height:1.85;}
+.inp{width:100%;padding:11px 13px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:14px;font-family:inherit;margin:12px 0 8px;}
+.inp:focus{outline:none;border-color:var(--c4);}
+.inp.ok{border-color:var(--ok);background:var(--ok-bg);}.inp.no{border-color:var(--no);background:var(--no-bg);}
+.fb{font-size:13px;min-height:18px;font-weight:700;}.fb.ok{color:var(--ok);}.fb.no{color:var(--no);}
+.ansbox{font-size:13px;color:#0369a1;background:#e0f2fe;padding:9px 12px;border-radius:9px;margin-top:6px;display:none;line-height:1.6;}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+.b{padding:9px 20px;border:none;border-radius:24px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px var(--shadow);}
+.b1{background:var(--c4);color:#fff;}.b2{background:#e5e7eb;color:var(--ink);}.b3{background:var(--c3);color:#fff;}
+.nav2{display:flex;justify-content:space-between;align-items:center;margin-top:16px;}
+.nav2 .b{background:#fff;color:var(--ink);}.nav2 .b:disabled{opacity:.35;}
+.cnt{font-size:13px;color:var(--muted);font-weight:700;}
+.tokens{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;}
+.token{padding:9px 14px;border:2px solid var(--line);border-radius:10px;background:#fff;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 2px 6px var(--shadow);}
+.token.used{opacity:.3;pointer-events:none;}
+.build{min-height:50px;background:#f0f7ff;border:2px dashed #93c5e8;border-radius:10px;padding:12px;font-size:15px;font-weight:700;line-height:1.8;}
+.build .bw{display:inline-block;background:#fff;border:1.5px solid var(--c4);border-radius:8px;padding:3px 10px;margin:3px;cursor:pointer;}
+.result{text-align:center;padding:30px 16px;}
+.score{font-size:60px;font-weight:900;background:linear-gradient(90deg,var(--c4),var(--c3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.rmsg{font-size:15px;color:var(--muted);margin:6px 0 22px;font-weight:700;}
+.tip-box{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:16px 20px;display:flex;gap:12px;margin-top:24px;}
+.tip-icon{font-size:24px;flex-shrink:0;}
+.tip-body{font-size:12.5px;color:#555;line-height:1.9;}.tip-body b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="page-title">
+  <h1>📐 Lesson 4 핵심 문법</h1>
+  <p class="subtitle">관계부사 · 접속사 if/whether · 3단계 점진 학습</p>
+  <div class="deco-bar"></div>
+</div>
+<div class="steps">
+  <button class="step on" id="s0" onclick="go(0)"><span class="sn">1단계</span>패턴 카드</button>
+  <button class="step" id="s1" onclick="go(1)"><span class="sn">2단계</span>빈칸 넣기</button>
+  <button class="step" id="s2" onclick="go(2)"><span class="sn">3단계</span>문장 배열</button>
+</div>
+<div class="wrap" id="app"></div>
+
+<script>
+const PATTERNS=[
+ {c:'c1',title:'관계부사 where',formula:'장소',
+  sent:'Turkey is a country [where] East meets West.',kr:'터키는 동양과 서양이 만나는 나라이다.',
+  key:'where',mk:'장소를 나타내는 관계부사',fm:'= in/at/to which · 선행사: the place, country 등',ex:'This is the house where she was born.'},
+ {c:'c2',title:'관계부사 when',formula:'시간',
+  sent:'Friday evening is the time [when] my family takes a walk.',kr:'금요일 저녁은 우리 가족이 산책하는 시간이다.',
+  key:'when',mk:'시간을 나타내는 관계부사',fm:'= at/in/on which · 선행사: the time, the day 등',ex:'I remember the day when we first met.'},
+ {c:'c3',title:'관계부사 why',formula:'이유',
+  sent:'Do you know the reason [why] I came here?',kr:'너는 내가 여기 온 이유를 아니?',
+  key:'why',mk:'이유를 나타내는 관계부사',fm:'= for which · 선행사: the reason',ex:'That is why I am angry with you.'},
+ {c:'c4',title:'관계부사 how',formula:'방법',
+  sent:'Can you tell me [how] you solved the problem?',kr:'그 문제를 푼 방법을 내게 알려줄래?',
+  key:'how',mk:'방법을 나타내는 관계부사',fm:'= the way / in which · ⚠️ the way how 함께 못 씀!',ex:'This is how he made the airplane.'},
+ {c:'c5',title:'관계부사 생략',formula:'생략',
+  sent:'I don\'t know the time [(when)] the movie starts.',kr:'나는 영화가 시작하는 시간을 모른다.',
+  key:'(when)',mk:'선행사나 관계부사 둘 중 하나 생략 가능',fm:'time, place, reason은 생략 가능',ex:'That is (the reason) why I am angry.'},
+ {c:'c6',title:'명사절 whether',formula:'~인지 아닌지',
+  sent:'I wonder [whether] there is any better way.',kr:'나는 더 좋은 방법이 있는지 궁금하다.',
+  key:'whether',mk:'~인지 아닌지 (명사절: 주어·목적어·보어)',fm:'whether or not 가능 · = if(목적어절만)',ex:'Whether he will win is not clear.'},
+ {c:'c7',title:'명사절 if',formula:'~인지 아닌지',
+  sent:'Ask shop owners [if] they carry nazar boncugu.',kr:'가게 주인에게 나자르 본주를 파는지 물어보라.',
+  key:'if',mk:'~인지 아닌지 (주로 동사의 목적어절)',fm:'= whether · ⚠️ 주어절엔 못 씀, if or not(×)',ex:'I wonder if you are faster than me.'},
+ {c:'c8',title:'조건 접속사 if',formula:'만약 ~라면',
+  sent:'[If] you want a snack, make sure to try lokum.',kr:'만약 간식을 원한다면, 로쿰을 꼭 먹어봐라.',
+  key:'If',mk:'만약 ~라면 (조건의 부사절)',fm:'⚠️ 부사절에선 현재시제로 미래 대신!',ex:'I will text you if I go to the library.'}
+];
+const FILL=[
+ {kr:'터키는 동양과 서양이 만나는 나라이다.',sent:'Turkey is a country [where] East meets West.',b:['where']},
+ {kr:'시장은 사람들을 만날 수 있는 장소이다.',sent:'Markets are places [where] you can meet people.',b:['where']},
+ {kr:'금요일 저녁은 우리 가족이 산책하는 시간이다.',sent:'Friday evening is the time [when] my family takes a walk.',b:['when']},
+ {kr:'너는 우리가 처음 만난 때를 기억하니?',sent:'Do you remember the time [when] we first met?',b:['when']},
+ {kr:'그는 그 모형 비행기를 만든 방법을 보여주었다.',sent:'He showed me [how] he made the model airplane.',b:['how']},
+ {kr:'나는 다른 문화를 발견하는 더 좋은 방법이 있는지 궁금하다.',sent:'I wonder [whether] there is any better way to discover another culture.',b:['whether']},
+ {kr:'가게 주인에게 나자르 본주를 파는지 물어보라.',sent:'Ask shop owners [if] they carry nazar boncugu.',b:['if']},
+ {kr:'그 일이 성공할지는 우리의 노력에 달려 있다.',sent:'[Whether] it will succeed depends on our effort.',b:['Whether']},
+ {kr:'나는 그가 경주에서 우승할 수 있을지 없을지 궁금하다.',sent:'I wonder [whether] or not he can win the race.',b:['whether']},
+ {kr:'만약 간식을 원한다면, 로쿰을 꼭 먹어봐라.',sent:'[If] you want a snack, make sure to try lokum.',b:['If']}
+];
+const BUILD=[
+ {kr:'터키는 동양과 서양이 만나는 나라이다.',ans:['Turkey','is','a','country','where','East','meets','West']},
+ {kr:'시장은 사람들을 만날 수 있는 장소이다.',ans:['Markets','are','places','where','you','can','meet','people']},
+ {kr:'나는 더 좋은 방법이 있는지 궁금하다.',ans:['I','wonder','whether','there','is','a','better','way']},
+ {kr:'나는 그가 내일 회의에 참석하는지 알고 싶다.',ans:['I','want','to','know','if','he','will','attend','the','meeting']},
+ {kr:'그것이 내가 화가 난 이유이다.',ans:['That','is','why','I','am','angry']},
+ {kr:'만약 내가 도서관에 가면, 너에게 문자할게.',ans:['I','will','text','you','if','I','go','to','the','library']}
+];
+
+let view=0;
+let cardSeen=0;
+let fillDone=Array(FILL.length).fill(false);
+let bIdx=0,bBuilt=[],bDone=Array(BUILD.length).fill(null);
+function go(v){view=v;for(let i=0;i<3;i++)document.getElementById('s'+i).classList.toggle('on',i===v);if(v===2){bBuilt=[];}render();}
+function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9가-힣\s]/g,'').replace(/\s+/g,' ').trim();}
+function render(){document.getElementById('app').innerHTML=[viewCard,viewFill,viewBuild][view]();if(view===0)setTimeout(bindCards,0);if(view===1)setTimeout(bindBlanks,0);}
+function speak(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.85;speechSynthesis.speak(u);}
+
+/* 1단계 패턴 카드 */
+function viewCard(){
+ let h=`<div class="intro">💡 <b>1단계 · 패턴 카드 (보고 익히기)</b><br>예문의 빈칸을 탭하면 핵심 어구가 보이고, 아래 버튼으로 해설을 펼칩니다. 🔊로 발음도 들어보세요.</div>
+ <div class="ctrl-bar"><button class="ctrl-btn btn-dark" onclick="allCards(true)">✅ 정답 전체 보기</button><button class="ctrl-btn btn-gray" onclick="allCards(false)">🙈 숨기기</button></div><div class="grid">`;
+ PATTERNS.forEach((p,i)=>{let s=p.sent.replace('['+p.key+']',`<span class="blank-word hidden">${p.key}</span>`);
+  let as=p.sent.replace('['+p.key+']',`<span class="key">${p.key}</span>`);
+  h+=`<div class="card ${p.c}"><div class="card-header"><div class="card-num">${i+1}</div><span>${p.title}</span><span class="pattern-formula">${p.formula}</span></div>
+   <div class="card-q"><div class="blank-sent">${s}</div><div class="meaning">${p.kr}</div>
+    <div class="tts-row"><button class="tts-btn" onclick="speak('${p.sent.replace('['+p.key+']',p.key).replace(/'/g,"\\'")}')">🔊 듣기</button></div>
+    <div class="tap-hint">👆 단어 탭 → 정답</div></div>
+   <button class="toggle-btn" onclick="tog(this)"><span class="toggle-icon">▼</span> 정답 & 해설 보기</button>
+   <div class="card-a"><div class="ans-sent">${as}</div>
+    <div class="ans-desc"><span class="meaning-kr">${p.mk}</span><br><span class="formula">${p.fm}</span><br>📌 예문: ${p.ex}</div></div></div>`;});
+ h+=`</div><div class="tip-box"><div class="tip-icon">💡</div><div class="tip-body"><b>⚠️ 핵심 혼동 포인트!</b><br>✔ 관계부사 = 「전치사+which」로 바꿔 쓸 수 있다<br>✔ <b>the way</b>와 <b>how</b>는 함께 못 쓴다 (둘 중 하나만)<br>✔ <b>whether</b>는 주어·목적어·보어절 모두 OK, <b>if</b>는 주로 목적어절<br>✔ 조건의 if 부사절은 <b>현재시제로 미래</b>를 대신한다</div></div>`;
+ return h;
+}
+function bindCards(){}
+function tog(btn){const p=btn.nextElementSibling;p.classList.toggle('open');btn.classList.toggle('open');}
+function allCards(show){document.querySelectorAll('.blank-word').forEach(e=>{e.classList.toggle('hidden',!show);e.classList.toggle('visible',show);});document.querySelectorAll('.card-a').forEach(e=>e.classList.toggle('open',show));document.querySelectorAll('.toggle-btn').forEach(e=>e.classList.toggle('open',show));}
+
+/* 2단계 빈칸 */
+function viewFill(){
+ let h=`<div class="intro">💡 <b>2단계 · 빈칸 넣기 (부분 회상)</b><br>한국어 뜻을 보고 빈칸을 탭하면 정답이 나옵니다.</div>
+ <div class="ctrl-bar"><button class="ctrl-btn btn-dark" onclick="allBlanks(true)">✅ 전체 보기</button><button class="ctrl-btn btn-gray" onclick="allBlanks(false)">🙈 숨기기</button></div><div class="grid">`;
+ const cc=['c1','c2','c3','c4','c5','c6','c7','c8'];
+ FILL.forEach((f,i)=>{let s=f.sent;f.b.forEach(w=>{s=s.replace('['+w+']',`<span class="blank-word hidden">${w}</span>`);});
+  h+=`<div class="card ${cc[i%8]}"><div class="card-header"><div class="card-num">${i+1}</div><span>빈칸 채우기</span></div>
+   <div class="card-q"><div class="blank-sent">${s}</div><div class="meaning">${f.kr}</div><div class="tap-hint">👆 빈칸 탭 → 정답</div></div></div>`;});
+ h+=`</div>`;return h;
+}
+function bindBlanks(){document.querySelectorAll('.blank-word').forEach(el=>{el.onclick=function(){this.classList.toggle('hidden');this.classList.toggle('visible');};});}
+function allBlanks(show){document.querySelectorAll('.blank-word').forEach(e=>{e.classList.toggle('hidden',!show);e.classList.toggle('visible',show);});}
+
+/* 3단계 문장 배열 */
+function viewBuild(){
+ const done=bDone.filter(v=>v!==null).length;
+ if(done===BUILD.length){const ok=bDone.filter(v=>v==='ok').length;
+  return `<div class="intro">💡 <b>3단계 · 문장 배열 (완전 산출)</b></div><div class="result"><div class="score">${ok}/${BUILD.length}</div>
+   <div class="rmsg">${ok>=4?'문법 완성! 훌륭해요 🎉':'틀린 문장을 다시 배열해보세요'}</div>
+   <button class="b b1" onclick="bIdx=0;bBuilt=[];bDone=Array(${BUILD.length}).fill(null);render()">다시 풀기</button></div>`;}
+ const q=BUILD[bIdx];
+ const shuffled=q._sh||(q._sh=[...q.ans].map((w,i)=>({w,i})).sort(()=>Math.random()-.5));
+ let toks=shuffled.map(o=>`<span class="token${bBuilt.includes(o.i)?' used':''}" onclick="addTok(${o.i})">${o.w}</span>`).join('');
+ let built=bBuilt.map(i=>`<span class="bw" onclick="rmTok(${i})">${q.ans[i]}</span>`).join(' ');
+ const st=bDone[bIdx];
+ return `<div class="intro">💡 <b>3단계 · 문장 배열 (완전 산출)</b><br>한국어 뜻에 맞게 단어를 순서대로 탭하세요. 단어를 다시 탭하면 취소됩니다.</div>
+  <div class="bar"><div style="width:${Math.round(done/BUILD.length*100)}%"></div></div>
+  <div class="qcard"><div class="qnum">${bIdx+1} / ${BUILD.length}</div><div class="qkr">${q.kr}</div>
+   <div class="build">${built||'<span style="color:#aaa">여기에 문장이 만들어집니다</span>'}</div>
+   <div class="tokens">${toks}</div>
+   <div class="fb${st==='ok'?' ok':st==='no'?' no':''}" id="bfb">${st==='ok'?'✓ 정답!':st==='no'?'✗ 다시 배열해보세요':'&nbsp;'}</div>
+   <div class="ansbox" id="bans" style="${st==='no'?'display:block':''}">정답: ${q.ans.join(' ')}</div>
+   <div class="btns"><button class="b b1" onclick="checkB()">확인</button><button class="b b2" onclick="bBuilt=[];render()">지우기</button><button class="b b2" onclick="showB()">정답 보기</button></div></div>
+  <div class="nav2"><button class="b" onclick="bNav(-1)" ${bIdx===0?'disabled':''}>← 이전</button><span class="cnt">${done}/${BUILD.length} 완료</span><button class="b" onclick="bNav(1)">다음 →</button></div>`;
+}
+function addTok(i){if(!bBuilt.includes(i))bBuilt.push(i);render();}
+function rmTok(i){bBuilt=bBuilt.filter(x=>x!==i);render();}
+function checkB(){const q=BUILD[bIdx];const made=bBuilt.map(i=>q.ans[i]).join(' ');bDone[bIdx]=norm(made)===norm(q.ans.join(' '))?'ok':'no';render();}
+function showB(){const q=BUILD[bIdx];bDone[bIdx]='no';render();}
+function bNav(d){bIdx=Math.max(0,Math.min(BUILD.length-1,bIdx+d));bBuilt=[];render();}
+render();
+</script>
+</body>
+</html>
