@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Say Goodbye to Stress 정밀 구문분석</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nunito:wght@700;900&display=swap');
+:root{--c1:#f97316;--c2:#3b82f6;--c3:#10b981;--c4:#8b5cf6;--c5:#ec4899;--c6:#f59e0b;--c7:#06b6d4;--c8:#ef4444;
+--bg:#f0f9ff;--card-bg:#fffdf7;--shadow:rgba(0,0,0,0.10);--ink:#1a1a2e;--muted:#666;
+--ok:#10b981;--ok-bg:#dcfce7;--no:#ef4444;--no-bg:#fee2e2;--line:#e8e8e8;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--ink);padding-bottom:70px;}
+.page-title{text-align:center;padding:22px 16px 8px;}
+.page-title h1{font-family:'Nunito','Noto Sans KR',sans-serif;font-size:clamp(19px,5vw,28px);font-weight:900;}
+.page-title .subtitle{font-size:13px;color:var(--muted);margin-top:5px;}
+.deco-bar{width:80px;height:5px;background:linear-gradient(90deg,var(--c7),var(--c2),var(--c4));border-radius:10px;margin:8px auto 0;}
+.steps{position:sticky;top:0;z-index:30;background:var(--bg);max-width:980px;margin:14px auto 0;padding:8px 12px;display:flex;gap:6px;overflow-x:auto;}
+.step{flex:1;min-width:76px;font-family:inherit;font-size:11px;font-weight:700;padding:10px 5px;border-radius:22px;border:none;cursor:pointer;background:#fff;color:var(--muted);box-shadow:0 2px 8px var(--shadow);transition:.2s;text-align:center;line-height:1.3;white-space:nowrap;}
+.step.on{background:var(--ink);color:#fff;}
+.step .sn{display:block;font-size:9px;opacity:.7;}
+.wrap{max-width:980px;margin:0 auto;padding:18px 16px;}
+.intro{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:14px 18px;font-size:13px;color:#555;line-height:1.8;margin-bottom:18px;}
+.intro b{color:var(--ink);}
+.bar{height:7px;background:#dbeafe;border-radius:5px;overflow:hidden;margin-bottom:18px;}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--c7),var(--c4));border-radius:5px;width:0;transition:.4s;}
+.ctrl-bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;}
+.ctrl-btn{font-family:inherit;font-size:13px;font-weight:700;padding:9px 20px;border-radius:30px;border:none;cursor:pointer;box-shadow:0 2px 8px var(--shadow);}
+.btn-dark{background:var(--ink);color:#fff;}.btn-gray{background:#e5e7eb;color:var(--ink);}
+.sec-label{display:flex;align-items:center;gap:12px;margin:24px 0 14px;}
+.sec-label::before,.sec-label::after{content:'';flex:1;height:2px;background:#d1e8f5;border-radius:2px;}
+.sec-label span{font-size:13px;font-weight:900;color:#0369a1;white-space:nowrap;}
+.sent-card{background:var(--card-bg);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);margin-bottom:16px;overflow:hidden;}
+.sc-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#eef2ff;border-bottom:1px solid var(--line);}
+.sc-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;font-size:13px;font-weight:900;color:#fff;background:var(--c4);flex-shrink:0;}
+.sc-tag{font-size:11px;font-weight:700;color:var(--c4);background:#fff;border:1px solid var(--c4);padding:2px 8px;border-radius:10px;margin-left:auto;}
+.sc-body{padding:16px;}
+.eng{font-size:17px;font-weight:700;line-height:2;letter-spacing:.2px;}
+.eng .hl{background:#fff9c4;border-radius:5px;padding:1px 4px;font-weight:900;cursor:help;border-bottom:2px solid var(--c6);}
+.eng .chunk{border-bottom:2px dotted var(--c2);cursor:help;}
+.eng .tts{background:#e0f2fe;border:none;border-radius:14px;padding:2px 10px;font-size:11px;font-weight:700;color:#0369a1;cursor:pointer;margin-left:6px;vertical-align:middle;}
+.analysis{margin-top:12px;}
+.acc{border:1.5px solid var(--line);border-radius:10px;margin-bottom:8px;overflow:hidden;}
+.acc-h{padding:10px 13px;background:#f0f7ff;font-size:13px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:#0369a1;}
+.acc-h .ic{transition:transform .3s;}
+.acc.open .acc-h .ic{transform:rotate(180deg);}
+.acc-c{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;font-size:13px;line-height:1.8;color:#333;background:#fff;}
+.acc.open .acc-c{max-height:800px;padding:13px;}
+.acc-c .point{font-weight:700;color:var(--c8);}
+.acc-c .gram{display:inline-block;background:#ede9fe;color:#6d28d9;font-size:11px;font-weight:700;padding:2px 8px;border-radius:8px;margin:3px 4px 3px 0;}
+.acc-kr .acc-h{background:#ecfdf5;color:#047857;}
+.acc-kr .acc-c .kr{font-size:15px;font-weight:700;color:#065f46;line-height:1.7;}
+.qcard{background:var(--card-bg);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);padding:18px;margin-bottom:14px;}
+.qnum{font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:700;}
+.qtag{display:inline-block;font-size:10px;font-weight:700;color:#fff;background:var(--c4);padding:2px 8px;border-radius:9px;margin-left:6px;}
+.qsent{font-size:16px;font-weight:700;line-height:1.9;}
+.qsent .gap{display:inline-block;border-bottom:2px solid var(--c8);min-width:80px;text-align:center;color:transparent;cursor:pointer;background:#fee2e2;border-radius:5px 5px 0 0;padding:0 6px;font-weight:900;}
+.qsent .gap.show{color:var(--c8);background:#fff9c4;border-bottom-color:var(--c6);}
+.qkr{font-size:13px;color:var(--muted);margin-top:8px;}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;max-width:640px;margin:0 auto;}
+.mcol{display:flex;flex-direction:column;gap:9px;}
+.chip{background:var(--card-bg);border:2px solid var(--line);border-radius:12px;padding:12px 9px;font-size:13px;font-weight:700;text-align:center;cursor:pointer;box-shadow:0 2px 6px var(--shadow);transition:.15s;}
+.chip.sel{border-color:var(--c7);background:#e0f7fa;}
+.chip.done{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);opacity:.55;pointer-events:none;}
+.chip.kr{font-weight:500;font-size:12px;}
+.mmsg{text-align:center;font-size:13px;color:var(--muted);margin:14px 0;min-height:20px;font-weight:700;}
+/* 시험 */
+.gate{text-align:center;padding:36px 16px;}
+.gate h2{font-size:22px;font-weight:900;margin-bottom:8px;}
+.gate p{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.7;}
+.gate input{width:100%;max-width:300px;padding:12px;border-radius:11px;border:2px solid var(--line);background:#fff;color:var(--ink);font-size:15px;font-family:inherit;text-align:center;margin-bottom:14px;}
+.tq{background:var(--card-bg);border-radius:14px;box-shadow:0 4px 14px var(--shadow);border:2px solid var(--line);padding:16px;margin-bottom:12px;}
+.tq .cat{display:inline-block;font-size:10px;font-weight:900;color:#fff;background:var(--c4);padding:2px 9px;border-radius:10px;margin-bottom:8px;}
+.tq .q{font-size:15px;font-weight:700;line-height:1.7;margin-bottom:12px;}
+.tq .q .blk{display:inline-block;border-bottom:2px solid var(--c8);min-width:80px;}
+.exinp{width:100%;padding:11px 13px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:14px;font-family:inherit;}
+.opts{display:flex;flex-direction:column;gap:7px;}
+.opt{padding:10px 13px;border:2px solid var(--line);border-radius:10px;background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:.12s;}
+.opt.pick{border-color:var(--c4);background:#f5f3ff;}
+.result{text-align:center;padding:28px 16px;}
+.score{font-size:56px;font-weight:900;background:linear-gradient(90deg,var(--c7),var(--c3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.rmsg{font-size:15px;color:var(--muted);margin:6px 0 20px;font-weight:700;}
+.review{text-align:left;margin-top:18px;}
+.rev{background:var(--card-bg);border-radius:10px;padding:10px 13px;margin-bottom:7px;font-size:12.5px;line-height:1.5;border-left:4px solid var(--line);box-shadow:0 2px 6px var(--shadow);}
+.rev.ok{border-left-color:var(--ok);}.rev.no{border-left-color:var(--no);}
+.rev .ic{font-weight:900;}.rev.ok .ic{color:var(--ok);}.rev.no .ic{color:var(--no);}
+.rev .corr{color:#0369a1;font-weight:700;}
+.board{margin-top:22px;}
+.board table{width:100%;border-collapse:collapse;font-size:13px;background:var(--card-bg);border-radius:12px;overflow:hidden;box-shadow:0 4px 14px var(--shadow);}
+.board th,.board td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left;}
+.board th{color:var(--muted);font-weight:900;font-size:11px;background:#f0f7ff;}
+.board tr.me td{background:#fff9c4;}
+.rank{font-weight:900;color:var(--c6);}
+.tip-box{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:16px 20px;display:flex;gap:12px;margin-top:24px;}
+.tip-icon{font-size:24px;flex-shrink:0;}
+.tip-body{font-size:12.5px;color:#555;line-height:1.9;}.tip-body b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="page-title">
+  <h1>🧘 Say Goodbye to Stress · 정밀 구문분석</h1>
+  <p class="subtitle">본문 33문장 · 수일치·대명사·관계사 정밀 분석 · 답은 클릭하면 공개</p>
+  <div class="deco-bar"></div>
+</div>
+<div class="steps">
+  <button class="step on" id="s0" onclick="go(0)"><span class="sn">1단계</span>읽기·강조</button>
+  <button class="step" id="s1" onclick="go(1)"><span class="sn">2단계</span>구문분석</button>
+  <button class="step" id="s2" onclick="go(2)"><span class="sn">3단계</span>해석</button>
+  <button class="step" id="s3" onclick="go(3)"><span class="sn">4단계</span>빈칸시험</button>
+  <button class="step" id="s4" onclick="go(4)"><span class="sn">5단계</span>표현연결</button>
+</div>
+<div class="wrap" id="app"></div>
+<script>
+/* Say Goodbye to Stress — 본문 33문장 정밀 구문분석
+   각 문장: n, sec(단락), tag, eng(hl 강조/chunk 청크), gram[], point(수일치·대명사·관계사 등), kr
+*/
+const S=[
+ {n:1,sec:"도입 — 사람마다 다른 스트레스 해소법",tag:"부사절 when",eng:`Some people <span class="hl">spend</span> time with friends <span class="hl">when</span> they feel low.`,gram:["복수주어+복수동사","시간 부사절 when","대명사 they=Some people"],point:`주어 <b>Some people</b>(복수) → 동사 <b>spend</b>(복수형, -s 없음). <b>when</b>은 '~할 때'(시간 부사절). <span class="point">대명사 they는 앞의 Some people을 가리킴.</span> feel low = 울적하다, 기운이 없다.`,kr:"어떤 사람들은 울적할 때 친구들과 시간을 보낸다."},
+ {n:2,tag:"부사적 to부정사",eng:`Others <span class="hl">eat</span> special foods <span class="hl">to feel</span> better.`,gram:["Others 복수","to부정사 부사적(목적)"],point:`<b>Others</b>(다른 사람들, 복수) → eat(복수동사). <b>to feel better</b> = '기분이 나아지기 위해'(목적의 부사적 용법). better = good/well의 비교급.`,kr:"다른 사람들은 기분이 나아지기 위해 특별한 음식을 먹는다."},
+ {n:3,tag:"Still others",eng:`<span class="hl">Still others</span> simply sleep for a while.`,gram:["Still others","simply 부사"],point:`<b>Still others</b> = '또 다른 사람들은'(some ~ others ~ still others 나열). <b>simply</b> = 그냥(부사). for a while = 잠시 동안.`,kr:"또 다른 사람들은 그냥 잠시 동안 잠을 잔다."},
+ {n:4,tag:"의문문",eng:`How do you <span class="hl">deal with</span> stress?`,gram:["조동사 do 의문문","deal with"],point:`<b>deal with</b> = '~을 다루다, 처리하다'(= handle, cope with). 의문문이라 조동사 do 사용.`,kr:"여러분은 스트레스를 어떻게 다루나요?"},
+ {n:5,tag:"유도부사 there·관계대명사 who",eng:`<span class="hl">Here are</span> some stories about people <span class="hl">who</span> suggest different ways.`,gram:["Here + 동사 + 주어(도치)","주격 관계대명사 who"],point:`<b>Here are some stories</b> = 유도부사 Here로 시작해 주어(stories)가 동사 뒤로 도치. 주어가 복수(stories)라 <b>are</b>. <b>who</b>는 people을 수식하는 <span class="point">주격 관계대명사</span>(who suggest ~).`,kr:"여기 다양한 방법을 제안하는 사람들에 관한 몇 가지 이야기가 있다."},
+
+ {n:6,sec:"Mina (15, 대전)",tag:"동명사 by",eng:`Sometimes my friends give me stress <span class="hl">by</span> saying bad things about me, breaking promises, or arguing over small things.`,gram:["by + 동명사","saying/breaking/arguing 병렬"],point:`<b>by + 동명사</b> = '~함으로써'. saying, breaking, arguing 세 동명사가 <b>or</b>로 병렬 연결. argue over = ~을 두고 논쟁하다. break promises = 약속을 깨다.`,kr:"때때로 내 친구들은 나에 대해 나쁜 말을 하거나, 약속을 깨거나, 사소한 일로 다투며 내게 스트레스를 준다."},
+ {n:7,tag:"부사절 when",eng:`<span class="hl">When</span> this happens, I watch horror movies!`,gram:["시간 부사절 when","this 지시대명사"],point:`<b>When this happens</b> = '이런 일이 일어날 때'. <span class="point">대명사 this는 앞 문장(친구가 스트레스를 주는 상황)을 가리킴.</span>`,kr:"이런 일이 일어나면, 나는 공포 영화를 본다!"},
+ {n:8,tag:"so~that 구문",eng:`Good horror movies are <span class="hl">so</span> scary <span class="hl">that</span> I scream a lot.`,gram:["so + 형용사 + that + 주어 + 동사","복수주어 movies"],point:`<b>so + 형용사(scary) + that + 주어 + 동사</b> = '너무 ~해서 …하다'. 주어 Good horror movies(복수) → are. a lot = 많이.`,kr:"좋은 공포 영화는 너무 무서워서 나는 비명을 많이 지른다."},
+ {n:9,tag:"동명사 주어·help",eng:`I guess <span class="hl">that</span> <span class="chunk">screaming at the top of my lungs</span> <span class="hl">helps</span> me feel better.`,gram:["guess의 목적어 that절","동명사 주어(단수취급)","help + 목적어 + (to) 동사원형"],point:`that절이 guess의 목적어. <span class="point">동명사구 주어 screaming ~은 단수 취급 → 동사 helps(-s).</span> <b>help + 목적어 + (to)동사원형</b> = '~가 …하도록 돕다'(여기선 me feel). at the top of one's lungs = 목청껏.`,kr:"목청껏 비명을 지르는 것이 내 기분을 나아지게 돕는 것 같다."},
+ {n:10,tag:"관계대명사 what",eng:`Also, <span class="hl">thanks to</span> scary scenes and sound effects, I can forget about <span class="hl">what</span> bothers me.`,gram:["thanks to + 명사","선행사 포함 관계대명사 what"],point:`<b>thanks to</b> = '~덕분에'(+명사). <b>what</b> = 선행사를 포함하는 관계대명사(= the thing which/that) '~하는 것'. <span class="point">what bothers me에서 what이 주어 역할, bothers는 3인칭 단수 -s.</span> forget about = ~을 잊다.`,kr:"또한, 무서운 장면과 음향 효과 덕분에, 나는 나를 괴롭히는 것을 잊을 수 있다."},
+
+ {n:11,sec:"Junho (14, 여수)",tag:"현재완료진행",eng:`I've <span class="hl">been using</span> this method for the past several months, and it really <span class="hl">works</span>.`,gram:["현재완료진행 have been -ing","대명사 it=this method","work 효과가 있다"],point:`<b>have been using</b> = 현재완료진행('계속 ~해 오고 있다'). for the past several months = 지난 몇 달 동안. <span class="point">대명사 it은 this method를 가리키며 단수 → works(-s).</span> work = 효과가 있다.`,kr:"나는 지난 몇 달 동안 이 방법을 사용해 오고 있는데, 그것은 정말 효과가 있다."},
+ {n:12,tag:"과거시제",eng:`My uncle <span class="hl">graduated</span> from college two years ago.`,gram:["과거시제","graduate from"],point:`<b>graduated</b> = 과거시제(two years ago와 호응). <b>graduate from</b> = ~을 졸업하다.`,kr:"우리 삼촌은 2년 전에 대학을 졸업했다."},
+ {n:13,tag:"현재완료·look for",eng:`He lives with my family, and he's <span class="hl">been looking for</span> a job for some time.`,gram:["현재완료진행","look for","for some time"],point:`<b>has been looking for</b> = 현재완료진행. <b>look for</b> = ~을 찾다. for some time = 얼마 전부터.`,kr:"그는 우리 가족과 함께 살고 있고, 얼마 전부터 직장을 찾고 있다."},
+ {n:14,tag:"by + 동명사",eng:`I know <span class="hl">that</span> he's stressed out, but he always <span class="hl">tries to be</span> positive <span class="hl">by going</span> fishing.`,gram:["know의 목적어 that절","try + to부정사","by + 동명사"],point:`that절이 know의 목적어(접속사 that). be stressed out = 스트레스를 받다. <b>try to + 동사원형</b> = ~하려고 노력하다. <b>by going fishing</b> = 낚시하러 감으로써(by+동명사). <span class="point">주어 he → tries(3인칭 단수 -s).</span>`,kr:"나는 그가 스트레스를 받는다는 것을 알지만, 그는 낚시를 다니며 항상 긍정적으로 지내려고 노력한다."},
+ {n:15,tag:"부사절 when",eng:`He never <span class="hl">gets upset</span> when he doesn't catch any fish.`,gram:["get + 형용사","시간 부사절 when","부정문 any"],point:`<b>get + 형용사(upset)</b> = '~해지다'. <span class="point">주어 He → gets, doesn't(3인칭 단수).</span> 부정문에서 any = 조금도 (~않다).`,kr:"그는 물고기를 한 마리도 잡지 못해도 결코 화내지 않는다."},
+ {n:16,tag:"so~that·시간 while",eng:`He says, "<span class="hl">While</span> I fish, I'm <span class="hl">so</span> focused <span class="hl">that</span> I can leave all my worries behind."`,gram:["접속사 while","so~that","leave ~ behind"],point:`<b>while</b> = '~하는 동안'. <b>so focused that</b> = 너무 집중해서 ~하다(so+분사+that). <b>leave ~ behind</b> = ~을 뒤에 남겨 두다/잊다. my worries = 복수 명사.`,kr:"그는 \"낚시하는 동안, 나는 너무 집중해서 내 모든 걱정을 뒤로할 수 있어.\"라고 말한다."},
+ {n:17,tag:"besides·teach+O+to",eng:`Besides, it <span class="hl">teaches</span> me <span class="hl">to be</span> patient.`,gram:["besides 부사","teach + 목적어 + to부정사","대명사 it=fishing"],point:`<b>Besides</b> = 게다가(부사). <b>teach + 목적어(me) + to부정사</b> = '~가 …하도록 가르치다'. <span class="point">대명사 it은 fishing(낚시)을 가리키며 단수 → teaches(-s).</span>`,kr:"게다가, 그것(낚시)은 내게 인내심을 갖도록 가르쳐 준다."},
+ {n:18,tag:"동명사 주어·help",eng:`I'm sure <span class="hl">that</span> <span class="chunk">focusing on one thing</span> <span class="hl">helps</span> us forget about something else.`,gram:["be sure that","동명사 주어(단수)","help+O+동사원형"],point:`that절이 sure의 내용. <span class="point">동명사구 주어 focusing on one thing은 단수 취급 → helps(-s).</span> <b>help + 목적어(us) + 동사원형(forget)</b>. focus on = ~에 집중하다.`,kr:"나는 한 가지에 집중하는 것이 우리가 다른 것을 잊도록 돕는다고 확신한다."},
+
+ {n:19,sec:"Dobin (16, 서울)",tag:"동격·관계부사 way",eng:`My sister, <span class="chunk">a second-year student in high school</span>, has a wonderful way <span class="hl">to stay</span> free from stress.`,gram:["동격 콤마","단수주어 My sister","to부정사 형용사적","stay free from"],point:`My sister = a second-year student 동격(콤마로 삽입). <span class="point">주어는 My sister(단수) → has.</span> <b>to stay</b> = a way를 수식(형용사적 용법). <b>stay free from</b> = ~으로부터 벗어나 있다.`,kr:"고등학교 2학년인 우리 누나는 스트레스로부터 벗어나는 좋은 방법을 가지고 있다."},
+ {n:20,tag:"seem to·for a good reason",eng:`She feels a lot of stress from schoolwork, but <span class="hl">my mother seems to like</span> the situation for a good reason.`,gram:["seem to + 동사원형","for a good reason"],point:`<b>seem to + 동사원형</b> = '~인 것 같다'(= it seems that my mother likes ~). <span class="point">주어 my mother(단수) → seems.</span> for a good reason = 합당한 이유로.`,kr:"누나는 학업 때문에 많은 스트레스를 받지만, 그럴 만한 이유로 우리 어머니는 그 상황을 좋아하시는 것 같다."},
+ {n:21,tag:"It is because·to부정사",eng:`<span class="hl">It is because</span> cleaning is my sister's <span class="hl">number-one</span> way <span class="hl">to make</span> life better!`,gram:["It is because ~","동명사 주어 cleaning","to부정사 형용사적"],point:`<b>It is because ~</b> = '그것은 ~이기 때문이다'. <span class="point">동명사 주어 cleaning은 단수 → is.</span> number-one = 최고의. <b>to make</b> = way를 수식(형용사적). make life better = 삶을 더 낫게 만들다.`,kr:"그것은 바로 청소가 누나의 삶을 향상시키는 최고의 방법이기 때문이다!"},
+ {n:22,tag:"so~that·look+형용사",eng:`When she's <span class="hl">so</span> stressed <span class="hl">that</span> her life <span class="hl">looks</span> gloomy, she cleans her room.`,gram:["부사절 when","so~that","look + 형용사"],point:`<b>so stressed that</b> = 너무 스트레스 받아서 ~하다. <b>look + 형용사(gloomy)</b> = '~해 보이다'. <span class="point">her life(단수) → looks, she → cleans.</span>`,kr:"스트레스를 너무 많이 받아서 인생이 우울해 보일 때, 누나는 방을 청소한다."},
+ {n:23,tag:"as·feel like",eng:`She says, "<span class="hl">As</span> I clean my room, I <span class="hl">feel like</span> I'm also relieving stress.`,gram:["접속사 as(~할 때)","feel like + 주어 + 동사","relieve stress"],point:`<b>As</b> = '~할 때'(= when). <b>feel like + 주어 + 동사</b> = '~한 느낌이 들다'. <b>relieve stress</b> = 스트레스를 풀다(relieve = 덜다, 완화하다).`,kr:"누나는 \"방을 청소할 때, 나는 스트레스도 해소되는 느낌이 들어.\"라고 말한다."},
+ {n:24,tag:"look+형용사",eng:`When my room <span class="hl">looks</span> tidy, my life <span class="hl">looks</span> brighter."`,gram:["look + 형용사","비교급 brighter"],point:`<b>look + 형용사</b> = ~하게 보이다(looks tidy / looks brighter). <span class="point">my room·my life 둘 다 단수 → looks.</span> brighter = bright 비교급. tidy = 깔끔한, 정돈된.`,kr:"내 방이 깔끔해 보이면, 내 삶도 더 밝아 보여.\""},
+
+ {n:25,sec:"Yulia (14, 안산)",tag:"let+O+동사원형·관계대명사 what",eng:`<span class="hl">Let me tell</span> you <span class="hl">what</span> my mother does about her stress.`,gram:["let + 목적어 + 동사원형","선행사 포함 관계대명사 what"],point:`<b>let + 목적어(me) + 동사원형(tell)</b> = '~가 …하게 허락하다'. <b>what</b> = 선행사 포함 관계대명사(= the thing which/that) '~하는 것'. <span class="point">what절 안 주어 my mother → does(3인칭 단수).</span>`,kr:"우리 어머니께서 스트레스를 어떻게 다루시는지 이야기해 줄게."},
+ {n:26,tag:"목적격 관계대명사 생략",eng:`She feels stressed <span class="hl">by</span> all the things <span class="hl">(that)</span> she has to do at work and at home.`,gram:["by ~로 인해","목적격 관계대명사 that 생략"],point:`<b>by</b> = '~로 인해'. all the things <b>(that) she has to do</b> — <span class="point">목적격 관계대명사 that이 생략됨(뒤에 do의 목적어가 비어 있음).</span> 주어 She → feels.`,kr:"어머니는 직장과 집에서 해야 하는 온갖 일로 인해 스트레스를 받으신다."},
+ {n:27,tag:"부사절 when·under stress",eng:`When she's <span class="hl">under stress</span>, she writes "Me Time" on her calendar.`,gram:["부사절 when","under stress"],point:`<b>under stress</b> = 스트레스를 받고 있는. <span class="point">she → writes(3인칭 단수 -s).</span> on her calendar = 달력에.`,kr:"스트레스를 받을 때, 어머니는 달력에 'Me Time(나만의 시간)'이라고 적으신다."},
+ {n:28,tag:"that 생략·take time out",eng:`This <span class="hl">means</span> <span class="hl">(that)</span> she takes some time out for herself.`,gram:["means 뒤 that 생략","take time out","재귀대명사 herself"],point:`means 뒤 <b>접속사 that 생략</b>. <b>take time out</b> = (하던 일을 멈추고) 시간을 내다. <span class="point">This → means, she → takes. 재귀대명사 herself = 주어 she와 동일 인물.</span>`,kr:"이것은 어머니가 자신을 위해 잠깐 시간을 낸다는 의미이다."},
+ {n:29,tag:"동사 병렬",eng:`She <span class="hl">reads</span> a book, <span class="hl">watches</span> a movie, or <span class="hl">talks</span> with her friends.`,gram:["동사 병렬 or","3인칭 단수"],point:`<b>reads, watches, talks</b> 세 동사가 or로 병렬. <span class="point">주어 She가 3인칭 단수라 모든 동사에 -s/-es.</span>`,kr:"어머니는 책을 읽거나, 영화를 보거나, 친구들과 이야기를 나누신다."},
+ {n:30,tag:"가주어·간접의문문·as long as",eng:`She says, "<span class="hl">It</span> doesn't really <span class="hl">matter</span> <span class="hl">what</span> I do, <span class="hl">as long as</span> it's something I like."`,gram:["가주어 It","진주어 의문사절(what I do)","matter 중요하다","as long as"],point:`<b>It</b> = 가주어, <b>what I do</b> = 진주어(간접의문문 '의문사+주어+동사'). <b>matter</b> = 중요하다. <b>as long as</b> = '~하는 한, ~이기만 하다면'. something (that) I like — 목적격 관계대명사 생략.`,kr:"어머니는 \"내가 좋아하는 것이라면, 무엇을 하는지는 별로 중요하지 않아.\"라고 말씀하신다."},
+ {n:31,tag:"현재완료진행·비교급 강조",eng:`I've <span class="hl">been writing</span> 'Me Time' on my calendar <span class="hl">for</span> two months, and I feel <span class="hl">much</span> better."`,gram:["현재완료진행","for + 기간","비교급 강조 much"],point:`<b>have been writing</b> = 현재완료진행. for two months = 두 달 동안. <b>much</b> = 비교급(better) 강조 '훨씬'(= still, even, far, a lot). <span class="point">much는 비교급만 강조하고 원급은 강조 못 함.</span>`,kr:"나는 두 달째 내 달력에 '나만의 시간'을 적어 왔고, 기분이 훨씬 좋아졌어.\""},
+
+ {n:32,sec:"마무리",tag:"의문형용사 which·work",eng:`<span class="hl">Which</span> methods will <span class="hl">work</span> for you?`,gram:["의문형용사 which","work 효과가 있다"],point:`<b>Which + 명사(methods)</b> = '어떤 ~'(의문형용사). <b>work</b> = 효과가 있다. work for you = 너에게 효과가 있다.`,kr:"어떤 방법이 여러분에게 효과가 있을까?"},
+ {n:33,tag:"명령문 병렬·try~oneself",eng:`<span class="hl">Try</span> some of these ideas <span class="hl">yourself</span>, and <span class="hl">find</span> your best way <span class="hl">to say goodbye to</span> stress.`,gram:["명령문 and 병렬","재귀대명사 강조용법","to부정사 형용사적"],point:`명령문 <b>Try ~ and find ~</b> 병렬. <b>yourself</b> = 재귀대명사 강조용법('직접'). <b>to say goodbye to</b> = way를 수식(형용사적). say goodbye to = ~에 작별 인사를 하다.`,kr:"이러한 아이디어들 중 몇 가지를 직접 시도해 보고, 스트레스와 이별하는 자신만의 최고의 방법을 찾아라."}
+];
+
+const QUIZ=[
+ {tag:"부사절",s:`Some people spend time with friends [when] they feel low.`,kr:"~할 때(시간 부사절)"},
+ {tag:"to부정사",s:`Others eat special foods [to feel] better.`,kr:"기분 나아지기 위해(부사적)"},
+ {tag:"나열",s:`[Still others] simply sleep for a while.`,kr:"또 다른 사람들은"},
+ {tag:"숙어",s:`How do you [deal with] stress?`,kr:"~을 다루다, 처리하다"},
+ {tag:"관계대명사",s:`Here are some stories about people [who] suggest different ways.`,kr:"주격 관계대명사(선행사 people)"},
+ {tag:"동명사",s:`...give me stress [by] saying bad things about me...`,kr:"~함으로써(+동명사)"},
+ {tag:"지시어",s:`When [this] happens, I watch horror movies!`,kr:"앞 상황을 가리킴"},
+ {tag:"구문",s:`Good horror movies are [so] scary that I scream a lot.`,kr:"so+형용사+that: 너무~해서"},
+ {tag:"수일치",s:`Screaming at the top of my lungs [helps] me feel better.`,kr:"동명사 주어→단수동사(-s)"},
+ {tag:"관계대명사",s:`I can forget about [what] bothers me.`,kr:"선행사 포함(=the thing which)"},
+ {tag:"시제",s:`I've [been using] this method for the past several months.`,kr:"현재완료진행"},
+ {tag:"숙어",s:`My uncle [graduated] from college two years ago.`,kr:"졸업했다(과거)"},
+ {tag:"숙어",s:`He's been [looking for] a job for some time.`,kr:"~을 찾다"},
+ {tag:"동명사",s:`He always tries to be positive [by going] fishing.`,kr:"~함으로써(by+동명사)"},
+ {tag:"동사구",s:`He never [gets upset] when he doesn't catch any fish.`,kr:"화내다(get+형용사)"},
+ {tag:"숙어",s:`I'm so focused that I can [leave] all my worries [behind].`,kr:"~을 뒤에 남겨두다/잊다"},
+ {tag:"5형식",s:`Besides, it [teaches] me to be patient.`,kr:"~가 …하도록 가르치다(+목적어+to부정사)"},
+ {tag:"수일치",s:`Focusing on one thing [helps] us forget about something else.`,kr:"동명사 주어→단수동사"},
+ {tag:"숙어",s:`My sister has a wonderful way to [stay free from] stress.`,kr:"~으로부터 벗어나 있다"},
+ {tag:"구문",s:`My mother [seems to like] the situation for a good reason.`,kr:"~인 것 같다"},
+ {tag:"to부정사",s:`Cleaning is my sister's number-one way [to make] life better!`,kr:"명사 수식(형용사적)"},
+ {tag:"감각동사",s:`When my room [looks] tidy, my life looks brighter.`,kr:"~하게 보이다(+형용사)"},
+ {tag:"관계대명사",s:`Let me tell you [what] my mother does about her stress.`,kr:"선행사 포함(=the thing that)"},
+ {tag:"관계대명사",s:`She feels stressed by all the things [(that)] she has to do.`,kr:"목적격 관계대명사 생략"},
+ {tag:"가주어",s:`[It] doesn't really matter what I do, as long as it's something I like.`,kr:"가주어(진주어=what I do)"},
+ {tag:"비교급강조",s:`I've been writing 'Me Time' for two months, and I feel [much] better.`,kr:"훨씬(비교급 강조)"},
+ {tag:"의문형용사",s:`[Which] methods will work for you?`,kr:"어떤 ~(의문형용사)"},
+ {tag:"재귀대명사",s:`Try some of these ideas [yourself], and find your best way.`,kr:"직접(강조용법)"},
+ {tag:"숙어",s:`...find your best way to [say goodbye to] stress.`,kr:"~에 작별 인사를 하다"}
+];
+
+const PAIRS=[
+ {en:"deal with",kr:"~을 다루다, 처리하다"},
+ {en:"feel low",kr:"울적하다, 기운이 없다"},
+ {en:"leave ~ behind",kr:"~을 뒤에 남겨 두다/잊다"},
+ {en:"stay free from",kr:"~으로부터 벗어나다"},
+ {en:"take time out",kr:"시간을 내다"},
+ {en:"be stressed out",kr:"스트레스를 받다"},
+ {en:"relieve stress",kr:"스트레스를 풀다"},
+ {en:"as long as",kr:"~하는 한, ~이기만 하면"},
+ {en:"say goodbye to",kr:"~에 작별 인사를 하다"},
+ {en:"focus on",kr:"~에 집중하다"}
+];
+
+/* ===== 공통 로직: 5단계 (읽기·강조 / 구문분석 / 해석 / 빈칸시험(문장수) / 표현연결) ===== */
+let view=0, mSel=null, matchData=null;
+function go(v){view=v;for(let i=0;i<5;i++)document.getElementById('s'+i).classList.toggle('on',i===v);render();}
+function render(){document.getElementById('app').innerHTML=[v0,v1,v2,v3,v4][view]();}
+function speak(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.8;speechSynthesis.speak(u);}
+function plain(h){return h.replace(/<[^>]+>/g,'').replace(/&quot;/g,'"');}
+function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9'\s]/g,'').replace(/\s+/g,' ').trim();}
+function acc(h){h.parentElement.classList.toggle('open');}
+
+/* 1단계: 읽기 + 핵심표현 강조 */
+function v0(){
+ let h=`<div class="intro">💡 <b>1단계 · 문장 읽기 & 핵심표현 강조</b><br><span style="background:#fff9c4;padding:1px 4px;border-radius:4px">노란 강조</span>=핵심 문법/표현, <span style="border-bottom:2px dotted #3b82f6">점선</span>=의미 청크. 🔊로 끊어 읽기를 연습하세요.</div>`;
+ let last='';
+ S.forEach(s=>{if(s.sec&&s.sec!==last){h+=`<div class="sec-label"><span>${s.sec}</span></div>`;last=s.sec;}
+  h+=`<div class="sent-card"><div class="sc-head"><div class="sc-num">${s.n}</div><span style="font-size:12px;color:#666;font-weight:700">S${String(s.n).padStart(2,'0')}</span><span class="sc-tag">${s.tag}</span></div>
+   <div class="sc-body"><div class="eng">${s.eng}<button class="tts" onclick="speak('${plain(s.eng).replace(/'/g,"\\'")}')">🔊</button></div></div></div>`;});
+ return h;
+}
+/* 2단계: 구문분석 (클릭 펼침) */
+function v1(){
+ let h=`<div class="intro">💡 <b>2단계 · 정밀 구문분석 (클릭하면 펼쳐짐)</b><br><b>핵심 문법 분석</b>을 눌러 펼치세요. <span class="point" style="color:#ef4444;font-weight:700">⚠️ 빨강</span>은 수일치·대명사·관계사 등 꼭 짚어야 할 포인트예요. 해석은 아직 보지 마세요!</div>`;
+ let last='';
+ S.forEach(s=>{if(s.sec&&s.sec!==last){h+=`<div class="sec-label"><span>${s.sec}</span></div>`;last=s.sec;}
+  h+=`<div class="sent-card"><div class="sc-head"><div class="sc-num">${s.n}</div><span class="sc-tag">${s.tag}</span></div>
+   <div class="sc-body"><div class="eng">${s.eng}</div>
+    <div class="analysis"><div class="acc"><div class="acc-h" onclick="acc(this)"><span>🔍 핵심 문법 분석</span><span class="ic">▼</span></div>
+     <div class="acc-c">${s.gram.map(g=>`<span class="gram">${g}</span>`).join('')}<div style="margin-top:8px">${s.point}</div></div></div></div></div></div>`;});
+ return h;
+}
+/* 3단계: 해석 (클릭 공개) */
+function v2(){
+ let h=`<div class="intro">💡 <b>3단계 · 해석 확인 (클릭하면 공개)</b><br>구문분석을 떠올리며 스스로 해석한 뒤 <b>해석 보기</b>를 눌러 확인하세요.</div>`;
+ let last='';
+ S.forEach(s=>{if(s.sec&&s.sec!==last){h+=`<div class="sec-label"><span>${s.sec}</span></div>`;last=s.sec;}
+  h+=`<div class="sent-card"><div class="sc-head"><div class="sc-num">${s.n}</div><span class="sc-tag">${s.tag}</span></div>
+   <div class="sc-body"><div class="eng">${s.eng}<button class="tts" onclick="speak('${plain(s.eng).replace(/'/g,"\\'")}')">🔊</button></div>
+    <div class="analysis"><div class="acc acc-kr"><div class="acc-h" onclick="acc(this)"><span>📖 해석 보기</span><span class="ic">▼</span></div>
+     <div class="acc-c"><div class="kr">${s.kr}</div></div></div></div></div></div>`;});
+ return h;
+}
+/* 4단계: 빈칸 시험 — 문장 수만큼 */
+function v3(){
+ let h=`<div class="intro">💡 <b>4단계 · 빈칸 시험 ${QUIZ.length}문항</b> (본문 문장 수에 맞춤)<br>구문분석 핵심이 빈칸이에요. 스스로 떠올린 뒤 <b>빨간 빈칸을 탭</b>하면 정답 공개. (힌트=한국어)</div>
+ <div class="ctrl-bar"><button class="ctrl-btn btn-dark" onclick="document.querySelectorAll('.gap').forEach(e=>e.classList.add('show'))">✅ 정답 전체 보기</button><button class="ctrl-btn btn-gray" onclick="document.querySelectorAll('.gap').forEach(e=>e.classList.remove('show'))">🙈 숨기기</button></div>`;
+ QUIZ.forEach((q,i)=>{const s=q.s.replace(/\[(.+?)\]/,`<span class="gap" onclick="this.classList.toggle('show')">$1</span>`);
+  h+=`<div class="qcard"><div class="qnum">Q${i+1} / ${QUIZ.length} <span class="qtag">${q.tag}</span></div><div class="qsent">${s}</div><div class="qkr">💬 힌트: ${q.kr}</div></div>`;});
+ return h;
+}
+/* 5단계: 표현 연결 매칭 */
+function buildMatch(){matchData={left:PAIRS.map((p,i)=>({k:i,t:p.en})),right:PAIRS.map((p,i)=>({k:i,t:p.kr})).sort(()=>Math.random()-.5),matched:[]};}
+function v4(){
+ if(!matchData)buildMatch();const m=matchData;
+ let h=`<div class="intro">💡 <b>5단계 · 중요 표현 연결하여 외우기</b><br>영어 표현과 한국어 뜻을 짝지으세요. 본문 핵심 표현을 마지막으로 정리합니다.</div>
+ <div class="match-grid"><div class="mcol">`;
+ m.left.forEach(x=>{const d=m.matched.includes(x.k);h+=`<div class="chip${d?' done':''}${mSel&&mSel.s==='L'&&mSel.k===x.k?' sel':''}" onclick="pk('L',${x.k})">${x.t}</div>`;});
+ h+=`</div><div class="mcol">`;
+ m.right.forEach(x=>{const d=m.matched.includes(x.k);h+=`<div class="chip kr${d?' done':''}${mSel&&mSel.s==='R'&&mSel.k===x.k?' sel':''}" onclick="pk('R',${x.k})">${x.t}</div>`;});
+ h+=`</div></div><div class="mmsg" id="mmsg">${m.matched.length}/${PAIRS.length} 짝 완성</div>`;
+ if(m.matched.length===PAIRS.length)h+=`<div style="text-align:center"><div style="font-size:40px">🎉</div><p style="font-weight:700;color:var(--c4)">구문분석 학습 완료! 수고했어요.</p></div>`;
+ return h;
+}
+function pk(s,k){if(!mSel){mSel={s,k};render();return;}if(mSel.s===s){mSel={s,k};render();return;}if(mSel.k===k)matchData.matched.push(k);mSel=null;render();const el=document.getElementById('mmsg');if(el&&matchData.matched.length===PAIRS.length)el.innerHTML='✅ 모두 완성!';}
+render();
+</script></body></html>
