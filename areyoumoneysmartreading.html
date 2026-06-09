@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Are You Money Smart? 본문 정밀 구문분석 — 수능 대비</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nunito:wght@700;900&display=swap');
+:root{--c1:#f97316;--c2:#3b82f6;--c3:#10b981;--c4:#8b5cf6;--c5:#ec4899;--c6:#f59e0b;--c7:#06b6d4;--c8:#ef4444;
+--bg:#f0f9ff;--card-bg:#fffdf7;--shadow:rgba(0,0,0,0.10);--ink:#1a1a2e;--muted:#666;
+--ok:#10b981;--ok-bg:#dcfce7;--no:#ef4444;--no-bg:#fee2e2;--line:#e8e8e8;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--ink);padding-bottom:70px;}
+.page-title{text-align:center;padding:22px 16px 8px;}
+.page-title h1{font-family:'Nunito','Noto Sans KR',sans-serif;font-size:clamp(20px,5vw,30px);font-weight:900;}
+.page-title .subtitle{font-size:13px;color:var(--muted);margin-top:5px;}
+.deco-bar{width:80px;height:5px;background:linear-gradient(90deg,var(--c7),var(--c2),var(--c4));border-radius:10px;margin:8px auto 0;}
+.steps{position:sticky;top:0;z-index:30;background:var(--bg);max-width:960px;margin:14px auto 0;padding:8px 12px;display:flex;gap:6px;overflow-x:auto;}
+.step{flex:1;min-width:78px;font-family:inherit;font-size:11.5px;font-weight:700;padding:10px 5px;border-radius:22px;border:none;cursor:pointer;background:#fff;color:var(--muted);box-shadow:0 2px 8px var(--shadow);transition:.2s;text-align:center;line-height:1.3;white-space:nowrap;}
+.step.on{background:var(--ink);color:#fff;}
+.step .sn{display:block;font-size:9.5px;opacity:.7;}
+.wrap{max-width:960px;margin:0 auto;padding:18px 16px;}
+.intro{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:14px 18px;font-size:13px;color:#555;line-height:1.8;margin-bottom:18px;}
+.intro b{color:var(--ink);}
+.bar{height:7px;background:#dbeafe;border-radius:5px;overflow:hidden;margin-bottom:18px;}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--c7),var(--c4));border-radius:5px;width:0;transition:.4s;}
+.ctrl-bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;}
+.ctrl-btn{font-family:inherit;font-size:13px;font-weight:700;padding:9px 20px;border-radius:30px;border:none;cursor:pointer;box-shadow:0 2px 8px var(--shadow);}
+.btn-dark{background:var(--ink);color:#fff;}.btn-gray{background:#e5e7eb;color:var(--ink);}
+.sec-label{display:flex;align-items:center;gap:12px;margin:24px 0 14px;}
+.sec-label::before,.sec-label::after{content:'';flex:1;height:2px;background:#d1e8f5;border-radius:2px;}
+.sec-label span{font-size:13px;font-weight:900;color:#0369a1;white-space:nowrap;}
+.sent-card{background:var(--card-bg);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);margin-bottom:16px;overflow:hidden;}
+.sc-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#eef2ff;border-bottom:1px solid var(--line);}
+.sc-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;font-size:13px;font-weight:900;color:#fff;background:var(--c4);flex-shrink:0;}
+.sc-tag{font-size:11px;font-weight:700;color:var(--c4);background:#fff;border:1px solid var(--c4);padding:2px 8px;border-radius:10px;margin-left:auto;}
+.sc-body{padding:16px;}
+.eng{font-size:17px;font-weight:700;line-height:2;letter-spacing:.2px;}
+.eng .hl{background:#fff9c4;border-radius:5px;padding:1px 4px;font-weight:900;cursor:help;border-bottom:2px solid var(--c6);}
+.eng .chunk{border-bottom:2px dotted var(--c2);cursor:help;}
+.eng .tts{background:#e0f2fe;border:none;border-radius:14px;padding:2px 10px;font-size:11px;font-weight:700;color:#0369a1;cursor:pointer;margin-left:6px;vertical-align:middle;}
+.analysis{margin-top:12px;}
+.acc{border:1.5px solid var(--line);border-radius:10px;margin-bottom:8px;overflow:hidden;}
+.acc-h{padding:10px 13px;background:#f0f7ff;font-size:13px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:#0369a1;}
+.acc-h .ic{transition:transform .3s;}
+.acc.open .acc-h .ic{transform:rotate(180deg);}
+.acc-c{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;font-size:13px;line-height:1.8;color:#333;background:#fff;}
+.acc.open .acc-c{max-height:700px;padding:13px;}
+.acc-c .point{font-weight:700;color:var(--c8);}
+.acc-c .gram{display:inline-block;background:#ede9fe;color:#6d28d9;font-size:11px;font-weight:700;padding:2px 8px;border-radius:8px;margin:3px 4px 3px 0;}
+.acc-kr .acc-h{background:#ecfdf5;color:#047857;}
+.acc-kr .acc-c .kr{font-size:15px;font-weight:700;color:#065f46;line-height:1.7;}
+.qcard{background:var(--card-bg);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);padding:18px;margin-bottom:14px;}
+.qnum{font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:700;}
+.qtag{display:inline-block;font-size:10px;font-weight:700;color:#fff;background:var(--c4);padding:2px 8px;border-radius:9px;margin-left:6px;}
+.qsent{font-size:16px;font-weight:700;line-height:1.9;}
+.qsent .gap{display:inline-block;border-bottom:2px solid var(--c8);min-width:90px;text-align:center;color:transparent;cursor:pointer;background:#fee2e2;border-radius:5px 5px 0 0;padding:0 6px;font-weight:900;}
+.qsent .gap.show{color:var(--c8);background:#fff9c4;border-bottom-color:var(--c6);}
+.qkr{font-size:13px;color:var(--muted);margin-top:8px;}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;max-width:640px;margin:0 auto;}
+.mcol{display:flex;flex-direction:column;gap:9px;}
+.chip{background:var(--card-bg);border:2px solid var(--line);border-radius:12px;padding:12px 9px;font-size:13.5px;font-weight:700;text-align:center;cursor:pointer;box-shadow:0 2px 6px var(--shadow);transition:.15s;}
+.chip.sel{border-color:var(--c7);background:#e0f7fa;}
+.chip.done{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);opacity:.6;pointer-events:none;}
+.chip.kr{font-weight:500;font-size:12.5px;}
+.mmsg{text-align:center;font-size:13px;color:var(--muted);margin:14px 0;min-height:20px;font-weight:700;}
+.tip-box{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:16px 20px;display:flex;gap:12px;margin-top:24px;}
+.tip-icon{font-size:24px;flex-shrink:0;}
+.tip-body{font-size:12.5px;color:#555;line-height:1.9;}.tip-body b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="page-title">
+  <h1>🛒 Are You Money Smart? · 정밀 구문분석</h1>
+  <p class="subtitle">Lesson 4 본문 31문장 · 고등 내신·수능 대비 · 답은 클릭하면 공개</p>
+  <div class="deco-bar"></div>
+</div>
+<div class="steps">
+  <button class="step on" id="s0" onclick="go(0)"><span class="sn">1단계</span>읽기·강조</button>
+  <button class="step" id="s1" onclick="go(1)"><span class="sn">2단계</span>구문분석</button>
+  <button class="step" id="s2" onclick="go(2)"><span class="sn">3단계</span>해석</button>
+  <button class="step" id="s3" onclick="go(3)"><span class="sn">4단계</span>빈칸25</button>
+  <button class="step" id="s4" onclick="go(4)"><span class="sn">5단계</span>표현연결</button>
+</div>
+<div class="wrap" id="app"></div>
+
+<script>
+const S=[
+ {n:1,sec:"도입 — Be a Smart Shopper",tag:"명사절 that",eng:`Do you think <span class="hl">(that)</span> you are a smart shopper?`,gram:["접속사 that 생략","think의 목적어절"],point:`<b>(that)</b> = think의 목적어 역할 명사절 접속사(생략 가능). <span class="point">⚠️ what(×) — 뒤 문장이 완전하므로 that</span>.`,kr:"여러분은 자신이 현명한 구매자라고 생각하나요?"},
+ {n:2,tag:"명령문 hold on",eng:`Well, you may think you are, but <span class="hl">hold on</span>!`,gram:["hold on","you are 뒤 생략"],point:`you are 뒤에 (a smart shopper) 생략. <b>hold on</b> = 기다려, 멈춰.`,kr:"글쎄요, 그렇다고 생각할 수도 있지만, 잠시만요!"},
+ {n:3,tag:"주격 관계대명사",eng:`There are various marketing strategies <span class="hl">which</span> influence your decisions.`,gram:["There are + 복수명사","주격 관계대명사 which"],point:`<b>which</b>는 strategies를 수식하는 <span class="point">주격 관계대명사절</span>(which influence ~). strategy = 전략.`,kr:"여러분의 결정에 영향을 주는 다양한 마케팅 전략이 있거든요."},
+ {n:4,tag:"동명사 주어·5형식",eng:`<span class="hl">Learning about them</span> will <span class="hl">make you a smarter shopper</span>.`,gram:["동명사구 주어(단수취급)","make+O+명사(5형식)"],point:`<b>Learning about them</b> = 주어 동명사구(단수→will). <b>make + 목적어 + 명사</b> = '~를 …로 만들다'(5형식 목적격보어).`,kr:"그것들에 대해 배우는 것은 여러분을 더 현명한 구매자로 만들어 줄 거예요."},
+ {n:5,sec:"Hunger Marketing",tag:"in + 시간",eng:`What? The sale ends <span class="hl">in</span> two hours?`,gram:["in + 시간 '~후에'"],point:`<b>in two hours</b> = '두 시간 후에'(in + 시간). What? = 놀람 표현.`,kr:"뭐라고? 세일이 두 시간 뒤에 끝난다고?"},
+ {n:6,tag:"조건 if·비교급",eng:`<span class="hl">If</span> I don't buy the sneakers now, I <span class="hl">will have to</span> buy them at a <span class="hl">higher</span> price.`,gram:["조건 부사절 if","will have to","high 비교급"],point:`조건절 <b>if</b>(만약 ~라면)는 현재시제로 미래 대신. <span class="point">⚠️ 조동사 연이어 못 써서 will must(×) → will have to</span>. <b>higher</b> = high 비교급. at + 가격.`,kr:"지금 운동화를 사지 않으면, 더 비싼 가격에 그것을 사야 할 거야."},
+ {n:7,tag:"only because",eng:`Stop, Junho! You're buying the sneakers <span class="hl">just because</span> you don't <span class="hl">want to miss</span> the sale.`,gram:["only/just because","want + to부정사"],point:`<b>just because</b> = '단지 ~이므로'(= only because). <b>want to miss</b> = 놓치고 싶어 하다. miss = 놓치다.`,kr:"준호야, 멈춰 봐! 너는 단지 세일을 놓치고 싶지 않아서 운동화를 사고 있는 거야."},
+ {n:8,tag:"숙어 fall for",eng:`You're <span class="hl">falling for</span> a hunger marketing strategy.`,gram:["fall for"],point:`<b>fall for</b> = '~에 속다, 사기당하다'. 현재진행형으로 진행 중인 상태.`,kr:"너는 헝거 마케팅 전략에 속고 있는 거지."},
+ {n:9,tag:"조건·for+기간",eng:`<span class="hl">If</span> people can buy a product only <span class="hl">for</span> a limited time, they often <span class="hl">feel</span> "hungry" for it and want to buy it.`,gram:["조건 if","for + 기간","feel + 형용사"],point:`<b>for</b> + 기간 '~동안'. <b>feel hungry for</b> = '~에 강한 욕망을 느끼다'. limited = 한정된. it = the product.`,kr:"만약 사람들이 한정된 시간 동안만 제품을 살 수 있다면, 그들은 종종 그것에 '강한 욕망'을 느끼고 사고 싶어 한단다."},
+ {n:10,tag:"도치·동명사",eng:`<span class="hl">About missing the sale</span>, don't worry, Junho.`,gram:["전치사+동명사","강조 도치"],point:`원래 'Don't worry about missing the sale'에서 <b>About missing ~</b>(전치사구)를 앞으로 빼 강조·도치. missing = 전치사 About의 목적어 동명사. worry about = ~에 대해 걱정하다.`,kr:"세일을 놓치는 것에 대해서는 걱정하지 마라, 준호야."},
+ {n:11,tag:"형용사 similar",eng:`You'll soon see a <span class="hl">similar</span> sale again.`,gram:["형용사 similar"],point:`<b>similar</b> = 비슷한, 유사한. will = 미래.`,kr:"너는 곧 비슷한 세일을 다시 만나게 될 거야."},
+ {n:12,sec:"Viral Marketing",tag:"최상급·on",eng:`That's the <span class="hl">hottest</span> dress <span class="hl">on</span> social media now.`,gram:["the + 최상급","on + 통신수단"],point:`<b>the hottest</b> = hot 최상급('가장 인기 많은'). <b>on social media</b> = 소셜 미디어에서(on + 매체).`,kr:"저게 지금 소셜 미디어에서 가장 인기 많은 드레스야."},
+ {n:13,tag:"진행형",eng:`<span class="hl">Lots of</span> people are wearing it.`,gram:["lots of + 복수","현재진행"],point:`<b>Lots of</b> = 많은(= a lot of) + 복수명사. are wearing = 현재진행.`,kr:"많은 사람들이 그것을 입고 있어."},
+ {n:14,tag:"not just",eng:`It <span class="hl">isn't just</span> you.`,gram:["not just ~"],point:`<b>not just ~</b> = '그저 ~뿐만이 아닌'. It = 그런 마음.`,kr:"그건 너뿐만이 아니야."},
+ {n:15,tag:"주격 관계대명사",eng:`There are a lot of people <span class="hl">who</span> fall for a viral marketing strategy.`,gram:["주격 관계대명사 who"],point:`<b>who</b> = people을 수식하는 <span class="point">주격 관계대명사절</span>(who fall for ~). fall for = ~에 속다.`,kr:"바이럴 마케팅 전략에 속는 많은 사람들이 있어."},
+ {n:16,tag:"부사 quickly/widely",eng:`Why? Information about a product can <span class="hl">spread</span> quickly and widely on the Internet, just <span class="hl">like</span> a "virus."`,gram:["= Why is it?","spread","like + 명사"],point:`Why? = Why is it? 생략형. <b>spread</b> = 퍼지다, 확산되다. <b>like</b> + 명사 = '(마치) ~처럼'. on the Internet.`,kr:"왜냐고? 제품에 대한 정보는 인터넷으로 마치 '바이러스'처럼 빠르게 널리 퍼질 수 있기 때문이지."},
+ {n:17,tag:"조건·부사 naturally",eng:`<span class="hl">If</span> a product becomes hot on social media, people <span class="hl">naturally</span> want to have it.`,gram:["조건 if","부사 naturally"],point:`조건절 <b>if</b>. become + 형용사(hot). <b>naturally</b> = 자연스럽게(부사).`,kr:"만약 어떤 제품이 소셜 미디어에서 많은 인기를 얻게 되면, 사람들은 자연스럽게 그것을 갖고 싶어 해."},
+ {n:18,tag:"명사절·부분부정",eng:`Yuna, just remember <span class="hl">[that</span> a popular product <span class="hl">isn't always</span> right for you].`,gram:["remember의 목적어 명사절 that","부분부정 not always"],point:`<b>that ~</b> = remember의 목적어 명사절. <b>isn't always</b> = <span class="point">부분부정 '언제나 ~한 것은 아니다'</span>.`,kr:"유나야, 인기 있는 제품이 언제나 너에게 맞는 것은 아니라는 것만 기억하렴."},
+ {n:19,sec:"Anchoring Effect",tag:"look for",eng:`Somi: I'm <span class="hl">looking for</span> a lipstick for my mom.`,gram:["look for","현재진행"],point:`<b>look for</b> = ~을 찾다. lipstick = 립스틱.`,kr:"소미: 저는 엄마께 드릴 립스틱을 하나 찾고 있어요."},
+ {n:20,tag:"제안 표현",eng:`Salesperson: <span class="hl">How about</span> this?`,gram:["How about ~?"],point:`<b>How about ~?</b> = '~은 어떠세요?'(= What about ~?, How do you like ~?).`,kr:"판매원: 이건 어떠세요?"},
+ {n:21,tag:"명사절·could",eng:`Somi: Expensive! I thought <span class="hl">[I could buy</span> a lipstick for 30 dollars].`,gram:["thought의 목적어 명사절(that 생략)","could"],point:`<b>I could buy ~</b> = thought의 목적어 명사절(that 생략). expensive ↔ cheap. for + 가격.`,kr:"소미: 비싸네요! 저는 립스틱을 30달러에 살 수 있을 거라고 생각했거든요."},
+ {n:22,tag:"지시대명사 This",eng:`Salesperson: <span class="hl">This</span> is also popular.`,gram:["지시대명사 This"],point:`<b>This</b> = 새로 보여준 제품(50달러 립스틱). also = 또한.`,kr:"판매원: 이것도 인기가 있어요."},
+ {n:23,tag:"비교급",eng:`Somi: That's <span class="hl">better</span>!`,gram:["good 비교급 better"],point:`<b>better</b> = good의 비교급('더 좋은').`,kr:"소미: 그게 더 좋네요!"},
+ {n:24,tag:"역접·진행",eng:`Hold on, Somi! Your <span class="hl">budget</span> is 30 dollars, but you are buying a 40-dollar lipstick.`,gram:["budget","but 대조"],point:`<b>budget</b> = 예산. 30달러 예산 vs 40달러 구매 → but 대조.`,kr:"소미야, 잠깐만! 너의 예산은 30달러인데 너는 40달러짜리 립스틱을 사고 있구나."},
+ {n:25,tag:"감각동사·only because",eng:`The 40-dollar lipstick <span class="hl">sounds cheap</span> <span class="hl">only because</span> the salesperson showed you a 50-dollar lipstick first.`,gram:["sound + 형용사","only because","show+I.O+D.O(4형식)"],point:`<b>sound + 형용사</b> = '~하게 들리다'. <b>only because</b> = 단지 ~때문에. <b>showed you a lipstick</b>(4형식) = showed a lipstick to you(3형식).`,kr:"그 40달러짜리 립스틱은 단지 판매원이 네게 50달러짜리 립스틱을 먼저 보여주었기 때문에 저렴하게 들리는 거란다."},
+ {n:26,tag:"지시·전치사구",eng:`This is an <span class="hl">example of</span> the anchoring effect.`,gram:["example of"],point:`<b>example of</b> = ~의 예/사례. the anchoring effect = 앵커링 효과.`,kr:"이것이 앵커링 효과의 한 예야."},
+ {n:27,tag:"the+서수·불가산",eng:`Usually, <span class="hl">the first piece of</span> information becomes an "anchor" and influences the shopper's decision.`,gram:["the + 서수","piece of + 불가산명사"],point:`<b>the first piece of information</b> = '첫 번째 정보'. <span class="point">불가산명사 수량 표현은 단위명사로: piece of + information</span>.`,kr:"보통, 첫 번째 정보가 '앵커'가 되어 구매자의 결정에 영향을 주지."},
+ {n:28,tag:"in one's case",eng:`<span class="hl">In your case</span>, the 50-dollar lipstick was the anchor.`,gram:["in one's case"],point:`<b>in one's case</b> = '~의 경우에는'. anchor = 기준점.`,kr:"너의 경우에는, 그 50달러짜리 립스틱이 앵커였어."},
+ {n:29,tag:"관계대명사 that·수동",eng:`Somi, don't just <span class="hl">rely on</span> the first piece of information <span class="hl">that</span> is given to you.`,gram:["부정명령문","rely on","주격 관계대명사 that"],point:`<b>don't + 동사원형</b>(부정명령문). <b>rely on</b> = ~에 의존하다. <b>that is given</b> = information 수식 주격 관계대명사절. <span class="point">⚠️ 선행사에 서수(first) 포함→관계대명사 that만 가능</span>.`,kr:"소미야, 너에게 주어진 첫 번째 정보에만 의존하지는 마."},
+ {n:30,tag:"마무리",eng:`Learning about marketing strategies makes you a <span class="hl">smarter</span> shopper.`,gram:["동명사 주어","make+O+명사"],point:`<b>smarter</b> = smart 비교급. 동명사 주어(Learning)→makes(단수동사). make + 목적어 + 명사보어(5형식).`,kr:"마케팅 전략에 대해 배우는 것은 여러분을 더 현명한 구매자로 만들어요."},
+ {n:31,tag:"명령문 정리",eng:`So, <span class="hl">be a smart shopper</span> and make wise decisions!`,gram:["명령문 and 병렬"],point:`명령문 <b>be ~ and make ~</b> 병렬. wise decisions = 현명한 결정.`,kr:"그러니, 현명한 구매자가 되어 현명한 결정을 내리세요!"}
+];
+
+const QUIZ=[
+ {tag:"명사절",s:`Do you think [(that)] you are a smart shopper?`,kr:"think의 목적어절 접속사(생략 가능)"},
+ {tag:"관계대명사",s:`There are various marketing strategies [which] influence your decisions.`,kr:"주격 관계대명사(선행사 strategies)"},
+ {tag:"동명사주어",s:`[Learning] about them will make you a smarter shopper.`,kr:"~하는 것(주어, 단수취급)"},
+ {tag:"5형식",s:`Learning about them will [make] you a smarter shopper.`,kr:"~를 …로 만들다(+명사보어)"},
+ {tag:"전치사",s:`The sale ends [in] two hours.`,kr:"~후에(+시간)"},
+ {tag:"조동사",s:`If I don't buy them now, I [will have to] buy them at a higher price.`,kr:"~해야 할 것이다(will+must 대체)"},
+ {tag:"비교급",s:`...buy them at a [higher] price.`,kr:"더 비싼(high 비교급)"},
+ {tag:"숙어",s:`You're [falling for] a hunger marketing strategy.`,kr:"~에 속다"},
+ {tag:"조건",s:`[If] people can buy a product only for a limited time, they feel hungry.`,kr:"만약 ~라면(조건절)"},
+ {tag:"전치사",s:`...buy a product only [for] a limited time...`,kr:"~동안(+기간)"},
+ {tag:"도치",s:`[About] missing the sale, don't worry, Junho.`,kr:"~에 대해(전치사구 도치 강조)"},
+ {tag:"최상급",s:`That's the [hottest] dress on social media now.`,kr:"가장 인기 많은(hot 최상급)"},
+ {tag:"전치사",s:`That's the hottest dress [on] social media.`,kr:"~에서(+매체)"},
+ {tag:"관계대명사",s:`There are a lot of people [who] fall for a viral marketing strategy.`,kr:"주격 관계대명사(선행사 people)"},
+ {tag:"동사",s:`Information can [spread] quickly and widely on the Internet.`,kr:"퍼지다, 확산되다"},
+ {tag:"전치사",s:`...spread quickly and widely, just [like] a virus.`,kr:"(마치) ~처럼(+명사)"},
+ {tag:"부분부정",s:`A popular product [isn't always] right for you.`,kr:"언제나 ~한 것은 아니다"},
+ {tag:"숙어",s:`I'm [looking for] a lipstick for my mom.`,kr:"~을 찾다"},
+ {tag:"제안",s:`[How about] this?`,kr:"~은 어떠세요?"},
+ {tag:"감각동사",s:`The 40-dollar lipstick [sounds] cheap.`,kr:"~하게 들리다(+형용사)"},
+ {tag:"접속사",s:`...sounds cheap [only because] the salesperson showed you a 50-dollar lipstick first.`,kr:"단지 ~때문에"},
+ {tag:"단위명사",s:`Usually, the first [piece of] information becomes an anchor.`,kr:"(불가산) 한 조각의~"},
+ {tag:"숙어",s:`[In your case], the 50-dollar lipstick was the anchor.`,kr:"너의 경우에는"},
+ {tag:"숙어",s:`Don't just [rely on] the first piece of information.`,kr:"~에 의존하다"},
+ {tag:"관계대명사",s:`...the first piece of information [that] is given to you.`,kr:"서수 포함→that만 가능"}
+];
+
+const PAIRS=[
+ {en:"fall for",kr:"~에 속다, 사기당하다"},
+ {en:"rely on",kr:"~에 의존하다"},
+ {en:"look for",kr:"~을 찾다"},
+ {en:"hold on",kr:"기다리다, 멈추다"},
+ {en:"in one's case",kr:"~의 경우에는"},
+ {en:"spread",kr:"퍼지다, 확산되다"},
+ {en:"have to",kr:"~해야 한다"},
+ {en:"make ~ a smarter shopper",kr:"~를 더 현명한 구매자로 만들다"}
+];
+
+let view=0,mSel=null,matchData=null;
+function go(v){view=v;for(let i=0;i<5;i++)document.getElementById('s'+i).classList.toggle('on',i===v);render();}
+function render(){document.getElementById('app').innerHTML=[v0,v1,v2,v3,v4][view]();}
+function speak(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.8;speechSynthesis.speak(u);}
+function plain(h){return h.replace(/<[^>]+>/g,'').replace(/&quot;/g,'"');}
+function curSec(i){return S[i].sec;}
+
+function v0(){
+ let h=`<div class="intro">💡 <b>1단계 · 문장 읽기 & 핵심표현 강조</b><br><span style="background:#fff9c4;padding:1px 4px;border-radius:4px">노란 강조</span>=핵심 문법/표현, <span style="border-bottom:2px dotted #3b82f6">점선</span>=의미 청크. 🔊로 끊어 읽기를 연습하세요. (3개 마케팅 단락: Hunger·Viral·Anchoring)</div>`;
+ let lastSec='';
+ S.forEach(s=>{if(s.sec&&s.sec!==lastSec){h+=`<div class="sec-label"><span>${s.sec}</span></div>`;lastSec=s.sec;}
+  h+=`<div class="sent-card"><div class="sc-head"><div class="sc-num">${s.n}</div><span style="font-size:12px;color:#666;font-weight:700">S${String(s.n).padStart(2,'0')}</span><span class="sc-tag">${s.tag}</span></div>
+   <div class="sc-body"><div class="eng">${s.eng}<button class="tts" onclick="speak('${plain(s.eng).replace(/'/g,"\\'")}')">🔊</button></div></div></div>`;});
+ return h;
+}
+function v1(){
+ let h=`<div class="intro">💡 <b>2단계 · 구문분석 (클릭하면 펼쳐짐)</b><br><b>핵심 문법 분석</b>을 눌러 펼치세요. 수능 출제 포인트는 ⚠️로 표시했어요. 해석은 아직 보지 마세요!</div>`;
+ let lastSec='';
+ S.forEach(s=>{if(s.sec&&s.sec!==lastSec){h+=`<div class="sec-label"><span>${s.sec}</span></div>`;lastSec=s.sec;}
+  h+=`<div class="sent-card"><div class="sc-head"><div class="sc-num">${s.n}</div><span class="sc-tag">${s.tag}</span></div>
+   <div class="sc-body"><div class="eng">${s.eng}</div>
+    <div class="analysis"><div class="acc"><div class="acc-h" onclick="acc(this)"><span>🔍 핵심 문법 분석</span><span class="ic">▼</span></div>
+     <div class="acc-c">${s.gram.map(g=>`<span class="gram">${g}</span>`).join('')}<div style="margin-top:8px">${s.point}</div></div></div></div></div></div>`;});
+ return h;
+}
+function v2(){
+ let h=`<div class="intro">💡 <b>3단계 · 해석 확인 (클릭하면 공개)</b><br>구문분석을 떠올리며 스스로 해석한 뒤 <b>해석 보기</b>를 눌러 확인하세요.</div>`;
+ let lastSec='';
+ S.forEach(s=>{if(s.sec&&s.sec!==lastSec){h+=`<div class="sec-label"><span>${s.sec}</span></div>`;lastSec=s.sec;}
+  h+=`<div class="sent-card"><div class="sc-head"><div class="sc-num">${s.n}</div><span class="sc-tag">${s.tag}</span></div>
+   <div class="sc-body"><div class="eng">${s.eng}<button class="tts" onclick="speak('${plain(s.eng).replace(/'/g,"\\'")}')">🔊</button></div>
+    <div class="analysis"><div class="acc acc-kr"><div class="acc-h" onclick="acc(this)"><span>📖 해석 보기</span><span class="ic">▼</span></div>
+     <div class="acc-c"><div class="kr">${s.kr}</div></div></div></div></div></div>`;});
+ return h;
+}
+function v3(){
+ let h=`<div class="intro">💡 <b>4단계 · 빈칸 시험 25문항</b><br>구문분석 핵심이 빈칸이에요. 스스로 떠올린 뒤 <b>빨간 빈칸을 탭</b>하면 정답 공개. (힌트=한국어 의미)</div>
+ <div class="ctrl-bar"><button class="ctrl-btn btn-dark" onclick="document.querySelectorAll('.gap').forEach(e=>e.classList.add('show'))">✅ 정답 전체 보기</button><button class="ctrl-btn btn-gray" onclick="document.querySelectorAll('.gap').forEach(e=>e.classList.remove('show'))">🙈 숨기기</button></div>`;
+ QUIZ.forEach((q,i)=>{const s=q.s.replace(/\[(.+?)\]/,`<span class="gap" onclick="this.classList.toggle('show')">$1</span>`);
+  h+=`<div class="qcard"><div class="qnum">Q${i+1} / 25 <span class="qtag">${q.tag}</span></div><div class="qsent">${s}</div><div class="qkr">💬 힌트: ${q.kr}</div></div>`;});
+ return h;
+}
+function buildMatch(){matchData={left:PAIRS.map((p,i)=>({k:i,t:p.en})),right:PAIRS.map((p,i)=>({k:i,t:p.kr})).sort(()=>Math.random()-.5),matched:[]};}
+function v4(){
+ if(!matchData)buildMatch();const m=matchData;
+ let h=`<div class="intro">💡 <b>5단계 · 중요 표현 연결하여 외우기</b><br>영어 표현과 한국어 뜻을 짝지으세요. 본문 핵심 표현을 마지막으로 정리합니다.</div>
+ <div class="match-grid"><div class="mcol">`;
+ m.left.forEach(x=>{const d=m.matched.includes(x.k);h+=`<div class="chip${d?' done':''}${mSel&&mSel.s==='L'&&mSel.k===x.k?' sel':''}" onclick="pk('L',${x.k})">${x.t}</div>`;});
+ h+=`</div><div class="mcol">`;
+ m.right.forEach(x=>{const d=m.matched.includes(x.k);h+=`<div class="chip kr${d?' done':''}${mSel&&mSel.s==='R'&&mSel.k===x.k?' sel':''}" onclick="pk('R',${x.k})">${x.t}</div>`;});
+ h+=`</div></div><div class="mmsg" id="mmsg">${m.matched.length}/${PAIRS.length} 짝 완성</div>`;
+ if(m.matched.length===PAIRS.length)h+=`<div style="text-align:center"><div style="font-size:40px">🎉</div><p style="font-weight:700;color:var(--c4)">구문분석 학습 완료! 수고했어요.</p></div>`;
+ return h;
+}
+function pk(s,k){if(!mSel){mSel={s,k};render();return;}if(mSel.s===s){mSel={s,k};render();return;}if(mSel.k===k)matchData.matched.push(k);mSel=null;render();const el=document.getElementById('mmsg');if(el&&matchData.matched.length===PAIRS.length)el.innerHTML='✅ 모두 완성!';}
+function acc(h){h.parentElement.classList.toggle('open');}
+render();
+</script>
+</body>
+</html>
