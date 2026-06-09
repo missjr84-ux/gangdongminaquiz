@@ -1,0 +1,34 @@
+from pathlib import Path
+import re
+src = Path("/mnt/data/Be_a_Smart_Shopper_FULL_KR_Backwriting.html")
+text = src.read_text(encoding="utf-8")
+
+# remove tab
+text = re.sub(r'\s*<button class="step" id="s5" onclick="go\(5\)"><span class="sn">검사</span>누락·정답</button>', '', text)
+text = text.replace("for(let i=0;i<6;i++)", "for(let i=0;i<5;i++)")
+text = text.replace("document.getElementById('app').innerHTML=[v0,v1,v2,v3,v4,v5][view]();",
+                    "document.getElementById('app').innerHTML=[v0,v1,v2,v3,v4][view]();")
+text = text.replace('<button class="b b3" onclick="go(5)">정답 모아보기</button>', '')
+
+# remove v5 block by slicing from function v5 to render
+start = text.find("\nfunction v5()")
+end = text.find("\nrender();", start)
+if start != -1 and end != -1:
+    text = text[:start] + "\nrender();" + text[end+len("\nrender();"):]
+
+# remove student-facing inspection mention
+text = text.replace("영어 원문은 각 문장 정답 공개/검사 단계에서 음성 버튼과 함께 확인합니다.",
+                    "영어 원문은 거꾸로 영작 단계에서 정답 공개 후 음성 버튼과 함께 확인합니다.")
+
+out = Path("/mnt/data/Be_a_Smart_Shopper_FULL_KR_Backwriting_student.html")
+out.write_text(text, encoding="utf-8")
+
+checks = {
+    "file_exists": out.exists(),
+    "no_inspection_words": all(term not in text for term in ["누락", "반영표", "반영완료", "검사 단계", "function v5"]),
+    "no_s5_button": 'id="s5"' not in text,
+    "speech_function": "speechSynthesis" in text,
+    "size": out.stat().st_size
+}
+print(out)
+print(checks)
