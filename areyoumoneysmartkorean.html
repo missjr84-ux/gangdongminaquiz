@@ -1,34 +1,181 @@
-from pathlib import Path
-import re
-src = Path("/mnt/data/Be_a_Smart_Shopper_FULL_KR_Backwriting.html")
-text = src.read_text(encoding="utf-8")
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Be a Smart Shopper · 한글 이해 & 거꾸로 영작</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nunito:wght@700;900&display=swap');
+:root{--c1:#f97316;--c2:#3b82f6;--c3:#10b981;--c4:#8b5cf6;--c5:#ec4899;--c6:#f59e0b;--bg:#f0f9ff;--card:#fffdf7;--ink:#1a1a2e;--muted:#666;--line:#e8e8e8;--ok:#10b981;--no:#ef4444;--shadow:rgba(0,0,0,.10);}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--ink);padding-bottom:70px}
+.page-title{text-align:center;padding:22px 16px 8px}
+.page-title h1{font-family:'Nunito','Noto Sans KR',sans-serif;font-size:clamp(21px,5vw,32px);font-weight:900}
+.subtitle{font-size:13px;color:var(--muted);margin-top:5px}
+.deco-bar{width:90px;height:5px;background:linear-gradient(90deg,var(--c5),var(--c6),var(--c3));border-radius:10px;margin:8px auto 0}
+.steps{position:sticky;top:0;z-index:30;background:var(--bg);max-width:980px;margin:14px auto 0;padding:8px 12px;display:flex;gap:6px;overflow-x:auto}
+.step{flex:1;min-width:82px;font-family:inherit;font-size:11px;font-weight:800;padding:10px 6px;border-radius:22px;border:0;cursor:pointer;background:#fff;color:var(--muted);box-shadow:0 2px 8px var(--shadow);line-height:1.25;white-space:nowrap}
+.step.on{background:var(--ink);color:white}
+.step .sn{display:block;font-size:9px;opacity:.72}
+.wrap{max-width:980px;margin:0 auto;padding:18px 16px}
+.intro{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:14px 18px;font-size:13px;color:#555;line-height:1.8;margin-bottom:18px}
+.intro b{color:var(--ink)}
+.kr-block,.qcard{background:var(--card);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);padding:18px 20px;margin-bottom:16px}
+.kr-sec{font-size:13px;font-weight:900;color:var(--c5);margin:8px 0 8px;padding-left:10px;border-left:4px solid var(--c5)}
+.kr-line{font-size:15px;line-height:2;color:#222;padding:3px 0}
+.num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:#fdf2f8;color:#be185d;border-radius:50%;font-size:12px;font-weight:900;margin-right:6px}
+.speak{border:0;background:#e0f2fe;color:#0369a1;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:900;cursor:pointer;margin-right:6px}
+.flow{display:flex;flex-direction:column;gap:0;margin:10px 0}
+.flow-item{background:#f0f7ff;border-radius:12px;padding:12px 16px;font-size:13.5px;font-weight:800;color:#0369a1;position:relative;margin-bottom:26px}
+.flow-item:last-child{margin-bottom:0}
+.flow-item::after{content:'▼';position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);color:#93c5e8;font-size:14px}
+.flow-item:last-child::after{display:none}
+.flow-item .ft{font-size:11px;color:var(--c5);display:block;margin-bottom:2px}
+.bar{height:8px;background:#dbeafe;border-radius:5px;overflow:hidden;margin-bottom:18px}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--c5),var(--c3));border-radius:5px;transition:.4s}
+.qnum{font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:800}
+.qsent{font-size:15px;font-weight:800;line-height:1.6}
+.ox-row{display:flex;gap:10px;margin-top:12px}
+.ox{flex:1;padding:13px;border:2px solid var(--line);border-radius:12px;background:white;font-size:16px;font-weight:900;cursor:pointer;text-align:center}
+.ox.pick{border-color:var(--c5);background:#fdf2f8;color:#be185d}
+.fb{font-size:13px;min-height:18px;font-weight:800;margin-top:9px;line-height:1.6}
+.ok{color:var(--ok)}.no{color:var(--no)}
+.btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:15px 0}
+.b{padding:10px 18px;border:0;border-radius:24px;font-family:inherit;font-size:13px;font-weight:900;cursor:pointer;box-shadow:0 2px 8px var(--shadow)}
+.b1{background:var(--c5);color:white}.b2{background:#e5e7eb;color:var(--ink)}.b3{background:var(--c3);color:white}
+.hidden{display:none}
+.order-item{background:white;border:2px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px;font-weight:800;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:10px;box-shadow:0 2px 6px var(--shadow)}
+.order-item .pick-no{width:27px;height:27px;border-radius:50%;background:#e5e7eb;color:#666;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0}
+.order-item.picked .pick-no{background:var(--c5);color:white}
+.build{min-height:56px;background:#f0f7ff;border:2px dashed #93c5e8;border-radius:10px;padding:12px;font-size:15px;font-weight:800;line-height:1.9;margin:12px 0}
+.bw{display:inline-block;background:white;border:1.5px solid var(--c5);border-radius:8px;padding:3px 10px;margin:3px;cursor:pointer}
+.tokens{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}
+.token{padding:9px 13px;border:2px solid var(--line);border-radius:10px;background:white;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 2px 6px var(--shadow)}
+.token.used{opacity:.28;pointer-events:none}
+.ansbox{font-size:13px;color:#0369a1;background:#e0f2fe;padding:10px 12px;border-radius:9px;margin-top:8px;display:none;line-height:1.7;font-weight:800}
+.hintrow{font-size:12.5px;color:var(--muted);margin-top:8px}
+.ph{display:inline-block;background:#fdf2f8;color:#be185d;font-weight:800;padding:2px 9px;border-radius:8px;margin:2px}
+.nav2{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+.nav2 .b{background:white;color:var(--ink)}.nav2 .b:disabled{opacity:.35}
+.cnt{font-size:13px;color:var(--muted);font-weight:800}
+.result{text-align:center;padding:25px 14px}
+.score{font-size:54px;font-weight:900;background:linear-gradient(90deg,var(--c5),var(--c3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.answer-list{font-size:14px;line-height:2}
+.cover{display:grid;grid-template-columns:48px 1fr 70px;gap:8px;align-items:center;border-bottom:1px solid #eee;padding:8px 0;font-size:13px}
+.cover b{color:#be185d}
+.small{font-size:12px;color:var(--muted);line-height:1.7;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="page-title">
+  <h1>🇰🇷 한글 이해 & 거꾸로 영작</h1>
+  <p class="subtitle">Be a Smart Shopper · 전체 문장 음성 + 전체 문장 영작 + 정답 클릭 공개</p>
+  <div class="deco-bar"></div>
+</div>
+<div class="steps">
+  <button class="step on" id="s0" onclick="go(0)"><span class="sn">1단계</span>한글 통독</button>
+  <button class="step" id="s1" onclick="go(1)"><span class="sn">2단계</span>흐름·개요</button>
+  <button class="step" id="s2" onclick="go(2)"><span class="sn">3단계</span>내용일치</button>
+  <button class="step" id="s3" onclick="go(3)"><span class="sn">4단계</span>순서배열</button>
+  <button class="step" id="s4" onclick="go(4)"><span class="sn">5단계</span>거꾸로영작</button>
+</div>
+<div class="wrap" id="app"></div>
 
-# remove tab
-text = re.sub(r'\s*<button class="step" id="s5" onclick="go\(5\)"><span class="sn">검사</span>누락·정답</button>', '', text)
-text = text.replace("for(let i=0;i<6;i++)", "for(let i=0;i<5;i++)")
-text = text.replace("document.getElementById('app').innerHTML=[v0,v1,v2,v3,v4,v5][view]();",
-                    "document.getElementById('app').innerHTML=[v0,v1,v2,v3,v4][view]();")
-text = text.replace('<button class="b b3" onclick="go(5)">정답 모아보기</button>', '')
+<script>
+const DATA = {"sentences": [{"sec": "① 도입 — 현명한 소비자가 되려면", "en": "Do you think you are a smart shopper?", "ko": "너는 네가 현명한 구매자라고 생각하니?", "hint": ["Do you think", "smart shopper"]}, {"sec": "① 도입 — 현명한 소비자가 되려면", "en": "Well, you may think you are, but hold on!", "ko": "음, 너는 그렇다고 생각할 수도 있지만, 잠깐만!", "hint": ["may think", "hold on"]}, {"sec": "① 도입 — 현명한 소비자가 되려면", "en": "There are various marketing strategies which influence your decisions.", "ko": "너의 결정에 영향을 주는 다양한 마케팅 전략들이 있다.", "hint": ["There are", "various marketing strategies", "which influence"]}, {"sec": "① 도입 — 현명한 소비자가 되려면", "en": "Learning about them will make you a smarter shopper.", "ko": "그것들에 대해 배우는 것은 너를 더 현명한 구매자로 만들어 줄 것이다.", "hint": ["Learning about them", "will make", "smarter shopper"]}, {"sec": "② 헝거 마케팅 — 제한된 시간은 조급함을 만든다", "en": "What? The sale ends in two hours?", "ko": "뭐라고? 그 세일이 두 시간 후에 끝난다고?", "hint": ["sale ends", "in two hours"]}, {"sec": "② 헝거 마케팅 — 제한된 시간은 조급함을 만든다", "en": "If I don’t buy the sneakers now, I will have to buy them at a higher price.", "ko": "내가 지금 그 운동화를 사지 않으면, 나는 그것들을 더 비싼 가격에 사야 할 것이다.", "hint": ["If I don’t buy", "will have to", "at a higher price"]}, {"sec": "② 헝거 마케팅 — 제한된 시간은 조급함을 만든다", "en": "Stop, Junho! You’re buying the sneakers just because you don’t want to miss the sale.", "ko": "멈춰, 준호야! 너는 단지 세일을 놓치고 싶지 않아서 그 운동화를 사고 있는 거야.", "hint": ["just because", "don’t want to miss"]}, {"sec": "② 헝거 마케팅 — 제한된 시간은 조급함을 만든다", "en": "You’re falling for a hunger marketing strategy.", "ko": "너는 헝거 마케팅 전략에 속고 있는 거야.", "hint": ["fall for", "hunger marketing strategy"]}, {"sec": "② 헝거 마케팅 — 제한된 시간은 조급함을 만든다", "en": "If people can buy a product only for a limited time, they often feel “hungry” for it and want to buy it.", "ko": "사람들이 제한된 시간 동안만 제품을 살 수 있다면, 그들은 종종 그것에 대해 강한 욕구를 느끼고 그것을 사고 싶어 한다.", "hint": ["only for a limited time", "feel hungry for", "want to buy"]}, {"sec": "② 헝거 마케팅 — 제한된 시간은 조급함을 만든다", "en": "About missing the sale, don’t worry, Junho.", "ko": "세일을 놓치는 것에 대해서는 걱정하지 마, 준호야.", "hint": ["About missing", "don’t worry"]}, {"sec": "② 헝거 마케팅 — 제한된 시간은 조급함을 만든다", "en": "You’ll soon see a similar sale again.", "ko": "너는 곧 비슷한 세일을 다시 보게 될 거야.", "hint": ["soon", "similar sale", "again"]}, {"sec": "③ 바이럴 마케팅 — 유행과 반복 노출", "en": "That’s the hottest dress on social media now.", "ko": "그것은 지금 소셜 미디어에서 가장 인기 있는 드레스야.", "hint": ["hottest dress", "on social media"]}, {"sec": "③ 바이럴 마케팅 — 유행과 반복 노출", "en": "Lots of people are wearing it.", "ko": "많은 사람들이 그것을 입고 있어.", "hint": ["Lots of people", "are wearing"]}, {"sec": "③ 바이럴 마케팅 — 유행과 반복 노출", "en": "I have to get that dress, too!", "ko": "나도 그 드레스를 사야겠어!", "hint": ["have to get", "too"]}, {"sec": "③ 바이럴 마케팅 — 유행과 반복 노출", "en": "Wait, Yuna!", "ko": "기다려, 유나야!", "hint": ["Wait"]}, {"sec": "③ 바이럴 마케팅 — 유행과 반복 노출", "en": "You only want the dress because you saw it again and again on social media.", "ko": "너는 그것을 소셜 미디어에서 반복해서 보았기 때문에 그 드레스를 원할 뿐이야.", "hint": ["only want", "because", "again and again"]}, {"sec": "③ 바이럴 마케팅 — 유행과 반복 노출", "en": "It isn’t just you.", "ko": "그건 너뿐만이 아니야.", "hint": ["isn’t just"]}, {"sec": "③ 바이럴 마케팅 — 유행과 반복 노출", "en": "There are a lot of people who fall for a viral marketing strategy.", "ko": "바이럴 마케팅 전략에 속는 많은 사람들이 있어.", "hint": ["There are a lot of people", "fall for", "viral marketing strategy"]}, {"sec": "③ 바이럴 마케팅 — 유행과 반복 노출", "en": "Why?", "ko": "왜일까?", "hint": ["Why"]}, {"sec": "③ 바이럴 마케팅 — 유행과 반복 노출", "en": "Information about a product can spread quickly and widely on the Internet, just like a “virus.”", "ko": "제품에 대한 정보는 인터넷에서 마치 바이러스처럼 빠르고 널리 퍼질 수 있다.", "hint": ["Information about", "spread quickly and widely", "just like a virus"]}, {"sec": "③ 바이럴 마케팅 — 유행과 반복 노출", "en": "If a product becomes hot on social media, people naturally want to have it.", "ko": "만약 어떤 제품이 소셜 미디어에서 인기를 얻게 되면, 사람들은 자연스럽게 그것을 갖고 싶어 한다.", "hint": ["If a product becomes hot", "naturally want to have"]}, {"sec": "③ 바이럴 마케팅 — 유행과 반복 노출", "en": "Yuna, just remember that a popular product isn’t always right for you.", "ko": "유나야, 인기 있는 제품이 항상 너에게 맞는 것은 아니라는 것을 꼭 기억해.", "hint": ["just remember that", "popular product", "isn’t always right for you"]}, {"sec": "④ 앵커링 효과 — 첫 정보가 기준점이 된다", "en": "I’m looking for a lipstick for my mom.", "ko": "저는 엄마를 위한 립스틱을 찾고 있어요.", "hint": ["I’m looking for", "for my mom"]}, {"sec": "④ 앵커링 효과 — 첫 정보가 기준점이 된다", "en": "How about this?", "ko": "이건 어때요?", "hint": ["How about"]}, {"sec": "④ 앵커링 효과 — 첫 정보가 기준점이 된다", "en": "This is also popular.", "ko": "이것도 인기가 있어요.", "hint": ["also popular"]}, {"sec": "④ 앵커링 효과 — 첫 정보가 기준점이 된다", "en": "Expensive!", "ko": "비싸네요!", "hint": ["Expensive"]}, {"sec": "④ 앵커링 효과 — 첫 정보가 기준점이 된다", "en": "I thought I could buy a lipstick for 30 dollars.", "ko": "저는 립스틱을 30달러에 살 수 있을 거라고 생각했어요.", "hint": ["I thought", "could buy", "for 30 dollars"]}, {"sec": "④ 앵커링 효과 — 첫 정보가 기준점이 된다", "en": "That’s better!", "ko": "그게 더 좋네요!", "hint": ["better"]}, {"sec": "④ 앵커링 효과 — 첫 정보가 기준점이 된다", "en": "Hold on, Somi! Your budget is 30 dollars, but you are buying a 40-dollar lipstick.", "ko": "잠깐만, 소미야! 너의 예산은 30달러인데, 너는 40달러짜리 립스틱을 사고 있어.", "hint": ["Hold on", "budget", "but"]}, {"sec": "④ 앵커링 효과 — 첫 정보가 기준점이 된다", "en": "The 40-dollar lipstick sounds cheap only because the salesperson showed you a 50-dollar lipstick first.", "ko": "그 40달러짜리 립스틱은 판매원이 너에게 50달러짜리 립스틱을 먼저 보여 주었기 때문에 싸게 들리는 것뿐이야.", "hint": ["sounds cheap", "only because", "showed you", "first"]}, {"sec": "④ 앵커링 효과 — 첫 정보가 기준점이 된다", "en": "This is an example of the anchoring effect.", "ko": "이것은 앵커링 효과의 한 예이다.", "hint": ["an example of", "anchoring effect"]}, {"sec": "④ 앵커링 효과 — 첫 정보가 기준점이 된다", "en": "Usually, the first piece of information becomes an “anchor” and influences the shopper’s decision.", "ko": "보통 첫 번째 정보가 ‘앵커’가 되어 구매자의 결정에 영향을 준다.", "hint": ["Usually", "first piece of information", "becomes an anchor", "influences"]}, {"sec": "④ 앵커링 효과 — 첫 정보가 기준점이 된다", "en": "In your case, the 50-dollar lipstick was the anchor.", "ko": "너의 경우에는 50달러짜리 립스틱이 앵커였다.", "hint": ["In your case", "was the anchor"]}, {"sec": "⑤ 결론 — 첫 정보에만 의존하지 않기", "en": "Somi, don’t just rely on the first piece of information that is given to you.", "ko": "소미야, 너에게 주어진 첫 번째 정보에만 의존하지 마라.", "hint": ["don’t just rely on", "first piece of information", "that is given to you"]}], "ox": [{"q": "현명한 구매자가 되려면 마케팅 전략을 아는 것이 도움이 된다.", "a": true, "why": "도입에서 마케팅 전략을 배우면 더 현명한 구매자가 된다고 했다."}, {"q": "헝거 마케팅은 사람들이 제한된 시간 때문에 조급함을 느끼게 한다.", "a": true, "why": "제한된 시간 동안만 살 수 있으면 사람들이 사고 싶어 한다고 했다."}, {"q": "준호는 운동화가 꼭 필요해서 사고 있었다.", "a": false, "why": "세일을 놓치고 싶지 않아서 사고 있었다."}, {"q": "세일을 놓쳐도 비슷한 세일을 다시 볼 수 있다.", "a": true, "why": "You’ll soon see a similar sale again.이라고 했다."}, {"q": "바이럴 마케팅은 제품 정보가 인터넷에서 빠르고 널리 퍼지는 것과 관련 있다.", "a": true, "why": "정보가 바이러스처럼 빠르고 널리 퍼질 수 있다고 했다."}, {"q": "유나는 드레스를 실제로 입어 보고 마음에 들어서 사고 싶어 했다.", "a": false, "why": "소셜 미디어에서 반복해서 보았기 때문에 원하게 된 것이다."}, {"q": "인기 있는 제품은 항상 나에게 맞는다.", "a": false, "why": "인기 있는 제품이 항상 너에게 맞는 것은 아니라고 했다."}, {"q": "소미의 예산은 30달러였지만 40달러짜리 립스틱을 사려고 했다.", "a": true, "why": "예산은 30달러인데 40달러짜리 립스틱을 사고 있었다."}, {"q": "40달러 립스틱이 싸게 들린 이유는 50달러 립스틱을 먼저 보았기 때문이다.", "a": true, "why": "먼저 본 50달러가 기준점, 즉 앵커가 되었다."}, {"q": "앵커링 효과에서는 보통 마지막 정보가 앵커가 된다.", "a": false, "why": "보통 첫 번째 정보가 앵커가 된다."}, {"q": "첫 번째 정보에만 의존하지 말라는 것이 소미에게 주는 조언이다.", "a": true, "why": "마지막 문장에서 don’t just rely on the first piece of information이라고 했다."}, {"q": "이 글은 소비자가 마케팅 전략에 휘둘리지 않고 판단해야 한다는 메시지를 담고 있다.", "a": true, "why": "헝거·바이럴·앵커링 효과를 보여 주며 현명한 소비를 강조한다."}], "flow": [{"t": "도입", "x": "현명한 소비자가 되려면 마케팅 전략을 알아야 한다."}, {"t": "헝거 마케팅", "x": "제한된 시간과 세일 종료가 구매 욕구를 자극한다."}, {"t": "바이럴 마케팅", "x": "SNS에서 반복 노출된 인기 제품이 구매 욕구를 만든다."}, {"t": "앵커링 효과", "x": "처음 본 가격 정보가 이후 판단의 기준점이 된다."}, {"t": "결론", "x": "첫 정보와 인기만 믿지 말고 스스로 판단해야 한다."}]};
+const S=DATA.sentences, OX=DATA.ox, FLOW=DATA.flow;
+let view=0, oxAns=Array(OX.length).fill(null), oxChecked=false, oxReveal=false;
+let orderPick=[], orderChecked=false;
+let bIdx=0,bBuilt=[],bChecked=Array(S.length).fill(false),bCorrect=Array(S.length).fill(null),bReveal=Array(S.length).fill(false);
+let finalReveal=false;
 
-# remove v5 block by slicing from function v5 to render
-start = text.find("\nfunction v5()")
-end = text.find("\nrender();", start)
-if start != -1 and end != -1:
-    text = text[:start] + "\nrender();" + text[end+len("\nrender();"):]
+function esc(t){return String(t).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function speak(t){speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang='en-US'; u.rate=.82; speechSynthesis.speak(u);}
+function sp(t){return `<button class="speak" onclick="speak(${JSON.stringify(t)})">🔊</button>`}
+function norm(s){return (s||'').toLowerCase().replace(/[“”]/g,'"').replace(/[‘’]/g,"'").replace(/[^a-z0-9가-힣\s]/g,'').replace(/\s+/g,' ').trim();}
+function words(en){return en.replace(/[“”]/g,'').replace(/[?!.,]/g,'').split(/\s+/).filter(Boolean);}
+function go(v){view=v; for(let i=0;i<5;i++)document.getElementById('s'+i).classList.toggle('on',i===v); if(v===4)bBuilt=[]; render();}
+function render(){document.getElementById('app').innerHTML=[v0,v1,v2,v3,v4][view]();}
 
-# remove student-facing inspection mention
-text = text.replace("영어 원문은 각 문장 정답 공개/검사 단계에서 음성 버튼과 함께 확인합니다.",
-                    "영어 원문은 거꾸로 영작 단계에서 정답 공개 후 음성 버튼과 함께 확인합니다.")
+function grouped(){let m={}; S.forEach((x,i)=>{(m[x.sec]||(m[x.sec]=[])).push([x,i]);}); return m;}
 
-out = Path("/mnt/data/Be_a_Smart_Shopper_FULL_KR_Backwriting_student.html")
-out.write_text(text, encoding="utf-8")
-
-checks = {
-    "file_exists": out.exists(),
-    "no_inspection_words": all(term not in text for term in ["누락", "반영표", "반영완료", "검사 단계", "function v5"]),
-    "no_s5_button": 'id="s5"' not in text,
-    "speech_function": "speechSynthesis" in text,
-    "size": out.stat().st_size
+function v0(){
+ let h=`<div class="intro">💡 <b>1단계 · 한글 통독</b><br>영어를 먼저 보지 않고 한글 해석으로 전체 흐름을 잡습니다. 영어 원문은 거꾸로 영작 단계에서 정답 공개 후 음성 버튼과 함께 확인합니다.</div>`;
+ const g=grouped();
+ Object.keys(g).forEach(sec=>{h+=`<div class="kr-block"><div class="kr-sec">${esc(sec)}</div>`;
+ g[sec].forEach(([x,i])=>{h+=`<div class="kr-line"><span class="num">${i+1}</span>${esc(x.ko)}</div>`;});
+ h+=`</div>`;});
+ return h;
 }
-print(out)
-print(checks)
+
+function v1(){
+ let h=`<div class="intro">💡 <b>2단계 · 흐름·개요</b><br>도입 → 헝거 마케팅 → 바이럴 마케팅 → 앵커링 효과 → 결론의 논리 흐름을 기억하세요.</div><div class="kr-block"><div class="flow">`;
+ FLOW.forEach(f=>h+=`<div class="flow-item"><span class="ft">${esc(f.t)}</span>${esc(f.x)}</div>`);
+ h+=`</div></div><div class="kr-block"><div class="kr-sec">🎯 핵심 메시지</div><div class="kr-line"><b>세일, 유행, 첫 가격 정보에 휘둘리지 말고 자신의 필요와 예산을 기준으로 판단하자.</b></div></div>`;
+ return h;
+}
+
+function v2(){
+ let done=oxAns.filter(x=>x!==null).length, score=OX.filter((o,i)=>oxAns[i]===o.a).length;
+ let h=`<div class="intro">💡 <b>3단계 · 내용일치 O/X</b><br>문제를 모두 푼 뒤 <b>채점하기</b>를 누르세요. 정답과 해설은 채점 후 <b>정답/해설 보기</b>를 눌러야 표시됩니다.</div>
+ <div class="bar"><div style="width:${Math.round(done/OX.length*100)}%"></div></div>`;
+ OX.forEach((o,i)=>{let p=oxAns[i];
+ h+=`<div class="qcard"><div class="qnum">문제 ${i+1} / ${OX.length}</div><div class="qsent">${esc(o.q)}</div>
+ <div class="ox-row"><div class="ox ${p===true?'pick':''}" onclick="pickOX(${i},true)">O</div><div class="ox ${p===false?'pick':''}" onclick="pickOX(${i},false)">X</div></div>`;
+ if(oxChecked) h+=`<div class="fb ${p===o.a?'ok':'no'}">${p===o.a?'✓ 맞음':'✗ 틀림'}</div>`;
+ if(oxReveal) h+=`<div class="ansbox" style="display:block">정답: ${o.a?'O':'X'}<br>해설: ${esc(o.why)}</div>`;
+ h+=`</div>`;});
+ h+=`<div class="btns"><button class="b b1" onclick="checkOX()">채점하기</button><button class="b b3" onclick="revealOX()">정답/해설 보기</button><button class="b b2" onclick="resetOX()">다시 풀기</button></div>`;
+ if(oxChecked) h+=`<div class="result"><div class="score">${score}/${OX.length}</div><div class="small">정답은 버튼을 눌러 공개됩니다.</div></div>`;
+ return h;
+}
+function pickOX(i,v){if(!oxChecked){oxAns[i]=v;render();}}
+function checkOX(){if(oxAns.some(x=>x===null)){alert('모든 O/X 문제를 먼저 풀어주세요.');return;} oxChecked=true; render();}
+function revealOX(){if(!oxChecked){alert('먼저 채점하기를 눌러주세요.');return;} oxReveal=true; render();}
+function resetOX(){oxAns=Array(OX.length).fill(null);oxChecked=false;oxReveal=false;render();}
+
+function v3(){
+ if(!window._shuf) window._shuf=FLOW.map((f,i)=>({...f,oi:i})).sort(()=>Math.random()-.5);
+ let h=`<div class="intro">💡 <b>4단계 · 순서 배열</b><br>섞인 단락을 순서대로 탭하세요. 정답은 <b>순서 확인</b> 후 버튼을 눌러 공개합니다.</div>`;
+ window._shuf.forEach(f=>{let idx=orderPick.indexOf(f.oi);
+ h+=`<div class="order-item ${idx>=0?'picked':''}" onclick="pickOrder(${f.oi})"><span class="pick-no">${idx>=0?idx+1:'·'}</span><span><b style="color:var(--c5)">${esc(f.t)}</b> — ${esc(f.x)}</span></div>`;});
+ h+=`<div class="btns"><button class="b b1" onclick="checkOrder()">순서 확인</button><button class="b b3" onclick="showOrderAns()">정답 보기</button><button class="b b2" onclick="orderPick=[];orderChecked=false;render()">초기화</button></div><div id="orderFb" class="fb" style="text-align:center">`;
+ if(orderChecked){let ok=orderPick.length===FLOW.length&&orderPick.every((v,i)=>v===i); h+=`<span class="${ok?'ok':'no'}">${ok?'✓ 정답!':'✗ 다시 확인하세요.'}</span>`;}
+ if(window.orderReveal) h+=`<div class="ansbox" style="display:block;margin-top:10px">정답: 도입 → 헝거 마케팅 → 바이럴 마케팅 → 앵커링 효과 → 결론</div>`;
+ h+=`</div>`;
+ return h;
+}
+function pickOrder(oi){if(orderChecked)return; let i=orderPick.indexOf(oi); if(i>=0)orderPick.splice(i,1); else orderPick.push(oi); render();}
+function checkOrder(){if(orderPick.length<FLOW.length){alert('모든 단락을 순서대로 선택하세요.');return;} orderChecked=true; render();}
+function showOrderAns(){if(!orderChecked){alert('먼저 순서 확인을 눌러주세요.');return;} window.orderReveal=true; render();}
+
+function v4(){
+ let q=S[bIdx], done=bChecked.filter(Boolean).length, correct=bCorrect.filter(x=>x===true).length;
+ if(!q._sh) q._sh=words(q.en).map((w,i)=>({w,i})).sort(()=>Math.random()-.5);
+ let built=bBuilt.map(i=>`<span class="bw" onclick="rmTok(${i})">${esc(words(q.en)[i])}</span>`).join(' ');
+ let toks=q._sh.map(o=>`<span class="token ${bBuilt.includes(o.i)?'used':''}" onclick="addTok(${o.i})">${esc(o.w)}</span>`).join('');
+ let made=bBuilt.map(i=>words(q.en)[i]).join(' ');
+ let status=bCorrect[bIdx];
+ let h=`<div class="intro">💡 <b>5단계 · 거꾸로 영작</b><br>본문 <b>전체 영어문장 ${S.length}개</b>를 하나도 빠짐없이 문제화했습니다. 정답은 확인 후 <b>정답 보기</b>를 눌러야 보입니다.</div>
+ <div class="bar"><div style="width:${Math.round(done/S.length*100)}%"></div></div>
+ <div class="qcard"><div class="qnum">${bIdx+1} / ${S.length} · ${esc(q.sec)}</div>
+ <div class="qsent" style="color:#065f46">${esc(q.ko)}</div>
+ <div class="hintrow">핵심 표현: ${q.hint.map(p=>`<span class="ph">${esc(p)}</span>`).join('')}</div>
+ <div class="build">${built||'<span style="color:#aaa">단어를 탭해서 문장을 만드세요</span>'}</div>
+ <div class="tokens">${toks}</div>`;
+ if(bChecked[bIdx]) h+=`<div class="fb ${status?'ok':'no'}">${status?'✓ 맞음':'✗ 다시 배열해보세요'}</div>`;
+ if(bReveal[bIdx]) h+=`<div class="ansbox" style="display:block">정답: ${sp(q.en)}${esc(q.en)}<br><span class="small">내 답: ${esc(made||'(없음)')}</span></div>`;
+ h+=`<div class="btns"><button class="b b1" onclick="checkB()">확인</button><button class="b b3" onclick="showB()">정답 보기</button><button class="b b2" onclick="bBuilt=[];render()">지우기</button></div></div>
+ <div class="nav2"><button class="b" onclick="bNav(-1)" ${bIdx===0?'disabled':''}>← 이전</button><span class="cnt">${done}/${S.length} 완료 · 정답 ${correct}</span><button class="b" onclick="bNav(1)" ${bIdx===S.length-1?'disabled':''}>다음 →</button></div>`;
+ return h;
+}
+function addTok(i){if(!bBuilt.includes(i)){bBuilt.push(i);render();}}
+function rmTok(i){bBuilt=bBuilt.filter(x=>x!==i);render();}
+function checkB(){let q=S[bIdx], ans=words(q.en).join(' '), made=bBuilt.map(i=>words(q.en)[i]).join(' '); bChecked[bIdx]=true; bCorrect[bIdx]=norm(made)===norm(ans); render();}
+function showB(){if(!bChecked[bIdx]){alert('먼저 확인을 눌러주세요.');return;} bReveal[bIdx]=true; render();}
+function bNav(d){bIdx=Math.max(0,Math.min(S.length-1,bIdx+d)); bBuilt=[]; render();}
+
+render();
+</script>
+</body>
+</html>
