@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Stress 단원 단어·표현 — 단계별 암기 & 전체 시험</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nunito:wght@700;900&display=swap');
+:root{--c1:#f97316;--c2:#3b82f6;--c3:#10b981;--c4:#8b5cf6;--c5:#ec4899;--c6:#f59e0b;--c7:#06b6d4;--c8:#ef4444;
+--bg:#f0f9ff;--card-bg:#fffdf7;--shadow:rgba(0,0,0,0.10);--ink:#1a1a2e;--muted:#666;
+--ok:#10b981;--ok-bg:#dcfce7;--no:#ef4444;--no-bg:#fee2e2;--line:#e8e8e8;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--ink);padding-bottom:70px;}
+.page-title{text-align:center;padding:22px 16px 8px;}
+.page-title h1{font-family:'Nunito','Noto Sans KR',sans-serif;font-size:clamp(20px,5vw,30px);font-weight:900;}
+.page-title .subtitle{font-size:13px;color:var(--muted);margin-top:5px;}
+.deco-bar{width:80px;height:5px;background:linear-gradient(90deg,var(--c6),var(--c2),var(--c3));border-radius:10px;margin:8px auto 0;}
+.steps{position:sticky;top:0;z-index:30;background:var(--bg);max-width:980px;margin:14px auto 0;padding:8px 12px;display:flex;gap:6px;overflow-x:auto;}
+.step{flex:1;min-width:74px;font-family:inherit;font-size:11px;font-weight:700;padding:10px 5px;border-radius:22px;border:none;cursor:pointer;background:#fff;color:var(--muted);box-shadow:0 2px 8px var(--shadow);transition:.2s;text-align:center;line-height:1.3;white-space:nowrap;}
+.step.on{background:var(--ink);color:#fff;}
+.step .sn{display:block;font-size:9px;opacity:.7;}
+.wrap{max-width:980px;margin:0 auto;padding:18px 16px;}
+.intro{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:14px 18px;font-size:13px;color:#555;line-height:1.8;margin-bottom:18px;}
+.intro b{color:var(--ink);}
+.bar{height:7px;background:#dbeafe;border-radius:5px;overflow:hidden;margin-bottom:18px;}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--c6),var(--c3));border-radius:5px;width:0;transition:.4s;}
+.ctrl-bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;}
+.ctrl-btn{font-family:inherit;font-size:12.5px;font-weight:700;padding:8px 16px;border-radius:30px;border:none;cursor:pointer;box-shadow:0 2px 8px var(--shadow);}
+.btn-dark{background:var(--ink);color:#fff;}.btn-gray{background:#e5e7eb;color:var(--ink);}
+.seg{display:inline-flex;background:#e5e7eb;border-radius:20px;padding:3px;margin-bottom:14px;}
+.seg button{border:none;background:none;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px 16px;border-radius:18px;cursor:pointer;color:var(--muted);}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 4px var(--shadow);}
+.sec-label{display:flex;align-items:center;gap:12px;margin:22px 0 12px;}
+.sec-label::before,.sec-label::after{content:'';flex:1;height:2px;background:#d1e8f5;border-radius:2px;}
+.sec-label span{font-size:12.5px;font-weight:900;color:#0369a1;white-space:nowrap;}
+/* 카드 */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+@media(max-width:600px){.grid{grid-template-columns:1fr;}}
+.vcard{background:var(--card-bg);border-radius:14px;box-shadow:0 4px 14px var(--shadow);border:2px solid var(--line);overflow:hidden;}
+.vc-top{padding:13px 15px;}
+.vc-en{font-size:17px;font-weight:900;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.vc-pos{font-size:11px;font-weight:700;color:#fff;background:var(--c6);padding:2px 8px;border-radius:9px;}
+.vc-tts{background:#e0f2fe;border:none;border-radius:13px;padding:2px 9px;font-size:11px;font-weight:700;color:#0369a1;cursor:pointer;}
+.vc-kr{font-size:14px;color:var(--c6);font-weight:700;margin-top:5px;}
+.vc-rel{margin-top:8px;font-size:12px;line-height:1.6;}
+.vc-rel .lab{display:inline-block;width:46px;font-weight:700;}
+.syn .lab{color:var(--ok);}.ant .lab{color:var(--no);}
+.vc-toggle{width:100%;border:none;border-top:1.5px dashed var(--line);background:none;font-family:inherit;font-size:12.5px;font-weight:700;color:var(--c6);padding:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;}
+.vc-ex{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;background:#f0f7ff;font-size:12.5px;line-height:1.7;}
+.vc-ex.open{max-height:240px;padding:12px 15px;}
+.vc-ex .en{font-weight:700;}
+.vc-ex .kr{color:#475569;margin-top:3px;}
+.vc-ex .def{margin-top:6px;font-style:italic;color:#0369a1;}
+/* 입력형(유추) */
+.qcard{background:var(--card-bg);border-radius:14px;box-shadow:0 4px 14px var(--shadow);border:2px solid var(--line);padding:16px;margin-bottom:12px;}
+.qnum{font-size:11px;color:var(--muted);font-weight:700;margin-bottom:6px;}
+.qkr{font-size:15px;font-weight:700;}
+.qhint{font-size:12px;color:var(--muted);margin-top:4px;}
+.inp{width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);font-size:14px;font-family:inherit;margin:10px 0 6px;}
+.inp:focus{outline:none;border-color:var(--c6);}
+.inp.ok{border-color:var(--ok);background:var(--ok-bg);}.inp.no{border-color:var(--no);background:var(--no-bg);}
+.fb{font-size:13px;min-height:17px;font-weight:700;}.fb.ok{color:var(--ok);}.fb.no{color:var(--no);}
+.ansbox{font-size:13px;color:#0369a1;background:#e0f2fe;padding:8px 11px;border-radius:8px;margin-top:6px;display:none;line-height:1.6;}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.b{padding:9px 18px;border:none;border-radius:24px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px var(--shadow);}
+.b1{background:var(--c6);color:#fff;}.b2{background:#e5e7eb;color:var(--ink);}.b3{background:var(--c3);color:#fff;}
+.nav2{display:flex;justify-content:space-between;align-items:center;margin-top:14px;}
+.nav2 .b{background:#fff;color:var(--ink);}.nav2 .b:disabled{opacity:.35;}
+.cnt{font-size:13px;color:var(--muted);font-weight:700;}
+/* 매치 */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:680px;margin:0 auto;}
+.mcol{display:flex;flex-direction:column;gap:8px;}
+.chip{background:var(--card-bg);border:2px solid var(--line);border-radius:11px;padding:11px 8px;font-size:13px;font-weight:700;text-align:center;cursor:pointer;box-shadow:0 2px 6px var(--shadow);transition:.15s;}
+.chip.sel{border-color:var(--c7);background:#e0f7fa;}
+.chip.done{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);opacity:.55;pointer-events:none;}
+.chip.kr{font-weight:500;font-size:12px;}
+.chip.miss{border-color:var(--no);background:var(--no-bg);}
+.mmsg{text-align:center;font-size:13px;color:var(--muted);margin:14px 0;min-height:20px;font-weight:700;}
+/* 영영풀이 추론(객관식) */
+.exq{background:var(--card-bg);border-radius:14px;box-shadow:0 4px 14px var(--shadow);border:2px solid var(--line);padding:16px;margin-bottom:12px;}
+.exq .def-q{font-size:14px;font-weight:700;line-height:1.6;margin-bottom:10px;font-style:italic;color:#0369a1;}
+.opts{display:flex;flex-direction:column;gap:7px;}
+.opt{padding:10px 13px;border:2px solid var(--line);border-radius:10px;background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:.12s;}
+.opt.pick{border-color:var(--c6);background:#fffbeb;}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg);color:#14532d;}
+.opt.no{border-color:var(--no);background:var(--no-bg);}
+/* 시험 */
+.gate{text-align:center;padding:36px 16px;}
+.gate h2{font-size:22px;font-weight:900;margin-bottom:8px;}
+.gate p{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.7;}
+.gate input{width:100%;max-width:300px;padding:12px;border-radius:11px;border:2px solid var(--line);background:#fff;color:var(--ink);font-size:15px;font-family:inherit;text-align:center;margin-bottom:14px;}
+.tq{background:var(--card-bg);border-radius:14px;box-shadow:0 4px 14px var(--shadow);border:2px solid var(--line);padding:16px;margin-bottom:12px;}
+.tq .cat{display:inline-block;font-size:10px;font-weight:900;color:#fff;background:var(--c6);padding:2px 9px;border-radius:10px;margin-bottom:8px;}
+.tq .q{font-size:15px;font-weight:700;line-height:1.6;margin-bottom:10px;}
+.result{text-align:center;padding:28px 16px;}
+.score{font-size:56px;font-weight:900;background:linear-gradient(90deg,var(--c6),var(--c3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.rmsg{font-size:15px;color:var(--muted);margin:6px 0 20px;font-weight:700;}
+.review{text-align:left;margin-top:18px;}
+.rev{background:var(--card-bg);border-radius:10px;padding:10px 13px;margin-bottom:7px;font-size:12.5px;line-height:1.5;border-left:4px solid var(--line);box-shadow:0 2px 6px var(--shadow);}
+.rev.ok{border-left-color:var(--ok);}.rev.no{border-left-color:var(--no);}
+.rev .ic{font-weight:900;}.rev.ok .ic{color:var(--ok);}.rev.no .ic{color:var(--no);}
+.rev .corr{color:#0369a1;font-weight:700;}
+.board{margin-top:22px;}
+.board table{width:100%;border-collapse:collapse;font-size:13px;background:var(--card-bg);border-radius:12px;overflow:hidden;box-shadow:0 4px 14px var(--shadow);}
+.board th,.board td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left;}
+.board th{color:var(--muted);font-weight:900;font-size:11px;background:#f0f7ff;}
+.board tr.me td{background:#fff9c4;}
+.rank{font-weight:900;color:var(--c6);}
+</style>
+</head>
+<body>
+<div class="page-title">
+  <h1>🧘 Stress 단원 단어·표현 마스터</h1>
+  <p class="subtitle">스트레스 관리 단원 · 단계별 암기 5단계 + 전체 시험</p>
+  <div class="deco-bar"></div>
+</div>
+<div class="steps">
+  <button class="step on" id="s0" onclick="go(0)"><span class="sn">1단계</span>단어카드</button>
+  <button class="step" id="s1" onclick="go(1)"><span class="sn">2단계</span>뜻→영어유추</button>
+  <button class="step" id="s2" onclick="go(2)"><span class="sn">3단계</span>매치게임</button>
+  <button class="step" id="s3" onclick="go(3)"><span class="sn">4단계</span>영영풀이</button>
+  <button class="step" id="s4" onclick="go(4)"><span class="sn">5단계</span>전체시험</button>
+</div>
+<div class="wrap" id="app"></div>
+<script>
+
+/* ===== Stress 단원 전체 어휘 데이터 (사진 누락 없이) =====
+   Words / Phrases / Eng-Eng / 유의어 / 다의어 / Word Skills 전부 반영
+   항목: en, kr, pos, syn, ant, def(영영풀이), ex, exk, isPhrase
+*/
+const VOCAB = [
+  // ---------- Words (사진 단어 목록) ----------
+  {en:"appearance", kr:"외모", pos:"명", syn:"look, image", ant:"—", def:"", ex:"He cares about his appearance.", exk:"그는 외모에 신경 쓴다."},
+  {en:"argue", kr:"논쟁하다, 말다툼하다", pos:"동", syn:"quarrel, dispute", ant:"agree", def:"to disagree with someone in words, often in an angry way", ex:"They argue over small things.", exk:"그들은 사소한 것을 두고 다툰다."},
+  {en:"besides", kr:"게다가", pos:"부", syn:"moreover, in addition", ant:"—", def:"", ex:"Besides, it is too late.", exk:"게다가, 너무 늦었다."},
+  {en:"bother", kr:"괴롭히다, 신경 쓰이게 하다", pos:"동", syn:"annoy, trouble", ant:"comfort", def:"to cause someone to feel troubled, worried, or concerned", ex:"Forget about what bothers me.", exk:"나를 괴롭히는 것을 잊어버려라."},
+  {en:"bright", kr:"밝은", pos:"형", syn:"shining, vivid", ant:"dark, dim", def:"", ex:"a bright room", exk:"밝은 방"},
+  {en:"calendar", kr:"달력", pos:"명", syn:"schedule", ant:"—", def:"", ex:"She writes 'Me Time' on her calendar.", exk:"그녀는 달력에 'Me Time'이라고 쓴다."},
+  {en:"cause", kr:"원인 / 초래하다", pos:"명·동", syn:"reason, bring about", ant:"effect, result", def:"", ex:"Stress can cause health problems.", exk:"스트레스는 건강 문제를 초래할 수 있다."},
+  {en:"chemical", kr:"화학 물질 / 화학의", pos:"명·형", syn:"substance", ant:"—", def:"", ex:"a chemical reaction", exk:"화학 반응"},
+  {en:"college", kr:"대학", pos:"명", syn:"university", ant:"—", def:"", ex:"graduate from college", exk:"대학을 졸업하다"},
+  {en:"common", kr:"흔한", pos:"형", syn:"ordinary, usual", ant:"rare, unusual", def:"", ex:"a common problem", exk:"흔한 문제"},
+  {en:"count", kr:"(수를) 세다", pos:"동", syn:"calculate, number", ant:"—", def:"", ex:"count the days", exk:"날을 세다"},
+  {en:"focus", kr:"집중하다", pos:"동", syn:"concentrate", ant:"distract", def:"focus = concentrate (집중하다)", ex:"focus on one thing", exk:"한 가지에 집중하다"},
+  {en:"gloomy", kr:"우울한", pos:"형", syn:"depressed, low, dark", ant:"cheerful, bright", def:"", ex:"a gloomy mood", exk:"우울한 기분"},
+  {en:"grade", kr:"성적, 등급", pos:"명", syn:"score, rank", ant:"—", def:"", ex:"get a good grade", exk:"좋은 성적을 받다"},
+  {en:"graduate", kr:"졸업하다", pos:"동", syn:"finish, complete", ant:"enroll", def:"to earn a degree or diploma from a school, college, or university", ex:"graduate from college", exk:"대학을 졸업하다"},
+  {en:"improve", kr:"향상시키다", pos:"동", syn:"better, enhance", ant:"worsen", def:"", ex:"improve your health", exk:"건강을 향상시키다"},
+  {en:"low", kr:"기운이 없는, 낮은", pos:"형", syn:"depressed, gloomy", ant:"high, cheerful", def:"low = depressed, gloomy (기운이 없는)", ex:"feel low", exk:"기운이 없다"},
+  {en:"lung", kr:"폐", pos:"명", syn:"—", ant:"—", def:"one of the two organs in your body that you breathe with", ex:"at the top of my lungs", exk:"목청껏"},
+  {en:"matter", kr:"중요하다, 문제가 되다 / 문제, 일, 사건", pos:"동·명", syn:"be important / issue", ant:"—", def:"", ex:"It doesn't matter to me.", exk:"그것은 내게 중요하지 않다."},
+  {en:"memory", kr:"기억(력)", pos:"명", syn:"recollection", ant:"—", def:"", ex:"a good memory", exk:"좋은 기억력"},
+  {en:"method", kr:"방법", pos:"명", syn:"way, approach", ant:"—", def:"a planned way of doing something", ex:"an effective method", exk:"효과적인 방법"},
+  {en:"number-one", kr:"최우선의, 최고의", pos:"형", syn:"top, best", ant:"—", def:"", ex:"the number-one way", exk:"최고의 방법"},
+  {en:"past", kr:"지난 / 과거", pos:"형·명", syn:"former / history", ant:"future", def:"", ex:"for the past several months", exk:"지난 몇 달 동안"},
+  {en:"patient", kr:"인내심 있는", pos:"형", syn:"tolerant, calm", ant:"impatient", def:"able to wait calmly for a long time or to accept unpleasant things without becoming angry", ex:"teach me to be patient", exk:"내게 인내심을 가르치다"},
+  {en:"positive", kr:"긍정적인", pos:"형", syn:"hopeful, confident", ant:"negative", def:"hopeful, confident and thinking of good aspects rather than bad ones", ex:"try to stay positive", exk:"긍정적으로 지내려 노력하다"},
+  {en:"produce", kr:"생산하다", pos:"동", syn:"make, create", ant:"consume", def:"", ex:"produce chemicals", exk:"화학 물질을 생산하다"},
+  {en:"promise", kr:"약속 / 약속하다", pos:"명·동", syn:"vow, pledge", ant:"—", def:"", ex:"break promises", exk:"약속을 깨다"},
+  {en:"reason", kr:"이유", pos:"명", syn:"cause, motive", ant:"—", def:"", ex:"for a good reason", exk:"합당한 이유로"},
+  {en:"relax", kr:"긴장을 풀다, 진정하다", pos:"동", syn:"rest, calm down", ant:"tense up", def:"", ex:"relax for a while", exk:"잠시 긴장을 풀다"},
+  {en:"relieve", kr:"덜다, 완화하다", pos:"동", syn:"reduce, ease", ant:"worsen, increase", def:"to reduce someone's pain or unpleasant feelings", ex:"relieve stress", exk:"스트레스를 완화하다"},
+  {en:"relieved", kr:"안도하는", pos:"형", syn:"reassured", ant:"anxious, worried", def:"", ex:"I felt relieved.", exk:"나는 안도했다."},
+  {en:"scene", kr:"장면", pos:"명", syn:"sight, view", ant:"—", def:"", ex:"scary scenes", exk:"무서운 장면들"},
+  {en:"schoolwork", kr:"학업", pos:"명", syn:"studies", ant:"—", def:"", ex:"focus on schoolwork", exk:"학업에 집중하다"},
+  {en:"scream", kr:"소리치다, 비명을 지르다", pos:"동", syn:"shout, yell", ant:"whisper", def:"", ex:"scream at the top of my lungs", exk:"목청껏 소리치다"},
+  {en:"simply", kr:"그냥", pos:"부", syn:"just, merely", ant:"—", def:"", ex:"simply relax", exk:"그냥 긴장을 풀다"},
+  {en:"situation", kr:"상황", pos:"명", syn:"circumstance, condition", ant:"—", def:"", ex:"like the situation", exk:"상황을 좋아하다"},
+  {en:"sleeve", kr:"소매", pos:"명", syn:"—", ant:"—", def:"", ex:"a long sleeve", exk:"긴 소매"},
+  {en:"sound effect", kr:"음향 효과", pos:"명", syn:"audio effect", ant:"—", def:"", ex:"scary scenes and sound effects", exk:"무서운 장면과 음향 효과"},
+  {en:"spend", kr:"(시간, 돈을) 쓰다", pos:"동", syn:"use, pass", ant:"save", def:"", ex:"spend time with friends", exk:"친구들과 시간을 보내다"},
+  {en:"sports day", kr:"운동회", pos:"명", syn:"—", ant:"—", def:"", ex:"on sports day", exk:"운동회 날에"},
+  {en:"stay", kr:"유지하다", pos:"동", syn:"remain, keep", ant:"change", def:"", ex:"stay free from stress", exk:"스트레스로부터 벗어나 있다"},
+  {en:"stress", kr:"스트레스", pos:"명", syn:"pressure, tension", ant:"relaxation", def:"", ex:"deal with stress", exk:"스트레스를 다루다"},
+  {en:"suggest", kr:"제안하다", pos:"동", syn:"propose, recommend", ant:"—", def:"to say an idea or plan for someone else to consider", ex:"people who suggest different ways", exk:"다양한 방법을 제안하는 사람들"},
+  {en:"sunlight", kr:"햇빛", pos:"명", syn:"sunshine", ant:"darkness", def:"", ex:"get some sunlight", exk:"햇빛을 좀 쬐다"},
+  {en:"teen", kr:"십 대 / 십 대의", pos:"명·형", syn:"teenager", ant:"adult", def:"", ex:"a teen magazine", exk:"십 대 잡지"},
+  {en:"thought", kr:"생각", pos:"명", syn:"idea, opinion", ant:"—", def:"", ex:"a positive thought", exk:"긍정적인 생각"},
+  {en:"tidy", kr:"깔끔한, 정돈된", pos:"형", syn:"neat, orderly", ant:"messy, untidy", def:"neat, orderly", ex:"a tidy room", exk:"깔끔한 방"},
+  {en:"well-known", kr:"유명한", pos:"형", syn:"famous, renowned", ant:"unknown", def:"well-known = famous (유명한)", ex:"a well-known method", exk:"유명한 방법"},
+  {en:"work", kr:"효과가 있다", pos:"동", syn:"be effective, function", ant:"fail", def:"", ex:"My plan worked.", exk:"내 계획이 효과가 있었다."},
+  {en:"worry", kr:"걱정", pos:"명", syn:"concern, anxiety", ant:"relief, calm", def:"worry = concern (걱정)", ex:"leave all my worries behind", exk:"내 모든 걱정을 잊다"},
+
+  // ---------- 다의어 / Word Skills 추가 의미 ----------
+  {en:"work (작동되다)", kr:"효과가 있다, 작동되다", pos:"동", syn:"function, operate", ant:"—", def:"", ex:"My smartphone doesn't work in this cold.", exk:"내 스마트폰은 이 추위에 작동되지 않는다."},
+  {en:"matter (문제)", kr:"문제, 일, 사건", pos:"명", syn:"issue, affair", ant:"—", def:"", ex:"I want to talk about the matter.", exk:"나는 그 문제에 대해 이야기하고 싶다."},
+
+  // ---------- 유의어 세트 (사진 '유의어') ----------
+  {en:"deal with", kr:"처리하다, 다루다", pos:"표현", syn:"handle, cope with", ant:"avoid", def:"", ex:"How do you deal with stress?", exk:"너는 스트레스를 어떻게 다루니?", isPhrase:true},
+  {en:"scary", kr:"무서운", pos:"형", syn:"terrifying, frightening", ant:"comforting", def:"", ex:"a scary scene", exk:"무서운 장면"},
+
+  // ---------- Eng-Eng Dictionary 단독 단어 ----------
+  {en:"bother (영영)", kr:"신경 쓰이게 하다", pos:"동", syn:"trouble, annoy", ant:"—", def:"to cause someone to feel troubled, worried, or concerned", ex:"Don't let it bother you.", exk:"그것이 너를 괴롭히게 두지 마라."},
+
+  // ---------- VOCA Master B 추가 단어 ----------
+  {en:"argue (영영)", kr:"논쟁하다", pos:"동", syn:"dispute, quarrel", ant:"agree", def:"to disagree with someone in words, often in an angry way", ex:"They argue a lot.", exk:"그들은 자주 논쟁한다."},
+  {en:"tidy (영영)", kr:"정돈된", pos:"형", syn:"neat, organized", ant:"messy", def:"clean, organized and not messy", ex:"Keep your desk tidy.", exk:"책상을 정돈된 상태로 유지해라."},
+  {en:"relieve (영영)", kr:"완화하다", pos:"동", syn:"reduce, ease", ant:"aggravate", def:"to reduce someone's pain or unpleasant feelings", ex:"This medicine relieves pain.", exk:"이 약은 통증을 완화한다."},
+  {en:"effect", kr:"효과, 결과", pos:"명", syn:"result, outcome", ant:"cause", def:"a change that results when something is done or happens", ex:"the effects of exercise", exk:"운동의 효과"},
+  {en:"lung (영영)", kr:"폐", pos:"명", syn:"—", ant:"—", def:"one of the two organs in your body that you breathe with", ex:"Smoking harms your lungs.", exk:"흡연은 폐를 해친다."},
+  {en:"focus (영영)", kr:"집중하다", pos:"동", syn:"concentrate", ant:"—", def:"to give special attention to one particular person or thing", ex:"Focus on your goal.", exk:"네 목표에 집중해라."},
+  {en:"patient (영영)", kr:"인내심 있는", pos:"형", syn:"calm, tolerant", ant:"impatient", def:"able to wait calmly for a long time", ex:"Be patient with kids.", exk:"아이들에게 인내심을 가져라."},
+
+  // ---------- 다의어 work/matter 본체 이미 위 포함 ----------
+  {en:"appearance (외모)", kr:"외모, 겉모습", pos:"명", syn:"look", ant:"—", def:"", ex:"first appearance", exk:"첫인상"}
+];
+
+/* ===== 프레이즈 (Phrases + Phrases in Use + Collocations) ===== */
+const PHRASE = [
+  {en:"feel low", kr:"울적하다, 기운이 없다", ex:"Some people spend time with friends when they feel low.", exk:"어떤 사람들은 울적할 때 친구들과 시간을 보낸다.", isPhrase:true},
+  {en:"for a while", kr:"잠시 동안", ex:"sleep for a while", exk:"잠시 동안 자다", isPhrase:true},
+  {en:"deal with", kr:"처리하다, ~을 다루다", ex:"How do you deal with stress?", exk:"너는 스트레스를 어떻게 다루니?", isPhrase:true},
+  {en:"for some time", kr:"얼마 전부터", ex:"I've felt low for some time.", exk:"나는 얼마 전부터 기운이 없었다.", isPhrase:true},
+  {en:"argue over", kr:"~을 두고 논쟁하다", ex:"argue over small things", exk:"사소한 것을 두고 논쟁하다", isPhrase:true},
+  {en:"at the top of one's lungs", kr:"큰 소리로, 목청껏", ex:"scream at the top of my lungs", exk:"목청껏 소리치다", isPhrase:true},
+  {en:"graduate from", kr:"~을 졸업하다", ex:"graduate from college", exk:"대학을 졸업하다", isPhrase:true},
+  {en:"be stressed out", kr:"스트레스를 받다", ex:"He's stressed out.", exk:"그는 스트레스를 받는다.", isPhrase:true},
+  {en:"focus on", kr:"~에 집중하다", ex:"focus on one thing", exk:"한 가지에 집중하다", isPhrase:true},
+  {en:"under stress", kr:"스트레스를 받고 있는", ex:"When she is under stress, she writes.", exk:"그녀는 스트레스를 받을 때 글을 쓴다.", isPhrase:true},
+  {en:"take time out", kr:"(하던 일을 멈추고) 시간을 내다", ex:"take time out for herself", exk:"자신을 위해 시간을 내다", isPhrase:true},
+  {en:"as long as", kr:"~하는 한, ~이기만 하다면", ex:"as long as it's something I like", exk:"그것이 내가 좋아하는 것이기만 하다면", isPhrase:true},
+  {en:"leave behind", kr:"~을 남겨 두고 잊다", ex:"leave all my worries behind", exk:"내 모든 걱정을 잊다", isPhrase:true},
+  {en:"stay free from", kr:"~으로부터 벗어나다", ex:"stay free from stress", exk:"스트레스로부터 벗어나다", isPhrase:true},
+  {en:"for a good reason", kr:"합당한 이유로", ex:"She does it for a good reason.", exk:"그녀는 합당한 이유로 그것을 한다.", isPhrase:true},
+  {en:"used to", kr:"~하곤 했다", ex:"I used to feel stressed.", exk:"나는 스트레스를 받곤 했다.", isPhrase:true},
+  {en:"break promises", kr:"약속을 깨다", ex:"people who break promises", exk:"약속을 깨는 사람들", isPhrase:true},
+  {en:"say bad things about", kr:"~에 대해 나쁜 말을 하다", ex:"say bad things about me", exk:"나에 대해 나쁜 말을 하다", isPhrase:true},
+  {en:"thanks to", kr:"~ 덕분에", ex:"thanks to scary scenes and sound effects", exk:"무서운 장면과 음향 효과 덕분에", isPhrase:true},
+  {en:"forget about", kr:"~에 대해 잊다", ex:"forget about what bothers me", exk:"나를 괴롭히는 것을 잊다", isPhrase:true},
+  {en:"live with", kr:"~와 함께 살다", ex:"live with my family", exk:"가족과 함께 살다", isPhrase:true},
+  {en:"look for a job", kr:"직장을 찾다", ex:"look for a job", exk:"직장을 찾다", isPhrase:true},
+  {en:"try to be positive", kr:"긍정적으로 지내려 노력하다", ex:"try to be positive by going fishing", exk:"낚시를 다니며 긍정적으로 지내려 노력하다", isPhrase:true},
+  {en:"teach me to be patient", kr:"내게 인내심을 가르치다", ex:"It teaches me to be patient.", exk:"그것은 내게 인내심을 가르친다.", isPhrase:true},
+  {en:"a wonderful way to stay free from stress", kr:"스트레스로부터 벗어나는 좋은 방법", ex:"It's a wonderful way to stay free from stress.", exk:"그것은 스트레스로부터 벗어나는 좋은 방법이다.", isPhrase:true},
+  {en:"make life better", kr:"삶을 향상시키다", ex:"the number-one way to make life better", exk:"삶을 향상시키는 최고의 방법", isPhrase:true},
+  {en:"all the things she has to do", kr:"그녀가 해야 하는 모든 일", ex:"all the things she has to do", exk:"그녀가 해야 하는 모든 일", isPhrase:true},
+  {en:"spend time with friends", kr:"친구들과 시간을 보내다", ex:"spend time with friends", exk:"친구들과 시간을 보내다", isPhrase:true},
+  {en:"give me stress", kr:"내게 스트레스를 주다", ex:"My friends give me stress.", exk:"내 친구들이 내게 스트레스를 준다.", isPhrase:true}
+];
+
+/* ===== 공통 ===== */
+const ALL = VOCAB.concat(PHRASE.map(p=>({...p,pos:p.pos||'표현',syn:p.syn||'',ant:p.ant||'',isPhrase:true})));
+let view=0;
+function go(v){view=v;for(let i=0;i<5;i++)document.getElementById('s'+i).classList.toggle('on',i===v);render();}
+function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9'\s/]/g,'').replace(/\s+/g,' ').trim();}
+function speak(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.85;speechSynthesis.speak(u);}
+function render(){document.getElementById('app').innerHTML=[v0,v1,v2,v3,v4][view]();}
+
+/* ===== 1단계: 단어 카드 (클릭하면 예문) ===== */
+let cardTab=0; // 0=단어,1=표현
+function v0(){
+  let h=`<div class="intro">💡 <b>1단계 · 단어/표현 카드</b><br>유의어·반의어를 함께 보고, <b>예문 보기</b>를 누르면 예문·해석·영영풀이가 펼쳐져요. 🔊로 발음도 들으세요.</div>
+  <div style="text-align:center"><div class="seg">
+    <button class="${cardTab===0?'on':''}" onclick="cardTab=0;render()">단어 (${VOCAB.length})</button>
+    <button class="${cardTab===1?'on':''}" onclick="cardTab=1;render()">프레이즈·표현 (${PHRASE.length})</button>
+  </div></div>`;
+  const list=cardTab===0?VOCAB:PHRASE.map(p=>({...p,pos:p.pos||'표현'}));
+  h+=`<div class="grid">`;
+  list.forEach((w,i)=>{
+    h+=`<div class="vcard"><div class="vc-top">
+      <div class="vc-en">${w.en} ${w.pos?`<span class="vc-pos">${w.pos}</span>`:''} <button class="vc-tts" onclick="speak('${w.en.replace(/'/g,"\\'")}')">🔊</button></div>
+      <div class="vc-kr">${w.kr}</div>
+      ${(w.syn&&w.syn!=='—')?`<div class="vc-rel syn"><span class="lab">유의어</span>${w.syn}</div>`:''}
+      ${(w.ant&&w.ant!=='—')?`<div class="vc-rel ant"><span class="lab">반의어</span>${w.ant}</div>`:''}
+    </div>
+    <button class="vc-toggle" onclick="exTog(this)">📖 예문 보기 ▼</button>
+    <div class="vc-ex"><div class="en">${w.ex}</div><div class="kr">${w.exk}</div>${w.def?`<div class="def">💬 ${w.def}</div>`:''}</div>
+    </div>`;
+  });
+  h+=`</div>`;
+  return h;
+}
+function exTog(btn){const ex=btn.nextElementSibling;ex.classList.toggle('open');btn.textContent=ex.classList.contains('open')?'📖 예문 닫기 ▲':'📖 예문 보기 ▼';}
+
+/* ===== 2단계: 뜻 → 영어 유추 (입력) ===== */
+let qIdx=0, qPool=[], qDone=[];
+function initQ(){qPool=ALL.map((w,i)=>i);qDone=Array(ALL.length).fill(null);}
+function v1(){
+  if(!qPool.length)initQ();
+  const done=qDone.filter(v=>v!==null).length;
+  if(done===ALL.length){const ok=qDone.filter(v=>v==='ok').length;
+    return `<div class="intro">💡 <b>2단계 · 뜻 보고 영어 떠올리기</b></div><div class="result"><div class="score">${ok}/${ALL.length}</div>
+    <div class="rmsg">${ok>=ALL.length*0.7?'훌륭해요! 매치 게임으로 →':'틀린 것을 카드에서 다시 보세요'}</div>
+    <button class="b b1" onclick="qIdx=0;initQ();render()">다시 풀기</button>
+    <button class="b b3" onclick="go(2)" style="margin-left:8px">매치 게임 →</button></div>`;}
+  const w=ALL[qIdx], st=qDone[qIdx];
+  const first=w.en.charAt(0);
+  return `<div class="intro">💡 <b>2단계 · 뜻 → 영어 유추</b><br>한국어 뜻을 보고 영어 단어/표현을 입력하세요. 막히면 <b>첫 글자 힌트</b>·<b>정답 보기</b>를 누르세요.</div>
+  <div class="bar"><div style="width:${Math.round(done/ALL.length*100)}%"></div></div>
+  <div class="qcard"><div class="qnum">${qIdx+1} / ${ALL.length} ${w.isPhrase?'· 표현':'· 단어'}</div>
+    <div class="qkr">${w.kr}</div>
+    <input class="inp${st==='ok'?' ok':st==='no'?' no':''}" id="qin" placeholder="영어를 입력하세요..." onkeydown="if(event.key==='Enter')checkQ()" value="">
+    <div class="fb${st==='ok'?' ok':st==='no'?' no':''}" id="qfb">${st==='ok'?'✓ 정답!':st==='no'?'✗ 정답을 확인하세요':'&nbsp;'}</div>
+    <div class="ansbox" id="qans" style="${st?'display:block':''}">정답: <b>${w.en}</b> · ${w.ex}</div>
+    <div class="btns"><button class="b b1" onclick="checkQ()">확인</button>
+      <button class="b b2" onclick="hintQ('${first}')">첫 글자 힌트</button>
+      <button class="b b2" onclick="showQ()">정답 보기</button></div>
+  </div>
+  <div class="nav2"><button class="b" onclick="qNav(-1)" ${qIdx===0?'disabled':''}>← 이전</button>
+    <span class="cnt">${done}/${ALL.length} 완료</span><button class="b" onclick="qNav(1)">다음 →</button></div>`;
+}
+function checkQ(){const v=document.getElementById('qin').value;const w=ALL[qIdx];
+  qDone[qIdx]=norm(v)===norm(w.en)?'ok':'no';document.getElementById('qans').style.display='block';render();}
+function hintQ(f){const fb=document.getElementById('qfb');fb.className='fb';fb.textContent='💡 첫 글자: '+f+' ...';}
+function showQ(){qDone[qIdx]=qDone[qIdx]||'no';render();}
+function qNav(d){qIdx=Math.max(0,Math.min(ALL.length-1,qIdx+d));render();}
+
+/* ===== 3단계: 매치 게임 (8개씩 라운드) ===== */
+let mRound=0, mSel=null, mData=null;
+function buildMatch(){
+  const per=8; const start=mRound*per;
+  const slice=ALL.slice(start,start+per);
+  if(!slice.length){mRound=0;return buildMatch();}
+  mData={items:slice.map((w,i)=>({k:start+i,en:w.en,kr:w.kr})),
+    left:slice.map((w,i)=>({k:start+i,t:w.en})),
+    right:slice.map((w,i)=>({k:start+i,t:w.kr})).sort(()=>Math.random()-.5),
+    matched:[], miss:null};
+}
+function v2(){
+  const per=8; const rounds=Math.ceil(ALL.length/per);
+  if(!mData)buildMatch();
+  const m=mData;
+  let h=`<div class="intro">💡 <b>3단계 · 매치 게임 (영어 ↔ 뜻)</b><br>왼쪽 영어와 오른쪽 뜻을 짝지으세요. ${rounds}개 라운드로 <b>전체 ${ALL.length}개</b>를 모두 연습합니다.</div>
+  <div style="text-align:center;margin-bottom:12px"><span class="cnt">라운드 ${mRound+1} / ${rounds}</span></div>
+  <div class="match-grid"><div class="mcol">`;
+  m.left.forEach(x=>{const d=m.matched.includes(x.k);h+=`<div class="chip${d?' done':''}${mSel&&mSel.s==='L'&&mSel.k===x.k?' sel':''}" onclick="pk('L',${x.k})">${x.t}</div>`;});
+  h+=`</div><div class="mcol">`;
+  m.right.forEach(x=>{const d=m.matched.includes(x.k);const miss=m.miss&&m.miss.side==='R'&&m.miss.k===x.k;h+=`<div class="chip kr${d?' done':''}${mSel&&mSel.s==='R'&&mSel.k===x.k?' sel':''}${miss?' miss':''}" onclick="pk('R',${x.k})">${x.t}</div>`;});
+  h+=`</div></div><div class="mmsg" id="mmsg">${m.matched.length}/${m.items.length} 짝 완성</div>`;
+  if(m.matched.length===m.items.length){
+    if(mRound<rounds-1)h+=`<div style="text-align:center"><button class="b b3" onclick="mRound++;mData=null;mSel=null;render()">다음 라운드 →</button></div>`;
+    else h+=`<div style="text-align:center"><div style="font-size:40px">🎉</div><p style="font-weight:700;color:var(--c6)">전체 매치 완료!</p><button class="b b3" onclick="go(3)">영영풀이 단계 →</button></div>`;
+  }
+  return h;
+}
+function pk(s,k){
+  if(!mSel){mSel={s,k};mData.miss=null;render();return;}
+  if(mSel.s===s){mSel={s,k};render();return;}
+  if(mSel.k===k){mData.matched.push(k);mData.miss=null;}
+  else{mData.miss={side:s,k:k};setTimeout(()=>{if(mData)mData.miss=null;render();},500);}
+  mSel=null;render();
+}
+
+/* ===== 4단계: 영영풀이 추론 (영영풀이 있는 단어만, 객관식) ===== */
+let dIdx=0, dQ=null, dAns=[];
+function buildDef(){
+  const withDef=ALL.filter(w=>w.def&&w.def.length>3);
+  dQ=withDef.map(w=>{
+    const others=ALL.filter(x=>x.en!==w.en).sort(()=>Math.random()-.5).slice(0,3).map(x=>x.en);
+    const opts=[w.en,...others].sort(()=>Math.random()-.5);
+    return {def:w.def, ans:opts.indexOf(w.en), opts, kr:w.kr};
+  });
+  dAns=Array(dQ.length).fill(null);
+}
+function v3(){
+  if(!dQ)buildDef();
+  const done=dAns.filter(v=>v!==null).length;
+  if(done===dQ.length){const ok=dQ.filter((q,i)=>dAns[i]===q.ans).length;
+    return `<div class="intro">💡 <b>4단계 · 영영풀이 추론</b></div><div class="result"><div class="score">${ok}/${dQ.length}</div>
+    <div class="rmsg">${ok>=dQ.length*0.7?'정의로 단어 잡기 완성! 시험으로 →':'카드에서 영영풀이를 다시 보세요'}</div>
+    <button class="b b1" onclick="dIdx=0;buildDef();render()">다시 풀기</button>
+    <button class="b b3" onclick="go(4)" style="margin-left:8px">전체 시험 →</button></div>`;}
+  const q=dQ[dIdx], picked=dAns[dIdx];
+  let opts=q.opts.map((o,i)=>{let cls='opt';if(picked!==null){if(i===q.ans)cls+=' ok';else if(i===picked)cls+=' no';}else if(picked===i)cls+=' pick';
+    return `<div class="${cls}" onclick="${picked===null?`pickD(${i})`:''}">${String.fromCharCode(9312+i)} ${o}</div>`;}).join('');
+  return `<div class="intro">💡 <b>4단계 · 영영풀이 추론</b><br>영어 정의(definition)를 읽고 알맞은 단어를 고르세요. 정의로 의미를 잡는 수능형 훈련이에요.</div>
+  <div class="bar"><div style="width:${Math.round(done/dQ.length*100)}%"></div></div>
+  <div class="exq"><div class="qnum">${dIdx+1} / ${dQ.length}</div>
+    <div class="def-q">"${q.def}"</div><div class="opts">${opts}</div>
+    ${picked!==null?`<div class="fb ${picked===q.ans?'ok':'no'}" style="margin-top:8px">${picked===q.ans?'✓ 정답!':'✗ 오답'} 정답: ${q.opts[q.ans]} (${q.kr})</div>`:''}
+  </div>
+  <div class="nav2"><button class="b" onclick="dNav(-1)" ${dIdx===0?'disabled':''}>← 이전</button>
+    <span class="cnt">${done}/${dQ.length} 완료</span><button class="b" onclick="dNav(1)">다음 →</button></div>`;
+}
+function pickD(i){dAns[dIdx]=i;render();}
+function dNav(d){dIdx=Math.max(0,Math.min(dQ.length-1,dIdx+d));render();}
+
+/* ===== 5단계: 전체 시험 (모든 단어/표현 1회씩, 누락 없이) ===== */
+let exName='', exIdx=0, exQ=null, exAns=[], exSub=false;
+function buildExam(){
+  // 모든 항목을 1문제씩. 유형 혼합: 영→뜻(객관식), 뜻→영(주관식)
+  exQ=ALL.map((w,i)=>{
+    if(i%2===0){ // 영→뜻 객관식
+      const others=ALL.filter(x=>x.kr!==w.kr).sort(()=>Math.random()-.5).slice(0,3).map(x=>x.kr);
+      const opts=[w.kr,...others].sort(()=>Math.random()-.5);
+      return {type:'mc',q:`<b>${w.en}</b>의 뜻으로 알맞은 것은?`,opts,ans:opts.indexOf(w.kr),cat:w.isPhrase?'표현':'단어',en:w.en,kr:w.kr};
+    } else { // 뜻→영 주관식
+      return {type:'fill',q:`다음 뜻의 영어는? <b>${w.kr}</b>`,ans:w.en,cat:w.isPhrase?'표현':'단어',en:w.en,kr:w.kr};
+    }
+  });
+  exAns=Array(exQ.length).fill(null);
+}
+function v4(){
+  if(!exQ)buildExam();
+  if(!exName)return `<div class="gate"><h2>🏆 전체 단어·표현 시험</h2>
+    <p>사진 속 <b>모든 단어·표현 ${ALL.length}개</b>를 하나도 빠짐없이 출제합니다.<br>영→뜻(객관식) + 뜻→영(주관식) 혼합 · 자동채점<br>이름을 입력하면 시작합니다.</p>
+    <input id="nameIn" placeholder="이름을 입력하세요" maxlength="12"><br>
+    <button class="b b1" style="padding:12px 36px" onclick="startExam()">시험 시작</button>${boardHTML()}</div>`;
+  if(exSub)return examResult();
+  const q=exQ[exIdx];
+  let body=`<div class="tq"><span class="cat">${q.cat} · ${exIdx+1}/${exQ.length}</span><div class="q">${q.q}</div>`;
+  if(q.type==='mc'){body+=`<div class="opts">`;
+    q.opts.forEach((o,i)=>{body+=`<div class="opt${exAns[exIdx]===i?' pick':''}" onclick="exAns[${exIdx}]=${i};render()">${String.fromCharCode(9312+i)} ${o}</div>`;});body+=`</div>`;}
+  else body+=`<input class="inp" id="exin" value="${exAns[exIdx]||''}" placeholder="영어를 입력하세요" oninput="exAns[${exIdx}]=this.value">`;
+  body+=`</div>`;
+  const ans=exAns.filter(v=>v!==null&&v!=='').length;
+  return `<div class="intro"><b>${exName}</b>님 · 진행 ${ans}/${exQ.length}</div><div class="bar"><div style="width:${Math.round(ans/exQ.length*100)}%"></div></div>${body}
+  <div class="nav2"><button class="b" onclick="exNav(-1)" ${exIdx===0?'disabled':''}>← 이전</button>
+    <span class="cnt">${exIdx+1}/${exQ.length}</span>
+    ${exIdx<exQ.length-1?`<button class="b" onclick="exNav(1)">다음 →</button>`:`<button class="b b3" onclick="submitExam()">제출하고 채점 🎯</button>`}</div>`;
+}
+function startExam(){const v=document.getElementById('nameIn').value.trim();if(!v){alert('이름을 입력해주세요');return;}exName=v;exIdx=0;render();}
+function exNav(d){if(exQ[exIdx].type==='fill'){const el=document.getElementById('exin');if(el)exAns[exIdx]=el.value;}exIdx=Math.max(0,Math.min(exQ.length-1,exIdx+d));render();}
+function submitExam(){if(exQ[exIdx].type==='fill'){const el=document.getElementById('exin');if(el)exAns[exIdx]=el.value;}
+  let sc=0;exQ.forEach((q,i)=>{if(q.type==='mc'){if(exAns[i]===q.ans)sc++;}else{if(norm(exAns[i])===norm(q.ans))sc++;}});
+  saveScore(exName,sc,exQ.length);exSub=true;render();}
+function examResult(){
+  let sc=0;exQ.forEach((q,i)=>{const c=q.type==='mc'?exAns[i]===q.ans:norm(exAns[i])===norm(q.ans);if(c)sc++;});
+  const pct=Math.round(sc/exQ.length*100);
+  let rev='';exQ.forEach((q,i)=>{const c=q.type==='mc'?exAns[i]===q.ans:norm(exAns[i])===norm(q.ans);
+    const my=q.type==='mc'?(exAns[i]!=null?q.opts[exAns[i]]:'(무응답)'):(exAns[i]||'(무응답)');
+    const corr=q.type==='mc'?q.opts[q.ans]:q.ans;
+    rev+=`<div class="rev ${c?'ok':'no'}"><span class="ic">${c?'✓':'✗'}</span> ${i+1}. ${q.en} (${q.kr}) — 내 답: ${my}${c?'':` · <span class="corr">정답: ${corr}</span>`}</div>`;});
+  return `<div class="result"><div class="score">${sc}/${exQ.length}</div>
+    <div class="rmsg"><b>${exName}</b>님 · ${pct}점 · ${pct>=80?'최고예요! 🎉':pct>=60?'잘했어요! 👍':'조금 더 복습해요 💪'}</div>
+    <button class="b b1" onclick="resetExam()">다시 보기</button>
+    <div class="review"><div class="sec-label"><span>📋 문항별 채점 (전체 ${exQ.length}문항)</span></div>${rev}</div>${boardHTML()}</div>`;
+}
+function resetExam(){exName='';exIdx=0;buildExam();exSub=false;render();}
+function saveScore(name,score,total){try{const k='stress_words_scores';const a=JSON.parse(localStorage.getItem(k)||'[]');a.push({name,score,total,date:new Date().toLocaleString('ko-KR')});localStorage.setItem(k,JSON.stringify(a));}catch(e){}}
+function boardHTML(){let a=[];try{a=JSON.parse(localStorage.getItem('stress_words_scores')||'[]');}catch(e){}if(!a.length)return '';a.sort((x,y)=>y.score-x.score);
+  let rows=a.slice(0,30).map((r,i)=>`<tr class="${r.name===exName?'me':''}"><td class="rank">${i+1}</td><td>${r.name}</td><td>${r.score}/${r.total}</td><td style="color:var(--muted);font-size:11px">${r.date}</td></tr>`).join('');
+  return `<div class="board"><div class="sec-label"><span>🏅 이 기기의 점수 기록</span></div><table><tr><th>순위</th><th>이름</th><th>점수</th><th>일시</th></tr>${rows}</table>
+    <div style="margin-top:10px;text-align:center"><button class="b b2" onclick="if(confirm('모든 기록을 지울까요?')){localStorage.removeItem('stress_words_scores');render();}">기록 전체 삭제</button></div></div>`;
+}
+render();
+
+</script></body></html>
