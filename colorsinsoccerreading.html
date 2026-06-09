@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Lesson 3 본문 정밀 구문분석 — 수능 대비</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nunito:wght@700;900&display=swap');
+:root{--c1:#f97316;--c2:#3b82f6;--c3:#10b981;--c4:#8b5cf6;--c5:#ec4899;--c6:#f59e0b;--c7:#06b6d4;--c8:#ef4444;
+--bg:#f0f9ff;--card-bg:#fffdf7;--shadow:rgba(0,0,0,0.10);--ink:#1a1a2e;--muted:#666;
+--ok:#10b981;--ok-bg:#dcfce7;--no:#ef4444;--no-bg:#fee2e2;--line:#e8e8e8;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--ink);padding-bottom:70px;}
+.page-title{text-align:center;padding:22px 16px 8px;}
+.page-title h1{font-family:'Nunito','Noto Sans KR',sans-serif;font-size:clamp(20px,5vw,30px);font-weight:900;}
+.page-title .subtitle{font-size:13px;color:var(--muted);margin-top:5px;}
+.deco-bar{width:80px;height:5px;background:linear-gradient(90deg,var(--c7),var(--c2),var(--c4));border-radius:10px;margin:8px auto 0;}
+.steps{position:sticky;top:0;z-index:30;background:var(--bg);max-width:960px;margin:14px auto 0;padding:8px 12px;display:flex;gap:6px;overflow-x:auto;}
+.step{flex:1;min-width:78px;font-family:inherit;font-size:11.5px;font-weight:700;padding:10px 5px;border-radius:22px;border:none;cursor:pointer;background:#fff;color:var(--muted);box-shadow:0 2px 8px var(--shadow);transition:.2s;text-align:center;line-height:1.3;white-space:nowrap;}
+.step.on{background:var(--ink);color:#fff;}
+.step .sn{display:block;font-size:9.5px;opacity:.7;}
+.wrap{max-width:960px;margin:0 auto;padding:18px 16px;}
+.intro{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:14px 18px;font-size:13px;color:#555;line-height:1.8;margin-bottom:18px;}
+.intro b{color:var(--ink);}
+.bar{height:7px;background:#dbeafe;border-radius:5px;overflow:hidden;margin-bottom:18px;}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--c7),var(--c4));border-radius:5px;width:0;transition:.4s;}
+.ctrl-bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;}
+.ctrl-btn{font-family:inherit;font-size:13px;font-weight:700;padding:9px 20px;border-radius:30px;border:none;cursor:pointer;box-shadow:0 2px 8px var(--shadow);}
+.btn-dark{background:var(--ink);color:#fff;}.btn-gray{background:#e5e7eb;color:var(--ink);}
+/* 구문분석 카드 */
+.sent-card{background:var(--card-bg);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);margin-bottom:16px;overflow:hidden;}
+.sc-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#eef2ff;border-bottom:1px solid var(--line);}
+.sc-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;font-size:13px;font-weight:900;color:#fff;background:var(--c4);flex-shrink:0;}
+.sc-tag{font-size:11px;font-weight:700;color:var(--c4);background:#fff;border:1px solid var(--c4);padding:2px 8px;border-radius:10px;margin-left:auto;}
+.sc-body{padding:16px;}
+.eng{font-size:17px;font-weight:700;line-height:2;letter-spacing:.2px;}
+.eng .hl{background:#fff9c4;border-radius:5px;padding:1px 4px;font-weight:900;cursor:help;border-bottom:2px solid var(--c6);}
+.eng .chunk{border-bottom:2px dotted var(--c2);cursor:help;}
+.eng .tts{background:#e0f2fe;border:none;border-radius:14px;padding:2px 10px;font-size:11px;font-weight:700;color:#0369a1;cursor:pointer;margin-left:6px;vertical-align:middle;}
+.analysis{margin-top:12px;}
+.acc{border:1.5px solid var(--line);border-radius:10px;margin-bottom:8px;overflow:hidden;}
+.acc-h{padding:10px 13px;background:#f0f7ff;font-size:13px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:#0369a1;}
+.acc-h .ic{transition:transform .3s;}
+.acc.open .acc-h .ic{transform:rotate(180deg);}
+.acc-c{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;font-size:13px;line-height:1.8;color:#333;background:#fff;}
+.acc.open .acc-c{max-height:600px;padding:13px;}
+.acc-c .point{font-weight:700;color:var(--c8);}
+.acc-c .gram{display:inline-block;background:#ede9fe;color:#6d28d9;font-size:11px;font-weight:700;padding:2px 8px;border-radius:8px;margin:3px 4px 3px 0;}
+.acc-c ul{margin:6px 0 0 16px;} .acc-c li{margin-bottom:4px;}
+.acc-kr .acc-h{background:#ecfdf5;color:#047857;}
+.acc-kr .acc-c .kr{font-size:15px;font-weight:700;color:#065f46;line-height:1.7;}
+/* 빈칸 시험 */
+.qcard{background:var(--card-bg);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);padding:18px;margin-bottom:14px;}
+.qnum{font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:700;}
+.qtag{display:inline-block;font-size:10px;font-weight:700;color:#fff;background:var(--c4);padding:2px 8px;border-radius:9px;margin-left:6px;}
+.qsent{font-size:16px;font-weight:700;line-height:1.9;}
+.qsent .gap{display:inline-block;border-bottom:2px solid var(--c8);min-width:90px;text-align:center;color:transparent;cursor:pointer;background:#fee2e2;border-radius:5px 5px 0 0;padding:0 6px;font-weight:900;}
+.qsent .gap.show{color:var(--c8);background:#fff9c4;border-bottom-color:var(--c6);}
+.qkr{font-size:13px;color:var(--muted);margin-top:8px;}
+.hintbtn{margin-top:8px;background:#e0f2fe;border:none;border-radius:16px;padding:5px 14px;font-size:12px;font-weight:700;color:#0369a1;cursor:pointer;}
+/* 매칭 */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;max-width:640px;margin:0 auto;}
+.mcol{display:flex;flex-direction:column;gap:9px;}
+.chip{background:var(--card-bg);border:2px solid var(--line);border-radius:12px;padding:12px 9px;font-size:13.5px;font-weight:700;text-align:center;cursor:pointer;box-shadow:0 2px 6px var(--shadow);transition:.15s;}
+.chip.sel{border-color:var(--c7);background:#e0f7fa;}
+.chip.done{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);opacity:.6;pointer-events:none;}
+.chip.kr{font-weight:500;font-size:12.5px;}
+.mmsg{text-align:center;font-size:13px;color:var(--muted);margin:14px 0;min-height:20px;font-weight:700;}
+.b{padding:9px 20px;border:none;border-radius:24px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px var(--shadow);}
+.b1{background:var(--c4);color:#fff;}.b2{background:#e5e7eb;color:var(--ink);}
+.tip-box{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:16px 20px;display:flex;gap:12px;margin-top:24px;}
+.tip-icon{font-size:24px;flex-shrink:0;}
+.tip-body{font-size:12.5px;color:#555;line-height:1.9;}.tip-body b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="page-title">
+  <h1>🔬 Colors in Soccer · 정밀 구문분석</h1>
+  <p class="subtitle">고등 내신·수능 대비 · 답은 클릭하면 공개 · 6단계 학습</p>
+  <div class="deco-bar"></div>
+</div>
+<div class="steps">
+  <button class="step on" id="s0" onclick="go(0)"><span class="sn">1단계</span>읽기·강조</button>
+  <button class="step" id="s1" onclick="go(1)"><span class="sn">2단계</span>구문분석</button>
+  <button class="step" id="s2" onclick="go(2)"><span class="sn">3단계</span>해석</button>
+  <button class="step" id="s3" onclick="go(3)"><span class="sn">4단계</span>빈칸25</button>
+  <button class="step" id="s4" onclick="go(4)"><span class="sn">5단계</span>표현연결</button>
+</div>
+<div class="wrap" id="app"></div>
+
+<script>
+/* ===== 본문 + 구문분석 데이터 ===== */
+/* eng: 강조(hl)·청크(chunk) 마크업 포함 / point: 핵심문법 / kr: 해석 */
+const S=[
+ {n:1,tag:"전치사구",eng:`Soccer is <span class="hl">a popular sport</span> <span class="chunk">all over the world</span>.`,
+  gram:["2형식 be동사","전치사구 부사역할"],point:`<b>all over the world</b> = '전 세계에서'(전치사구가 부사처럼 문장 수식). popular는 sport를 꾸미는 형용사.`,kr:"축구는 전 세계에서 인기 있는 스포츠이다."},
+ {n:2,tag:"부사 quite",eng:`It is also <span class="hl">quite</span> simple.`,
+  gram:["부사 quite","≠ quiet"],point:`<b>quite</b>[kwait] '꽤, 상당히'(= pretty, fairly) — 형용사 simple 강조. <span class="point">⚠️ quiet[kwáiət] '조용한'과 철자·발음 혼동 주의!</span>`,kr:"그것은 또한 꽤 단순하다."},
+ {n:3,tag:"병렬·to부정사",eng:`You just need <span class="chunk">a ball</span>, <span class="chunk">a small open space</span>, and <span class="chunk">the desire <span class="hl">to kick</span></span>!`,
+  gram:["A, B, and C 병렬","to부정사 형용사적"],point:`목적어 3개가 <b>A, B, and C</b> 병렬구조. <b>to kick</b>은 the desire를 꾸미는 <span class="point">형용사적 용법</span>('찰 욕구').`,kr:"당신은 공, 작은 공터, 그리고 차려는 욕구만 있으면 된다!"},
+ {n:4,tag:"부정명령문",eng:`Oh, <span class="hl">don't forget</span> one more thing.`,
+  gram:["부정명령문"],point:`<b>Don't + 동사원형</b> = '~하지 마라'(부정명령문). 주어 You 생략.`,kr:"오, 한 가지를 더 잊지 마라."},
+ {n:5,tag:"to부정사 명사적",eng:`You need <span class="hl">to understand</span> the importance of colors!`,
+  gram:["to부정사 명사적(목적어)"],point:`<b>to understand</b> = need의 목적어(<span class="point">명사적 용법</span>). 'need to V' = ~할 필요가 있다.`,kr:"당신은 색의 중요성을 이해할 필요가 있다!"},
+ {n:6,tag:"복수주어·in+색",eng:`Soccer balls today <span class="hl">come in</span> various colors, but black and white balls are <span class="hl">quite common</span>.`,
+  gram:["복수주어+복수동사","come in + 색"],point:`주어 Soccer balls(복수)+come(복수동사). <b>come in + 색</b> = '~색으로 나오다'. but으로 두 절 대조.`,kr:"오늘날 축구공은 다양한 색으로 나오지만, 검은색과 흰색 공은 꽤 흔하다."},
+ {n:7,tag:"현재완료 의문",eng:`<span class="hl">Have you heard</span> about the origin of <span class="chunk">this popular design</span>?`,
+  gram:["현재완료 경험","의문문"],point:`<b>Have you heard ~?</b> 현재완료(경험) 의문문. this popular design = '검은색·흰색 축구공'을 가리킴.`,kr:"당신은 이 인기 있는 디자인의 유래에 대해 들어본 적 있는가?"},
+ {n:8,tag:"come out·전치사",eng:`Black and white balls <span class="hl">came out</span> <span class="chunk">during the 1970 World Cup</span> <span class="hl">in</span> Mexico.`,
+  gram:["come out","during+기간","in+나라"],point:`<b>come out</b> = '나오다, 생산되다'(과거 came out). <b>during</b> + 특정 기간/행사. 나라 이름 앞엔 전치사 <b>in</b>.`,kr:"검은색과 흰색 공은 멕시코의 1970년 월드컵 동안 나왔다."},
+ {n:9,tag:"could·on TV",eng:`People <span class="hl">could</span> <span class="hl">spot</span> them easily <span class="hl">on</span> their black and white TVs.`,
+  gram:["could 과거능력","spot 발견","on TV"],point:`<b>could</b> = can의 과거('~할 수 있었다'). <b>spot</b> = 발견하다. <b>on TV</b> = TV에서(미디어 앞 on). them = 흑백 공.`,kr:"사람들은 흑백 TV에서 그것들을 쉽게 발견할 수 있었다."},
+ {n:10,tag:"부정의문문",eng:`<span class="hl">Isn't</span> that smart?`,
+  gram:["부정의문문"],point:`<b>Isn't ~?</b> 부정의문문 = '~지 않은가?'. 대답: 긍정이면 Yes, 부정이면 No.`,kr:"정말 영리하지 않은가?"},
+ {n:11,tag:"대조·still",eng:`Now we have color televisions, but we <span class="hl">still</span> kick the classic black and white soccer balls.`,
+  gram:["but 대조","부사 still"],point:`<b>still</b> = '여전히, 아직도'. 'Now ~ but still ~' 현재와 과거 관습의 대조.`,kr:"이제 우리는 컬러 TV가 있지만, 여전히 고전적인 흑백 축구공을 찬다."},
+ {n:12,tag:"each+단수",eng:`Players <span class="hl">on each team</span> wear uniforms with <span class="hl">their own</span> colors.`,
+  gram:["each + 단수명사","소유 their own"],point:`<b>each team</b> = each + 단수명사. 주어는 Players(복수)→wear. <b>their own</b> = '그들 자신의'.`,kr:"각 팀의 선수들은 자신들만의 색을 가진 유니폼을 입는다."},
+ {n:13,tag:"to부정사 형용사",eng:`Uniform colors have <span class="hl">the power <span class="chunk">to unite</span></span> the team <span class="chunk">under the same spirit</span>.`,
+  gram:["to부정사 형용사적"],point:`<b>to unite</b>는 the power를 수식(<span class="point">형용사적 용법</span>, '묶을 힘'). under the same spirit = '같은 정신 아래'.`,kr:"유니폼 색은 같은 정신 아래 팀을 하나로 묶는 힘을 가진다."},
+ {n:14,tag:"on the field",eng:`They are also useful <span class="hl">on the field</span>.`,
+  gram:["on + 장소"],point:`They = Uniform colors. <b>on the field</b> = '경기장에서'(접촉면 위 on).`,kr:"그것들은 또한 경기장에서도 유용하다."},
+ {n:15,tag:"병렬·thanks to",eng:`Players can <span class="hl">spot</span> each other and <span class="hl">make</span> quick decisions <span class="hl">thanks to</span> their team's unique colors.`,
+  gram:["동사 병렬(spot/make)","thanks to+명사"],point:`조동사 can 뒤 동사원형 <b>spot ~ and make ~</b> 병렬. <b>thanks to</b> + 명사(구) = '~ 덕분에'. make a decision = 결정을 내리다.`,kr:"선수들은 팀의 고유한 색 덕분에 서로를 발견하고 빠른 결정을 내릴 수 있다."},
+ {n:16,tag:"because·stand out",eng:`On the field, referees wear special colors <span class="hl">because</span> they need <span class="chunk">to stand out</span> from the players.`,
+  gram:["접속사 because","stand out"],point:`<b>because</b> + 주어+동사(절) = '~때문에'(= since, as). <span class="point">⚠️ because of + 명사(구)와 구별!</span> <b>stand out</b> = 눈에 띄다.`,kr:"경기장에서 심판들은 선수들과 눈에 띄어야 하기 때문에 특별한 색을 입는다."},
+ {n:17,tag:"among·현재완료",eng:`<span class="hl">Among</span> several colors, black <span class="hl">has been</span> their favorite.`,
+  gram:["전치사 among","현재완료 계속"],point:`<b>Among</b> + 셋 이상 '~중에서'. <b>has been</b> 현재완료(계속) '~여 왔다'. favorite = 가장 좋아하는 것(명사).`,kr:"여러 색들 중에서, 검은색이 그들이 가장 좋아하는 색이었다."},
+ {n:18,tag:"감각동사 look",eng:`Black <span class="hl">looks powerful</span>, and it sends a strong "<span class="hl">Don't argue</span> with me!" message.`,
+  gram:["look+형용사","부정명령문"],point:`<b>look + 형용사</b> = '~하게 보이다'(powerful). <span class="point">⚠️ look like + 명사</span>. "Don't argue with me!"는 부정명령문 인용.`,kr:"검은색은 강력해 보이며, '나와 논쟁하지 마!'라는 강한 메시지를 전달한다."},
+ {n:19,tag:"현재완료·since",eng:`Referees <span class="hl">have used</span> yellow and red cards <span class="hl">since</span> 1970.`,
+  gram:["현재완료 계속","since + 시점"],point:`<b>have used ~ since 1970</b> = '1970년 이래로 사용해 왔다'(계속). <b>since</b> + 시점.`,kr:"심판들은 1970년 이래로 노란색과 빨간색 카드를 사용해 왔다."},
+ {n:20,tag:"4형식 send",eng:`Different color cards <span class="hl">send</span> different messages <span class="hl">to</span> players.`,
+  gram:["send A to B (3형식)"],point:`<b>send A to B</b> = 'A를 B에게 보내다'(= send players different messages, 4형식 전환).`,kr:"다른 색의 카드들은 선수들에게 다른 메시지를 전달한다."},
+ {n:21,tag:"those+복수",eng:`Yellow cards say, "Be careful with <span class="hl">those</span> fouls!"`,
+  gram:["지시형용사 those","명령문"],point:`<b>those</b> + 복수명사(fouls). 'Be careful with ~' = '~을 조심하라'(명령문). foul = 반칙.`,kr:"노란 카드는 '그 반칙들을 조심하라!'라고 말한다."},
+ {n:22,tag:"인용",eng:`Red cards <span class="hl">mean</span> "You're out!"`,
+  gram:["동사 mean + 인용"],point:`<b>mean</b> = '의미하다'. "You're out!" = '퇴장!'을 직접 인용.`,kr:"빨간 카드는 '퇴장!'을 의미한다."},
+ {n:23,tag:"부사 clearly·these",eng:`All players from different countries <span class="hl">clearly</span> understand the meaning of <span class="hl">these</span> cards.`,
+  gram:["부사 clearly","these+복수"],point:`주어 All players(복수)→understand. <b>clearly</b> 부사가 동사 수식. <b>these</b> cards = 노란·빨간 카드.`,kr:"다른 나라의 모든 선수들이 이 카드들의 의미를 명확히 이해한다."},
+ {n:24,tag:"to부정사 형용사",eng:`Do you have <span class="hl">a plan <span class="chunk">to watch</span></span> a soccer match?`,
+  gram:["to부정사 형용사적"],point:`<b>to watch</b>는 a plan 수식(<span class="point">형용사적 용법</span>, '볼 계획'). match = 경기.`,kr:"당신은 축구 경기를 볼 계획이 있는가?"},
+ {n:25,tag:"check out·on",eng:`Then <span class="hl">check out</span> the various colors <span class="hl">on</span> the field.`,
+  gram:["check out","on+장소"],point:`<b>check out</b> = 확인하다. <b>on the field</b> = 경기장에서. 명령문(주어 You 생략).`,kr:"그러면 경기장의 다양한 색들을 확인해라."},
+ {n:26,tag:"비교급",eng:`It will be <span class="hl">more fun</span>!`,
+  gram:["비교급 more"],point:`<b>more fun</b> = fun의 비교급('더 재미있는'). It = the soccer match.`,kr:"더욱 재미있을 것이다!"}
+];
+
+/* ===== 빈칸 25문제 (구문분석 기반) ===== */
+const QUIZ=[
+ {tag:"전치사",s:`Soccer is a popular sport [all over the world].`,kr:"전 세계에서"},
+ {tag:"부사",s:`It is also [quite] simple.`,kr:"꽤, 상당히 (≠quiet)"},
+ {tag:"to부정사",s:`You just need a ball, a small open space, and the desire [to kick]!`,kr:"찰 욕구(형용사적)"},
+ {tag:"부정명령",s:`Oh, [don't forget] one more thing.`,kr:"잊지 마라"},
+ {tag:"to부정사",s:`You need [to understand] the importance of colors!`,kr:"이해하는 것(명사적/목적어)"},
+ {tag:"동사구",s:`Soccer balls today [come in] various colors.`,kr:"~색으로 나오다"},
+ {tag:"형용사",s:`Black and white balls are quite [common].`,kr:"흔한"},
+ {tag:"현재완료",s:`[Have you heard] about the origin of this popular design?`,kr:"들어본 적 있니(경험)"},
+ {tag:"동사구",s:`Black and white balls [came out] during the 1970 World Cup in Mexico.`,kr:"나왔다, 생산됐다"},
+ {tag:"전치사",s:`...the 1970 World Cup [in] Mexico.`,kr:"나라 앞 전치사"},
+ {tag:"조동사",s:`People [could] spot them easily on their black and white TVs.`,kr:"~할 수 있었다"},
+ {tag:"동사",s:`People could [spot] them easily on TV.`,kr:"발견하다"},
+ {tag:"부정의문",s:`[Isn't] that smart?`,kr:"~지 않은가?"},
+ {tag:"부사",s:`...but we [still] kick the classic black and white balls.`,kr:"여전히, 아직도"},
+ {tag:"한정사",s:`Players on [each] team wear uniforms with their own colors.`,kr:"각각의(+단수명사)"},
+ {tag:"to부정사",s:`Uniform colors have the power [to unite] the team.`,kr:"묶을(형용사적)"},
+ {tag:"전치사",s:`They are also useful [on] the field.`,kr:"경기장 '에서'"},
+ {tag:"숙어",s:`Players can spot each other and make quick decisions [thanks to] their colors.`,kr:"~덕분에(+명사)"},
+ {tag:"접속사",s:`Referees wear special colors [because] they need to stand out.`,kr:"~때문에(+절)"},
+ {tag:"숙어",s:`...they need to [stand out] from the players.`,kr:"눈에 띄다"},
+ {tag:"전치사",s:`[Among] several colors, black has been their favorite.`,kr:"(셋 이상) ~중에서"},
+ {tag:"현재완료",s:`Referees [have used] yellow and red cards since 1970.`,kr:"사용해 왔다(계속)"},
+ {tag:"접속사",s:`Referees have used cards [since] 1970.`,kr:"~이래로(+시점)"},
+ {tag:"감각동사",s:`Black [looks] powerful.`,kr:"~하게 보이다(+형용사)"},
+ {tag:"지시어",s:`All players clearly understand the meaning of [these] cards.`,kr:"이(+복수명사)"}
+];
+
+/* ===== 표현 연결(매칭) ===== */
+const PAIRS=[
+ {en:"all over the world",kr:"전 세계에서"},
+ {en:"come in various colors",kr:"다양한 색으로 나오다"},
+ {en:"came out",kr:"나오다, 생산되다"},
+ {en:"spot",kr:"발견하다"},
+ {en:"thanks to",kr:"~ 덕분에"},
+ {en:"stand out",kr:"눈에 띄다"},
+ {en:"have used since",kr:"~이래로 사용해 왔다"},
+ {en:"check out",kr:"확인하다"}
+];
+
+let view=0, mSel=null, matchData=null;
+function go(v){view=v;for(let i=0;i<5;i++)document.getElementById('s'+i).classList.toggle('on',i===v);render();}
+function render(){document.getElementById('app').innerHTML=[v0,v1,v2,v3,v4][view]();if(view===0||view===1)setTimeout(bindAcc,0);}
+function speak(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.8;speechSynthesis.speak(u);}
+function plain(html){return html.replace(/<[^>]+>/g,'').replace(/&quot;/g,'"');}
+
+/* 1단계: 읽기 + 핵심표현 강조 */
+function v0(){
+ let h=`<div class="intro">💡 <b>1단계 · 문장 읽기 & 핵심표현 강조</b><br>먼저 영어 문장을 소리 내어 읽으세요. <span style="background:#fff9c4;padding:1px 4px;border-radius:4px">노란 강조</span>는 핵심 표현/문법, <span style="border-bottom:2px dotted #3b82f6">점선</span>은 의미 청크(끊어 읽기)예요. 🔊로 발음을 들으며 끊어 읽기를 연습하세요.</div>`;
+ S.forEach(s=>{h+=`<div class="sent-card"><div class="sc-head"><div class="sc-num">${s.n}</div><span style="font-size:12px;color:#666;font-weight:700">S${String(s.n).padStart(2,'0')}</span><span class="sc-tag">${s.tag}</span></div>
+  <div class="sc-body"><div class="eng">${s.eng}<button class="tts" onclick="speak('${plain(s.eng).replace(/'/g,"\\'")}')">🔊</button></div></div></div>`;});
+ return h;
+}
+/* 2단계: 구문분석 (클릭 펼침) */
+function v1(){
+ let h=`<div class="intro">💡 <b>2단계 · 구문분석 (클릭하면 펼쳐짐)</b><br>각 문장의 <b>핵심 문법 분석</b>을 눌러 펼치세요. 수능 출제 포인트(⚠️ 표시)를 꼭 확인하세요. 해석은 아직 보지 마세요!</div>`;
+ S.forEach(s=>{h+=`<div class="sent-card"><div class="sc-head"><div class="sc-num">${s.n}</div><span class="sc-tag">${s.tag}</span></div>
+  <div class="sc-body"><div class="eng">${s.eng}</div>
+   <div class="analysis"><div class="acc"><div class="acc-h" onclick="acc(this)"><span>🔍 핵심 문법 분석</span><span class="ic">▼</span></div>
+    <div class="acc-c">${s.gram.map(g=>`<span class="gram">${g}</span>`).join('')}<div style="margin-top:8px">${s.point}</div></div></div></div></div></div>`;});
+ return h;
+}
+/* 3단계: 해석 (클릭 공개) */
+function v2(){
+ let h=`<div class="intro">💡 <b>3단계 · 해석 확인 (클릭하면 공개)</b><br>구문분석을 떠올리며 스스로 해석한 뒤, <b>해석 보기</b>를 눌러 확인하세요. 직독직해 순서로 의미를 잡는 연습을 하세요.</div>`;
+ S.forEach(s=>{h+=`<div class="sent-card"><div class="sc-head"><div class="sc-num">${s.n}</div><span class="sc-tag">${s.tag}</span></div>
+  <div class="sc-body"><div class="eng">${s.eng}<button class="tts" onclick="speak('${plain(s.eng).replace(/'/g,"\\'")}')">🔊</button></div>
+   <div class="analysis"><div class="acc acc-kr"><div class="acc-h" onclick="acc(this)"><span>📖 해석 보기</span><span class="ic">▼</span></div>
+    <div class="acc-c"><div class="kr">${s.kr}</div></div></div></div></div></div>`;});
+ return h;
+}
+/* 4단계: 빈칸 25 (클릭 공개) */
+function v3(){
+ let h=`<div class="intro">💡 <b>4단계 · 빈칸 시험 25문항</b><br>구문분석에서 다룬 핵심 표현이 빈칸이에요. 먼저 스스로 떠올린 뒤 <b>빨간 빈칸을 탭</b>하면 정답이 공개됩니다. (힌트=한국어 의미)</div>
+ <div class="ctrl-bar"><button class="ctrl-btn btn-dark" onclick="document.querySelectorAll('.gap').forEach(e=>e.classList.add('show'))">✅ 정답 전체 보기</button><button class="ctrl-btn btn-gray" onclick="document.querySelectorAll('.gap').forEach(e=>e.classList.remove('show'))">🙈 숨기기</button></div>`;
+ QUIZ.forEach((q,i)=>{const s=q.s.replace(/\[(.+?)\]/,`<span class="gap" onclick="this.classList.toggle('show')">$1</span>`);
+  h+=`<div class="qcard"><div class="qnum">Q${i+1} / 25 <span class="qtag">${q.tag}</span></div><div class="qsent">${s}</div><div class="qkr">💬 힌트: ${q.kr}</div></div>`;});
+ return h;
+}
+/* 5단계: 표현 연결 매칭 */
+function buildMatch(){matchData={left:PAIRS.map((p,i)=>({k:i,t:p.en})),right:PAIRS.map((p,i)=>({k:i,t:p.kr})).sort(()=>Math.random()-.5),matched:[]};}
+function v4(){
+ if(!matchData)buildMatch();const m=matchData;
+ let h=`<div class="intro">💡 <b>5단계 · 중요 표현 연결하여 외우기</b><br>영어 표현과 한국어 뜻을 짝지으세요. 본문 핵심 collocation을 마지막으로 정리합니다.</div>
+ <div class="match-grid"><div class="mcol">`;
+ m.left.forEach(x=>{const d=m.matched.includes(x.k);h+=`<div class="chip${d?' done':''}${mSel&&mSel.s==='L'&&mSel.k===x.k?' sel':''}" onclick="pk('L',${x.k})">${x.t}</div>`;});
+ h+=`</div><div class="mcol">`;
+ m.right.forEach(x=>{const d=m.matched.includes(x.k);h+=`<div class="chip kr${d?' done':''}${mSel&&mSel.s==='R'&&mSel.k===x.k?' sel':''}" onclick="pk('R',${x.k})">${x.t}</div>`;});
+ h+=`</div></div><div class="mmsg" id="mmsg">${m.matched.length}/${PAIRS.length} 짝 완성</div>`;
+ if(m.matched.length===PAIRS.length)h+=`<div style="text-align:center"><div style="font-size:40px">🎉</div><p style="font-weight:700;color:var(--c4)">구문분석 학습 완료! 수고했어요.</p></div>`;
+ return h;
+}
+function pk(s,k){if(!mSel){mSel={s,k};render();return;}if(mSel.s===s){mSel={s,k};render();return;}if(mSel.k===k)matchData.matched.push(k);mSel=null;render();const el=document.getElementById('mmsg');if(el&&matchData.matched.length===PAIRS.length)el.innerHTML='✅ 모두 완성!';}
+
+function acc(h){h.parentElement.classList.toggle('open');}
+function bindAcc(){}
+render();
+</script>
+</body>
+</html>
