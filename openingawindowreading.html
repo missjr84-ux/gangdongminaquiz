@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Opening a Window to the World 정밀 구문분석</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nunito:wght@700;900&display=swap');
+:root{--c1:#f97316;--c2:#3b82f6;--c3:#10b981;--c4:#8b5cf6;--c5:#ec4899;--c6:#f59e0b;--c7:#06b6d4;--c8:#ef4444;
+--bg:#f0f9ff;--card-bg:#fffdf7;--shadow:rgba(0,0,0,0.10);--ink:#1a1a2e;--muted:#666;
+--ok:#10b981;--ok-bg:#dcfce7;--no:#ef4444;--no-bg:#fee2e2;--line:#e8e8e8;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--ink);padding-bottom:70px;}
+.page-title{text-align:center;padding:22px 16px 8px;}
+.page-title h1{font-family:'Nunito','Noto Sans KR',sans-serif;font-size:clamp(19px,5vw,28px);font-weight:900;}
+.page-title .subtitle{font-size:13px;color:var(--muted);margin-top:5px;}
+.deco-bar{width:80px;height:5px;background:linear-gradient(90deg,var(--c7),var(--c2),var(--c4));border-radius:10px;margin:8px auto 0;}
+.steps{position:sticky;top:0;z-index:30;background:var(--bg);max-width:980px;margin:14px auto 0;padding:8px 12px;display:flex;gap:6px;overflow-x:auto;}
+.step{flex:1;min-width:76px;font-family:inherit;font-size:11px;font-weight:700;padding:10px 5px;border-radius:22px;border:none;cursor:pointer;background:#fff;color:var(--muted);box-shadow:0 2px 8px var(--shadow);transition:.2s;text-align:center;line-height:1.3;white-space:nowrap;}
+.step.on{background:var(--ink);color:#fff;}
+.step .sn{display:block;font-size:9px;opacity:.7;}
+.wrap{max-width:980px;margin:0 auto;padding:18px 16px;}
+.intro{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:14px 18px;font-size:13px;color:#555;line-height:1.8;margin-bottom:18px;}
+.intro b{color:var(--ink);}
+.bar{height:7px;background:#dbeafe;border-radius:5px;overflow:hidden;margin-bottom:18px;}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--c7),var(--c4));border-radius:5px;width:0;transition:.4s;}
+.ctrl-bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;}
+.ctrl-btn{font-family:inherit;font-size:13px;font-weight:700;padding:9px 20px;border-radius:30px;border:none;cursor:pointer;box-shadow:0 2px 8px var(--shadow);}
+.btn-dark{background:var(--ink);color:#fff;}.btn-gray{background:#e5e7eb;color:var(--ink);}
+.sec-label{display:flex;align-items:center;gap:12px;margin:24px 0 14px;}
+.sec-label::before,.sec-label::after{content:'';flex:1;height:2px;background:#d1e8f5;border-radius:2px;}
+.sec-label span{font-size:13px;font-weight:900;color:#0369a1;white-space:nowrap;}
+.sent-card{background:var(--card-bg);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);margin-bottom:16px;overflow:hidden;}
+.sc-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#eef2ff;border-bottom:1px solid var(--line);}
+.sc-num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;font-size:13px;font-weight:900;color:#fff;background:var(--c4);flex-shrink:0;}
+.sc-tag{font-size:11px;font-weight:700;color:var(--c4);background:#fff;border:1px solid var(--c4);padding:2px 8px;border-radius:10px;margin-left:auto;}
+.sc-body{padding:16px;}
+.eng{font-size:17px;font-weight:700;line-height:2;letter-spacing:.2px;}
+.eng .hl{background:#fff9c4;border-radius:5px;padding:1px 4px;font-weight:900;cursor:help;border-bottom:2px solid var(--c6);}
+.eng .chunk{border-bottom:2px dotted var(--c2);cursor:help;}
+.eng .tts{background:#e0f2fe;border:none;border-radius:14px;padding:2px 10px;font-size:11px;font-weight:700;color:#0369a1;cursor:pointer;margin-left:6px;vertical-align:middle;}
+.analysis{margin-top:12px;}
+.acc{border:1.5px solid var(--line);border-radius:10px;margin-bottom:8px;overflow:hidden;}
+.acc-h{padding:10px 13px;background:#f0f7ff;font-size:13px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:#0369a1;}
+.acc-h .ic{transition:transform .3s;}
+.acc.open .acc-h .ic{transform:rotate(180deg);}
+.acc-c{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;font-size:13px;line-height:1.8;color:#333;background:#fff;}
+.acc.open .acc-c{max-height:800px;padding:13px;}
+.acc-c .point{font-weight:700;color:var(--c8);}
+.acc-c .gram{display:inline-block;background:#ede9fe;color:#6d28d9;font-size:11px;font-weight:700;padding:2px 8px;border-radius:8px;margin:3px 4px 3px 0;}
+.acc-kr .acc-h{background:#ecfdf5;color:#047857;}
+.acc-kr .acc-c .kr{font-size:15px;font-weight:700;color:#065f46;line-height:1.7;}
+.qcard{background:var(--card-bg);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);padding:18px;margin-bottom:14px;}
+.qnum{font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:700;}
+.qtag{display:inline-block;font-size:10px;font-weight:700;color:#fff;background:var(--c4);padding:2px 8px;border-radius:9px;margin-left:6px;}
+.qsent{font-size:16px;font-weight:700;line-height:1.9;}
+.qsent .gap{display:inline-block;border-bottom:2px solid var(--c8);min-width:80px;text-align:center;color:transparent;cursor:pointer;background:#fee2e2;border-radius:5px 5px 0 0;padding:0 6px;font-weight:900;}
+.qsent .gap.show{color:var(--c8);background:#fff9c4;border-bottom-color:var(--c6);}
+.qkr{font-size:13px;color:var(--muted);margin-top:8px;}
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;max-width:640px;margin:0 auto;}
+.mcol{display:flex;flex-direction:column;gap:9px;}
+.chip{background:var(--card-bg);border:2px solid var(--line);border-radius:12px;padding:12px 9px;font-size:13px;font-weight:700;text-align:center;cursor:pointer;box-shadow:0 2px 6px var(--shadow);transition:.15s;}
+.chip.sel{border-color:var(--c7);background:#e0f7fa;}
+.chip.done{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);opacity:.55;pointer-events:none;}
+.chip.kr{font-weight:500;font-size:12px;}
+.mmsg{text-align:center;font-size:13px;color:var(--muted);margin:14px 0;min-height:20px;font-weight:700;}
+/* 시험 */
+.gate{text-align:center;padding:36px 16px;}
+.gate h2{font-size:22px;font-weight:900;margin-bottom:8px;}
+.gate p{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.7;}
+.gate input{width:100%;max-width:300px;padding:12px;border-radius:11px;border:2px solid var(--line);background:#fff;color:var(--ink);font-size:15px;font-family:inherit;text-align:center;margin-bottom:14px;}
+.tq{background:var(--card-bg);border-radius:14px;box-shadow:0 4px 14px var(--shadow);border:2px solid var(--line);padding:16px;margin-bottom:12px;}
+.tq .cat{display:inline-block;font-size:10px;font-weight:900;color:#fff;background:var(--c4);padding:2px 9px;border-radius:10px;margin-bottom:8px;}
+.tq .q{font-size:15px;font-weight:700;line-height:1.7;margin-bottom:12px;}
+.tq .q .blk{display:inline-block;border-bottom:2px solid var(--c8);min-width:80px;}
+.exinp{width:100%;padding:11px 13px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:14px;font-family:inherit;}
+.opts{display:flex;flex-direction:column;gap:7px;}
+.opt{padding:10px 13px;border:2px solid var(--line);border-radius:10px;background:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:.12s;}
+.opt.pick{border-color:var(--c4);background:#f5f3ff;}
+.result{text-align:center;padding:28px 16px;}
+.score{font-size:56px;font-weight:900;background:linear-gradient(90deg,var(--c7),var(--c3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.rmsg{font-size:15px;color:var(--muted);margin:6px 0 20px;font-weight:700;}
+.review{text-align:left;margin-top:18px;}
+.rev{background:var(--card-bg);border-radius:10px;padding:10px 13px;margin-bottom:7px;font-size:12.5px;line-height:1.5;border-left:4px solid var(--line);box-shadow:0 2px 6px var(--shadow);}
+.rev.ok{border-left-color:var(--ok);}.rev.no{border-left-color:var(--no);}
+.rev .ic{font-weight:900;}.rev.ok .ic{color:var(--ok);}.rev.no .ic{color:var(--no);}
+.rev .corr{color:#0369a1;font-weight:700;}
+.board{margin-top:22px;}
+.board table{width:100%;border-collapse:collapse;font-size:13px;background:var(--card-bg);border-radius:12px;overflow:hidden;box-shadow:0 4px 14px var(--shadow);}
+.board th,.board td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left;}
+.board th{color:var(--muted);font-weight:900;font-size:11px;background:#f0f7ff;}
+.board tr.me td{background:#fff9c4;}
+.rank{font-weight:900;color:var(--c6);}
+.tip-box{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:16px 20px;display:flex;gap:12px;margin-top:24px;}
+.tip-icon{font-size:24px;flex-shrink:0;}
+.tip-body{font-size:12.5px;color:#555;line-height:1.9;}.tip-body b{color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="page-title">
+  <h1>🌍 Opening a Window to the World · 정밀 구문분석</h1>
+  <p class="subtitle">본문 35문장 · 수일치·대명사·관계사 정밀 분석 · 답은 클릭하면 공개</p>
+  <div class="deco-bar"></div>
+</div>
+<div class="steps">
+  <button class="step on" id="s0" onclick="go(0)"><span class="sn">1단계</span>읽기·강조</button>
+  <button class="step" id="s1" onclick="go(1)"><span class="sn">2단계</span>구문분석</button>
+  <button class="step" id="s2" onclick="go(2)"><span class="sn">3단계</span>해석</button>
+  <button class="step" id="s3" onclick="go(3)"><span class="sn">4단계</span>빈칸시험</button>
+  <button class="step" id="s4" onclick="go(4)"><span class="sn">5단계</span>표현연결</button>
+</div>
+<div class="wrap" id="app"></div>
+<script>
+/* Opening a Window to the World — 본문 35문장 정밀 구문분석
+   터키 Grand Bazaar → 태국 Damnoen Saduak → 네덜란드 Aalsmeer
+*/
+const S=[
+ {n:1,sec:"도입 — Leah's Travel Story",tag:"현재완료진행·since",eng:`I am Leah. I <span class="hl">have been writing</span> a travel blog <span class="hl">since</span> I was 18.`,gram:["현재완료진행 have been -ing","접속사 since"],point:`<b>have been writing</b> = 현재완료진행('계속 ~해 오고 있다'). <b>since</b> = '~한 이후로'(접속사, 과거 시점부터 현재까지). <span class="point">주어 I라서 have(원형).</span>`,kr:"나는 Leah이다. 나는 18살 이후로 여행 블로그를 써오고 있다."},
+ {n:2,tag:"share A with B",eng:`I <span class="hl">go places</span> and <span class="hl">share</span> my experiences <span class="hl">with</span> my readers.`,gram:["go places","share A with B","동사 병렬 and"],point:`<b>go places</b> = 여기저기 다니다. <b>share A with B</b> = A를 B와 공유하다. go와 share가 and로 병렬.`,kr:"나는 여기저기 다니며 내 경험을 독자들과 공유한다."},
+ {n:3,tag:"동명사 주어·to부정사",eng:`<span class="chunk">Visiting markets</span> <span class="hl">is</span> a good way <span class="hl">to learn</span> about the culture of a country.`,gram:["동명사 주어(단수취급)","to부정사 형용사적"],point:`<span class="point">동명사구 주어 Visiting markets는 단수 취급 → is.</span> <b>to learn</b> = a good way를 수식(형용사적 용법). culture of a country = 한 나라의 문화.`,kr:"시장 방문은 한 나라의 문화에 대해 배우는 좋은 방법이다."},
+ {n:4,tag:"관계부사 where·병렬",eng:`Markets are places <span class="hl">where</span> you can meet people, learn history, and taste local food.`,gram:["관계부사 where(=at which)","동사원형 병렬"],point:`<b>where</b> = 장소를 나타내는 관계부사(= at which), places 수식. meet, learn, taste 세 동사원형이 and로 병렬(조동사 can에 연결). taste local food = 지역 음식을 맛보다.`,kr:"시장은 사람들을 만나고, 역사를 배우고, 지역 음식을 맛볼 수 있는 장소이다."},
+ {n:5,tag:"명사절 whether·to부정사",eng:`I wonder <span class="hl">whether</span> there is any better way <span class="hl">to discover</span> another culture.`,gram:["명사절 접속사 whether(=if)","to부정사 형용사적"],point:`<b>whether</b> = '~인지 아닌지'(명사절, wonder의 목적어, = if). <b>to discover</b> = way를 수식(형용사적). there is + 단수(way).`,kr:"나는 다른 문화를 발견하는 더 좋은 방법이 있는지 궁금하다."},
+
+ {n:6,sec:"1 Grand Bazaar, Turkey (터키)",tag:"관계부사 where·대명사 it",eng:`Turkey is a country <span class="hl">where</span> East meets West, so <span class="hl">it</span> has a long tradition of trade.`,gram:["관계부사 where(=in which)","대명사 it=Turkey","so 결과"],point:`<b>where</b> = 장소 관계부사(= in which), a country 수식. <span class="point">대명사 it = Turkey, 단수라서 has.</span> so = 그래서(결과). tradition of trade = 교역의 전통.`,kr:"터키는 동양과 서양이 만나는 나라여서, 오랜 교역의 전통을 가지고 있다."},
+ {n:7,tag:"전치사 like",eng:`It is a natural place for large markets <span class="hl">like</span> the Grand Bazaar.`,gram:["전치사 like(~같은)","대명사 It=Turkey"],point:`<b>like</b> = '~ 같은'(전치사). <span class="point">It = Turkey.</span> a natural place for ~ = ~에 자연스러운 곳.`,kr:"그곳은 Grand Bazaar 같은 대형 시장이 생겨나기에 자연스러운 곳이다."},
+ {n:8,tag:"수동태",eng:`The market <span class="hl">was built</span> in 1455 in Istanbul.`,gram:["수동태 be + 과거분사","과거시제"],point:`<b>was built</b> = 수동태(be동사+과거분사). <span class="point">주어 The market가 '지어진' 대상이므로 수동태. 단수+과거라 was.</span>`,kr:"그 시장은 1455년에 이스탄불에 지어졌다."},
+ {n:9,tag:"과거시제·like",eng:`<span class="hl">Back then</span>, the market had two big buildings, and people <span class="hl">traded</span> goods <span class="hl">like</span> cloth and gold there.`,gram:["Back then","과거시제 had/traded","like ~같은"],point:`<b>Back then</b> = 그 당시에. 과거 시제 had, traded. <b>like</b> = ~같은(전치사). trade goods = 물건을 거래하다.`,kr:"그 당시에, 시장에는 큰 건물이 두 개 있었고, 사람들은 직물이나 금 같은 물건을 거래했다."},
+ {n:10,tag:"비교급 강조·최상급",eng:`Today the Grand Bazaar is <span class="hl">much</span> bigger, and it is the <span class="hl">largest</span> covered market in the world.`,gram:["much 비교급 강조","the + 최상급"],point:`<b>much</b> = 비교급(bigger) 강조 '훨씬'(= even, far, still, a lot). <b>the largest</b> = 최상급(가장 큰). <span class="point">much는 비교급만 강조.</span> covered = 지붕이 덮인.`,kr:"오늘날 Grand Bazaar는 훨씬 더 크고, 세계에서 가장 큰 지붕 덮인 시장이다."},
+ {n:11,tag:"more than",eng:`It has 64 streets and <span class="hl">more than</span> 4,000 shops under one roof.`,gram:["more than(=over)","대명사 It=시장"],point:`<b>more than</b> = ~ 이상(= over). under one roof = 한 지붕 아래에. <span class="point">It = the market.</span>`,kr:"그것은 한 지붕 아래에 64개의 거리와 4,000개 이상의 상점이 있다."},
+ {n:12,tag:"over·3인칭단수",eng:`The market <span class="hl">attracts</span> <span class="hl">over</span> 250,000 visitors every day.`,gram:["over(=more than)","3인칭 단수 -s"],point:`<b>over</b> = ~ 이상(= more than). <span class="point">주어 The market(단수) → attracts(-s).</span> attract = 끌어모으다.`,kr:"그 시장은 매일 25만 명 이상의 방문객을 끌어모은다."},
+ {n:13,tag:"형용사 imaginable",eng:`You can buy almost any <span class="hl">imaginable</span> item there.`,gram:["imaginable 형용사"],point:`<b>imaginable</b> = 상상할 수 있는(item 수식). almost any = 거의 모든.`,kr:"당신은 그곳에서 상상할 수 있는 거의 모든 물건을 살 수 있다."},
+ {n:14,tag:"명사절 if·동격",eng:`<span class="hl">Extra Tip</span> Ask shop owners <span class="hl">if</span> they carry <span class="chunk">nazar boncuğu, a traditional Turkish symbol for good luck</span>.`,gram:["명령문 Ask","명사절 if(=whether)","동격 콤마"],point:`명령문(Ask). <b>if</b> = '~인지 아닌지'(명사절, = whether). nazar boncuğu = a traditional symbol 동격(콤마). carry = (가게가) 취급하다.`,kr:"가게 주인에게 행운을 비는 터키 전통 상징인 나자르 본주를 파는지 물어보라."},
+ {n:15,tag:"조건 if·make sure to·동격",eng:`Also, <span class="hl">if</span> you want a nice snack, <span class="hl">make sure to</span> try <span class="chunk">lokum, a traditional Turkish candy</span>.`,gram:["조건 부사절 if","make sure to","동격"],point:`<b>if</b> = '만약 ~라면'(조건 부사절). <b>make sure to + 동사원형</b> = 반드시 ~하다. lokum = a candy 동격.`,kr:"또한, 맛있는 간식을 원한다면, 터키 전통 사탕인 로쿰을 꼭 먹어봐라."},
+
+ {n:16,sec:"2 Damnoen Saduak, Thailand (태국)",tag:"과거시제",eng:`<span class="hl">In the past</span>, Thai people <span class="hl">traded</span> goods on rivers.`,gram:["In the past","과거시제"],point:`<b>In the past</b> = 과거에. traded = 과거시제. on rivers = 강에서. goods = 물건, 상품.`,kr:"과거에, 태국 사람들은 강에서 물건을 거래했다."},
+ {n:17,tag:"지시대명사 This",eng:`<span class="hl">This</span> was the beginning of floating markets in Thailand.`,gram:["지시대명사 This","floating 형용사"],point:`<span class="point">This = 앞 문장 내용(강에서 거래한 것)을 가리킴.</span> the beginning of ~ = ~의 시작. floating market = 수상 시장.`,kr:"이것이 태국 수상 시장의 시작이었다."},
+ {n:18,tag:"with 부대상황·과거",eng:`<span class="hl">With</span> better road transportation, many floating markets <span class="hl">disappeared</span>.`,gram:["With + 명사(원인)","과거시제 disappeared"],point:`<b>With better road transportation</b> = 더 나은 도로 교통으로(원인·이유). disappear = 사라지다. <span class="point">주어 markets(복수)+과거 → disappeared.</span>`,kr:"더 나은 도로 교통으로, 많은 수상 시장이 사라졌다."},
+ {n:19,tag:"since·keep~alive",eng:`<span class="hl">Since</span> the late 1960s, however, some of them have come back and <span class="hl">kept</span> the tradition <span class="hl">alive</span>.`,gram:["전치사 since(~이후)","keep + 목적어 + 형용사","현재완료"],point:`<b>Since the late 1960s</b> = 1960년대 후반부터(전치사). <b>keep + 목적어(tradition) + 형용사(alive)</b> = ~을 …한 상태로 유지하다. have come, kept = 현재완료. <span class="point">them = floating markets.</span>`,kr:"하지만 1960년대 후반부터, 그것들 중 일부가 다시 생겨나 전통을 이어가고 있다."},
+ {n:20,tag:"one of the + 최상급",eng:`Today, <span class="hl">one of the most popular</span> floating markets is Damnoen Saduak Floating Market.`,gram:["one of the + 최상급 + 복수명사","단수동사 is"],point:`<b>one of the most popular floating markets</b> = 가장 인기 있는 수상 시장 중 하나. <span class="point">주어의 핵심은 one(단수) → is. (of the markets는 수식어)</span>`,kr:"오늘날, 가장 인기 있는 수상 시장 중 하나는 Damnoen Saduak 수상 시장이다."},
+ {n:21,tag:"be crowded with",eng:`It is always <span class="hl">crowded with</span> tourists from all over the world.`,gram:["be crowded with","대명사 It"],point:`<b>be crowded with</b> = ~로 붐비다. from all over the world = 전 세계에서 온. <span class="point">It = Damnoen Saduak market.</span>`,kr:"그곳은 항상 전 세계에서 온 관광객들로 붐빈다."},
+ {n:22,tag:"부사 directly",eng:`You can buy local foods and traditional gift items <span class="hl">directly</span> from boats.`,gram:["부사 directly","local/traditional 형용사"],point:`<b>directly</b> = 직접(부사). from boats = 배에서. local foods = 현지 음식, gift items = 선물용 물품.`,kr:"여러분은 현지 음식과 전통 선물용 물품을 배에서 직접 살 수 있다."},
+ {n:23,tag:"명사절 whether·현재완료 경험",eng:`Extra Tip I wonder <span class="hl">whether</span> you <span class="hl">have ever had</span> a meal on water.`,gram:["명사절 whether","현재완료 경험(have ever p.p.)"],point:`<b>whether</b> = ~인지 아닌지(명사절). <b>have ever had</b> = 현재완료 경험('~해 본 적 있다'). a meal on water = 물 위에서의 식사.`,kr:"여러분이 물 위에서 식사를 해 본 적이 있는지 궁금하다."},
+ {n:24,tag:"조건 if 도치(생략)",eng:`<span class="hl">If not</span>, try noodles <span class="chunk">like pad thai</span>.`,gram:["If not(=if you haven't)","명령문","like 전치사"],point:`<b>If not</b> = 만약 그렇지 않다면(= If you haven't had a meal on water). 명령문(try). like pad thai = 팟타이 같은.`,kr:"만약 그렇지 않다면, 팟타이 같은 면 요리를 먹어 봐라."},
+ {n:25,tag:"미래·동사 병렬",eng:`The sellers <span class="hl">will cook</span> them on their boats and <span class="hl">pass</span> them to you with a long fishing pole.`,gram:["미래 will","동사 병렬 and","대명사 them=noodles"],point:`<b>will cook ~ and (will) pass ~</b> 병렬. <span class="point">them = noodles. seller = 판매자.</span> fishing pole = 낚싯대. pass A to B = A를 B에게 건네다.`,kr:"판매자들은 배 위에서 그것들(면)을 요리하여 긴 낚싯대로 여러분에게 건네줄 것이다."},
+
+ {n:26,sec:"3 Aalsmeer Flower Market, The Netherlands (네덜란드)",tag:"동격·means",eng:`The Netherlands <span class="hl">means</span> "low lands."`,gram:["3인칭 단수 means","고유명사 주어"],point:`<b>means</b> = 의미하다. <span class="point">The Netherlands는 형태는 복수처럼 보여도 국가명(단수 취급) → means(-s).</span> "low lands" = 낮은 땅.`,kr:"네덜란드(The Netherlands)는 '낮은 땅'을 의미한다."},
+ {n:27,tag:"as the name suggests·부분 of",eng:`<span class="hl">As the name suggests</span>, about a third of the country <span class="hl">sits</span> below sea level.`,gram:["as ~suggests","분수 of + 단수 → 단수동사","sit 위치하다"],point:`<b>As the name suggests</b> = 이름에서 알 수 있듯이. <span class="point">a third of the country에서 of 뒤 the country(단수)에 동사 일치 → sits.</span> sit below sea level = 해수면보다 아래에 있다.`,kr:"이름에서 알 수 있듯이, 그 나라의 약 3분의 1이 해수면보다 아래에 있다."},
+ {n:28,tag:"Thus·build up·병렬",eng:`<span class="hl">Thus</span>, the Dutch <span class="hl">built up</span> the land, and one effective way to use it <span class="hl">was to</span> grow flowers and sell them.`,gram:["Thus 부사","build up","be동사+to부정사(보어)","대명사 it/them"],point:`<b>Thus</b> = 따라서(= Therefore). <b>build up</b> = ~을 지어 올리다. <b>way ... was to grow ~ and (to) sell ~</b> = to부정사가 주격보어. <span class="point">it = the land, them = flowers.</span> the Dutch = 네덜란드 사람들(the+형용사=복수).`,kr:"따라서, 네덜란드 사람들은 땅을 메웠고, 그것을 이용하는 한 가지 효과적인 방법은 꽃을 길러 파는 것이었다."},
+ {n:29,tag:"It ~ that 강조/명사절",eng:`<span class="hl">It is</span>, therefore, <span class="hl">no surprise that</span> the country has the largest flower market in the world: the Aalsmeer Flower Market.`,gram:["It is no surprise that ~","therefore 삽입","the+최상급"],point:`<b>It is no surprise that ~</b> = '~라는 것은 놀라운 일이 아니다'(It=가주어, that절=진주어). therefore = 그러므로(삽입). the largest = 최상급.`,kr:"그러므로, 그 나라가 세계에서 가장 큰 꽃 시장인 Aalsmeer 꽃 시장을 가지고 있는 것은 놀라운 일이 아니다."},
+ {n:30,tag:"관계부사 where·수동·비교",eng:`The building <span class="hl">where</span> the market <span class="hl">is housed</span> is bigger than 120 soccer fields.`,gram:["관계부사 where(=in which)","수동태 is housed","비교급 than"],point:`<b>where</b> = 관계부사(= in which), The building 수식. <b>is housed</b> = 수동태('수용되다'). <span class="point">진짜 주어는 The building(단수) → 본동사 is. (where절은 삽입 수식)</span> house = 수용하다.`,kr:"시장이 들어선 그 건물은 축구장 120개보다 더 크다."},
+ {n:31,tag:"be busy with",eng:`The market <span class="hl">is busy with</span> thousands of flower-filled carts.`,gram:["be busy with","thousands of + 복수"],point:`<b>be busy with</b> = ~로 분주하다. thousands of = 수천의. flower-filled = 꽃으로 가득한(복합형용사). cart = 수레.`,kr:"그 시장은 꽃이 가득한 수천 개의 수레로 분주하다."},
+ {n:32,tag:"수동태·부사 mostly",eng:`They <span class="hl">are moved</span> <span class="hl">mostly</span> by electric-powered trucks.`,gram:["수동태 be+p.p.","대명사 They=carts","mostly 부사"],point:`<b>are moved</b> = 수동태('옮겨지다'). <span class="point">They = carts(복수) → are.</span> mostly = 주로(부사). electric-powered = 전기를 동력으로 하는.`,kr:"그것들(수레)은 주로 전기 동력 트럭에 의해 옮겨진다."},
+ {n:33,tag:"수동태·to all corners",eng:`Every day, <span class="hl">around</span> 20 million flowers <span class="hl">are traded and shipped</span> to all corners of the world.`,gram:["around(=about)","수동태 병렬 are traded and shipped"],point:`<b>around</b> = 약(= about). <b>are traded and (are) shipped</b> = 수동태 병렬. <span class="point">주어 flowers(복수) → are.</span> all corners of the world = 세계 곳곳. ship = 운송하다.`,kr:"매일, 약 2천만 송이의 꽃이 거래되어 세계 각지로 운송된다."},
+ {n:34,tag:"명사절 whether·조동사",eng:`Extra Tip You <span class="hl">may wonder</span> <span class="hl">whether</span> you can buy just a few flowers at the market.`,gram:["조동사 may","명사절 whether","a few + 복수"],point:`<b>may</b> = ~일지도 모른다. <b>whether</b> = ~인지 아닌지(명사절). a few flowers = 약간의 꽃(a few + 셀 수 있는 복수).`,kr:"여러분은 시장에서 꽃을 조금만 살 수 있는지 궁금할지도 모른다."},
+ {n:35,tag:"sadly·간접의문문",eng:`<span class="hl">Sadly</span>, you cannot, but you can see <span class="hl">how</span> wholesale flower trading works.`,gram:["부사 sadly","간접의문문 how + 주어 + 동사"],point:`<b>Sadly</b> = 애석하게도(부사). <b>how wholesale flower trading works</b> = 간접의문문(의문사 how + 주어 + 동사). <span class="point">주어 trading(동명사, 단수) → works(-s).</span> wholesale = 도매의.`,kr:"애석하게도, 여러분은 그럴 수 없지만, 도매 꽃 거래가 어떻게 이루어지는지는 볼 수 있다."}
+];
+
+const QUIZ=[
+ {tag:"시제",s:`I [have been writing] a travel blog since I was 18.`,kr:"현재완료진행"},
+ {tag:"숙어",s:`I go places and [share] my experiences with my readers.`,kr:"공유하다(share A with B)"},
+ {tag:"수일치",s:`Visiting markets [is] a good way to learn about the culture.`,kr:"동명사 주어→단수동사"},
+ {tag:"관계부사",s:`Markets are places [where] you can meet people.`,kr:"장소 관계부사(=at which)"},
+ {tag:"명사절",s:`I wonder [whether] there is any better way to discover another culture.`,kr:"~인지 아닌지(=if)"},
+ {tag:"관계부사",s:`Turkey is a country [where] East meets West.`,kr:"장소 관계부사(=in which)"},
+ {tag:"전치사",s:`It is a natural place for large markets [like] the Grand Bazaar.`,kr:"~같은"},
+ {tag:"수동태",s:`The market [was built] in 1455 in Istanbul.`,kr:"지어졌다(be+p.p.)"},
+ {tag:"시제",s:`Back then, people [traded] goods like cloth and gold there.`,kr:"거래했다(과거)"},
+ {tag:"비교급강조",s:`Today the Grand Bazaar is [much] bigger.`,kr:"훨씬(비교급 강조)"},
+ {tag:"비교",s:`It has [more than] 4,000 shops under one roof.`,kr:"~ 이상(=over)"},
+ {tag:"수일치",s:`The market [attracts] over 250,000 visitors every day.`,kr:"단수주어→-s"},
+ {tag:"형용사",s:`You can buy almost any [imaginable] item there.`,kr:"상상할 수 있는"},
+ {tag:"명사절",s:`Ask shop owners [if] they carry nazar boncuğu.`,kr:"~인지(=whether)"},
+ {tag:"숙어",s:`If you want a nice snack, [make sure to] try lokum.`,kr:"반드시 ~하다"},
+ {tag:"시제",s:`In the past, Thai people [traded] goods on rivers.`,kr:"거래했다(과거)"},
+ {tag:"지시어",s:`[This] was the beginning of floating markets in Thailand.`,kr:"앞 내용을 가리킴"},
+ {tag:"전치사",s:`[With] better road transportation, many floating markets disappeared.`,kr:"~으로(원인)"},
+ {tag:"5형식",s:`Some of them have come back and [kept] the tradition alive.`,kr:"~을 …하게 유지하다(keep+O+형용사)"},
+ {tag:"수일치",s:`[One] of the most popular floating markets is Damnoen Saduak.`,kr:"핵심주어 one→단수 is"},
+ {tag:"숙어",s:`It is always [crowded with] tourists from all over the world.`,kr:"~로 붐비다"},
+ {tag:"부사",s:`You can buy local foods [directly] from boats.`,kr:"직접"},
+ {tag:"명사절",s:`I wonder whether you [have ever had] a meal on water.`,kr:"현재완료 경험"},
+ {tag:"조건",s:`[If not], try noodles like pad thai.`,kr:"그렇지 않다면"},
+ {tag:"대명사",s:`The sellers will cook [them] on their boats and pass them to you.`,kr:"them=noodles"},
+ {tag:"수일치",s:`The Netherlands [means] "low lands."`,kr:"국가명→단수 means"},
+ {tag:"수일치",s:`About a third of the country [sits] below sea level.`,kr:"of+단수→단수동사"},
+ {tag:"보어",s:`One effective way to use it [was to] grow flowers and sell them.`,kr:"be+to부정사(보어)"},
+ {tag:"구문",s:`It is, therefore, [no surprise that] the country has the largest flower market.`,kr:"~은 놀라운 일이 아니다"},
+ {tag:"관계부사",s:`The building [where] the market is housed is bigger than 120 soccer fields.`,kr:"장소 관계부사(=in which)"},
+ {tag:"숙어",s:`The market [is busy with] thousands of flower-filled carts.`,kr:"~로 분주하다"},
+ {tag:"수동태",s:`They [are moved] mostly by electric-powered trucks.`,kr:"옮겨진다(수동)"},
+ {tag:"수동태",s:`Around 20 million flowers [are traded and shipped] to all corners of the world.`,kr:"거래·운송된다(수동 병렬)"},
+ {tag:"명사절",s:`You may wonder [whether] you can buy just a few flowers.`,kr:"~인지 아닌지"},
+ {tag:"간접의문문",s:`You can see [how] wholesale flower trading works.`,kr:"how+주어+동사"}
+];
+
+const PAIRS=[
+ {en:"go places",kr:"여기저기 다니다"},
+ {en:"share A with B",kr:"A를 B와 공유하다"},
+ {en:"a long tradition of trade",kr:"오랜 교역의 전통"},
+ {en:"under one roof",kr:"한 지붕 아래에"},
+ {en:"make sure to",kr:"반드시 ~하다"},
+ {en:"keep ~ alive",kr:"~을 살아있게 유지하다"},
+ {en:"be crowded with",kr:"~로 붐비다"},
+ {en:"as the name suggests",kr:"이름에서 알 수 있듯이"},
+ {en:"be busy with",kr:"~로 분주하다"},
+ {en:"all corners of the world",kr:"세계 곳곳"}
+];
+
+/* ===== 공통 로직: 5단계 (읽기·강조 / 구문분석 / 해석 / 빈칸시험(문장수) / 표현연결) ===== */
+let view=0, mSel=null, matchData=null;
+function go(v){view=v;for(let i=0;i<5;i++)document.getElementById('s'+i).classList.toggle('on',i===v);render();}
+function render(){document.getElementById('app').innerHTML=[v0,v1,v2,v3,v4][view]();}
+function speak(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.8;speechSynthesis.speak(u);}
+function plain(h){return h.replace(/<[^>]+>/g,'').replace(/&quot;/g,'"');}
+function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9'\s]/g,'').replace(/\s+/g,' ').trim();}
+function acc(h){h.parentElement.classList.toggle('open');}
+
+/* 1단계: 읽기 + 핵심표현 강조 */
+function v0(){
+ let h=`<div class="intro">💡 <b>1단계 · 문장 읽기 & 핵심표현 강조</b><br><span style="background:#fff9c4;padding:1px 4px;border-radius:4px">노란 강조</span>=핵심 문법/표현, <span style="border-bottom:2px dotted #3b82f6">점선</span>=의미 청크. 🔊로 끊어 읽기를 연습하세요.</div>`;
+ let last='';
+ S.forEach(s=>{if(s.sec&&s.sec!==last){h+=`<div class="sec-label"><span>${s.sec}</span></div>`;last=s.sec;}
+  h+=`<div class="sent-card"><div class="sc-head"><div class="sc-num">${s.n}</div><span style="font-size:12px;color:#666;font-weight:700">S${String(s.n).padStart(2,'0')}</span><span class="sc-tag">${s.tag}</span></div>
+   <div class="sc-body"><div class="eng">${s.eng}<button class="tts" onclick="speak('${plain(s.eng).replace(/'/g,"\\'")}')">🔊</button></div></div></div>`;});
+ return h;
+}
+/* 2단계: 구문분석 (클릭 펼침) */
+function v1(){
+ let h=`<div class="intro">💡 <b>2단계 · 정밀 구문분석 (클릭하면 펼쳐짐)</b><br><b>핵심 문법 분석</b>을 눌러 펼치세요. <span class="point" style="color:#ef4444;font-weight:700">⚠️ 빨강</span>은 수일치·대명사·관계사 등 꼭 짚어야 할 포인트예요. 해석은 아직 보지 마세요!</div>`;
+ let last='';
+ S.forEach(s=>{if(s.sec&&s.sec!==last){h+=`<div class="sec-label"><span>${s.sec}</span></div>`;last=s.sec;}
+  h+=`<div class="sent-card"><div class="sc-head"><div class="sc-num">${s.n}</div><span class="sc-tag">${s.tag}</span></div>
+   <div class="sc-body"><div class="eng">${s.eng}</div>
+    <div class="analysis"><div class="acc"><div class="acc-h" onclick="acc(this)"><span>🔍 핵심 문법 분석</span><span class="ic">▼</span></div>
+     <div class="acc-c">${s.gram.map(g=>`<span class="gram">${g}</span>`).join('')}<div style="margin-top:8px">${s.point}</div></div></div></div></div></div>`;});
+ return h;
+}
+/* 3단계: 해석 (클릭 공개) */
+function v2(){
+ let h=`<div class="intro">💡 <b>3단계 · 해석 확인 (클릭하면 공개)</b><br>구문분석을 떠올리며 스스로 해석한 뒤 <b>해석 보기</b>를 눌러 확인하세요.</div>`;
+ let last='';
+ S.forEach(s=>{if(s.sec&&s.sec!==last){h+=`<div class="sec-label"><span>${s.sec}</span></div>`;last=s.sec;}
+  h+=`<div class="sent-card"><div class="sc-head"><div class="sc-num">${s.n}</div><span class="sc-tag">${s.tag}</span></div>
+   <div class="sc-body"><div class="eng">${s.eng}<button class="tts" onclick="speak('${plain(s.eng).replace(/'/g,"\\'")}')">🔊</button></div>
+    <div class="analysis"><div class="acc acc-kr"><div class="acc-h" onclick="acc(this)"><span>📖 해석 보기</span><span class="ic">▼</span></div>
+     <div class="acc-c"><div class="kr">${s.kr}</div></div></div></div></div></div>`;});
+ return h;
+}
+/* 4단계: 빈칸 시험 — 문장 수만큼 */
+function v3(){
+ let h=`<div class="intro">💡 <b>4단계 · 빈칸 시험 ${QUIZ.length}문항</b> (본문 문장 수에 맞춤)<br>구문분석 핵심이 빈칸이에요. 스스로 떠올린 뒤 <b>빨간 빈칸을 탭</b>하면 정답 공개. (힌트=한국어)</div>
+ <div class="ctrl-bar"><button class="ctrl-btn btn-dark" onclick="document.querySelectorAll('.gap').forEach(e=>e.classList.add('show'))">✅ 정답 전체 보기</button><button class="ctrl-btn btn-gray" onclick="document.querySelectorAll('.gap').forEach(e=>e.classList.remove('show'))">🙈 숨기기</button></div>`;
+ QUIZ.forEach((q,i)=>{const s=q.s.replace(/\[(.+?)\]/,`<span class="gap" onclick="this.classList.toggle('show')">$1</span>`);
+  h+=`<div class="qcard"><div class="qnum">Q${i+1} / ${QUIZ.length} <span class="qtag">${q.tag}</span></div><div class="qsent">${s}</div><div class="qkr">💬 힌트: ${q.kr}</div></div>`;});
+ return h;
+}
+/* 5단계: 표현 연결 매칭 */
+function buildMatch(){matchData={left:PAIRS.map((p,i)=>({k:i,t:p.en})),right:PAIRS.map((p,i)=>({k:i,t:p.kr})).sort(()=>Math.random()-.5),matched:[]};}
+function v4(){
+ if(!matchData)buildMatch();const m=matchData;
+ let h=`<div class="intro">💡 <b>5단계 · 중요 표현 연결하여 외우기</b><br>영어 표현과 한국어 뜻을 짝지으세요. 본문 핵심 표현을 마지막으로 정리합니다.</div>
+ <div class="match-grid"><div class="mcol">`;
+ m.left.forEach(x=>{const d=m.matched.includes(x.k);h+=`<div class="chip${d?' done':''}${mSel&&mSel.s==='L'&&mSel.k===x.k?' sel':''}" onclick="pk('L',${x.k})">${x.t}</div>`;});
+ h+=`</div><div class="mcol">`;
+ m.right.forEach(x=>{const d=m.matched.includes(x.k);h+=`<div class="chip kr${d?' done':''}${mSel&&mSel.s==='R'&&mSel.k===x.k?' sel':''}" onclick="pk('R',${x.k})">${x.t}</div>`;});
+ h+=`</div></div><div class="mmsg" id="mmsg">${m.matched.length}/${PAIRS.length} 짝 완성</div>`;
+ if(m.matched.length===PAIRS.length)h+=`<div style="text-align:center"><div style="font-size:40px">🎉</div><p style="font-weight:700;color:var(--c4)">구문분석 학습 완료! 수고했어요.</p></div>`;
+ return h;
+}
+function pk(s,k){if(!mSel){mSel={s,k};render();return;}if(mSel.s===s){mSel={s,k};render();return;}if(mSel.k===k)matchData.matched.push(k);mSel=null;render();const el=document.getElementById('mmsg');if(el&&matchData.matched.length===PAIRS.length)el.innerHTML='✅ 모두 완성!';}
+render();
+</script></body></html>
