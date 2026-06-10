@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 01 Me and My Three Emojis — 본문 학습</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:#f0efea;color:#1a1a1a;font-size:14px;line-height:1.6;}
+.page{max-width:920px;margin:0 auto;padding:24px 16px;}
+.doc-header{background:#fff;border-radius:14px;padding:26px 30px 20px;margin-bottom:20px;border:0.5px solid #ddd;}
+.doc-header h1{font-size:21px;font-weight:700;margin-bottom:4px;}
+.doc-header .sub{font-size:12px;color:#999;}
+.meta-row{display:flex;gap:24px;margin-top:14px;flex-wrap:wrap;}
+.meta-item{display:flex;align-items:center;gap:8px;font-size:13px;color:#888;}
+.meta-box{border-bottom:1px solid #aaa;width:130px;height:20px;}
+.toc{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.toc a{font-size:12px;padding:5px 12px;border-radius:20px;background:#e6f1ff;color:#0a3d91;text-decoration:none;font-weight:500;}
+.section{background:#fff;border-radius:14px;padding:24px 28px;margin-bottom:20px;border:0.5px solid #ddd;}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;padding-bottom:11px;border-bottom:1.5px solid #1a1a1a;margin-bottom:18px;}
+.sec-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;color:#fff;}
+.b-purple{background:#6c5ce7;}.b-orange{background:#e17055;}.b-blue{background:#0984e3;}
+.b-pink{background:#fd79a8;}.b-green{background:#00b894;}.b-teal{background:#0fa3a3;}
+.sec-desc{font-size:12px;color:#999;margin-bottom:14px;margin-top:-10px;}
+.snd-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:0.5px solid #ccc;border-radius:20px;padding:3px 10px 3px 8px;font-size:12px;color:#555;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;}
+.snd-btn:hover{background:#f0eeff;border-color:#6c5ce7;color:#6c5ce7;}
+.snd-btn.playing{background:#f0eeff;border-color:#6c5ce7;color:#6c5ce7;}
+.snd-icon{font-size:14px;}
+.ans-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:0.5px solid #ccc;border-radius:20px;padding:3px 12px;font-size:12px;color:#888;cursor:pointer;font-family:inherit;transition:all .15s;}
+.ans-btn:hover{background:#f0fef7;border-color:#00b894;color:#00b894;}
+.ans-reveal{display:none;margin-top:8px;padding:8px 12px;background:#f0fef7;border-radius:8px;border:0.5px solid #b2e8d0;font-size:13px;color:#056b47;line-height:1.7;}
+.ans-reveal.open{display:block;}
+.person-tag{font-size:12px;font-weight:700;padding:3px 11px;border-radius:6px;display:inline-block;margin:16px 0 8px;}
+.pt-jaeho{background:#f0eeff;color:#4a3db5;}
+.pt-diego{background:#fff4e0;color:#8a4f00;}
+.pt-amara{background:#e6f9f1;color:#056b47;}
+.pt-sophie{background:#fde8f0;color:#99355a;}
+.flow-table{width:100%;border-collapse:collapse;}
+.flow-table td{padding:7px 8px;border-bottom:0.5px solid #f0f0f0;vertical-align:top;font-size:13.5px;}
+.flow-table td:first-child{width:30px;font-weight:700;color:#aaa;text-align:center;}
+.flow-table td .row-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
+.flow-table td .row-inner .kr{flex:1;}
+.flow-table td .row-inner .btns{display:flex;gap:4px;flex-shrink:0;}
+/* 해석 유도 */
+.trans-item{margin-bottom:14px;padding-bottom:14px;border-bottom:0.5px solid #f0f0f0;}
+.trans-item:last-child{border-bottom:none;margin-bottom:0;}
+.trans-num{font-size:11px;font-weight:700;color:#0984e3;margin-bottom:4px;}
+.trans-en{font-size:15px;line-height:1.7;margin-bottom:8px;font-weight:500;}
+.trans-ta{width:100%;min-height:42px;padding:8px 12px;border:0.5px solid #ddd;border-radius:8px;font-size:13.5px;font-family:inherit;line-height:1.6;resize:none;color:#1a1a1a;background:#fff;}
+.trans-ta:focus{outline:none;border-color:#0984e3;}
+.trans-btns{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center;}
+/* 빈칸 */
+.q-item{margin-bottom:14px;padding-bottom:14px;border-bottom:0.5px solid #f0f0f0;}
+.q-item:last-child{border-bottom:none;margin-bottom:0;}
+.q-num{font-size:11px;font-weight:700;color:#e17055;margin-bottom:4px;}
+.q-kr{font-size:12px;color:#aaa;margin-bottom:5px;}
+.q-en{font-size:14.5px;line-height:1.9;}
+.q-en input{border:none;border-bottom:1.5px solid #333;padding:0 4px;font-size:13.5px;font-family:inherit;background:transparent;color:#1a1a1a;outline:none;}
+.q-en input:focus{border-bottom-color:#e17055;}
+.q-en input.correct{border-bottom-color:#00b894;background:#f0fef7;color:#056b47;}
+.q-en input.wrong{border-bottom-color:#e17055;background:#fff5f0;color:#c0392b;}
+.q-btns{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center;}
+.mini-btn{padding:4px 12px;border:0.5px solid #ccc;border-radius:20px;font-size:12px;cursor:pointer;font-family:inherit;background:#fff;color:#555;}
+.mini-btn:hover{background:#eef;border-color:#6c5ce7;color:#6c5ce7;}
+.word-bank{background:#fff4e0;border-radius:8px;padding:10px 14px;font-size:12.5px;color:#8a4f00;margin-bottom:16px;line-height:1.9;}
+.word-bank strong{font-weight:700;}
+/* 순서 배열 */
+.order-item{margin-bottom:16px;padding-bottom:16px;border-bottom:0.5px solid #f0f0f0;}
+.order-kr{font-size:13px;color:#555;margin-bottom:8px;font-weight:500;}
+.chunk-pool{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.chunk{padding:5px 12px;border:0.5px solid #bbb;border-radius:8px;background:#faf9f6;font-size:13px;cursor:pointer;user-select:none;transition:all .12s;}
+.chunk:hover{background:#f0eeff;border-color:#6c5ce7;}
+.chunk.used{opacity:.3;pointer-events:none;}
+.order-build{min-height:38px;border:1px dashed #ccc;border-radius:8px;padding:8px 10px;font-size:14px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:6px;}
+.order-build .placed{padding:3px 9px;background:#e6f1ff;border-radius:6px;cursor:pointer;font-size:13px;}
+/* 문법 */
+.gram-tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;margin-bottom:6px;}
+.gt-agree{background:#fff4e0;color:#8a4f00;}
+.gt-tense{background:#e6f9f1;color:#056b47;}
+.gt-pron{background:#f0eeff;color:#4a3db5;}
+.gt-be{background:#fde8f0;color:#99355a;}
+.choice-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.choice{padding:5px 14px;border:0.5px solid #ccc;border-radius:20px;font-size:13px;cursor:pointer;background:#fff;font-family:inherit;transition:all .12s;}
+.choice:hover{background:#f5f5f5;}
+.choice.correct{background:#e6f9f1;border-color:#00b894;color:#056b47;font-weight:500;}
+.choice.wrong{background:#fce8e8;border-color:#e24b4a;color:#a32d2d;}
+.score-bar{background:#f8f8f5;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap;}
+.score-num{font-size:20px;font-weight:700;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="doc-header">
+  <h1>Lesson 01 &nbsp;Me and My Three Emojis</h1>
+  <div class="sub">능률 김기택 1학년 · 본문 학습지 ② — 해석 / 빈칸 / 순서 / 대명사 / 시제·수일치 / be·일반동사</div>
+  <div class="meta-row">
+    <div class="meta-item">이름 <span class="meta-box"></span></div>
+    <div class="meta-item">날짜 <span class="meta-box"></span></div>
+    <div class="meta-item">점수 <span class="meta-box" style="width:80px"></span></div>
+  </div>
+  <div class="toc">
+    <a href="#s1">① 본문 흐름</a><a href="#s2">② 해석 유도</a><a href="#s3">③ 빈칸 채우기</a>
+    <a href="#s4">④ 순서 배열</a><a href="#s5">⑤ 대명사 찾기</a><a href="#s6">⑥ 시제·수일치·be/일반동사</a>
+  </div>
+</div>
+
+<div class="section" id="s1">
+  <div class="sec-title"><span class="sec-badge b-purple">①</span>본문 흐름 — 인물별 정리 (듣기 + 영문 정답)</div>
+  <div id="flowContent"></div>
+</div>
+
+<div class="section" id="s2">
+  <div class="sec-title"><span class="sec-badge b-blue">②</span>해석 유도 — 영어 문장을 우리말로 해석해 보세요</div>
+  <div id="transList"></div>
+</div>
+
+<div class="section" id="s3">
+  <div class="sec-title"><span class="sec-badge b-orange">③</span>빈칸 채우기 — 문맥에 맞는 단어를 넣으세요</div>
+  <div class="word-bank" id="blankBank"></div>
+  <div id="blankList"></div>
+</div>
+
+<div class="section" id="s4">
+  <div class="sec-title"><span class="sec-badge b-green">④</span>순서 배열 — 칩을 눌러 영어 문장을 완성하세요</div>
+  <div id="orderList"></div>
+</div>
+
+<div class="section" id="s5">
+  <div class="sec-title"><span class="sec-badge b-purple">⑤</span>대명사 찾기 — 밑줄 친 대명사가 가리키는 것은?</div>
+  <div id="pronList"></div>
+</div>
+
+<div class="section" id="s6">
+  <div class="sec-title"><span class="sec-badge b-pink">⑥</span>핵심 문법 — 시제 · 수일치 · be동사 · 일반동사</div>
+  <div class="score-bar"><span style="font-size:13px;color:#888;">점수</span><span class="score-num" id="gramScore">0 / 0</span></div>
+  <div id="gramList"></div>
+</div>
+
+</div>
+
+<script>
+let voices=[];
+function loadVoices(){voices=window.speechSynthesis?window.speechSynthesis.getVoices():[];}
+if(window.speechSynthesis){loadVoices();window.speechSynthesis.onvoiceschanged=loadVoices;}
+function speak(text,btn){
+  if(!window.speechSynthesis)return;window.speechSynthesis.cancel();
+  if(btn.classList.contains('playing')){btn.classList.remove('playing');btn.querySelector('.snd-icon').textContent='🔊';return;}
+  document.querySelectorAll('.snd-btn.playing').forEach(b=>{b.classList.remove('playing');b.querySelector('.snd-icon').textContent='🔊';});
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.9;
+  const en=voices.find(v=>v.lang.startsWith('en'));if(en)u.voice=en;
+  u.onend=()=>{btn.classList.remove('playing');btn.querySelector('.snd-icon').textContent='🔊';};
+  btn.classList.add('playing');btn.querySelector('.snd-icon').textContent='⏹';window.speechSynthesis.speak(u);
+}
+function sndBtn(text){const b=document.createElement('button');b.className='snd-btn';b.innerHTML='<span class="snd-icon">🔊</span>';b.title='듣기';b.onclick=()=>speak(text,b);return b;}
+function ansBtn(targetEl,onReveal){const b=document.createElement('button');b.className='ans-btn';b.textContent='정답 보기';b.onclick=()=>{targetEl.classList.toggle('open');b.textContent=targetEl.classList.contains('open')?'정답 숨기기':'정답 보기';if(targetEl.classList.contains('open')&&onReveal)onReveal();};return b;}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ===== 본문 데이터 ===== */
+const TEXT=[
+  {who:'Jaeho',cls:'pt-jaeho',rows:[
+    ['01','Hello! My name is Jaeho. I\'m from Korea.','안녕! 내 이름은 재호야. 나는 한국에서 왔어.'],
+    ['02','I\'m in the first grade of middle school.','나는 중학교 1학년이야.'],
+    ['03','Look at my smile! I always smile, so many people like me.','내 미소를 봐! 나는 항상 미소 지어서 많은 사람들이 나를 좋아해.'],
+    ['04','In my free time, I play soccer with my friends.','여가 시간에 나는 친구들과 축구를 해.'],
+    ['05','I love soccer. I\'m in the school soccer club.','나는 축구를 사랑해. 나는 학교 축구 동아리에 들어가 있어.'],
+    ['06','I also love music. I\'m in the singing club too.','나는 또한 음악을 좋아해. 나는 노래 동아리에도 들어가 있어.'],
+    ['07','Both clubs are fun!','두 동아리 모두 재미있어!'],
+    ['08','(im13) Hey, I\'m also in middle school! Good luck.','(im13) 안녕, 나도 중학교에 다녀! 행운을 빌어.'],
+    ['09','(messi10) I like soccer too!','(messi10) 나도 축구를 좋아해!'],
+  ]},
+  {who:'Diego',cls:'pt-diego',rows:[
+    ['10','I\'m Diego. I\'m from Mexico.','나는 Diego야. 나는 멕시코에서 왔어.'],
+    ['11','I have a cat. Her name is Bella. (Meow!)','나는 고양이를 키워. 그녀의 이름은 Bella야. (야옹!)'],
+    ['12','She is so sweet!','그녀는 정말 사랑스러워!'],
+    ['13','I often take pictures of Bella and post them online.','나는 자주 Bella의 사진을 찍어서 온라인에 그것들을 올려.'],
+    ['14','Also, I like tacos. I sometimes make them with my mom.','또한 나는 타코를 좋아해. 나는 때때로 엄마와 함께 그것들을 만들어.'],
+    ['15','(luv_cat) I love cats too!','(luv_cat) 나도 고양이를 좋아해!'],
+  ]},
+  {who:'Amara',cls:'pt-amara',rows:[
+    ['16','I\'m Amara. I live in Thailand.','나는 Amara야. 나는 태국에 살아.'],
+    ['17','I have a warm heart.','나는 따뜻한 마음을 가지고 있어.'],
+    ['18','I often help other people and feel happy.','나는 자주 다른 사람들을 돕고 행복함을 느껴.'],
+    ['19','I like dancing and exercise.','나는 춤과 운동을 좋아해.'],
+    ['20','I practice dance moves every day.','나는 매일 춤 동작을 연습해.'],
+    ['21','I also go to the gym for exercise. I feel so healthy!','나는 또한 운동하러 체육관에 가. 나는 정말 건강하다고 느껴!'],
+    ['22','(p0wer) Great! What do you do for exercise?','(p0wer) 멋지다! 너는 운동으로 무엇을 하니?'],
+  ]},
+  {who:'Sophie',cls:'pt-sophie',rows:[
+    ['23','Hi! I\'m Sophie. Can you guess my country?','안녕! 나는 Sophie야. 내 나라를 추측할 수 있니?'],
+    ['24','You can see the baguette. Yes, I\'m from France!','너는 바게트를 볼 수 있어. 맞아, 나는 프랑스에서 왔어!'],
+    ['25','I live with my family: my mom, dad, and Enzo.','나는 가족과 함께 살아: 우리 엄마, 아빠, 그리고 Enzo.'],
+    ['26','Enzo is my twin brother. We are best friends!','Enzo는 내 쌍둥이 형제야. 우리는 가장 친한 친구야!'],
+    ['27','My family loves camping.','우리 가족은 캠핑을 좋아해.'],
+    ['28','We go camping very often.','우리는 매우 자주 캠핑하러 가.'],
+    ['29','(leo_121) Bonjour, Sophie! (kim) Do you and your brother look like each other?','(leo_121) 안녕, Sophie! (kim) 너와 네 형제는 서로 닮았니?'],
+  ]},
+];
+
+function buildFlow(){
+  const wrap=document.getElementById('flowContent');
+  TEXT.forEach(group=>{
+    const lab=document.createElement('div');lab.className='person-tag '+group.cls;lab.textContent='● '+group.who;wrap.appendChild(lab);
+    const tbl=document.createElement('table');tbl.className='flow-table';
+    group.rows.forEach(([num,en,kr])=>{
+      const tr=document.createElement('tr');tr.innerHTML='<td>'+num+'</td><td></td>';
+      const inner=document.createElement('div');inner.className='row-inner';
+      const krd=document.createElement('div');krd.className='kr';krd.textContent=kr;
+      const btns=document.createElement('div');btns.className='btns';
+      const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent=en;
+      btns.appendChild(sndBtn(en.replace(/\([^)]*\)/g,'')));btns.appendChild(ansBtn(reveal));
+      inner.append(krd,btns);
+      tr.cells[1].appendChild(inner);tr.cells[1].appendChild(reveal);tbl.appendChild(tr);
+    });
+    wrap.appendChild(tbl);
+  });
+}
+
+/* ===== 해석 유도 ===== */
+const TRANS=[
+  ['03','Look at my smile! I always smile, so many people like me.','내 미소를 봐! 나는 항상 미소 지어서 많은 사람들이 나를 좋아해.'],
+  ['07','Both clubs are fun!','두 동아리 모두 재미있어!'],
+  ['11','I have a cat. Her name is Bella.','나는 고양이를 키워. 그녀의 이름은 Bella야.'],
+  ['13','I often take pictures of Bella and post them online.','나는 자주 Bella의 사진을 찍어서 그것들을 온라인에 올려.'],
+  ['18','I often help other people and feel happy.','나는 자주 다른 사람들을 돕고 행복함을 느껴.'],
+  ['21','I also go to the gym for exercise. I feel so healthy!','나는 또한 운동하러 체육관에 가. 나는 정말 건강하다고 느껴!'],
+  ['26','Enzo is my twin brother. We are best friends!','Enzo는 내 쌍둥이 형제야. 우리는 가장 친한 친구야!'],
+  ['29','Do you and your brother look like each other?','너와 네 형제는 서로 닮았니?'],
+];
+function buildTrans(){
+  const list=document.getElementById('transList');
+  TRANS.forEach(([num,en,kr])=>{
+    const div=document.createElement('div');div.className='trans-item';
+    const n=document.createElement('div');n.className='trans-num';n.textContent='문장 '+num;
+    const e=document.createElement('div');e.className='trans-en';e.textContent=en;
+    const ta=document.createElement('textarea');ta.className='trans-ta';ta.placeholder='우리말로 해석해 보세요...';ta.rows=1;
+    const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent=kr;
+    const btns=document.createElement('div');btns.className='trans-btns';
+    btns.append(sndBtn(en),ansBtn(reveal));
+    div.append(n,e,ta,btns,reveal);list.appendChild(div);
+  });
+}
+
+/* ===== 빈칸 ===== */
+const BLANK=[
+  {num:'01',kr:'나는 한국에서 왔어.',parts:['I\'m ',[60,'from'],' Korea.'],full:'I am from Korea.'},
+  {num:'02',kr:'나는 중학교 1학년이야.',parts:['I\'m in the ',[60,'first'],' grade of middle school.'],full:'I am in the first grade of middle school.'},
+  {num:'03',kr:'나는 항상 미소 지어, 그래서 많은 사람들이 나를 좋아해.',parts:['I ',[60,'always'],' smile, ',[40,'so'],' many people like me.'],full:'I always smile, so many people like me.'},
+  {num:'07',kr:'두 동아리 모두 재미있어!',parts:[[55,'Both'],' clubs are fun!'],full:'Both clubs are fun!'},
+  {num:'12',kr:'그녀는 정말 사랑스러워!',parts:['She is so ',[60,'sweet'],'!'],full:'She is so sweet!'},
+  {num:'13',kr:'나는 자주 Bella의 사진을 찍어서 그것들을 온라인에 올려.',parts:['I often ',[110,'take pictures of'],' Bella and ',[55,'post'],' them online.'],full:'I often take pictures of Bella and post them online.'},
+  {num:'17',kr:'나는 따뜻한 마음을 가지고 있어.',parts:['I have a ',[55,'warm'],' heart.'],full:'I have a warm heart.'},
+  {num:'18',kr:'나는 자주 다른 사람들을 돕고 행복함을 느껴.',parts:['I often ',[50,'help'],' other people and feel happy.'],full:'I often help other people and feel happy.'},
+  {num:'20',kr:'나는 매일 춤 동작을 연습해.',parts:['I ',[70,'practice'],' dance moves every day.'],full:'I practice dance moves every day.'},
+  {num:'21',kr:'나는 운동하러 체육관에 가. 나는 정말 건강하다고 느껴!',parts:['I go to the ',[50,'gym'],' for exercise. I feel so ',[70,'healthy'],'!'],full:'I go to the gym for exercise. I feel so healthy!'},
+  {num:'26',kr:'Enzo는 내 쌍둥이 형제야.',parts:['Enzo is my ',[50,'twin'],' brother.'],full:'Enzo is my twin brother.'},
+  {num:'29',kr:'너와 네 형제는 서로 닮았니?',parts:['Do you and your brother ',[90,'look like'],' ',[80,'each other'],'?'],full:'Do you and your brother look like each other?'},
+];
+function buildBlanks(){
+  const bank=[];BLANK.forEach(b=>b.parts.forEach(p=>{if(Array.isArray(p))bank.push(p[1]);}));
+  document.getElementById('blankBank').innerHTML='<strong>Word Bank</strong> &nbsp;|&nbsp; '+shuffle(bank).join(' &nbsp;·&nbsp; ');
+  const list=document.getElementById('blankList');
+  BLANK.forEach(item=>{
+    const div=document.createElement('div');div.className='q-item';
+    const num=document.createElement('div');num.className='q-num';num.textContent='문장 '+item.num;
+    const krd=document.createElement('div');krd.className='q-kr';krd.textContent=item.kr;
+    const en=document.createElement('div');en.className='q-en';
+    const inputs=[],answers=[];
+    item.parts.forEach(p=>{
+      if(typeof p==='string'){en.appendChild(document.createTextNode(p));}
+      else{const[w,ans]=p;const inp=document.createElement('input');inp.type='text';inp.style.width=w+'px';inp.placeholder='___';inputs.push(inp);answers.push(ans.toLowerCase());en.appendChild(inp);}
+    });
+    const btns=document.createElement('div');btns.className='q-btns';
+    const chk=document.createElement('button');chk.className='mini-btn';chk.textContent='채점';
+    const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent=item.full;
+    chk.onclick=()=>{inputs.forEach((inp,i)=>{if(inp.value.trim().toLowerCase()===answers[i]){inp.classList.remove('wrong');inp.classList.add('correct');}else{inp.classList.remove('correct');inp.classList.add('wrong');}});};
+    const ab=ansBtn(reveal,()=>{inputs.forEach((inp,i)=>{inp.value=answers[i];inp.classList.add('correct');});});
+    btns.append(chk,sndBtn(item.full),ab);
+    div.append(num,krd,en,btns,reveal);list.appendChild(div);
+  });
+}
+
+/* ===== 순서 배열 ===== */
+const ORDER=[
+  {kr:'나는 항상 미소 지어, 그래서 많은 사람들이 나를 좋아해.',chunks:['I','always','smile,','so','many people','like','me.'],ans:'I always smile, so many people like me.'},
+  {kr:'나는 자유 시간에 친구들과 축구를 해.',chunks:['In my free time,','I','play','soccer','with','my friends.'],ans:'In my free time, I play soccer with my friends.'},
+  {kr:'나는 자주 Bella의 사진을 찍어서 그것들을 온라인에 올려.',chunks:['I often','take pictures of','Bella','and','post','them','online.'],ans:'I often take pictures of Bella and post them online.'},
+  {kr:'나는 자주 다른 사람들을 돕고 행복함을 느껴.',chunks:['I','often','help','other people','and','feel','happy.'],ans:'I often help other people and feel happy.'},
+  {kr:'나는 또한 운동하러 체육관에 가.',chunks:['I','also','go to','the gym','for exercise.'],ans:'I also go to the gym for exercise.'},
+  {kr:'너와 네 형제는 서로 닮았니?',chunks:['Do','you and your brother','look like','each other?'],ans:'Do you and your brother look like each other?'},
+];
+function buildOrder(){
+  const list=document.getElementById('orderList');
+  ORDER.forEach((item)=>{
+    const div=document.createElement('div');div.className='order-item';
+    const krd=document.createElement('div');krd.className='order-kr';krd.textContent=item.kr;
+    const build=document.createElement('div');build.className='order-build';
+    const pool=document.createElement('div');pool.className='chunk-pool';
+    const placed=[];
+    function refresh(){build.innerHTML='';if(placed.length===0){build.innerHTML='<span style="color:#bbb;font-size:12px;">칩을 눌러 순서대로 배치하세요</span>';}placed.forEach((txt,idx)=>{const s=document.createElement('span');s.className='placed';s.textContent=txt;s.onclick=()=>{placed.splice(idx,1);[...pool.children].find(c=>c.textContent===txt&&c.classList.contains('used'))?.classList.remove('used');refresh();};build.appendChild(s);});}
+    shuffle(item.chunks).forEach(c=>{const ch=document.createElement('span');ch.className='chunk';ch.textContent=c;ch.onclick=()=>{placed.push(c);ch.classList.add('used');refresh();};pool.appendChild(ch);});
+    refresh();
+    const btns=document.createElement('div');btns.className='q-btns';
+    const chk=document.createElement('button');chk.className='mini-btn';chk.textContent='채점';
+    const result=document.createElement('span');result.style.cssText='font-size:13px;font-weight:700;padding:2px 8px;border-radius:6px;';
+    const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent=item.ans;
+    chk.onclick=()=>{const made=placed.join(' ');if(made===item.ans){result.textContent='○ 정답!';result.style.background='#e6f9f1';result.style.color='#056b47';}else{result.textContent='✕ 다시!';result.style.background='#fce8e8';result.style.color='#a32d2d';}};
+    btns.append(chk,sndBtn(item.ans),ansBtn(reveal),result);
+    div.append(krd,build,pool,btns,reveal);list.appendChild(div);
+  });
+}
+
+/* ===== 대명사 ===== */
+const PRON=[
+  {sent:'I often take pictures of Bella and post <b>them</b> online. (문장 13)',q:'them이 가리키는 것은?',a:'pictures (of Bella) — Bella의 사진들'},
+  {sent:'Also, I like tacos. I sometimes make <b>them</b> with my mom. (문장 14)',q:'them이 가리키는 것은?',a:'tacos — 타코들'},
+  {sent:'I have a cat. <b>Her</b> name is Bella. (문장 11)',q:'Her가 가리키는 것은?',a:'a cat (Bella) — 고양이 Bella'},
+  {sent:'Look at my smile! I always smile, so many people like <b>me</b>. (문장 03)',q:'me가 가리키는 것은?',a:'Jaeho (글쓴이 재호)'},
+  {sent:'Enzo is my twin brother. <b>We</b> are best friends! (문장 26)',q:'We가 가리키는 것은?',a:'Sophie and Enzo — Sophie와 Enzo'},
+  {sent:'Both clubs are fun! (문장 07) — <b>Both clubs</b>',q:'Both clubs가 가리키는 두 동아리는?',a:'soccer club & singing club — 축구 동아리와 노래 동아리'},
+];
+function buildPron(){
+  const list=document.getElementById('pronList');
+  PRON.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='q-item';
+    const num=document.createElement('div');num.className='q-num';num.style.color='#4a3db5';num.textContent=(i+1);
+    const sent=document.createElement('div');sent.className='q-en';sent.style.fontSize='14px';sent.innerHTML=item.sent;
+    const qd=document.createElement('div');qd.style.cssText='font-size:12.5px;color:#888;margin-top:6px;';qd.textContent='→ '+item.q;
+    const inp=document.createElement('input');inp.type='text';inp.style.cssText='border:none;border-bottom:1.5px solid #bbb;padding:2px 6px;font-size:13px;font-family:inherit;background:transparent;outline:none;min-width:220px;margin-top:6px;';inp.placeholder='답 입력';
+    const btns=document.createElement('div');btns.className='q-btns';
+    const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent=item.a;
+    const sb=sndBtn(item.sent.replace(/<[^>]*>/g,'').replace(/\([^)]*\)/g,''));
+    btns.append(sb,ansBtn(reveal,()=>{inp.value=item.a;}));
+    div.append(num,sent,qd,inp,btns,reveal);list.appendChild(div);
+  });
+}
+
+/* ===== 문법 (선택형) ===== */
+const GRAM=[
+  {tag:'be동사',cls:'gt-be',sent:'My name ___ Jaeho.',opts:['is','are','am'],ans:'is',reason:'3인칭 단수 주어(My name) → is'},
+  {tag:'be동사',cls:'gt-be',sent:'Both clubs ___ fun!',opts:['is','are','am'],ans:'are',reason:'복수 주어(Both clubs) → are'},
+  {tag:'be동사',cls:'gt-be',sent:'We ___ best friends!',opts:['is','am','are'],ans:'are',reason:'주어 We(복수) → are'},
+  {tag:'일반동사',cls:'gt-tense',sent:'My family ___ camping.',opts:['love','loves'],ans:'loves',reason:'3인칭 단수 주어(My family) → loves (-s)'},
+  {tag:'일반동사',cls:'gt-tense',sent:'I ___ dance moves every day.',opts:['practice','practices'],ans:'practice',reason:'주어 I → 동사원형 practice'},
+  {tag:'수일치',cls:'gt-agree',sent:'She ___ so sweet!',opts:['is','are'],ans:'is',reason:'3인칭 단수 주어(She) → is'},
+  {tag:'일반동사',cls:'gt-tense',sent:'I often ___ other people.',opts:['help','helps'],ans:'help',reason:'주어 I → 동사원형 help'},
+  {tag:'일반동사 의문문',cls:'gt-tense',sent:'What ___ you do for exercise?',opts:['do','does'],ans:'do',reason:'주어 you → do로 의문문'},
+  {tag:'일반동사 의문문',cls:'gt-tense',sent:'___ you and your brother look like each other?',opts:['Do','Does'],ans:'Do',reason:'복수 주어(you and your brother) → Do'},
+  {tag:'대명사',cls:'gt-pron',sent:'I have a cat. ___ name is Bella.',opts:['His','Her','Their'],ans:'Her',reason:'암컷 고양이(she) → 소유격 Her'},
+];
+let gramScore={};
+function buildGram(){
+  const list=document.getElementById('gramList');
+  document.getElementById('gramScore').textContent='0 / '+GRAM.length;
+  GRAM.forEach((item,i)=>{
+    const div=document.createElement('div');div.className='q-item';
+    const tag=document.createElement('span');tag.className='gram-tag '+item.cls;tag.textContent=item.tag;
+    const sent=document.createElement('div');sent.className='q-en';sent.style.fontSize='14.5px';sent.style.marginTop='4px';sent.textContent=item.sent;
+    const row=document.createElement('div');row.className='choice-row';
+    const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.innerHTML='<strong>'+item.ans+'</strong> &nbsp;—&nbsp; '+item.reason;
+    let done=false;
+    item.opts.forEach(o=>{
+      const c=document.createElement('button');c.className='choice';c.textContent=o;
+      c.onclick=()=>{if(done)return;done=true;
+        if(o===item.ans){c.classList.add('correct');if(!gramScore[i]){gramScore[i]=1;document.getElementById('gramScore').textContent=Object.keys(gramScore).length+' / '+GRAM.length;}}
+        else{c.classList.add('wrong');[...row.children].forEach(ch=>{if(ch.textContent===item.ans)ch.classList.add('correct');});}
+        reveal.classList.add('open');};
+      row.appendChild(c);
+    });
+    const btns=document.createElement('div');btns.className='q-btns';btns.append(sndBtn(item.sent.replace('___',item.ans)),ansBtn(reveal));
+    div.append(tag,sent,row,btns,reveal);list.appendChild(div);
+  });
+}
+
+buildFlow();buildTrans();buildBlanks();buildOrder();buildPron();buildGram();
+</script>
+</body>
+</html>
