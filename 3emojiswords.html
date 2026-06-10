@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 01 About You and Me — 어휘 학습</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:#f0efea;color:#1a1a1a;font-size:14px;line-height:1.6;}
+.page{max-width:920px;margin:0 auto;padding:24px 16px;}
+.doc-header{background:#fff;border-radius:14px;padding:26px 30px 20px;margin-bottom:20px;border:0.5px solid #ddd;}
+.doc-header h1{font-size:21px;font-weight:700;margin-bottom:4px;}
+.doc-header .sub{font-size:12px;color:#999;}
+.meta-row{display:flex;gap:24px;margin-top:14px;flex-wrap:wrap;}
+.meta-item{display:flex;align-items:center;gap:8px;font-size:13px;color:#888;}
+.meta-box{border-bottom:1px solid #aaa;width:130px;height:20px;}
+.section{background:#fff;border-radius:14px;padding:24px 28px;margin-bottom:20px;border:0.5px solid #ddd;}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;padding-bottom:11px;border-bottom:1.5px solid #1a1a1a;margin-bottom:18px;}
+.sec-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;color:#fff;}
+.b-purple{background:#6c5ce7;}.b-orange{background:#e17055;}.b-blue{background:#0984e3;}
+.b-pink{background:#fd79a8;}.b-green{background:#00b894;}.b-teal{background:#0fa3a3;}
+.sec-desc{font-size:12px;color:#999;margin-bottom:14px;margin-top:-10px;}
+.snd-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:0.5px solid #ccc;border-radius:20px;padding:3px 10px 3px 8px;font-size:12px;color:#555;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;}
+.snd-btn:hover{background:#f0eeff;border-color:#6c5ce7;color:#6c5ce7;}
+.snd-btn.playing{background:#f0eeff;border-color:#6c5ce7;color:#6c5ce7;}
+.snd-icon{font-size:14px;}
+.ans-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:0.5px solid #ccc;border-radius:20px;padding:3px 12px;font-size:12px;color:#888;cursor:pointer;font-family:inherit;transition:all .15s;}
+.ans-btn:hover{background:#f0fef7;border-color:#00b894;color:#00b894;}
+.ans-reveal{display:none;margin-top:8px;padding:8px 12px;background:#f0fef7;border-radius:8px;border:0.5px solid #b2e8d0;font-size:13px;color:#056b47;line-height:1.7;}
+.ans-reveal.open{display:block;}
+/* 단어 리스트 */
+.vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;}
+@media(max-width:640px){.vocab-grid{grid-template-columns:1fr;}}
+.vocab-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-bottom:0.5px solid #f0f0f0;}
+.vocab-en{font-weight:500;font-size:14px;min-width:96px;}
+.vocab-pos{font-size:11px;color:#aaa;}
+.vocab-kr{font-size:13px;color:#555;flex:1;}
+.cat-label{font-size:12px;font-weight:700;padding:3px 10px;border-radius:6px;display:inline-block;margin:14px 0 8px;}
+.cl-1{background:#f0eeff;color:#4a3db5;}
+.cl-2{background:#fff4e0;color:#8a4f00;}
+.cl-3{background:#e6f9f1;color:#056b47;}
+.cl-4{background:#e6f1ff;color:#0a3d91;}
+.cl-5{background:#fde8f0;color:#99355a;}
+/* 매칭 */
+.match-q{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 0;border-bottom:0.5px solid #f0f0f0;}
+.match-num{font-size:11px;font-weight:700;color:#aaa;min-width:24px;}
+.match-en{font-weight:500;min-width:90px;font-size:14px;}
+.match-sel{padding:5px 10px;border:0.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;color:#1a1a1a;min-width:150px;}
+.match-result{font-size:13px;font-weight:700;padding:2px 8px;border-radius:6px;display:none;}
+.mr-ok{background:#e6f9f1;color:#056b47;}
+.mr-no{background:#fce8e8;color:#a32d2d;}
+/* 빈칸/입력 */
+.q-item{margin-bottom:12px;padding-bottom:12px;border-bottom:0.5px solid #f0f0f0;}
+.q-item:last-child{border-bottom:none;margin-bottom:0;}
+.q-num{font-size:11px;font-weight:700;color:#0984e3;margin-bottom:4px;}
+.q-prompt{font-size:14px;line-height:1.7;margin-bottom:6px;}
+.q-input{border:none;border-bottom:1.5px solid #333;padding:2px 6px;font-size:13px;font-family:inherit;background:transparent;color:#1a1a1a;outline:none;min-width:120px;}
+.q-input:focus{border-bottom-color:#0984e3;}
+.q-input.correct{border-bottom-color:#00b894;background:#f0fef7;color:#056b47;}
+.q-input.wrong{border-bottom-color:#e17055;background:#fff5f0;color:#c0392b;}
+.q-btns{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;align-items:center;}
+.mini-btn{padding:4px 12px;border:0.5px solid #ccc;border-radius:20px;font-size:12px;cursor:pointer;font-family:inherit;background:#fff;color:#555;}
+.mini-btn:hover{background:#eef;border-color:#6c5ce7;color:#6c5ce7;}
+.word-bank{background:#e6f1ff;border-radius:8px;padding:10px 14px;font-size:12.5px;color:#0a3d91;margin-bottom:16px;line-height:1.9;}
+.word-bank strong{font-weight:700;}
+.score-bar{background:#f8f8f5;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap;}
+.score-num{font-size:20px;font-weight:700;}
+.choice-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.choice{padding:5px 12px;border:0.5px solid #ccc;border-radius:20px;font-size:12.5px;cursor:pointer;background:#fff;font-family:inherit;transition:all .12s;}
+.choice:hover{background:#f5f5f5;}
+.choice.sel{background:#f0eeff;border-color:#6c5ce7;color:#4a3db5;font-weight:500;}
+.choice.correct{background:#e6f9f1;border-color:#00b894;color:#056b47;font-weight:500;}
+.choice.wrong{background:#fce8e8;border-color:#e24b4a;color:#a32d2d;}
+.ex-sentence{font-style:normal;color:#333;}
+.toc{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+.toc a{font-size:12px;padding:5px 12px;border-radius:20px;background:#f0eeff;color:#4a3db5;text-decoration:none;font-weight:500;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="doc-header">
+  <h1>Lesson 01 &nbsp;About You and Me</h1>
+  <div class="sub">능률 김기택 1학년 · 핵심 어휘 학습지 ① — 단어 / 유의어·반의어 / 예문 / 매칭 / 빈칸</div>
+  <div class="meta-row">
+    <div class="meta-item">이름 <span class="meta-box"></span></div>
+    <div class="meta-item">날짜 <span class="meta-box"></span></div>
+    <div class="meta-item">점수 <span class="meta-box" style="width:80px"></span></div>
+  </div>
+  <div class="toc" style="margin-top:14px;">
+    <a href="#s1">① 단어 목록</a><a href="#s2">② 단어 매칭</a><a href="#s3">③ 영→한 빈칸</a>
+    <a href="#s4">④ 한→영 빈칸</a><a href="#s5">⑤ 유의어·반의어</a><a href="#s6">⑥ 영영풀이</a>
+    <a href="#s7">⑦ 다의어·접미사</a><a href="#s8">⑧ 예문 빈칸</a>
+  </div>
+</div>
+
+<div class="section" id="s1">
+  <div class="sec-title"><span class="sec-badge b-purple">①</span>단어 목록 — 듣기 버튼으로 발음 확인</div>
+  <div id="vocabList"></div>
+</div>
+
+<div class="section" id="s2">
+  <div class="sec-title"><span class="sec-badge b-orange">②</span>단어 매칭 — 영어 단어에 맞는 뜻을 고르세요</div>
+  <div class="score-bar"><span style="font-size:13px;color:#888;">점수</span><span class="score-num" id="matchScore">0 / 0</span></div>
+  <div id="matchList"></div>
+</div>
+
+<div class="section" id="s3">
+  <div class="sec-title"><span class="sec-badge b-blue">③</span>영어 → 한글 뜻 쓰기</div>
+  <div id="e2kList"></div>
+</div>
+
+<div class="section" id="s4">
+  <div class="sec-title"><span class="sec-badge b-green">④</span>한글 → 영어 단어 쓰기</div>
+  <div id="k2eList"></div>
+</div>
+
+<div class="section" id="s5">
+  <div class="sec-title"><span class="sec-badge b-pink">⑤</span>유의어 · 반의어 시험</div>
+  <div id="synAntList"></div>
+</div>
+
+<div class="section" id="s6">
+  <div class="sec-title"><span class="sec-badge b-teal">⑥</span>영영 풀이 매칭 — 영어 정의에 맞는 단어를 고르세요</div>
+  <div class="score-bar"><span style="font-size:13px;color:#888;">점수</span><span class="score-num" id="defScore">0 / 0</span></div>
+  <div id="defList"></div>
+</div>
+
+<div class="section" id="s7">
+  <div class="sec-title"><span class="sec-badge b-purple">⑦</span>다의어 · 접미사 (제안 추가)</div>
+  <div class="sec-desc">명사/동사로 모두 쓰이는 단어 구분 + 접미사 규칙</div>
+  <div id="multiList"></div>
+</div>
+
+<div class="section" id="s8">
+  <div class="sec-title"><span class="sec-badge b-orange">⑧</span>예문 빈칸 채우기 — 문맥에 맞는 단어를 넣으세요</div>
+  <div class="word-bank" id="exBank"></div>
+  <div id="exList"></div>
+</div>
+
+</div>
+
+<script>
+let voices=[];
+function loadVoices(){voices=window.speechSynthesis?window.speechSynthesis.getVoices():[];}
+if(window.speechSynthesis){loadVoices();window.speechSynthesis.onvoiceschanged=loadVoices;}
+function speak(text,btn){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  if(btn.classList.contains('playing')){btn.classList.remove('playing');btn.querySelector('.snd-icon').textContent='🔊';return;}
+  document.querySelectorAll('.snd-btn.playing').forEach(b=>{b.classList.remove('playing');b.querySelector('.snd-icon').textContent='🔊';});
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.9;
+  const en=voices.find(v=>v.lang.startsWith('en'));if(en)u.voice=en;
+  u.onend=()=>{btn.classList.remove('playing');btn.querySelector('.snd-icon').textContent='🔊';};
+  btn.classList.add('playing');btn.querySelector('.snd-icon').textContent='⏹';window.speechSynthesis.speak(u);
+}
+function sndBtn(text){const b=document.createElement('button');b.className='snd-btn';b.innerHTML='<span class="snd-icon">🔊</span>';b.title='듣기';b.onclick=()=>speak(text,b);return b;}
+function ansBtn(targetEl,onReveal){const b=document.createElement('button');b.className='ans-btn';b.textContent='정답 보기';b.onclick=()=>{targetEl.classList.toggle('open');b.textContent=targetEl.classList.contains('open')?'정답 숨기기':'정답 보기';if(targetEl.classList.contains('open')&&onReveal)onReveal();};return b;}
+
+/* ===== 단어 데이터 (전체) ===== */
+const VOCAB=[
+  {cat:'Topic 1 Listen & Talk',cls:'cl-1',words:[
+    ['favorite','형','가장 좋아하는, 마음에 드는'],['history','명','역사'],['library','명','도서관'],
+    ['lunchtime','명','점심시간'],['math','명','수학 (= mathematics)'],['really','부','정말로, 진짜로, 아주'],
+    ['subject','명','과목'],['together','부','함께, 같이'],['for lunch','','점심 식사로'],
+    ['What about you?','','너는 어때? (= How about you?)'],
+  ]},
+  {cat:'Topic 2 Real-Life Communication',cls:'cl-2',words:[
+    ['ghost','명','유령, 환영'],['secret','형/명','비밀의, 은밀한; 비밀'],['singer','명','가수 (sing 노래하다)'],
+    ['voice','명','목소리'],['be a fan of ~','','~의 팬이다'],['be famous for ~','','~로 유명하다 (= be well-known for)'],
+    ['be from ~','','~ 출신이다'],['of course','','물론'],
+  ]},
+  {cat:'Topic 3 Reading',cls:'cl-3',words:[
+    ['also','부','또한'],['always','부','항상'],['both','형/대','양쪽의; 둘 다'],['country','명','나라 (= nation)'],
+    ['exercise','명/동','운동, 연습; 운동하다'],['first','형','첫 번째의, 처음의'],['fun','형','재미있는, 즐거운 (↔ boring)'],
+    ['grade','명','학년; 성적, 점수'],['guess','동','추측하다, 생각하다'],['gym','명','체육관 (= gymnasium)'],
+    ['healthy','형','건강한 (health 건강)'],['heart','명','마음, 심장'],['help','동/명','돕다; 도움'],
+    ['luck','명','행운, 재수 (lucky 행운의)'],['move','명/동','동작, 움직임; 움직이다'],['often','부','자주, 종종'],
+    ['other','형','또 다른, 그 밖의'],['post','동','게시하다, 올리다'],['practice','동/명','연습하다; 연습'],
+    ['sometimes','부','때때로, 이따금'],['sweet','형','사랑스러운, 귀여운; 달콤한'],['twin','형/명','쌍둥이의; 쌍둥이 중 한 명'],
+    ['warm','형','따뜻한 (↔ cold, cool)'],['with','전','~와 함께'],['each other','','(둘 사이의) 서로'],
+    ['every day','','매일'],['for exercise','','운동을 위해, 운동하러'],['go camping','','캠핑하러 가다'],
+    ["in one's free time",'','자유[여가] 시간에'],['live in ~','','~에 살다'],['look at ~','','~을 보다'],
+    ['look like ~','','~처럼 보이다'],['take pictures of ~','','~의 사진을 찍다'],
+  ]},
+  {cat:'Language Focus',cls:'cl-4',words:[
+    ['meat','명','고기, 육류'],['ready','형','준비된'],['restaurant','명','식당'],
+    ["do one's homework",'','숙제하다'],['go to bed','','잠자러 가다 (= go to sleep)'],
+    ['in the afternoon','','오후에'],['in the morning','','아침에'],['tell A about B','','A에게 B에 대해 이야기하다'],
+  ]},
+  {cat:'Topic 4 Think & Write / Review',cls:'cl-5',words:[
+    ['same','형','같은 (↔ different)'],['spend','동','(시간을) 보내다, (돈을) 쓰다'],['a lot of','','많은 (= many, much)'],
+    ['emoji','명','이모지, 그림 문자'],
+  ]},
+];
+
+function buildVocab(){
+  const wrap=document.getElementById('vocabList');
+  VOCAB.forEach(group=>{
+    const lab=document.createElement('div');lab.className='cat-label '+group.cls;lab.textContent=group.cat;wrap.appendChild(lab);
+    const grid=document.createElement('div');grid.className='vocab-grid';
+    group.words.forEach(([en,pos,kr])=>{
+      const row=document.createElement('div');row.className='vocab-row';
+      const e=document.createElement('span');e.className='vocab-en';e.textContent=en;
+      const p=document.createElement('span');p.className='vocab-pos';p.textContent=pos;
+      const k=document.createElement('span');k.className='vocab-kr';k.textContent=kr;
+      row.append(sndBtn(en.replace(/~|A|B/g,'').trim()),e,p,k);
+      grid.appendChild(row);
+    });
+    wrap.appendChild(grid);
+  });
+}
+
+/* ===== 매칭용 풀 (단어-뜻) ===== */
+const MATCH=[
+  ['favorite','가장 좋아하는'],['history','역사'],['library','도서관'],['subject','과목'],
+  ['ghost','유령'],['secret','비밀의'],['voice','목소리'],['country','나라'],
+  ['exercise','운동(하다)'],['grade','학년'],['guess','추측하다'],['gym','체육관'],
+  ['healthy','건강한'],['heart','마음, 심장'],['luck','행운'],['move','움직이다'],
+  ['often','자주, 종종'],['post','게시하다'],['practice','연습하다'],['sweet','사랑스러운'],
+  ['twin','쌍둥이의'],['warm','따뜻한'],['meat','고기'],['ready','준비된'],
+  ['restaurant','식당'],['same','같은'],['spend','(시간을) 보내다'],['emoji','그림 문자'],
+];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let matchScore={};
+function buildMatch(){
+  const list=document.getElementById('matchList');
+  const opts=shuffle(MATCH.map(m=>m[1]));
+  document.getElementById('matchScore').textContent='0 / '+MATCH.length;
+  MATCH.forEach((m,i)=>{
+    const row=document.createElement('div');row.className='match-q';
+    const num=document.createElement('span');num.className='match-num';num.textContent=(i+1);
+    const en=document.createElement('span');en.className='match-en';en.textContent=m[0];
+    const sel=document.createElement('select');sel.className='match-sel';
+    sel.innerHTML='<option value="">— 뜻 선택 —</option>'+opts.map(o=>'<option>'+o+'</option>').join('');
+    const res=document.createElement('span');res.className='match-result';
+    const chk=document.createElement('button');chk.className='mini-btn';chk.textContent='확인';
+    chk.onclick=()=>{res.style.display='inline-block';
+      if(sel.value===m[1]){res.textContent='○';res.className='match-result mr-ok';if(!matchScore[i]){matchScore[i]=1;updMatch();}}
+      else{res.textContent='✕ ('+m[1]+')';res.className='match-result mr-no';}};
+    row.append(num,sndBtn(m[0]),en,sel,chk,res);list.appendChild(row);
+  });
+}
+function updMatch(){document.getElementById('matchScore').textContent=Object.keys(matchScore).length+' / '+MATCH.length;}
+
+/* ===== 영→한 ===== */
+const E2K=[['favorite','가장 좋아하는'],['subject','과목'],['secret','비밀(의)'],['guess','추측하다'],
+['healthy','건강한'],['post','게시하다, 올리다'],['twin','쌍둥이(의)'],['spend','(시간을) 보내다, (돈을) 쓰다'],
+['practice','연습(하다)'],['ghost','유령'],['ready','준비된'],['often','자주, 종종']];
+const K2E=[['역사','history'],['도서관','library'],['목소리','voice'],['나라','country'],
+['체육관','gym'],['마음, 심장','heart'],['행운','luck'],['식당','restaurant'],
+['같은','same'],['따뜻한','warm'],['고기','meat'],['항상','always']];
+
+function buildFill(data,containerId,enToKr){
+  const list=document.getElementById(containerId);
+  data.forEach((d,i)=>{
+    const [q,a]=d;
+    const div=document.createElement('div');div.className='q-item';
+    const num=document.createElement('div');num.className='q-num';num.textContent=(i+1);
+    const prompt=document.createElement('div');prompt.className='q-prompt';
+    const inp=document.createElement('input');inp.className='q-input';inp.type='text';inp.placeholder=enToKr?'한글 뜻':'영어 단어';
+    prompt.append(document.createTextNode(q+'  →  '));prompt.appendChild(inp);
+    const btns=document.createElement('div');btns.className='q-btns';
+    const chk=document.createElement('button');chk.className='mini-btn';chk.textContent='채점';
+    const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent='정답: '+a;
+    chk.onclick=()=>{const v=inp.value.trim().toLowerCase();
+      if(v===a.toLowerCase()||a.toLowerCase().includes(v)&&v.length>1){inp.classList.remove('wrong');inp.classList.add('correct');}
+      else{inp.classList.remove('correct');inp.classList.add('wrong');}};
+    const ab=ansBtn(reveal,()=>{inp.value=a;inp.classList.add('correct');});
+    const sb=enToKr?sndBtn(q):sndBtn(a);
+    btns.append(chk,sb,ab);
+    div.append(num,prompt,btns,reveal);list.appendChild(div);
+  });
+}
+
+/* ===== 유의어·반의어 ===== */
+const SYNANT=[
+  {q:'practice 의 유의어 2개는? (= ___, ___)',a:'train, exercise',type:'syn'},
+  {q:'country 의 유의어는? (= ___)',a:'nation',type:'syn'},
+  {q:'a lot of 의 유의어 2개는? (= ___, ___)',a:'many, much',type:'syn'},
+  {q:'guess 의 유의어 2개는? (= ___, ___)',a:'think, suppose',type:'syn'},
+  {q:'math 의 동의어는? (= ___)',a:'mathematics',type:'syn'},
+  {q:'gym 의 동의어는? (= ___)',a:'gymnasium',type:'syn'},
+  {q:'be famous for 의 유의어 표현은? (= be ___ for)',a:'well-known',type:'syn'},
+  {q:'same 의 반의어는? (↔ ___)',a:'different',type:'ant'},
+  {q:'always 의 반의어는? (↔ ___)',a:'never',type:'ant'},
+  {q:'together 의 반의어는? (↔ ___)',a:'alone',type:'ant'},
+  {q:'warm 의 반의어 2개는? (↔ ___, ___)',a:'cold, cool',type:'ant'},
+  {q:'fun 의 반의어는? (↔ ___)',a:'boring',type:'ant'},
+];
+function buildSynAnt(){
+  const list=document.getElementById('synAntList');
+  SYNANT.forEach((d,i)=>{
+    const div=document.createElement('div');div.className='q-item';
+    const tag=d.type==='syn'?'<span style="font-size:11px;font-weight:700;color:#0fa3a3;">유의어</span> ':'<span style="font-size:11px;font-weight:700;color:#e17055;">반의어</span> ';
+    const num=document.createElement('div');num.className='q-num';num.innerHTML=tag+(i+1);
+    const prompt=document.createElement('div');prompt.className='q-prompt';prompt.textContent=d.q;
+    const inp=document.createElement('input');inp.className='q-input';inp.type='text';inp.style.minWidth='220px';inp.placeholder='답 입력';
+    const btns=document.createElement('div');btns.className='q-btns';
+    const chk=document.createElement('button');chk.className='mini-btn';chk.textContent='채점';
+    const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent='정답: '+d.a;
+    chk.onclick=()=>{const norm=s=>s.toLowerCase().replace(/[, ]+/g,' ').trim();
+      if(norm(inp.value)===norm(d.a)){inp.classList.remove('wrong');inp.classList.add('correct');}
+      else{inp.classList.remove('correct');inp.classList.add('wrong');}};
+    const ab=ansBtn(reveal,()=>{inp.value=d.a;inp.classList.add('correct');});
+    btns.append(inp,chk,ab);
+    div.append(num,prompt,btns,reveal);list.appendChild(div);
+  });
+}
+
+/* ===== 영영풀이 ===== */
+const DEF=[
+  ['a place with its own land, people, and government','country'],
+  ['a digital image used in electronic communication','emoji'],
+  ['physical activity people do to become stronger and healthier','exercise'],
+  ['widely and popularly known by many people','famous'],
+  ['a person who likes and admires someone or something','fan'],
+  ['most liked and preferred above all others','favorite'],
+  ['one of the levels in a school with students of similar age','grade'],
+  ['to suppose, think, or believe','guess'],
+  ['a building or a large room used for various indoor sports','gym'],
+  ['strong and well, and not likely to get sick','healthy'],
+  ['to make it easier for someone to do something','help'],
+  ['to share or place something on the Internet or a bulletin board','post'],
+  ['to do something again and again to become better at it','practice'],
+  ['not different, exactly like someone or something else','same'],
+  ['to use time or money for something','spend'],
+  ['an area of knowledge studied in a school','subject'],
+  ['very cute or attractive','sweet'],
+  ['being born at the same time, having the same birthday','twin'],
+];
+let defScore={};
+function buildDef(){
+  const list=document.getElementById('defList');
+  const opts=shuffle(DEF.map(d=>d[1]));
+  document.getElementById('defScore').textContent='0 / '+DEF.length;
+  DEF.forEach((d,i)=>{
+    const div=document.createElement('div');div.className='q-item';
+    const num=document.createElement('div');num.className='q-num';num.textContent=(i+1);
+    const prompt=document.createElement('div');prompt.className='q-prompt';prompt.innerHTML='<span class="ex-sentence">'+d[0]+'</span>';
+    const sel=document.createElement('select');sel.className='match-sel';sel.style.minWidth='130px';
+    sel.innerHTML='<option value="">— 단어 선택 —</option>'+opts.map(o=>'<option>'+o+'</option>').join('');
+    const res=document.createElement('span');res.className='match-result';res.style.marginLeft='8px';
+    const btns=document.createElement('div');btns.className='q-btns';
+    const chk=document.createElement('button');chk.className='mini-btn';chk.textContent='확인';
+    chk.onclick=()=>{res.style.display='inline-block';
+      if(sel.value===d[1]){res.textContent='○';res.className='match-result mr-ok';if(!defScore[i]){defScore[i]=1;document.getElementById('defScore').textContent=Object.keys(defScore).length+' / '+DEF.length;}}
+      else{res.textContent='✕ ('+d[1]+')';res.className='match-result mr-no';}};
+    btns.append(sndBtn(d[0]),sel,chk,res);
+    div.append(num,prompt,btns);list.appendChild(div);
+  });
+}
+
+/* ===== 다의어·접미사 ===== */
+const MULTI=[
+  {q:'exercise — 명사 뜻과 동사 뜻을 각각 쓰세요.',a:'명사: 운동, 연습 / 동사: 운동하다'},
+  {q:'move — 명사 뜻과 동사 뜻을 각각 쓰세요.',a:'명사: 동작, 움직임 / 동사: 움직이다'},
+  {q:'smile — 명사 뜻과 동사 뜻을 각각 쓰세요.',a:'명사: 미소, 웃음 / 동사: 미소 짓다, 웃다'},
+  {q:'help — 명사 뜻과 동사 뜻을 각각 쓰세요.',a:'명사: 도움 / 동사: 돕다'},
+  {q:'practice — 명사 뜻과 동사 뜻을 각각 쓰세요.',a:'명사: 연습 / 동사: 연습하다'},
+  {q:'접미사 -y 를 붙여 형용사를 만드세요: health → ___ / luck → ___ / salt → ___',a:'healthy / lucky / salty'},
+  {q:'접미사 -er 을 붙여 「사람」을 나타내세요: sing → ___ / teach → ___ / play → ___',a:'singer / teacher / player'},
+  {q:'secret 은 두 가지 품사로 쓰입니다. 각각의 뜻은?',a:'형용사: 비밀의, 은밀한 / 명사: 비밀'},
+  {q:'twin 은 두 가지 품사로 쓰입니다. 각각의 뜻은?',a:'형용사: 쌍둥이의 / 명사: 쌍둥이 중 한 명 (복수 twins)'},
+];
+function buildMulti(){
+  const list=document.getElementById('multiList');
+  MULTI.forEach((d,i)=>{
+    const div=document.createElement('div');div.className='q-item';
+    const num=document.createElement('div');num.className='q-num';num.textContent=(i+1);
+    const prompt=document.createElement('div');prompt.className='q-prompt';prompt.textContent=d.q;
+    const inp=document.createElement('input');inp.className='q-input';inp.type='text';inp.style.minWidth='260px';inp.placeholder='답 입력';
+    const btns=document.createElement('div');btns.className='q-btns';
+    const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent='정답: '+d.a;
+    const ab=ansBtn(reveal);
+    btns.append(inp,ab);
+    div.append(num,prompt,btns,reveal);list.appendChild(div);
+  });
+}
+
+/* ===== 예문 빈칸 ===== */
+const EX=[
+  {s:'We need tips for staying _______.',a:'healthy',kr:'우리는 건강을 유지하기 위한 조언들이 필요하다.'},
+  {s:'Today is my _______ day!',a:'lucky',kr:'오늘은 내 행운의 날이야!'},
+  {s:'This soup is too _______ for me.',a:'salty',kr:'이 수프는 내게 너무 짜다.'},
+  {s:'Every _______ is on the stage.',a:'singer',kr:'모든 가수가 무대 위에 있다.'},
+  {s:'My math _______ gives a lot of homework.',a:'teacher',kr:'내 수학 선생님은 숙제를 많이 내신다.'},
+  {s:'My brother wants to become a basketball _______.',a:'player',kr:'내 남동생은 농구 선수가 되고 싶어 한다.'},
+  {s:'I am a big _______ of that band.',a:'fan',kr:'나는 그 밴드의 열렬한 팬이다.'},
+  {s:'She is _______ for her beautiful voice.',a:'famous',kr:'그녀는 아름다운 목소리로 유명하다.'},
+];
+function buildEx(){
+  document.getElementById('exBank').innerHTML='<strong>Word Bank</strong> &nbsp;|&nbsp; '+shuffle(EX.map(e=>e.a)).join(' &nbsp;·&nbsp; ');
+  const list=document.getElementById('exList');
+  EX.forEach((e,i)=>{
+    const div=document.createElement('div');div.className='q-item';
+    const num=document.createElement('div');num.className='q-num';num.textContent=(i+1);
+    const krd=document.createElement('div');krd.style.cssText='font-size:12px;color:#aaa;margin-bottom:4px;';krd.textContent=e.kr;
+    const prompt=document.createElement('div');prompt.className='q-prompt';
+    const parts=e.s.split('_______');
+    const inp=document.createElement('input');inp.className='q-input';inp.type='text';inp.style.minWidth='110px';inp.placeholder='___';
+    prompt.append(document.createTextNode(parts[0]));prompt.appendChild(inp);prompt.append(document.createTextNode(parts[1]||''));
+    const btns=document.createElement('div');btns.className='q-btns';
+    const chk=document.createElement('button');chk.className='mini-btn';chk.textContent='채점';
+    const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent='정답: '+e.a;
+    chk.onclick=()=>{if(inp.value.trim().toLowerCase()===e.a){inp.classList.remove('wrong');inp.classList.add('correct');}else{inp.classList.remove('correct');inp.classList.add('wrong');}};
+    const ab=ansBtn(reveal,()=>{inp.value=e.a;inp.classList.add('correct');});
+    btns.append(chk,sndBtn(e.s.replace('_______',e.a)),ab);
+    div.append(num,krd,prompt,btns,reveal);list.appendChild(div);
+  });
+}
+
+buildVocab();buildMatch();buildFill(E2K,'e2kList',true);buildFill(K2E,'k2eList',false);
+buildSynAnt();buildDef();buildMulti();buildEx();
+</script>
+</body>
+</html>
