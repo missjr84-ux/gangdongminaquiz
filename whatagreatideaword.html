@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Lesson 3 단어 마스터 · What a Great Idea!</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nunito:wght@700;900&display=swap');
+:root{--c1:#f97316;--c2:#3b82f6;--c3:#10b981;--c4:#8b5cf6;--c5:#ec4899;--c6:#f59e0b;--c7:#06b6d4;--c8:#ef4444;--bg:#f0f9ff;--card:#fffdf7;--ink:#1a1a2e;--muted:#666;--line:#e8e8e8;--ok:#10b981;--no:#ef4444;--shadow:rgba(0,0,0,.10);}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--ink);padding-bottom:80px}
+.page-title{text-align:center;padding:20px 16px 8px}
+.page-title h1{font-family:'Nunito','Noto Sans KR',sans-serif;font-size:clamp(22px,5vw,34px);font-weight:900}
+.subtitle{font-size:13px;color:var(--muted);margin-top:5px;line-height:1.6}
+.deco-bar{width:100px;height:6px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));border-radius:10px;margin:9px auto 0}
+.steps{position:sticky;top:0;z-index:30;background:var(--bg);max-width:1000px;margin:14px auto 0;padding:9px 10px;display:flex;gap:6px;overflow-x:auto}
+.step{flex:1;min-width:76px;font-family:inherit;font-size:13px;font-weight:900;padding:13px 6px;border-radius:22px;border:0;cursor:pointer;background:#fff;color:var(--muted);box-shadow:0 2px 8px var(--shadow);line-height:1.3;white-space:nowrap}
+.step.on{background:var(--ink);color:#fff}
+.step .sn{display:block;font-size:10px;opacity:.72}
+.wrap{max-width:1000px;margin:0 auto;padding:18px 16px}
+.ctrl{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.intro{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:15px 18px;font-size:14px;color:#555;line-height:1.8;margin-bottom:18px}
+.intro b{color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line)}
+.head{display:flex;align-items:center;gap:10px;padding:13px 16px;color:#fff;font-size:14px;font-weight:900}
+.cnum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.26);display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;font-size:15px}
+.tag{margin-left:auto;background:rgba(255,255,255,.24);padding:4px 10px;border-radius:8px;font-size:12px;white-space:nowrap}
+.c1 .head{background:var(--c1)}.c2 .head{background:var(--c2)}.c3 .head{background:var(--c3)}.c4 .head{background:var(--c4)}.c5 .head{background:var(--c5)}.c6 .head{background:var(--c6)}.c7 .head{background:var(--c7)}.c8 .head{background:var(--c8)}
+.cbody{padding:16px}
+.word{font-family:'Nunito','Noto Sans KR';font-size:27px;font-weight:900;line-height:1.2;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.meaning{margin-top:8px;font-size:19px;font-weight:900;color:#d6336c}
+.exrow{margin-top:11px;display:flex;align-items:flex-start;gap:8px}
+.ex{font-size:14px;color:#555;line-height:1.65;font-style:italic;flex:1}
+.meta{margin-top:12px;font-size:14px;line-height:1.9;background:#f6f4ee;border-radius:12px;padding:11px 13px;color:#444}
+.meta b{color:var(--ink)}
+.meta .line{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:3px 0}
+.hidden-c .meaning,.hidden-c .exrow,.hidden-c .meta{display:none}
+.donebtn{margin-top:12px;border:0;border-radius:12px;background:#dcfce7;color:#166534;font-weight:900;padding:12px;width:100%;font-size:15px;cursor:pointer}
+.donebtn.done{background:#166534;color:#fff}
+.speak{border:0;background:#e0f2fe;color:#0369a1;border-radius:999px;padding:7px 12px;font-size:14px;font-weight:900;cursor:pointer;display:inline-flex;align-items:center;gap:4px;flex-shrink:0}
+.speak.mini{padding:5px 9px;font-size:12px}
+.speak.playing{background:#0369a1;color:#fff}
+.qcard{background:var(--card);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);padding:18px 20px;margin-bottom:16px}
+.qnum{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:900}
+.qsent{font-size:18px;font-weight:900;line-height:1.65;display:flex;align-items:flex-start;gap:9px;flex-wrap:wrap}
+.qhint{font-size:13px;color:var(--muted);margin-top:6px;font-weight:500}
+.opt{display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin:8px 0;padding:14px 15px;border:2px solid var(--line);background:#fff;border-radius:12px;font-weight:800;font-size:16px;cursor:pointer;line-height:1.5;color:var(--ink);font-family:inherit}
+.opt.pick{border-color:var(--c5);background:#fdf2f8;color:#be185d}
+.opt.correct{background:#dcfce7;border-color:#16a34a;color:#166534}
+.opt.wrong{background:#fee2e2;border-color:var(--no);color:#991b1b}
+.opt .ospk{margin-left:auto}
+.ansbox{font-size:14px;color:#0369a1;background:#e0f2fe;padding:11px 13px;border-radius:10px;margin-top:9px;display:none;line-height:1.7;font-weight:800}
+.ansbox.show{display:block}
+.btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0}
+.b{padding:13px 22px;border:0;border-radius:24px;font-family:inherit;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 2px 8px var(--shadow)}
+.b1{background:var(--c5);color:#fff}.b2{background:#e5e7eb;color:var(--ink)}.b3{background:var(--c3);color:#fff}.b4{background:var(--ink);color:#fff}.b5{background:#e0f2fe;color:#0369a1}
+.bar{height:12px;background:#dbeafe;border-radius:8px;overflow:hidden;margin-bottom:16px}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--c5),var(--c3));border-radius:8px;transition:.4s}
+.score{font-size:17px;font-weight:900;text-align:center;margin:6px 0 16px;color:var(--ink);background:#fff;padding:13px;border-radius:13px;box-shadow:0 3px 10px var(--shadow)}
+.result{text-align:center;padding:24px 14px;background:#fff;border:2.5px solid var(--ink);border-radius:16px;box-shadow:5px 5px 0 var(--ink);margin:18px 0}
+.score-big{font-size:54px;font-weight:900;font-family:'Nunito'}
+.verdict{font-size:22px;font-weight:900;margin-top:4px}
+.pass{color:var(--ok)}.fail{color:var(--no)}
+.small{font-size:13px;color:var(--muted);line-height:1.7;margin-top:8px}
+.hidden{display:none}
+.kw{display:inline-block;background:#fdf2f8;color:#be185d;font-weight:900;padding:1px 9px;border-radius:8px;margin:1px}
+</style>
+</head>
+<body>
+<div class="page-title">
+  <h1>📚 Lesson 3 단어 마스터</h1>
+  <p class="subtitle">천재(정사열) 중2 · What a Great Idea!<br>단어카드 · 다의어 · 동사→행위자 · 영영풀이 · 종합시험(80% 합격)</p>
+  <div class="deco-bar"></div>
+</div>
+<div id="sndHint" style="max-width:1000px;margin:10px auto 0;padding:0 16px">
+  <div style="background:#dbeafe;border:2px solid #93c5fd;border-radius:12px;padding:11px 14px;font-size:13px;font-weight:800;color:#1d4ed8;text-align:center">
+    🔊 소리가 안 들리면 화면을 <b>한 번 탭</b>한 뒤 듣기 버튼을 눌러 주세요.
+  </div>
+</div>
+<div class="steps" id="steps"></div>
+<div class="wrap"><div class="ctrl" id="ctrl"></div><div id="app"></div></div>
+
+<script>
+/* ===== DATA: Lesson 3 words from the textbook photos ===== */
+const ITEMS=[
+{cat:"Listen & Speak",term:"catch",ko:"(공연 등을) 보다; (시간 맞춰) 잡아타다; (붙)잡다; (질병) 걸리다",pos:"v.",def:"to see a show; to get a bus on time; to take hold of; to get an illness",syn:"watch, take, grab",ant:"miss",ex:"We can catch it if we leave right away."},
+{cat:"Listen & Speak",term:"drone",ko:"드론, 무인 비행 물체",pos:"n.",def:"a flying machine without a pilot",syn:"unmanned aircraft",ant:"",ex:"I want to go to the drone-flying class."},
+{cat:"Listen & Speak",term:"forecast",ko:"예보하다; 예측, 예보",pos:"v./n.",def:"a statement about what will happen in the future",syn:"prediction, outlook",ant:"",ex:"Check the weather forecast here."},
+{cat:"Listen & Speak",term:"lecture",ko:"강의",pos:"n.",def:"a talk or speech that teaches people about a subject",syn:"talk, speech, class",ant:"",ex:"I want to go to Dr. Lee's lecture on AI."},
+{cat:"Listen & Speak",term:"poster",ko:"포스터",pos:"n.",def:"a large printed picture or notice on a wall",syn:"notice, placard",ant:"",ex:"I saw it on the poster."},
+{cat:"Listen & Speak",term:"quite",ko:"완전히, 꽤, 매우",pos:"adv.",def:"completely; very",syn:"very, fairly, completely",ant:"",ex:"Yes, I'm quite sure."},
+{cat:"Listen & Speak",term:"sure",ko:"틀림없는, 확실한",pos:"adj.",def:"certain; having no doubt",syn:"certain, confident",ant:"unsure, uncertain",ex:"Are you sure?"},
+{cat:"Listen & Speak",term:"weather",ko:"날씨",pos:"n.",def:"the condition of the air, like rain or sunshine",syn:"climate (장기)",ant:"",ex:"What will the weather be like tomorrow?"},
+{cat:"Listen & Speak",term:"can't wait (for)",ko:"(~을) 고대하다",pos:"phr.",def:"to be very excited about something coming",syn:"look forward to",ant:"",ex:"Perfect. I can't wait."},
+{cat:"Talk and Play",term:"invent",ko:"발명하다",pos:"v.",def:"to create or design something for the first time",syn:"create, make up",ant:"copy",ex:"Karl von Drais invented the first bicycle."},
+{cat:"Talk and Play",term:"once",ko:"한 번; 한때",pos:"adv.",def:"one time; at a time in the past",syn:"one time; formerly",ant:"",ex:"She once lived in New York."},
+{cat:"Reading",term:"ash",ko:"재",pos:"n.",def:"gray powder left after something is burned",syn:"cinders, soot",ant:"",ex:"The explosion created a huge cloud of ash."},
+{cat:"Reading",term:"century",ko:"세기, 100년",pos:"n.",def:"a period of 100 years",syn:"hundred years",ant:"",ex:"The present-day bicycle is the result of many inventors' work in the 19th century."},
+{cat:"Reading",term:"correct",ko:"수정하다, 고치다; 올바른",pos:"v./adj.",def:"to make something right",syn:"fix, right",ant:"wrong",ex:"They corrected it by simply painting over it."},
+{cat:"Reading",term:"create",ko:"창조하다, 만들다",pos:"v.",def:"to make something new",syn:"make, produce",ant:"destroy",ex:"The explosion created a huge cloud of ash."},
+{cat:"Reading",term:"crop",ko:"곡물, 농작물",pos:"n.",def:"plants grown for food",syn:"harvest, produce",ant:"",ex:"Crops failed around the world."},
+{cat:"Reading",term:"disappointing",ko:"실망시키는",pos:"adj.",def:"making someone feel let down",syn:"discouraging",ant:"satisfying",ex:"They had to make many disappointing trips to the empty coffee pot."},
+{cat:"Reading",term:"explosion",ko:"폭발, 폭파",pos:"n.",def:"a sudden violent burst",syn:"blast, burst",ant:"",ex:"The explosion created a huge cloud of ash."},
+{cat:"Reading",term:"explode",ko:"폭발하다, 폭파시키다",pos:"v.",def:"to break apart violently and suddenly",syn:"burst, blow up",ant:"",ex:"Mt. Tambora exploded in 1815."},
+{cat:"Reading",term:"forward(s)",ko:"앞으로, 전방으로",pos:"adv.",def:"toward the front",syn:"ahead, onward",ant:"backward(s)",ex:"Riders simply pushed the bicycle forward with their feet."},
+{cat:"Reading",term:"huge",ko:"거대한, 막대한",pos:"adj.",def:"very big",syn:"enormous, giant",ant:"tiny, small",ex:"The explosion created a huge cloud of ash."},
+{cat:"Reading",term:"invention",ko:"발명(품)",pos:"n.",def:"something created for the first time",syn:"creation",ant:"",ex:"Necessity is the mother of invention."},
+{cat:"Reading",term:"lab",ko:"연구소, 실험실 (= laboratory)",pos:"n.",def:"a room with special equipment for doing scientific tests",syn:"laboratory",ant:"",ex:"They were working at a computer lab in England."},
+{cat:"Reading",term:"necessity",ko:"필요, 필요성",pos:"n.",def:"something you really need",syn:"need, requirement",ant:"luxury",ex:"Necessity is the mother of invention."},
+{cat:"Reading",term:"network",ko:"네트워크, 통신망",pos:"n.",def:"a system of connected computers or things",syn:"web, system",ant:"",ex:"They connected the camera to their computer network."},
+{cat:"Reading",term:"notice",ko:"알아채다",pos:"v.",def:"to become aware of something",syn:"see, realize, spot",ant:"miss, ignore",ex:"Surprisingly, nobody noticed!"},
+{cat:"Reading",term:"pedal",ko:"페달, 발판, 발걸이",pos:"n.",def:"the parts you push with your feet to make a bike move",syn:"foot lever",ant:"",ex:"Drais's bicycle had two wooden wheels but no pedals."},
+{cat:"Reading",term:"pot",ko:"냄비, 항아리, 그릇",pos:"n.",def:"a deep round container",syn:"container, jar",ant:"",ex:"The first webcam was invented to watch a coffee pot."},
+{cat:"Reading",term:"present-day",ko:"오늘날의, 현대의",pos:"adj.",def:"of the current time",syn:"modern, current",ant:"old, past",ex:"The present-day bicycle is the result of many inventors' work."},
+{cat:"Reading",term:"researcher",ko:"연구원",pos:"n.",def:"a person who studies something carefully",syn:"investigator, scientist",ant:"",ex:"The two researchers set up a camera in front of the coffee machine."},
+{cat:"Reading",term:"ride",ko:"(탈것을) 타다, 승마하다",pos:"v.",def:"to sit on and travel on something",syn:"travel on",ant:"",ex:"In those days, people rode horses."},
+{cat:"Reading",term:"solution",ko:"해결, 해답",pos:"n.",def:"a way to solve a problem",syn:"answer, fix",ant:"problem",ex:"Graham was a bad typist, so she needed a solution."},
+{cat:"Reading",term:"type",ko:"타이핑하다",pos:"v.",def:"to write using a keyboard",syn:"keyboard, typewrite",ant:"",ex:"People had to retype the whole page."},
+{cat:"Reading",term:"typist",ko:"타이피스트, 타자수",pos:"n.",def:"a person who types",syn:"typer",ant:"",ex:"Graham was a bad typist."},
+{cat:"Reading",term:"webcam",ko:"웹캠, 화상 카메라",pos:"n.",def:"a camera that sends images over the Internet",syn:"web camera",ant:"",ex:"The first webcam was invented to watch a coffee pot."},
+{cat:"Reading",term:"wheel",ko:"바퀴",pos:"n.",def:"a round object that enables a car or a bike to roll and move",syn:"round part",ant:"",ex:"Drais's bicycle had two wooden wheels but no pedals."},
+{cat:"Reading",term:"whiteout",ko:"수정액",pos:"n.",def:"a white liquid used to cover errors in writing",syn:"correction fluid",ant:"",ex:"Whiteout was invented by Bette Graham."},
+{cat:"Reading",term:"whole",ko:"전체의",pos:"adj.",def:"all of; complete",syn:"entire, complete",ant:"part",ex:"People had to retype the whole page."},
+{cat:"Reading",term:"wooden",ko:"나무로 된",pos:"adj.",def:"made of wood",syn:"wood",ant:"",ex:"Drais's bicycle had two wooden wheels."},
+{cat:"Reading",term:"volcano",ko:"화산",pos:"n.",def:"a mountain with a hole that can send out lava, ash, and gas from inside the earth",syn:"",ant:"",ex:"Mt. Tambora, a volcano in Indonesia, exploded in 1815."},
+{cat:"Reading",term:"as a result",ko:"결과적으로, 그 결과",pos:"phr.",def:"because of something; consequently",syn:"consequently, therefore",ant:"",ex:"As a result, people didn't have enough food to eat."},
+{cat:"Reading",term:"in those days",ko:"그 당시에 (= at that time)",pos:"phr.",def:"at that time in the past",syn:"at that time, back then",ant:"these days",ex:"In those days, people rode horses."},
+{cat:"Reading",term:"make a mistake",ko:"실수를 하다",pos:"phr.",def:"to do something wrong",syn:"err, slip up",ant:"",ex:"When they made a mistake, they corrected it."},
+{cat:"Reading",term:"set up",ko:"설치하다, 세우다",pos:"phr.",def:"to place something in position",syn:"install, put up",ant:"take down",ex:"The two researchers set up a camera in front of the coffee machine."},
+{cat:"Language in Use",term:"director",ko:"감독",pos:"n.",def:"a person who directs movies or plays",syn:"filmmaker",ant:"",ex:"The director made a new movie."},
+{cat:"Language in Use",term:"feed",ko:"먹이를 주다",pos:"v.",def:"to give food to",syn:"give food to",ant:"starve",ex:"Please feed the dog twice a day."},
+{cat:"Language in Use",term:"full",ko:"배부른; 가득 찬",pos:"adj.",def:"having eaten enough; filled completely",syn:"filled, stuffed",ant:"empty, hungry",ex:"I'm full. I can't eat any more."},
+{cat:"Language in Use",term:"world-famous",ko:"세계적으로 유명한",pos:"adj.",def:"known all over the world",syn:"renowned, famous worldwide",ant:"unknown",ex:"He is a world-famous director."},
+{cat:"Think & Write",term:"burnt",ko:"(불에) 탄, 전소된",pos:"adj.",def:"damaged by fire",syn:"scorched",ant:"",ex:"The toast was burnt."},
+{cat:"Think & Write",term:"daily",ko:"매일의 (= everyday)",pos:"adj.",def:"happening every day",syn:"everyday",ant:"",ex:"Brushing teeth is a daily habit."},
+{cat:"Think & Write",term:"dispenser",ko:"디스펜서, (뽑아 쓰는) 용기",pos:"n.",def:"a machine that gives out items one at a time",syn:"",ant:"",ex:"There is a water dispenser in the hallway."},
+{cat:"Think & Write",term:"holder",ko:"홀더, 거치대",pos:"n.",def:"a device that holds something",syn:"stand, rack",ant:"",ex:"Put your phone in the holder."},
+{cat:"Think & Write",term:"opener",ko:"오프너, 따개",pos:"n.",def:"a tool that opens things",syn:"",ant:"",ex:"Use the can opener to open it."},
+{cat:"Think & Write",term:"toast",ko:"(빵을) 굽다; 구운 빵",pos:"v./n.",def:"to make bread brown with heat; browned bread",syn:"grill",ant:"",ex:"I toast bread every morning."},
+{cat:"Review",term:"during",ko:"~ 동안",pos:"prep.",def:"throughout a period of time",syn:"throughout",ant:"",ex:"I slept during the movie."},
+{cat:"Review",term:"hurry",ko:"서두르다",pos:"v.",def:"to move or act quickly",syn:"rush",ant:"slow down",ex:"It's already 6. We should hurry."},
+{cat:"Review",term:"university",ko:"(종합) 대학교",pos:"n.",def:"a school of higher education",syn:"college",ant:"",ex:"She studies at a university."},
+{cat:"Review",term:"change one's mind",ko:"생각을 바꾸다",pos:"phr.",def:"to decide differently from before",syn:"reconsider",ant:"stick to one's decision",ex:"I changed my mind. Magic Island looks more fun."}
+];
+/* 다의어 (polysemy) — from photos: catch 4 meanings, once 2 meanings */
+const POLY=[
+{term:"catch",say:"catch",senses:[
+ {ko:"(붙)잡다",ex:"The police officer caught the murderer.",exko:"경찰이 살인자를 잡았다."},
+ {ko:"(질병에) 걸리다, 감염되다",ex:"I caught a terrible cold.",exko:"나는 독감에 걸렸다."},
+ {ko:"(시간 맞춰) 잡아타다",ex:"Leave now, and you can catch the bus.",exko:"지금 출발하면, 버스를 잡아탈 수 있다."},
+ {ko:"(공연, TV 등을) 보다",ex:"We will catch the game on TV tonight.",exko:"우리는 오늘 밤 그 경기를 TV로 볼 것이다."}]},
+{term:"once",say:"once",senses:[
+ {ko:"한 번",ex:"I read that book once last year.",exko:"나는 작년에 그 책을 한 번 읽었다."},
+ {ko:"한때",ex:"She once lived in New York.",exko:"그녀는 한때 뉴욕에서 살았다."}]}
+];
+/* 동사 → 행위자/도구 (-er/-or) — from photos */
+const DERIV=[
+{base:"create",baseko:"창조하다",der:"creator",derko:"창조자, 창작자",kind:"행위자"},
+{base:"direct",baseko:"감독하다, 지도하다",der:"director",derko:"감독, 지도자",kind:"행위자"},
+{base:"forecast",baseko:"예보하다",der:"forecaster",derko:"(기상) 예보관",kind:"행위자"},
+{base:"invent",baseko:"발명하다",der:"inventor",derko:"발명가",kind:"행위자"},
+{base:"play",baseko:"(경기에서) 뛰다",der:"player",derko:"운동선수",kind:"행위자"},
+{base:"ride",baseko:"(탈것을) 타다",der:"rider",derko:"타는 사람, 기수",kind:"행위자"},
+{base:"research",baseko:"연구하다, 조사하다",der:"researcher",derko:"연구원, 조사원",kind:"행위자"},
+{base:"feed",baseko:"먹이를 주다",der:"feeder",derko:"먹이 공급 장치, 급식기",kind:"도구"},
+{base:"hold",baseko:"(상태나 위치를) 유지하다",der:"holder",derko:"홀더, 거치대",kind:"도구"},
+{base:"open",baseko:"열다",der:"opener",derko:"오프너, 따개",kind:"도구"},
+{base:"toast",baseko:"(빵을) 굽다",der:"toaster",derko:"토스터, 빵 굽는 기계",kind:"도구"},
+{base:"typewrite",baseko:"타이핑하다 (= type)",der:"typewriter",derko:"타자기",kind:"도구"}
+];
+
+/* ===== STATE ===== */
+let view=0, cardHidden=true;
+let defState={}, polyState={}, derState={};
+let examQs=[], examPick=[], examGraded=false, examActive=[];
+
+/* ===== SPEECH (unified, mobile-safe) ===== */
+var SS=('speechSynthesis' in window)?window.speechSynthesis:null;
+var ttsReady=false, ttsVoices=[];
+function loadVoices(){if(!SS)return;ttsVoices=SS.getVoices()||[];}
+if(SS){loadVoices();SS.onvoiceschanged=loadVoices;}
+function unlockTTS(){
+  if(!SS||ttsReady)return;
+  try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;SS.speak(u);SS.cancel();}catch(e){}
+  loadVoices();ttsReady=true;
+  var h=document.getElementById('sndHint');if(h)h.style.display='none';
+}
+document.addEventListener('touchstart',unlockTTS,{once:true,passive:true});
+document.addEventListener('mousedown',unlockTTS,{once:true});
+document.addEventListener('click',unlockTTS,{once:true});
+function pickVoice(){
+  if(!ttsVoices.length)loadVoices();
+  return ttsVoices.filter(function(x){return x.lang==='en-US';})[0]
+    ||ttsVoices.filter(function(x){return x.lang&&x.lang.toLowerCase().indexOf('en')===0;})[0]
+    ||ttsVoices[0]||null;
+}
+function speak(t,btn){
+  if(!SS){alert('이 브라우저는 음성을 지원하지 않습니다. Chrome으로 열어 주세요.');return;}
+  unlockTTS();
+  var msg=String(t==null?'':t).replace(/[\/~_]/g,' ').replace(/\s+/g,' ').trim();
+  if(!msg)return;
+  SS.cancel();
+  var bs=document.querySelectorAll('.speak.playing');
+  for(var i=0;i<bs.length;i++)bs[i].classList.remove('playing');
+  function fire(){
+    var u=new SpeechSynthesisUtterance(msg);
+    u.lang='en-US';u.rate=0.85;u.pitch=1;u.volume=1;
+    var v=pickVoice();if(v)u.voice=v;
+    if(btn){btn.classList.add('playing');u.onend=u.onerror=function(){btn.classList.remove('playing');};}
+    try{SS.resume();}catch(e){}
+    SS.speak(u);
+  }
+  if(!ttsVoices.length){loadVoices();if(!ttsVoices.length){setTimeout(fire,180);return;}}
+  setTimeout(fire,0);
+}
+
+/* ===== HELPERS ===== */
+function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];});}
+function sp(t,mini){return '<button type="button" class="speak'+(mini?' mini':'')+'" data-say="'+esc(t)+'" onclick="event.stopPropagation();speak(this.getAttribute(\'data-say\'),this)">🔊 듣기</button>';}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function colors(i){return 'c'+((i%8)+1);}
+function buildOpts(correct,pool){
+  var set=[correct],sh=shuffle(pool),k;
+  for(k=0;k<sh.length&&set.length<4;k++){if(sh[k]!=null&&set.indexOf(sh[k])<0)set.push(sh[k]);}
+  if(set.length<4){var fill=shuffle(ITEMS.map(function(x){return x.term;}).concat(ITEMS.map(function(x){return x.ko;})));
+    for(k=0;k<fill.length&&set.length<4;k++){if(set.indexOf(fill[k])<0)set.push(fill[k]);}}
+  var opts=shuffle(set);return {opts:opts,ans:opts.indexOf(correct)};
+}
+
+/* ===== NAV ===== */
+const STEPS=[['카드','①'],['다의어','②'],['행위자','③'],['영영풀이','④'],['종합시험','⑤']];
+function buildSteps(){
+  document.getElementById('steps').innerHTML=STEPS.map(function(s,i){
+    return '<button class="step'+(i===0?' on':'')+'" id="st'+i+'" onclick="go('+i+')"><span class="sn">'+s[1]+'단계</span>'+s[0]+'</button>';}).join('');
+}
+function go(v){view=v;if(SS)SS.cancel();
+  for(var i=0;i<STEPS.length;i++)document.getElementById('st'+i).classList.toggle('on',i===v);
+  render();window.scrollTo({top:0,behavior:'smooth'});}
+function render(){
+  document.getElementById('ctrl').innerHTML=(view===0)?
+    '<button class="b b4" onclick="cardHidden=false;render()">✅ 답 전체 보기</button>'+
+    '<button class="b b2" onclick="cardHidden=true;render()">🙈 답 숨기기</button>':'';
+  document.getElementById('app').innerHTML=[V0,V1,V2,V3,V4][view]();
+}
+
+/* ===== ① CARDS ===== */
+function V0(){
+  var h='<div class="intro">💡 <b>① 단어 카드 ('+ITEMS.length+'개)</b><br>카드를 탭하면 뜻·본문 예문·유의어·반의어가 열립니다. 모든 영어에 🔊 듣기.</div><div class="grid">';
+  ITEMS.forEach(function(it,i){
+    h+='<div class="card '+colors(i)+' '+(cardHidden?'hidden-c':'')+'" id="card'+i+'" onclick="toggleCard('+i+',event)">'+
+      '<div class="head"><div class="cnum">'+(i+1)+'</div>'+esc(it.cat)+'<div class="tag">'+esc(it.pos)+'</div></div>'+
+      '<div class="cbody">'+
+        '<div class="word">'+esc(it.term)+' '+sp(it.term)+'</div>'+
+        '<div class="meaning">'+esc(it.ko)+'</div>'+
+        '<div class="exrow">'+sp(it.ex,true)+'<div class="ex">'+esc(it.ex)+'</div></div>'+
+        '<div class="meta">'+
+          '<div class="line"><b>영영</b> '+esc(it.def)+' '+(it.def?sp(it.def,true):'')+'</div>'+
+          '<div class="line"><b>유의어</b> '+(it.syn?esc(it.syn)+' '+sp(it.syn,true):'-')+'</div>'+
+          '<div class="line"><b>반의어</b> '+(it.ant?esc(it.ant)+' '+sp(it.ant,true):'-')+'</div>'+
+        '</div>'+
+        '<button class="donebtn" onclick="event.stopPropagation();this.classList.toggle(\'done\');this.textContent=this.classList.contains(\'done\')?\'✓ 완료됨\':\'완료 체크\'">완료 체크</button>'+
+      '</div></div>';
+  });
+  h+='</div>';return h;
+}
+function toggleCard(i,e){if(e.target.closest('button'))return;document.getElementById('card'+i).classList.toggle('hidden-c');}
+
+/* ===== ② 다의어 (catch / once) ===== */
+function V1(){
+  if(!polyState.qs){
+    var qs=[];
+    POLY.forEach(function(p){
+      p.senses.forEach(function(s){
+        var others=p.senses.filter(function(x){return x.ko!==s.ko;}).map(function(x){return x.ko;});
+        var o=buildOpts(s.ko,others.concat(shuffle(ITEMS).slice(0,4).map(function(x){return x.ko.split(';')[0].split(',')[0];})));
+        qs.push({term:p.term,ex:s.ex,exko:s.exko,opts:o.opts,ans:o.ans,picked:-1,done:false});
+      });
+    });
+    polyState.qs=qs;
+  }
+  var h='<div class="intro">💡 <b>② 다의어 — 같은 단어, 다른 뜻</b><br><span class="kw">catch</span>는 4가지, <span class="kw">once</span>는 2가지 뜻! 문장 속에서 어떤 뜻으로 쓰였는지 골라야 합니다. 단어 암기가 아닌 <b>문맥 판단</b> 훈련입니다.</div>';
+  /* concept cards first */
+  POLY.forEach(function(p){
+    h+='<div class="qcard"><div class="qsent">'+esc(p.term)+' '+sp(p.term)+' — 뜻 '+p.senses.length+'가지</div>';
+    p.senses.forEach(function(s,k){
+      h+='<div class="meta" style="margin-top:8px"><b>'+(k+1)+'. '+esc(s.ko)+'</b><br>'+sp(s.ex,true)+' <span style="font-style:italic">'+esc(s.ex)+'</span><br><span style="color:#888">'+esc(s.exko)+'</span></div>';
+    });
+    h+='</div>';
+  });
+  h+='<div class="intro" style="background:#fdf2f8;border-color:#f9a8d4">⛳ <b>문맥 판단 퀴즈</b> — 각 문장에서 단어가 어떤 뜻으로 쓰였나요?</div>';
+  polyState.qs.forEach(function(q,i){
+    h+='<div class="qcard"><div class="qnum">문제 '+(i+1)+' / '+polyState.qs.length+'</div>'+
+      '<div class="qsent">'+sp(q.ex,true)+'<span style="font-style:italic">'+esc(q.ex)+'</span></div>'+
+      '<div class="qhint">밑줄 친 <b>'+esc(q.term)+'</b>의 뜻은?</div>';
+    q.opts.forEach(function(o,j){
+      var cls='';
+      if(q.done){if(j===q.ans)cls=' correct';else if(j===q.picked)cls=' wrong';}
+      h+='<button class="opt'+cls+'" onclick="pickPoly('+i+','+j+')"><span>'+String.fromCharCode(9312+j)+' '+esc(o)+'</span></button>';
+    });
+    h+='<div class="ansbox'+(q.done?' show':'')+'">해석: '+esc(q.exko)+'</div></div>';
+  });
+  return h;
+}
+function pickPoly(i,j){var q=polyState.qs[i];if(q.done)return;q.picked=j;q.done=true;render();}
+
+/* ===== ③ 동사 → 행위자/도구 (-er/-or) ===== */
+function V2(){
+  if(!derState.qs){
+    var qs=[];
+    DERIV.forEach(function(d){
+      /* Q-A: base verb -> derived noun */
+      var pool=DERIV.filter(function(x){return x.der!==d.der;}).map(function(x){return x.der;});
+      var o=buildOpts(d.der,pool);
+      qs.push({type:'어형',prompt:'<b>'+esc(d.base)+'</b>('+esc(d.baseko)+')에 -er(-or)을 붙인 단어는?',say:d.base,opts:o.opts,ans:o.ans,why:d.der+' = '+d.derko+' ('+d.kind+')',picked:-1,done:false});
+    });
+    /* Q-B: classify 행위자 vs 도구 */
+    shuffle(DERIV).slice(0,6).forEach(function(d){
+      qs.push({type:'분류',prompt:'<b>'+esc(d.der)+'</b>('+esc(d.derko)+')의 -er은 무엇을 나타내는가?',say:d.der,opts:['행위자 (사람)','도구 (기계·물건)'],ans:d.kind==='행위자'?0:1,why:d.der+' = '+d.derko+' → '+d.kind,picked:-1,done:false});
+    });
+    derState.qs=qs;
+  }
+  var h='<div class="intro">💡 <b>③ 동사 + -er(-or) = 행위자 또는 도구</b><br>'+
+    '<span class="kw">행위자(사람)</span>: invent→inventor(발명가), research→researcher(연구원)...<br>'+
+    '<span class="kw">도구(기계)</span>: open→opener(따개), toast→toaster(토스터)...<br>같은 -er이라도 <b>사람</b>인지 <b>도구</b>인지 구별해야 합니다!</div>';
+  derState.qs.forEach(function(q,i){
+    h+='<div class="qcard"><div class="qnum">문제 '+(i+1)+' / '+derState.qs.length+' · '+esc(q.type)+'</div>'+
+      '<div class="qsent">'+q.prompt+' '+sp(q.say,true)+'</div>';
+    q.opts.forEach(function(o,j){
+      var cls='';
+      if(q.done){if(j===q.ans)cls=' correct';else if(j===q.picked)cls=' wrong';}
+      h+='<button class="opt'+cls+'" onclick="pickDer('+i+','+j+')"><span>'+String.fromCharCode(9312+j)+' '+esc(o)+'</span>'+(/^[a-z]/i.test(o)?'<span class="ospk">'+sp(o,true)+'</span>':'')+'</button>';
+    });
+    h+='<div class="ansbox'+(q.done?' show':'')+'">'+esc(q.why)+' '+sp(q.why.split('=')[0].trim())+'</div></div>';
+  });
+  return h;
+}
+function pickDer(i,j){var q=derState.qs[i];if(q.done)return;q.picked=j;q.done=true;render();}
+
+/* ===== ④ 영영풀이 ===== */
+function V3(){
+  if(!defState.qs){
+    var pool=ITEMS.filter(function(it){return it.def;});
+    defState.qs=pool.map(function(it){
+      var o=buildOpts(it.term,pool.filter(function(x){return x.term!==it.term;}).map(function(x){return x.term;}));
+      return {q:it.def,opts:o.opts,ans:o.ans,say:it.term,ex:it.ex,picked:-1,done:false};
+    });
+  }
+  var h='<div class="intro">💡 <b>④ 영영풀이 추론</b><br>영어 설명을 읽고 알맞은 단어를 고르세요.</div>';
+  defState.qs.forEach(function(q,i){
+    h+='<div class="qcard"><div class="qnum">문제 '+(i+1)+' / '+defState.qs.length+'</div>'+
+      '<div class="qsent">'+esc(q.q)+' '+sp(q.q,true)+'</div>';
+    q.opts.forEach(function(o,j){
+      var cls='';
+      if(q.done){if(j===q.ans)cls=' correct';else if(j===q.picked)cls=' wrong';}
+      h+='<button class="opt'+cls+'" onclick="pickDef('+i+','+j+')"><span>'+String.fromCharCode(9312+j)+' '+esc(o)+'</span><span class="ospk">'+sp(o,true)+'</span></button>';
+    });
+    h+='<div class="ansbox'+(q.done?' show':'')+'">정답: '+esc(q.say)+' '+sp(q.say)+'<br><span style="font-style:italic">'+esc(q.ex)+'</span></div></div>';
+  });
+  return h;
+}
+function pickDef(i,j){var q=defState.qs[i];if(q.done)return;q.picked=j;q.done=true;render();}
+
+/* ===== ⑤ 종합시험 — 단어+유의/반의+예문+다의어+행위자 전부 포함 ===== */
+var EXAM_N=30, PASS=0.8;
+function makeExam(){
+  var qs=[];
+  /* A. 영어→뜻 (6) */
+  shuffle(ITEMS).slice(0,6).forEach(function(it){
+    var o=buildOpts(it.ko,ITEMS.filter(function(x){return x.ko!==it.ko;}).map(function(x){return x.ko;}));
+    qs.push({kind:'영어→뜻',prompt:'<b>'+esc(it.term)+'</b> 의 뜻은?',say:it.term,opts:o.opts,ans:o.ans,why:it.term+' = '+it.ko,ospk:false});
+  });
+  /* B. 뜻→영어 (4) */
+  shuffle(ITEMS).slice(0,4).forEach(function(it){
+    var o=buildOpts(it.term,ITEMS.filter(function(x){return x.term!==it.term;}).map(function(x){return x.term;}));
+    qs.push({kind:'뜻→영어',prompt:'<b>'+esc(it.ko)+'</b> 에 해당하는 영어는?',say:null,opts:o.opts,ans:o.ans,why:it.ko+' = '+it.term,ospk:true});
+  });
+  /* C. 영영풀이 (4) */
+  shuffle(ITEMS.filter(function(x){return x.def;})).slice(0,4).forEach(function(it){
+    var o=buildOpts(it.term,ITEMS.filter(function(x){return x.term!==it.term;}).map(function(x){return x.term;}));
+    qs.push({kind:'영영풀이',prompt:esc(it.def),say:it.def,opts:o.opts,ans:o.ans,why:it.term+' = '+it.ko,ospk:true});
+  });
+  /* D. 유의어 (3) */
+  shuffle(ITEMS.filter(function(x){return x.syn;})).slice(0,3).forEach(function(it){
+    var s=it.syn.split(',')[0].trim();
+    var o=buildOpts(s,ITEMS.filter(function(x){return x.term!==it.term;}).map(function(x){return x.term;}).filter(function(t){return t!==s;}));
+    qs.push({kind:'유의어',prompt:'<b>'+esc(it.term)+'</b> 의 유의어는?',say:it.term,opts:o.opts,ans:o.ans,why:it.term+' ≒ '+s,ospk:true});
+  });
+  /* E. 반의어 (3) */
+  shuffle(ITEMS.filter(function(x){return x.ant;})).slice(0,3).forEach(function(it){
+    var a=it.ant.split(',')[0].trim();
+    var pool=ITEMS.filter(function(x){return x.term!==it.term&&x.syn;}).map(function(x){return x.syn.split(',')[0].trim();}).filter(function(t){return t!==a;});
+    var o=buildOpts(a,pool);
+    qs.push({kind:'반의어',prompt:'<b>'+esc(it.term)+'</b> 의 반의어는?',say:it.term,opts:o.opts,ans:o.ans,why:it.term+' ↔ '+a,ospk:true});
+  });
+  /* F. 본문 예문 빈칸 (4) — 예문에서 단어 가리고 고르기 */
+  shuffle(ITEMS.filter(function(x){return x.ex&&x.ex.toLowerCase().indexOf(x.term.split(' ')[0].toLowerCase())>=0&&/^[a-z]+$/i.test(x.term);})).slice(0,4).forEach(function(it){
+    var re=new RegExp(it.term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'i');
+    var blanked=it.ex.replace(re,'______');
+    var o=buildOpts(it.term,ITEMS.filter(function(x){return x.term!==it.term&&/^[a-z]+$/i.test(x.term);}).map(function(x){return x.term;}));
+    qs.push({kind:'본문 예문',prompt:esc(blanked)+'<div class="qhint">빈칸에 알맞은 단어는? (본문 문장)</div>',say:it.ex,opts:o.opts,ans:o.ans,why:'정답 문장: '+it.ex,ospk:true});
+  });
+  /* G. 다의어 (3) */
+  var polyAll=[];
+  POLY.forEach(function(p){p.senses.forEach(function(s){polyAll.push({term:p.term,s:s,others:p.senses.filter(function(x){return x.ko!==s.ko;}).map(function(x){return x.ko;})});});});
+  shuffle(polyAll).slice(0,3).forEach(function(pa){
+    var o=buildOpts(pa.s.ko,pa.others.concat(shuffle(ITEMS).slice(0,3).map(function(x){return x.ko.split(';')[0].split(',')[0];})));
+    qs.push({kind:'다의어',prompt:'<span style="font-style:italic">'+esc(pa.s.ex)+'</span><div class="qhint">이 문장에서 <b>'+esc(pa.term)+'</b>의 뜻은?</div>',say:pa.s.ex,opts:o.opts,ans:o.ans,why:pa.s.exko,ospk:false});
+  });
+  /* H. 행위자/도구 (3) */
+  shuffle(DERIV).slice(0,3).forEach(function(d){
+    var o=buildOpts(d.der,DERIV.filter(function(x){return x.der!==d.der;}).map(function(x){return x.der;}));
+    qs.push({kind:'어형변화',prompt:'<b>'+esc(d.base)+'</b>('+esc(d.baseko)+')의 명사형(-er/-or)은?',say:d.base,opts:o.opts,ans:o.ans,why:d.der+' = '+d.derko+' ('+d.kind+')',ospk:true});
+  });
+  return shuffle(qs).slice(0,EXAM_N);
+}
+function V4(){
+  if(examQs.length===0){
+    return '<div class="intro">💡 <b>⑤ 종합 시험 — 철저하게</b><br>'+
+      '• 총 <b>'+EXAM_N+'문항</b>, 8가지 유형: 영어→뜻 · 뜻→영어 · 영영풀이 · 유의어 · 반의어 · <b>본문 예문 빈칸</b> · <b>다의어</b> · <b>행위자(-er/-or)</b><br>'+
+      '• 합격선 <b>'+(PASS*100)+'%</b> ('+Math.ceil(EXAM_N*PASS)+'개 이상)<br>'+
+      '• 채점 후 <b>틀린 문제만 재시험</b> + 틀린 단어 듣기</div>'+
+      '<div class="btns"><button class="b b4" style="font-size:18px;padding:16px 32px" onclick="startExam()">🚀 시험 시작</button></div>';
+  }
+  var idxs=examActive;
+  var answered=idxs.filter(function(i){return examPick[i]>=0;}).length;
+  var h='<div class="intro">💡 <b>⑤ 종합 시험</b> '+(examActive.length<examQs.length?'(재시험 — 틀린 문제만)':'')+'<br>모두 풀고 맨 아래 <b>채점하기</b>를 누르세요.</div>'+
+    '<div class="bar"><div style="width:'+Math.round(answered/idxs.length*100)+'%"></div></div>'+
+    '<div class="score">진행: '+answered+' / '+idxs.length+'</div>';
+  idxs.forEach(function(qi){
+    var q=examQs[qi];
+    h+='<div class="qcard"><div class="qnum">문제 '+(qi+1)+' · '+esc(q.kind)+'</div>'+
+      '<div class="qsent">'+q.prompt+' '+(q.say?sp(q.say,true):'')+'</div>';
+    q.opts.forEach(function(o,j){
+      var cls='';
+      if(examGraded){if(j===q.ans)cls=' correct';else if(j===examPick[qi])cls=' wrong';}
+      else if(j===examPick[qi])cls=' pick';
+      h+='<button class="opt'+cls+'" onclick="pickExam('+qi+','+j+')"><span>'+String.fromCharCode(9312+j)+' '+esc(o)+'</span>'+(q.ospk&&/[a-z]/i.test(o)?'<span class="ospk">'+sp(o,true)+'</span>':'')+'</button>';
+    });
+    if(examGraded)h+='<div class="ansbox show">'+esc(q.why)+'</div>';
+    h+='</div>';
+  });
+  if(!examGraded){
+    h+='<div class="btns"><button class="b b4" style="font-size:18px;padding:16px 36px" onclick="gradeExam()">📝 채점하기</button></div>';
+  }else{
+    var correct=idxs.filter(function(i){return examPick[i]===examQs[i].ans;}).length;
+    var total=idxs.length,pct=Math.round(correct/total*100),passed=correct/total>=PASS;
+    var wrong=idxs.filter(function(i){return examPick[i]!==examQs[i].ans;});
+    h+='<div class="result"><div class="score-big">'+correct+' / '+total+'</div>'+
+      '<div class="verdict '+(passed?'pass':'fail')+'">'+(passed?'🎉 합격!':'📚 불합격')+' · '+pct+'%</div>'+
+      '<div class="small">'+(passed?'합격선 '+(PASS*100)+'%를 넘었습니다!':'합격선 '+(PASS*100)+'% ('+Math.ceil(total*PASS)+'개)에 미달입니다.')+'</div>'+
+      '<div class="btns">'+
+        (wrong.length?'<button class="b b4" onclick="retryWrong()">🔁 틀린 '+wrong.length+'문제 다시</button>':'')+
+        '<button class="b b1" onclick="startExam()">🆕 새 문제</button>'+
+        (wrong.length?'<button class="b b5" onclick="speakWrong()">🔊 틀린 단어 듣기</button>':'')+
+      '</div></div>';
+    window._examWrong=wrong;
+  }
+  return h;
+}
+function startExam(){examQs=makeExam();examPick=examQs.map(function(){return -1;});examGraded=false;examActive=examQs.map(function(_,i){return i;});render();window.scrollTo({top:0,behavior:'smooth'});}
+function pickExam(qi,j){if(examGraded)return;examPick[qi]=j;render();}
+function gradeExam(){
+  var un=examActive.filter(function(i){return examPick[i]<0;});
+  if(un.length){alert('아직 안 푼 문제가 '+un.length+'개 있어요. 모두 풀고 채점하세요.');return;}
+  examGraded=true;render();
+}
+function retryWrong(){
+  var w=window._examWrong||[];
+  w.forEach(function(i){examPick[i]=-1;});
+  examActive=w;examGraded=false;render();window.scrollTo({top:0,behavior:'smooth'});
+}
+function speakWrong(){
+  var w=window._examWrong||[];
+  var words=w.map(function(i){var q=examQs[i];return q.say||q.opts[q.ans];}).filter(function(x){return /[a-z]/i.test(x);});
+  var k=0;
+  function next(){if(k>=words.length)return;var u=new SpeechSynthesisUtterance(words[k++]);u.lang='en-US';u.rate=.85;u.onend=next;SS.speak(u);}
+  if(SS){SS.cancel();next();}
+}
+
+buildSteps();render();
+</script>
+</body>
+</html>
