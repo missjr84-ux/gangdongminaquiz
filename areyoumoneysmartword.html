@@ -2,677 +2,523 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Are You Money Smart? · Vocabulary Master Pro</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Are You Money Smart? · Vocabulary Master</title>
 <style>
-:root{
-  --c1:#f97316;--c2:#3b82f6;--c3:#10b981;--c4:#8b5cf6;--c5:#ec4899;--c6:#f59e0b;--c7:#06b6d4;--c8:#ef4444;
-  --bg:#fef9f0;--card:#fffdf7;--ink:#1a1a2e;--muted:#5a5a6e;--line:#e2ddd0;
-  --ok:#10b981;--ok-bg:#dcfce7;--no:#ef4444;--no-bg:#fee2e2;--shadow:rgba(60,40,10,.13);
-  --r:18px;
-  /* TABLET-FIRST SIZING — large by default, no desktop mode needed */
-  --fs-base:18px; --fs-word:30px; --fs-meaning:20px; --fs-btn:18px; --fs-q:21px; --fs-opt:18px;
-  --tap:54px;
-}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{
-  background:radial-gradient(circle at top left,rgba(249,115,22,.12),transparent 32%),
-             radial-gradient(circle at top right,rgba(59,130,246,.11),transparent 32%),var(--bg);
-  font-family:'Noto Sans KR',sans-serif;color:var(--ink);font-size:var(--fs-base);line-height:1.6;
-  padding:16px 14px calc(120px + env(safe-area-inset-bottom)) 14px;max-width:920px;margin:0 auto;
-}
-/* ---------- header ---------- */
-.page-title{text-align:center;margin-bottom:14px}
-.badge{display:inline-block;background:var(--ink);color:#fff;border-radius:999px;padding:8px 16px;font-size:14px;font-weight:900;margin-bottom:10px}
-h1{font-family:'Black Han Sans','Noto Sans KR',sans-serif;font-size:clamp(28px,7vw,44px);font-weight:400;letter-spacing:-.5px}
-.subtitle{font-size:14px;color:var(--muted);margin-top:7px;line-height:1.6}
-.deco{width:120px;height:7px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));border-radius:99px;margin:12px auto 0}
-/* ---------- tabs ---------- */
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;position:sticky;top:0;background:var(--bg);padding:12px 0;z-index:20;margin-bottom:8px}
-.tab{border:none;border-radius:16px;padding:16px 8px;font-size:16px;font-weight:900;background:#fff;box-shadow:0 4px 14px var(--shadow);cursor:pointer;min-height:var(--tap);color:var(--ink);line-height:1.3;transition:transform .12s}
-.tab:active{transform:scale(.96)}
-.tab.active{background:var(--ink);color:#fff}
-/* ---------- global controls ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nunito:wght@700;900&display=swap');
+:root{--c1:#f97316;--c2:#3b82f6;--c3:#10b981;--c4:#8b5cf6;--c5:#ec4899;--c6:#f59e0b;--c7:#06b6d4;--c8:#ef4444;--bg:#f0f9ff;--card:#fffdf7;--ink:#1a1a2e;--muted:#666;--line:#e8e8e8;--ok:#10b981;--no:#ef4444;--shadow:rgba(0,0,0,.10);}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--ink);padding-bottom:80px}
+.page-title{text-align:center;padding:20px 16px 8px}
+.page-title h1{font-family:'Nunito','Noto Sans KR',sans-serif;font-size:clamp(22px,5vw,34px);font-weight:900}
+.subtitle{font-size:13px;color:var(--muted);margin-top:5px;line-height:1.6}
+.deco-bar{width:100px;height:6px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));border-radius:10px;margin:9px auto 0}
+.steps{position:sticky;top:0;z-index:30;background:var(--bg);max-width:1000px;margin:14px auto 0;padding:9px 10px;display:flex;gap:6px;overflow-x:auto}
+.step{flex:1;min-width:78px;font-family:inherit;font-size:13px;font-weight:900;padding:13px 6px;border-radius:22px;border:0;cursor:pointer;background:#fff;color:var(--muted);box-shadow:0 2px 8px var(--shadow);line-height:1.3;white-space:nowrap}
+.step.on{background:var(--ink);color:#fff}
+.step .sn{display:block;font-size:10px;opacity:.72}
+.wrap{max-width:1000px;margin:0 auto;padding:18px 16px}
 .ctrl{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
-.btn{border:none;border-radius:999px;padding:14px 22px;font-weight:900;font-size:var(--fs-btn);box-shadow:0 4px 12px var(--shadow);cursor:pointer;min-height:var(--tap);display:inline-flex;align-items:center;gap:7px;font-family:inherit;transition:transform .12s}
-.btn:active{transform:scale(.95)}
-.dark{background:var(--ink);color:#fff}
-.soft{background:#fff;color:var(--ink)}
-.listen{background:#dbeafe;color:#1d4ed8}
-.pink{background:#fdf2f8;color:#be185d}
-.green{background:var(--ok-bg);color:#166534}
-/* ---------- section / label ---------- */
-.section{display:none}
-.section.active{display:block;animation:fade .35s ease}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.label{margin:20px auto 16px;display:flex;align-items:center;gap:12px}
-.label:before,.label:after{content:"";flex:1;height:2px;background:var(--line)}
-.label span{font-size:15px;font-weight:900;color:var(--muted);white-space:nowrap;text-align:center}
-/* ---------- speak button (UNIFIED) ---------- */
-.spk{border:none;border-radius:12px;background:#e0f2fe;color:#0369a1;font-weight:900;font-size:15px;
-  padding:9px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;min-height:44px;font-family:inherit;transition:transform .1s,background .15s}
-.spk:active{transform:scale(.92)}
-.spk.playing{background:#0369a1;color:#fff;animation:pulse 1s infinite}
-.spk.mini{font-size:13px;padding:6px 10px;min-height:38px;border-radius:10px}
-@keyframes pulse{50%{opacity:.7}}
-/* ---------- cards ---------- */
+.intro{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:15px 18px;font-size:14px;color:#555;line-height:1.8;margin-bottom:18px}
+.intro b{color:var(--ink)}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-@media(max-width:680px){.grid{grid-template-columns:1fr}.tabs{grid-template-columns:repeat(3,1fr)}}
-.card{background:var(--card);border-radius:var(--r);overflow:hidden;box-shadow:0 5px 18px var(--shadow);border:2px solid var(--line);display:flex;flex-direction:column}
-.head{display:flex;align-items:center;gap:11px;padding:14px 16px;color:#fff;font-size:15px;font-weight:900}
-.num{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;font-size:16px}
-.tag{margin-left:auto;background:rgba(255,255,255,.25);padding:5px 11px;border-radius:9px;font-size:13px;white-space:nowrap}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line)}
+.head{display:flex;align-items:center;gap:10px;padding:13px 16px;color:#fff;font-size:14px;font-weight:900}
+.cnum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.26);display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;font-size:15px}
+.tag{margin-left:auto;background:rgba(255,255,255,.24);padding:4px 10px;border-radius:8px;font-size:12px;white-space:nowrap}
 .c1 .head{background:var(--c1)}.c2 .head{background:var(--c2)}.c3 .head{background:var(--c3)}.c4 .head{background:var(--c4)}.c5 .head{background:var(--c5)}.c6 .head{background:var(--c6)}.c7 .head{background:var(--c7)}.c8 .head{background:var(--c8)}
-.body{padding:17px;flex:1}
-.word-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.word{font-family:'Nunito','Noto Sans KR',sans-serif;font-size:var(--fs-word);font-weight:900;line-height:1.2}
-.meaning{margin-top:9px;font-size:var(--fs-meaning);font-weight:900;color:#d6336c}
-.ex-row{margin-top:12px;display:flex;align-items:flex-start;gap:9px}
-.ex{font-size:15px;color:#444;line-height:1.65;flex:1}
-.ex .ee{font-style:italic}
-.meta{margin-top:13px;font-size:15px;line-height:1.9;background:#f6f4ee;border-radius:12px;padding:12px 14px;color:#444}
+.cbody{padding:16px}
+.word{font-family:'Nunito','Noto Sans KR';font-size:28px;font-weight:900;line-height:1.2;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.meaning{margin-top:8px;font-size:19px;font-weight:900;color:#d6336c}
+.exrow{margin-top:11px;display:flex;align-items:flex-start;gap:8px}
+.ex{font-size:14px;color:#555;line-height:1.65;font-style:italic;flex:1}
+.meta{margin-top:12px;font-size:14px;line-height:1.9;background:#f6f4ee;border-radius:12px;padding:11px 13px;color:#444}
 .meta b{color:var(--ink)}
-.syn-line,.ant-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:4px 0}
-.flip .meaning,.flip .ex-row,.flip .meta{display:none}
-.flip.open .meaning,.flip.open .ex-row,.flip.open .meta{display:block}
-.flip.open .ex-row{display:flex}
-.done-btn{margin-top:13px;border:none;border-radius:12px;background:var(--ok-bg);color:#166534;font-weight:900;padding:12px;width:100%;font-size:16px;cursor:pointer;min-height:var(--tap);font-family:inherit}
-.done-btn.done{background:#166534;color:#fff}
-.hint{font-size:13px;color:var(--muted);margin-top:6px}
-/* ---------- quiz boxes ---------- */
-.quiz-box{background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:0 4px 15px var(--shadow)}
-.q{font-size:var(--fs-q);font-weight:900;line-height:1.6;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
-.q .qn{background:var(--ink);color:#fff;border-radius:9px;padding:3px 11px;font-size:15px;flex-shrink:0}
-.opt{display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin:9px 0;padding:15px 16px;border:2px solid var(--line);background:#fff;border-radius:14px;font-weight:700;font-size:var(--fs-opt);cursor:pointer;min-height:var(--tap);font-family:inherit;line-height:1.5;color:var(--ink);transition:transform .1s}
-.opt:active{transform:scale(.98)}
-.opt.pick{border-color:#be185d;background:#fdf2f8;color:#be185d}
-.opt.correct{background:var(--ok-bg);border-color:#16a34a;color:#166534}
-.opt.wrong{background:var(--no-bg);border-color:var(--no);color:#991b1b}
-.opt .optspk{margin-left:auto}
-.answer-box{display:none;margin-top:12px;background:#f6f4ee;border-radius:12px;padding:13px 15px;font-size:15px;line-height:1.7}
-.answer-box.show{display:block}
-.answer-box .ans-word{font-weight:900;font-size:18px;color:#166534;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-/* spelling input */
-.spell-in{width:100%;padding:15px 16px;border:2.5px solid var(--c2);border-radius:14px;font-size:20px;font-weight:800;font-family:'Nunito',sans-serif;margin:6px 0;text-align:center}
+.meta .line{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:3px 0}
+.hidden-c .meaning,.hidden-c .exrow,.hidden-c .meta{display:none}
+.donebtn{margin-top:12px;border:0;border-radius:12px;background:#dcfce7;color:#166534;font-weight:900;padding:12px;width:100%;font-size:15px;cursor:pointer}
+.donebtn.done{background:#166534;color:#fff}
+.speak{border:0;background:#e0f2fe;color:#0369a1;border-radius:999px;padding:7px 12px;font-size:14px;font-weight:900;cursor:pointer;display:inline-flex;align-items:center;gap:4px;flex-shrink:0}
+.speak.mini{padding:5px 9px;font-size:12px}
+.speak.playing{background:#0369a1;color:#fff}
+.qcard{background:var(--card);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);padding:18px 20px;margin-bottom:16px}
+.qnum{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:900}
+.qsent{font-size:19px;font-weight:900;line-height:1.6;display:flex;align-items:flex-start;gap:9px;flex-wrap:wrap}
+.qhint{font-size:13px;color:var(--muted);margin-top:6px}
+.opt{display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin:8px 0;padding:14px 15px;border:2px solid var(--line);background:#fff;border-radius:12px;font-weight:800;font-size:16px;cursor:pointer;line-height:1.5;color:var(--ink);font-family:inherit}
+.opt.pick{border-color:var(--c5);background:#fdf2f8;color:#be185d}
+.opt.correct{background:#dcfce7;border-color:#16a34a;color:#166534}
+.opt.wrong{background:#fee2e2;border-color:var(--no);color:#991b1b}
+.opt .ospk{margin-left:auto}
+.ansbox{font-size:14px;color:#0369a1;background:#e0f2fe;padding:11px 13px;border-radius:10px;margin-top:9px;display:none;line-height:1.7;font-weight:800}
+.ansbox.show{display:block}
+.spell-in{width:100%;padding:14px 15px;border:2.5px solid var(--c2);border-radius:12px;font-size:20px;font-weight:800;font-family:'Nunito',sans-serif;margin:6px 0;text-align:center}
 .spell-in:focus{outline:none;border-color:var(--c1)}
-.spell-in.right{border-color:var(--ok);background:var(--ok-bg)}
-.spell-in.bad{border-color:var(--no);background:var(--no-bg)}
-/* ---------- score / progress ---------- */
-.score{font-size:18px;font-weight:900;text-align:center;margin:6px 0 16px;color:var(--ink);background:#fff;padding:14px;border-radius:14px;box-shadow:0 3px 10px var(--shadow)}
-.progress{height:14px;background:#e6e1ff;border-radius:99px;overflow:hidden;margin:12px 0}
-.progress>div{height:100%;background:linear-gradient(90deg,var(--c5),var(--c3));transition:width .4s;width:0}
-/* ---------- match ---------- */
-.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.match{display:flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px;font-weight:900;cursor:pointer;min-height:58px;font-size:16px;line-height:1.4;transition:transform .1s}
-.match:active{transform:scale(.97)}
-.match.sel{border-color:#be185d;background:#fdf2f8;color:#be185d}
-.match.done{background:var(--ok-bg);border-color:#16a34a;color:#166534;pointer-events:none;opacity:.65}
-.match.bad{background:var(--no-bg);border-color:var(--no);color:#991b1b}
-@media(max-width:560px){.match-wrap{grid-template-columns:1fr 1fr;gap:9px}.match{padding:11px 9px;font-size:14px;min-height:52px}}
-/* ---------- exam flow ---------- */
-.exam-intro{background:#fffbeb;border:2px solid #fcd34d;border-radius:var(--r);padding:20px;margin-bottom:18px;line-height:1.8}
-.exam-intro h3{font-size:20px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.exam-intro ul{margin:8px 0 0 20px;font-size:15px}
-.exam-start{margin-top:16px}
-.exam-result{background:#fff;border:2.5px solid var(--ink);border-radius:var(--r);padding:24px;text-align:center;box-shadow:5px 5px 0 var(--ink);margin-bottom:18px}
-.exam-result .big{font-family:'Black Han Sans';font-size:54px;line-height:1.1}
-.exam-result .verdict{font-size:22px;font-weight:900;margin-top:4px}
-.exam-result .pass{color:var(--ok)}.exam-result .fail{color:var(--no)}
-.exam-result .sub{font-size:15px;color:var(--muted);margin-top:8px}
-.retry-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
-.notice{background:#fffbeb;border:2px solid #fcd34d;border-radius:var(--r);padding:16px;font-size:14px;line-height:1.9;color:var(--muted);margin-top:24px}
-.seg{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;justify-content:center}
-.seg button{border:2px solid var(--line);background:#fff;border-radius:12px;padding:11px 16px;font-weight:900;font-size:15px;cursor:pointer;font-family:inherit;color:var(--muted);min-height:48px}
+.spell-in.right{border-color:var(--ok);background:#dcfce7}
+.spell-in.bad{border-color:var(--no);background:#fee2e2}
+.btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0}
+.b{padding:13px 22px;border:0;border-radius:24px;font-family:inherit;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 2px 8px var(--shadow)}
+.b1{background:var(--c5);color:#fff}.b2{background:#e5e7eb;color:var(--ink)}.b3{background:var(--c3);color:#fff}.b4{background:var(--ink);color:#fff}.b5{background:#e0f2fe;color:#0369a1}
+.bar{height:12px;background:#dbeafe;border-radius:8px;overflow:hidden;margin-bottom:16px}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--c5),var(--c3));border-radius:8px;transition:.4s}
+.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match{display:flex;align-items:center;gap:7px;background:#fff;border:2px solid var(--line);border-radius:12px;padding:13px;font-weight:900;cursor:pointer;min-height:56px;font-size:15px;line-height:1.4}
+.match.sel{border-color:var(--c5);background:#fdf2f8;color:#be185d}
+.match.done{background:#dcfce7;border-color:#16a34a;color:#166534;pointer-events:none;opacity:.6}
+.match.bad{background:#fee2e2;border-color:var(--no);color:#991b1b}
+@media(max-width:560px){.match{padding:10px 8px;font-size:13px;min-height:50px}}
+.seg{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+.seg button{border:2px solid var(--line);background:#fff;border-radius:11px;padding:10px 14px;font-weight:900;font-size:14px;cursor:pointer;font-family:inherit;color:var(--muted)}
 .seg button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.hidden{display:none!important}
+.score{font-size:17px;font-weight:900;text-align:center;margin:6px 0 16px;color:var(--ink);background:#fff;padding:13px;border-radius:13px;box-shadow:0 3px 10px var(--shadow)}
+.result{text-align:center;padding:24px 14px;background:#fff;border:2.5px solid var(--ink);border-radius:16px;box-shadow:5px 5px 0 var(--ink);margin:18px 0}
+.score-big{font-size:54px;font-weight:900;font-family:'Nunito'}
+.verdict{font-size:22px;font-weight:900;margin-top:4px}
+.pass{color:var(--ok)}.fail{color:var(--no)}
+.small{font-size:13px;color:var(--muted);line-height:1.7;margin-top:8px}
+.notice{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:15px;font-size:13px;line-height:1.9;color:#555;margin-top:24px}
+.hidden{display:none}
 </style>
 </head>
 <body>
 <div class="page-title">
-  <div class="badge">강동미나 영어 · Lesson 4 Are You Money Smart?</div>
-  <h1>Vocabulary Master <span style="color:var(--c1)">Pro</span></h1>
-  <p class="subtitle">카드 · 한글유추 · 매치 · 영영풀이 · 유의어반의어 · 스펠링 · 철저한 종합시험<br>모든 영어에 🔊 듣기 버튼 · 태블릿/폰 큰 화면 최적화</p>
-  <div class="deco"></div>
+  <h1>💰 Vocabulary Master</h1>
+  <p class="subtitle">강동미나 영어 · Lesson 4 Are You Money Smart?<br>카드 · 한글유추 · 매치 · 영영풀이 · 유의/반의 · 스펠링 · 종합시험</p>
+  <div class="deco-bar"></div>
 </div>
-
-<div class="tabs" id="tabs"></div>
-<div class="ctrl" id="globalCtrl"></div>
-
-<section id="card" class="section active"></section>
-<section id="recall" class="section"></section>
-<section id="match" class="section"></section>
-<section id="def" class="section"></section>
-<section id="synant" class="section"></section>
-<section id="spell" class="section"></section>
-<section id="exam" class="section"></section>
-
-<div class="notice"><b>💡 사용법</b><br>
-• 카드를 탭하면 뜻·예문·유의어·반의어가 열립니다.<br>
-• 모든 영어 단어/예문/유의어/반의어 옆 <b>🔊 버튼</b>으로 발음을 들을 수 있습니다(엔진 통일).<br>
-• <b>종합시험</b>은 80% 이상 맞아야 합격이며, 틀린 문제만 다시 푸는 재시험이 제공됩니다.<br>
-• 처음 화면을 한 번 터치하면 소리 엔진이 켜집니다(모바일 정책).</div>
+<div class="steps" id="steps"></div>
+<div id="sndHint" style="max-width:1000px;margin:10px auto 0;padding:0 16px">
+  <div style="background:#dbeafe;border:2px solid #93c5fd;border-radius:12px;padding:11px 14px;font-size:13px;font-weight:800;color:#1d4ed8;text-align:center">
+    🔊 소리가 안 들리면 화면을 <b>한 번 탭</b>한 뒤 듣기 버튼을 눌러 주세요. (휴대폰·태블릿 음성 정책)
+  </div>
+</div>
+<div class="wrap"><div class="ctrl" id="ctrl"></div><div id="app"></div></div>
 
 <script>
-const ITEMS=[
-{cat:"Watch and Talk",term:"customer",ko:"고객",pos:"n.",def:"a person who buys goods or services",syn:"buyer, shopper, client",ant:"seller",ex:"The customer asked for a receipt."},
-{cat:"Watch and Talk",term:"discount",ko:"할인; 할인하다",pos:"n./v.",def:"a cut in the usual cost of something; to take an amount off the price",syn:"price cut, reduction",ant:"increase",ex:"The store offered a big discount."},
-{cat:"Watch and Talk",term:"item",ko:"물품, 품목",pos:"n.",def:"an individual thing",syn:"thing, product, object",ant:"",ex:"This item is very popular."},
-{cat:"Watch and Talk",term:"popular",ko:"인기 있는",pos:"adj.",def:"liked or enjoyed by many people",syn:"well-liked, famous, hot",ant:"unpopular",ex:"This lipstick is also popular."},
-{cat:"Watch and Talk",term:"price",ko:"가격",pos:"n.",def:"the amount of money required in payment for something",syn:"cost",ant:"",ex:"I will have to buy them at a higher price."},
-{cat:"Watch and Talk",term:"receipt",ko:"영수증",pos:"n.",def:"a piece of paper that shows payment",syn:"proof of purchase",ant:"",ex:"Please keep your receipt."},
-{cat:"Watch and Talk",term:"salesperson",ko:"판매원",pos:"n.",def:"a person whose job is to sell things",syn:"clerk, seller",ant:"customer, buyer",ex:"The salesperson showed her a 50-dollar lipstick first."},
-{cat:"Watch and Talk",term:"souvenir",ko:"기념품",pos:"n.",def:"something you buy or keep to remember a place or event",syn:"keepsake, memento",ant:"",ex:"She bought a souvenir at the store."},
-{cat:"Watch and Talk",term:"total",ko:"합계; 총계의",pos:"n./adj.",def:"the whole number or amount of something",syn:"sum, whole amount",ant:"part",ex:"What is the total price?"},
-{cat:"Watch and Talk",term:"traditional",ko:"전통적인",pos:"adj.",def:"following the customs or ways of the past",syn:"classic, customary",ant:"modern",ex:"They sold traditional souvenirs."},
-{cat:"Watch and Talk",term:"look for",ko:"~을 찾다",pos:"phr.",def:"to try to find someone or something",syn:"search for, seek",ant:"",ex:"I'm looking for a lipstick for my mom."},
-{cat:"Watch and Talk",term:"have a sale",ko:"할인하여 판매하다, 세일하다",pos:"phr.",def:"to sell things at lower prices for a short time",syn:"offer a discount",ant:"",ex:"The store will have a sale this weekend."},
-{cat:"Talk and Play",term:"seller",ko:"판매자",pos:"n.",def:"a person who sells something",syn:"salesperson, vendor",ant:"buyer, customer",ex:"The seller recommended a cheaper item."},
-{cat:"Talk and Play",term:"sneakers",ko:"운동화",pos:"n.",def:"comfortable shoes for sports or casual wear",syn:"sports shoes, trainers",ant:"",ex:"You're buying the sneakers just because you don't want to miss the sale."},
-{cat:"Reading",term:"anchor",ko:"고착시키다; 앵커; 기준점",pos:"n./v.",def:"to hold in place; to give a firm base",syn:"fix, base, reference point",ant:"release",ex:"The first piece of information becomes an anchor."},
-{cat:"Reading",term:"budget",ko:"예산",pos:"n.",def:"the amount of money available for a purpose",syn:"spending plan, allowance",ant:"",ex:"Your budget is 30 dollars."},
-{cat:"Reading",term:"decision",ko:"결정, 결심",pos:"n.",def:"a choice that you make after thinking",syn:"choice, conclusion",ant:"indecision",ex:"Marketing strategies influence your decisions."},
-{cat:"Reading",term:"effect",ko:"효과",pos:"n.",def:"a change that is caused by something",syn:"result, influence, impact",ant:"cause",ex:"This is an example of the anchoring effect."},
-{cat:"Reading",term:"hot",ko:"최신의, 화제의, 인기 많은",pos:"adj.",def:"very popular or fashionable now",syn:"popular, trendy",ant:"unpopular",ex:"If a product becomes hot on social media, people naturally want to have it."},
-{cat:"Reading",term:"hunger",ko:"강한 열망, 배고픔, 굶주림",pos:"n.",def:"a strong desire for something",syn:"desire, craving",ant:"satisfaction",ex:"You're falling for a hunger marketing strategy."},
-{cat:"Reading",term:"influence",ko:"영향을 주다; 영향력",pos:"v./n.",def:"to affect someone in an indirect but usually important way",syn:"affect, impact",ant:"",ex:"There are various marketing strategies which influence your decisions."},
-{cat:"Reading",term:"information",ko:"정보",pos:"n.",def:"facts or details about someone or something",syn:"facts, data",ant:"",ex:"Information about a product can spread quickly and widely on the Internet."},
-{cat:"Reading",term:"lie",ko:"거짓말; 거짓말하다",pos:"n./v.",def:"something that is not true; to say something untrue",syn:"falsehood",ant:"truth",ex:"Do not believe every lie in an advertisement."},
-{cat:"Reading",term:"limited",ko:"한정된, 제한된",pos:"adj.",def:"restricted in size, amount, or extent",syn:"restricted, fixed",ant:"unlimited",ex:"People can buy a product only for a limited time."},
-{cat:"Reading",term:"lipstick",ko:"립스틱",pos:"n.",def:"colored makeup put on the lips",syn:"",ant:"",ex:"I thought I could buy a lipstick for 30 dollars."},
-{cat:"Reading",term:"product",ko:"생산품, 상품, 제품",pos:"n.",def:"something made or grown to be sold or used",syn:"item, goods",ant:"",ex:"A popular product isn't always right for you."},
-{cat:"Reading",term:"shopper",ko:"구매자, 쇼핑객",pos:"n.",def:"a person who buys things in stores or online",syn:"buyer, customer",ant:"seller",ex:"Learning about them will make you a smarter shopper."},
-{cat:"Reading",term:"similar",ko:"비슷한, 유사한",pos:"adj.",def:"almost the same as someone or something else",syn:"alike, close, same",ant:"different",ex:"You'll soon see a similar sale again."},
-{cat:"Reading",term:"spread",ko:"퍼지다, 확산되다",pos:"v.",def:"to become known by many people",syn:"expand, circulate",ant:"shrink",ex:"Information about a product can spread quickly and widely."},
-{cat:"Reading",term:"strategy",ko:"전략",pos:"n.",def:"a plan of action designed to achieve an overall aim",syn:"plan, method, tactic",ant:"",ex:"You're falling for a hunger marketing strategy."},
-{cat:"Reading",term:"over",ko:"~을 넘어, ~ 이상",pos:"prep./adv.",def:"more than; above; across",syn:"more than, above",ant:"under",ex:"The sale is over soon."},
-{cat:"Reading",term:"quickly",ko:"빠르게",pos:"adv.",def:"fast; in a short time",syn:"fast, rapidly",ant:"slowly",ex:"Information can spread quickly."},
-{cat:"Reading",term:"viral",ko:"급속히 퍼지는, 입소문이 난",pos:"adj.",def:"becoming popular quickly on social media",syn:"widely shared, trending",ant:"",ex:"There are a lot of people who fall for a viral marketing strategy."},
-{cat:"Reading",term:"virus",ko:"바이러스",pos:"n.",def:"a harmful program or organism that can spread quickly",syn:"infection",ant:"",ex:"Information can spread just like a virus."},
-{cat:"Reading",term:"widely",ko:"널리",pos:"adv.",def:"over a large area or among many people",syn:"broadly, extensively",ant:"narrowly",ex:"Information can spread widely on the Internet."},
-{cat:"Reading",term:"again and again",ko:"몇 번이고, 되풀이해서",pos:"phr.",def:"many times; repeatedly",syn:"repeatedly, over and over",ant:"once",ex:"You saw it again and again on social media."},
-{cat:"Reading",term:"fall for",ko:"~에 속다, ~에 사기당하다",pos:"phr.",def:"to be fooled by something",syn:"be tricked by, be fooled by",ant:"see through",ex:"Many people fall for a viral marketing strategy."},
-{cat:"Reading",term:"have an experience",ko:"경험하다",pos:"phr.",def:"to go through or live through something",syn:"experience, go through",ant:"",ex:"Shoppers often have an experience like this."},
-{cat:"Reading",term:"hold on",ko:"기다리다, 멈추다",pos:"phr.",def:"to wait; to stop for a moment",syn:"wait, stop",ant:"go ahead",ex:"Hold on, Somi!"},
-{cat:"Reading",term:"in one's case",ko:"~의 경우에는",pos:"phr.",def:"in the situation of a particular person",syn:"as for someone",ant:"",ex:"In your case, the 50-dollar lipstick was the anchor."},
-{cat:"Reading",term:"lots of / a lot of",ko:"많은",pos:"phr.",def:"many; much",syn:"many, plenty of",ant:"few, little",ex:"There are a lot of people who fall for a viral marketing strategy."},
-{cat:"Reading",term:"rely on",ko:"~에 의지하다, ~에 기대다",pos:"phr.",def:"to trust or believe someone or something",syn:"depend on, trust",ant:"distrust",ex:"Don't just rely on the first piece of information."},
-{cat:"Reading",term:"social media",ko:"소셜 미디어",pos:"n.",def:"websites and apps where people share content",syn:"SNS, social networks",ant:"",ex:"That's the hottest dress on social media now."},
-{cat:"Language in Use",term:"coin",ko:"동전",pos:"n.",def:"a small, flat, round piece of metal used as money",syn:"piece of money",ant:"bill",ex:"He put a coin in his pocket."},
-{cat:"Language in Use",term:"star",ko:"주연을 맡다; 주연, 주역; 별",pos:"n./v.",def:"to have the main role; a famous performer; a bright object in the sky",syn:"main actor, celebrity",ant:"",ex:"The actor starred in a new movie."},
-{cat:"Language in Use",term:"catch a cold",ko:"감기에 걸리다",pos:"phr.",def:"to become sick with a cold",syn:"get a cold",ant:"recover from a cold",ex:"You may catch a cold in cold weather."},
-{cat:"Language in Use",term:"right away",ko:"즉시, 당장",pos:"phr.",def:"immediately; without delay",syn:"immediately, at once",ant:"later",ex:"Call me right away."},
-{cat:"Word Family",term:"decide → decision",ko:"결정하다 → 결정",pos:"family",def:"a verb and its noun form",syn:"choose → choice",ant:"",ex:"You should decide carefully before making a decision."},
-{cat:"Word Family",term:"explode → explosion",ko:"폭발하다 → 폭발",pos:"family",def:"a verb and its noun form",syn:"burst → blast",ant:"",ex:"The sudden explosion surprised everyone."},
-{cat:"Word Family",term:"donate → donation",ko:"기부하다 → 기부",pos:"family",def:"a verb and its noun form",syn:"give → gift",ant:"",ex:"They donate money and make a donation."},
-{cat:"Word Family",term:"communicate → communication",ko:"의사소통하다 → 의사소통",pos:"family",def:"a verb and its noun form",syn:"exchange ideas → communication",ant:"",ex:"Good communication helps people understand each other."},
-{cat:"Prefix / Suffix",term:"appear → disappear",ko:"나타나다 → 사라지다",pos:"prefix dis-",def:"dis- can make a negative or opposite meaning",syn:"show up → vanish",ant:"appear",ex:"The product may disappear from the store."},
-{cat:"Prefix / Suffix",term:"agree → disagree",ko:"동의하다 → 동의하지 않다",pos:"prefix dis-",def:"dis- can make a negative or opposite meaning",syn:"accept → differ",ant:"agree",ex:"I disagree with that decision."},
-{cat:"Prefix / Suffix",term:"count → discount",ko:"세다, 계산하다 → 할인하다",pos:"prefix dis-",def:"discount means to reduce a price",syn:"reduce the price",ant:"increase the price",ex:"They discount popular items during the sale."},
-{cat:"Prefix / Suffix",term:"connect → disconnect",ko:"연결하다 → 연결을 끊다",pos:"prefix dis-",def:"dis- can mean remove or reverse an action",syn:"link → unlink",ant:"connect",ex:"Disconnect the device after use."},
-{cat:"Prefix / Suffix",term:"buy → buyer",ko:"사다 → 구매자",pos:"suffix -er",def:"-er can mean a person who does an action",syn:"shopper, customer",ant:"seller",ex:"The buyer checked the price."},
-{cat:"Prefix / Suffix",term:"produce → producer",ko:"생산하다 → 생산자",pos:"suffix -er",def:"-er can mean a person or thing that does an action",syn:"maker",ant:"consumer",ex:"The producer made a new product."},
-{cat:"Prefix / Suffix",term:"sell → seller",ko:"팔다 → 판매자",pos:"suffix -er",def:"-er can mean a person who does an action",syn:"salesperson",ant:"buyer",ex:"The seller gave a discount."},
-{cat:"Prefix / Suffix",term:"shop → shopper",ko:"물건을 사다 → 구매자, 쇼핑객",pos:"suffix -er",def:"-er can mean a person who does an action",syn:"buyer, customer",ant:"seller",ex:"A smart shopper checks the budget."},
-{cat:"본문 표현",term:"Do you think you are ~?",ko:"너는 네가 ~라고 생각하니?",pos:"pattern",def:"a question pattern used to ask someone's opinion about themselves",syn:"Do you believe you are ~?",ant:"",ex:"Do you think you are a smart shopper?"},
-{cat:"본문 표현",term:"may think ~, but ...",ko:"~라고 생각할 수도 있지만, …",pos:"pattern",def:"a contrast pattern between a possible thought and a warning",syn:"might think ~, but",ant:"",ex:"You may think you are, but hold on!"},
-{cat:"본문 표현",term:"There are various ~ which ...",ko:"…하는 다양한 ~가 있다",pos:"pattern",def:"a structure introducing many things and describing them with which",syn:"There are many ~ that ...",ant:"",ex:"There are various marketing strategies which influence your decisions."},
-{cat:"본문 표현",term:"Learning about ~ will make you ...",ko:"~에 대해 배우는 것은 너를 …하게 만들 것이다",pos:"pattern",def:"a gerund subject pattern with make + object + complement",syn:"Studying ~ will help you become ...",ant:"",ex:"Learning about them will make you a smarter shopper."},
-{cat:"본문 표현",term:"If I don't ~, I will have to ...",ko:"내가 ~하지 않으면, …해야 할 것이다",pos:"pattern",def:"a conditional sentence about a future result",syn:"Unless I ~, I must ...",ant:"",ex:"If I don't buy the sneakers now, I will have to buy them at a higher price."},
-{cat:"본문 표현",term:"just because",ko:"단지 ~ 때문에",pos:"conj.",def:"for only the reason that",syn:"only because",ant:"",ex:"You're buying the sneakers just because you don't want to miss the sale."},
-{cat:"본문 표현",term:"for a limited time",ko:"제한된 시간 동안",pos:"phr.",def:"during only a short or fixed period",syn:"for a short time",ant:"forever",ex:"People can buy a product only for a limited time."},
-{cat:"본문 표현",term:"feel hungry for it",ko:"그것에 대해 강한 욕구를 느끼다",pos:"phr.",def:"to strongly want something",syn:"strongly desire it",ant:"",ex:"They often feel hungry for it and want to buy it."},
-{cat:"본문 표현",term:"About ~, don't worry.",ko:"~에 대해서는 걱정하지 마라",pos:"pattern",def:"a pattern used to tell someone not to worry about something",syn:"Don't worry about ~",ant:"",ex:"About missing the sale, don't worry, Junho."},
-{cat:"본문 표현",term:"That's the hottest ~",ko:"그것은 가장 인기 있는 ~이다",pos:"pattern",def:"a phrase for something very popular now",syn:"the most popular",ant:"",ex:"That's the hottest dress on social media now."},
-{cat:"본문 표현",term:"not just you",ko:"너뿐만이 아닌",pos:"phr.",def:"used to say others are in the same situation",syn:"not only you",ant:"only you",ex:"It isn't just you."},
-{cat:"본문 표현",term:"just like a virus",ko:"마치 바이러스처럼",pos:"phr.",def:"in the same way as a virus spreads",syn:"like a virus",ant:"",ex:"Information can spread quickly and widely on the Internet, just like a virus."},
-{cat:"본문 표현",term:"becomes hot on social media",ko:"소셜 미디어에서 인기를 얻게 되다",pos:"phr.",def:"to become popular on social media",syn:"go viral, become popular online",ant:"",ex:"If a product becomes hot on social media, people naturally want to have it."},
-{cat:"본문 표현",term:"isn't always right for you",ko:"항상 너에게 맞는 것은 아니다",pos:"phr.",def:"not always suitable for you",syn:"does not always fit you",ant:"",ex:"A popular product isn't always right for you."},
-{cat:"본문 표현",term:"How about this?",ko:"이건 어때요?",pos:"expression",def:"used to suggest something",syn:"What about this?",ant:"",ex:"How about this?"},
-{cat:"본문 표현",term:"I thought I could ~",ko:"나는 ~할 수 있을 거라고 생각했다",pos:"pattern",def:"a past thought about possibility",syn:"I believed I could ~",ant:"",ex:"I thought I could buy a lipstick for 30 dollars."},
-{cat:"본문 표현",term:"sounds cheap",ko:"싸게 들리다, 싸게 느껴지다",pos:"phr.",def:"seems cheap when heard or considered",syn:"seems cheap",ant:"sounds expensive",ex:"The 40-dollar lipstick sounds cheap."},
-{cat:"본문 표현",term:"only because",ko:"단지 ~ 때문에",pos:"conj.",def:"for the single reason that",syn:"just because",ant:"",ex:"The lipstick sounds cheap only because the salesperson showed you a 50-dollar lipstick first."},
-{cat:"본문 표현",term:"an example of ~",ko:"~의 한 예",pos:"phr.",def:"one case that shows something",syn:"an instance of",ant:"",ex:"This is an example of the anchoring effect."},
-{cat:"본문 표현",term:"the first piece of information",ko:"첫 번째 정보",pos:"phr.",def:"the first information someone receives",syn:"the first information",ant:"the last piece of information",ex:"The first piece of information becomes an anchor."},
-{cat:"본문 표현",term:"that is given to you",ko:"너에게 주어진",pos:"relative clause",def:"a passive relative clause modifying information",syn:"which is given to you",ant:"",ex:"Don't just rely on the first piece of information that is given to you."}
-];
+const DATA={"items":[
+{"cat":"Watch and Talk","term":"customer","ko":"고객","pos":"n.","def":"a person who buys goods or services","syn":"buyer, shopper, client","ant":"seller","ex":"The customer asked for a receipt."},
+{"cat":"Watch and Talk","term":"discount","ko":"할인; 할인하다","pos":"n./v.","def":"a cut in the usual cost of something","syn":"price cut, reduction","ant":"increase","ex":"The store offered a big discount."},
+{"cat":"Watch and Talk","term":"item","ko":"물품, 품목","pos":"n.","def":"an individual thing","syn":"thing, product, object","ant":"","ex":"This item is very popular."},
+{"cat":"Watch and Talk","term":"popular","ko":"인기 있는","pos":"adj.","def":"liked or enjoyed by many people","syn":"well-liked, famous, hot","ant":"unpopular","ex":"This lipstick is also popular."},
+{"cat":"Watch and Talk","term":"price","ko":"가격","pos":"n.","def":"the amount of money required in payment for something","syn":"cost","ant":"","ex":"I will have to buy them at a higher price."},
+{"cat":"Watch and Talk","term":"receipt","ko":"영수증","pos":"n.","def":"a piece of paper that shows payment","syn":"proof of purchase","ant":"","ex":"Please keep your receipt."},
+{"cat":"Watch and Talk","term":"salesperson","ko":"판매원","pos":"n.","def":"a person whose job is to sell things","syn":"clerk, seller","ant":"customer, buyer","ex":"The salesperson showed her a 50-dollar lipstick first."},
+{"cat":"Watch and Talk","term":"souvenir","ko":"기념품","pos":"n.","def":"something you keep to remember a place or event","syn":"keepsake, memento","ant":"","ex":"She bought a souvenir at the store."},
+{"cat":"Watch and Talk","term":"total","ko":"합계; 총계의","pos":"n./adj.","def":"the whole number or amount of something","syn":"sum, whole amount","ant":"part","ex":"What is the total price?"},
+{"cat":"Watch and Talk","term":"traditional","ko":"전통적인","pos":"adj.","def":"following the customs or ways of the past","syn":"classic, customary","ant":"modern","ex":"They sold traditional souvenirs."},
+{"cat":"Watch and Talk","term":"look for","ko":"~을 찾다","pos":"phr.","def":"to try to find someone or something","syn":"search for, seek","ant":"","ex":"I am looking for a lipstick for my mom."},
+{"cat":"Watch and Talk","term":"have a sale","ko":"세일하다","pos":"phr.","def":"to sell things at lower prices for a short time","syn":"offer a discount","ant":"","ex":"The store will have a sale this weekend."},
+{"cat":"Talk and Play","term":"seller","ko":"판매자","pos":"n.","def":"a person who sells something","syn":"salesperson, vendor","ant":"buyer, customer","ex":"The seller recommended a cheaper item."},
+{"cat":"Talk and Play","term":"sneakers","ko":"운동화","pos":"n.","def":"comfortable shoes for sports or casual wear","syn":"sports shoes, trainers","ant":"","ex":"You are buying the sneakers because of the sale."},
+{"cat":"Reading","term":"anchor","ko":"기준점; 고착시키다","pos":"n./v.","def":"to hold in place; to give a firm base","syn":"fix, base, reference point","ant":"release","ex":"The first piece of information becomes an anchor."},
+{"cat":"Reading","term":"budget","ko":"예산","pos":"n.","def":"the amount of money available for a purpose","syn":"spending plan, allowance","ant":"","ex":"Your budget is 30 dollars."},
+{"cat":"Reading","term":"decision","ko":"결정, 결심","pos":"n.","def":"a choice that you make after thinking","syn":"choice, conclusion","ant":"indecision","ex":"Marketing strategies influence your decisions."},
+{"cat":"Reading","term":"effect","ko":"효과","pos":"n.","def":"a change that is caused by something","syn":"result, influence, impact","ant":"cause","ex":"This is an example of the anchoring effect."},
+{"cat":"Reading","term":"hot","ko":"인기 많은, 화제의","pos":"adj.","def":"very popular or fashionable now","syn":"popular, trendy","ant":"unpopular","ex":"That is the hottest dress on social media."},
+{"cat":"Reading","term":"hunger","ko":"강한 열망, 굶주림","pos":"n.","def":"a strong desire for something","syn":"desire, craving","ant":"satisfaction","ex":"You are falling for a hunger marketing strategy."},
+{"cat":"Reading","term":"influence","ko":"영향을 주다; 영향력","pos":"v./n.","def":"to affect someone in an indirect but important way","syn":"affect, impact","ant":"","ex":"Marketing strategies influence your decisions."},
+{"cat":"Reading","term":"information","ko":"정보","pos":"n.","def":"facts or details about someone or something","syn":"facts, data","ant":"","ex":"Information can spread quickly and widely."},
+{"cat":"Reading","term":"lie","ko":"거짓말; 거짓말하다","pos":"n./v.","def":"something that is not true","syn":"falsehood","ant":"truth","ex":"Do not believe every lie in an advertisement."},
+{"cat":"Reading","term":"limited","ko":"한정된, 제한된","pos":"adj.","def":"restricted in size, amount, or extent","syn":"restricted, fixed","ant":"unlimited","ex":"People can buy a product only for a limited time."},
+{"cat":"Reading","term":"lipstick","ko":"립스틱","pos":"n.","def":"colored makeup put on the lips","syn":"lip color","ant":"","ex":"I thought I could buy a lipstick for 30 dollars."},
+{"cat":"Reading","term":"product","ko":"상품, 제품","pos":"n.","def":"something made or grown to be sold or used","syn":"item, goods","ant":"","ex":"A popular product is not always right for you."},
+{"cat":"Reading","term":"shopper","ko":"구매자, 쇼핑객","pos":"n.","def":"a person who buys things in stores or online","syn":"buyer, customer","ant":"seller","ex":"Learning about them will make you a smarter shopper."},
+{"cat":"Reading","term":"similar","ko":"비슷한, 유사한","pos":"adj.","def":"almost the same as someone or something else","syn":"alike, close, same","ant":"different","ex":"You will soon see a similar sale again."},
+{"cat":"Reading","term":"spread","ko":"퍼지다, 확산되다","pos":"v.","def":"to become known by many people","syn":"expand, circulate","ant":"shrink","ex":"Information can spread quickly and widely."},
+{"cat":"Reading","term":"strategy","ko":"전략","pos":"n.","def":"a plan of action designed to achieve a goal","syn":"plan, method, tactic","ant":"","ex":"You are falling for a hunger marketing strategy."},
+{"cat":"Reading","term":"over","ko":"~을 넘어, ~ 이상","pos":"prep.","def":"more than; above; across","syn":"more than, above","ant":"under","ex":"The sale is over soon."},
+{"cat":"Reading","term":"quickly","ko":"빠르게","pos":"adv.","def":"fast; in a short time","syn":"fast, rapidly","ant":"slowly","ex":"Information can spread quickly."},
+{"cat":"Reading","term":"viral","ko":"입소문이 난","pos":"adj.","def":"becoming popular quickly on social media","syn":"widely shared, trending","ant":"","ex":"Many people fall for a viral marketing strategy."},
+{"cat":"Reading","term":"virus","ko":"바이러스","pos":"n.","def":"a harmful program or thing that spreads quickly","syn":"infection","ant":"","ex":"Information can spread just like a virus."},
+{"cat":"Reading","term":"widely","ko":"널리","pos":"adv.","def":"over a large area or among many people","syn":"broadly, extensively","ant":"narrowly","ex":"Information can spread widely on the Internet."},
+{"cat":"Reading","term":"again and again","ko":"되풀이해서","pos":"phr.","def":"many times; repeatedly","syn":"repeatedly, over and over","ant":"once","ex":"You saw it again and again on social media."},
+{"cat":"Reading","term":"fall for","ko":"~에 속다","pos":"phr.","def":"to be fooled by something","syn":"be tricked by, be fooled by","ant":"see through","ex":"Many people fall for a viral marketing strategy."},
+{"cat":"Reading","term":"have an experience","ko":"경험하다","pos":"phr.","def":"to go through or live through something","syn":"experience, go through","ant":"","ex":"Shoppers often have an experience like this."},
+{"cat":"Reading","term":"hold on","ko":"기다리다, 멈추다","pos":"phr.","def":"to wait; to stop for a moment","syn":"wait, stop","ant":"go ahead","ex":"Hold on, Somi!"},
+{"cat":"Reading","term":"rely on","ko":"~에 의지하다","pos":"phr.","def":"to trust or depend on someone or something","syn":"depend on, trust","ant":"distrust","ex":"Do not just rely on the first piece of information."},
+{"cat":"Reading","term":"social media","ko":"소셜 미디어","pos":"n.","def":"websites and apps where people share content","syn":"SNS, social networks","ant":"","ex":"That is the hottest dress on social media now."},
+{"cat":"Language in Use","term":"coin","ko":"동전","pos":"n.","def":"a small, flat, round piece of metal used as money","syn":"piece of money","ant":"bill","ex":"He put a coin in his pocket."},
+{"cat":"Language in Use","term":"star","ko":"주연을 맡다; 별","pos":"n./v.","def":"to have the main role; a famous performer","syn":"main actor, celebrity","ant":"","ex":"The actor starred in a new movie."},
+{"cat":"Language in Use","term":"catch a cold","ko":"감기에 걸리다","pos":"phr.","def":"to become sick with a cold","syn":"get a cold","ant":"recover from a cold","ex":"You may catch a cold in cold weather."},
+{"cat":"Language in Use","term":"right away","ko":"즉시, 당장","pos":"phr.","def":"immediately; without delay","syn":"immediately, at once","ant":"later","ex":"Call me right away."},
+{"cat":"Word Family","term":"decide / decision","ko":"결정하다 / 결정","pos":"family","def":"a verb and its noun form","syn":"choose / choice","ant":"","ex":"Decide carefully before making a decision."},
+{"cat":"Word Family","term":"explode / explosion","ko":"폭발하다 / 폭발","pos":"family","def":"a verb and its noun form","syn":"burst / blast","ant":"","ex":"The sudden explosion surprised everyone."},
+{"cat":"Word Family","term":"donate / donation","ko":"기부하다 / 기부","pos":"family","def":"a verb and its noun form","syn":"give / gift","ant":"","ex":"They donate money and make a donation."},
+{"cat":"Word Family","term":"communicate / communication","ko":"의사소통하다 / 의사소통","pos":"family","def":"a verb and its noun form","syn":"talk / talk","ant":"","ex":"Good communication helps people understand."},
+{"cat":"Prefix dis-","term":"appear / disappear","ko":"나타나다 / 사라지다","pos":"prefix","def":"dis- makes an opposite meaning","syn":"show up / vanish","ant":"","ex":"The product may disappear from the store."},
+{"cat":"Prefix dis-","term":"agree / disagree","ko":"동의하다 / 동의하지 않다","pos":"prefix","def":"dis- makes an opposite meaning","syn":"accept / differ","ant":"","ex":"I disagree with that decision."},
+{"cat":"Prefix dis-","term":"connect / disconnect","ko":"연결하다 / 연결을 끊다","pos":"prefix","def":"dis- means remove or reverse an action","syn":"link / unlink","ant":"","ex":"Disconnect the device after use."},
+{"cat":"Suffix -er","term":"buy / buyer","ko":"사다 / 구매자","pos":"suffix","def":"-er means a person who does an action","syn":"shopper / customer","ant":"seller","ex":"The buyer checked the price."},
+{"cat":"Suffix -er","term":"produce / producer","ko":"생산하다 / 생산자","pos":"suffix","def":"-er means a person or thing that acts","syn":"maker","ant":"consumer","ex":"The producer made a new product."},
+{"cat":"Suffix -er","term":"sell / seller","ko":"팔다 / 판매자","pos":"suffix","def":"-er means a person who does an action","syn":"salesperson","ant":"buyer","ex":"The seller gave a discount."},
+{"cat":"Suffix -er","term":"shop / shopper","ko":"쇼핑하다 / 쇼핑객","pos":"suffix","def":"-er means a person who does an action","syn":"buyer, customer","ant":"seller","ex":"A smart shopper checks the budget."},
+{"cat":"본문 표현","term":"just because","ko":"단지 ~ 때문에","pos":"phr.","def":"for only the reason that","syn":"only because","ant":"","ex":"You are buying it just because of the sale."},
+{"cat":"본문 표현","term":"for a limited time","ko":"제한된 시간 동안","pos":"phr.","def":"during only a short or fixed period","syn":"for a short time","ant":"forever","ex":"People can buy it only for a limited time."},
+{"cat":"본문 표현","term":"feel hungry for it","ko":"강한 욕구를 느끼다","pos":"phr.","def":"to strongly want something","syn":"strongly desire it","ant":"","ex":"They often feel hungry for it."},
+{"cat":"본문 표현","term":"not just you","ko":"너뿐만이 아닌","pos":"phr.","def":"used to say others are in the same situation","syn":"not only you","ant":"only you","ex":"It is not just you."},
+{"cat":"본문 표현","term":"just like a virus","ko":"마치 바이러스처럼","pos":"phr.","def":"in the same way as a virus spreads","syn":"like a virus","ant":"","ex":"Information can spread just like a virus."},
+{"cat":"본문 표현","term":"an example of","ko":"~의 한 예","pos":"phr.","def":"one case that shows something","syn":"an instance of","ant":"","ex":"This is an example of the anchoring effect."},
+{"cat":"본문 표현","term":"only because","ko":"단지 ~ 때문에","pos":"phr.","def":"for the single reason that","syn":"just because","ant":"","ex":"It sounds cheap only because of the first price."},
+{"cat":"본문 표현","term":"sounds cheap","ko":"싸게 느껴지다","pos":"phr.","def":"seems cheap when heard or considered","syn":"seems cheap","ant":"sounds expensive","ex":"The 40-dollar lipstick sounds cheap."},
+{"cat":"본문 표현","term":"How about this?","ko":"이건 어때요?","pos":"expr.","def":"used to suggest something","syn":"What about this?","ant":"","ex":"How about this?"}
+]};
 
+/* ===== STATE ===== */
+const ITEMS=DATA.items;
+let view=0;
+let cardHidden=true;
+let matchPage=0, matchSel={l:null,r:null}, matchPairs=[];
+let defState={}, synState={}, spellState={};
+let examQs=[], examPick=[], examGraded=false, examActive=[];
 
-</script>
-<script>
-/* ============ UNIFIED SPEECH ENGINE ============ */
-let voicesLoaded=false, engVoice=null;
-function loadVoices(){
-  if(!('speechSynthesis' in window))return;
-  const vs=speechSynthesis.getVoices();
-  if(vs.length){
-    engVoice = vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny|google us/i.test(v.name))
-            || vs.find(v=>v.lang==='en-US')
-            || vs.find(v=>v.lang&&v.lang.toLowerCase().startsWith('en'))
-            || null;
-    voicesLoaded=true;
-  }
+/* ===== SPEECH (one unified engine, mobile-safe) ===== */
+var SS = ('speechSynthesis' in window) ? window.speechSynthesis : null;
+var ttsReady=false, ttsVoices=[];
+function loadVoices(){ if(!SS)return; ttsVoices=SS.getVoices()||[]; }
+if(SS){ loadVoices(); SS.onvoiceschanged=loadVoices; }
+/* unlock the engine on the very first user interaction (required on iOS/Android) */
+function unlockTTS(){
+  if(!SS||ttsReady)return;
+  try{ var u=new SpeechSynthesisUtterance(' '); u.volume=0; SS.speak(u); SS.cancel(); }catch(e){}
+  loadVoices(); ttsReady=true;
+  var hint=document.getElementById('sndHint'); if(hint)hint.style.display='none';
 }
-if('speechSynthesis' in window){ loadVoices(); speechSynthesis.onvoiceschanged=loadVoices; }
-function warmEngine(){
-  if(!('speechSynthesis' in window))return;
-  loadVoices();
-  try{ const u=new SpeechSynthesisUtterance(''); speechSynthesis.speak(u); speechSynthesis.cancel(); }catch(e){}
-}
-document.addEventListener('touchstart',warmEngine,{once:true});
-document.addEventListener('click',warmEngine,{once:true});
+document.addEventListener('touchstart',unlockTTS,{once:true,passive:true});
+document.addEventListener('mousedown',unlockTTS,{once:true});
+document.addEventListener('click',unlockTTS,{once:true});
 
-let currentSpkBtn=null;
-function speak(text,btn){
-  if(!('speechSynthesis' in window)){ alert('이 브라우저는 음성을 지원하지 않습니다. Chrome으로 열어 주세요.'); return; }
-  const msg=String(text||'').replace(/[~…]/g,' ').replace(/→/g,' to ').trim();
+function pickVoice(){
+  if(!ttsVoices.length)loadVoices();
+  return ttsVoices.filter(function(x){return x.lang==='en-US';})[0]
+      || ttsVoices.filter(function(x){return x.lang&&x.lang.toLowerCase().indexOf('en')===0;})[0]
+      || ttsVoices[0] || null;
+}
+function speak(t,btn){
+  if(!SS){alert('이 브라우저는 음성을 지원하지 않습니다. Chrome으로 열어 주세요.');return;}
+  unlockTTS();
+  var msg=String(t==null?'':t).replace(/[\/~_]/g,' ').replace(/\s+/g,' ').trim();
   if(!msg)return;
-  speechSynthesis.cancel();
-  if(currentSpkBtn){currentSpkBtn.classList.remove('playing');currentSpkBtn=null;}
-  const u=new SpeechSynthesisUtterance(msg);
-  u.lang='en-US'; u.rate=.82; u.pitch=1; u.volume=1;
-  if(engVoice)u.voice=engVoice;
-  if(btn){ btn.classList.add('playing'); currentSpkBtn=btn;
-    u.onend=u.onerror=()=>{btn.classList.remove('playing');if(currentSpkBtn===btn)currentSpkBtn=null;}; }
-  setTimeout(()=>{speechSynthesis.resume();speechSynthesis.speak(u);},10);
+  SS.cancel();
+  var btns=document.querySelectorAll('.speak.playing');
+  for(var i=0;i<btns.length;i++)btns[i].classList.remove('playing');
+  function fire(){
+    var u=new SpeechSynthesisUtterance(msg);
+    u.lang='en-US'; u.rate=0.85; u.pitch=1; u.volume=1;
+    var v=pickVoice(); if(v)u.voice=v;
+    if(btn){btn.classList.add('playing');u.onend=u.onerror=function(){btn.classList.remove('playing');};}
+    try{ SS.resume(); }catch(e){}
+    SS.speak(u);
+  }
+  /* if voices not loaded yet, wait briefly then fire */
+  if(!ttsVoices.length){
+    loadVoices();
+    if(!ttsVoices.length){ setTimeout(fire,180); return; }
+  }
+  setTimeout(fire,0);
 }
-/* speak many in sequence (current tab) */
-let seqStop=false;
-function speakSeq(texts){
-  if(!('speechSynthesis' in window)){alert('음성 미지원 브라우저입니다.');return;}
-  speechSynthesis.cancel(); seqStop=false;
-  let i=0;
-  (function next(){
-    if(seqStop||i>=texts.length)return;
-    const u=new SpeechSynthesisUtterance(String(texts[i++]).replace(/[~…]/g,' ').replace(/→/g,' to ').trim());
-    u.lang='en-US';u.rate=.82;u.volume=1;if(engVoice)u.voice=engVoice;
-    u.onend=next;u.onerror=next;
-    speechSynthesis.resume();speechSynthesis.speak(u);
-  })();
-}
-function stopSpeak(){seqStop=true;if('speechSynthesis' in window)speechSynthesis.cancel();
-  document.querySelectorAll('.spk.playing').forEach(b=>b.classList.remove('playing'));}
 
-/* ============ HELPERS ============ */
-function esc(s){return String(s??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;')}
-function spk(text,mini){const t=encodeURIComponent(text);return `<button type="button" class="spk${mini?' mini':''}" onclick="event.stopPropagation();speak(decodeURIComponent('${t}'),this)">🔊<span>듣기</span></button>`}
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function colors(i){return 'c'+((i%8)+1)}
-const hasEnglishAnswer=it=>true;
-
-const TABS=[
-  ['card','① 카드'],['recall','② 한글유추'],['match','③ 매치'],
-  ['def','④ 영영풀이'],['synant','⑤ 유의/반의'],['spell','⑥ 스펠링'],['exam','⑦ 종합시험']
-];
-function buildTabs(){
-  document.getElementById('tabs').innerHTML=TABS.map((t,i)=>
-    `<button class="tab${i===0?' active':''}" onclick="openTab('${t[0]}',this)">${t[1]}</button>`).join('');
+/* ===== HELPERS ===== */
+function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];});}
+function sp(t,mini){return '<button type="button" class="speak'+(mini?' mini':'')+'" data-say="'+esc(t)+'" onclick="event.stopPropagation();speak(this.getAttribute(\'data-say\'),this)">🔊 듣기</button>';}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function colors(i){return 'c'+((i%8)+1);}
+function norm(s){return String(s||'').trim().toLowerCase().replace(/\s+/g,' ');}
+function buildOpts(correct,pool){
+  var set=[correct],sh=shuffle(pool),k;
+  for(k=0;k<sh.length&&set.length<4;k++){if(sh[k]!=null&&set.indexOf(sh[k])<0)set.push(sh[k]);}
+  if(set.length<4){var fill=shuffle(ITEMS.map(function(x){return x.term;}).concat(ITEMS.map(function(x){return x.ko;})));
+    for(k=0;k<fill.length&&set.length<4;k++){if(set.indexOf(fill[k])<0)set.push(fill[k]);}}
+  var opts=shuffle(set);
+  return {opts:opts,ans:opts.indexOf(correct)};
 }
-function openTab(id,btn){
-  stopSpeak();
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('globalCtrl').style.display=(id==='card')?'flex':'none';
+
+/* ===== NAV ===== */
+const STEPS=[['카드','①'],['한글유추','②'],['매치','③'],['영영풀이','④'],['유의/반의','⑤'],['스펠링','⑥'],['종합시험','⑦']];
+function buildSteps(){
+  document.getElementById('steps').innerHTML=STEPS.map(function(s,i){
+    return '<button class="step'+(i===0?' on':'')+'" id="st'+i+'" onclick="go('+i+')"><span class="sn">'+s[1]+'단계</span>'+s[0]+'</button>';
+  }).join('');
+}
+function go(v){
+  view=v; if(SS)SS.cancel();
+  for(var i=0;i<STEPS.length;i++)document.getElementById('st'+i).classList.toggle('on',i===v);
+  render();
   window.scrollTo({top:0,behavior:'smooth'});
 }
-function buildGlobalCtrl(){
-  document.getElementById('globalCtrl').innerHTML=
-    `<button class="btn dark" onclick="revealAll()">✅ 답 전체 보기</button>
-     <button class="btn soft" onclick="hideAll()">🙈 답 숨기기</button>
-     <button class="btn listen" onclick="speakSeq(cardSeq())">🔊 카드 전체 듣기</button>
-     <button class="btn soft" onclick="stopSpeak()">⏹ 정지</button>`;
-}
-function revealAll(){document.querySelectorAll('#card .flip').forEach(c=>c.classList.add('open'))}
-function hideAll(){document.querySelectorAll('#card .flip').forEach(c=>c.classList.remove('open'))}
-function cardSeq(){const s=[];ITEMS.forEach(it=>{s.push(it.term);s.push(it.ex)});return s}
-
-/* ============ ① CARDS ============ */
-function buildCards(){
-  const html=`<div class="label"><span>① 단어 카드 — 단어·뜻·예문·유의어·반의어 (탭하여 열기)</span></div>
-   <div class="grid">${ITEMS.map((it,i)=>cardHTML(i,it)).join('')}</div>`;
-  document.getElementById('card').innerHTML=html;
-}
-function cardHTML(i,it){
-  const synHTML = it.syn? `<div class="syn-line"><b>유의어</b> ${esc(it.syn)} ${spk(it.syn.replace(/→/g,'to'),true)}</div>` : `<div class="syn-line"><b>유의어</b> -</div>`;
-  const antHTML = it.ant? `<div class="ant-line"><b>반의어</b> ${esc(it.ant)} ${spk(it.ant.replace(/→/g,'to'),true)}</div>` : `<div class="ant-line"><b>반의어</b> -</div>`;
-  return `<div class="card flip ${colors(i)}" onclick="if(event.target.closest('button')===null)this.classList.toggle('open')">
-    <div class="head"><div class="num">${i+1}</div>${esc(it.cat)}<div class="tag">${esc(it.pos)}</div></div>
-    <div class="body">
-      <div class="word-row"><div class="word">${esc(it.term)}</div>${spk(it.term)}</div>
-      <div class="meaning">${esc(it.ko)}</div>
-      <div class="ex-row">${spk(it.ex,true)}<div class="ex"><span class="ee">${esc(it.ex)}</span></div></div>
-      <div class="meta">
-        <div><b>영영풀이</b> ${esc(it.def)} ${spk(it.def,true)}</div>
-        ${synHTML}${antHTML}
-      </div>
-      <button class="done-btn" onclick="event.stopPropagation();this.classList.toggle('done');this.textContent=this.classList.contains('done')?'✓ 완료됨':'완료 체크'">완료 체크</button>
-    </div>
-  </div>`;
+function render(){
+  document.getElementById('ctrl').innerHTML = (view===0)? 
+    '<button class="b b4" onclick="cardHidden=false;render()">✅ 답 전체 보기</button>'+
+    '<button class="b b2" onclick="cardHidden=true;render()">🙈 답 숨기기</button>' : '';
+  document.getElementById('app').innerHTML=[V0,V1,V2,V3,V4,V5,V6][view]();
 }
 
-/* ============ ② RECALL (KO→EN, with spelling reveal) ============ */
-function buildRecall(){
-  const html=`<div class="label"><span>② 한글 유추 — 뜻 보고 영어 떠올리기</span></div>
-   <div class="seg"><button class="btn pink" onclick="speakSeq(ITEMS.map(x=>x.term))">🔊 정답 전체 듣기</button>
-   <button class="btn soft" onclick="stopSpeak()">⏹ 정지</button></div>
-   ${ITEMS.map((it,i)=>`<div class="quiz-box">
-     <div class="q"><span class="qn">${i+1}</span><div>${esc(it.ko)}<div class="hint">영어를 떠올린 뒤 정답 보기를 누르세요.</div></div></div>
-     <button class="btn pink" onclick="const a=this.nextElementSibling;a.classList.add('show');this.style.display='none'">정답 보기</button>
-     <div class="answer-box">
-       <div class="ans-word">${esc(it.a||it.term)} ${spk(it.term)}</div>
-       <div style="margin-top:8px">${spk(it.ex,true)} <span style="font-style:italic">${esc(it.ex)}</span></div>
-     </div></div>`).join('')}`;
-  document.getElementById('recall').innerHTML=html;
+/* ===== ① CARDS ===== */
+function V0(){
+  var h='<div class="intro">💡 <b>① 단어 카드</b><br>카드를 탭하면 뜻·예문·유의어·반의어가 열립니다. 모든 영어(단어·예문·유의어·반의어)에 🔊 듣기 버튼이 있습니다.</div><div class="grid">';
+  ITEMS.forEach(function(it,i){
+    var open = cardHidden? '' : 'opened';
+    h+='<div class="card '+colors(i)+' '+(cardHidden?'hidden-c':'')+'" id="card'+i+'" onclick="toggleCard('+i+',event)">'+
+      '<div class="head"><div class="cnum">'+(i+1)+'</div>'+esc(it.cat)+'<div class="tag">'+esc(it.pos)+'</div></div>'+
+      '<div class="cbody">'+
+        '<div class="word">'+esc(it.term)+' '+sp(it.term)+'</div>'+
+        '<div class="meaning">'+esc(it.ko)+'</div>'+
+        '<div class="exrow">'+sp(it.ex,true)+'<div class="ex">'+esc(it.ex)+'</div></div>'+
+        '<div class="meta">'+
+          '<div class="line"><b>영영</b> '+esc(it.def)+' '+sp(it.def,true)+'</div>'+
+          '<div class="line"><b>유의어</b> '+(it.syn?esc(it.syn)+' '+sp(it.syn,true):'-')+'</div>'+
+          '<div class="line"><b>반의어</b> '+(it.ant?esc(it.ant)+' '+sp(it.ant,true):'-')+'</div>'+
+        '</div>'+
+        '<button class="donebtn" onclick="event.stopPropagation();this.classList.toggle(\'done\');this.textContent=this.classList.contains(\'done\')?\'✓ 완료됨\':\'완료 체크\'">완료 체크</button>'+
+      '</div></div>';
+  });
+  h+='</div>';
+  return h;
+}
+function toggleCard(i,e){
+  if(e.target.closest('button'))return;
+  document.getElementById('card'+i).classList.toggle('hidden-c');
 }
 
-/* ============ ③ MATCH (EN ↔ KO) ============ */
-let lsel=null,rsel=null,matchDone=0,matchTotal=0;
-function buildMatch(){
-  // chunk into pages of 10 to keep mobile manageable
-  document.getElementById('match').innerHTML=`<div class="label"><span>③ 매치 게임 — 영어 ↔ 뜻 (10개씩)</span></div>
-    <div class="seg" id="matchSeg"></div>
-    <div class="score" id="matchScore">완료: 0 / 10</div>
-    <div class="match-wrap"><div id="leftMatch"></div><div id="rightMatch"></div></div>`;
-  const pages=Math.ceil(ITEMS.length/10);
-  document.getElementById('matchSeg').innerHTML=Array.from({length:pages},(_,p)=>
-    `<button class="${p===0?'on':''}" onclick="loadMatchPage(${p},this)">${p*10+1}–${Math.min((p+1)*10,ITEMS.length)}</button>`).join('');
-  loadMatchPage(0,null);
+/* ===== ② RECALL (KO -> EN, click to reveal) ===== */
+function V1(){
+  var h='<div class="intro">💡 <b>② 한글 유추</b><br>한글 뜻을 보고 영어를 떠올린 뒤 <b>정답 보기</b>를 누르세요. 정답 영어와 예문에 듣기 버튼이 있습니다.</div>';
+  ITEMS.forEach(function(it,i){
+    h+='<div class="qcard"><div class="qnum">문제 '+(i+1)+' / '+ITEMS.length+'</div>'+
+      '<div class="qsent">'+esc(it.ko)+'<div class="qhint">영어를 떠올린 뒤 정답을 확인하세요.</div></div>'+
+      '<div class="btns"><button class="b b1" onclick="document.getElementById(\'ra'+i+'\').classList.add(\'show\');this.style.display=\'none\'">정답 보기</button></div>'+
+      '<div class="ansbox" id="ra'+i+'">정답: '+esc(it.term)+' '+sp(it.term)+'<br>'+sp(it.ex,true)+' <span style="font-style:italic">'+esc(it.ex)+'</span></div></div>';
+  });
+  return h;
 }
-function loadMatchPage(p,btn){
-  stopSpeak();
-  if(btn){document.querySelectorAll('#matchSeg button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
-  const slice=ITEMS.slice(p*10,p*10+10);
-  matchTotal=slice.length;matchDone=0;lsel=null;rsel=null;
-  const left=document.getElementById('leftMatch'),right=document.getElementById('rightMatch');
-  left.innerHTML=slice.map(it=>`<div class="match" data-key="${esc(it.term)}" onclick="pickL(this)">${spk(it.term,true)}<span>${esc(it.term)}</span></div>`).join('');
-  right.innerHTML=shuffle(slice).map(it=>`<div class="match" data-key="${esc(it.term)}" onclick="pickR(this)"><span>${esc(it.ko)}</span></div>`).join('');
-  document.getElementById('matchScore').textContent=`완료: 0 / ${matchTotal}`;
+
+/* ===== ③ MATCH ===== */
+function V2(){
+  var pages=Math.ceil(ITEMS.length/10);
+  if(matchPairs.length===0)loadMatch(matchPage);
+  var done=matchPairs.filter(function(p){return p.done;}).length;
+  var h='<div class="intro">💡 <b>③ 매치 게임</b><br>영어와 뜻을 짝지으세요. 영어 옆 🔊로 발음을 들을 수 있습니다.</div>'+
+    '<div class="seg">';
+  for(var p=0;p<pages;p++)h+='<button class="'+(p===matchPage?'on':'')+'" onclick="matchPage='+p+';matchPairs=[];render()">'+(p*10+1)+'–'+Math.min((p+1)*10,ITEMS.length)+'</button>';
+  h+='</div><div class="score">완료: '+done+' / '+matchPairs.length+'</div>'+
+    '<div class="match-wrap"><div>';
+  matchPairs.forEach(function(pr,i){
+    h+='<div class="match '+(pr.done?'done':'')+(matchSel.l===i?' sel':'')+'" onclick="pickL('+i+')">'+sp(pr.term,true)+'<span>'+esc(pr.term)+'</span></div>';
+  });
+  h+='</div><div>';
+  matchPairs.forEach(function(pr,i){
+    var ri=matchRight[i];
+    h+='<div class="match '+(matchPairs[ri].done?'done':'')+(matchSel.r===i?' sel':'')+'" onclick="pickR('+i+')"><span>'+esc(matchPairs[ri].ko)+'</span></div>';
+  });
+  h+='</div></div>';
+  return h;
 }
-function pickL(el){if(el.classList.contains('done')||el.querySelector('.spk.playing'))return;document.querySelectorAll('#leftMatch .match').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');lsel=el;tryMatch()}
-function pickR(el){if(el.classList.contains('done'))return;document.querySelectorAll('#rightMatch .match').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');rsel=el;tryMatch()}
+var matchRight=[];
+function loadMatch(p){
+  var slice=ITEMS.slice(p*10,p*10+10).map(function(it){return {term:it.term,ko:it.ko,done:false};});
+  matchPairs=slice; matchSel={l:null,r:null};
+  matchRight=shuffle(slice.map(function(_,i){return i;}));
+}
+function pickL(i){if(matchPairs[i].done)return;matchSel.l=i;tryMatch();render();}
+function pickR(i){var ri=matchRight[i];if(matchPairs[ri].done)return;matchSel.r=i;tryMatch();render();}
 function tryMatch(){
-  if(!lsel||!rsel)return;
-  if(lsel.dataset.key===rsel.dataset.key){
-    lsel.classList.add('done');rsel.classList.add('done');lsel.classList.remove('sel');rsel.classList.remove('sel');
-    matchDone++;document.getElementById('matchScore').textContent=`완료: ${matchDone} / ${matchTotal}`;
-    if(matchDone===matchTotal)document.getElementById('matchScore').textContent=`🎉 완료: ${matchDone} / ${matchTotal} — 다음 페이지로!`;
-    lsel=null;rsel=null;
-  }else{
-    lsel.classList.add('bad');rsel.classList.add('bad');
-    const a=lsel,b=rsel;
-    setTimeout(()=>{a.classList.remove('bad','sel');b.classList.remove('bad','sel')},420);
-    lsel=null;rsel=null;
+  if(matchSel.l===null||matchSel.r===null)return;
+  var li=matchSel.l, ri=matchRight[matchSel.r];
+  if(li===ri){matchPairs[li].done=true;matchSel={l:null,r:null};}
+  else{matchSel={l:null,r:null};}
+}
+
+/* ===== ④ DEFINITION QUIZ (EN def -> EN word) ===== */
+function V3(){
+  if(!defState.qs){
+    defState.qs=ITEMS.map(function(it){
+      var o=buildOpts(it.term, ITEMS.filter(function(x){return x.term!==it.term;}).map(function(x){return x.term;}));
+      return {q:it.def,opts:o.opts,ans:o.ans,say:it.term,ex:it.ex,picked:-1,done:false};
+    });
   }
-}
-
-/* ============ ④ DEFINITION (EN def → EN word) ============ */
-function buildDefQuiz(){
-  const qs=ITEMS.map((it,i)=>{
-    const {opts,ans}=buildOpts(it.term, ITEMS.filter(x=>x.term!==it.term).map(x=>x.term));
-    return {q:it.def,opts,ans,say:it.term,ex:it.ex};
+  var h='<div class="intro">💡 <b>④ 영영풀이 추론</b><br>영어 설명을 읽고 알맞은 단어를 고르세요. 보기 영어에 듣기 버튼이 있습니다.</div>';
+  defState.qs.forEach(function(q,i){
+    h+='<div class="qcard"><div class="qnum">문제 '+(i+1)+' / '+defState.qs.length+'</div>'+
+      '<div class="qsent">'+esc(q.q)+'</div>';
+    q.opts.forEach(function(o,j){
+      var cls='';
+      if(q.done){if(j===q.ans)cls=' correct';else if(j===q.picked)cls=' wrong';}
+      else if(j===q.picked)cls=' pick';
+      h+='<button class="opt'+cls+'" onclick="pickDef('+i+','+j+')"><span>'+String.fromCharCode(9312+j)+' '+esc(o)+'</span><span class="ospk">'+sp(o,true)+'</span></button>';
+    });
+    h+='<div class="ansbox'+(q.done?' show':'')+'">정답: '+esc(q.say)+' '+sp(q.say)+'<br><span style="font-style:italic">'+esc(q.ex)+'</span></div></div>';
   });
-  document.getElementById('def').innerHTML=`<div class="label"><span>④ 영영풀이 추론 — 설명을 읽고 알맞은 단어 고르기</span></div>
-    ${qs.map((q,i)=>defBox(q,i)).join('')}`;
+  return h;
 }
-function defBox(q,i){
-  return `<div class="quiz-box" data-ans="${q.ans}" data-done="0">
-    <div class="q"><span class="qn">${i+1}</span><div>${esc(q.q)}</div></div>
-    ${q.opts.map((o,j)=>`<button class="opt" onclick="pickDef(this,${j})"><span>${String.fromCharCode(9312+j)} ${esc(o)}</span>${spk(o,true)}</button>`).join('')}
-    <button class="btn pink" style="margin-top:8px" onclick="showDef(this)">정답 보기</button>
-    <div class="answer-box"><div class="ans-word">정답: ${esc(q.say)} ${spk(q.say)}</div>
-      <div style="margin-top:8px">${spk(q.ex,true)} <span style="font-style:italic">${esc(q.ex)}</span></div></div>
-  </div>`;
-}
-function pickDef(btn,idx){
-  const box=btn.closest('.quiz-box');if(box.dataset.done==='1')return;box.dataset.done='1';
-  const ans=+box.dataset.ans;
-  box.querySelectorAll('.opt').forEach((o,j)=>{if(j===ans)o.classList.add('correct');o.style.pointerEvents='none'});
-  if(idx!==ans)btn.classList.add('wrong');
-  box.querySelector('.answer-box').classList.add('show');
-}
-function showDef(btn){const box=btn.closest('.quiz-box');const ans=+box.dataset.ans;
-  box.querySelectorAll('.opt').forEach((o,j)=>{if(j===ans)o.classList.add('correct')});
-  box.querySelector('.answer-box').classList.add('show');box.dataset.done='1';btn.style.display='none';}
+function pickDef(i,j){var q=defState.qs[i];if(q.done)return;q.picked=j;q.done=true;render();}
 
-/* ============ ⑤ SYN / ANT discrimination ============ */
-function buildSynAnt(){
-  const pool=ITEMS.filter(it=>it.syn&&it.ant);
-  const qs=[];
-  pool.forEach(it=>{
-    const synFirst=it.syn.split(',')[0].trim();
-    const antFirst=it.ant.split(',')[0].trim();
-    const wordPool=ITEMS.filter(x=>x.term!==it.term).map(x=>x.term);
-    const a=buildOpts(synFirst, wordPool.filter(t=>t!==synFirst));
-    qs.push({type:'syn',term:it.term,ko:it.ko,q:`<b>${esc(it.term)}</b> 의 <span style="color:#16a34a">유의어</span>로 알맞은 것은?`,opts:a.opts,ans:a.ans,say:synFirst});
-    const synPool=ITEMS.filter(x=>x.term!==it.term&&x.syn).map(x=>x.syn.split(',')[0].trim());
-    const b=buildOpts(antFirst, synPool.filter(t=>t!==antFirst));
-    qs.push({type:'ant',term:it.term,ko:it.ko,q:`<b>${esc(it.term)}</b> 의 <span style="color:#ef4444">반의어</span>로 알맞은 것은?`,opts:b.opts,ans:b.ans,say:antFirst});
+/* ===== ⑤ SYN / ANT ===== */
+function V4(){
+  if(!synState.qs){
+    var pool=ITEMS.filter(function(it){return it.syn&&it.ant;});
+    var qs=[];
+    pool.forEach(function(it){
+      var sFirst=it.syn.split(',')[0].trim();
+      var aFirst=it.ant.split(',')[0].trim();
+      var wp=ITEMS.filter(function(x){return x.term!==it.term;}).map(function(x){return x.term;});
+      var a=buildOpts(sFirst, wp.filter(function(t){return t!==sFirst;}));
+      qs.push({term:it.term,ko:it.ko,kind:'유의어',color:'#16a34a',opts:a.opts,ans:a.ans,say:sFirst,picked:-1,done:false});
+      var sp2=ITEMS.filter(function(x){return x.term!==it.term&&x.syn;}).map(function(x){return x.syn.split(',')[0].trim();});
+      var b=buildOpts(aFirst, sp2.filter(function(t){return t!==aFirst;}));
+      qs.push({term:it.term,ko:it.ko,kind:'반의어',color:'#ef4444',opts:b.opts,ans:b.ans,say:aFirst,picked:-1,done:false});
+    });
+    synState.qs=qs;
+  }
+  var h='<div class="intro">💡 <b>⑤ 유의어 · 반의어 구별</b><br>단어의 유의어/반의어를 고르세요. 유의어와 반의어를 헷갈리지 않게 변별하는 문제입니다.</div>';
+  synState.qs.forEach(function(q,i){
+    h+='<div class="qcard"><div class="qnum">문제 '+(i+1)+' / '+synState.qs.length+'</div>'+
+      '<div class="qsent"><b>'+esc(q.term)+'</b> 의 <span style="color:'+q.color+'">'+q.kind+'</span>는? '+sp(q.term,true)+'<div class="qhint">'+esc(q.ko)+'</div></div>';
+    q.opts.forEach(function(o,j){
+      var cls='';
+      if(q.done){if(j===q.ans)cls=' correct';else if(j===q.picked)cls=' wrong';}
+      else if(j===q.picked)cls=' pick';
+      h+='<button class="opt'+cls+'" onclick="pickSyn('+i+','+j+')"><span>'+String.fromCharCode(9312+j)+' '+esc(o)+'</span><span class="ospk">'+sp(o,true)+'</span></button>';
+    });
+    h+='<div class="ansbox'+(q.done?' show':'')+'">정답: '+esc(q.say)+' '+sp(q.say)+'</div></div>';
   });
-  document.getElementById('synant').innerHTML=`<div class="label"><span>⑤ 유의어 · 반의어 구별 (${qs.length}문항)</span></div>
-    ${qs.map((q,i)=>synBox(q,i)).join('')}`;
+  return h;
 }
-function synBox(q,i){
-  return `<div class="quiz-box" data-ans="${q.ans}" data-done="0">
-    <div class="q"><span class="qn">${i+1}</span><div>${q.q} ${spk(q.term,true)}<div class="hint">${esc(q.ko)}</div></div></div>
-    ${q.opts.map((o,j)=>`<button class="opt" onclick="pickDef(this,${j})"><span>${String.fromCharCode(9312+j)} ${esc(o)}</span>${spk(o,true)}</button>`).join('')}
-    <button class="btn pink" style="margin-top:8px" onclick="showDef(this)">정답 보기</button>
-    <div class="answer-box"><div class="ans-word">정답: ${esc(q.say)} ${spk(q.say)}</div></div>
-  </div>`;
-}
+function pickSyn(i,j){var q=synState.qs[i];if(q.done)return;q.picked=j;q.done=true;render();}
 
-/* ============ ⑥ SPELLING (KO + audio → type English) ============ */
-function buildSpell(){
-  // single-word terms only (phrases too hard to type-match strictly)
-  const pool=ITEMS.filter(it=>!/[ →~/?.]/.test(it.term) && it.term.length<=14);
-  document.getElementById('spell').innerHTML=`<div class="label"><span>⑥ 스펠링 — 뜻·발음을 보고 영어 철자 입력 (${pool.length}문항)</span></div>
-    <div class="score" id="spellScore">맞힌 개수: 0 / ${pool.length}</div>
-    ${pool.map((it,i)=>spellBox(it,i)).join('')}`;
-  window.__spellPool=pool; window.__spellOK=new Array(pool.length).fill(false);
+/* ===== ⑥ SPELLING ===== */
+function V5(){
+  if(!spellState.pool){
+    spellState.pool=ITEMS.filter(function(it){return /^[a-zA-Z]+$/.test(it.term)&&it.term.length<=14;});
+    spellState.ok={};
+  }
+  var pool=spellState.pool;
+  var n=Object.keys(spellState.ok).length;
+  var h='<div class="intro">💡 <b>⑥ 스펠링</b><br>뜻과 발음을 보고 영어 철자를 입력하세요. (한 단어짜리만 출제)</div>'+
+    '<div class="score">맞힌 개수: '+n+' / '+pool.length+'</div>';
+  pool.forEach(function(it,i){
+    var st=spellState.ok[i];
+    h+='<div class="qcard"><div class="qnum">문제 '+(i+1)+' / '+pool.length+'</div>'+
+      '<div class="qsent">'+esc(it.ko)+' '+sp(it.term,true)+'<div class="qhint">첫 글자 <b>'+esc(it.term[0])+'</b> · '+it.term.length+'글자</div></div>'+
+      '<input class="spell-in'+(st?' right':'')+'" id="sp'+i+'" value="'+(st?esc(it.term):'')+'" '+(st?'disabled':'')+' autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="영어 입력" onkeydown="if(event.key===\'Enter\')checkSpell('+i+')">'+
+      '<div class="btns"><button class="b b4" onclick="checkSpell('+i+')">확인</button><button class="b b2" onclick="revealSpell('+i+')">정답 보기</button></div>'+
+      '<div class="ansbox" id="spa'+i+'"></div></div>';
+  });
+  return h;
 }
-function spellBox(it,i){
-  return `<div class="quiz-box">
-    <div class="q"><span class="qn">${i+1}</span><div>${esc(it.ko)} ${spk(it.term,true)}<div class="hint">발음을 듣고 영어 철자를 입력하세요 (첫 글자: <b>${esc(it.term[0])}</b>, ${it.term.length}글자)</div></div></div>
-    <input class="spell-in" id="sp-${i}" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" placeholder="영어 입력 후 확인"
-      onkeydown="if(event.key==='Enter')checkSpell(${i})">
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
-      <button class="btn dark" onclick="checkSpell(${i})">확인</button>
-      <button class="btn soft" onclick="revealSpell(${i})">정답 보기</button>
-    </div>
-    <div class="answer-box" id="spa-${i}"></div>
-  </div>`;
-}
-function normalize(s){return String(s||'').trim().toLowerCase().replace(/\s+/g,' ')}
 function checkSpell(i){
-  const pool=window.__spellPool, it=pool[i];
-  const inp=document.getElementById('sp-'+i), val=normalize(inp.value);
-  const ans=normalize(it.term);
-  const box=document.getElementById('spa-'+i);
-  if(val===ans){
-    inp.classList.remove('bad');inp.classList.add('right');inp.disabled=true;
-    box.classList.add('show');box.innerHTML=`<div class="ans-word">✅ 정답! ${esc(it.term)} ${spk(it.term)}</div><div style="margin-top:6px;font-style:italic">${esc(it.ex)}</div>`;
-    if(!window.__spellOK[i]){window.__spellOK[i]=true;updateSpellScore()}
+  var it=spellState.pool[i], inp=document.getElementById('sp'+i), box=document.getElementById('spa'+i);
+  if(norm(inp.value)===norm(it.term)){
+    spellState.ok[i]=true; render();
   }else{
     inp.classList.add('bad');
-    box.classList.add('show');box.innerHTML=`<div style="color:#991b1b;font-weight:900">❌ 다시 시도! 첫 글자 <b>${esc(it.term[0])}</b>, 총 ${it.term.length}글자</div>`;
-    setTimeout(()=>inp.classList.remove('bad'),500);
+    box.classList.add('show'); box.innerHTML='❌ 다시 시도! 첫 글자 <b>'+esc(it.term[0])+'</b>, '+it.term.length+'글자';
+    setTimeout(function(){inp.classList.remove('bad');},500);
   }
 }
 function revealSpell(i){
-  const it=window.__spellPool[i], box=document.getElementById('spa-'+i), inp=document.getElementById('sp-'+i);
-  inp.value=it.term;inp.disabled=true;
-  box.classList.add('show');box.innerHTML=`<div class="ans-word">정답: ${esc(it.term)} ${spk(it.term)}</div><div style="margin-top:6px;font-style:italic">${esc(it.ex)}</div>`;
-}
-function updateSpellScore(){
-  const n=window.__spellOK.filter(Boolean).length;
-  document.getElementById('spellScore').textContent=`맞힌 개수: ${n} / ${window.__spellPool.length}`;
+  var it=spellState.pool[i], box=document.getElementById('spa'+i), inp=document.getElementById('sp'+i);
+  inp.value=it.term; box.classList.add('show');
+  box.innerHTML='정답: '+esc(it.term)+' '+sp(it.term)+'<br><span style="font-style:italic">'+esc(it.ex)+'</span>';
 }
 
-/* ============ ⑦ COMPREHENSIVE EXAM (rigorous: 80% pass + retry wrong) ============ */
-const PASS=0.8, EXAM_N=25;
-let examQs=[], examState=[], examSubmitted=false, examRetryMode=false;
-function buildExamIntro(){
-  document.getElementById('exam').innerHTML=`
-    <div class="label"><span>⑦ 종합 시험 — 철저하게 치르기</span></div>
-    <div class="exam-intro">
-      <h3>📋 시험 안내</h3>
-      <ul>
-        <li>총 <b>${EXAM_N}문항</b> — 뜻 고르기 · 영영풀이 · 유의어/반의어 · 한글→영어가 섞여 출제됩니다.</li>
-        <li>합격선 <b>${PASS*100}%</b> (${Math.ceil(EXAM_N*PASS)}개 이상). 합격해야 시험이 완료됩니다.</li>
-        <li>채점 후 <b>틀린 문제만 다시 푸는 재시험</b>이 제공됩니다.</li>
-        <li>각 보기의 영어에는 🔊 듣기가 있습니다. 한 번에 풀고 마지막에 채점하세요.</li>
-      </ul>
-      <div class="exam-start"><button class="btn dark" style="font-size:20px;padding:16px 32px" onclick="startExam()">🚀 시험 시작</button></div>
-    </div>`;
-}
-/* build exactly 4 distinct options including the correct one */
-function buildOpts(correct, distractorPool){
-  const set=[correct];
-  for(const d of shuffle(distractorPool)){
-    if(set.length>=4)break;
-    if(d!=null && !set.includes(d)) set.push(d);
-  }
-  // fallback pad (should rarely run) from all terms+meanings
-  if(set.length<4){
-    const fill=shuffle([...ITEMS.map(x=>x.term),...ITEMS.map(x=>x.ko)]);
-    for(const f of fill){ if(set.length>=4)break; if(!set.includes(f))set.push(f); }
-  }
-  const opts=shuffle(set);
-  return {opts,ans:opts.indexOf(correct)};
-}
-function makeExamQuestions(){
-  const qs=[];
-  // type1: EN term -> KO meaning (8)
-  shuffle(ITEMS).slice(0,8).forEach(it=>{
-    const {opts,ans}=buildOpts(it.ko, ITEMS.filter(x=>x.ko!==it.ko).map(x=>x.ko));
-    qs.push({kind:'EN→KO',prompt:`<b>${esc(it.term)}</b> 의 뜻은?`,say:it.term,opts,ans});
+/* ===== ⑦ COMPREHENSIVE EXAM ===== */
+var EXAM_N=25, PASS=0.8;
+function makeExam(){
+  var qs=[];
+  shuffle(ITEMS).slice(0,8).forEach(function(it){
+    var o=buildOpts(it.ko, ITEMS.filter(function(x){return x.ko!==it.ko;}).map(function(x){return x.ko;}));
+    qs.push({kind:'영어→뜻',prompt:'<b>'+esc(it.term)+'</b> 의 뜻은?',say:it.term,opts:o.opts,ans:o.ans,ospk:false});
   });
-  // type2: EN def -> EN term (7)
-  shuffle(ITEMS).slice(0,7).forEach(it=>{
-    const {opts,ans}=buildOpts(it.term, ITEMS.filter(x=>x.term!==it.term).map(x=>x.term));
-    qs.push({kind:'영영풀이',prompt:esc(it.def),say:null,opts,ans,optspeak:true});
+  shuffle(ITEMS).slice(0,7).forEach(function(it){
+    var o=buildOpts(it.term, ITEMS.filter(function(x){return x.term!==it.term;}).map(function(x){return x.term;}));
+    qs.push({kind:'영영풀이',prompt:esc(it.def),say:null,opts:o.opts,ans:o.ans,ospk:true});
   });
-  // type3: syn/ant (5)
-  shuffle(ITEMS.filter(x=>x.syn&&x.ant)).slice(0,5).forEach((it,idx)=>{
+  shuffle(ITEMS.filter(function(x){return x.syn&&x.ant;})).slice(0,5).forEach(function(it,idx){
     if(idx%2===0){
-      const s=it.syn.split(',')[0].trim();
-      const pool=ITEMS.filter(x=>x.term!==it.term).map(x=>x.term).filter(t=>t!==s);
-      const {opts,ans}=buildOpts(s,pool);
-      qs.push({kind:'유의어',prompt:`<b>${esc(it.term)}</b> 의 유의어는?`,say:it.term,opts,ans,optspeak:true});
+      var s=it.syn.split(',')[0].trim();
+      var o=buildOpts(s, ITEMS.filter(function(x){return x.term!==it.term;}).map(function(x){return x.term;}).filter(function(t){return t!==s;}));
+      qs.push({kind:'유의어',prompt:'<b>'+esc(it.term)+'</b> 의 유의어는?',say:it.term,opts:o.opts,ans:o.ans,ospk:true});
     }else{
-      const a=it.ant.split(',')[0].trim();
-      const pool=ITEMS.filter(x=>x.term!==it.term&&x.syn).map(x=>x.syn.split(',')[0].trim()).filter(t=>t!==a);
-      const {opts,ans}=buildOpts(a,pool);
-      qs.push({kind:'반의어',prompt:`<b>${esc(it.term)}</b> 의 반의어는?`,say:it.term,opts,ans,optspeak:true});
+      var a=it.ant.split(',')[0].trim();
+      var o2=buildOpts(a, ITEMS.filter(function(x){return x.term!==it.term&&x.syn;}).map(function(x){return x.syn.split(',')[0].trim();}).filter(function(t){return t!==a;}));
+      qs.push({kind:'반의어',prompt:'<b>'+esc(it.term)+'</b> 의 반의어는?',say:it.term,opts:o2.opts,ans:o2.ans,ospk:true});
     }
   });
-  // type4: KO -> EN term (5)
-  shuffle(ITEMS).slice(0,5).forEach(it=>{
-    const {opts,ans}=buildOpts(it.term, ITEMS.filter(x=>x.term!==it.term).map(x=>x.term));
-    qs.push({kind:'KO→EN',prompt:`<b>${esc(it.ko)}</b> 에 해당하는 영어는?`,say:null,opts,ans,optspeak:true});
+  shuffle(ITEMS).slice(0,5).forEach(function(it){
+    var o=buildOpts(it.term, ITEMS.filter(function(x){return x.term!==it.term;}).map(function(x){return x.term;}));
+    qs.push({kind:'뜻→영어',prompt:'<b>'+esc(it.ko)+'</b> 에 해당하는 영어는?',say:null,opts:o.opts,ans:o.ans,ospk:true});
   });
   return shuffle(qs).slice(0,EXAM_N);
 }
-function startExam(){
-  examQs=makeExamQuestions();examState=examQs.map(()=>-1);examSubmitted=false;examRetryMode=false;
-  renderExam();
-}
-function renderExam(activeIdxs){
-  const idxs = activeIdxs || examQs.map((_,i)=>i);
-  let html=`<div class="label"><span>⑦ 종합 시험 ${examRetryMode?'(재시험 — 틀린 문제만)':''}</span></div>
-    <div class="progress"><div id="examBar"></div></div>
-    <div class="score" id="examLive">진행: 0 / ${idxs.length}</div>`;
-  html+=idxs.map(i=>{
-    const q=examQs[i];
-    const promptSpk = q.say? spk(q.say,true):'';
-    return `<div class="quiz-box" data-qi="${i}" data-done="0">
-      <div class="q"><span class="qn">${i+1}</span><div>${q.prompt} ${promptSpk}<div class="hint">${esc(q.kind)}</div></div></div>
-      ${q.opts.map((o,j)=>`<button class="opt" onclick="pickExam(${i},${j},this)"><span>${String.fromCharCode(9312+j)} ${esc(o)}</span>${q.optspeak?spk(o,true):''}</button>`).join('')}
-    </div>`;
-  }).join('');
-  html+=`<div style="text-align:center;margin:24px 0">
-    <button class="btn dark" id="examSubmit" style="font-size:20px;padding:16px 36px" onclick="submitExam()">📝 채점하기</button></div>
-    <div id="examResult"></div>`;
-  document.getElementById('exam').innerHTML=html;
-  window.__examActive=idxs;
-  updateExamLive();
-}
-function pickExam(qi,j,btn){
-  if(examSubmitted)return;
-  const box=btn.closest('.quiz-box');
-  box.querySelectorAll('.opt').forEach(o=>o.classList.remove('pick'));
-  btn.classList.add('pick');
-  examState[qi]=j;
-  updateExamLive();
-}
-function updateExamLive(){
-  const idxs=window.__examActive||[];
-  const answered=idxs.filter(i=>examState[i]>=0).length;
-  const live=document.getElementById('examLive');if(live)live.textContent=`진행: ${answered} / ${idxs.length}`;
-  const bar=document.getElementById('examBar');if(bar)bar.style.width=(answered/idxs.length*100)+'%';
-}
-function submitExam(){
-  const idxs=window.__examActive||[];
-  const unanswered=idxs.find(i=>examState[i]<0);
-  if(unanswered!==undefined){
-    const el=document.querySelector(`.quiz-box[data-qi="${unanswered}"]`);
-    el.scrollIntoView({block:'center',behavior:'smooth'});
-    el.style.boxShadow='0 0 0 3px var(--no)';
-    setTimeout(()=>el.style.boxShadow='',1200);
-    return;
+function V6(){
+  if(examQs.length===0){
+    return '<div class="intro">💡 <b>⑦ 종합 시험 — 철저하게 치르기</b><br>'+
+      '• 총 <b>'+EXAM_N+'문항</b> (영어→뜻 · 영영풀이 · 유의/반의 · 뜻→영어)<br>'+
+      '• 합격선 <b>'+(PASS*100)+'%</b> ('+Math.ceil(EXAM_N*PASS)+'개 이상)<br>'+
+      '• 채점 후 <b>틀린 문제만 다시 푸는 재시험</b> 제공<br>'+
+      '• 모든 영어 보기에 🔊 듣기 버튼</div>'+
+      '<div class="btns"><button class="b b4" style="font-size:18px;padding:16px 32px" onclick="startExam()">🚀 시험 시작</button></div>';
   }
-  examSubmitted=true;
-  document.getElementById('examSubmit').style.display='none';
-  let correct=0;const wrong=[];
-  idxs.forEach(i=>{
-    const q=examQs[i],box=document.querySelector(`.quiz-box[data-qi="${i}"]`);
-    box.querySelectorAll('.opt').forEach((o,j)=>{
-      o.style.pointerEvents='none';
-      if(j===q.ans)o.classList.add('correct');
-      else if(j===examState[i])o.classList.add('wrong');
+  var idxs=examActive;
+  var answered=idxs.filter(function(i){return examPick[i]>=0;}).length;
+  var h='<div class="intro">💡 <b>⑦ 종합 시험</b> '+(examActive.length<examQs.length?'(재시험 — 틀린 문제만)':'')+'<br>모두 풀고 맨 아래 <b>채점하기</b>를 누르세요.</div>'+
+    '<div class="bar"><div style="width:'+Math.round(answered/idxs.length*100)+'%"></div></div>'+
+    '<div class="score">진행: '+answered+' / '+idxs.length+'</div>';
+  idxs.forEach(function(qi){
+    var q=examQs[qi];
+    h+='<div class="qcard"><div class="qnum">문제 '+(qi+1)+' · '+esc(q.kind)+'</div>'+
+      '<div class="qsent">'+q.prompt+' '+(q.say?sp(q.say,true):'')+'</div>';
+    q.opts.forEach(function(o,j){
+      var cls='';
+      if(examGraded){if(j===q.ans)cls=' correct';else if(j===examPick[qi])cls=' wrong';}
+      else if(j===examPick[qi])cls=' pick';
+      h+='<button class="opt'+cls+'" onclick="pickExam('+qi+','+j+')"><span>'+String.fromCharCode(9312+j)+' '+esc(o)+'</span>'+(q.ospk?'<span class="ospk">'+sp(o,true)+'</span>':'')+'</button>';
     });
-    if(examState[i]===q.ans)correct++; else wrong.push(i);
+    h+='</div>';
   });
-  const total=idxs.length, pct=Math.round(correct/total*100), passed=correct/total>=PASS;
-  const res=document.getElementById('examResult');
-  res.innerHTML=`<div class="exam-result">
-    <div class="big">${correct} / ${total}</div>
-    <div class="verdict ${passed?'pass':'fail'}">${passed?'🎉 합격!':'📚 불합격'} · ${pct}%</div>
-    <div class="sub">${passed?'축하합니다! 합격선('+PASS*100+'%)을 넘었습니다.':'합격선 '+PASS*100+'% ('+Math.ceil(total*PASS)+'개)에 미치지 못했습니다.'}</div>
-    <div class="retry-row">
-      ${wrong.length?`<button class="btn dark" onclick="retryWrong([${wrong.join(',')}])">🔁 틀린 ${wrong.length}문제 다시 풀기</button>`:''}
-      <button class="btn pink" onclick="startExam()">🆕 새 문제로 다시 시험</button>
-      <button class="btn listen" onclick="speakSeq(examWrongWords([${wrong.join(',')}]))">🔊 틀린 단어 듣기</button>
-    </div>
-  </div>`;
-  res.scrollIntoView({behavior:'smooth',block:'start'});
+  if(!examGraded){
+    h+='<div class="btns"><button class="b b4" style="font-size:18px;padding:16px 36px" onclick="gradeExam()">📝 채점하기</button></div>';
+  }else{
+    var correct=idxs.filter(function(i){return examPick[i]===examQs[i].ans;}).length;
+    var total=idxs.length, pct=Math.round(correct/total*100), passed=correct/total>=PASS;
+    var wrong=idxs.filter(function(i){return examPick[i]!==examQs[i].ans;});
+    h+='<div class="result"><div class="score-big">'+correct+' / '+total+'</div>'+
+      '<div class="verdict '+(passed?'pass':'fail')+'">'+(passed?'🎉 합격!':'📚 불합격')+' · '+pct+'%</div>'+
+      '<div class="small">'+(passed?'합격선 '+(PASS*100)+'%를 넘었습니다!':'합격선 '+(PASS*100)+'% ('+Math.ceil(total*PASS)+'개)에 미치지 못했습니다.')+'</div>'+
+      '<div class="btns">'+
+        (wrong.length?'<button class="b b4" onclick="retryWrong()">🔁 틀린 '+wrong.length+'문제 다시</button>':'')+
+        '<button class="b b1" onclick="startExam()">🆕 새 문제</button>'+
+        (wrong.length?'<button class="b b5" onclick="speakWrong()">🔊 틀린 단어 듣기</button>':'')+
+      '</div></div>';
+    window._examWrong=wrong;
+  }
+  return h;
 }
-function examWrongWords(wrong){
-  return wrong.map(i=>{const q=examQs[i];return q.opts[q.ans]}).filter(w=>/[a-zA-Z]/.test(w));
+function startExam(){examQs=makeExam();examPick=examQs.map(function(){return -1;});examGraded=false;examActive=examQs.map(function(_,i){return i;});render();window.scrollTo({top:0,behavior:'smooth'});}
+function pickExam(qi,j){if(examGraded)return;examPick[qi]=j;render();}
+function gradeExam(){
+  var un=examActive.filter(function(i){return examPick[i]<0;});
+  if(un.length){alert('아직 안 푼 문제가 '+un.length+'개 있어요. 모두 풀고 채점하세요.');return;}
+  examGraded=true;render();
 }
-function retryWrong(wrong){
-  examSubmitted=false;examRetryMode=true;
-  // reset state for those questions
-  wrong.forEach(i=>examState[i]=-1);
-  renderExam(wrong);
-  window.scrollTo({top:0,behavior:'smooth'});
+function retryWrong(){
+  var wrong=window._examWrong||[];
+  wrong.forEach(function(i){examPick[i]=-1;});
+  examActive=wrong; examGraded=false; render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+function speakWrong(){
+  if(!SS){alert('음성 미지원 브라우저입니다.');return;}
+  unlockTTS();
+  var wrong=window._examWrong||[];
+  var words=wrong.map(function(i){return examQs[i].opts[examQs[i].ans];}).filter(function(w){return /[a-zA-Z]/.test(w);});
+  var k=0, v=pickVoice();
+  function next(){if(k>=words.length)return;var u=new SpeechSynthesisUtterance(words[k++]);u.lang='en-US';u.rate=.85;if(v)u.voice=v;u.onend=u.onerror=next;SS.speak(u);}
+  SS.cancel();try{SS.resume();}catch(e){}next();
 }
 
-/* ============ INIT ============ */
-buildTabs();
-buildGlobalCtrl();
-buildCards();
-buildRecall();
-buildMatch();
-buildDefQuiz();
-buildSynAnt();
-buildSpell();
-buildExamIntro();
-document.getElementById('globalCtrl').style.display='flex';
+/* ===== INIT ===== */
+buildSteps();
+render();
 </script>
 </body>
 </html>
