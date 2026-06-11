@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 3 문법의 지도 — 수동태 & have to</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F0;--card:#FFFFFF;--ink:#23272F;--sub:#727784;--line:#E7E2D6;
+  --root:#1F3A5F;--root-bg:#E8EEF6;
+  --b:#B8860B;--b-bg:#FEF8E1;
+  --c:#1E7A5A;--c-bg:#E2F3EB;
+  --d:#C84F2F;--d-bg:#FBE8E0;
+  --e:#5D4FA3;--e-bg:#EBE7F8;
+  --hl:#FFE45C;--ok:#1E7A5A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;
+  background-image:radial-gradient(#e9e4d6 1px,transparent 1px);background-size:26px 26px;}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 90px}
+header{padding:38px 0 10px;text-align:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.18em;color:var(--root);
+  border:1.5px solid var(--root);border-radius:999px;padding:3px 14px;margin-bottom:14px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.9rem,6vw,2.7rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:10px;font-size:.95rem}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);margin:22px -16px 0;padding:10px 8px}
+.steps{display:flex;justify-content:center;gap:4px;max-width:780px;margin:0 auto}
+.step{flex:1;max-width:118px;border:none;background:transparent;cursor:pointer;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.68rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,39,47,.12)}
+.step.cur .lb{color:var(--ink)}
+.step.done .dot{background:var(--ink);border-color:var(--ink);color:#fff}
+.step.locked{opacity:.42;cursor:not-allowed}
+.step:not(.locked):hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}
+.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:26px 0 8px;font-size:.8rem;font-weight:700}
+.path .crumb{padding:2px 10px;border-radius:999px;background:#fff;border:1.5px solid var(--line)}
+.path .crumb.on-root{border-color:var(--root);color:var(--root);background:var(--root-bg)}
+.path .crumb.on-b{border-color:var(--b);color:var(--b);background:var(--b-bg)}
+.path .crumb.on-c{border-color:var(--c);color:var(--c);background:var(--c-bg)}
+.path .crumb.on-d{border-color:var(--d);color:var(--d);background:var(--d-bg)}
+.path .crumb.on-e{border-color:var(--e);color:var(--e);background:var(--e-bg)}
+.path .sep{color:var(--sub)}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.55rem;margin:4px 0 4px}
+.ssub{color:var(--sub);font-size:.93rem;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin:14px 0;
+  box-shadow:0 1px 3px rgba(40,35,20,.05)}
+.card h3{font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card h3 .chip{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.chip.c-root{background:var(--root-bg);color:var(--root)}
+.chip.c-b{background:var(--b-bg);color:var(--b)}
+.chip.c-c{background:var(--c-bg);color:var(--c)}
+.chip.c-d{background:var(--d-bg);color:var(--d)}
+.chip.c-e{background:var(--e-bg);color:var(--e)}
+.card p{margin:6px 0}.card ul{margin:6px 0 6px 20px}
+.kw{font-weight:700}
+.kw.b{color:var(--b)}.kw.c{color:var(--c)}.kw.d{color:var(--d)}.kw.e{color:var(--e)}.kw.root{color:var(--root)}
+.test-box{margin-top:12px;border:1.5px dashed var(--ink);border-radius:10px;padding:12px 14px;background:#FFFDF4;font-size:.92rem}
+.test-box b{display:block;margin-bottom:2px}
+.enline{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.en{font-family:'Lora',serif;font-size:1.12rem;line-height:1.7}
+.hl{padding:1px 3px;border-radius:3px;font-weight:600;background:linear-gradient(180deg,transparent 30%,var(--hl) 30%)}
+.hl.b{box-shadow:inset 0 -2.5px 0 var(--b)}.hl.c{box-shadow:inset 0 -2.5px 0 var(--c)}
+.hl.d{box-shadow:inset 0 -2.5px 0 var(--d)}.hl.e{box-shadow:inset 0 -2.5px 0 var(--e)}
+.hl.root{box-shadow:inset 0 -2.5px 0 var(--root)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:34px;height:34px;
+  cursor:pointer;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--ink)}
+.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.exc{border-left:4px solid var(--line);padding:12px 16px;margin:12px 0;background:#fff;border-radius:0 10px 10px 0;
+  border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.exc.b{border-left-color:var(--b)}.exc.c{border-left-color:var(--c)}
+.exc.d{border-left-color:var(--d)}.exc.e{border-left-color:var(--e)}.exc.root{border-left-color:var(--root)}
+.tgl{margin-top:8px;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:4px 12px;
+  font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--sub)}
+.tgl:hover{border-color:var(--ink);color:var(--ink)}
+.tgl[aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.trans{display:none;margin-top:9px;font-size:.9rem;background:#F7F5EE;border-radius:8px;padding:9px 12px}
+.trans.open{display:block}
+.trans .ko{font-weight:600}.trans .note{color:var(--sub);font-size:.85rem;margin-top:3px}
+.tree{padding:6px 0 6px 4px}
+.tree ul{list-style:none;padding-left:26px;position:relative}
+.tree>ul{padding-left:0}
+.tree ul ul::before{content:"";position:absolute;left:8px;top:-8px;bottom:14px;border-left:2px solid var(--line)}
+.tree li{position:relative;padding:5px 0}
+.tree ul ul li::before{content:"";position:absolute;left:-18px;top:21px;width:16px;border-top:2px solid var(--line)}
+.node{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.8px solid var(--line);
+  border-radius:10px;padding:5px 12px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.18s;font-family:inherit}
+.node .e{font-family:'Lora',serif;font-weight:400;font-style:italic;color:var(--sub);font-size:.82rem}
+.node:hover{transform:translateX(2px)}
+.node.nd-root{border-color:var(--root);background:var(--root-bg)}
+.node.nd-b{border-color:var(--b);background:var(--b-bg)}
+.node.nd-c{border-color:var(--c);background:var(--c-bg)}
+.node.nd-d{border-color:var(--d);background:var(--d-bg)}
+.node.nd-e{border-color:var(--e);background:var(--e-bg)}
+.node.leaf{border-style:dashed;font-family:'Lora',serif;font-style:italic;font-weight:600}
+.qz{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:20px 22px;margin:26px 0;
+  box-shadow:4px 4px 0 rgba(35,39,47,.9)}
+.qz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.qz-head .badge{background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:999px}
+.q{margin:18px 0;padding-top:16px;border-top:1px dashed var(--line)}
+.q:first-of-type{border-top:none}
+.qno{font-weight:700;font-size:.8rem;color:var(--sub);margin-bottom:4px}
+.qtext{font-weight:600;margin-bottom:10px}
+.qsent{margin:8px 0 12px;padding:10px 14px;background:#F7F5EE;border-radius:10px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;font-family:inherit;font-size:.92rem;background:#fff;border:1.5px solid var(--line);
+  border-radius:10px;padding:9px 13px;cursor:pointer;transition:.15s;line-height:1.55}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.sel{border-color:var(--ink);background:#F2F0E8;box-shadow:inset 0 0 0 1px var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--c-bg);box-shadow:inset 0 0 0 1px var(--ok)}
+.opt.wrong{border-color:var(--bad);background:#FBE5E1;box-shadow:inset 0 0 0 1px var(--bad);animation:shake .3s}
+.opt:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.fb{display:none;margin-top:9px;font-size:.87rem;border-radius:8px;padding:9px 12px}
+.fb.show{display:block}
+.fb.good{background:var(--c-bg);border:1px solid var(--ok)}
+.fb.badf{background:#FBE5E1;border:1px solid var(--bad)}
+.selrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:9px 0;padding:9px 12px;background:#fff;border:1.5px solid var(--line);border-radius:10px}
+.selrow select{font-family:inherit;font-size:.88rem;padding:5px 8px;border-radius:8px;border:1.5px solid var(--line);background:#fff}
+.selrow .mark{font-weight:700;min-width:22px;text-align:center}
+.walkstep{margin:12px 0;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.walkstep .wp{font-weight:600;font-size:.9rem;margin-bottom:8px}
+.walkstep.lockedw{opacity:.45;pointer-events:none}
+.btn{font-family:inherit;font-weight:700;font-size:.95rem;border:none;border-radius:12px;padding:12px 26px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:3px 3px 0 rgba(35,39,47,.35)}
+.btn.primary:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 rgba(35,39,47,.35)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:28px 0 10px;gap:10px}
+.unlock-banner{display:none;align-items:center;gap:10px;margin-top:16px;background:var(--c-bg);border:1.5px solid var(--ok);
+  border-radius:12px;padding:12px 16px;font-weight:600;animation:fadeUp .4s ease}
+.unlock-banner.show{display:flex}
+.score-wrap{text-align:center;padding:10px 0 4px}
+.score-big{font-family:'Black Han Sans',sans-serif;font-size:3.2rem;line-height:1.1}
+.grade{font-weight:700;margin-top:2px}
+.branchbars{margin:18px 0 6px;text-align:left}
+.bb{margin:10px 0}
+.bb .bl{display:flex;justify-content:space-between;font-size:.83rem;font-weight:700;margin-bottom:4px}
+.bb .track{height:12px;background:#EFEBDF;border-radius:99px;overflow:hidden}
+.bb .fill{height:100%;border-radius:99px;width:0;transition:width .8s ease}
+.advice{margin-top:14px;font-size:.9rem;background:#F7F5EE;border-radius:10px;padding:12px 14px;text-align:left}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:46px}
+@media(max-width:520px){.card,.qz{padding:16px 14px}.step .lb{font-size:.6rem}.en{font-size:1.02rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">LESSON 3 · GRAMMAR LOGIC TREE</div>
+  <h1>문법의 <span class="mark">지도</span>를 그리다</h1>
+  <p class="tagline">수동태와 have to — 두 그루의 나무를 뿌리부터 정복합니다.<br>🔊 버튼으로 모든 영어 표현을 들어보세요.</p>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>Lesson 3 문법의 지도 · What a Great Idea! · Web Speech API 듣기 지원</footer>
+</div>
+<script>
+/* ===== DATA ===== */
+const TREE={k:'Lesson 3 문법',e:'Grammar Map',c:'root',kids:[
+  {k:'수동태',e:'Passive Voice',c:'d',kids:[
+    {k:'형태',e:'be + p.p. (+ by 행위자)',c:'d',kids:[{leaf:'was/were + 과거분사',say:'be plus past participle'},{leaf:'by + 행위자 (생략 가능)',say:'by agent'}]},
+    {k:'만들기 3단계',e:'How to Make',c:'d',kids:[{leaf:'① 목적어 → 주어'},{leaf:'② 동사 → be+p.p.'},{leaf:'③ 주어 → by+행위자'}]},
+    {k:'주의',e:'Caution',c:'e',kids:[{leaf:'자동사는 수동태 불가',say:'intransitive verbs cannot be passive'},{leaf:'have/resemble도 불가',say:'have and resemble cannot be passive'},{leaf:'by 외 전치사 숙어',say:'worried about, interested in, covered with'},{leaf:'조동사+be+p.p.',say:'must be prepared'}]}
+  ]},
+  {k:'have to',e:'Obligation',c:'c',kids:[
+    {k:'긍정',e:'have/has/had to',c:'c',kids:[{leaf:'have to = must (~해야 한다)',say:'have to'},{leaf:'had to = must의 과거',say:'had to'}]},
+    {k:'부정',e:"don't have to",c:'b',kids:[{leaf:"don't have to = ~할 필요 없다",say:"don't have to"},{leaf:'≠ must not (~해서는 안 된다!)',say:'must not'}]}
+  ]}
+]};
+
+const STAGES=[
+/* ── 0 큰 그림 ── */
+{id:'map',icon:'🌳',label:'큰 그림',pathArr:[['Lesson 3 문법','root']],
+ title:'1단계 · 큰 그림 — 이 과의 문법 두 그루',
+ sub:'본문 문장에서 출발합니다. Whiteout was invented... / People had to retype... 이 두 문장이 모든 것의 뿌리입니다.',
+ cards:[
+  {t:'h',chip:['지도','root'],title:'본문에서 나온 두 문법',html:
+   `<p>이 과의 핵심 문법은 본문 문장 두 개에 들어 있습니다.</p>
+    <ul><li><span class="kw d">수동태</span> — <i>Whiteout <b>was invented</b> by Bette Graham.</i> (수정액은 발명<b>되었다</b>)</li>
+        <li><span class="kw c">have to</span> — <i>People <b>had to retype</b> the whole page.</i> (다시 타이핑<b>해야 했다</b>)</li></ul>
+    <div class="test-box"><b>🔑 두 나무의 공통 질문</b>① 주어가 행위를 <b>하는</b> 쪽인가, <b>당하는</b> 쪽인가? (수동태)<br>② 해야 하는가(의무), 할 필요가 없는가(불필요), 해서는 안 되는가(금지)? (have to)</div>`},
+  {t:'ex',cls:'d',en:'Whiteout [[was invented]] by Bette Graham.',ko:'수정액은 Bette Graham에 의해 발명되었다.',note:'주어 Whiteout이 발명을 "당하는" 쪽 → be+p.p. 수동태.'},
+  {t:'ex',cls:'c',en:'People [[had to retype]] the whole page.',ko:'사람들은 전체 페이지를 다시 타이핑해야 했다.',note:'had to+동사원형 = ~해야 했다 (must의 과거 대체).'},
+  {t:'tree'},
+ ],
+ cp:[
+  {q:'"Whiteout was invented by Bette Graham."에서 주어 Whiteout의 입장은?',
+   opts:['발명이라는 행위를 직접 한 주체','발명이라는 행위를 당한(받은) 대상','발명과 무관한 배경','행위자(by)와 같은 역할'],
+   ans:1,ex:'수동태의 핵심: 주어 = 행위의 대상. 수정액은 발명을 "당했다". 행위의 주체는 by Bette Graham.'},
+  {q:'"People had to retype the whole page."의 had to가 나타내는 것은?',
+   opts:['과거의 의무 (~해야 했다)','과거의 금지 (~해서는 안 됐다)','과거의 불필요 (~할 필요 없었다)','현재의 의무'],
+   ans:0,ex:'had to = have to의 과거형 = must의 과거 대체. "~해야 했다"는 과거의 의무.'}
+ ]},
+
+/* ── 1 수동태 형태 ── */
+{id:'pform',icon:'🔧',label:'수동태 만들기',pathArr:[['Lesson 3 문법','root'],['수동태','d'],['형태·만들기','d']],
+ title:'2단계 · 수동태 만들기 — 3단계 변환',
+ sub:'능동태 문장을 수동태로 바꾸는 기계적 3단계. 시제는 be동사가 책임집니다.',
+ cards:[
+  {t:'h',chip:['공식','d'],title:'주어 + be동사 + 과거분사 (+ by 행위자)',html:
+   `<p>수동태는 "~당하다, ~해지다, ~되다"의 의미로, <b>행위의 대상을 강조</b>할 때 씁니다.</p>
+    <div class="test-box"><b>⚙️ 변환 3단계</b>① 능동태의 <b>목적어</b> → 수동태의 <b>주어</b><br>② <b>동사</b> → <b>be동사+과거분사</b> (be동사가 주어의 수·시제 담당)<br>③ 능동태의 <b>주어</b> → <b>by+행위자</b> (일반인·불명확하면 생략 가능)</div>`},
+  {t:'ex',cls:'d',en:'Sue wrote the letter. → The letter [[was written]] by Sue.',ko:'Sue가 편지를 썼다 → 그 편지는 Sue에 의해 쓰여졌다.',note:'① the letter→주어 ② wrote(과거)→was written ③ Sue→by Sue. 시제(과거)는 was가 표현!'},
+  {t:'ex',cls:'d',en:'Hamlet [[was written]] by Shakespeare.',ko:'햄릿은 셰익스피어에 의해 쓰여졌다.',note:'유명한 수동태 예문. write-wrote-written.'},
+  {t:'ex',cls:'d',en:'The zoo [[is visited]] by many families.',ko:'그 동물원은 많은 가족들에 의해 방문된다.',note:'현재시제 수동태: is+visited. 주어가 단수(The zoo)이므로 is.'},
+  {t:'ex',cls:'d',en:'Those photos [[were taken]] by my dad.',ko:'그 사진들은 아빠에 의해 찍혔다.',note:'주어 복수(photos) + 과거 → were taken. take-took-taken.'},
+  {t:'h',chip:['조동사','e'],title:'조동사가 있는 수동태: 조동사 + be + p.p.',html:
+   `<p>조동사가 있으면 <b>조동사+be+과거분사</b>. be는 원형 그대로!</p>`},
+  {t:'ex',cls:'e',en:'Lunch [[must be prepared]] before noon.',ko:'점심은 정오 전에 준비되어야 한다.',note:'must+be+prepared. must was(✗), must is(✗) — 조동사 뒤는 무조건 동사원형 be.'},
+ ],
+ cp:[
+  {q:'"My dad took those photos."를 수동태로 옳게 바꾼 것은?',
+   opts:['Those photos took by my dad.','Those photos were taken by my dad.','Those photos was taken by my dad.','My dad was taken by those photos.'],
+   ans:1,ex:'① 목적어 those photos→주어 ② took→were taken(복수+과거) ③ My dad→by my dad. ③번은 photos가 복수이므로 was(✗).'},
+  {q:'수동태에서 시제와 주어의 수를 표시하는 것은?',
+   opts:['과거분사','be동사','by','행위자'],
+   ans:1,ex:'과거분사는 형태가 고정. 시제(was/is/will be)와 수(was/were)는 모두 be동사가 담당합니다.'}
+ ]},
+
+/* ── 2 수동태 주의 ── */
+{id:'pcare',icon:'⚠️',label:'수동태 주의',pathArr:[['Lesson 3 문법','root'],['수동태','d'],['주의','e']],
+ title:'3단계 · 수동태 함정 — 시험에 나오는 것들',
+ sub:'자동사·have는 수동태 불가, by 대신 다른 전치사를 쓰는 숙어들 — 시험 포인트입니다.',
+ cards:[
+  {t:'h',chip:['함정 1','e'],title:'목적어 없는 동사(자동사)는 수동태 불가!',html:
+   `<p>수동태의 주어 = 능동태의 <b>목적어</b>. 목적어가 없는 자동사(go, come, happen, arrive...)는 수동태를 만들 수 없습니다.</p>
+    <p>또한 목적어가 있어도 <b>have(가지다), resemble(닮다)</b>는 수동태 불가!</p>
+    <ul><li>I had much money. → Much money <b>was haven</b> by me. (✗✗✗)</li></ul>`},
+  {t:'h',chip:['함정 2','e'],title:'by 대신 다른 전치사를 쓰는 숙어',html:
+   `<ul><li>be <b>worried about</b> ~ (~에 대해 걱정하다)</li>
+        <li>be <b>interested in</b> ~ (~에 관심이 있다)</li>
+        <li>be <b>covered with</b> ~ (~로 덮여 있다)</li></ul>
+    <p>이들은 by가 아니므로 통째로 암기!</p>`},
+  {t:'ex',cls:'e',en:'Which ones are you [[interested in]]?',ko:'어떤 것들에 관심이 있니?',note:'대화문 Watch and Talk C에 나온 표현! be interested in.'},
+  {t:'h',chip:['의문문·부정문','e'],title:'수동태의 의문문과 부정문',html:
+   `<ul><li>의문문: <b>Be동사+주어+과거분사 ~?</b> → Is this book read by many people?</li>
+        <li>부정문: <b>주어+be동사+not+과거분사</b> → It isn't read by many people.</li></ul>`},
+ ],
+ cp:[
+  {q:'다음 중 수동태로 바꿀 수 없는 문장은?',
+   opts:['Sue wrote the letter.','Bette Graham invented whiteout.','I had much money.','My dad took those photos.'],
+   ans:2,ex:'have(가지다)는 목적어가 있어도 수동태 불가. Much money was haven by me(✗). resemble도 마찬가지.'},
+  {q:'"나는 과학에 관심이 있다"를 옳게 쓴 것은?',
+   opts:['I am interested by science.','I am interested in science.','I am interesting in science.','Science is interested in me.'],
+   ans:1,ex:'be interested in: by가 아닌 in을 쓰는 숙어. interesting(흥미를 주는)이 아니라 interested(흥미를 느끼는).'}
+ ]},
+
+/* ── 3 have to ── */
+{id:'haveto',icon:'📌',label:'have to',pathArr:[['Lesson 3 문법','root'],['have to','c']],
+ title:'4단계 · have to — 의무·불필요·금지의 삼거리',
+ sub:'have to의 핵심은 부정형입니다. don\'t have to(불필요)와 must not(금지)은 완전히 다릅니다!',
+ cards:[
+  {t:'h',chip:['긍정','c'],title:'have(has) to + 동사원형 = must = ~해야 한다',html:
+   `<ul><li>주어가 3인칭 단수 → <b>has to</b></li>
+        <li>과거 → 주어와 상관없이 <b>had to</b> (must는 과거형이 없어 had to로 대체!)</li></ul>`},
+  {t:'ex',cls:'c',en:'You [[have to]] study harder for the exam.',ko:'너는 시험에 대비해 더 열심히 공부해야 한다.',note:'have to = must. 의무.'},
+  {t:'ex',cls:'c',en:'She [[has to]] bring her textbook.',ko:'그녀는 교과서를 가져와야 한다.',note:'3인칭 단수 she → has to.'},
+  {t:'ex',cls:'c',en:'They [[had to]] try so hard.',ko:'그들은 정말 열심히 노력해야 했다.',note:'과거의 의무 = had to. must의 과거형 대체.'},
+  {t:'h',chip:['부정 — 최대 함정','b'],title:"don't have to ≠ must not",html:
+   `<div class="test-box"><b>🚨 시험 1순위 포인트</b><span class="kw b">don't have to</span> = ~할 필요가 없다 (<b>불필요</b>)<br><span class="kw d">must not</span> = ~해서는 안 된다 (<b>금지</b>)<br>부정이 되는 순간 의미가 갈라집니다!</div>
+    <ul><li>주어 3인칭 단수 → doesn't have to / 과거 → didn't have to</li>
+        <li>don't have to = don't need to = need not</li></ul>`},
+  {t:'ex',cls:'b',en:'I [[don\'t have to]] get up early on Sundays.',ko:'나는 일요일에는 일찍 일어날 필요가 없다.',note:'불필요. 일어나도 되고 안 일어나도 됨 (금지 아님!).'},
+  {t:'ex',cls:'b',en:'They [[didn\'t have to]] try that hard.',ko:'그들은 그렇게 열심히 노력할 필요가 없었다.',note:'과거의 불필요 = didn\'t have to.'},
+  {t:'ex',cls:'d',en:'We [[must not]] set a fire in the wood.',ko:'우리는 숲에서 불을 피워서는 안 된다.',note:'금지! don\'t have to(필요 없음)와 완전히 다름.'},
+ ],
+ cp:[
+  {q:'"Daisy doesn\'t have to go to school tomorrow."의 의미는?',
+   opts:['Daisy는 내일 등교해서는 안 된다 (금지)','Daisy는 내일 등교할 필요가 없다 (불필요)','Daisy는 내일 등교해야 한다 (의무)','Daisy는 내일 등교할 것이다 (예정)'],
+   ans:1,ex:'don\'t(doesn\'t) have to = 불필요. 등교해도 되고 안 해도 됨. 금지(must not)와 구별!'},
+  {q:'must의 과거형이 없어서 대신 쓰는 표현은?',
+   opts:['musted','had to','must have','should'],
+   ans:1,ex:'must는 과거형이 없는 조동사 → 과거의 의무는 had to로 대체. People had to retype the whole page.'},
+  {q:'"우리는 서두를 필요가 없다"와 바꿔 쓸 수 없는 것은?',
+   opts:['We don\'t have to hurry.','We don\'t need to hurry.','We need not hurry.','We must not hurry.'],
+   ans:3,ex:'must not은 금지(서둘러서는 안 된다)이므로 의미가 다름. don\'t have to = don\'t need to = need not.'}
+ ]},
+
+/* ── 4 판별 ── */
+{id:'sort',icon:'🔀',label:'판별 훈련',pathArr:[['Lesson 3 문법','root'],['전체 통합','root']],
+ title:'5단계 · 판별 훈련 — 능동/수동 · 의무/불필요/금지',
+ sub:'본문·대화문 문장으로 실전 판별. 모두 맞히면 최종 시험이 열립니다.',
+ cards:[
+  {t:'h',chip:['알고리즘','root'],title:'⚙️ 2축 판별 알고리즘',html:
+   `<ul style="list-style:none;margin-left:0">
+    <li>🪓 <b>수동태 축</b>: 주어가 행위를 <b>당하면</b> → be+p.p. / 시제·수는 be동사로!</li>
+    <li>🪓 <b>have to 축</b>: 해야 하면 have to(=must) / 필요 없으면 don't have to / 금지면 must not</li></ul>`},
+  {t:'cpClassify',intro:'⛳ 판별 5연속 — 모두 정답이어야 시험이 열립니다',
+   items:[
+    {en:'The first webcam was invented to watch a coffee pot.',ans:0,why:'주어 webcam이 발명을 당함 → 수동태 (was invented)'},
+    {en:'At that time, people had to retype the whole page.',ans:1,why:'과거의 의무 → had to (must의 과거 대체)'},
+    {en:'I don\'t have to get up early on Sundays.',ans:2,why:'불필요: 일어날 필요가 없다 (금지 아님)'},
+    {en:'We must not set a fire in the wood.',ans:3,why:'금지: 불을 피워서는 안 된다'},
+    {en:'The camera took pictures of the coffee pot three times a minute.',ans:4,why:'주어 camera가 직접 찍음 → 능동태'}
+   ]}
+ ]},
+
+/* ── 5 시험 ── */
+{id:'exam',icon:'🏆',label:'종합 시험',pathArr:[['Lesson 3 문법','root'],['전체 통합','root']],
+ title:'최종 관문 · 개념 종합 시험 (10문항)',
+ sub:'단순 빈칸이 아닙니다. "왜?"를 묻는 WALK·WHY·SORT 문항으로 개념을 검증합니다.',
+ exam:true}
+];
+
+/* ===== EXAM ===== */
+const EXAM=[
+{type:'walk',tags:['p'],sent:'Whiteout [[was invented]] by Bette Graham.',say:'Whiteout was invented by Bette Graham.',
+ q:'본문 문장을 수동태 알고리즘으로 분석하시오.',
+ steps:[
+  {p:'STEP 1 · 주어 Whiteout의 입장은?',opts:['발명 행위를 한 주체 (능동)','발명을 당한 대상 (수동)'],ans:1},
+  {p:'STEP 2 · was invented에서 과거 시제를 표시하는 것은?',opts:['invented (과거분사)','was (be동사)'],ans:1},
+  {p:'STEP 3 · 이 문장을 능동태로 바꾸면?',opts:['Bette Graham was invented by whiteout.','Bette Graham invented whiteout.','Whiteout invented Bette Graham.'],ans:1}],
+ ex:'수동태→능동태: by 행위자(Bette Graham)를 주어로, was invented를 invented(과거)로. 시제는 항상 be동사가 담당.'},
+
+{type:'mc',tags:['p'],q:'"The letter ___ by Sue yesterday."의 빈칸으로 옳은 것과 이유는?',
+ opts:['was written — 주어가 단수이고 과거이므로 was + 과거분사 written','were written — 편지는 복수 취급이므로','wrote — Sue가 쓴 것이므로 능동','was wrote — 과거이므로 wrote'],
+ ans:0,ex:'주어 The letter(단수)+과거(yesterday) → was + p.p.(written). write-wrote-written에서 수동태는 반드시 과거분사 written.'},
+
+{type:'mc',tags:['p'],q:'다음 중 수동태 문장으로 바꿀 수 없는 것은?',
+ opts:['Dr. Stafford-Fraser set up a camera.','She resembles her mother.','The camera took pictures.','They corrected the mistake.'],
+ ans:1,ex:'resemble(닮다)은 목적어가 있어도 수동태 불가 (have도 동일). Her mother is resembled by her(✗).'},
+
+{type:'walk',tags:['h'],sent:'People [[had to retype]] the whole page.',say:'People had to retype the whole page.',
+ q:'본문 문장의 had to를 분석하시오.',
+ steps:[
+  {p:'STEP 1 · had to의 의미는?',opts:['~해야 했다 (과거의 의무)','~할 필요가 없었다 (과거의 불필요)','~해서는 안 됐다 (과거의 금지)'],ans:0},
+  {p:'STEP 2 · had to를 쓰는 이유는?',opts:['must의 과거형이 musted이기 때문','must는 과거형이 없는 조동사라 had to로 대체하기 때문','have to가 must보다 강하기 때문'],ans:1},
+  {p:'STEP 3 · 이 문장의 부정(과거의 불필요)은?',opts:['People must not retype the whole page.','People didn\'t have to retype the whole page.','People had not to retype the whole page.'],ans:1}],
+ ex:'had to = must의 과거 대체. 부정은 didn\'t have to(~할 필요가 없었다). had not to(✗)는 존재하지 않는 형태.'},
+
+{type:'mc',tags:['h'],sent:'A. You [[don\'t have to]] bring lunch.<br>B. You [[must not]] bring your phone.',say:'A. You don\'t have to bring lunch. B. You must not bring your phone.',
+ q:'A와 B의 의미 차이로 옳은 것은?',
+ opts:['A: 점심을 가져올 필요 없음(불필요) / B: 휴대폰을 가져와서는 안 됨(금지)','A: 점심 금지 / B: 휴대폰 불필요','둘 다 금지','둘 다 불필요'],
+ ans:0,ex:'don\'t have to = 불필요(해도 되고 안 해도 됨) / must not = 금지(절대 안 됨). 이 구별이 이 단원 최대 시험 포인트!'},
+
+{type:'mc',tags:['p'],q:'"Lunch ___ before noon." (점심은 정오 전에 준비되어야 한다) 빈칸은?',
+ opts:['must prepare','must be prepared','must is prepared','must prepared'],
+ ans:1,ex:'조동사+수동태 = 조동사+be+p.p. must 뒤에는 동사원형이 와야 하므로 be prepared. must is(✗).'},
+
+{type:'classify',tags:['p','h'],q:'각 문장의 핵심 문법을 분류하시오.',
+ items:[
+  {en:'The first webcam was invented to watch a coffee pot.',ans:0,why:'주어가 발명을 당함 → 수동태(was invented)'},
+  {en:'So, they had to make many disappointing trips.',ans:1,why:'과거의 의무 → had to'},
+  {en:'We don\'t have to hurry.',ans:2,why:'불필요 → don\'t have to (= need not)'}]},
+
+{type:'mc',tags:['p'],q:'"Is this book read by many people?"에 대한 부정 대답으로 옳은 것은?',
+ opts:['No, it isn\'t read by many people.','No, it doesn\'t read by many people.','No, many people aren\'t read.','No, it isn\'t reading.'],
+ ans:0,ex:'수동태 부정 = 주어+be동사+not+p.p. 의문문이 Is ~ read이므로 대답도 isn\'t read.'},
+
+{type:'mc',tags:['h'],q:'"We don\'t have to hurry."와 바꿔 쓸 수 있는 것을 모두 고른 것은?<br>㉠ We don\'t need to hurry. ㉡ We need not hurry. ㉢ We must not hurry.',
+ opts:['㉠','㉠㉡','㉠㉡㉢','㉡㉢'],
+ ans:1,ex:'don\'t have to = don\'t need to = need not (불필요). must not은 금지이므로 ㉢은 의미가 다름.'},
+
+{type:'walk',tags:['p','h'],sent:'The camera [[was connected]] to their computer network, so they [[didn\'t have to]] walk to the coffee machine.',say:'The camera was connected to their computer network, so they didn\'t have to walk to the coffee machine.',
+ q:'두 문법이 함께 쓰인 문장을 분석하시오.',
+ steps:[
+  {p:'STEP 1 · was connected는?',opts:['능동태 과거','수동태 과거 (연결을 당함)','현재완료'],ans:1},
+  {p:'STEP 2 · didn\'t have to walk의 의미는?',opts:['걸어가서는 안 됐다 (금지)','걸어갈 필요가 없었다 (불필요)','걸어가야 했다 (의무)'],ans:1},
+  {p:'STEP 3 · 이 문장의 전체 흐름은?',opts:['카메라가 연결되어서 → 걸어갈 필요가 없어졌다 (편리해짐)','카메라가 연결되어서 → 걸어가는 것이 금지되었다','카메라를 연결해야 해서 → 걸어가야 했다'],ans:0}],
+ ex:'수동태(was connected)와 didn\'t have to(과거의 불필요)가 인과로 연결된 문장. 웹캠 덕분에 헛걸음이 불필요해졌다는 본문 내용.'},
+];
+
+/* ===== ENGINE ===== */
+const CLS_LB=['수동태','had to (의무)','don\'t have to (불필요)','must not (금지)','능동태'], CLS_KEY=['d','c','b','e','root'];
+/* classify for stage 4 uses its own labels */
+const CP_CLS_LB=['OC=명사','OC=to부정사','OC=형용사'];
+let cur=0,maxUnlocked=0;
+const cpState=STAGES.map(()=>({done:false}));
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){
+  if(!('speechSynthesis' in window)){alert('Chrome 브라우저를 권장합니다.');return;}
+  speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.9;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);}
+function spkBtn(text){return `<button class="spk" title="듣기" aria-label="영어 듣기" onclick="speak(this.dataset.say,this)" data-say="${text.replace(/"/g,'&quot;')}">🔊</button>`;}
+function plain(s){return s.replace(/\[\[|\]\]|\{\{|\}\}/g,'').replace(/<[^>]+>/g,'');}
+function renderEn(s,cls){return s.replace(/\[\[(.+?)\]\]/g,`<span class="hl ${cls||'root'}">$1</span>`);}
+function tgl(btn){const t=btn.nextElementSibling;const open=t.classList.toggle('open');btn.setAttribute('aria-expanded',open);btn.textContent=open?'해석 닫기 ▲':'해석 + 풀이 보기 ▼';}
+function renderSteps(){
+  document.getElementById('steps').innerHTML=STAGES.map((s,i)=>{
+    const lock=i>maxUnlocked,done=cpState[i].done;
+    return `<button class="step ${i===cur?'cur':''} ${done?'done':''} ${lock?'locked':''}" onclick="go(${i})" ${lock?'aria-disabled="true"':''}>
+      <span class="dot">${lock?'🔒':done?'✓':s.icon}</span><span class="lb">${s.label}</span></button>`;}).join('');}
+function go(i){
+  if(i>maxUnlocked){alert('🔒 이전 단계의 체크포인트를 통과하면 열립니다!');return;}
+  window.speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0});}
+function treeHTML(node){
+  if(node.leaf!==undefined){const say=node.say||node.leaf;return `<li><button class="node leaf" onclick="speak(this.dataset.say,this)" data-say="${say}">${node.leaf} 🔉</button></li>`;}
+  const kids=node.kids&&node.kids.length?`<ul>${node.kids.map(treeHTML).join('')}</ul>`:'';
+  return `<li><button class="node nd-${node.c}" onclick="speak(this.dataset.say,this)" data-say="${node.e.replace(/=.+$/,'').trim()}">${node.k} <span class="e">${node.e} 🔉</span></button>${kids}</li>`;}
+function cardHTML(c){
+  if(c.t==='tree')return `<div class="card"><h3><span class="chip c-root">전체 지도</span>로직 트리 — 노드를 누르면 영어 명칭을 읽어 줍니다</h3><div class="tree"><ul>${treeHTML(TREE)}</ul></div></div>`;
+  if(c.t==='h')return `<div class="card"><h3><span class="chip c-${c.chip[1]}">${c.chip[0]}</span>${c.title}</h3>${c.html}</div>`;
+  if(c.t==='ex'){const say=plain(c.en);return `<div class="exc ${c.cls}"><div class="enline"><span class="en">${renderEn(c.en,c.cls)}</span>${spkBtn(say)}</div><button class="tgl" aria-expanded="false" onclick="tgl(this)">해석 + 풀이 보기 ▼</button><div class="trans"><div class="ko">${c.ko}</div><div class="note">${c.note}</div></div></div>`;}
+  if(c.t==='cpClassify')return classifyCpHTML_inline(c);
+  return '';}
+/* inline classify cp for stage 4 */
+const icpOK={};
+function classifyCpHTML_inline(c){
+  const sid=cur; /* captured at render time */
+  return `<div class="qz" id="icp-${sid}"><div class="qz-head"><span class="badge">FINAL CHECK</span><b>${c.intro}</b></div>
+  ${c.items.map((it,k)=>`<div class="selrow"><span class="mark" id="icm-${sid}-${k}">·</span>
+    <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,'root')}</span>${spkBtn(plain(it.en))}
+    <select id="ics-${sid}-${k}"><option value="-1">— 선택 —</option>${CLS_LB.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
+    <div class="fb" id="icf-${sid}-${k}" style="flex-basis:100%"></div></div>`).join('')}
+  <div style="margin-top:14px"><button class="btn primary" onclick="icpCheck(${sid})">채점하기</button></div>
+  <div class="unlock-banner" id="ub${sid}">🏆 완벽! 최종 시험이 열렸습니다. <button class="btn primary" onclick="go(${sid+1})">시험 보러 가기 →</button></div></div>`;}
+function icpCheck(sid){
+  const c=STAGES[sid].cards.find(x=>x.t==='cpClassify');let all=true;
+  c.items.forEach((it,k)=>{
+    const v=+document.getElementById(`ics-${sid}-${k}`).value,m=document.getElementById(`icm-${sid}-${k}`),f=document.getElementById(`icf-${sid}-${k}`);
+    if(v===it.ans){m.textContent='✅';f.className='fb show good';f.innerHTML=`<b>${CLS_LB[it.ans]}</b> — ${it.why}`;document.getElementById(`ics-${sid}-${k}`).disabled=true;}
+    else{all=false;m.textContent='❌';f.className='fb show badf';f.innerHTML=v<0?'선택해 주세요.':'주어가 당하는가? / 의무·불필요·금지 중 무엇인가?';}});
+  if(all)unlockNext(sid);}
+function cpHTML(i,qs){
+  return `<div class="qz" id="cp${i}"><div class="qz-head"><span class="badge">CHECKPOINT</span><b>체크포인트 — 모두 맞히면 다음 가지가 열립니다</b></div>
+  ${qs.map((q,k)=>`<div class="q"><div class="qno">Q${k+1} / ${qs.length}</div><div class="qtext">${q.q}</div>
+    <div class="opts">${q.opts.map((o,oi)=>`<button class="opt" onclick="cpPick(${i},${k},${oi},this)">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>
+    <div class="fb" id="fb-${i}-${k}"></div></div>`).join('')}
+  <div class="unlock-banner" id="ub${i}">🌿 통과! 다음 가지가 열렸습니다. <button class="btn primary" onclick="go(${i+1})">다음 단계로 →</button></div></div>`;}
+const cpOK=STAGES.map(s=>s.cp?s.cp.map(()=>false):[]);
+function cpPick(si,qi,oi,btn){
+  const q=STAGES[si].cp[qi],fb=document.getElementById(`fb-${si}-${qi}`);
+  const opts=btn.parentElement.querySelectorAll('.opt');
+  if(oi===q.ans){opts.forEach((o,k)=>{o.disabled=true;if(k===oi)o.classList.add('right');});
+    fb.className='fb show good';fb.innerHTML='✅ 정답! '+q.ex;cpOK[si][qi]=true;
+    if(cpOK[si].every(v=>v))unlockNext(si);
+  }else{btn.classList.add('wrong');fb.className='fb show badf';fb.innerHTML='🤔 힌트: O = OC 관계(be동사 테스트)를 적용해 보세요.';setTimeout(()=>btn.classList.remove('wrong'),500);}}
+function unlockNext(si){cpState[si].done=true;if(si+1>maxUnlocked)maxUnlocked=si+1;renderSteps();const ub=document.getElementById('ub'+si);if(ub)ub.classList.add('show');}
+
+/* exam */
+const EXAM_CLS_LB=['수동태','had to (의무)','don\'t have to (불필요)'];
+const exAns=EXAM.map(q=>q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1);
+let graded=false;
+function examHTML(){
+  return `<div class="card" style="border:1.5px solid var(--ink)"><h3><span class="chip c-root">시험 안내</span>응시 전 확인</h3>
+    <ul><li>모든 문항이 <b>"왜?"를 묻습니다.</b> O=OC 테스트, to 유무, 원형 vs -ing — 알고리즘으로 풀어야 합니다.</li>
+    <li>WALK 문항은 단계별 순서대로 풀어야 다음 STEP이 열립니다.</li>
+    <li>🔊로 예문을 들으며 문장의 리듬도 익히세요.</li></ul></div>
+  ${EXAM.map((q,qi)=>{
+    let body='';
+    const sent=q.sent?`<div class="qsent"><div class="enline"><span class="en">${renderEn(q.sent,'root')}</span>${spkBtn(q.say||plain(q.sent))}</div></div>`:'';
+    if(q.type==='mc'){body=`<div class="opts">${q.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${oi}" onclick="exPick(${qi},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>`;}
+    else if(q.type==='walk'){body=q.steps.map((st,si)=>`<div class="walkstep ${si>0?'lockedw':''}" id="ws-${qi}-${si}"><div class="wp">${st.p}</div><div class="opts">${st.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${si}-${oi}" onclick="exWalk(${qi},${si},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div></div>`).join('');}
+    else{body=q.items.map((it,k)=>`<div class="selrow"><span class="mark" id="em-${qi}-${k}">·</span>
+        <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,'root')}</span>${spkBtn(plain(it.en))}
+        <select id="es-${qi}-${k}" onchange="exAns[${qi}][${k}]=+this.value"><option value="-1">— 선택 —</option>${EXAM_CLS_LB.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
+        <div class="fb" id="ef-${qi}-${k}" style="flex-basis:100%"></div></div>`).join('');}
+    return `<div class="qz" id="eq${qi}"><div class="qz-head"><span class="badge">${q.type==='walk'?'WALK · 단계 분석':q.type==='classify'?'SORT · 분류':'WHY · 개념'}</span><b>문항 ${qi+1} / ${EXAM.length}</b></div>
+      <div class="qtext">${q.q}</div>${sent}${body}<div class="fb" id="exfb${qi}"></div></div>`;}).join('')}
+  <div style="text-align:center;margin:30px 0"><button class="btn primary" id="gradeBtn" onclick="grade()" style="font-size:1.05rem;padding:15px 40px">📝 최종 채점하기</button></div>
+  <div id="result"></div>`;}
+function exPick(qi,oi){if(graded)return;exAns[qi]=oi;EXAM[qi].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${k}`).classList.toggle('sel',k===oi));}
+function exWalk(qi,si,oi){if(graded)return;exAns[qi][si]=oi;EXAM[qi].steps[si].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${si}-${k}`).classList.toggle('sel',k===oi));const next=document.getElementById(`ws-${qi}-${si+1}`);if(next)next.classList.remove('lockedw');}
+function grade(){
+  for(let qi=0;qi<EXAM.length;qi++){const a=exAns[qi];const empty=Array.isArray(a)?a.some(v=>v<0):a<0;
+    if(empty){document.getElementById('eq'+qi).scrollIntoView({block:'center'});const f=document.getElementById('exfb'+qi);f.className='fb show badf';f.textContent='⚠️ 답하지 않은 부분이 있어요.';return;}}
+  graded=true;document.getElementById('gradeBtn').disabled=true;
+  let score=0;
+  EXAM.forEach((q,qi)=>{
+    let ok;
+    if(q.type==='mc'){ok=exAns[qi]===q.ans;q.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${k}`);el.disabled=true;if(k===q.ans)el.classList.add('right');else if(k===exAns[qi])el.classList.add('wrong');});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 정답! ':'❌ 오답. ')+q.ex;}
+    else if(q.type==='walk'){ok=q.steps.every((st,si)=>exAns[qi][si]===st.ans);q.steps.forEach((st,si)=>st.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${si}-${k}`);el.disabled=true;if(k===st.ans)el.classList.add('right');else if(k===exAns[qi][si])el.classList.add('wrong');}));const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 완벽한 분석! ':'❌ 분석 오류. ')+q.ex;}
+    else{ok=q.items.every((it,k)=>exAns[qi][k]===it.ans);q.items.forEach((it,k)=>{const f=document.getElementById(`ef-${qi}-${k}`),m=document.getElementById(`em-${qi}-${k}`);document.getElementById(`es-${qi}-${k}`).disabled=true;const good=exAns[qi][k]===it.ans;m.textContent=good?'✅':'❌';f.className='fb show '+(good?'good':'badf');f.innerHTML=`<b>${EXAM_CLS_LB[it.ans]}</b> — ${it.why}`;});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=ok?'✅ 완벽 분류!':'❌ 위 해설을 확인하세요.';}
+    if(ok)score++;});
+  const gr=score>=9?['🎖️ 문법 마스터','수동태와 have to가 완벽합니다!']:score>=7?['🌿 거의 완성','don\'t have to vs must not만 한 번 더!']:score>=5?['🌱 성장 중','2단계 수동태 만들기 3단계부터 복습하세요.']:['🫘 다시 도전','1단계 큰 그림부터 차근차근!'];
+  document.getElementById('result').innerHTML=`<div class="qz"><div class="score-wrap"><div class="score-big">${score} / 10</div><div class="grade">${gr[0]}</div><p style="font-size:.9rem;margin-top:6px">${gr[1]}</p><div style="margin-top:18px"><button class="btn ghost" onclick="resetExam()">처음부터 다시 풀기</button></div></div></div>`;
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});}
+function resetExam(){graded=false;EXAM.forEach((q,qi)=>{exAns[qi]=q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1;});renderAll();go(STAGES.length-1);}
+function pathHTML(arr){return `<div class="path">${arr.map(([t,c],i)=>(i?'<span class="sep">▸</span>':'')+`<span class="crumb on-${c}">${t}</span>`).join('')}</div>`;}
+function renderAll(){
+  document.getElementById('main').innerHTML=STAGES.map((s,i)=>{
+    let inner=s.exam?examHTML():(s.cards||[]).map(cardHTML).join('')+(s.cp?cpHTML(i,s.cp):'');
+    return `<section class="stage ${i===cur?'show':''}" id="st${i}">${pathHTML(s.pathArr)}<h2 class="stitle">${s.title}</h2><p class="ssub">${s.sub}</p>${inner}<div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전 단계</button>`:'<span></span>'}<span style="font-size:.78rem;color:var(--sub)">${i+1} / ${STAGES.length}</span></div></section>`;}).join('');
+  renderSteps();}
+renderAll();
+
+</script>
+</body>
+</html>
