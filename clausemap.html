@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>절(Clause)의 지도 — 큰 그림에서 작은 그림으로</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F0; --card:#FFFFFF; --ink:#23272F; --sub:#727784; --line:#E7E2D6;
+  --root:#1F3A5F; --root-bg:#E8EEF6;
+  --n:#1E7A5A;  --n-bg:#E2F3EB;
+  --a:#C84F2F;  --a-bg:#FBE8E0;
+  --ad:#5D4FA3; --ad-bg:#EBE7F8;
+  --hl:#FFE45C;
+  --ok:#1E7A5A; --bad:#C0392B;
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;
+  background-image:radial-gradient(#e9e4d6 1px,transparent 1px);background-size:26px 26px;}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 90px}
+
+/* ---------- header ---------- */
+header{padding:38px 0 10px;text-align:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.18em;color:var(--root);
+  border:1.5px solid var(--root);border-radius:999px;padding:3px 14px;margin-bottom:14px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.9rem,6vw,2.7rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:10px;font-size:.95rem}
+
+/* ---------- stepper ---------- */
+.stepper{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);margin:22px -16px 0;padding:10px 8px}
+.steps{display:flex;justify-content:center;gap:4px;max-width:780px;margin:0 auto}
+.step{flex:1;max-width:118px;border:none;background:transparent;cursor:pointer;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.68rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,39,47,.12)}
+.step.cur .lb{color:var(--ink)}
+.step.done .dot{background:var(--ink);border-color:var(--ink);color:#fff}
+.step.locked{opacity:.42;cursor:not-allowed}
+.step:not(.locked):hover .dot{transform:translateY(-2px)}
+
+/* ---------- stage shell ---------- */
+.stage{display:none;animation:fadeUp .4s ease}
+.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:26px 0 8px;font-size:.8rem;font-weight:700}
+.path .crumb{padding:2px 10px;border-radius:999px;background:#fff;border:1.5px solid var(--line)}
+.path .crumb.on-root{border-color:var(--root);color:var(--root);background:var(--root-bg)}
+.path .crumb.on-n{border-color:var(--n);color:var(--n);background:var(--n-bg)}
+.path .crumb.on-a{border-color:var(--a);color:var(--a);background:var(--a-bg)}
+.path .crumb.on-ad{border-color:var(--ad);color:var(--ad);background:var(--ad-bg)}
+.path .sep{color:var(--sub)}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.55rem;margin:4px 0 4px}
+.ssub{color:var(--sub);font-size:.93rem;margin-bottom:18px}
+
+/* ---------- cards ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin:14px 0;
+  box-shadow:0 1px 3px rgba(40,35,20,.05)}
+.card h3{font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card h3 .chip{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.chip.c-root{background:var(--root-bg);color:var(--root)}
+.chip.c-n{background:var(--n-bg);color:var(--n)}
+.chip.c-a{background:var(--a-bg);color:var(--a)}
+.chip.c-ad{background:var(--ad-bg);color:var(--ad)}
+.card p{margin:6px 0}
+.card ul{margin:6px 0 6px 20px}
+.kw{font-weight:700}
+.kw.n{color:var(--n)} .kw.a{color:var(--a)} .kw.ad{color:var(--ad)} .kw.root{color:var(--root)}
+.test-box{margin-top:12px;border:1.5px dashed var(--ink);border-radius:10px;padding:12px 14px;background:#FFFDF4;font-size:.92rem}
+.test-box b{display:block;margin-bottom:2px}
+
+/* ---------- english line ---------- */
+.enline{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.en{font-family:'Lora',serif;font-size:1.12rem;line-height:1.7}
+.hl{padding:1px 3px;border-radius:3px;font-weight:600;
+  background:linear-gradient(180deg,transparent 30%,var(--hl) 30%)}
+.hl.n{box-shadow:inset 0 -2.5px 0 var(--n)}
+.hl.a{box-shadow:inset 0 -2.5px 0 var(--a)}
+.hl.ad{box-shadow:inset 0 -2.5px 0 var(--ad)}
+.hl.root{box-shadow:inset 0 -2.5px 0 var(--root)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:34px;height:34px;
+  cursor:pointer;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--ink)}
+.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.exc{border-left:4px solid var(--line);padding:12px 16px;margin:12px 0;background:#fff;border-radius:0 10px 10px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.exc.n{border-left-color:var(--n)} .exc.a{border-left-color:var(--a)} .exc.ad{border-left-color:var(--ad)} .exc.root{border-left-color:var(--root)}
+.tgl{margin-top:8px;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:4px 12px;
+  font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--sub)}
+.tgl:hover{border-color:var(--ink);color:var(--ink)}
+.tgl[aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.trans{display:none;margin-top:9px;font-size:.9rem;background:#F7F5EE;border-radius:8px;padding:9px 12px}
+.trans.open{display:block}
+.trans .ko{font-weight:600}
+.trans .note{color:var(--sub);font-size:.85rem;margin-top:3px}
+
+/* ---------- tree ---------- */
+.tree{padding:6px 0 6px 4px}
+.tree ul{list-style:none;padding-left:26px;position:relative}
+.tree>ul{padding-left:0}
+.tree ul ul::before{content:"";position:absolute;left:8px;top:-8px;bottom:14px;border-left:2px solid var(--line)}
+.tree li{position:relative;padding:5px 0}
+.tree ul ul li::before{content:"";position:absolute;left:-18px;top:21px;width:16px;border-top:2px solid var(--line)}
+.node{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.8px solid var(--line);
+  border-radius:10px;padding:5px 12px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.18s;font-family:inherit}
+.node .e{font-family:'Lora',serif;font-weight:400;font-style:italic;color:var(--sub);font-size:.82rem}
+.node:hover{transform:translateX(2px)}
+.node.nd-root{border-color:var(--root);background:var(--root-bg)}
+.node.nd-n{border-color:var(--n);background:var(--n-bg)}
+.node.nd-a{border-color:var(--a);background:var(--a-bg)}
+.node.nd-ad{border-color:var(--ad);background:var(--ad-bg)}
+.node.leaf{border-style:dashed;font-family:'Lora',serif;font-style:italic;font-weight:600}
+.node.playing{background:var(--hl)!important}
+
+/* ---------- quiz ---------- */
+.qz{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:20px 22px;margin:26px 0;
+  box-shadow:4px 4px 0 rgba(35,39,47,.9)}
+.qz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.qz-head .badge{background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:999px}
+.q{margin:18px 0;padding-top:16px;border-top:1px dashed var(--line)}
+.q:first-of-type{border-top:none}
+.qno{font-weight:700;font-size:.8rem;color:var(--sub);margin-bottom:4px}
+.qtext{font-weight:600;margin-bottom:10px}
+.qsent{margin:8px 0 12px;padding:10px 14px;background:#F7F5EE;border-radius:10px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;font-family:inherit;font-size:.92rem;background:#fff;border:1.5px solid var(--line);
+  border-radius:10px;padding:9px 13px;cursor:pointer;transition:.15s;line-height:1.55}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.sel{border-color:var(--ink);background:#F2F0E8;box-shadow:inset 0 0 0 1px var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--n-bg);box-shadow:inset 0 0 0 1px var(--ok)}
+.opt.wrong{border-color:var(--bad);background:#FBE5E1;box-shadow:inset 0 0 0 1px var(--bad);animation:shake .3s}
+.opt:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.fb{display:none;margin-top:9px;font-size:.87rem;border-radius:8px;padding:9px 12px}
+.fb.show{display:block}
+.fb.good{background:var(--n-bg);border:1px solid var(--ok)}
+.fb.badf{background:#FBE5E1;border:1px solid var(--bad)}
+.selrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:9px 0;padding:9px 12px;background:#fff;border:1.5px solid var(--line);border-radius:10px}
+.selrow select{font-family:inherit;font-size:.88rem;padding:5px 8px;border-radius:8px;border:1.5px solid var(--line);background:#fff}
+.selrow .mark{font-weight:700;min-width:22px;text-align:center}
+.walkstep{margin:12px 0;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.walkstep .wp{font-weight:600;font-size:.9rem;margin-bottom:8px}
+.walkstep.lockedw{opacity:.45;pointer-events:none}
+.btn{font-family:inherit;font-weight:700;font-size:.95rem;border:none;border-radius:12px;padding:12px 26px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:3px 3px 0 rgba(35,39,47,.35)}
+.btn.primary:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 rgba(35,39,47,.35)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:28px 0 10px;gap:10px}
+.unlock-banner{display:none;align-items:center;gap:10px;margin-top:16px;background:var(--n-bg);border:1.5px solid var(--ok);
+  border-radius:12px;padding:12px 16px;font-weight:600;animation:fadeUp .4s ease}
+.unlock-banner.show{display:flex}
+
+/* ---------- result ---------- */
+.score-wrap{text-align:center;padding:10px 0 4px}
+.score-big{font-family:'Black Han Sans',sans-serif;font-size:3.2rem;line-height:1.1}
+.grade{font-weight:700;margin-top:2px}
+.branchbars{margin:18px 0 6px;text-align:left}
+.bb{margin:10px 0}
+.bb .bl{display:flex;justify-content:space-between;font-size:.83rem;font-weight:700;margin-bottom:4px}
+.bb .track{height:12px;background:#EFEBDF;border-radius:99px;overflow:hidden}
+.bb .fill{height:100%;border-radius:99px;width:0;transition:width .8s ease}
+.advice{margin-top:14px;font-size:.9rem;background:#F7F5EE;border-radius:10px;padding:12px 14px;text-align:left}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:46px}
+@media(max-width:520px){
+  .card,.qz{padding:16px 14px}
+  .step .lb{font-size:.6rem}
+  .en{font-size:1.02rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">ENGLISH GRAMMAR · CLAUSE MAP</div>
+  <h1>절(Clause)의 <span class="mark">지도</span>를 그리다</h1>
+  <p class="tagline">큰 그림에서 작은 그림으로 — 나무의 뿌리부터 잎까지, 한 가지씩 정복합니다.<br>🔊 버튼으로 모든 영어 표현을 들어보세요.</p>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>절의 지도 · 중3 → 고1 브릿지 과정 · Web Speech API 듣기 지원</footer>
+</div>
+<script>
+/* ================= DATA ================= */
+const TREE = {k:'절',e:'Clause',c:'root',kids:[
+  {k:'독립절',e:'Independent Clause',c:'root',kids:[]},
+  {k:'종속절',e:'Subordinate Clause',c:'root',kids:[
+    {k:'명사절',e:'Noun Clause',c:'n',kids:[
+      {leaf:'that'},{leaf:'if'},{leaf:'whether'},{leaf:'의문사 (what, who, where...)',say:'what, who, where, when, why, how'}
+    ]},
+    {k:'형용사절',e:'Adjective Clause = Relative Clause',c:'a',kids:[
+      {k:'관계대명사',e:'Relative Pronoun',c:'a',kids:[{leaf:'who'},{leaf:'whom'},{leaf:'whose'},{leaf:'which'},{leaf:'that'}]},
+      {k:'관계부사',e:'Relative Adverb',c:'a',kids:[{leaf:'where'},{leaf:'when'},{leaf:'why'}]}
+    ]},
+    {k:'부사절',e:'Adverb Clause',c:'ad',kids:[
+      {leaf:'if'},{leaf:'because'},{leaf:'when'},{leaf:'although'},{leaf:'since'},{leaf:'while'}
+    ]}
+  ]}
+]};
+
+/* en strings: [[...]] = highlighted clause */
+const STAGES = [
+/* ---------- 0 큰 그림 ---------- */
+{id:'map',icon:'🌳',label:'큰 그림',pathArr:[['절','root']],
+ title:'1단계 · 절이란 무엇인가 — 전체 지도 펼치기',
+ sub:'세부 사항을 외우기 전에, 먼저 숲 전체를 봅니다. 이 지도가 끝까지 우리의 나침반이 됩니다.',
+ cards:[
+  {t:'h',chip:['지도','root'],title:'절(Clause) = 주어 + 동사를 가진 의미 단위',html:
+   `<p>단어가 모여 <b>구(phrase)</b>가 되고, <span class="kw root">주어와 동사</span>를 갖추면 <b>절(clause)</b>이 됩니다. 문장은 절로 만들어집니다.</p>
+    <p>절은 딱 두 종류뿐입니다.</p>
+    <ul><li><span class="kw root">독립절</span> — 혼자서도 <b>완전한 문장</b>이 되는 절</li>
+        <li><span class="kw root">종속절</span> — 접속사 등이 붙어 <b>혼자서는 미완성</b>인 절. 반드시 독립절에 기대야 합니다</li></ul>`},
+  {t:'ex',cls:'root',en:'[[She smiled.]]',ko:'그녀는 미소 지었다.',note:'주어(She)+동사(smiled). 혼자서 완전 → 독립절.'},
+  {t:'ex',cls:'root',en:'[[because she was happy]] … ?',ko:'그녀가 행복했기 때문에 … (그래서 뭐?)',note:'주어+동사는 있지만 because 때문에 듣는 사람이 뒷이야기를 기다리게 됨 → 혼자서는 미완성인 종속절.'},
+  {t:'ex',cls:'root',en:'She smiled [[because she was happy]].',ko:'그녀는 행복했기 때문에 미소 지었다.',note:'독립절(She smiled)에 종속절이 기대어 완전한 문장이 됨.'},
+  {t:'h',chip:['핵심','root'],title:'종속절의 정체는 “단어”가 아니라 “역할”로 정해진다',html:
+   `<p>종속절은 문장 속에서 맡은 <b>역할(직업)</b>에 따라 딱 3가지로 나뉩니다.</p>
+    <ul><li><span class="kw n">명사절</span> — 명사처럼 <b>주어·목적어·보어 자리</b>를 차지 (문장의 부품)</li>
+        <li><span class="kw a">형용사절</span> — 형용사처럼 <b>앞의 명사를 꾸밈</b> (명사의 액세서리)</li>
+        <li><span class="kw ad">부사절</span> — 부사처럼 <b>시간·이유·조건 등 배경</b>을 설명 (문장의 배경음악)</li></ul>
+    <p>⚠️ 같은 단어(that, if, when)가 다른 절을 이끌 수 있어서, <b>단어 암기만으로는 절대 풀 수 없습니다.</b> 이것이 이 수업의 최종 목표입니다.</p>`},
+  {t:'tree'},
+ ],
+ cp:[
+  {q:'“Although it was raining”이 혼자서 문장이 될 수 없는 이유로 가장 정확한 것은?',
+   opts:['동사가 없기 때문에','although가 붙어 다른 절에 기대야 하는 종속절이기 때문에','주어가 대명사 it이기 때문에','과거시제이기 때문에'],ans:1,
+   ex:'주어(it)+동사(was raining)는 갖췄지만, although(비록 ~지만)가 붙는 순간 “그런데 어쨌다는 거지?”라는 뒷이야기가 필요해집니다. 이런 절이 종속절입니다.'},
+  {q:'다음 중 독립절(혼자서 완전한 문장)은?',
+   opts:['when the movie ended','that he is a liar','The phone rang.','if you study hard'],ans:2,
+   ex:'The phone rang은 주어+동사만으로 완전합니다. 나머지는 when/that/if가 붙어 뒷말을 기다리게 만드는 종속절입니다.'},
+  {q:'종속절이 명사절·형용사절·부사절 중 무엇인지는 무엇으로 결정되는가?',
+   opts:['절을 이끄는 단어(접속사)의 종류','절의 길이','문장 속에서 그 절이 맡은 역할(기능)','동사의 시제'],ans:2,
+   ex:'같은 that도 명사절일 수도, 형용사절일 수도 있습니다. 단어가 아니라 “문장 안에서 무슨 일을 하는가(역할)”가 절의 종류를 결정합니다. 이 원리를 끝까지 기억하세요.'}
+ ]},
+
+/* ---------- 1 명사절 ---------- */
+{id:'noun',icon:'🟩',label:'명사절',pathArr:[['절','root'],['종속절','root'],['명사절','n']],
+ title:'2단계 · 명사절 — 문장의 부품이 되는 절',
+ sub:'명사가 앉는 의자(주어·목적어·보어)에 절이 통째로 앉으면 명사절입니다.',
+ cards:[
+  {t:'h',chip:['개념','n'],title:'명사절 = 명사 자리를 통째로 차지하는 절',html:
+   `<p>명사는 문장에서 <b>주어·목적어·보어</b> 자리에 앉습니다. 절이 그 의자에 앉으면 <span class="kw n">명사절</span>입니다.</p>
+    <div class="test-box"><b>🔍 판별 도구 ① 대치 테스트</b>그 절을 통째로 <b>it</b>(또는 something)으로 바꿔도 문장이 성립하면 → 명사절!</div>`},
+  {t:'ex',cls:'n',en:'I know [[that she is honest]].',ko:'나는 그녀가 정직하다는 것을 안다.',note:'I know it. ✔ → know의 목적어 자리를 차지한 명사절. that = ~라는 것'},
+  {t:'ex',cls:'n',en:'[[That he passed the exam]] is surprising.',ko:'그가 시험에 합격했다는 것은 놀랍다.',note:'It is surprising. ✔ → 주어 자리의 명사절.'},
+  {t:'ex',cls:'n',en:'I wonder [[if it will rain tomorrow]].',ko:'나는 내일 비가 올지 (안 올지) 궁금하다.',note:'I wonder it(something). ✔ → 목적어 명사절. 명사절의 if/whether = ~인지 아닌지'},
+  {t:'ex',cls:'n',en:'The question is [[whether he will come]].',ko:'문제는 그가 올 것인지이다.',note:'The question is it. ✔ → be동사 뒤 보어 자리의 명사절.'},
+  {t:'ex',cls:'n',en:'Do you know [[where she lives]]?',ko:'그녀가 어디에 사는지 아니?',note:'의문사(where, what, who, why, how...)도 명사절을 이끕니다. 어순 주의: where she lives (의문문 어순 ✗)'},
+  {t:'ex',cls:'n',en:'[[What he said]] made me angry.',ko:'그가 말한 것이 나를 화나게 했다.',note:'It made me angry. ✔ → what절이 주어. what = ~하는 것'},
+  {t:'h',chip:['정리','n'],title:'명사절을 이끄는 4총사',html:
+   `<ul><li><b>that</b> — ~라는 것 (확실한 사실)</li>
+        <li><b>if / whether</b> — ~인지 아닌지 (불확실)</li>
+        <li><b>의문사</b> — 무엇이/어디서/왜 ~하는지</li></ul>
+    <p>모두 공통점: <b>명사 의자에 앉아 있고, it으로 대치 가능</b>.</p>`}
+ ],
+ cp:[
+  {q:'“I believe that you can do it.”에서 that절이 명사절인 근거로 옳은 것은?',
+   opts:['that이 항상 명사절을 만들기 때문','believe의 목적어 자리를 차지하고 I believe it.으로 대치되기 때문','문장 맨 뒤에 있기 때문','절 안에 can이 있기 때문'],ans:1,
+   ex:'단어 that이 아니라 “자리”가 근거입니다. believe(믿는다)는 믿을 대상(목적어)이 필요하고, that절이 그 의자에 앉아 it으로 대치됩니다.'},
+  {q:'다음 중 명사절이 “주어” 역할을 하는 문장은?',
+   opts:['I don\u2019t know if he is home.','She told me that she was busy.','Whether we win or lose doesn\u2019t matter.','The news is that the team won.'],ans:2,
+   ex:'Whether we win or lose가 통째로 주어입니다(It doesn\u2019t matter로 대치). ①②는 목적어, ④는 보어 역할의 명사절입니다.'},
+  {q:'“Tell me ______ you were late again.” — 빈칸에 why를 넣었을 때 이 why절의 정체는?',
+   opts:['앞의 명사를 꾸미는 형용사절','tell의 목적어인 명사절 (네가 왜 늦었는지를 말해라)','이유를 나타내는 부사절','독립절'],ans:1,
+   ex:'꾸밀 명사(the reason)가 앞에 없습니다. why절 자체가 “말할 내용(목적어)”이므로 명사절입니다. Tell me it(something). ✔'}
+ ]},
+
+/* ---------- 2 형용사절 ---------- */
+{id:'adj',icon:'🟧',label:'형용사절',pathArr:[['절','root'],['종속절','root'],['형용사절','a']],
+ title:'3단계 · 형용사절(관계사절) — 명사를 꾸미는 절',
+ sub:'바로 앞의 명사(선행사)에 딱 달라붙어 “어떤 ___?”에 답하는 절입니다.',
+ cards:[
+  {t:'h',chip:['개념','a'],title:'형용사절 = 앞의 명사(선행사)를 꾸미는 절',html:
+   `<p><span class="kw a">형용사절</span>은 반드시 <b>꾸밀 명사(선행사)</b>가 바로 앞에 있습니다. “어떤 친구? 어떤 책?”이라는 질문에 답하죠.</p>
+    <div class="test-box"><b>🔍 판별 도구 ② 삭제 테스트</b>형용사절은 액세서리라서 <b>지워도 문장이 문법적으로 완전</b>합니다. (의미만 가벼워질 뿐)</div>`},
+  {t:'h',chip:['관계대명사','a'],title:'관계대명사 5총사 — 절 안에 빈자리가 있다',html:
+   `<p>관계대명사는 절 안에서 <b>주어·목적어·소유격 역할을 직접 수행</b>합니다. 그래서 관계대명사 뒤 문장에는 <b>빈자리(불완전)</b>가 생깁니다.</p>`},
+  {t:'ex',cls:'a',en:'I have a friend [[who speaks four languages]].',ko:'나는 4개 국어를 하는 친구가 있다.',note:'어떤 친구? → who절이 a friend를 꾸밈. who가 절 안에서 주어 역할 (___ speaks: 주어 빈자리).'},
+  {t:'ex',cls:'a',en:'The man [[whom I met yesterday]] is a doctor.',ko:'내가 어제 만난 그 남자는 의사다.',note:'I met ___ ← met의 목적어 빈자리를 whom이 채움. 사람+목적격.'},
+  {t:'ex',cls:'a',en:'She is the student [[whose essay won the prize]].',ko:'그녀는 자신의 에세이가 상을 받은 학생이다.',note:'her essay → whose essay. 소유격 관계대명사.'},
+  {t:'ex',cls:'a',en:'This is the book [[which changed my life]].',ko:'이것이 내 인생을 바꾼 책이다.',note:'사물 선행사 + 주어 빈자리(___ changed) → which.'},
+  {t:'ex',cls:'a',en:'The movie [[that we watched last night]] was boring.',ko:'우리가 어젯밤 본 영화는 지루했다.',note:'that은 사람·사물 모두 가능. watched의 목적어 빈자리. ⚠️ 이 that은 명사절 that과 완전히 다른 직업!'},
+  {t:'h',chip:['관계부사','a'],title:'관계부사 3총사 — 절 안이 완전하다',html:
+   `<p>관계부사(where, when, why)는 절 안에서 <b>부사(장소·시간·이유) 역할</b>만 합니다. 그래서 관계부사 뒤 문장은 <b>빈자리 없이 완전</b>합니다.</p>
+    <div class="test-box"><b>🔍 판별 도구 ③ 빈자리 테스트</b>관계사 뒤 문장이 <b>불완전</b>(주어·목적어 빔) → 관계대명사 / <b>완전</b> → 관계부사</div>`},
+  {t:'ex',cls:'a',en:'This is the town [[where I was born]].',ko:'이곳이 내가 태어난 마을이다.',note:'I was born — 완전한 문장 → 관계부사 where (= in which).'},
+  {t:'ex',cls:'a',en:'I remember the day [[when we first met]].',ko:'나는 우리가 처음 만난 날을 기억한다.',note:'we first met — 완전 → 관계부사 when. 선행사 the day(시간).'},
+  {t:'ex',cls:'a',en:'Tell me the reason [[why you were late]].',ko:'네가 늦은 이유를 말해 줘.',note:'선행사 the reason이 있고 그것을 why절이 꾸밈 → 형용사절. (2단계 체크포인트의 the reason 없는 why절과 비교!)'}
+ ],
+ cp:[
+  {q:'“This is the city ______ I visited last summer.” 빈칸과 그 이유가 모두 옳은 것은?',
+   opts:['where — 선행사가 장소이기 때문','which — visited의 목적어 자리가 비어 있어 관계대명사가 필요하기 때문','where — I visited last summer가 완전한 문장이기 때문','which — 사물은 무조건 which이기 때문'],ans:1,
+   ex:'선행사가 장소라도 절 안을 봐야 합니다. I visited ___ (목적어 빈자리!) → 빈자리를 채우는 관계대명사 which. 장소 = 무조건 where가 아닙니다.'},
+  {q:'“She is the student whose essay won the prize.”에서 whose가 쓰인 이유는?',
+   opts:['선행사가 사람이라서','her essay(소유격)를 대신하기 때문','essay가 사물이라서','won이 과거형이라서'],ans:1,
+   ex:'두 문장으로 풀면 She is the student. + Her essay won the prize. → her를 whose로 바꿔 연결합니다. 소유격을 대신하면 whose.'},
+  {q:'형용사절에 “삭제 테스트”가 통하는 이유로 가장 정확한 것은?',
+   opts:['형용사절은 길이가 짧기 때문','형용사절은 명사를 꾸미는 액세서리일 뿐, 문장의 필수 부품(주어·목적어·보어)이 아니기 때문','형용사절에는 동사가 없기 때문','형용사절은 항상 문장 끝에 오기 때문'],ans:1,
+   ex:'명사절은 부품이라 빼면 문장이 무너지지만, 형용사절은 꾸밈이라 빼도 뼈대가 멀쩡합니다. 이 차이가 4단계 판별의 핵심 무기가 됩니다.'}
+ ]},
+
+/* ---------- 3 부사절 ---------- */
+{id:'adv',icon:'🟪',label:'부사절',pathArr:[['절','root'],['종속절','root'],['부사절','ad']],
+ title:'4단계 · 부사절 — 문장의 배경을 그리는 절',
+ sub:'시간·조건·이유·양보… 문장 전체에 “언제, 왜, 어떤 조건에서?”라는 배경을 깔아 줍니다.',
+ cards:[
+  {t:'h',chip:['개념','ad'],title:'부사절 = 빼도 완전하고, 자리도 옮길 수 있는 절',html:
+   `<p><span class="kw ad">부사절</span>은 문장의 부품도, 명사의 액세서리도 아닙니다. 문장 전체에 <b>배경 정보</b>를 더할 뿐입니다.</p>
+    <div class="test-box"><b>🔍 판별 도구 ④ 이동 테스트</b>부사절은 문장 <b>맨 앞 ↔ 맨 뒤로 이동</b>해도 자연스럽습니다. (명사절·형용사절은 자기 의자/선행사를 떠날 수 없음!)</div>`},
+  {t:'ex',cls:'ad',en:'[[If it rains tomorrow]], we will cancel the picnic.',ko:'내일 비가 오면, 우리는 소풍을 취소할 것이다.',note:'조건. ⚠️ 고1 핵심: 조건 부사절에서는 미래라도 현재시제(rains, not will rain)!'},
+  {t:'ex',cls:'ad',en:'She was upset [[because she lost her phone]].',ko:'그녀는 휴대폰을 잃어버렸기 때문에 속상했다.',note:'이유. Because she lost her phone, she was upset. ← 이동해도 OK.'},
+  {t:'ex',cls:'ad',en:'[[When I was young]], I lived in Busan.',ko:'나는 어렸을 때 부산에 살았다.',note:'시간. 빼도 I lived in Busan은 완전.'},
+  {t:'ex',cls:'ad',en:'[[Although he is rich]], he is not happy.',ko:'그는 부자임에도 불구하고 행복하지 않다.',note:'양보(비록 ~지만). 예상을 뒤집는 신호.'},
+  {t:'ex',cls:'ad',en:'[[Since you are here]], let\u2019s start the meeting.',ko:'네가 여기 있으니, 회의를 시작하자.',note:'since ① ~때문에(이유) ② ~한 이후로(시간). 여기서는 이유.'},
+  {t:'ex',cls:'ad',en:'[[While I was sleeping]], someone called me.',ko:'내가 자는 동안, 누군가 내게 전화했다.',note:'while ① ~하는 동안(시간) ② ~인 반면(대조). 여기서는 시간.'},
+  {t:'h',chip:['주의','ad'],title:'시간·조건의 부사절 = 미래 대신 현재시제',html:
+   `<p>시간(when, while...)·조건(if...)의 <b>부사절</b> 안에서는 미래의 일도 <b>현재시제</b>로 씁니다.</p>
+    <ul><li><span class="kw ad">부사절</span>: If it <b>rains</b> tomorrow, ... (○) / If it will rain (✗)</li>
+        <li><span class="kw n">명사절</span>: I don\u2019t know if it <b>will rain</b> tomorrow. (○ — 명사절은 미래시제 그대로!)</li></ul>
+    <p>👉 같은 if라도 <b>절의 종류가 시제 규칙까지 바꿉니다.</b> 종류 판별이 먼저인 이유입니다.</p>`}
+ ],
+ cp:[
+  {q:'“When the bell rang, everyone stood up.”의 when절이 부사절인 근거 두 가지가 모두 옳은 것은?',
+   opts:['빼면 문장이 무너진다 + it으로 대치된다','빼도 완전하다 + 문장 뒤로 이동해도 자연스럽다','앞의 명사를 꾸민다 + 빈자리가 있다','주어 역할을 한다 + 이동 불가능하다'],ans:1,
+   ex:'Everyone stood up — 빼도 완전 ✔ / Everyone stood up when the bell rang — 이동 ✔. 부사절의 두 가지 증거입니다.'},
+  {q:'“I will call you if I ______ the answer.” (미래의 일) 빈칸은?',
+   opts:['will find — 미래니까 미래시제','find — 조건 부사절은 미래라도 현재시제','found — 과거시제','will have found'],ans:1,
+   ex:'이 if절은 빼도 완전하고 이동 가능한 조건 부사절입니다. 따라서 미래의 일도 현재시제 find로 씁니다.'},
+  {q:'“Since I moved to Seoul, I have made many friends.”에서 since의 의미는?',
+   opts:['~때문에 (이유)','~한 이후로 (시간)','~인 반면 (대조)','~인지 아닌지'],ans:1,
+   ex:'주절에 have made(현재완료)가 보이면 since는 보통 “~한 이후로(시간)”입니다. “이유”라면 보통 주절이 현재완료가 아니어도 자연스럽습니다.'}
+ ]},
+
+/* ---------- 4 판별 ---------- */
+{id:'sort',icon:'🔀',label:'판별의 기술',pathArr:[['절','root'],['종속절','root'],['명사절','n'],['형용사절','a'],['부사절','ad']],
+ title:'5단계 · 판별의 기술 — 같은 단어, 다른 직업',
+ sub:'that·if·when은 세 갈래 어디에나 나타납니다. 단어가 아닌 역할로 판별하는 3단계 알고리즘을 장착하세요.',
+ cards:[
+  {t:'h',chip:['알고리즘','root'],title:'⚙️ 3단계 판별 알고리즘 (위에서부터 순서대로!)',html:
+   `<ul style="list-style:none;margin-left:0">
+    <li>1️⃣ 그 절을 <b>빼 보세요.</b> 남은 문장이 완전하고, 절이 <b>이동도 가능</b>한가요? → <span class="kw ad">부사절</span></li>
+    <li>2️⃣ 빼면 문장이 무너지나요? <b>it으로 대치</b>가 되나요? (주어·목적어·보어 의자) → <span class="kw n">명사절</span></li>
+    <li>3️⃣ 빼도 완전하지만 이동은 안 되고, <b>바로 앞 명사를 꾸미나요?</b> → <span class="kw a">형용사절</span></li></ul>
+    <p>이 순서대로만 물으면 어떤 절도 3초 안에 분류됩니다.</p>`},
+  {t:'h',chip:['that','root'],title:'that의 두 얼굴',html:`<p>아래 두 문장을 듣고 비교해 보세요. 같은 that, 완전히 다른 직업입니다.</p>`},
+  {t:'ex',cls:'n',en:'I think [[that the movie is boring]].',ko:'나는 그 영화가 지루하다고 생각한다.',note:'I think it. ✔ 대치 → think의 목적어 명사절. that 뒤(the movie is boring)는 완전한 문장.'},
+  {t:'ex',cls:'a',en:'The movie [[that we watched yesterday]] was boring.',ko:'우리가 어제 본 그 영화는 지루했다.',note:'선행사 the movie를 꾸밈 + we watched ___ (목적어 빈자리) → 관계대명사 that, 형용사절.'},
+  {t:'h',chip:['if','root'],title:'if의 두 얼굴',html:``},
+  {t:'ex',cls:'n',en:'I don\u2019t know [[if she will join us]].',ko:'나는 그녀가 우리와 함께할지 모르겠다.',note:'know의 목적어 → 명사절(~인지 아닌지). 미래시제 will 그대로!'},
+  {t:'ex',cls:'ad',en:'[[If she joins us]], the project will succeed.',ko:'그녀가 함께한다면, 프로젝트는 성공할 것이다.',note:'빼도 완전 + 이동 가능 → 조건 부사절(만약 ~라면). 미래라도 현재시제 joins!'},
+  {t:'h',chip:['when','root'],title:'when의 세 얼굴 — 최종 보스',html:``},
+  {t:'ex',cls:'n',en:'Nobody knows [[when the test will be]].',ko:'시험이 언제일지 아무도 모른다.',note:'knows의 목적어, it 대치 ✔ → 명사절(언제 ~인지).'},
+  {t:'ex',cls:'a',en:'I miss the days [[when we played outside]].',ko:'나는 우리가 밖에서 놀던 그 시절이 그립다.',note:'선행사 the days를 꾸밈 → 형용사절(관계부사).'},
+  {t:'ex',cls:'ad',en:'[[When the test ends]], we will go home.',ko:'시험이 끝나면, 우리는 집에 갈 것이다.',note:'빼도 완전 + 이동 가능 → 시간 부사절. 현재시제 ends!'}
+ ],
+ cpClassify:{
+  intro:'⛳ 실전 분류 훈련 — 6문장을 알고리즘으로 분류하세요. (6개 모두 정답이어야 최종 시험이 열립니다)',
+  items:[
+   {en:'I hope [[that you will pass the exam]].',ans:0,why:'hope의 목적어, it 대치 ✔'},
+   {en:'The house [[that has a red roof]] is mine.',ans:1,why:'선행사 the house 수식 + 주어 빈자리(___ has)'},
+   {en:'[[Although it was cold]], we went swimming.',ans:2,why:'빼도 완전 + 이동 가능, 양보의 배경'},
+   {en:'Do you remember [[where we parked the car]]?',ans:0,why:'remember의 목적어, it 대치 ✔ (선행사 없음!)'},
+   {en:'That is the café [[where we first talked]].',ans:1,why:'선행사 the café 수식, 절 안은 완전 → 관계부사'},
+   {en:'[[While you were out]], a package arrived.',ans:2,why:'빼도 완전 + 이동 가능, 시간의 배경'}
+  ]}
+ },
+
+/* ---------- 5 시험 ---------- */
+{id:'exam',icon:'🏆',label:'종합 시험',pathArr:[['절','root'],['전체 통합','root']],
+ title:'최종 관문 · 개념 종합 시험 (10문항 · 고1 수준)',
+ sub:'빈칸 암기로는 풀 수 없습니다. 모든 문항이 “왜?”를 묻습니다. 로직 트리를 머릿속에 펼치고 시작하세요.',
+ exam:true}
+];
+
+/* ================= EXAM DATA ================= */
+const EXAM=[
+{type:'walk',tags:['n'],sent:'I believe [[that honesty is the best policy]].',say:'I believe that honesty is the best policy.',
+ q:'형광펜 절을 로직 트리 순서대로 분석하시오.',
+ steps:[
+  {p:'STEP 1 · 이 절은 트리의 어느 가지에서 출발하는가?',opts:['독립절 — 혼자서 완전하다','종속절 — believe에 기대어 있는 미완성 절'],ans:1},
+  {p:'STEP 2 · 종속절이라면, 세 직업 중 무엇인가?',opts:['명사절','형용사절','부사절'],ans:0},
+  {p:'STEP 3 · 그 판단의 결정적 근거는?',opts:['앞의 명사 honesty를 꾸미고 있다','believe의 목적어 의자에 앉아 I believe it.으로 대치된다','빼도 문장이 완전하고 맨 앞으로 이동할 수 있다'],ans:1}],
+ ex:'절 → 종속절 → 명사절(목적어). believe는 “믿을 내용”이 반드시 필요한 동사이고, that절이 그 의자를 차지합니다. it 대치 테스트가 결정적 증거입니다.'},
+
+{type:'mc',tags:['n','a'],sent:'A. I think [[that the rumor is false]].<br>B. The rumor [[that spread online]] is false.',say:'A. I think that the rumor is false. B. The rumor that spread online is false.',
+ q:'두 that절의 직업이 다른 이유를 가장 정확하게 설명한 것은?',
+ opts:['A의 that절은 think의 목적어인 명사절이고, B의 that절은 the rumor를 꾸미며 절 안에 주어 빈자리(___ spread)가 있는 형용사절이다',
+ 'A는 that 뒤가 길고 B는 짧기 때문에 종류가 다르다','둘 다 that으로 시작하므로 사실 같은 명사절이다','A는 현재시제, B는 과거시제이기 때문에 다르다'],ans:0,
+ ex:'단어가 아니라 역할! A: I think it. ✔ → 명사절. B: that절을 빼도 The rumor is false로 완전하고, 절 안에 spread의 주어가 비어 있음 → 관계대명사 that의 형용사절.'},
+
+{type:'classify',tags:['n','a','ad'],q:'when의 세 얼굴 — 각 문장의 when절을 분류하시오. (1점: 3개 모두 정답 시)',
+ items:[
+  {en:'[[When the concert will start]] is still unknown.',ans:0,why:'It is still unknown. 대치 ✔ → 주어 명사절. 그래서 미래시제 will도 그대로!'},
+  {en:'I\u2019ll never forget the moment [[when I first saw the ocean]].',ans:1,why:'선행사 the moment를 꾸밈 → 형용사절(관계부사)'},
+  {en:'[[When the bell rings]], the students will run out.',ans:2,why:'빼도 완전 + 이동 가능 → 시간 부사절 (미래라도 현재시제 rings!)'}]},
+
+{type:'mc',tags:['a'],sent:'This is the house [[where my grandmother grew up]].',say:'This is the house where my grandmother grew up.',
+ q:'이 문장에서 where 대신 which를 쓸 수 없는 이유는?',
+ opts:['house는 사람이 아니기 때문','which는 의문문에만 쓰이기 때문',
+ 'my grandmother grew up이 빈자리 없는 완전한 문장이어서, 빈자리를 채워야 하는 관계대명사 which가 들어갈 곳이 없기 때문','grew up이 과거시제이기 때문'],ans:2,
+ ex:'관계대명사는 절 안에서 주어·목적어 자리를 직접 채워야 합니다. 그런데 my grandmother(주어) grew up(자동사)은 이미 완전 → 부사 역할만 하는 관계부사 where(= in which)가 필요합니다.'},
+
+{type:'walk',tags:['n'],sent:'[[What she said at the meeting]] surprised everyone.',say:'What she said at the meeting surprised everyone.',
+ q:'형광펜 절을 분석하시오.',
+ steps:[
+  {p:'STEP 1 · 이 절의 종류는?',opts:['명사절','형용사절','부사절'],ans:0},
+  {p:'STEP 2 · 문장 안에서의 역할(의자)은?',opts:['surprised의 목적어','문장의 주어','everyone의 보어'],ans:1},
+  {p:'STEP 3 · 결정적 테스트는?',opts:['It surprised everyone.으로 대치된다','문장 끝으로 이동해도 자연스럽다','앞의 명사를 꾸민다'],ans:0}],
+ ex:'what절(~하는 것)이 통째로 주어 의자에 앉아 있습니다. It surprised everyone. ✔ 참고: what은 선행사를 이미 포함한 관계대명사라서 앞에 꾸밀 명사가 없습니다.'},
+
+{type:'mc',tags:['n','a'],q:'다음 네 가지 분석 중 틀린 것 하나는?',
+ opts:['“I wonder if he is honest.” — if절은 wonder의 목적어인 명사절이다',
+ '“If he is honest, I will trust him.” — if절은 조건의 부사절이다',
+ '“The reason why she cried is unclear.” — why절은 the reason을 꾸미는 형용사절이다',
+ '“Tell me why she cried.” — why절은 생략된 the reason을 꾸미는 형용사절이다'],ans:3,
+ ex:'④의 why절 앞에는 꾸밀 명사가 없습니다. “말해 줘 + 무엇을? → 그녀가 왜 울었는지를” — tell의 직접목적어인 명사절입니다. 형용사절은 반드시 눈에 보이는 선행사가 필요합니다.'},
+
+{type:'mc',tags:['n','ad'],sent:'A. I don\u2019t know [[if it will snow tomorrow]].<br>B. [[If it snows tomorrow]], the school will be closed.',say:'A. I don\u2019t know if it will snow tomorrow. B. If it snows tomorrow, the school will be closed.',
+ q:'A에는 will이 있는데 B에는 없는 이유로 옳은 것은?',
+ opts:['B는 글쓴이가 눈이 안 올 거라고 확신하기 때문','A의 if절은 know의 목적어인 명사절이라 미래를 미래시제로 쓰고, B의 if절은 조건 부사절이라 미래의 일도 현재시제로 쓰기 때문',
+ 'A가 부정문이기 때문에 will이 필요하기 때문','snow는 셀 수 없는 명사이기 때문'],ans:1,
+ ex:'“시간·조건의 부사절은 현재가 미래를 대신한다”는 규칙은 부사절에만 적용됩니다. 절의 종류 판별이 시제 문제의 열쇠가 되는 대표 유형입니다.'},
+
+{type:'mc',tags:['a'],q:'두 문장을 관계사로 결합한 결과로 옳은 것은?<br><span style="font-family:Lora,serif">I met a girl. + Her brother is a famous singer.</span>',say:'I met a girl. Her brother is a famous singer.',
+ opts:['I met a girl who her brother is a famous singer.','I met a girl which brother is a famous singer.',
+ 'I met a girl whose brother is a famous singer.','I met a girl that her brother is a famous singer.'],ans:2,
+ ex:'겹치는 부분은 a girl = her. 소유격 her를 대신해야 하므로 whose brother. ①④처럼 who/that을 쓰고 her를 남기면 자리가 이중으로 채워져 틀립니다.'},
+
+{type:'mc',tags:['ad'],sent:'A. [[Since you finished your homework]], you can play games.<br>B. I have lived here [[since I was ten]].',say:'A. Since you finished your homework, you can play games. B. I have lived here since I was ten.',
+ q:'두 since절에 대한 설명으로 옳은 것은?',
+ opts:['둘 다 부사절이며, A는 이유(~때문에), B는 시간(~한 이후로)을 나타낸다','A는 명사절, B는 부사절이다',
+ '둘 다 시간(~한 이후로)을 나타낸다','A는 부사절, B는 the place를 꾸미는 형용사절이다'],ans:0,
+ ex:'둘 다 빼도 완전하고 이동 가능한 부사절. 단, B처럼 주절에 현재완료(have lived)가 있으면 since는 “~한 이후로(시간)”일 가능성이 높습니다.'},
+
+{type:'walk',tags:['a','ad'],sent:'The teacher praised the student [[who solved the problem]] {{because she worked hard}}.',say:'The teacher praised the student who solved the problem, because she worked hard.',
+ q:'한 문장 속 두 개의 종속절(🟨 who절 / 〔 〕because절)을 모두 분석하시오.',
+ steps:[
+  {p:'STEP 1 · who절(who solved the problem)의 종류는?',opts:['명사절','형용사절','부사절'],ans:1},
+  {p:'STEP 2 · because절(because she worked hard)의 종류는?',opts:['명사절','형용사절','부사절'],ans:2},
+  {p:'STEP 3 · who가 관계대명사라는 결정적 증거는?',opts:['who절 안에서 solved의 주어 자리(___ solved)가 비어 있고, who가 그 빈자리를 채우기 때문','who는 사람을 가리키는 단어이기 때문','who절이 문장 중간에 있기 때문'],ans:0}],
+ ex:'who절은 the student를 꾸미는 형용사절(주어 빈자리), because절은 빼도 완전하고 이동 가능한 이유의 부사절. 긴 문장도 절 단위로 쪼개면 트리 위의 두 가지일 뿐입니다.'}
+];
+
+/* ================= ENGINE ================= */
+const CLS_LB=['명사절','형용사절','부사절'], CLS_KEY=['n','a','ad'];
+let cur=0, maxUnlocked=0;
+const cpState=STAGES.map(()=>({done:false}));
+
+/* ---- TTS ---- */
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();
+  voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){
+  if(!('speechSynthesis' in window)){alert('이 브라우저는 음성 듣기를 지원하지 않습니다. Chrome 사용을 권장합니다.');return;}
+  speechSynthesis.cancel();
+  document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US'; if(voice)u.voice=voice; u.rate=0.9;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);
+}
+function spkBtn(text){return `<button class="spk" title="듣기" aria-label="영어 듣기" onclick="speak(this.dataset.say,this)" data-say="${text.replace(/"/g,'&quot;')}">🔊</button>`;}
+function plain(s){return s.replace(/\[\[|\]\]|\{\{|\}\}/g,'').replace(/<[^>]+>/g,'');}
+function renderEn(s,cls){
+  return s.replace(/\[\[(.+?)\]\]/g,`<span class="hl ${cls||'root'}">$1</span>`)
+          .replace(/\{\{(.+?)\}\}/g,`<span class="hl ad">$1</span>`);
+}
+
+/* ---- toggle ---- */
+function tgl(btn){const t=btn.nextElementSibling;const open=t.classList.toggle('open');
+  btn.setAttribute('aria-expanded',open);btn.textContent=open?'해석 닫기 ▲':'해석 + 풀이 보기 ▼';}
+
+/* ---- stepper ---- */
+function renderSteps(){
+  const el=document.getElementById('steps');
+  el.innerHTML=STAGES.map((s,i)=>{
+    const lock=i>maxUnlocked, done=cpState[i].done;
+    return `<button class="step ${i===cur?'cur':''} ${done?'done':''} ${lock?'locked':''}" onclick="go(${i})" ${lock?'aria-disabled="true"':''}>
+      <span class="dot">${lock?'🔒':done?'✓':s.icon}</span><span class="lb">${s.label}</span></button>`;
+  }).join('');
+}
+function go(i){
+  if(i>maxUnlocked){window.speechSynthesis&&speechSynthesis.cancel();
+    alert('🔒 아직 잠겨 있어요!\n이전 단계의 체크포인트를 모두 통과하면 열립니다.\n(큰 그림 → 작은 그림 순서가 이 학습의 핵심이에요.)');return;}
+  window.speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));
+  window.scrollTo({top:0});
+}
+
+/* ---- tree ---- */
+function treeHTML(node){
+  if(node.leaf!==undefined){const say=node.say||node.leaf;
+    return `<li><button class="node leaf" onclick="speak(this.dataset.say,this)" data-say="${say}">${node.leaf} 🔉</button></li>`;}
+  const kids=node.kids&&node.kids.length?`<ul>${node.kids.map(treeHTML).join('')}</ul>`:'';
+  return `<li><button class="node nd-${node.c}" onclick="speak(this.dataset.say,this)" data-say="${node.e.replace(/=.+$/,'')}">${node.k} <span class="e">${node.e} 🔉</span></button>${kids}</li>`;
+}
+
+/* ---- cards ---- */
+function cardHTML(c){
+  if(c.t==='tree') return `<div class="card"><h3><span class="chip c-root">전체 지도</span>로직 트리 — 노드를 누르면 영어 명칭을 읽어 줍니다</h3>
+    <div class="tree"><ul>${treeHTML(TREE)}</ul></div>
+    <p style="font-size:.85rem;color:var(--sub);margin-top:8px">이제부터 🟩명사절 → 🟧형용사절 → 🟪부사절 순서로, 이 나무를 한 가지씩 타고 내려갑니다.</p></div>`;
+  if(c.t==='h') return `<div class="card"><h3><span class="chip c-${c.chip[1]}">${c.chip[0]}</span>${c.title}</h3>${c.html}</div>`;
+  if(c.t==='ex'){const say=plain(c.en);
+    return `<div class="exc ${c.cls}">
+      <div class="enline"><span class="en">${renderEn(c.en,c.cls)}</span>${spkBtn(say)}</div>
+      <button class="tgl" aria-expanded="false" onclick="tgl(this)">해석 + 풀이 보기 ▼</button>
+      <div class="trans"><div class="ko">${c.ko}</div><div class="note">${c.note}</div></div></div>`;}
+  return '';
+}
+
+/* ---- checkpoint (MC) ---- */
+function cpHTML(i,qs){
+  return `<div class="qz" id="cp${i}"><div class="qz-head"><span class="badge">CHECKPOINT</span><b>체크포인트 — 모두 맞히면 다음 가지가 열립니다</b></div>
+  ${qs.map((q,k)=>`<div class="q"><div class="qno">Q${k+1} / ${qs.length}</div><div class="qtext">${q.q}</div>
+    <div class="opts">${q.opts.map((o,oi)=>`<button class="opt" onclick="cpPick(${i},${k},${oi},this)">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>
+    <div class="fb" id="fb-${i}-${k}"></div></div>`).join('')}
+  <div class="unlock-banner" id="ub${i}">🌿 통과! 다음 가지가 열렸습니다. <button class="btn primary" onclick="go(${i+1})">다음 단계로 →</button></div></div>`;
+}
+const cpOK=STAGES.map(s=>s.cp?s.cp.map(()=>false):[]);
+function cpPick(si,qi,oi,btn){
+  const q=STAGES[si].cp[qi], fb=document.getElementById(`fb-${si}-${qi}`);
+  const opts=btn.parentElement.querySelectorAll('.opt');
+  if(oi===q.ans){
+    opts.forEach((o,k)=>{o.disabled=true;o.classList.remove('wrong');if(k===oi)o.classList.add('right');});
+    fb.className='fb show good';fb.innerHTML='✅ 정답! '+q.ex;
+    cpOK[si][qi]=true;
+    if(cpOK[si].every(v=>v)) unlockNext(si);
+  }else{
+    btn.classList.add('wrong');
+    fb.className='fb show badf';fb.innerHTML='🤔 다시 생각해 보세요. 힌트: 단어가 아니라 <b>역할(자리·기능)</b>로 판단하세요.';
+    setTimeout(()=>btn.classList.remove('wrong'),500);
+  }
+}
+function unlockNext(si){
+  cpState[si].done=true;
+  if(si+1>maxUnlocked)maxUnlocked=si+1;
+  renderSteps();
+  const ub=document.getElementById('ub'+si);if(ub)ub.classList.add('show');
+}
+
+/* ---- classify checkpoint (stage 5) ---- */
+function classifyCpHTML(i,data){
+  return `<div class="qz"><div class="qz-head"><span class="badge">FINAL CHECK</span><b>${data.intro}</b></div>
+  ${data.items.map((it,k)=>`<div class="selrow"><span class="mark" id="cm-${i}-${k}">·</span>
+    <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,"root")}</span>${spkBtn(plain(it.en))}
+    <select id="cs-${i}-${k}"><option value="-1">— 선택 —</option>${CLS_LB.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
+    <div class="fb" id="cf-${i}-${k}" style="flex-basis:100%"></div></div>`).join('')}
+  <div style="margin-top:14px"><button class="btn primary" onclick="classifyCheck(${i})">채점하기</button></div>
+  <div class="unlock-banner" id="ub${i}">🏆 6연승! 최종 시험이 열렸습니다. <button class="btn primary" onclick="go(${i+1})">시험 보러 가기 →</button></div></div>`;
+}
+function classifyCheck(i){
+  const data=STAGES[i].cpClassify;let all=true;
+  data.items.forEach((it,k)=>{
+    const v=+document.getElementById(`cs-${i}-${k}`).value, m=document.getElementById(`cm-${i}-${k}`), f=document.getElementById(`cf-${i}-${k}`);
+    if(v===it.ans){m.textContent='✅';f.className='fb show good';f.innerHTML=`<b>${CLS_LB[it.ans]}</b> — ${it.why}`;document.getElementById(`cs-${i}-${k}`).disabled=true;}
+    else{all=false;m.textContent='❌';f.className='fb show badf';f.innerHTML=v<0?'아직 선택하지 않았어요.':'3단계 알고리즘을 처음부터 적용해 보세요: ① 빼도 완전+이동 가능? ② it 대치? ③ 앞 명사 수식?';}
+  });
+  if(all)unlockNext(i);
+}
+
+/* ---- exam ---- */
+const exAns=EXAM.map(q=>q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1);
+let graded=false;
+function examHTML(){
+  return `<div class="card" style="border:1.5px solid var(--ink)">
+    <h3><span class="chip c-root">시험 안내</span>응시 전 확인</h3>
+    <ul><li>모든 문항은 <b>개념의 “왜”</b>를 묻습니다. 감으로 찍으면 해설에서 들통납니다 😉</li>
+    <li>분석 문항(WALK)은 트리 순서대로 한 단계씩 풀어야 다음 STEP이 열립니다.</li>
+    <li>🔊로 문장을 들으며 절의 호흡을 느껴 보세요. 채점 후 모든 문항의 해설이 공개됩니다.</li></ul></div>
+  ${EXAM.map((q,qi)=>{
+    let body='';
+    const sent=q.sent?`<div class="qsent"><div class="enline"><span class="en">${renderEn(q.sent,'root')}</span>${spkBtn(q.say||plain(q.sent))}</div></div>`:'';
+    if(q.type==='mc'){
+      body=`<div class="opts">${q.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${oi}" onclick="exPick(${qi},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>`;
+    }else if(q.type==='walk'){
+      body=q.steps.map((st,si)=>`<div class="walkstep ${si>0?'lockedw':''}" id="ws-${qi}-${si}">
+        <div class="wp">${st.p}</div>
+        <div class="opts">${st.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${si}-${oi}" onclick="exWalk(${qi},${si},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div></div>`).join('');
+    }else{
+      body=q.items.map((it,k)=>`<div class="selrow"><span class="mark" id="em-${qi}-${k}">·</span>
+        <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,"root")}</span>${spkBtn(plain(it.en))}
+        <select id="es-${qi}-${k}" onchange="exAns[${qi}][${k}]=+this.value"><option value="-1">— 선택 —</option>${CLS_LB.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
+        <div class="fb" id="ef-${qi}-${k}" style="flex-basis:100%"></div></div>`).join('');
+    }
+    return `<div class="qz" id="eq${qi}"><div class="qz-head"><span class="badge">${q.type==='walk'?'WALK · 트리 분석':q.type==='classify'?'SORT · 분류':'WHY · 개념'}</span><b>문항 ${qi+1} / ${EXAM.length}</b></div>
+      <div class="qtext">${q.q}</div>${sent}${body}<div class="fb" id="exfb${qi}"></div></div>`;
+  }).join('')}
+  <div style="text-align:center;margin:30px 0">
+    <button class="btn primary" id="gradeBtn" onclick="grade()" style="font-size:1.05rem;padding:15px 40px">📝 최종 채점하기</button>
+  </div>
+  <div id="result"></div>`;
+}
+function exPick(qi,oi){if(graded)return;exAns[qi]=oi;
+  EXAM[qi].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${k}`).classList.toggle('sel',k===oi));}
+function exWalk(qi,si,oi){if(graded)return;exAns[qi][si]=oi;
+  EXAM[qi].steps[si].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${si}-${oi===k?k:k}`).classList.toggle('sel',k===oi));
+  const next=document.getElementById(`ws-${qi}-${si+1}`);if(next)next.classList.remove('lockedw');}
+function grade(){
+  /* completeness check */
+  for(let qi=0;qi<EXAM.length;qi++){const a=exAns[qi];
+    const empty=Array.isArray(a)?a.some(v=>v<0):a<0;
+    if(empty){document.getElementById('eq'+qi).scrollIntoView({block:'center'});
+      const f=document.getElementById('exfb'+qi);f.className='fb show badf';f.textContent='⚠️ 아직 답하지 않은 부분이 있어요. 모두 답한 뒤 채점하세요.';return;}}
+  graded=true;document.getElementById('gradeBtn').disabled=true;
+  let score=0;const tagTot={n:0,a:0,ad:0},tagOK={n:0,a:0,ad:0};
+  EXAM.forEach((q,qi)=>{
+    let ok;
+    if(q.type==='mc'){
+      ok=exAns[qi]===q.ans;
+      q.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${k}`);el.disabled=true;
+        if(k===q.ans)el.classList.add('right');else if(k===exAns[qi])el.classList.add('wrong');});
+      const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');
+      f.innerHTML=(ok?'✅ 정답! ':'❌ 오답. ')+q.ex;
+    }else if(q.type==='walk'){
+      ok=q.steps.every((st,si)=>exAns[qi][si]===st.ans);
+      q.steps.forEach((st,si)=>st.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${si}-${k}`);el.disabled=true;
+        if(k===st.ans)el.classList.add('right');else if(k===exAns[qi][si])el.classList.add('wrong');}));
+      const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');
+      f.innerHTML=(ok?'✅ 완벽한 트리 분석! ':'❌ 분석 경로에 오류가 있어요. ')+q.ex;
+    }else{
+      ok=q.items.every((it,k)=>exAns[qi][k]===it.ans);
+      q.items.forEach((it,k)=>{const f=document.getElementById(`ef-${qi}-${k}`),m=document.getElementById(`em-${qi}-${k}`);
+        document.getElementById(`es-${qi}-${k}`).disabled=true;
+        const good=exAns[qi][k]===it.ans;m.textContent=good?'✅':'❌';
+        f.className='fb show '+(good?'good':'badf');f.innerHTML=`<b>${CLS_LB[it.ans]}</b> — ${it.why}`;});
+      const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');
+      f.innerHTML=ok?'✅ 세 얼굴을 완벽히 구분했어요!':'❌ 위 각 문장의 해설을 확인하세요. “단어가 아니라 역할”입니다.';
+    }
+    if(ok)score++;
+    q.tags.forEach(t=>{tagTot[t]++;if(ok)tagOK[t]++;});
+  });
+  const pct=score*10;
+  const grade= score>=9?['🌳 클로즈 마스터','로직 트리가 완전히 머릿속에 자랐습니다. 고1 어법 문제로 직행하세요!']
+    :score>=7?['🌿 거의 다 자란 나무','뼈대는 탄탄! 틀린 문항의 해설을 소리 내어 설명해 보면 완성됩니다.']
+    :score>=5?['🌱 자라는 중','개념의 절반이 잡혔어요. 약한 가지(아래 그래프)의 단계로 돌아가 예문을 다시 들어 보세요.']
+    :['🫘 씨앗 단계','괜찮아요, 지도는 이미 손에 있어요. 1단계부터 체크포인트를 다시 통과해 봅시다.'];
+  const bars=[['명사절 🟩','n','var(--n)'],['형용사절 🟧','a','var(--a)'],['부사절 🟪','ad','var(--ad)']]
+    .map(([lb,t,col])=>{const p=tagTot[t]?Math.round(tagOK[t]/tagTot[t]*100):100;
+      return `<div class="bb"><div class="bl"><span>${lb}</span><span>${tagOK[t]} / ${tagTot[t]} 문항</span></div>
+      <div class="track"><div class="fill" style="background:${col}" data-w="${p}%"></div></div></div>`;}).join('');
+  const weak=[['n','2단계 · 명사절',1],['a','3단계 · 형용사절',2],['ad','4단계 · 부사절',3]]
+    .filter(([t])=>tagTot[t]&&tagOK[t]/tagTot[t]<0.7)
+    .map(([t,name,idx])=>`<li>${name} 복습 추천 → <button class="btn ghost" style="padding:3px 12px;font-size:.8rem" onclick="go(${idx})">바로 가기</button></li>`).join('');
+  document.getElementById('result').innerHTML=`<div class="qz"><div class="score-wrap">
+    <div class="score-big">${score} / 10</div><div class="grade">${grade[0]}</div>
+    <p style="font-size:.9rem;margin-top:6px">${grade[1]}</p>
+    <div class="branchbars">${bars}</div>
+    ${weak?`<div class="advice"><b>🧭 맞춤 복습 경로</b><ul style="margin:6px 0 0 18px">${weak}</ul></div>`:''}
+    <div style="margin-top:18px"><button class="btn ghost" onclick="resetExam()">처음부터 다시 풀기</button></div>
+  </div></div>`;
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w),60));
+}
+function resetExam(){graded=false;
+  EXAM.forEach((q,qi)=>{exAns[qi]=q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1;});
+  renderAll();go(STAGES.length-1);}
+
+/* ---- mount ---- */
+function pathHTML(arr){return `<div class="path">${arr.map(([t,c],i)=>(i?'<span class="sep">▸</span>':'')+`<span class="crumb on-${c}">${t}</span>`).join('')}</div>`;}
+function renderAll(){
+  document.getElementById('main').innerHTML=STAGES.map((s,i)=>{
+    let inner='';
+    if(s.exam) inner=examHTML();
+    else{
+      inner=(s.cards||[]).map(cardHTML).join('');
+      if(s.cp)inner+=cpHTML(i,s.cp);
+      if(s.cpClassify)inner+=classifyCpHTML(i,s.cpClassify);
+    }
+    return `<section class="stage ${i===cur?'show':''}" id="st${i}">
+      ${pathHTML(s.pathArr)}<h2 class="stitle">${s.title}</h2><p class="ssub">${s.sub}</p>${inner}
+      <div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전 단계</button>`:'<span></span>'}
+        <span style="font-size:.78rem;color:var(--sub)">${i+1} / ${STAGES.length}</span></div></section>`;
+  }).join('');
+  renderSteps();
+}
+renderAll();
+</script>
+</body>
+</html>
