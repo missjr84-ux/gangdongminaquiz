@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5형식의 지도 — 큰 그림에서 작은 그림으로</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F0;--card:#FFFFFF;--ink:#23272F;--sub:#727784;--line:#E7E2D6;
+  --root:#1F3A5F;--root-bg:#E8EEF6;
+  --b:#B8860B;--b-bg:#FEF8E1;
+  --c:#1E7A5A;--c-bg:#E2F3EB;
+  --d:#C84F2F;--d-bg:#FBE8E0;
+  --e:#5D4FA3;--e-bg:#EBE7F8;
+  --hl:#FFE45C;--ok:#1E7A5A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;
+  background-image:radial-gradient(#e9e4d6 1px,transparent 1px);background-size:26px 26px;}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 90px}
+header{padding:38px 0 10px;text-align:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.18em;color:var(--root);border:1.5px solid var(--root);border-radius:999px;padding:3px 14px;margin-bottom:14px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.9rem,6vw,2.7rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:10px;font-size:.95rem}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin:22px -16px 0;padding:10px 8px}
+.steps{display:flex;justify-content:center;gap:4px;max-width:780px;margin:0 auto}
+.step{flex:1;max-width:118px;border:none;background:transparent;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.68rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,39,47,.12)}
+.step.cur .lb{color:var(--ink)}
+.step.done .dot{background:var(--ink);border-color:var(--ink);color:#fff}
+.step.locked{opacity:.42;cursor:not-allowed}
+.step:not(.locked):hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:26px 0 8px;font-size:.8rem;font-weight:700}
+.path .crumb{padding:2px 10px;border-radius:999px;background:#fff;border:1.5px solid var(--line)}
+.path .crumb.on-root{border-color:var(--root);color:var(--root);background:var(--root-bg)}
+.path .crumb.on-b{border-color:var(--b);color:var(--b);background:var(--b-bg)}
+.path .crumb.on-c{border-color:var(--c);color:var(--c);background:var(--c-bg)}
+.path .crumb.on-d{border-color:var(--d);color:var(--d);background:var(--d-bg)}
+.path .crumb.on-e{border-color:var(--e);color:var(--e);background:var(--e-bg)}
+.path .sep{color:var(--sub)}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.55rem;margin:4px 0 4px}
+.ssub{color:var(--sub);font-size:.93rem;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin:14px 0;box-shadow:0 1px 3px rgba(40,35,20,.05)}
+.card h3{font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card h3 .chip{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.chip.c-root{background:var(--root-bg);color:var(--root)}.chip.c-b{background:var(--b-bg);color:var(--b)}
+.chip.c-c{background:var(--c-bg);color:var(--c)}.chip.c-d{background:var(--d-bg);color:var(--d)}.chip.c-e{background:var(--e-bg);color:var(--e)}
+.card p{margin:6px 0}.card ul{margin:6px 0 6px 20px}
+.kw{font-weight:700}.kw.b{color:var(--b)}.kw.c{color:var(--c)}.kw.d{color:var(--d)}.kw.e{color:var(--e)}.kw.root{color:var(--root)}
+.test-box{margin-top:12px;border:1.5px dashed var(--ink);border-radius:10px;padding:12px 14px;background:#FFFDF4;font-size:.92rem}
+.test-box b{display:block;margin-bottom:2px}
+.enline{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.en{font-family:'Lora',serif;font-size:1.12rem;line-height:1.7}
+.hl{padding:1px 3px;border-radius:3px;font-weight:600;background:linear-gradient(180deg,transparent 30%,var(--hl) 30%)}
+.hl.b{box-shadow:inset 0 -2.5px 0 var(--b)}.hl.c{box-shadow:inset 0 -2.5px 0 var(--c)}
+.hl.d{box-shadow:inset 0 -2.5px 0 var(--d)}.hl.e{box-shadow:inset 0 -2.5px 0 var(--e)}.hl.root{box-shadow:inset 0 -2.5px 0 var(--root)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:34px;height:34px;cursor:pointer;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--ink)}.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.exc{border-left:4px solid var(--line);padding:12px 16px;margin:12px 0;background:#fff;border-radius:0 10px 10px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.exc.b{border-left-color:var(--b)}.exc.c{border-left-color:var(--c)}.exc.d{border-left-color:var(--d)}.exc.e{border-left-color:var(--e)}.exc.root{border-left-color:var(--root)}
+.tgl{margin-top:8px;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:4px 12px;font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--sub)}
+.tgl:hover{border-color:var(--ink);color:var(--ink)}.tgl[aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.trans{display:none;margin-top:9px;font-size:.9rem;background:#F7F5EE;border-radius:8px;padding:9px 12px}.trans.open{display:block}
+.trans .ko{font-weight:600}.trans .note{color:var(--sub);font-size:.85rem;margin-top:3px}
+/* formula box */
+.fbox{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0;padding:12px 16px;background:#fff;border:2px solid var(--ink);border-radius:12px;font-family:'Lora',serif}
+.fbox .seg{padding:4px 10px;border-radius:8px;font-weight:700;font-size:.95rem}
+.fbox .plus{color:var(--sub);font-size:1.1rem}
+.tree{padding:6px 0 6px 4px}.tree ul{list-style:none;padding-left:26px;position:relative}.tree>ul{padding-left:0}
+.tree ul ul::before{content:"";position:absolute;left:8px;top:-8px;bottom:14px;border-left:2px solid var(--line)}
+.tree li{position:relative;padding:5px 0}
+.tree ul ul li::before{content:"";position:absolute;left:-18px;top:21px;width:16px;border-top:2px solid var(--line)}
+.node{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.8px solid var(--line);border-radius:10px;padding:5px 12px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.18s;font-family:inherit}
+.node .e{font-family:'Lora',serif;font-weight:400;font-style:italic;color:var(--sub);font-size:.82rem}
+.node:hover{transform:translateX(2px)}.node.nd-root{border-color:var(--root);background:var(--root-bg)}
+.node.nd-b{border-color:var(--b);background:var(--b-bg)}.node.nd-c{border-color:var(--c);background:var(--c-bg)}
+.node.nd-d{border-color:var(--d);background:var(--d-bg)}.node.nd-e{border-color:var(--e);background:var(--e-bg)}
+.node.leaf{border-style:dashed;font-family:'Lora',serif;font-style:italic;font-weight:600}
+.qz{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:20px 22px;margin:26px 0;box-shadow:4px 4px 0 rgba(35,39,47,.9)}
+.qz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.qz-head .badge{background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:999px}
+.q{margin:18px 0;padding-top:16px;border-top:1px dashed var(--line)}.q:first-of-type{border-top:none}
+.qno{font-weight:700;font-size:.8rem;color:var(--sub);margin-bottom:4px}.qtext{font-weight:600;margin-bottom:10px}
+.qsent{margin:8px 0 12px;padding:10px 14px;background:#F7F5EE;border-radius:10px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;font-family:inherit;font-size:.92rem;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:9px 13px;cursor:pointer;transition:.15s;line-height:1.55}
+.opt:hover:not(:disabled){border-color:var(--ink)}.opt.sel{border-color:var(--ink);background:#F2F0E8;box-shadow:inset 0 0 0 1px var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--c-bg);box-shadow:inset 0 0 0 1px var(--ok)}
+.opt.wrong{border-color:var(--bad);background:#FBE5E1;box-shadow:inset 0 0 0 1px var(--bad);animation:shake .3s}
+.opt:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.fb{display:none;margin-top:9px;font-size:.87rem;border-radius:8px;padding:9px 12px}.fb.show{display:block}
+.fb.good{background:var(--c-bg);border:1px solid var(--ok)}.fb.badf{background:#FBE5E1;border:1px solid var(--bad)}
+.selrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:9px 0;padding:9px 12px;background:#fff;border:1.5px solid var(--line);border-radius:10px}
+.selrow select{font-family:inherit;font-size:.88rem;padding:5px 8px;border-radius:8px;border:1.5px solid var(--line);background:#fff}
+.selrow .mark{font-weight:700;min-width:22px;text-align:center}
+.walkstep{margin:12px 0;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.walkstep .wp{font-weight:600;font-size:.9rem;margin-bottom:8px}.walkstep.lockedw{opacity:.45;pointer-events:none}
+.btn{font-family:inherit;font-weight:700;font-size:.95rem;border:none;border-radius:12px;padding:12px 26px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:3px 3px 0 rgba(35,39,47,.35)}
+.btn.primary:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 rgba(35,39,47,.35)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:28px 0 10px;gap:10px}
+.unlock-banner{display:none;align-items:center;gap:10px;margin-top:16px;background:var(--c-bg);border:1.5px solid var(--ok);border-radius:12px;padding:12px 16px;font-weight:600;animation:fadeUp .4s ease}
+.unlock-banner.show{display:flex}
+.score-wrap{text-align:center;padding:10px 0 4px}.score-big{font-family:'Black Han Sans',sans-serif;font-size:3.2rem;line-height:1.1}
+.grade{font-weight:700;margin-top:2px}.branchbars{margin:18px 0 6px;text-align:left}.bb{margin:10px 0}
+.bb .bl{display:flex;justify-content:space-between;font-size:.83rem;font-weight:700;margin-bottom:4px}
+.bb .track{height:12px;background:#EFEBDF;border-radius:99px;overflow:hidden}
+.bb .fill{height:100%;border-radius:99px;width:0;transition:width .8s ease}
+.advice{margin-top:14px;font-size:.9rem;background:#F7F5EE;border-radius:10px;padding:12px 14px;text-align:left}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:46px}
+@media(max-width:520px){.card,.qz{padding:16px 14px}.step .lb{font-size:.6rem}.en{font-size:1.02rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">ENGLISH GRAMMAR · SENTENCE PATTERN MAP</div>
+  <h1>5형식의 <span class="mark">지도</span>를 그리다</h1>
+  <p class="tagline">1형식부터 5형식까지 큰 그림으로 잡고, OC(목적격 보어)의 네 가지 얼굴을 정복합니다.<br>🔊 버튼으로 모든 영어 예문을 들어보세요.</p>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>5형식의 지도 · 중3 → 고1 브릿지 과정 · Web Speech API 듣기 지원</footer>
+</div>
+<script>
+/* ===== DATA ===== */
+const TREE={k:'문장의 형식',e:'Sentence Patterns',c:'root',kids:[
+  {k:'1형식',e:'S + V',c:'b',kids:[{leaf:'주어 + 동사 (완전 자동사)',say:'subject verb'}]},
+  {k:'2형식',e:'S + V + C',c:'b',kids:[{leaf:'주격 보어: 명사 / 형용사',say:'subject verb complement'}]},
+  {k:'3형식',e:'S + V + O',c:'b',kids:[{leaf:'목적어 하나 (타동사)',say:'subject verb object'}]},
+  {k:'4형식',e:'S + V + IO + DO',c:'c',kids:[{leaf:'간접목적어 + 직접목적어',say:'subject verb indirect object direct object'}]},
+  {k:'5형식',e:'S + V + O + OC',c:'d',kids:[
+    {k:'OC = 명사',e:'Noun OC',c:'d',kids:[{leaf:'elect / call / name / make',say:'they elected him president'}]},
+    {k:'OC = 형용사',e:'Adjective OC',c:'d',kids:[{leaf:'make / keep / find / leave',say:'she made me happy'}]},
+    {k:'OC = to부정사',e:'to-infinitive OC',c:'e',kids:[{leaf:'want / ask / tell / allow / expect',say:'I want you to succeed'}]},
+    {k:'OC = 동사원형',e:'Bare Infinitive OC',c:'c',kids:[
+      {k:'사역동사',e:'Causative Verbs',c:'c',kids:[{leaf:'make / let / have + O + 동사원형',say:'make let have'}]},
+      {k:'지각동사',e:'Perception Verbs',c:'c',kids:[{leaf:'see / hear / feel / watch + O + 동사원형',say:'see hear feel watch'}]}
+    ]},
+    {k:'OC = 현재분사',e:'Present Participle OC',c:'b',kids:[{leaf:'진행 중인 동작 강조 (-ing)',say:'I saw her running'}]}
+  ]}
+]};
+
+const STAGES=[
+/* ── 0 큰 그림 ── */
+{id:'map',icon:'🌳',label:'큰 그림',pathArr:[['문장의 형식','root']],
+ title:'1단계 · 5가지 형식의 지도 — 뼈대 먼저',
+ sub:'5형식을 이해하려면 1~4형식과의 차이를 먼저 잡아야 합니다. 차이는 단 하나: OC(목적격 보어)의 유무입니다.',
+ cards:[
+  {t:'h',chip:['지도','root'],title:'문장의 형식 = 동사가 목적어·보어를 몇 개 얼마나 요구하는가',html:
+   `<p>모든 영어 문장은 동사의 성질에 따라 5가지 골격 중 하나입니다. 골격은 동사가 결정합니다.</p>
+    <ul>
+    <li><span class="kw b">1형식</span> <b>S + V</b> — 동사만으로 완결. 목적어·보어 불필요</li>
+    <li><span class="kw b">2형식</span> <b>S + V + C</b> — 주어를 설명하는 주격보어(C)가 필요</li>
+    <li><span class="kw b">3형식</span> <b>S + V + O</b> — 동작의 대상(목적어)이 하나</li>
+    <li><span class="kw c">4형식</span> <b>S + V + IO + DO</b> — 목적어가 둘 (간접목적어 + 직접목적어)</li>
+    <li><span class="kw d">5형식</span> <b>S + V + O + OC</b> — 목적어 + 목적격 보어. OC가 O를 설명</li>
+    </ul>
+    <div class="test-box"><b>🔑 5형식의 핵심 열쇠 — "O = OC 관계"</b>5형식의 OC(목적격 보어)는 항상 O(목적어)를 설명합니다.<br>her happy → "그녀가 행복한 상태" = she is happy 관계가 성립!</div>`},
+  {t:'ex',cls:'b',en:'Birds [[sing]].',ko:'새들이 노래한다.',note:'1형식: S + V. 완전 자동사, 목적어·보어 없음.'},
+  {t:'ex',cls:'b',en:'She [[looks]] [[tired]].',ko:'그녀는 피곤해 보인다.',note:'2형식: S + V + C. tired가 she를 설명(she is tired). look·seem·become·stay 등이 2형식 동사.'},
+  {t:'ex',cls:'b',en:'I [[love]] [[music]].',ko:'나는 음악을 사랑한다.',note:'3형식: S + V + O. 타동사 love가 목적어 music을 요구.'},
+  {t:'ex',cls:'c',en:'She [[gave]] [[me]] [[a gift]].',ko:'그녀는 나에게 선물을 주었다.',note:'4형식: S + V + IO(me) + DO(a gift). 두 개의 목적어. → 3형식 전환: gave a gift to me.'},
+  {t:'ex',cls:'d',en:'He [[made]] [[her]] [[happy]].',ko:'그는 그녀를 행복하게 만들었다.',note:'5형식: S + V + O(her) + OC(happy). her is happy 관계 성립! ← 이것이 5형식의 증거.'},
+  {t:'tree'},
+ ],
+ cp:[
+  {q:'"He made her a cake."는 4형식, "He made her happy."는 5형식이다. 두 문장을 가르는 결정적 차이는?',
+   opts:['made의 과거형을 썼기 때문에 5형식이다','4형식은 her = a cake 관계가 성립하지 않고, 5형식은 her = happy(그녀가 행복한 상태) 관계가 성립한다','목적어가 사람이면 4형식, 형용사면 5형식이다','a cake는 명사, happy는 형용사이기 때문에 다르다'],
+   ans:1,ex:'"O = OC" 관계가 5형식의 결정적 증거입니다. "her is a cake" → 말이 안 됨 → 4형식. "she is happy" → 성립 → 5형식. 품사(명사/형용사)는 이유가 아니라 결과입니다.'},
+  {q:'5형식에서 OC의 역할로 가장 정확한 것은?',
+   opts:['동사의 동작을 꾸미는 부사','목적어(O)의 상태나 신분을 설명하는 보어','주어의 상태를 설명하는 주격 보어','동사 뒤에 오는 두 번째 목적어'],
+   ans:1,ex:'OC는 O를 설명하는 보어입니다. 주격보어(2형식)는 주어를 설명하지만, OC(5형식)는 목적어를 설명합니다. "목적어와 OC 사이에 be동사를 넣으면 말이 된다"는 테스트가 이 관계를 확인합니다.'}
+ ]},
+
+/* ── 1 OC 명사·형용사 ── */
+{id:'oc-na',icon:'🟨',label:'OC: 명사/형용사',pathArr:[['문장의 형식','root'],['5형식','d'],['OC=명사/형용사','d']],
+ title:'2단계 · OC = 명사 / 형용사',
+ sub:'"O를 무엇이라 부른다" "O를 어떤 상태로 만든다" — 가장 기본적인 OC 유형입니다.',
+ cards:[
+  {t:'h',chip:['OC=명사','d'],title:'OC가 명사 — "O를 ~라고 부르다/선출하다/임명하다"',html:
+   `<p>OC가 명사일 때는 O의 <b>신분·직함·이름</b>을 나타냅니다. O = OC 관계는 "신분의 등호"입니다.</p>
+    <ul><li><b>call</b> O OC — O를 OC라고 부르다</li><li><b>name</b> O OC — O를 OC로 이름 짓다</li>
+        <li><b>elect</b> O OC — O를 OC로 선출하다</li><li><b>make</b> O OC — O를 OC로 만들다</li></ul>`},
+  {t:'ex',cls:'d',en:'They [[elected]] [[him]] [[president]].',ko:'그들은 그를 대통령으로 선출했다.',note:'him = president(그가 대통령). OC=명사. 관사(a/the) 없이 쓰이는 명사 OC는 "신분·직함"을 나타냄.'},
+  {t:'ex',cls:'d',en:'We [[call]] [[him]] [[Jake]].',ko:'우리는 그를 Jake라고 부른다.',note:'him = Jake. OC=고유명사. call O OC 패턴.'},
+  {t:'h',chip:['OC=형용사','d'],title:'OC가 형용사 — "O를 ~한 상태로 만들다/유지하다"',html:
+   `<ul><li><b>make</b> O OC — O를 OC 상태로 만들다 (변화)</li>
+        <li><b>keep</b> O OC — O를 OC 상태로 유지하다</li>
+        <li><b>find</b> O OC — O가 OC임을 알다/발견하다</li>
+        <li><b>leave</b> O OC — O를 OC 상태로 내버려두다</li></ul>
+    <div class="test-box"><b>⚠️ 형용사 OC ≠ 부사</b>"make her happily"(✗) — OC 자리에는 부사가 올 수 없습니다. 부사는 동사를 꾸미지 O를 설명하지 않기 때문입니다. → make her happy(✔)</div>`},
+  {t:'ex',cls:'d',en:'Music [[makes]] [[me]] [[happy]].',ko:'음악은 나를 행복하게 만든다.',note:'me = happy(나는 행복한 상태). OC=형용사. 절대 happily(부사)가 아님!'},
+  {t:'ex',cls:'d',en:'Keep [[the door]] [[closed]].',ko:'문을 닫아 두어라.',note:'the door = closed(문은 닫힌 상태). OC = 형용사(과거분사). keep O OC.'},
+  {t:'ex',cls:'d',en:'She [[found]] [[the book]] [[interesting]].',ko:'그녀는 그 책이 흥미롭다는 것을 알았다.',note:'the book = interesting. find O OC 패턴. found it interesting처럼 쓰이기도 함.'},
+ ],
+ cp:[
+  {q:'"Don\'t leave the window ___." (창문을 열어 둔 채로 두지 마라) 빈칸으로 옳은 것과 이유는?',
+   opts:['openly — 부사로 동사 leave를 꾸미기 때문에','open — the window = open(창문이 열린 상태) 관계의 형용사 OC','opening — 현재진행이기 때문에','opened — 과거에 열었기 때문에'],
+   ans:1,ex:'"the window is open" 관계가 성립 → 형용사 OC. openly(부사)는 O를 설명할 수 없습니다. opened(과거분사)는 "닫힌 상태"에 쓰는데, 열린 상태는 open입니다.'},
+  {q:'"They made her the captain."과 "They made her tired."의 차이로 옳은 것은?',
+   opts:['전자는 3형식, 후자는 5형식이다','둘 다 5형식이지만 전자는 OC=명사(신분), 후자는 OC=형용사(상태)다','전자는 4형식(IO+DO), 후자는 5형식이다','전자의 her는 목적어, the captain은 간접목적어다'],
+   ans:1,ex:'둘 다 "she = the captain", "she = tired" 관계가 성립하므로 5형식입니다. 4형식이라면 "the captain"이 직접목적어가 되어야 하는데, "they made a captain for her"처럼 to/for 전환이 되지 않습니다.'}
+ ]},
+
+/* ── 2 OC to부정사 ── */
+{id:'oc-to',icon:'🟦',label:'OC: to부정사',pathArr:[['문장의 형식','root'],['5형식','d'],['OC=to부정사','e']],
+ title:'3단계 · OC = to부정사 — "O가 ~하기를 원하다/시키다"',
+ sub:'"나는 네가 성공하기를 원한다"처럼, O가 앞으로 해야 할 동작을 to부정사로 나타냅니다.',
+ cards:[
+  {t:'h',chip:['to부정사 OC','e'],title:'want / ask / tell / allow / expect / order + O + to-V',html:
+   `<p>이 동사들은 O가 <b>앞으로 어떤 동작을 할지</b>를 to부정사로 지정합니다.</p>
+    <ul><li><b>want</b> O to-V — O가 ~하기를 원하다</li><li><b>ask</b> O to-V — O에게 ~해달라고 부탁하다</li>
+        <li><b>tell</b> O to-V — O에게 ~하라고 말하다</li><li><b>allow</b> O to-V — O가 ~하도록 허락하다</li>
+        <li><b>expect</b> O to-V — O가 ~할 것으로 기대하다</li></ul>
+    <div class="test-box"><b>🔍 판별 도구 — O와 to-V 사이 be동사 테스트</b>I want you to go. → you is to go → "네가 갈 상태" = 성립 ✔ → 5형식.</div>`},
+  {t:'ex',cls:'e',en:'I [[want]] [[you]] [[to succeed]].',ko:'나는 네가 성공하기를 원한다.',note:'you to succeed: you will succeed 관계. to부정사 OC.'},
+  {t:'ex',cls:'e',en:'She [[asked]] [[him]] [[to wait outside]].',ko:'그녀는 그에게 밖에서 기다려 달라고 부탁했다.',note:'him to wait: him waits 관계. ask O to-V.'},
+  {t:'ex',cls:'e',en:'The teacher [[told]] [[us]] [[to study harder]].',ko:'선생님은 우리에게 더 열심히 공부하라고 하셨다.',note:'tell O to-V: 명령/지시의 뉘앙스. told → 과거형.'},
+  {t:'ex',cls:'e',en:'My parents [[allow]] [[me]] [[to stay up late]] on weekends.',ko:'부모님은 나에게 주말에 늦게까지 자지 않는 것을 허락하신다.',note:'allow O to-V: 허락. allow의 부정: not allow O to-V.'},
+  {t:'h',chip:['주의','e'],title:'to부정사 OC의 부정 — not to-V',html:
+   `<p>to부정사 OC를 부정할 때는 <b>not + to-V</b>로 씁니다.</p>
+    <ul><li>She told him <b>not to</b> leave. (O) — 그녀는 그에게 떠나지 말라고 했다</li>
+        <li>She told him <b>to not</b> leave. (△ 구어체에서만)</li></ul>`},
+ ],
+ cp:[
+  {q:'"My coach expects ___ win the championship." 빈칸으로 옳은 것은?',
+   opts:['me win — 사역동사처럼 원형을 쓴다','me to win — expect는 O + to-V 패턴이기 때문에','me winning — 진행 강조이기 때문에','for me to win — for를 써야 하기 때문에'],
+   ans:1,ex:'expect는 to부정사 OC 동사입니다. "나(me)가 우승할(to win) 것으로 기대한다". make/let/have처럼 원형을 쓰지 않습니다. expect + O + to-V.'},
+  {q:'"부모님이 나에게 늦게까지 게임하지 말라고 말씀하셨다."를 영어로 옳게 쓴 것은?',
+   opts:['My parents told me not to play games late.','My parents told me to not playing games late.','My parents told me no playing games late.','My parents said me not to play games late.'],
+   ans:0,ex:'tell O not to-V = O에게 ~하지 말라고 말하다. ②는 to not(구어체 허용되지만 표준 아님), ③은 no playing(불가), ④는 say는 O에게 직접 명령하는 tell과 달리 say to me(전치사 필요)입니다.'}
+ ]},
+
+/* ── 3 OC 원형/분사 ── */
+{id:'oc-bare',icon:'⚡',label:'OC: 원형/분사',pathArr:[['문장의 형식','root'],['5형식','d'],['OC=원형/분사','c']],
+ title:'4단계 · OC = 동사원형 / 현재분사 — 사역·지각동사의 세계',
+ sub:'가장 헷갈리는 구간입니다. to가 없는 원형을 쓰는 이유, 그리고 원형과 -ing의 차이를 논리로 잡으세요.',
+ cards:[
+  {t:'h',chip:['사역동사','c'],title:'사역동사 make·let·have + O + 동사원형 (to 없음!)',html:
+   `<p><span class="kw c">사역동사</span>는 "O에게 ~을 시키다/하게 하다"는 의미입니다. OC 자리에 <b>to 없는 동사원형</b>이 옵니다.</p>
+    <ul><li><b>make</b> O V — (강제로) O에게 ~시키다</li>
+        <li><b>let</b> O V — O가 ~하도록 (허용)하다</li>
+        <li><b>have</b> O V — O에게 ~시키다 (업무적 지시)</li></ul>
+    <div class="test-box"><b>❓ 왜 to가 없을까?</b>사역동사는 원래 "지시+즉각 실행"이 합쳐진 강한 동사라서, to(앞으로의 방향)가 필요 없이 동작이 직접 따라옵니다. 역사적으로 고대 영어에서 원형이 쓰인 전통입니다. 암기 아닌 이해!</div>`},
+  {t:'ex',cls:'c',en:'The coach [[made]] [[us]] [[run]] 10 laps.',ko:'코치는 우리에게 10바퀴 뛰게 했다.',note:'make O 동사원형: 강제. us run — 절대 to run(✗). 5형식.'},
+  {t:'ex',cls:'c',en:'Mom [[let]] [[me]] [[stay]] up until midnight.',ko:'엄마는 내가 자정까지 깨어 있도록 허락해 주셨다.',note:'let O 동사원형: 허용. let은 사역동사 중 가장 허용적 뉘앙스.'},
+  {t:'ex',cls:'c',en:'She [[had]] [[the plumber]] [[fix]] the pipe.',ko:'그녀는 배관공에게 파이프를 고치게 했다.',note:'have O 동사원형: 업무적 지시. "전문가에게 맡기다" 뉘앙스.'},
+  {t:'h',chip:['지각동사','c'],title:'지각동사 see·hear·feel·watch + O + 동사원형 / -ing',html:
+   `<p><span class="kw c">지각동사</span>는 감각으로 인지하는 동사입니다. OC에 <b>동사원형</b> 또는 <b>현재분사(-ing)</b> 둘 다 가능하지만, <b>의미가 달라집니다.</b></p>
+    <div class="test-box"><b>🔍 원형 vs -ing 의미 차이</b>동사원형: 동작 <b>전체</b>를 처음부터 끝까지 지각<br>-ing: 동작이 <b>진행 중</b>인 장면을 지각</div>`},
+  {t:'ex',cls:'c',en:'I [[saw]] [[her]] [[cross]] the street.',ko:'나는 그녀가 길을 건너는 것을(처음부터 끝까지) 보았다.',note:'cross(원형): 건너는 동작 전체를 목격. 그녀가 다 건너는 것을 지켜봄.'},
+  {t:'ex',cls:'c',en:'I [[saw]] [[her]] [[crossing]] the street.',ko:'나는 그녀가 길을 건너고 있는 것을 보았다.',note:'-ing: 건너는 중인 장면을 목격. 동작이 끝났는지는 모름.'},
+  {t:'ex',cls:'c',en:'We [[heard]] [[someone]] [[knock]] at the door.',ko:'우리는 누군가 문을 두드리는 소리를 들었다.',note:'hear O 동사원형: 소리 전체. knock(knock-knock 완전한 노크) vs knocking(두드리는 중).'},
+  {t:'h',chip:['수동태 주의','e'],title:'사역·지각동사의 수동태 — to가 돌아온다!',html:
+   `<p>능동태에서 사라진 to는 <b>수동태</b>로 바뀌면 다시 나타납니다.</p>
+    <ul><li>능동: They <b>made</b> him <b>apologize</b>. (원형)</li>
+        <li>수동: He <b>was made</b> <b>to apologize</b>. (to + 원형 ← to 귀환!)</li></ul>`},
+  {t:'ex',cls:'e',en:'He [[was made]] [[to clean]] the classroom.',ko:'그는 교실을 청소하도록 강요받았다.',note:'수동태에서 make → be made to-V. to가 다시 등장!'},
+ ],
+ cp:[
+  {q:'"She saw him ___ into the car." (그가 차에 타는 장면을 목격) 빈칸으로 적절한 것은?',
+   opts:['to get — 지각동사는 to부정사를 쓰기 때문에','get 또는 getting — 지각동사는 원형 또는 -ing','gets — 3인칭 단수이기 때문에','gotten — 과거분사를 써야 하기 때문에'],
+   ans:1,ex:'지각동사 saw + O + 원형/현재분사. get(원형): 타는 동작 전체 / getting: 타는 중인 장면. to get(✗) — 지각동사는 to부정사 OC를 쓰지 않습니다.'},
+  {q:'"The boss had his assistant ___ the report." 빈칸으로 옳은 것은?',
+   opts:['to prepare — have는 to부정사를 쓰는 동사이기 때문에','prepare — 사역동사 have는 O + 동사원형 패턴이기 때문에','preparing — 진행 중이기 때문에','prepared — 수동이기 때문에'],
+   ans:1,ex:'have O 동사원형: 사역동사 have는 원형 OC. "his assistant is to prepare"가 아니라 "his assistant prepares"의 관계. to prepare(✗), preparing(보조 의미는 가능하지만 여기서는 원형이 맞음).'}
+ ]},
+
+/* ── 4 판별 ── */
+{id:'sort',icon:'🔀',label:'형식 판별',pathArr:[['문장의 형식','root'],['5형식','d'],['전체 통합','root']],
+ title:'5단계 · 형식 판별 알고리즘 — 3·4·5형식 구분',
+ sub:'가장 헷갈리는 3형식 vs 4형식 vs 5형식을 단계적으로 분류하는 알고리즘을 장착합니다.',
+ cards:[
+  {t:'h',chip:['알고리즘','root'],title:'⚙️ 3단계 판별 알고리즘',html:
+   `<ul style="list-style:none;margin-left:0">
+    <li>1️⃣ 동사 뒤에 목적어(O)가 <b>없으면</b> → 1형식(또는 2형식: 보어가 있으면)</li>
+    <li>2️⃣ O가 <b>하나</b>뿐이면 → 3형식</li>
+    <li>3️⃣ O가 <b>둘</b>처럼 보이면:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<b>O = OC 관계</b>가 성립(be동사 삽입 테스트) → <span class="kw d">5형식</span><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;성립 안 하면 → <span class="kw c">4형식</span>(IO + DO)</li></ul>`},
+  {t:'ex',cls:'root',en:'She gave me a book.',ko:'그녀는 나에게 책을 주었다.',note:'me = a book? → "나는 책이다" ✗ → 4형식(gave me IO + a book DO).'},
+  {t:'ex',cls:'d',en:'She found the book interesting.',ko:'그녀는 그 책이 흥미롭다는 것을 알았다.',note:'the book = interesting? → "그 책은 흥미롭다" ✔ → 5형식(O=OC 관계 성립).'},
+  {t:'ex',cls:'root',en:'They elected her the president.',ko:'그들은 그녀를 대통령으로 선출했다.',note:'her = the president? → "그녀는 대통령이다" ✔ → 5형식(OC=명사).'},
+  {t:'ex',cls:'root',en:'He showed me the way.',ko:'그는 나에게 길을 알려 주었다.',note:'me = the way? → "나는 길이다" ✗ → 4형식(IO=me, DO=the way).'},
+  {t:'h',chip:['동사 지도','root'],title:'핵심 동사 분류표 — 형식별 대표 동사',html:
+   `<ul>
+    <li><span class="kw c">4형식</span>: give / send / show / teach / buy / bring (IO + DO)</li>
+    <li><span class="kw d">5형식(명사/형용사 OC)</span>: make / call / name / elect / find / keep / leave</li>
+    <li><span class="kw e">5형식(to부정사 OC)</span>: want / ask / tell / allow / expect / order / advise</li>
+    <li><span class="kw c">5형식(원형 OC)</span>: make / let / have (사역) / see / hear / feel / watch (지각)</li></ul>
+    <p>⚠️ <b>make</b>의 두 얼굴: make her happy(형용사 OC) vs make her run(원형 OC). 뒤에 오는 OC의 품사로 구분합니다.</p>`},
+  {t:'cpClassify',intro:'⛳ 형식 분류 훈련 — 5문장을 알고리즘으로 분류하세요. (5개 모두 정답이어야 시험이 열립니다)',
+   items:[
+    {en:'My teacher made us repeat the sentence.',ans:0,why:'make O 동사원형(repeat) → 5형식(사역)'},
+    {en:'She sent him a long letter.',ans:1,why:'him(IO) + a long letter(DO), him = letter 불성립 → 4형식'},
+    {en:'I found the movie boring.',ans:0,why:'the movie = boring ✔ → 5형식(OC=형용사)'},
+    {en:'We heard someone singing outside.',ans:0,why:'someone = singing(진행 중) ✔ → 5형식(지각동사 + -ing OC)'},
+    {en:'Mom bought me new shoes.',ans:1,why:'me(IO) + new shoes(DO), me = shoes 불성립 → 4형식'}
+   ]}
+ ]},
+
+/* ── 5 시험 ── */
+{id:'exam',icon:'🏆',label:'종합 시험',pathArr:[['문장의 형식','root'],['전체 통합','root']],
+ title:'최종 관문 · 개념 종합 시험 (10문항 · 고1 수준)',
+ sub:'"O = OC 관계 테스트", "to의 유무", "원형 vs -ing 의미 차이"를 로직으로 풀어야 합니다.',
+ exam:true}
+];
+
+/* ===== EXAM DATA ===== */
+const EXAM=[
+{type:'walk',tags:['5f'],sent:'The news [[made]] [[everyone]] [[silent]].',say:'The news made everyone silent.',
+ q:'이 문장을 형식 판별 알고리즘으로 분석하시오.',
+ steps:[
+  {p:'STEP 1 · 동사 made 뒤에 나오는 요소들은?',opts:['everyone(목적어 하나) → 3형식','everyone(O)과 silent(OC) 두 요소 → 4형식 또는 5형식 가능성','everyone(IO)과 silent(DO) → 4형식'],ans:1},
+  {p:'STEP 2 · "O = OC 관계 테스트" 결과는?',opts:['everyone = silent → "모든 사람은 고요하다" 성립 ✔ → 5형식','everyone = silent → 성립 안 됨 → 4형식','테스트 불필요, made는 항상 4형식'],ans:0},
+  {p:'STEP 3 · OC(silent)의 품사와 역할은?',opts:['부사 — made를 꾸민다','형용사 — everyone의 상태(조용한)를 설명하는 목적격 보어','명사 — everyone의 신분을 나타낸다'],ans:1}],
+ ex:'"everyone is silent" 관계가 성립 → 5형식. silent는 형용사 OC. "make her silently"(✗) — OC 자리에 부사는 불가합니다.'},
+
+{type:'mc',tags:['5f','sa'],sent:'A. I [[made]] [[her]] [[apologize]].<br>B. She [[was made]] [[to apologize]].',say:'A. I made her apologize. B. She was made to apologize.',
+ q:'A(능동)와 B(수동)에서 "apologize" 앞에 to 유무가 다른 이유는?',
+ opts:['A는 과거, B는 과거수동이기 때문에 형태가 다른 것이다','능동태의 사역동사 made는 원형 OC를 쓰고, 수동태로 바뀌면 행위자가 주어가 되어 to가 복원되기 때문이다','수동태는 항상 to부정사를 쓰기 때문이다','B에서 to는 전치사이다'],
+ ans:1,ex:'사역동사 능동태: make O 동사원형(to 없음). 수동태: be made + to-V(to 귀환). 능동에서 목적어(her)가 주어가 되면서 원형을 지탱하던 사역 동사의 힘이 약해져 to가 다시 필요해집니다.'},
+
+{type:'mc',tags:['5f'],q:'다음 중 5형식이 아닌 것은?',
+ opts:['They kept the engine running.','She asked him to leave.','He gave her a diamond ring.','We heard someone laugh.'],
+ ans:2,ex:'① the engine = running ✔ → 5형식. ② him to leave: him is to leave ✔ → 5형식. ③ her(IO) + a diamond ring(DO): her = a diamond ring ✗ → 4형식. ④ someone = laugh ✔ → 5형식(지각동사).'},
+
+{type:'walk',tags:['5f','pd'],sent:'I heard [[her]] [[sing]] / [[singing]] a beautiful song.',say:'I heard her sing a beautiful song.',
+ q:'"sing"과 "singing" — 각각을 쓸 때 의미의 차이를 분석하시오.',
+ steps:[
+  {p:'STEP 1 · 지각동사 heard 뒤 OC 자리에 올 수 있는 것은?',opts:['to부정사만 가능','동사원형 또는 현재분사(-ing) 둘 다 가능','과거분사만 가능'],ans:1},
+  {p:'STEP 2 · sing(원형)을 쓸 때의 의미는?',opts:['그녀가 노래하는 중인 장면을 들었다','그녀가 노래하는 동작 전체를(처음부터 끝까지) 들었다','그녀가 노래를 불렀을 것이라고 들었다'],ans:1},
+  {p:'STEP 3 · singing(-ing)을 쓸 때의 의미는?',opts:['그녀가 노래하는 동작 전체를 들었다','그녀가 노래하고 있는 진행 중인 장면을 들었다','그녀가 노래를 끝낸 후의 상황을 들었다'],ans:1}],
+ ex:'원형: 동작 전체(노래 시작~끝까지 들음) vs -ing: 진행 중인 장면(노래하는 중에 들음). 고1 수능 빈출 구분 포인트입니다.'},
+
+{type:'mc',tags:['5f'],sent:'"The doctor advised him ___ to avoid stress."',say:'The doctor advised him to avoid stress.',
+ q:'빈칸에 알맞은 것과 이유는?',
+ opts:['(빈칸 없이) to avoid가 이미 맞다 — advise는 O + to-V 패턴이기 때문','avoid → avoiding으로 바꿔야 한다 — 전치사 to 뒤에는 -ing를 쓰기 때문','to를 없애야 한다 — advise는 사역동사이기 때문','him 다음에 that을 추가해야 한다'],
+ ans:0,ex:'advise는 to부정사 OC 동사입니다. advise O + to-V. "to avoid"의 to는 전치사가 아니라 to부정사의 to이므로 뒤에 원형(avoid)이 맞습니다. 사역동사가 아니라서 원형만 쓰면 틀립니다.'},
+
+{type:'classify',tags:['5f'],q:'각 문장의 OC 유형을 분류하시오.',
+ items:[
+  {en:'They named the baby Lily.',ans:0,why:'OC=명사(Lily): baby = Lily ✔'},
+  {en:'She expected him to call back.',ans:1,why:'OC=to부정사(to call back): expect O to-V'},
+  {en:'The cold made my fingers numb.',ans:2,why:'OC=형용사(numb): fingers = numb ✔'}
+ ]},
+
+{type:'mc',tags:['5f','sa'],q:'다음 중 어법상 옳은 문장은?',
+ opts:['My parents let me to go to the concert.','I want him finish the project by Friday.','The loud music made it hard to concentrate.','She asked him not calling her anymore.'],
+ ans:2,ex:'① let은 사역동사 → to go(✗) → let me go. ② want O to-V → want him to finish. ③ make + it(가목적어) + 형용사(hard) + to-V(진목적어) ✔. ④ ask O not to-V → not to call(✗calling).'},
+
+{type:'walk',tags:['5f'],sent:'We [[found]] [[the instructions]] [[confusing]].',say:'We found the instructions confusing.',
+ q:'이 5형식 문장을 단계별로 증명하시오.',
+ steps:[
+  {p:'STEP 1 · "O = OC 관계 테스트" 적용 결과는?',opts:['the instructions = confusing → "설명서는 혼란스럽다" ✔ → 5형식','the instructions = confusing → 성립 안 됨 → 4형식','confusing은 동명사라서 형식 판별 불가'],ans:0},
+  {p:'STEP 2 · OC "confusing"의 품사는?',opts:['동명사(-ing) — 동사가 명사로 쓰인 것','현재분사 → 형용사 역할 — 설명서의 상태를 나타냄','부사 — confusingly로 써야 맞다'],ans:1},
+  {p:'STEP 3 · "confusingly"(부사)로 쓰면 안 되는 이유는?',opts:['형용사와 부사는 같기 때문에 둘 다 맞다','부사는 동사 found를 꾸미지, 목적어 the instructions의 상태를 설명할 수 없기 때문에','confusingly는 존재하지 않는 단어이기 때문에'],ans:1}],
+ ex:'OC는 O의 상태를 설명하는 보어입니다. 부사는 동사를 꾸미지 O를 설명하지 못합니다. confusing(형용사) = OC ✔ / confusingly(부사) = 부사 ✗.'},
+
+{type:'mc',tags:['5f'],q:'4형식 → 3형식으로 전환할 때 전치사 to vs for 선택 기준으로 옳은 것은?',
+ opts:['to는 사람에게, for는 사물에게 쓴다','give/send/show/teach → to, buy/make/cook/get → for로 전환한다','to와 for는 의미 차이 없이 항상 교환 가능하다','동사가 3음절 이상이면 to, 2음절 이하면 for를 쓴다'],
+ ans:1,ex:'4형식→3형식 전환 전치사: give(to), send(to), show(to), teach(to) vs buy(for), make(for), cook(for), get(for). to는 "전달"의 방향, for는 "이익·대신"의 뉘앙스. 동사별로 외우는 것이 실전에서 빠릅니다.'},
+
+{type:'mc',tags:['5f'],q:'"The coach had his players ___ the drill again." 빈칸으로 옳은 것은?',
+ opts:['to practice — have는 to부정사를 쓰기 때문에','practice — 사역동사 have는 O + 동사원형이기 때문에','practicing — 진행 중임을 강조하기 때문에','practiced — 수동의 의미이기 때문에'],
+ ans:1,ex:'have O 동사원형: 사역동사. have + his players + practice(원형). practiced는 have O p.p.(수동/완료 의미)로 "선수들이 드릴을 받게 했다"가 되어 의미가 달라집니다.'},
+];
+
+/* ===== ENGINE ===== */
+const CLS_LB=['5형식','4형식'], CLS_KEY=['d','c'];
+/* classify for stage 4 uses its own labels */
+const CP_CLS_LB=['OC=명사','OC=to부정사','OC=형용사'];
+let cur=0,maxUnlocked=0;
+const cpState=STAGES.map(()=>({done:false}));
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){
+  if(!('speechSynthesis' in window)){alert('Chrome 브라우저를 권장합니다.');return;}
+  speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.9;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);}
+function spkBtn(text){return `<button class="spk" title="듣기" aria-label="영어 듣기" onclick="speak(this.dataset.say,this)" data-say="${text.replace(/"/g,'&quot;')}">🔊</button>`;}
+function plain(s){return s.replace(/\[\[|\]\]|\{\{|\}\}/g,'').replace(/<[^>]+>/g,'');}
+function renderEn(s,cls){return s.replace(/\[\[(.+?)\]\]/g,`<span class="hl ${cls||'root'}">$1</span>`);}
+function tgl(btn){const t=btn.nextElementSibling;const open=t.classList.toggle('open');btn.setAttribute('aria-expanded',open);btn.textContent=open?'해석 닫기 ▲':'해석 + 풀이 보기 ▼';}
+function renderSteps(){
+  document.getElementById('steps').innerHTML=STAGES.map((s,i)=>{
+    const lock=i>maxUnlocked,done=cpState[i].done;
+    return `<button class="step ${i===cur?'cur':''} ${done?'done':''} ${lock?'locked':''}" onclick="go(${i})" ${lock?'aria-disabled="true"':''}>
+      <span class="dot">${lock?'🔒':done?'✓':s.icon}</span><span class="lb">${s.label}</span></button>`;}).join('');}
+function go(i){
+  if(i>maxUnlocked){alert('🔒 이전 단계의 체크포인트를 통과하면 열립니다!');return;}
+  window.speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0});}
+function treeHTML(node){
+  if(node.leaf!==undefined){const say=node.say||node.leaf;return `<li><button class="node leaf" onclick="speak(this.dataset.say,this)" data-say="${say}">${node.leaf} 🔉</button></li>`;}
+  const kids=node.kids&&node.kids.length?`<ul>${node.kids.map(treeHTML).join('')}</ul>`:'';
+  return `<li><button class="node nd-${node.c}" onclick="speak(this.dataset.say,this)" data-say="${node.e.replace(/=.+$/,'').trim()}">${node.k} <span class="e">${node.e} 🔉</span></button>${kids}</li>`;}
+function cardHTML(c){
+  if(c.t==='tree')return `<div class="card"><h3><span class="chip c-root">전체 지도</span>로직 트리 — 노드를 누르면 영어 명칭을 읽어 줍니다</h3><div class="tree"><ul>${treeHTML(TREE)}</ul></div></div>`;
+  if(c.t==='h')return `<div class="card"><h3><span class="chip c-${c.chip[1]}">${c.chip[0]}</span>${c.title}</h3>${c.html}</div>`;
+  if(c.t==='ex'){const say=plain(c.en);return `<div class="exc ${c.cls}"><div class="enline"><span class="en">${renderEn(c.en,c.cls)}</span>${spkBtn(say)}</div><button class="tgl" aria-expanded="false" onclick="tgl(this)">해석 + 풀이 보기 ▼</button><div class="trans"><div class="ko">${c.ko}</div><div class="note">${c.note}</div></div></div>`;}
+  if(c.t==='cpClassify')return classifyCpHTML_inline(c);
+  return '';}
+/* inline classify cp for stage 4 */
+const icpOK={};
+function classifyCpHTML_inline(c){
+  const sid=cur; /* captured at render time */
+  return `<div class="qz" id="icp-${sid}"><div class="qz-head"><span class="badge">FINAL CHECK</span><b>${c.intro}</b></div>
+  ${c.items.map((it,k)=>`<div class="selrow"><span class="mark" id="icm-${sid}-${k}">·</span>
+    <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,'root')}</span>${spkBtn(plain(it.en))}
+    <select id="ics-${sid}-${k}"><option value="-1">— 선택 —</option>${CLS_LB.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
+    <div class="fb" id="icf-${sid}-${k}" style="flex-basis:100%"></div></div>`).join('')}
+  <div style="margin-top:14px"><button class="btn primary" onclick="icpCheck(${sid})">채점하기</button></div>
+  <div class="unlock-banner" id="ub${sid}">🏆 완벽! 최종 시험이 열렸습니다. <button class="btn primary" onclick="go(${sid+1})">시험 보러 가기 →</button></div></div>`;}
+function icpCheck(sid){
+  const c=STAGES[sid].cards.find(x=>x.t==='cpClassify');let all=true;
+  c.items.forEach((it,k)=>{
+    const v=+document.getElementById(`ics-${sid}-${k}`).value,m=document.getElementById(`icm-${sid}-${k}`),f=document.getElementById(`icf-${sid}-${k}`);
+    if(v===it.ans){m.textContent='✅';f.className='fb show good';f.innerHTML=`<b>${CLS_LB[it.ans]}</b> — ${it.why}`;document.getElementById(`ics-${sid}-${k}`).disabled=true;}
+    else{all=false;m.textContent='❌';f.className='fb show badf';f.innerHTML=v<0?'선택해 주세요.':'be동사 테스트(O = OC?)를 적용해 보세요.';}});
+  if(all)unlockNext(sid);}
+function cpHTML(i,qs){
+  return `<div class="qz" id="cp${i}"><div class="qz-head"><span class="badge">CHECKPOINT</span><b>체크포인트 — 모두 맞히면 다음 가지가 열립니다</b></div>
+  ${qs.map((q,k)=>`<div class="q"><div class="qno">Q${k+1} / ${qs.length}</div><div class="qtext">${q.q}</div>
+    <div class="opts">${q.opts.map((o,oi)=>`<button class="opt" onclick="cpPick(${i},${k},${oi},this)">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>
+    <div class="fb" id="fb-${i}-${k}"></div></div>`).join('')}
+  <div class="unlock-banner" id="ub${i}">🌿 통과! 다음 가지가 열렸습니다. <button class="btn primary" onclick="go(${i+1})">다음 단계로 →</button></div></div>`;}
+const cpOK=STAGES.map(s=>s.cp?s.cp.map(()=>false):[]);
+function cpPick(si,qi,oi,btn){
+  const q=STAGES[si].cp[qi],fb=document.getElementById(`fb-${si}-${qi}`);
+  const opts=btn.parentElement.querySelectorAll('.opt');
+  if(oi===q.ans){opts.forEach((o,k)=>{o.disabled=true;if(k===oi)o.classList.add('right');});
+    fb.className='fb show good';fb.innerHTML='✅ 정답! '+q.ex;cpOK[si][qi]=true;
+    if(cpOK[si].every(v=>v))unlockNext(si);
+  }else{btn.classList.add('wrong');fb.className='fb show badf';fb.innerHTML='🤔 힌트: O = OC 관계(be동사 테스트)를 적용해 보세요.';setTimeout(()=>btn.classList.remove('wrong'),500);}}
+function unlockNext(si){cpState[si].done=true;if(si+1>maxUnlocked)maxUnlocked=si+1;renderSteps();const ub=document.getElementById('ub'+si);if(ub)ub.classList.add('show');}
+
+/* exam */
+const EXAM_CLS_LB=['OC=명사','OC=to부정사','OC=형용사'];
+const exAns=EXAM.map(q=>q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1);
+let graded=false;
+function examHTML(){
+  return `<div class="card" style="border:1.5px solid var(--ink)"><h3><span class="chip c-root">시험 안내</span>응시 전 확인</h3>
+    <ul><li>모든 문항이 <b>"왜?"를 묻습니다.</b> O=OC 테스트, to 유무, 원형 vs -ing — 알고리즘으로 풀어야 합니다.</li>
+    <li>WALK 문항은 단계별 순서대로 풀어야 다음 STEP이 열립니다.</li>
+    <li>🔊로 예문을 들으며 문장의 리듬도 익히세요.</li></ul></div>
+  ${EXAM.map((q,qi)=>{
+    let body='';
+    const sent=q.sent?`<div class="qsent"><div class="enline"><span class="en">${renderEn(q.sent,'root')}</span>${spkBtn(q.say||plain(q.sent))}</div></div>`:'';
+    if(q.type==='mc'){body=`<div class="opts">${q.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${oi}" onclick="exPick(${qi},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>`;}
+    else if(q.type==='walk'){body=q.steps.map((st,si)=>`<div class="walkstep ${si>0?'lockedw':''}" id="ws-${qi}-${si}"><div class="wp">${st.p}</div><div class="opts">${st.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${si}-${oi}" onclick="exWalk(${qi},${si},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div></div>`).join('');}
+    else{body=q.items.map((it,k)=>`<div class="selrow"><span class="mark" id="em-${qi}-${k}">·</span>
+        <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,'root')}</span>${spkBtn(plain(it.en))}
+        <select id="es-${qi}-${k}" onchange="exAns[${qi}][${k}]=+this.value"><option value="-1">— 선택 —</option>${EXAM_CLS_LB.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
+        <div class="fb" id="ef-${qi}-${k}" style="flex-basis:100%"></div></div>`).join('');}
+    return `<div class="qz" id="eq${qi}"><div class="qz-head"><span class="badge">${q.type==='walk'?'WALK · 단계 분석':q.type==='classify'?'SORT · 분류':'WHY · 개념'}</span><b>문항 ${qi+1} / ${EXAM.length}</b></div>
+      <div class="qtext">${q.q}</div>${sent}${body}<div class="fb" id="exfb${qi}"></div></div>`;}).join('')}
+  <div style="text-align:center;margin:30px 0"><button class="btn primary" id="gradeBtn" onclick="grade()" style="font-size:1.05rem;padding:15px 40px">📝 최종 채점하기</button></div>
+  <div id="result"></div>`;}
+function exPick(qi,oi){if(graded)return;exAns[qi]=oi;EXAM[qi].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${k}`).classList.toggle('sel',k===oi));}
+function exWalk(qi,si,oi){if(graded)return;exAns[qi][si]=oi;EXAM[qi].steps[si].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${si}-${k}`).classList.toggle('sel',k===oi));const next=document.getElementById(`ws-${qi}-${si+1}`);if(next)next.classList.remove('lockedw');}
+function grade(){
+  for(let qi=0;qi<EXAM.length;qi++){const a=exAns[qi];const empty=Array.isArray(a)?a.some(v=>v<0):a<0;
+    if(empty){document.getElementById('eq'+qi).scrollIntoView({block:'center'});const f=document.getElementById('exfb'+qi);f.className='fb show badf';f.textContent='⚠️ 답하지 않은 부분이 있어요.';return;}}
+  graded=true;document.getElementById('gradeBtn').disabled=true;
+  let score=0;
+  EXAM.forEach((q,qi)=>{
+    let ok;
+    if(q.type==='mc'){ok=exAns[qi]===q.ans;q.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${k}`);el.disabled=true;if(k===q.ans)el.classList.add('right');else if(k===exAns[qi])el.classList.add('wrong');});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 정답! ':'❌ 오답. ')+q.ex;}
+    else if(q.type==='walk'){ok=q.steps.every((st,si)=>exAns[qi][si]===st.ans);q.steps.forEach((st,si)=>st.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${si}-${k}`);el.disabled=true;if(k===st.ans)el.classList.add('right');else if(k===exAns[qi][si])el.classList.add('wrong');}));const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 완벽한 분석! ':'❌ 분석 오류. ')+q.ex;}
+    else{ok=q.items.every((it,k)=>exAns[qi][k]===it.ans);q.items.forEach((it,k)=>{const f=document.getElementById(`ef-${qi}-${k}`),m=document.getElementById(`em-${qi}-${k}`);document.getElementById(`es-${qi}-${k}`).disabled=true;const good=exAns[qi][k]===it.ans;m.textContent=good?'✅':'❌';f.className='fb show '+(good?'good':'badf');f.innerHTML=`<b>${EXAM_CLS_LB[it.ans]}</b> — ${it.why}`;});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=ok?'✅ OC 유형 완벽 분류!':'❌ 위 해설 확인. O=OC 관계 테스트를 먼저 하세요.';}
+    if(ok)score++;});
+  const gr=score>=9?['🎖️ 5형식 마스터','OC의 네 얼굴이 완벽히 잡혔습니다. 사역/지각 수동태까지 완성!']:score>=7?['🌿 거의 완성','사역·지각동사의 to 유무만 다시 확인하면 완벽합니다.']:score>=5?['🌱 성장 중','2단계(OC=명사/형용사)부터 be동사 테스트를 다시 연습해 보세요.']:['🫘 다시 도전','1단계 큰 그림부터 차근차근. O=OC 관계 하나만 잡으면 모두 풀립니다!'];
+  document.getElementById('result').innerHTML=`<div class="qz"><div class="score-wrap"><div class="score-big">${score} / 10</div><div class="grade">${gr[0]}</div><p style="font-size:.9rem;margin-top:6px">${gr[1]}</p><div style="margin-top:18px"><button class="btn ghost" onclick="resetExam()">처음부터 다시 풀기</button></div></div></div>`;
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});}
+function resetExam(){graded=false;EXAM.forEach((q,qi)=>{exAns[qi]=q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1;});renderAll();go(STAGES.length-1);}
+function pathHTML(arr){return `<div class="path">${arr.map(([t,c],i)=>(i?'<span class="sep">▸</span>':'')+`<span class="crumb on-${c}">${t}</span>`).join('')}</div>`;}
+function renderAll(){
+  document.getElementById('main').innerHTML=STAGES.map((s,i)=>{
+    let inner=s.exam?examHTML():(s.cards||[]).map(cardHTML).join('')+(s.cp?cpHTML(i,s.cp):'');
+    return `<section class="stage ${i===cur?'show':''}" id="st${i}">${pathHTML(s.pathArr)}<h2 class="stitle">${s.title}</h2><p class="ssub">${s.sub}</p>${inner}<div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전 단계</button>`:'<span></span>'}<span style="font-size:.78rem;color:var(--sub)">${i+1} / ${STAGES.length}</span></div></section>`;}).join('');
+  renderSteps();}
+renderAll();
+</script>
+</body>
+</html>
