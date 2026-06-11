@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Lesson 3 본문 마스터 · 구문분석 & 거꾸로 영작</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Nunito:wght@700;900&display=swap');
+:root{--c1:#f97316;--c2:#3b82f6;--c3:#10b981;--c4:#8b5cf6;--c5:#ec4899;--c6:#f59e0b;--c7:#06b6d4;--c8:#ef4444;--bg:#f0f9ff;--card:#fffdf7;--ink:#1a1a2e;--muted:#666;--line:#e8e8e8;--ok:#10b981;--no:#ef4444;--shadow:rgba(0,0,0,.10);}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--ink);padding-bottom:80px}
+.page-title{text-align:center;padding:20px 16px 8px}
+.page-title h1{font-family:'Nunito','Noto Sans KR',sans-serif;font-size:clamp(22px,5vw,34px);font-weight:900}
+.subtitle{font-size:13px;color:var(--muted);margin-top:5px;line-height:1.6}
+.deco-bar{width:100px;height:6px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));border-radius:10px;margin:9px auto 0}
+.steps{position:sticky;top:0;z-index:30;background:var(--bg);max-width:1000px;margin:14px auto 0;padding:9px 10px;display:flex;gap:6px;overflow-x:auto}
+.step{flex:1;min-width:76px;font-family:inherit;font-size:13px;font-weight:900;padding:13px 6px;border-radius:22px;border:0;cursor:pointer;background:#fff;color:var(--muted);box-shadow:0 2px 8px var(--shadow);line-height:1.3;white-space:nowrap}
+.step.on{background:var(--ink);color:#fff}
+.step .sn{display:block;font-size:10px;opacity:.72}
+.wrap{max-width:1000px;margin:0 auto;padding:18px 16px}
+.ctrl{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.intro{background:#fffbeb;border:2px solid #fcd34d;border-radius:14px;padding:15px 18px;font-size:14px;color:#555;line-height:1.8;margin-bottom:18px}
+.intro b{color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line)}
+.head{display:flex;align-items:center;gap:10px;padding:13px 16px;color:#fff;font-size:14px;font-weight:900}
+.cnum{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.26);display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;font-size:15px}
+.tag{margin-left:auto;background:rgba(255,255,255,.24);padding:4px 10px;border-radius:8px;font-size:12px;white-space:nowrap}
+.c1 .head{background:var(--c1)}.c2 .head{background:var(--c2)}.c3 .head{background:var(--c3)}.c4 .head{background:var(--c4)}.c5 .head{background:var(--c5)}.c6 .head{background:var(--c6)}.c7 .head{background:var(--c7)}.c8 .head{background:var(--c8)}
+.cbody{padding:16px}
+.word{font-family:'Nunito','Noto Sans KR';font-size:27px;font-weight:900;line-height:1.2;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.meaning{margin-top:8px;font-size:19px;font-weight:900;color:#d6336c}
+.exrow{margin-top:11px;display:flex;align-items:flex-start;gap:8px}
+.ex{font-size:14px;color:#555;line-height:1.65;font-style:italic;flex:1}
+.meta{margin-top:12px;font-size:14px;line-height:1.9;background:#f6f4ee;border-radius:12px;padding:11px 13px;color:#444}
+.meta b{color:var(--ink)}
+.meta .line{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:3px 0}
+.hidden-c .meaning,.hidden-c .exrow,.hidden-c .meta{display:none}
+.donebtn{margin-top:12px;border:0;border-radius:12px;background:#dcfce7;color:#166534;font-weight:900;padding:12px;width:100%;font-size:15px;cursor:pointer}
+.donebtn.done{background:#166534;color:#fff}
+.speak{border:0;background:#e0f2fe;color:#0369a1;border-radius:999px;padding:7px 12px;font-size:14px;font-weight:900;cursor:pointer;display:inline-flex;align-items:center;gap:4px;flex-shrink:0}
+.speak.mini{padding:5px 9px;font-size:12px}
+.speak.playing{background:#0369a1;color:#fff}
+.qcard{background:var(--card);border-radius:16px;box-shadow:0 4px 18px var(--shadow);border:2px solid var(--line);padding:18px 20px;margin-bottom:16px}
+.qnum{font-size:12px;color:var(--muted);margin-bottom:8px;font-weight:900}
+.qsent{font-size:18px;font-weight:900;line-height:1.65;display:flex;align-items:flex-start;gap:9px;flex-wrap:wrap}
+.qhint{font-size:13px;color:var(--muted);margin-top:6px;font-weight:500}
+.opt{display:flex;align-items:center;gap:8px;width:100%;text-align:left;margin:8px 0;padding:14px 15px;border:2px solid var(--line);background:#fff;border-radius:12px;font-weight:800;font-size:16px;cursor:pointer;line-height:1.5;color:var(--ink);font-family:inherit}
+.opt.pick{border-color:var(--c5);background:#fdf2f8;color:#be185d}
+.opt.correct{background:#dcfce7;border-color:#16a34a;color:#166534}
+.opt.wrong{background:#fee2e2;border-color:var(--no);color:#991b1b}
+.opt .ospk{margin-left:auto}
+.ansbox{font-size:14px;color:#0369a1;background:#e0f2fe;padding:11px 13px;border-radius:10px;margin-top:9px;display:none;line-height:1.7;font-weight:800}
+.ansbox.show{display:block}
+.btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0}
+.b{padding:13px 22px;border:0;border-radius:24px;font-family:inherit;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 2px 8px var(--shadow)}
+.b1{background:var(--c5);color:#fff}.b2{background:#e5e7eb;color:var(--ink)}.b3{background:var(--c3);color:#fff}.b4{background:var(--ink);color:#fff}.b5{background:#e0f2fe;color:#0369a1}
+.bar{height:12px;background:#dbeafe;border-radius:8px;overflow:hidden;margin-bottom:16px}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--c5),var(--c3));border-radius:8px;transition:.4s}
+.score{font-size:17px;font-weight:900;text-align:center;margin:6px 0 16px;color:var(--ink);background:#fff;padding:13px;border-radius:13px;box-shadow:0 3px 10px var(--shadow)}
+.result{text-align:center;padding:24px 14px;background:#fff;border:2.5px solid var(--ink);border-radius:16px;box-shadow:5px 5px 0 var(--ink);margin:18px 0}
+.score-big{font-size:54px;font-weight:900;font-family:'Nunito'}
+.verdict{font-size:22px;font-weight:900;margin-top:4px}
+.pass{color:var(--ok)}.fail{color:var(--no)}
+.small{font-size:13px;color:var(--muted);line-height:1.7;margin-top:8px}
+.hidden{display:none}
+.kw{display:inline-block;background:#fdf2f8;color:#be185d;font-weight:900;padding:1px 9px;border-radius:8px;margin:1px}
+</style>
+</head>
+<body>
+<div class="page-title">
+  <h1>📖 Lesson 3 본문 마스터</h1>
+  <p class="subtitle">천재(정사열) 중2 · What a Great Idea!<br>Necessity Is the Mother of Invention<br>영어 구문분석(대명사·수일치·시제) · 한글 요점·흐름 · 거꾸로 영작</p>
+  <div class="deco-bar"></div>
+</div>
+<div id="sndHint" style="max-width:1000px;margin:10px auto 0;padding:0 16px">
+  <div style="background:#dbeafe;border:2px solid #93c5fd;border-radius:12px;padding:11px 14px;font-size:13px;font-weight:800;color:#1d4ed8;text-align:center">
+    🔊 소리가 안 들리면 화면을 <b>한 번 탭</b>한 뒤 듣기 버튼을 눌러 주세요.
+  </div>
+</div>
+<div class="steps" id="steps"></div>
+<div class="wrap"><div class="ctrl" id="ctrl"></div><div id="app"></div></div>
+
+<script>
+/* ===== 본문 데이터 (photos 01~26+) =====
+   syn: 구문분석 포인트 / ref: 대명사 지칭 / agr: 수일치 / tns: 시제 */
+const S=[
+{sec:"① Bicycle — 자전거의 탄생",en:"Mt. Tambora, a volcano in Indonesia, exploded in 1815.",ko:"1815년에 인도네시아의 화산인 탐보라 산이 폭발했다.",
+ syn:"Mt. Tambora = a volcano in Indonesia (동격: 콤마로 보충 설명)",tns:"exploded: 1815년 → 과거시제",hint:["동격","exploded"]},
+{sec:"① Bicycle — 자전거의 탄생",en:"The explosion created a huge cloud of ash, so crops failed around the world.",ko:"그 폭발은 거대한 재 구름을 만들어 내서, 전 세계적으로 흉작이 들었다.",
+ syn:"so: 결과를 잇는 접속사 (~해서 그 결과)",ref:"The explosion = 앞 문장의 exploded를 명사로 받음",hint:["so 인과","crops failed"]},
+{sec:"① Bicycle — 자전거의 탄생",en:"As a result, people didn't have enough food to eat.",ko:"그 결과, 사람들은 먹을 식량이 충분하지 않았다.",
+ syn:"to eat: to부정사의 형용사적 용법 (food를 수식 — 먹을 식량)",hint:["as a result","to eat 형용사적"]},
+{sec:"① Bicycle — 자전거의 탄생",en:"Surprisingly, this made traveling difficult. Why?",ko:"놀랍게도, 이것이 이동을 어렵게 만들었다. 왜일까?",
+ syn:"make+목적어+형용사: (목적어)를 ~하게 만들다 (5형식)",ref:"this = 흉작(crops failed) 상황 전체",hint:["make O 형용사","this 지칭"]},
+{sec:"① Bicycle — 자전거의 탄생",en:"In those days, people rode horses, but many horses were killed for food.",ko:"그 당시에 사람들은 말을 탔는데, 다수의 말들이 식용으로 죽임을 당했다.",
+ syn:"were killed: 수동태 과거 (be동사의 과거형+과거분사). by people 생략",agr:"many horses(복수) → were (was ✗)",tns:"rode: ride의 과거형",hint:["수동태","were killed"]},
+{sec:"① Bicycle — 자전거의 탄생",en:"People needed a new way to travel, and Karl von Drais invented the first bicycle in Germany in 1817.",ko:"사람들은 이동하기 위한 새로운 수단이 필요했고, 1817년에 독일의 Karl von Drais가 최초의 자전거를 발명했다.",
+ syn:"to travel: to부정사의 형용사적 용법 (way 수식) / the+서수(first)",tns:"전치사 in: 국가명·연도 앞",hint:["to travel","the first"]},
+{sec:"① Bicycle — 자전거의 탄생",en:"Drais's bicycle had two wooden wheels but no pedals.",ko:"Drais의 자전거는 나무로 된 두 개의 바퀴가 있었지만 페달은 없었다.",
+ syn:"had A but no B: A는 있었지만 B는 없었다",hint:["wooden wheels","no pedals"]},
+{sec:"① Bicycle — 자전거의 탄생",en:"How did it move without pedals?",ko:"페달 없이 어떻게 그것이 움직였을까?",
+ ref:"it = Drais's bicycle",syn:"without: ~없이",hint:["it 지칭","without"]},
+{sec:"① Bicycle — 자전거의 탄생",en:"Well, riders simply pushed the bicycle forward with their feet.",ko:"타는 사람들이 단순히 발로 자전거를 앞으로 밀어 나아가게 했다.",
+ syn:"ride+-er = rider (행위자) / forward: 앞으로",ref:"their = riders'",hint:["rider 행위자","forward"]},
+{sec:"① Bicycle — 자전거의 탄생",en:"The present-day bicycle is the result of many inventors' work in the 19th century.",ko:"오늘날의 자전거는 19세기 여러 발명가들의 노력의 결과물이다.",
+ syn:"invent+-or = inventor / the+서수(19th)+century",agr:"주어 The present-day bicycle(단수) → is",hint:["inventors","19th century"]},
+{sec:"② Whiteout — 수정액의 발명",en:"In 1956, Graham was working at a bank in Texas, USA.",ko:"1956년, Graham은 미국 텍사스의 한 은행에서 일하고 있었다.",
+ syn:"과거진행형: be동사의 과거형+현재분사(-ing)",tns:"was working: 과거의 한 시점에 진행 중",hint:["과거진행","was working"]},
+{sec:"② Whiteout — 수정액의 발명",en:"At that time, people had to retype the whole page when they made even a small mistake.",ko:"그 당시에 사람들은 심지어 작은 실수라도 하면 페이지 전체를 다시 타이핑해야 했다.",
+ syn:"had to+동사원형: ~해야 했다 / when: 접속사(~할 때) / even: 심지어",ref:"they = people",hint:["had to","when 접속사"]},
+{sec:"② Whiteout — 수정액의 발명",en:"Graham was a bad typist, so she needed a solution.",ko:"Graham은 실력이 좋지 않은 타이피스트여서, 해결책이 필요했다.",
+ ref:"she = Graham",syn:"so: 인과 접속사",hint:["so","solution"]},
+{sec:"② Whiteout — 수정액의 발명",en:"One day, Graham saw some window painters.",ko:"어느 날, Graham은 몇몇 창문 페인트공들을 보았다.",
+ syn:"paint+-er = painter (행위자: 칠장이, 도장공)",hint:["painter 행위자"]},
+{sec:"② Whiteout — 수정액의 발명",en:"When they made a mistake, they corrected it by simply painting over it.",ko:"그들은 실수를 하면, 단순히 그 위에 페인트를 칠해서 실수를 바로잡았다.",
+ syn:"by -ing: ~함으로써 (수단)",ref:"they = window painters / it = the mistake",hint:["by -ing","it 지칭"]},
+{sec:"② Whiteout — 수정액의 발명",en:"The next day, she made her own white paint and used it to correct her typing mistakes.",ko:"다음 날, 그녀는 자신만의 흰색 페인트를 만들어 타이핑 실수를 수정하기 위해 그것을 사용했다.",
+ syn:"to correct: to부정사의 부사적 용법 (목적: ~하기 위해)",ref:"she = Graham / it = her own white paint",hint:["to correct 목적","it 지칭"]},
+{sec:"② Whiteout — 수정액의 발명",en:"Surprisingly, nobody noticed!",ko:"놀랍게도, 아무도 알아채지 못했다!",
+ syn:"nobody: 아무도 ~ 않다 (부정 의미 포함, not 불필요)",hint:["nobody"]},
+{sec:"② Whiteout — 수정액의 발명",en:"Soon, everybody at the bank began using it.",ko:"곧, 은행의 모든 사람들이 그것을 사용하기 시작했다.",
+ syn:"begin+동명사(또는 to부정사): ~하기 시작하다",ref:"it = Graham's own white paint",agr:"everybody는 단수 취급",hint:["begin -ing","it 지칭"]},
+{sec:"③ Webcam — 웹캠의 탄생",en:"The first webcam was invented to watch a coffee pot.",ko:"최초의 웹캠은 커피포트를 지켜보기 위해 발명되었다.",
+ syn:"수동태 과거(was invented) + to watch: to부정사의 부사적 용법(목적)",hint:["수동태","to watch 목적"]},
+{sec:"③ Webcam — 웹캠의 탄생",en:"In 1991, Dr. Quentin Stafford-Fraser and Dr. Paul Jardetzky were working at a computer lab in England.",ko:"1991년, Quentin Stafford-Fraser 박사와 Paul Jardetzky 박사는 영국의 한 컴퓨터 연구소에서 일하고 있었다.",
+ syn:"과거진행형",agr:"주어가 둘(and) → 복수 → were (was ✗)",hint:["과거진행","수일치 were"]},
+{sec:"③ Webcam — 웹캠의 탄생",en:"To work better, they needed lots of coffee.",ko:"일을 더 잘하기 위해, 그들은 많은 커피가 필요했다.",
+ syn:"To work: to부정사의 부사적 용법(목적) / lots of = a lot of",ref:"they = 두 박사(연구원들)",hint:["To work 목적","lots of"]},
+{sec:"③ Webcam — 웹캠의 탄생",en:"However, there was only one coffee machine in the building.",ko:"하지만, 건물에는 커피 머신이 한 대뿐이었다.",
+ agr:"there was + 단수명사(one coffee machine) — were ✗",hint:["there was 단수"]},
+{sec:"③ Webcam — 웹캠의 탄생",en:"So, they had to make many disappointing trips to the empty coffee pot.",ko:"그래서, 그들은 비어 있는 커피포트로 여러 번 실망스러운 발걸음을 해야 했다.",
+ syn:"had to / disappointing: 실망시키는 / empty: 비어 있는",hint:["had to","disappointing"]},
+{sec:"③ Webcam — 웹캠의 탄생",en:"As a solution, the two researchers set up a camera in front of the coffee machine.",ko:"해결책으로, 두 연구원은 커피 머신 앞에 카메라를 설치했다.",
+ syn:"research+-er = researcher (행위자) / set up: 설치하다 / in front of: ~ 앞에",hint:["researcher","set up"]},
+{sec:"③ Webcam — 웹캠의 탄생",en:"The camera took pictures of the coffee pot three times a minute.",ko:"카메라는 1분당 세 번 커피포트의 사진을 찍었다.",
+ syn:"take pictures of: ~의 사진을 찍다 / a = per (~마다, ~당)",hint:["take pictures of","a minute = per"]}
+];
+const FLOW=[
+{t:"속담",x:"필요는 발명의 어머니 — 세 가지 발명 이야기"},
+{t:"자전거",x:"화산 폭발 → 흉작 → 말 식용 → 이동 수단 필요 → Drais의 자전거(1817)"},
+{t:"수정액",x:"타이핑 실수 → 페인트공 관찰 → Graham의 흰 페인트 → 은행 전체 사용"},
+{t:"웹캠",x:"커피 헛걸음 → 카메라 설치 → 네트워크 연결 → 최초의 웹캠(1991)"},
+{t:"주제",x:"불편(필요)이 새로운 발명을 낳는다"}
+];
+const OX=[
+{q:"탐보라 화산 폭발의 결과로 전 세계에 흉작이 들었다.",a:true,why:"The explosion created a huge cloud of ash, so crops failed around the world."},
+{q:"Drais의 자전거에는 페달이 있었다.",a:false,why:"two wooden wheels but no pedals — 페달이 없었다."},
+{q:"당시 사람들은 작은 실수에도 페이지 전체를 다시 타이핑해야 했다.",a:true,why:"people had to retype the whole page when they made even a small mistake."},
+{q:"Graham의 흰 페인트는 은행에서 그녀만 사용했다.",a:false,why:"everybody at the bank began using it — 모두가 사용하기 시작했다."},
+{q:"최초의 웹캠은 보안을 위해 발명되었다.",a:false,why:"to watch a coffee pot — 커피포트를 지켜보기 위해 발명되었다."},
+{q:"건물에는 커피 머신이 한 대뿐이었다.",a:true,why:"there was only one coffee machine in the building."}
+];
+
+/* ===== STATE/SPEECH ===== */
+let view=0;
+let oxAns=OX.map(function(){return null;}), oxChecked=false, oxReveal=false;
+let synQ={}, bIdx=0, bBuilt=[], bChecked=S.map(function(){return false;}), bCorrect=S.map(function(){return null;}), bReveal=S.map(function(){return false;});
+var SS=('speechSynthesis' in window)?window.speechSynthesis:null;
+var ttsReady=false, ttsVoices=[];
+function loadVoices(){if(!SS)return;ttsVoices=SS.getVoices()||[];}
+if(SS){loadVoices();SS.onvoiceschanged=loadVoices;}
+function unlockTTS(){
+  if(!SS||ttsReady)return;
+  try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;SS.speak(u);SS.cancel();}catch(e){}
+  loadVoices();ttsReady=true;
+  var h=document.getElementById('sndHint');if(h)h.style.display='none';
+}
+document.addEventListener('touchstart',unlockTTS,{once:true,passive:true});
+document.addEventListener('mousedown',unlockTTS,{once:true});
+document.addEventListener('click',unlockTTS,{once:true});
+function pickVoice(){
+  if(!ttsVoices.length)loadVoices();
+  return ttsVoices.filter(function(x){return x.lang==='en-US';})[0]
+    ||ttsVoices.filter(function(x){return x.lang&&x.lang.toLowerCase().indexOf('en')===0;})[0]||ttsVoices[0]||null;}
+function speak(t,btn){
+  if(!SS){alert('Chrome으로 열어 주세요.');return;}
+  unlockTTS();
+  var msg=String(t==null?'':t).replace(/[\/~_]/g,' ').replace(/\s+/g,' ').trim();
+  if(!msg)return;
+  SS.cancel();
+  var bs=document.querySelectorAll('.speak.playing');
+  for(var i=0;i<bs.length;i++)bs[i].classList.remove('playing');
+  function fire(){
+    var u=new SpeechSynthesisUtterance(msg);
+    u.lang='en-US';u.rate=0.85;u.pitch=1;u.volume=1;
+    var v=pickVoice();if(v)u.voice=v;
+    if(btn){btn.classList.add('playing');u.onend=u.onerror=function(){btn.classList.remove('playing');};}
+    try{SS.resume();}catch(e){}
+    SS.speak(u);
+  }
+  if(!ttsVoices.length){loadVoices();if(!ttsVoices.length){setTimeout(fire,180);return;}}
+  setTimeout(fire,0);
+}
+function speakAll(){
+  if(!SS)return;var k=0;SS.cancel();
+  function next(){if(k>=S.length)return;var u=new SpeechSynthesisUtterance(S[k++].en);u.lang='en-US';u.rate=.85;var v=pickVoice();if(v)u.voice=v;u.onend=next;SS.speak(u);}
+  next();
+}
+function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];});}
+function sp(t,mini){return '<button type="button" class="speak'+(mini?' mini':'')+'" data-say="'+esc(t)+'" onclick="event.stopPropagation();speak(this.getAttribute(\'data-say\'),this)">🔊</button>';}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function norm(s){return String(s||'').toLowerCase().replace(/["""'']/g,"'").replace(/[^a-z0-9가-힣\s']/g,'').replace(/\s+/g,' ').trim();}
+function words(en){return en.replace(/[""]/g,'').replace(/[?!.,:]/g,'').split(/\s+/).filter(Boolean);}
+function buildOpts(correct,pool){
+  var set=[correct],sh=shuffle(pool),k;
+  for(k=0;k<sh.length&&set.length<4;k++){if(sh[k]!=null&&set.indexOf(sh[k])<0)set.push(sh[k]);}
+  var opts=shuffle(set);return {opts:opts,ans:opts.indexOf(correct)};
+}
+
+/* ===== NAV ===== */
+const STEPS=[['구문분석','①'],['한글 통독','②'],['흐름·주제','③'],['내용 OX','④'],['거꾸로영작','⑤']];
+function buildSteps(){
+  document.getElementById('steps').innerHTML=STEPS.map(function(s,i){
+    return '<button class="step'+(i===0?' on':'')+'" id="st'+i+'" onclick="go('+i+')"><span class="sn">'+s[1]+'단계</span>'+s[0]+'</button>';}).join('');}
+function go(v){view=v;if(SS)SS.cancel();
+  for(var i=0;i<STEPS.length;i++)document.getElementById('st'+i).classList.toggle('on',i===v);
+  if(v===4)bBuilt=[];
+  render();window.scrollTo({top:0,behavior:'smooth'});}
+function render(){
+  document.getElementById('ctrl').innerHTML=(view===0)?'<button class="b b5" onclick="speakAll()">🔊 본문 전체 듣기</button><button class="b b2" onclick="if(SS)SS.cancel()">⏹ 정지</button>':'';
+  document.getElementById('app').innerHTML=[V0,V1,V2,V3,V4][view]();
+}
+
+/* ===== ① 영어 구문분석 (대명사·수일치·시제 포함) ===== */
+function V0(){
+  var h='<div class="intro">💡 <b>① 영어 구문분석</b><br>문장마다 <span class="kw">구문 포인트</span> + <span style="background:#e0f2fe;color:#0369a1;font-weight:900;padding:1px 8px;border-radius:8px">대명사 지칭</span> + <span style="background:#dcfce7;color:#166534;font-weight:900;padding:1px 8px;border-radius:8px">수일치</span> + <span style="background:#fef3c7;color:#92400e;font-weight:900;padding:1px 8px;border-radius:8px">시제</span>를 짚습니다. 분석은 토글로 가렸다가 스스로 분석해 본 뒤 확인하세요.</div>';
+  var lastSec='';
+  S.forEach(function(s,i){
+    if(s.sec!==lastSec){lastSec=s.sec;h+='<div style="font-size:15px;font-weight:900;color:#be185d;margin:20px 0 10px;padding-left:10px;border-left:4px solid #ec4899">'+esc(s.sec)+'</div>';}
+    h+='<div class="qcard"><div class="qnum">문장 '+(i+1)+' / '+S.length+'</div>'+
+      '<div class="qsent" style="font-style:italic">'+sp(s.en,true)+'<span>'+esc(s.en)+'</span></div>'+
+      '<div class="qhint">'+esc(s.ko)+'</div>'+
+      '<button class="b b1" style="margin-top:9px;padding:9px 16px;font-size:13px" onclick="var a=this.nextElementSibling;a.classList.toggle(\'show\');this.textContent=a.classList.contains(\'show\')?\'분석 닫기 ▲\':\'구문분석 보기 ▼\'">구문분석 보기 ▼</button>'+
+      '<div class="ansbox">'+
+        (s.syn?'<div>🔧 <b>구문</b> '+esc(s.syn)+'</div>':'')+
+        (s.ref?'<div style="color:#0369a1">👉 <b>대명사</b> '+esc(s.ref)+'</div>':'')+
+        (s.agr?'<div style="color:#166534">⚖️ <b>수일치</b> '+esc(s.agr)+'</div>':'')+
+        (s.tns?'<div style="color:#92400e">⏰ <b>시제</b> '+esc(s.tns)+'</div>':'')+
+      '</div></div>';
+  });
+  /* 구문 퀴즈 — 대명사/수일치/시제 골라내기 */
+  if(!synQ.qs){
+    synQ.qs=[
+    {p:'"Surprisingly, this made traveling difficult."에서 this가 가리키는 것은?',say:'Surprisingly, this made traveling difficult.',
+     opts:['탐보라 화산','흉작이 든 상황','자전거','말'],ans:1,why:'this = 앞 문장의 흉작(crops failed) 상황 전체.'},
+    {p:'"they corrected it by simply painting over it."에서 it이 가리키는 것은?',say:'they corrected it by simply painting over it.',
+     opts:['the mistake (실수)','the paint','the window','the bank'],ans:0,why:'페인트공들이 바로잡은 것 = the mistake.'},
+    {p:'"Soon, everybody at the bank began using it."에서 it은?',say:'Soon, everybody at the bank began using it.',
+     opts:["Graham's own white paint","the bank","the typewriter","the page"],ans:0,why:'은행 사람들이 쓰기 시작한 것 = Graham이 만든 흰 페인트.'},
+    {p:'"Dr. Stafford-Fraser and Dr. Jardetzky ___ working at a computer lab."의 빈칸은?',say:'Dr. Stafford-Fraser and Dr. Jardetzky were working at a computer lab.',
+     opts:['was','were','is','be'],ans:1,why:'주어가 A and B(복수) → were. 수일치!'},
+    {p:'"However, there ___ only one coffee machine in the building."의 빈칸은?',say:'However, there was only one coffee machine in the building.',
+     opts:['was','were','are','is (과거 문맥)'],ans:0,why:'there+be+단수명사(one coffee machine), 과거 문맥 → was.'},
+    {p:'"In 1956, Graham ___ at a bank."(일하고 있었다) 빈칸은?',say:'In 1956, Graham was working at a bank.',
+     opts:['was working','were working','is working','works'],ans:0,why:'과거진행형 + 주어 단수(Graham) → was working. 시제일치!'}
+    ];
+    synQ.picked=synQ.qs.map(function(){return -1;});
+    synQ.done=synQ.qs.map(function(){return false;});
+  }
+  h+='<div class="intro" style="background:#fdf2f8;border-color:#f9a8d4">⛳ <b>구문 정밀 퀴즈</b> — 대명사 지칭 · 수일치 · 시제</div>';
+  synQ.qs.forEach(function(q,i){
+    h+='<div class="qcard"><div class="qnum">구문 Q'+(i+1)+'</div><div class="qsent" style="font-size:16px">'+q.p+' '+sp(q.say,true)+'</div>';
+    q.opts.forEach(function(o,j){
+      var cls='';
+      if(synQ.done[i]){if(j===q.ans)cls=' correct';else if(j===synQ.picked[i])cls=' wrong';}
+      h+='<button class="opt'+cls+'" onclick="pickSyn('+i+','+j+')"><span>'+String.fromCharCode(9312+j)+' '+esc(o)+'</span></button>';
+    });
+    h+='<div class="ansbox'+(synQ.done[i]?' show':'')+'">'+esc(q.why)+'</div></div>';
+  });
+  return h;
+}
+function pickSyn(i,j){if(synQ.done[i])return;synQ.picked[i]=j;synQ.done[i]=true;render();}
+
+/* ===== ② 한글 통독 ===== */
+function V1(){
+  var h='<div class="intro">💡 <b>② 한글 통독</b><br>영어를 보지 않고 한글만으로 전체 이야기를 잡습니다. 영어는 ⑤ 거꾸로 영작에서 직접 만들어 봅니다.</div>';
+  var lastSec='';
+  S.forEach(function(s,i){
+    if(s.sec!==lastSec){lastSec=s.sec;h+='<div style="font-size:15px;font-weight:900;color:#be185d;margin:20px 0 10px;padding-left:10px;border-left:4px solid #ec4899">'+esc(s.sec)+'</div><div class="qcard">';}
+    h+='<div style="font-size:16px;line-height:2;padding:4px 0"><span style="display:inline-flex;width:28px;height:28px;background:#fdf2f8;color:#be185d;border-radius:50%;align-items:center;justify-content:center;font-size:12px;font-weight:900;margin-right:8px">'+(i+1)+'</span>'+esc(s.ko)+'</div>';
+    var next=S[i+1];
+    if(!next||next.sec!==s.sec)h+='</div>';
+  });
+  return h;
+}
+
+/* ===== ③ 흐름·주제 ===== */
+function V2(){
+  var h='<div class="intro">💡 <b>③ 흐름·개요·주제</b><br>속담 → 세 가지 발명 이야기 → 주제. 이 흐름을 기억하면 본문이 한 장의 그림이 됩니다.</div><div class="qcard">';
+  FLOW.forEach(function(f,i){
+    h+='<div style="background:#f0f7ff;border-radius:12px;padding:13px 16px;font-size:15px;font-weight:800;color:#0369a1;margin-bottom:'+(i<FLOW.length-1?'30px':'0')+';position:relative">'+
+      '<span style="font-size:12px;color:#be185d;display:block;margin-bottom:3px">'+esc(f.t)+'</span>'+esc(f.x)+
+      (i<FLOW.length-1?'<span style="position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);color:#93c5e8">▼</span>':'')+'</div>';
+  });
+  h+='</div><div class="qcard"><div class="qnum">🎯 핵심 주제</div><div class="qsent" style="font-size:17px">불편함(필요)이 관찰과 아이디어를 거쳐 새로운 발명을 낳는다 — <i>Necessity is the mother of invention.</i> '+sp('Necessity is the mother of invention.',true)+'</div></div>';
+  /* 순서배열 */
+  if(!window._shuf)window._shuf=shuffle(FLOW.map(function(f,i){return {t:f.t,x:f.x,oi:i};}));
+  var op=window._orderPick||[];
+  h+='<div class="intro" style="background:#fdf2f8;border-color:#f9a8d4">⛳ <b>순서 배열</b> — 섞인 단락을 글의 순서대로 탭하세요.</div>';
+  window._shuf.forEach(function(f){
+    var idx=op.indexOf(f.oi);
+    h+='<div class="opt'+(idx>=0?' pick':'')+'" onclick="pickOrder('+f.oi+')" style="cursor:pointer"><span style="display:inline-flex;width:27px;height:27px;border-radius:50%;background:'+(idx>=0?'#ec4899':'#e5e7eb')+';color:'+(idx>=0?'#fff':'#666')+';align-items:center;justify-content:center;font-size:12px;font-weight:900;margin-right:6px">'+(idx>=0?idx+1:'·')+'</span><b style="color:#be185d">'+esc(f.t)+'</b> — '+esc(f.x)+'</div>';
+  });
+  h+='<div class="btns"><button class="b b1" onclick="checkOrder()">순서 확인</button><button class="b b2" onclick="window._orderPick=[];render()">초기화</button></div>';
+  if(window._orderChecked){
+    var ok=op.length===FLOW.length&&op.every(function(v,i){return v===i;});
+    h+='<div class="ansbox show" style="text-align:center;font-size:16px">'+(ok?'✅ 정답! 속담→자전거→수정액→웹캠→주제':'❌ 다시 — 글의 전개 순서를 떠올려 보세요')+'</div>';
+  }
+  return h;
+}
+function pickOrder(oi){var op=window._orderPick||[];var i=op.indexOf(oi);if(i>=0)op.splice(i,1);else op.push(oi);window._orderPick=op;window._orderChecked=false;render();}
+function checkOrder(){var op=window._orderPick||[];if(op.length<FLOW.length){alert('모든 단락을 순서대로 선택하세요.');return;}window._orderChecked=true;render();}
+
+/* ===== ④ 내용 OX ===== */
+function V3(){
+  var done=oxAns.filter(function(x){return x!==null;}).length;
+  var h='<div class="intro">💡 <b>④ 내용일치 O/X</b><br>모두 푼 뒤 채점하세요. 해설은 채점 후 공개됩니다.</div>'+
+    '<div class="bar"><div style="width:'+Math.round(done/OX.length*100)+'%"></div></div>';
+  OX.forEach(function(o,i){
+    var p=oxAns[i];
+    h+='<div class="qcard"><div class="qnum">문제 '+(i+1)+' / '+OX.length+'</div><div class="qsent" style="font-size:16px">'+esc(o.q)+'</div>'+
+      '<div style="display:flex;gap:10px;margin-top:10px">'+
+      '<button class="opt'+(p===true?' pick':'')+(oxChecked?(o.a===true?' correct':(p===true?' wrong':'')):'')+'" style="flex:1;text-align:center;justify-content:center" onclick="pickOX('+i+',true)">O</button>'+
+      '<button class="opt'+(p===false?' pick':'')+(oxChecked?(o.a===false?' correct':(p===false?' wrong':'')):'')+'" style="flex:1;text-align:center;justify-content:center" onclick="pickOX('+i+',false)">X</button></div>'+
+      (oxChecked?'<div class="ansbox show">정답: '+(o.a?'O':'X')+' — '+esc(o.why)+' '+sp(o.why,true)+'</div>':'')+'</div>';
+  });
+  h+='<div class="btns"><button class="b b4" onclick="checkOX()">📝 채점하기</button><button class="b b2" onclick="oxAns=OX.map(function(){return null;});oxChecked=false;render()">다시 풀기</button></div>';
+  if(oxChecked){
+    var sc=OX.filter(function(o,i){return oxAns[i]===o.a;}).length;
+    h+='<div class="result"><div class="score-big">'+sc+' / '+OX.length+'</div></div>';
+  }
+  return h;
+}
+function pickOX(i,v){if(oxChecked)return;oxAns[i]=v;render();}
+function checkOX(){if(oxAns.some(function(x){return x===null;})){alert('모든 문제를 먼저 풀어주세요.');return;}oxChecked=true;render();}
+
+/* ===== ⑤ 거꾸로 영작 (어순 배열) ===== */
+function V4(){
+  var q=S[bIdx], done=bChecked.filter(Boolean).length, correct=bCorrect.filter(function(x){return x===true;}).length;
+  if(!q._sh)q._sh=shuffle(words(q.en).map(function(w,i){return {w:w,i:i};}));
+  var built=bBuilt.map(function(i){return '<span style="display:inline-block;background:#fff;border:1.5px solid #ec4899;border-radius:8px;padding:3px 10px;margin:3px;cursor:pointer" onclick="rmTok('+i+')">'+esc(words(q.en)[i])+'</span>';}).join(' ');
+  var toks=q._sh.map(function(o){return '<span class="opt" style="display:inline-block;width:auto;padding:9px 13px;margin:4px;'+(bBuilt.indexOf(o.i)>=0?'opacity:.25;pointer-events:none':'')+'" onclick="addTok('+o.i+')">'+esc(o.w)+'</span>';}).join('');
+  var made=bBuilt.map(function(i){return words(q.en)[i];}).join(' ');
+  var h='<div class="intro">💡 <b>⑤ 거꾸로 영작</b><br>본문 <b>전체 '+S.length+'문장</b>을 한글→영어로! 단어를 순서대로 탭해 문장을 만드세요.</div>'+
+    '<div class="bar"><div style="width:'+Math.round(done/S.length*100)+'%"></div></div>'+
+    '<div class="qcard"><div class="qnum">'+(bIdx+1)+' / '+S.length+' · '+esc(q.sec)+'</div>'+
+    '<div class="qsent" style="color:#065f46;font-size:17px">'+esc(q.ko)+'</div>'+
+    '<div class="qhint">핵심: '+q.hint.map(function(p){return '<span style="background:#fdf2f8;color:#be185d;font-weight:800;padding:2px 9px;border-radius:8px;margin:2px;display:inline-block">'+esc(p)+'</span>';}).join('')+'</div>'+
+    '<div style="min-height:56px;background:#f0f7ff;border:2px dashed #93c5e8;border-radius:10px;padding:12px;font-size:15px;font-weight:800;line-height:1.9;margin:12px 0">'+(built||'<span style="color:#aaa">단어를 탭해서 문장을 만드세요</span>')+'</div>'+
+    '<div style="display:flex;flex-wrap:wrap">'+toks+'</div>';
+  if(bChecked[bIdx])h+='<div style="font-weight:900;margin-top:9px;color:'+(bCorrect[bIdx]?'#10b981':'#ef4444')+'">'+(bCorrect[bIdx]?'✓ 맞음!':'✗ 다시 배열해 보세요')+'</div>';
+  if(bReveal[bIdx])h+='<div class="ansbox show">정답: '+sp(q.en,true)+' '+esc(q.en)+'<br><span style="font-size:12px;color:#888">내 답: '+esc(made||'(없음)')+'</span></div>';
+  h+='<div class="btns"><button class="b b1" onclick="checkB()">확인</button><button class="b b3" onclick="showB()">정답 보기</button><button class="b b2" onclick="bBuilt=[];render()">지우기</button></div></div>'+
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">'+
+    '<button class="b b2" onclick="bNav(-1)" '+(bIdx===0?'disabled style="opacity:.35"':'')+'>← 이전</button>'+
+    '<span style="font-size:13px;color:#666;font-weight:800">'+done+'/'+S.length+' 완료 · 정답 '+correct+'</span>'+
+    '<button class="b b2" onclick="bNav(1)" '+(bIdx===S.length-1?'disabled style="opacity:.35"':'')+'>다음 →</button></div>';
+  return h;
+}
+function addTok(i){if(bBuilt.indexOf(i)<0){bBuilt.push(i);render();}}
+function rmTok(i){bBuilt=bBuilt.filter(function(x){return x!==i;});render();}
+function checkB(){var q=S[bIdx],ans=words(q.en).join(' '),made=bBuilt.map(function(i){return words(q.en)[i];}).join(' ');bChecked[bIdx]=true;bCorrect[bIdx]=(norm(made)===norm(ans));render();}
+function showB(){if(!bChecked[bIdx]){alert('먼저 확인을 눌러주세요.');return;}bReveal[bIdx]=true;render();}
+function bNav(d){bIdx=Math.max(0,Math.min(S.length-1,bIdx+d));bBuilt=[];render();}
+
+buildSteps();render();
+</script>
+</body>
+</html>
