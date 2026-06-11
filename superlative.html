@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>최상급의 지도 — 큰 그림에서 작은 그림으로</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F0;--card:#FFFFFF;--ink:#23272F;--sub:#727784;--line:#E7E2D6;
+  --root:#1F3A5F;--root-bg:#E8EEF6;
+  --b:#B8860B;--b-bg:#FEF8E1;
+  --c:#1E7A5A;--c-bg:#E2F3EB;
+  --d:#C84F2F;--d-bg:#FBE8E0;
+  --e:#5D4FA3;--e-bg:#EBE7F8;
+  --hl:#FFE45C;--ok:#1E7A5A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;
+  background-image:radial-gradient(#e9e4d6 1px,transparent 1px);background-size:26px 26px;}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 90px}
+header{padding:38px 0 10px;text-align:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.18em;color:var(--root);
+  border:1.5px solid var(--root);border-radius:999px;padding:3px 14px;margin-bottom:14px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.9rem,6vw,2.7rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:10px;font-size:.95rem}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);margin:22px -16px 0;padding:10px 8px}
+.steps{display:flex;justify-content:center;gap:4px;max-width:780px;margin:0 auto}
+.step{flex:1;max-width:118px;border:none;background:transparent;cursor:pointer;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.68rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,39,47,.12)}
+.step.cur .lb{color:var(--ink)}
+.step.done .dot{background:var(--ink);border-color:var(--ink);color:#fff}
+.step.locked{opacity:.42;cursor:not-allowed}
+.step:not(.locked):hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}
+.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:26px 0 8px;font-size:.8rem;font-weight:700}
+.path .crumb{padding:2px 10px;border-radius:999px;background:#fff;border:1.5px solid var(--line)}
+.path .crumb.on-root{border-color:var(--root);color:var(--root);background:var(--root-bg)}
+.path .crumb.on-b{border-color:var(--b);color:var(--b);background:var(--b-bg)}
+.path .crumb.on-c{border-color:var(--c);color:var(--c);background:var(--c-bg)}
+.path .crumb.on-d{border-color:var(--d);color:var(--d);background:var(--d-bg)}
+.path .crumb.on-e{border-color:var(--e);color:var(--e);background:var(--e-bg)}
+.path .sep{color:var(--sub)}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.55rem;margin:4px 0 4px}
+.ssub{color:var(--sub);font-size:.93rem;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin:14px 0;
+  box-shadow:0 1px 3px rgba(40,35,20,.05)}
+.card h3{font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card h3 .chip{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.chip.c-root{background:var(--root-bg);color:var(--root)}
+.chip.c-b{background:var(--b-bg);color:var(--b)}
+.chip.c-c{background:var(--c-bg);color:var(--c)}
+.chip.c-d{background:var(--d-bg);color:var(--d)}
+.chip.c-e{background:var(--e-bg);color:var(--e)}
+.card p{margin:6px 0}.card ul{margin:6px 0 6px 20px}
+.kw{font-weight:700}
+.kw.b{color:var(--b)}.kw.c{color:var(--c)}.kw.d{color:var(--d)}.kw.e{color:var(--e)}.kw.root{color:var(--root)}
+.test-box{margin-top:12px;border:1.5px dashed var(--ink);border-radius:10px;padding:12px 14px;background:#FFFDF4;font-size:.92rem}
+.test-box b{display:block;margin-bottom:2px}
+.enline{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.en{font-family:'Lora',serif;font-size:1.12rem;line-height:1.7}
+.hl{padding:1px 3px;border-radius:3px;font-weight:600;background:linear-gradient(180deg,transparent 30%,var(--hl) 30%)}
+.hl.b{box-shadow:inset 0 -2.5px 0 var(--b)}.hl.c{box-shadow:inset 0 -2.5px 0 var(--c)}
+.hl.d{box-shadow:inset 0 -2.5px 0 var(--d)}.hl.e{box-shadow:inset 0 -2.5px 0 var(--e)}
+.hl.root{box-shadow:inset 0 -2.5px 0 var(--root)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:34px;height:34px;
+  cursor:pointer;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--ink)}
+.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.exc{border-left:4px solid var(--line);padding:12px 16px;margin:12px 0;background:#fff;border-radius:0 10px 10px 0;
+  border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.exc.b{border-left-color:var(--b)}.exc.c{border-left-color:var(--c)}
+.exc.d{border-left-color:var(--d)}.exc.e{border-left-color:var(--e)}.exc.root{border-left-color:var(--root)}
+.tgl{margin-top:8px;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:4px 12px;
+  font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--sub)}
+.tgl:hover{border-color:var(--ink);color:var(--ink)}
+.tgl[aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.trans{display:none;margin-top:9px;font-size:.9rem;background:#F7F5EE;border-radius:8px;padding:9px 12px}
+.trans.open{display:block}
+.trans .ko{font-weight:600}.trans .note{color:var(--sub);font-size:.85rem;margin-top:3px}
+.tree{padding:6px 0 6px 4px}
+.tree ul{list-style:none;padding-left:26px;position:relative}
+.tree>ul{padding-left:0}
+.tree ul ul::before{content:"";position:absolute;left:8px;top:-8px;bottom:14px;border-left:2px solid var(--line)}
+.tree li{position:relative;padding:5px 0}
+.tree ul ul li::before{content:"";position:absolute;left:-18px;top:21px;width:16px;border-top:2px solid var(--line)}
+.node{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.8px solid var(--line);
+  border-radius:10px;padding:5px 12px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.18s;font-family:inherit}
+.node .e{font-family:'Lora',serif;font-weight:400;font-style:italic;color:var(--sub);font-size:.82rem}
+.node:hover{transform:translateX(2px)}
+.node.nd-root{border-color:var(--root);background:var(--root-bg)}
+.node.nd-b{border-color:var(--b);background:var(--b-bg)}
+.node.nd-c{border-color:var(--c);background:var(--c-bg)}
+.node.nd-d{border-color:var(--d);background:var(--d-bg)}
+.node.nd-e{border-color:var(--e);background:var(--e-bg)}
+.node.leaf{border-style:dashed;font-family:'Lora',serif;font-style:italic;font-weight:600}
+.qz{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:20px 22px;margin:26px 0;
+  box-shadow:4px 4px 0 rgba(35,39,47,.9)}
+.qz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.qz-head .badge{background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:999px}
+.q{margin:18px 0;padding-top:16px;border-top:1px dashed var(--line)}
+.q:first-of-type{border-top:none}
+.qno{font-weight:700;font-size:.8rem;color:var(--sub);margin-bottom:4px}
+.qtext{font-weight:600;margin-bottom:10px}
+.qsent{margin:8px 0 12px;padding:10px 14px;background:#F7F5EE;border-radius:10px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;font-family:inherit;font-size:.92rem;background:#fff;border:1.5px solid var(--line);
+  border-radius:10px;padding:9px 13px;cursor:pointer;transition:.15s;line-height:1.55}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.sel{border-color:var(--ink);background:#F2F0E8;box-shadow:inset 0 0 0 1px var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--c-bg);box-shadow:inset 0 0 0 1px var(--ok)}
+.opt.wrong{border-color:var(--bad);background:#FBE5E1;box-shadow:inset 0 0 0 1px var(--bad);animation:shake .3s}
+.opt:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.fb{display:none;margin-top:9px;font-size:.87rem;border-radius:8px;padding:9px 12px}
+.fb.show{display:block}
+.fb.good{background:var(--c-bg);border:1px solid var(--ok)}
+.fb.badf{background:#FBE5E1;border:1px solid var(--bad)}
+.selrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:9px 0;padding:9px 12px;background:#fff;border:1.5px solid var(--line);border-radius:10px}
+.selrow select{font-family:inherit;font-size:.88rem;padding:5px 8px;border-radius:8px;border:1.5px solid var(--line);background:#fff}
+.selrow .mark{font-weight:700;min-width:22px;text-align:center}
+.walkstep{margin:12px 0;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.walkstep .wp{font-weight:600;font-size:.9rem;margin-bottom:8px}
+.walkstep.lockedw{opacity:.45;pointer-events:none}
+.btn{font-family:inherit;font-weight:700;font-size:.95rem;border:none;border-radius:12px;padding:12px 26px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:3px 3px 0 rgba(35,39,47,.35)}
+.btn.primary:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 rgba(35,39,47,.35)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:28px 0 10px;gap:10px}
+.unlock-banner{display:none;align-items:center;gap:10px;margin-top:16px;background:var(--c-bg);border:1.5px solid var(--ok);
+  border-radius:12px;padding:12px 16px;font-weight:600;animation:fadeUp .4s ease}
+.unlock-banner.show{display:flex}
+.score-wrap{text-align:center;padding:10px 0 4px}
+.score-big{font-family:'Black Han Sans',sans-serif;font-size:3.2rem;line-height:1.1}
+.grade{font-weight:700;margin-top:2px}
+.branchbars{margin:18px 0 6px;text-align:left}
+.bb{margin:10px 0}
+.bb .bl{display:flex;justify-content:space-between;font-size:.83rem;font-weight:700;margin-bottom:4px}
+.bb .track{height:12px;background:#EFEBDF;border-radius:99px;overflow:hidden}
+.bb .fill{height:100%;border-radius:99px;width:0;transition:width .8s ease}
+.advice{margin-top:14px;font-size:.9rem;background:#F7F5EE;border-radius:10px;padding:12px 14px;text-align:left}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:46px}
+@media(max-width:520px){.card,.qz{padding:16px 14px}.step .lb{font-size:.6rem}.en{font-size:1.02rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">ENGLISH GRAMMAR · COMPARISON MAP</div>
+  <h1>최상급의 <span class="mark">지도</span>를 그리다</h1>
+  <p class="tagline">원급 → 비교급 → 최상급 → 전환 표현까지, 비교의 나무를 뿌리부터 탑니다.<br>🔊 버튼으로 모든 영어 표현을 들어보세요.</p>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>최상급의 지도 · 중3 → 고1 브릿지 과정 · Web Speech API 듣기 지원</footer>
+</div>
+<script>
+/* ===== DATA ===== */
+const TREE={k:'비교 표현',e:'Comparison',c:'root',kids:[
+  {k:'원급',e:'Positive Degree',c:'b',kids:[{leaf:'as + 형용사/부사 + as'},{leaf:'not as[so] ~ as'}]},
+  {k:'비교급',e:'Comparative Degree',c:'c',kids:[{leaf:'-er / more ~'},{leaf:'than'},{leaf:'much/far/even 강조'}]},
+  {k:'최상급',e:'Superlative Degree',c:'d',kids:[
+    {k:'형태',e:'Form',c:'d',kids:[{leaf:'-est형 (short→shortest)'},{leaf:'most형 (beautiful→most beautiful)'},{leaf:'불규칙 (good→best, bad→worst)'}]},
+    {k:'기본 구조',e:'Basic Structure',c:'d',kids:[{leaf:'the + 최상급 + (명사) + in/of ~'}]},
+    {k:'전환 표현',e:'Conversion Expressions',c:'e',kids:[
+      {leaf:'No other ~ as ... as (원급)',say:'No other ~ as ... as'},
+      {leaf:'No other ~ -er than (비교급)',say:'No other ~ er than'},
+      {leaf:'비교급 + than any other (비교급)',say:'comparative than any other'}
+    ]},
+    {k:'주의',e:'Caution',c:'b',kids:[
+      {leaf:'부사 최상급: the 생략 가능',say:'most carefully'},{leaf:'절대최상급: most = very',say:'most wonderful'}
+    ]}
+  ]}
+]};
+
+const STAGES=[
+/* ── 0 큰 그림 ── */
+{id:'map',icon:'🌳',label:'큰 그림',pathArr:[['비교 표현','root']],
+ title:'1단계 · 비교 표현의 지도 — 원급·비교급·최상급',
+ sub:'세 층위의 관계를 먼저 잡으세요. 최상급은 그 중 가장 높은 층이고, 비교급·원급으로 언제든 변환 가능합니다.',
+ cards:[
+  {t:'h',chip:['지도','root'],title:'비교의 세 층위 — 같다 / 더하다 / 제일이다',html:
+   `<p>영어의 비교 표현은 <b>딱 세 종류</b>입니다. 셋의 관계를 먼저 잡으면 최상급도 외울 것이 아니라 <b>이해하는 것</b>이 됩니다.</p>
+    <ul><li><span class="kw b">원급</span> — "같다" → <i>as tall as</i></li>
+        <li><span class="kw c">비교급</span> — "더하다" → <i>taller than</i></li>
+        <li><span class="kw d">최상급</span> — "제일이다" → <i>the tallest</i></li></ul>
+    <div class="test-box"><b>🔑 핵심 원리</b>최상급 한 문장은 반드시 <b>원급·비교급으로 전환</b>됩니다. 전환이 가능하다는 것은 세 표현이 <b>같은 의미를 다른 방식으로 말하는 것</b>임을 뜻합니다.</div>`},
+  {t:'ex',cls:'b',en:'She is [[as tall as]] her brother.',ko:'그녀는 오빠만큼 키가 크다.',note:'원급: as + 형용사 원형 + as. 두 대상이 동등함.'},
+  {t:'ex',cls:'c',en:'She is [[taller than]] her brother.',ko:'그녀는 오빠보다 키가 크다.',note:'비교급: -er + than. 두 대상 중 하나가 더함.'},
+  {t:'ex',cls:'d',en:'She is [[the tallest]] in her family.',ko:'그녀는 가족 중 키가 제일 크다.',note:'최상급: the + -est + in/of 범위. 셋 이상 중 제일.'},
+  {t:'tree'},
+ ],
+ cp:[
+  {q:'원급·비교급·최상급의 결정적 차이로 옳은 것은?',
+   opts:['원급은 짧은 단어, 비교급은 중간, 최상급은 긴 단어에만 쓴다','원급은 동등 비교, 비교급은 두 대상 중 더함, 최상급은 셋 이상 중 으뜸을 나타낸다','as와 than은 같은 의미이다','최상급에는 반드시 most를 쓴다'],
+   ans:1,ex:'비교 표현의 핵심은 "비교 대상의 수와 방향"입니다. 원급(동등), 비교급(둘 중 더함), 최상급(셋 이상 중 제일). 형태(-est vs most)는 단어 길이에 따른 선택이지 층위를 결정하지 않습니다.'},
+  {q:'"No other student is as smart as Tom."을 최상급으로 바꾸면?',
+   opts:['Tom is the smartest student.','Tom is smarter than no other student.','Tom is most smart student.','Tom is as smart as all other students.'],
+   ans:0,ex:'No other ~ as ... as = 최상급 의미. "톰만큼 똑똑한 학생은 없다" = "톰이 제일 똑똑하다". 이 전환 관계가 이 수업의 핵심입니다.'}
+ ]},
+
+/* ── 1 형태 ── */
+{id:'form',icon:'🔤',label:'형태',pathArr:[['비교 표현','root'],['최상급','d'],['형태','d']],
+ title:'2단계 · 최상급 형태 — -est형 vs most형',
+ sub:'형태는 단어의 "무게"로 정해집니다. 가볍다 → -est, 무겁다 → most. 그 기준을 정확히 잡으세요.',
+ cards:[
+  {t:'h',chip:['규칙','d'],title:'-est형 vs most형 — 선택 기준은 음절 수',html:
+   `<p>형용사·부사가 <b>1~2음절</b>이면 <span class="kw d">-est</span>, <b>3음절 이상</b>이면 <span class="kw d">most</span>를 앞에 붙입니다.</p>
+    <ul><li>short(1음절) → shor<b>test</b></li>
+        <li>happy(2음절, -y로 끝) → happi<b>est</b></li>
+        <li>beautiful(3음절) → <b>most</b> beautiful</li></ul>
+    <div class="test-box"><b>⚠️ 주의: 2음절 예외</b>2음절이라도 -ful, -less, -ous, -ing, -ed로 끝나면 → most 사용<br>예) careful → <b>most</b> careful (×carefullest)</div>`},
+  {t:'h',chip:['불규칙','d'],title:'반드시 암기할 불규칙 변화 5쌍',html:
+   `<ul><li>good / well → better → <b>best</b></li>
+        <li>bad / ill → worse → <b>worst</b></li>
+        <li>many / much → more → <b>most</b></li>
+        <li>little → less → <b>least</b></li>
+        <li>far → farther/further → <b>farthest/furthest</b></li></ul>
+    <p>이 5쌍은 형태 자체가 바뀌므로 통째로 기억해야 합니다.</p>`},
+  {t:'ex',cls:'d',en:'This is [[the worst]] movie I\'ve ever seen.',ko:'이것은 내가 본 영화 중 최악이다.',note:'bad → worst (불규칙). the + 최상급 + I\'ve ever seen = 경험의 최상급 표현.'},
+  {t:'ex',cls:'d',en:'She dances [[most gracefully]] of all.',ko:'그녀는 모두 중 가장 우아하게 춤춘다.',note:'gracefully(부사, 3음절) → most gracefully. 부사 최상급은 the를 생략할 수 있음.'},
+  {t:'ex',cls:'d',en:'He runs [[fastest]] in the class.',ko:'그는 반에서 달리기가 가장 빠르다.',note:'부사 fast의 최상급. 부사 최상급에서 the 생략 가능 ← 이 규칙은 4단계에서 자세히!'},
+ ],
+ cp:[
+  {q:'"careful"의 최상급이 "carefullest"가 아닌 이유는?',
+   opts:['2음절이기 때문에','2음절이지만 -ful로 끝나므로 most를 앞에 붙여 most careful이 된다','careful은 비교 불가능한 단어이기 때문에','형용사는 항상 most를 쓰기 때문에'],
+   ans:1,ex:'음절 수만 보면 2음절이라 -est를 붙이고 싶지만, -ful로 끝나는 2음절 형용사는 most를 사용합니다. 형태 선택의 기준은 "음절 수 + 어미"의 조합입니다.'},
+  {q:'다음 중 최상급 형태가 옳은 것은?',
+   opts:['interestingest','most bad','the most famous','more tallest'],
+   ans:2,ex:'① interesting(3음절) → most interesting. ② bad → worst (불규칙). ③ famous(2음절, -ous) → most famous ✔. ④ 비교급+최상급을 동시에 쓸 수 없음.'}
+ ]},
+
+/* ── 2 기본 구조 ── */
+{id:'struct',icon:'🏗️',label:'기본 구조',pathArr:[['비교 표현','root'],['최상급','d'],['기본 구조','d']],
+ title:'3단계 · 최상급 기본 구조 — the + 최상급 + 범위',
+ sub:'최상급에는 반드시 the가 붙고, 범위를 나타내는 in/of가 따라옵니다. 이 두 가지가 최상급 문장의 뼈대입니다.',
+ cards:[
+  {t:'h',chip:['구조','d'],title:'the + 최상급 + (명사) + in 장소/집단 · of 복수명사/all',html:
+   `<p><span class="kw d">the</span>는 "단 하나"를 특정하는 관사입니다. 최상급은 "여럿 중 딱 하나"를 골라내므로 the가 <b>필수</b>입니다.</p>
+    <ul><li><span class="kw d">in</span> + 단수 집합명사/장소 → <i>in the class, in the world, in Korea</i></li>
+        <li><span class="kw d">of</span> + 복수명사/all → <i>of the three, of all the students</i></li></ul>
+    <div class="test-box"><b>🔍 판별 도구 — in vs of</b>뒤에 오는 명사가 집단/장소(단수)이면 in, 복수 개체들이면 of. 헷갈리면 "범위가 집합이냐 vs 낱개들이냐"로 판단하세요.</div>`},
+  {t:'ex',cls:'d',en:'He is [[the tallest boy]] [[in]] the school.',ko:'그는 학교에서 키가 가장 큰 남자아이다.',note:'in + 집단(the school). 반드시 the + 최상급.'},
+  {t:'ex',cls:'d',en:'This is [[the most expensive]] ring [[of]] all.',ko:'이것은 모든 것 중 가장 비싼 반지다.',note:'of + all. all은 복수 개체를 대표 → of.'},
+  {t:'ex',cls:'d',en:'She is [[the best]] singer [[of]] the three.',ko:'그녀는 셋 중 가장 노래를 잘한다.',note:'of + the three(복수). best = good의 최상급(불규칙).'},
+  {t:'ex',cls:'d',en:'He runs [[fastest]] in the class.',ko:'그는 반에서 가장 빠르게 달린다.',note:'부사 최상급: the 생략 가능. runs fastest(부사) vs the fastest runner(형용사).'},
+  {t:'h',chip:['경험','d'],title:'경험의 최상급 — the + 최상급 + I have ever + p.p.',html:
+   `<p>"지금까지 내가 경험한 것 중 제일"을 표현하는 고빈도 패턴입니다. have ever + 과거분사(현재완료)와 결합합니다.</p>`},
+  {t:'ex',cls:'d',en:'This is [[the most interesting]] book [[I have ever read]].',ko:'이것은 내가 지금까지 읽은 책 중 가장 재미있다.',note:'I have ever read = 경험. 최상급 + I\'ve ever + p.p. 패턴은 자체로 암기할 만큼 자주 나옵니다.'},
+ ],
+ cp:[
+  {q:'"She is the kindest person ___ our class." 빈칸에 알맞은 것과 이유는?',
+   opts:['of — our class는 복수이기 때문에','in — our class는 집단(단수 집합명사)이기 때문에','at — 장소 전치사이기 때문에','for — kindest 뒤에는 for를 쓰기 때문에'],
+   ans:1,ex:'"our class"는 학급이라는 집단을 나타내는 단수 집합명사입니다 → in. "of the three students"처럼 복수 낱개들이 나열될 때 of를 씁니다.'},
+  {q:'최상급에 the가 반드시 붙는 이유는?',
+   opts:['최상급 앞에는 항상 the를 쓴다고 암기했기 때문','최상급은 "여럿 중 딱 하나"를 특정하는 표현이므로, 하나를 특정하는 the가 의미상 필수이기 때문','최상급 형용사는 명사를 꾸미기 때문에','the가 없으면 문법적으로 틀리기 때문'],
+   ans:1,ex:'암기가 아닌 이해! the는 "특정한 하나"를 가리키는 관사입니다. 최상급은 반드시 "그 하나"를 가리키므로 the가 의미상 자연스럽게 따라옵니다. 부사 최상급에서 the를 생략할 수 있는 것도 부사는 명사를 특정하지 않기 때문입니다.'}
+ ]},
+
+/* ── 3 전환 표현 ── */
+{id:'conv',icon:'🔄',label:'전환 표현',pathArr:[['비교 표현','root'],['최상급','d'],['전환 표현','e']],
+ title:'4단계 · 전환 표현 — 최상급 ↔ 비교급 ↔ 원급',
+ sub:'같은 의미를 세 가지 방식으로 말할 수 있어야 진짜 아는 것입니다. 이것이 고1 어법의 단골 출제 포인트입니다.',
+ cards:[
+  {t:'h',chip:['전환 원리','e'],title:'왜 전환이 가능한가 — 세 표현은 같은 사실의 다른 말',html:
+   `<p>"Tom이 반에서 키가 제일 크다"는 사실은 다음 세 방식으로 모두 표현됩니다.</p>
+    <div class="test-box"><b>💡 핵심 공식 (반드시 암기)</b>
+    최상급: Tom is <b>the tallest</b> in the class.<br>
+    비교급①: Tom is <b>taller than any other</b> student in the class.<br>
+    비교급②: <b>No other</b> student in the class is <b>taller than</b> Tom.<br>
+    원급: <b>No other</b> student in the class is <b>as tall as</b> Tom.</div>
+    <p>⚠️ <b>any other + 단수명사</b>: "다른 어떤 ~보다" — any other 뒤는 반드시 단수!</p>`},
+  {t:'ex',cls:'e',en:'[[No other]] mountain in the world is [[as high as]] Mt. Everest.',ko:'세상에 에베레스트만큼 높은 산은 없다.',note:'= Mt. Everest is the highest mountain in the world. No other + 단수 + as 원급 as = 최상급 의미.'},
+  {t:'ex',cls:'e',en:'Mt. Everest is higher than [[any other]] mountain in the world.',ko:'에베레스트는 세상의 다른 어떤 산보다도 높다.',note:'비교급 + than any other + 단수명사. any other 뒤 단수 mountain ← 절대 mountains(복수)가 아님!'},
+  {t:'ex',cls:'e',en:'[[No other]] student in the class is [[taller than]] Tom.',ko:'반에서 톰보다 키 큰 학생은 없다.',note:'No other + 단수 + 비교급 + than = 최상급 의미. 세 공식의 패턴 차이를 소리 내어 구분하세요.'},
+  {t:'h',chip:['배수 표현','b'],title:'배수 표현 — twice / three times as ~ as',html:
+   `<p>"~보다 몇 배 ~하다"는 <b>배수사 + as 원급 as</b>로 표현합니다.</p>
+    <ul><li>2배: <b>twice</b> as ~ as</li><li>3배 이상: <b>three times</b> as ~ as</li></ul>`},
+  {t:'ex',cls:'b',en:'This room is [[twice as large as]] that one.',ko:'이 방은 저 방보다 두 배 크다.',note:'twice as + 형용사 원급 + as. 비교급(larger than)으로 바꾸면: twice larger than → ⚠️ 사실 twice as large as가 표준.'},
+ ],
+ cp:[
+  {q:'"She is the most popular girl in school."을 비교급으로 바꿀 때 옳은 것은?',
+   opts:['She is more popular than any other girls in school.','She is more popular than any other girl in school.','No other girl in school is more popular as she.','She is the most popular than any other girl.'],
+   ans:1,ex:'any other + 반드시 단수명사 girl(복수 girls ✗). No other 전환은 "No other girl is more popular than she."가 됩니다. ③은 more popular as가 아닌 more popular than이 맞습니다.'},
+  {q:'"This building is three times as tall as that one."의 의미로 옳은 것은?',
+   opts:['이 건물은 저 건물보다 세 배 더 높다','이 건물은 저 건물의 세 배 높이다 (저 건물의 키를 1로 볼 때 이 건물은 3)','이 건물은 저 건물보다 세 번째로 높다','이 건물은 저 건물과 높이가 같다'],
+   ans:1,ex:'"배수 as ~ as"는 "~의 몇 배"입니다. three times as tall as = 저 건물 키의 3배. ①처럼 "세 배 더"가 아니라 "세 배"입니다. 3배 더라면 four times as tall as(4배)가 됩니다.'}
+ ]},
+
+/* ── 4 주의사항 ── */
+{id:'caution',icon:'⚠️',label:'주의 사항',pathArr:[['비교 표현','root'],['최상급','d'],['주의','b']],
+ title:'5단계 · 주의 사항 — the 생략 & 절대최상급',
+ sub:'최상급처럼 생겼지만 비교 의미가 없는 표현, 부사 최상급의 the 생략 — 이 두 가지가 고1 오답 함정입니다.',
+ cards:[
+  {t:'h',chip:['부사 최상급','b'],title:'부사 최상급: the 생략 가능 — 왜?',html:
+   `<p>형용사 최상급은 뒤에 명사가 오므로 <b>the</b>가 그 명사를 특정합니다. 그런데 <b>부사</b> 최상급은 명사를 꾸미지 않아 특정할 대상이 없으므로 <b>the를 생략해도 됩니다.</b></p>
+    <ul><li>He is <b>the tallest</b> (boy). ← 형용사: the + 최상급 (boy를 특정) → the 필수</li>
+        <li>He runs <b>(the) fastest</b>. ← 부사: runs를 꾸밈, 명사 없음 → the 생략 가능</li></ul>`},
+  {t:'ex',cls:'b',en:'She finished the test [[most quickly]] of all.',ko:'그녀는 모두 중 가장 빠르게 시험을 마쳤다.',note:'quickly(부사) 최상급: the 없이 most quickly. 문장에서 finished를 꾸밈. of all이 범위.'},
+  {t:'h',chip:['절대최상급','b'],title:'절대최상급 — most가 "매우"를 뜻할 때',html:
+   `<p><b>the</b>가 없는 <b>most + 형용사</b>는 "가장"이 아니라 <b>"매우(very)"</b>의 의미입니다. 비교 대상이 없는 것이 특징입니다.</p>
+    <ul><li><i>This is a <b>most wonderful</b> day.</i> → "매우 멋진 날"</li>
+        <li><i>This is <b>the most wonderful</b> day.</i> → "가장 멋진 날" (비교 최상급)</li></ul>
+    <p>⚠️ the 유무가 의미를 완전히 바꿉니다.</p>`},
+  {t:'ex',cls:'b',en:'That was a [[most moving]] experience.',ko:'그것은 매우 감동적인 경험이었다.',note:'a most moving = a very moving. 비교 대상 없음 → 절대최상급. the most moving과는 의미가 다름!'},
+ ],
+ cp:[
+  {q:'"She sings (the) most beautifully in the choir."에서 the를 생략할 수 있는 이유는?',
+   opts:['최상급 앞에는 the를 안 써도 되기 때문','beautifully는 부사이므로 뒤에 꾸밀 명사가 없어, the가 특정할 대상이 없기 때문','choir가 집단명사이기 때문','in이 이미 범위를 나타내기 때문'],
+   ans:1,ex:'the는 "특정 명사 하나"를 가리킵니다. 부사 beautifully는 명사를 꾸미지 않으므로 the가 붙어도 특정할 대상이 없습니다. 그래서 생략이 허용됩니다.'},
+  {q:'"This is a most interesting story."에서 most의 의미는?',
+   opts:['이야기들 중에 가장 흥미롭다는 최상급','비교 대상 없이 "매우"를 뜻하는 절대최상급','more interesting의 줄임말','형용사 interesting을 강조하는 부정관사'],
+   ans:1,ex:'a most + 형용사 = a very + 형용사(절대최상급). the most interesting이라면 비교 최상급("가장 흥미로운")이지만, a most는 비교 대상 없이 "매우"의 의미입니다.'}
+ ]},
+
+/* ── 5 시험 ── */
+{id:'exam',icon:'🏆',label:'종합 시험',pathArr:[['비교 표현','root'],['전체 통합','root']],
+ title:'최종 관문 · 개념 종합 시험 (10문항 · 고1 수준)',
+ sub:'형태 암기가 아닌 "왜?"를 묻습니다. 전환 공식, the 규칙, 불규칙, 범위 전치사까지 — 로직 트리를 머리에 펼치고 시작하세요.',
+ exam:true}
+];
+
+/* ===== EXAM DATA ===== */
+const EXAM=[
+{type:'walk',tags:['d'],sent:'[[No other]] player in the league is [[as fast as]] Minho.',say:'No other player in the league is as fast as Minho.',
+ q:'형광펜 표현을 최상급 전환 공식으로 분석하시오.',
+ steps:[
+  {p:'STEP 1 · "No other ~ as ... as"가 나타내는 의미는?',opts:['민호가 리그에서 두 번째로 빠르다','민호가 리그에서 가장 빠르다 (최상급 의미)','민호와 다른 선수들이 속도가 같다'],ans:1},
+  {p:'STEP 2 · 같은 의미의 비교급 전환으로 옳은 것은?',opts:['Minho is faster than any other player in the league.','Minho is faster than any other players in the league.','Minho is the fastest player than any other in the league.'],ans:0},
+  {p:'STEP 3 · STEP 2에서 "any other player(단수)"를 써야 하는 이유는?',opts:['player로 시작하기 때문에','any other + 단수명사 규칙 — 비교급이 특정 한 명 한 명을 개별 비교하기 때문에','player가 고유명사이기 때문에'],ans:1}],
+ ex:'"No other ~ as as" = 최상급. 전환: Minho is faster than any other player(단수). any other 뒤 단수명사 규칙은 고1 어법 최빈출 오류입니다.'},
+
+{type:'mc',tags:['d'],sent:'This is [[the most beautiful]] garden I have [[ever visited]].',say:'This is the most beautiful garden I have ever visited.',
+ q:'"경험의 최상급" 구조로 이 문장이 의미하는 바는?',
+ opts:['이것은 내가 방문할 정원 중 가장 아름다울 것이다 (미래)','이것은 내가 지금까지 방문한 (경험한) 정원 중 가장 아름답다','이것은 모든 정원 중 가장 아름답다 (현재 상태)','이것은 아름다운 정원이라고 느꼈다 (과거)'],
+ ans:1,ex:'"the + 최상급 + I have ever + p.p."는 현재완료(경험)와 결합해 "지금까지 ~한 것 중 가장"을 나타냅니다. 현재완료는 과거부터 지금까지의 경험을 포함하므로 "현재까지의 경험 중 최고"라는 의미가 됩니다.'},
+
+{type:'mc',tags:['form'],q:'"good"의 최상급 형태와, "famous"의 최상급 형태가 각각 옳게 짝지어진 것은?',
+ opts:['goodest / famousest','best / most famous','most good / most famous','better / more famous'],
+ ans:1,ex:'good → best (불규칙, 반드시 암기). famous(2음절이지만 -ous 어미) → most famous (-est 불가). 불규칙 5쌍과 2음절 예외 어미가 함께 나오는 전형적 함정 문항입니다.'},
+
+{type:'mc',tags:['struct'],sent:'She is the most talented dancer ___ the five contestants.',say:'She is the most talented dancer of the five contestants.',
+ q:'빈칸에 들어갈 전치사와 그 이유로 옳은 것은?',
+ opts:['in — dancer는 사람이기 때문에','of — the five contestants는 다섯 명의 낱개 복수이기 때문에','at — 재능을 나타낼 때는 at을 쓰기 때문에','for — 대상을 나타낼 때 for를 쓰기 때문에'],
+ ans:1,ex:'"the five contestants"는 다섯 명의 개별 참가자들(복수 낱개) → of. 만약 "the competition(대회)"처럼 집단/장소 단수가 왔다면 in을 씁니다.'},
+
+{type:'walk',tags:['conv'],sent:'',say:'',
+ q:'"Iron is the most useful metal in the world."를 비교급과 원급으로 각각 전환하시오.',
+ steps:[
+  {p:'STEP 1 · 비교급 전환: "Iron is more useful than ___" 빈칸으로 옳은 것은?',opts:['any metals in the world','any other metal in the world','all other metals in the world'],ans:1},
+  {p:'STEP 2 · 원급 전환: "No other metal in the world is ___" 빈칸으로 옳은 것은?',opts:['as useful as iron','more useful than iron','most useful like iron'],ans:0},
+  {p:'STEP 3 · 두 전환의 공통 조건은?',opts:['비교 대상은 항상 복수 명사로 써야 한다','any other 뒤는 단수, No other 구문에서도 other 뒤는 단수(metal)를 유지해야 한다','전환 시 동사를 바꾸어야 한다'],ans:1}],
+ ex:'최상급 → 비교급: more useful than any other metal(단수). → 원급: No other metal is as useful as iron. 세 공식 모두 "단수명사 유지"가 공통 조건입니다.'},
+
+{type:'mc',tags:['caution'],sent:'A. He runs [[the fastest]] in the class.<br>B. She is [[the most kind]] person I know.',say:'A. He runs the fastest in the class. B. She is the most kind person I know.',
+ q:'두 문장에서 어법상 틀린 것과 그 이유는?',
+ opts:['A — 부사 최상급에는 the를 쓸 수 없다','B — kind는 1음절이므로 the most kind가 아닌 the kindest가 맞다','A — runs 뒤에는 비교급을 써야 한다','B — person 앞에 the를 이미 썼으므로 중복이다'],
+ ans:1,ex:'A: 부사 최상급에서 the는 생략 가능하지만 써도 맞습니다. B: kind는 1음절 형용사이므로 -est를 붙여 the kindest가 맞습니다. most는 3음절 이상 또는 2음절 중 특정 어미에 사용합니다.'},
+
+{type:'classify',tags:['conv'],q:'"최상급·비교급·원급" 전환 분류 — 각 문장이 어떤 층위의 표현인지 고르시오.',
+ items:[
+  {en:'No other city in Korea is as large as Seoul.',ans:0,why:'No other ~ as as = 최상급 의미의 원급 전환'},
+  {en:'Seoul is larger than any other city in Korea.',ans:1,why:'비교급 + than any other + 단수명사 = 최상급 의미의 비교급 전환'},
+  {en:'Seoul is the largest city in Korea.',ans:2,why:'the + 최상급 + in 집단 = 직접 최상급 표현'}
+ ]},
+
+{type:'mc',tags:['d'],q:'"This is a most surprising result."의 most는 어떤 의미인가?',
+ opts:['여러 결과 중 가장 놀라운 (비교 최상급)','비교 대상 없이 "매우" 놀라운 (절대최상급)','more surprising의 줄임','결과가 세 번째로 놀라운'],
+ ans:1,ex:'a most + 형용사 = 절대최상급. the가 없으면 비교 대상이 없는 "매우"의 의미입니다. the most surprising이라면 비교 최상급("가장 놀라운"). a와 the의 차이가 의미를 완전히 바꿉니다.'},
+
+{type:'walk',tags:['struct','conv'],sent:'This laptop is [[twice as expensive as]] that one.',say:'This laptop is twice as expensive as that one.',
+ q:'배수 표현을 분석하고 전환하시오.',
+ steps:[
+  {p:'STEP 1 · 이 문장의 의미는?',opts:['이 노트북은 저것보다 두 배 더 비싸다','이 노트북은 저것의 두 배 가격이다 (저것=1, 이것=2)','이 노트북은 저것보다 두 번째로 비싸다'],ans:1},
+  {p:'STEP 2 · 배수 표현의 구조로 옳은 것은?',opts:['배수사 + more ~ than','배수사 + as 원급 as','배수사 + the 최상급'],ans:1},
+  {p:'STEP 3 · "세 배"를 표현할 때 쓰는 배수사는?',opts:['triple','three times','thrice'],ans:1}],
+ ex:'배수 표현: 배수사 + as 원급 as. twice = 2배, three times = 3배 (triple/thrice는 문어체). "two times as ~ as"도 가능하지만 twice가 표준입니다.'},
+
+{type:'mc',tags:['form','struct'],q:'다음 중 최상급 문장으로 완전히 옳은 것은?',
+ opts:['She is most tallest girl in class.','He is the more intelligent of the three brothers.','This is the least expensive option of all.','They chose the most cheap solution.'],
+ ans:2,ex:'① most + -est 이중 최상급 불가. ② 셋 중 비교 → 최상급이 맞고 비교급 more 불가. ③ little → least(불규칙), expensive(3음절) → most expensive 따로이지만, least expensive = 올바른 최상급 ✔. ④ cheap(1음절) → the cheapest (most 불가).'}
+];
+
+/* ===== ENGINE (same pattern as clause) ===== */
+const CLS_LB=['최상급','비교급','원급'], CLS_KEY=['d','c','b'];
+let cur=0,maxUnlocked=0;
+const cpState=STAGES.map(()=>({done:false}));
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){
+  if(!('speechSynthesis' in window)){alert('Chrome 브라우저를 권장합니다.');return;}
+  speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.9;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);}
+function spkBtn(text){return `<button class="spk" title="듣기" aria-label="영어 듣기" onclick="speak(this.dataset.say,this)" data-say="${text.replace(/"/g,'&quot;')}">🔊</button>`;}
+function plain(s){return s.replace(/\[\[|\]\]|\{\{|\}\}/g,'').replace(/<[^>]+>/g,'');}
+function renderEn(s,cls){return s.replace(/\[\[(.+?)\]\]/g,`<span class="hl ${cls||'root'}">$1</span>`);}
+function tgl(btn){const t=btn.nextElementSibling;const open=t.classList.toggle('open');btn.setAttribute('aria-expanded',open);btn.textContent=open?'해석 닫기 ▲':'해석 + 풀이 보기 ▼';}
+function renderSteps(){
+  document.getElementById('steps').innerHTML=STAGES.map((s,i)=>{
+    const lock=i>maxUnlocked,done=cpState[i].done;
+    return `<button class="step ${i===cur?'cur':''} ${done?'done':''} ${lock?'locked':''}" onclick="go(${i})" ${lock?'aria-disabled="true"':''}>
+      <span class="dot">${lock?'🔒':done?'✓':s.icon}</span><span class="lb">${s.label}</span></button>`;}).join('');}
+function go(i){
+  if(i>maxUnlocked){alert('🔒 이전 단계의 체크포인트를 통과하면 열립니다!');return;}
+  window.speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0});}
+function treeHTML(node){
+  if(node.leaf!==undefined){const say=node.say||node.leaf;
+    return `<li><button class="node leaf" onclick="speak(this.dataset.say,this)" data-say="${say}">${node.leaf} 🔉</button></li>`;}
+  const kids=node.kids&&node.kids.length?`<ul>${node.kids.map(treeHTML).join('')}</ul>`:'';
+  return `<li><button class="node nd-${node.c}" onclick="speak(this.dataset.say,this)" data-say="${node.e.replace(/=.+$/,'').trim()}">${node.k} <span class="e">${node.e} 🔉</span></button>${kids}</li>`;}
+function cardHTML(c){
+  if(c.t==='tree')return `<div class="card"><h3><span class="chip c-root">전체 지도</span>로직 트리 — 노드를 누르면 영어 명칭을 읽어 줍니다</h3><div class="tree"><ul>${treeHTML(TREE)}</ul></div></div>`;
+  if(c.t==='h')return `<div class="card"><h3><span class="chip c-${c.chip[1]}">${c.chip[0]}</span>${c.title}</h3>${c.html}</div>`;
+  if(c.t==='ex'){const say=plain(c.en);return `<div class="exc ${c.cls}"><div class="enline"><span class="en">${renderEn(c.en,c.cls)}</span>${spkBtn(say)}</div><button class="tgl" aria-expanded="false" onclick="tgl(this)">해석 + 풀이 보기 ▼</button><div class="trans"><div class="ko">${c.ko}</div><div class="note">${c.note}</div></div></div>`;}
+  return '';}
+function cpHTML(i,qs){
+  return `<div class="qz" id="cp${i}"><div class="qz-head"><span class="badge">CHECKPOINT</span><b>체크포인트 — 모두 맞히면 다음 가지가 열립니다</b></div>
+  ${qs.map((q,k)=>`<div class="q"><div class="qno">Q${k+1} / ${qs.length}</div><div class="qtext">${q.q}</div>
+    <div class="opts">${q.opts.map((o,oi)=>`<button class="opt" onclick="cpPick(${i},${k},${oi},this)">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>
+    <div class="fb" id="fb-${i}-${k}"></div></div>`).join('')}
+  <div class="unlock-banner" id="ub${i}">🌿 통과! 다음 가지가 열렸습니다. <button class="btn primary" onclick="go(${i+1})">다음 단계로 →</button></div></div>`;}
+const cpOK=STAGES.map(s=>s.cp?s.cp.map(()=>false):[]);
+function cpPick(si,qi,oi,btn){
+  const q=STAGES[si].cp[qi],fb=document.getElementById(`fb-${si}-${qi}`);
+  const opts=btn.parentElement.querySelectorAll('.opt');
+  if(oi===q.ans){opts.forEach((o,k)=>{o.disabled=true;if(k===oi)o.classList.add('right');});
+    fb.className='fb show good';fb.innerHTML='✅ 정답! '+q.ex;cpOK[si][qi]=true;
+    if(cpOK[si].every(v=>v))unlockNext(si);
+  }else{btn.classList.add('wrong');fb.className='fb show badf';fb.innerHTML='🤔 다시 생각해보세요. 힌트: 형태가 아닌 <b>의미와 구조</b>로 판단하세요.';setTimeout(()=>btn.classList.remove('wrong'),500);}}
+function unlockNext(si){cpState[si].done=true;if(si+1>maxUnlocked)maxUnlocked=si+1;renderSteps();const ub=document.getElementById('ub'+si);if(ub)ub.classList.add('show');}
+
+/* exam */
+const exAns=EXAM.map(q=>q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1);
+let graded=false;
+function examHTML(){
+  return `<div class="card" style="border:1.5px solid var(--ink)"><h3><span class="chip c-root">시험 안내</span>응시 전 확인</h3>
+    <ul><li>모든 문항이 <b>"왜?"</b>를 묻습니다. the 규칙, 전환 공식, 불규칙, 범위 전치사 — 로직 트리를 펼치세요.</li>
+    <li>WALK 문항은 한 단계씩 맞혀야 다음 STEP이 열립니다.</li>
+    <li>🔊로 문장을 들으며 리듬으로도 익히세요.</li></ul></div>
+  ${EXAM.map((q,qi)=>{
+    let body='';
+    const sent=q.sent?`<div class="qsent"><div class="enline"><span class="en">${renderEn(q.sent,'root')}</span>${spkBtn(q.say||plain(q.sent))}</div></div>`:'';
+    if(q.type==='mc'){body=`<div class="opts">${q.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${oi}" onclick="exPick(${qi},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>`;}
+    else if(q.type==='walk'){body=q.steps.map((st,si)=>`<div class="walkstep ${si>0?'lockedw':''}" id="ws-${qi}-${si}"><div class="wp">${st.p}</div><div class="opts">${st.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${si}-${oi}" onclick="exWalk(${qi},${si},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div></div>`).join('');}
+    else{body=q.items.map((it,k)=>`<div class="selrow"><span class="mark" id="em-${qi}-${k}">·</span>
+        <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,'root')}</span>${spkBtn(plain(it.en))}
+        <select id="es-${qi}-${k}" onchange="exAns[${qi}][${k}]=+this.value"><option value="-1">— 선택 —</option>${CLS_LB.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
+        <div class="fb" id="ef-${qi}-${k}" style="flex-basis:100%"></div></div>`).join('');}
+    return `<div class="qz" id="eq${qi}"><div class="qz-head"><span class="badge">${q.type==='walk'?'WALK · 단계 분석':q.type==='classify'?'SORT · 분류':'WHY · 개념'}</span><b>문항 ${qi+1} / ${EXAM.length}</b></div>
+      <div class="qtext">${q.q}</div>${sent}${body}<div class="fb" id="exfb${qi}"></div></div>`;}).join('')}
+  <div style="text-align:center;margin:30px 0"><button class="btn primary" id="gradeBtn" onclick="grade()" style="font-size:1.05rem;padding:15px 40px">📝 최종 채점하기</button></div>
+  <div id="result"></div>`;}
+function exPick(qi,oi){if(graded)return;exAns[qi]=oi;EXAM[qi].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${k}`).classList.toggle('sel',k===oi));}
+function exWalk(qi,si,oi){if(graded)return;exAns[qi][si]=oi;EXAM[qi].steps[si].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${si}-${k}`).classList.toggle('sel',k===oi));const next=document.getElementById(`ws-${qi}-${si+1}`);if(next)next.classList.remove('lockedw');}
+function grade(){
+  for(let qi=0;qi<EXAM.length;qi++){const a=exAns[qi];const empty=Array.isArray(a)?a.some(v=>v<0):a<0;
+    if(empty){document.getElementById('eq'+qi).scrollIntoView({block:'center'});const f=document.getElementById('exfb'+qi);f.className='fb show badf';f.textContent='⚠️ 답하지 않은 부분이 있어요.';return;}}
+  graded=true;document.getElementById('gradeBtn').disabled=true;
+  let score=0;const tagTot={d:0,c:0,b:0,form:0,struct:0,conv:0,caution:0},tagOK={...tagTot};
+  EXAM.forEach((q,qi)=>{
+    let ok;
+    if(q.type==='mc'){ok=exAns[qi]===q.ans;q.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${k}`);el.disabled=true;if(k===q.ans)el.classList.add('right');else if(k===exAns[qi])el.classList.add('wrong');});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 정답! ':'❌ 오답. ')+q.ex;}
+    else if(q.type==='walk'){ok=q.steps.every((st,si)=>exAns[qi][si]===st.ans);q.steps.forEach((st,si)=>st.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${si}-${k}`);el.disabled=true;if(k===st.ans)el.classList.add('right');else if(k===exAns[qi][si])el.classList.add('wrong');}));const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 완벽한 분석! ':'❌ 분석 오류. ')+q.ex;}
+    else{ok=q.items.every((it,k)=>exAns[qi][k]===it.ans);q.items.forEach((it,k)=>{const f=document.getElementById(`ef-${qi}-${k}`),m=document.getElementById(`em-${qi}-${k}`);document.getElementById(`es-${qi}-${k}`).disabled=true;const good=exAns[qi][k]===it.ans;m.textContent=good?'✅':'❌';f.className='fb show '+(good?'good':'badf');f.innerHTML=`<b>${CLS_LB[it.ans]}</b> — ${it.why}`;});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=ok?'✅ 세 층위를 완벽히 구분!':'❌ 위 해설 확인. 전환 공식의 단수명사 조건을 특히 주의하세요.';}
+    if(ok)score++;q.tags.forEach(t=>{if(tagTot[t]!==undefined){tagTot[t]++;if(ok)tagOK[t]++;}});});
+  const pct=score*10;
+  const gr=score>=9?['🥇 최상급 마스터','세 층위 전환이 완벽합니다. 모의고사 어법 문항으로 직행하세요!']:score>=7?['🥈 거의 완성','틀린 문항의 공식만 소리 내어 한 번 더 확인하면 완성입니다.']:score>=5?['🥉 성장 중','전환 공식의 단수명사 조건이 약점. 4단계로 돌아가 세 공식을 다시 비교하세요.']:['🌱 다시 도전','괜찮아요! 2단계(형태)부터 차근차근 다시 쌓으면 됩니다.'];
+  const bars=[['형태 규칙 🔤','form','var(--d)'],['기본 구조 🏗️','struct','var(--c)'],['전환 표현 🔄','conv','var(--e)']].map(([lb,t,col])=>{const tot=EXAM.filter(q=>q.tags.includes(t)).length||0;const ok2=EXAM.filter((q,qi)=>{if(!q.tags.includes(t))return false;const a=exAns[qi];const isOk=q.type==='mc'?a===q.ans:q.type==='walk'?q.steps.every((st,si)=>a[si]===st.ans):q.items.every((it,k)=>a[k]===it.ans);return isOk;}).length;const p=tot?Math.round(ok2/tot*100):100;return `<div class="bb"><div class="bl"><span>${lb}</span><span>${ok2} / ${tot}</span></div><div class="track"><div class="fill" style="background:${col}" data-w="${p}%"></div></div></div>`;}).join('');
+  document.getElementById('result').innerHTML=`<div class="qz"><div class="score-wrap"><div class="score-big">${score} / 10</div><div class="grade">${gr[0]}</div><p style="font-size:.9rem;margin-top:6px">${gr[1]}</p><div class="branchbars">${bars}</div><div style="margin-top:18px"><button class="btn ghost" onclick="resetExam()">처음부터 다시 풀기</button></div></div></div>`;
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w),60));}
+function resetExam(){graded=false;EXAM.forEach((q,qi)=>{exAns[qi]=q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1;});renderAll();go(STAGES.length-1);}
+function pathHTML(arr){return `<div class="path">${arr.map(([t,c],i)=>(i?'<span class="sep">▸</span>':'')+`<span class="crumb on-${c}">${t}</span>`).join('')}</div>`;}
+function renderAll(){
+  document.getElementById('main').innerHTML=STAGES.map((s,i)=>{
+    let inner=s.exam?examHTML():(s.cards||[]).map(cardHTML).join('')+(s.cp?cpHTML(i,s.cp):'');
+    return `<section class="stage ${i===cur?'show':''}" id="st${i}">${pathHTML(s.pathArr)}<h2 class="stitle">${s.title}</h2><p class="ssub">${s.sub}</p>${inner}<div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전 단계</button>`:'<span></span>'}<span style="font-size:.78rem;color:var(--sub)">${i+1} / ${STAGES.length}</span></div></section>`;}).join('');
+  renderSteps();}
+renderAll();
+</script>
+</body>
+</html>
