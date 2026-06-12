@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 01 Me and My Three Emojis — 거꾸로 영작</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:#f0efea;color:#1a1a1a;font-size:14px;line-height:1.6;}
+.page{max-width:920px;margin:0 auto;padding:24px 16px;}
+.doc-header{background:#fff;border-radius:14px;padding:26px 30px 20px;margin-bottom:20px;border:0.5px solid #ddd;}
+.doc-header h1{font-size:21px;font-weight:700;margin-bottom:4px;}
+.doc-header .sub{font-size:12px;color:#999;}
+.meta-row{display:flex;gap:24px;margin-top:14px;flex-wrap:wrap;}
+.meta-item{display:flex;align-items:center;gap:8px;font-size:13px;color:#888;}
+.meta-box{border-bottom:1px solid #aaa;width:130px;height:20px;}
+.section{background:#fff;border-radius:14px;padding:24px 28px;margin-bottom:20px;border:0.5px solid #ddd;}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;padding-bottom:11px;border-bottom:1.5px solid #1a1a1a;margin-bottom:8px;}
+.sec-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;color:#fff;background:#00b894;}
+.sec-desc{font-size:12px;color:#999;margin-bottom:18px;}
+.snd-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:0.5px solid #ccc;border-radius:20px;padding:3px 10px 3px 8px;font-size:12px;color:#555;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;}
+.snd-btn:hover{background:#f0eeff;border-color:#6c5ce7;color:#6c5ce7;}
+.snd-btn.playing{background:#f0eeff;border-color:#6c5ce7;color:#6c5ce7;}
+.snd-icon{font-size:14px;}
+.ans-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:0.5px solid #ccc;border-radius:20px;padding:3px 12px;font-size:12px;color:#888;cursor:pointer;font-family:inherit;transition:all .15s;}
+.ans-btn:hover{background:#f0fef7;border-color:#00b894;color:#00b894;}
+.ans-reveal{display:none;margin-top:10px;padding:9px 13px;background:#f0fef7;border-radius:8px;border:0.5px solid #b2e8d0;font-size:14px;color:#056b47;line-height:1.7;}
+.ans-reveal.open{display:block;}
+.person-tag{font-size:12px;font-weight:700;padding:3px 11px;border-radius:6px;display:inline-block;margin:6px 0 14px;}
+.pt-jaeho{background:#f0eeff;color:#4a3db5;}
+.pt-diego{background:#fff4e0;color:#8a4f00;}
+.pt-amara{background:#e6f9f1;color:#056b47;}
+.pt-sophie{background:#fde8f0;color:#99355a;}
+.eng-card{margin-bottom:18px;padding-bottom:18px;border-bottom:0.5px solid #f0f0f0;}
+.eng-card:last-child{border-bottom:none;margin-bottom:0;}
+.eng-num{font-size:11px;font-weight:700;color:#00b894;margin-bottom:4px;}
+.eng-kr{font-size:15px;font-weight:700;line-height:1.7;margin-bottom:8px;}
+.hint-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.chip{font-size:11.5px;padding:3px 10px;border-radius:20px;background:#f0eeff;color:#4a3db5;font-weight:700;}
+.eng-textarea{width:100%;min-height:46px;padding:8px 12px;border:0.5px solid #ddd;border-radius:8px;font-size:14px;font-family:inherit;line-height:1.6;resize:none;color:#1a1a1a;background:#fff;}
+.eng-textarea:focus{outline:none;border-color:#00b894;}
+.eng-bottom{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center;}
+.score-bar{background:#f8f8f5;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap;}
+.score-num{font-size:20px;font-weight:700;}
+.self-btn{padding:4px 12px;border:0.5px solid #ccc;border-radius:20px;font-size:12px;cursor:pointer;font-family:inherit;background:#fff;color:#555;}
+.self-btn:hover{background:#e6f9f1;border-color:#00b894;color:#056b47;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="doc-header">
+  <h1>Lesson 01 &nbsp;Me and My Three Emojis</h1>
+  <div class="sub">능률 김기택 1학년 · 거꾸로 영작 ③ — 한글을 보고 영어 문장 완성하기</div>
+  <div class="meta-row">
+    <div class="meta-item">이름 <span class="meta-box"></span></div>
+    <div class="meta-item">날짜 <span class="meta-box"></span></div>
+    <div class="meta-item">점수 <span class="meta-box" style="width:80px"></span></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-title"><span class="sec-badge">③</span>거꾸로 영작 — 한글을 보고 영어 문장을 완성하세요</div>
+  <div class="sec-desc">핵심 표현 칩을 참고해 직접 써본 뒤, 듣기로 발음을 확인하고 정답을 펼쳐 채점하세요. '맞음/틀림'으로 직접 점수를 기록할 수 있어요.</div>
+  <div class="score-bar">
+    <span style="font-size:13px;color:#888;">스스로 채점</span>
+    <span class="score-num" id="scoreDisplay">0 / 0</span>
+    <span style="font-size:12px;color:#bbb;">정답 펼친 뒤 '맞음'을 누르면 점수가 올라가요</span>
+  </div>
+  <div id="engContent"></div>
+</div>
+
+</div>
+
+<script>
+let voices=[];
+function loadVoices(){voices=window.speechSynthesis?window.speechSynthesis.getVoices():[];}
+if(window.speechSynthesis){loadVoices();window.speechSynthesis.onvoiceschanged=loadVoices;}
+function speak(text,btn){
+  if(!window.speechSynthesis)return;window.speechSynthesis.cancel();
+  if(btn.classList.contains('playing')){btn.classList.remove('playing');btn.querySelector('.snd-icon').textContent='🔊';return;}
+  document.querySelectorAll('.snd-btn.playing').forEach(b=>{b.classList.remove('playing');b.querySelector('.snd-icon').textContent='🔊';});
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=0.9;
+  const en=voices.find(v=>v.lang.startsWith('en'));if(en)u.voice=en;
+  u.onend=()=>{btn.classList.remove('playing');btn.querySelector('.snd-icon').textContent='🔊';};
+  btn.classList.add('playing');btn.querySelector('.snd-icon').textContent='⏹';window.speechSynthesis.speak(u);
+}
+function sndBtn(text){const b=document.createElement('button');b.className='snd-btn';b.innerHTML='<span class="snd-icon">🔊</span> 듣기';b.onclick=()=>speak(text,b);return b;}
+
+const ENG=[
+  {who:'Jaeho',cls:'pt-jaeho',items:[
+    {num:'01',kr:'안녕! 내 이름은 재호야. 나는 한국에서 왔어.',hints:['My name is','I\'m from'],ans:'Hello! My name is Jaeho. I\'m from Korea.'},
+    {num:'02',kr:'나는 중학교 1학년이야.',hints:['the first grade','of middle school'],ans:'I\'m in the first grade of middle school.'},
+    {num:'03',kr:'내 미소를 봐! 나는 항상 미소 지어서 많은 사람들이 나를 좋아해.',hints:['Look at','always smile','so'],ans:'Look at my smile! I always smile, so many people like me.'},
+    {num:'04',kr:'여가 시간에 나는 친구들과 축구를 해.',hints:['In my free time','play soccer','with my friends'],ans:'In my free time, I play soccer with my friends.'},
+    {num:'05',kr:'나는 축구를 사랑해. 나는 학교 축구 동아리에 들어가 있어.',hints:['love soccer','in the school soccer club'],ans:'I love soccer. I\'m in the school soccer club.'},
+    {num:'06',kr:'나는 또한 음악을 좋아해. 나는 노래 동아리에도 들어가 있어.',hints:['also love','in the singing club','too'],ans:'I also love music. I\'m in the singing club too.'},
+    {num:'07',kr:'두 동아리 모두 재미있어!',hints:['Both clubs','fun'],ans:'Both clubs are fun!'},
+  ]},
+  {who:'Diego',cls:'pt-diego',items:[
+    {num:'10',kr:'나는 Diego야. 나는 멕시코에서 왔어.',hints:['I\'m from'],ans:'I\'m Diego. I\'m from Mexico.'},
+    {num:'11',kr:'나는 고양이를 키워. 그녀의 이름은 Bella야.',hints:['have a cat','Her name is'],ans:'I have a cat. Her name is Bella.'},
+    {num:'12',kr:'그녀는 정말 사랑스러워!',hints:['so sweet'],ans:'She is so sweet!'},
+    {num:'13',kr:'나는 자주 Bella의 사진을 찍어서 그것들을 온라인에 올려.',hints:['often take pictures of','post them online'],ans:'I often take pictures of Bella and post them online.'},
+    {num:'14',kr:'또한 나는 타코를 좋아해. 나는 때때로 엄마와 함께 그것들을 만들어.',hints:['Also','sometimes','make them with my mom'],ans:'Also, I like tacos. I sometimes make them with my mom.'},
+  ]},
+  {who:'Amara',cls:'pt-amara',items:[
+    {num:'16',kr:'나는 Amara야. 나는 태국에 살아.',hints:['live in'],ans:'I\'m Amara. I live in Thailand.'},
+    {num:'17',kr:'나는 따뜻한 마음을 가지고 있어.',hints:['a warm heart'],ans:'I have a warm heart.'},
+    {num:'18',kr:'나는 자주 다른 사람들을 돕고 행복함을 느껴.',hints:['often help','other people','feel happy'],ans:'I often help other people and feel happy.'},
+    {num:'20',kr:'나는 매일 춤 동작을 연습해.',hints:['practice dance moves','every day'],ans:'I practice dance moves every day.'},
+    {num:'21',kr:'나는 또한 운동하러 체육관에 가. 나는 정말 건강하다고 느껴!',hints:['go to the gym','for exercise','feel so healthy'],ans:'I also go to the gym for exercise. I feel so healthy!'},
+  ]},
+  {who:'Sophie',cls:'pt-sophie',items:[
+    {num:'23',kr:'안녕! 나는 Sophie야. 내 나라를 추측할 수 있니?',hints:['Can you guess','my country'],ans:'Hi! I\'m Sophie. Can you guess my country?'},
+    {num:'25',kr:'나는 가족과 함께 살아: 우리 엄마, 아빠, 그리고 Enzo.',hints:['live with my family'],ans:'I live with my family: my mom, dad, and Enzo.'},
+    {num:'26',kr:'Enzo는 내 쌍둥이 형제야. 우리는 가장 친한 친구야!',hints:['my twin brother','We are best friends'],ans:'Enzo is my twin brother. We are best friends!'},
+    {num:'27',kr:'우리 가족은 캠핑을 좋아해.',hints:['My family loves camping'],ans:'My family loves camping.'},
+    {num:'28',kr:'우리는 매우 자주 캠핑하러 가.',hints:['go camping','very often'],ans:'We go camping very often.'},
+    {num:'29',kr:'너와 네 형제는 서로 닮았니?',hints:['Do you and your brother','look like','each other'],ans:'Do you and your brother look like each other?'},
+  ]},
+];
+
+let total=0;ENG.forEach(g=>total+=g.items.length);
+let score={};
+function updScore(){document.getElementById('scoreDisplay').textContent=Object.keys(score).length+' / '+total;}
+document.getElementById('scoreDisplay').textContent='0 / '+total;
+
+function buildEng(){
+  const wrap=document.getElementById('engContent');
+  let gi=0;
+  ENG.forEach(group=>{
+    const lab=document.createElement('div');lab.className='person-tag '+group.cls;lab.textContent='● '+group.who;wrap.appendChild(lab);
+    group.items.forEach(item=>{
+      const idx=gi++;
+      const div=document.createElement('div');div.className='eng-card';
+      const num=document.createElement('div');num.className='eng-num';num.textContent='문장 '+item.num;
+      const kr=document.createElement('div');kr.className='eng-kr';kr.textContent=item.kr;
+      const hrow=document.createElement('div');hrow.className='hint-row';
+      item.hints.forEach(h=>{const c=document.createElement('span');c.className='chip';c.textContent=h;hrow.appendChild(c);});
+      const ta=document.createElement('textarea');ta.className='eng-textarea';ta.placeholder='영어로 써보세요...';ta.rows=2;
+      const reveal=document.createElement('div');reveal.className='ans-reveal';
+      const btns=document.createElement('div');btns.className='eng-bottom';
+      const ab=document.createElement('button');ab.className='ans-btn';ab.textContent='정답 보기';
+      const okBtn=document.createElement('button');okBtn.className='self-btn';okBtn.textContent='✓ 맞음';okBtn.style.display='none';
+      const noBtn=document.createElement('button');noBtn.className='self-btn';noBtn.textContent='✕ 틀림';noBtn.style.display='none';
+      ab.onclick=()=>{reveal.classList.toggle('open');
+        if(reveal.classList.contains('open')){reveal.textContent=item.ans;ab.textContent='정답 숨기기';okBtn.style.display='inline-block';noBtn.style.display='inline-block';}
+        else{ab.textContent='정답 보기';}};
+      okBtn.onclick=()=>{if(!score[idx]){score[idx]=1;updScore();}okBtn.style.background='#e6f9f1';okBtn.style.color='#056b47';noBtn.style.background='#fff';noBtn.style.color='#555';};
+      noBtn.onclick=()=>{if(score[idx]){delete score[idx];updScore();}noBtn.style.background='#fce8e8';noBtn.style.color='#a32d2d';okBtn.style.background='#fff';okBtn.style.color='#555';};
+      btns.append(sndBtn(item.ans),ab,okBtn,noBtn);
+      div.append(num,kr,hrow,ta,btns,reveal);wrap.appendChild(div);
+    });
+  });
+}
+buildEng();
+</script>
+</body>
+</html>
