@@ -406,16 +406,15 @@ function treeHTML(node){
   if(node.leaf!==undefined){const say=node.say||node.leaf;return `<li><button class="node leaf" onclick="speak(this.dataset.say,this)" data-say="${say}">${node.leaf} 🔉</button></li>`;}
   const kids=node.kids&&node.kids.length?`<ul>${node.kids.map(treeHTML).join('')}</ul>`:'';
   return `<li><button class="node nd-${node.c}" onclick="speak(this.dataset.say,this)" data-say="${node.e.replace(/=.+$/,'').trim()}">${node.k} <span class="e">${node.e} 🔉</span></button>${kids}</li>`;}
-function cardHTML(c){
+function cardHTML(c,stageIdx){
   if(c.t==='tree')return `<div class="card"><h3><span class="chip c-root">전체 지도</span>로직 트리 — 노드를 누르면 영어 명칭을 읽어 줍니다</h3><div class="tree"><ul>${treeHTML(TREE)}</ul></div></div>`;
   if(c.t==='h')return `<div class="card"><h3><span class="chip c-${c.chip[1]}">${c.chip[0]}</span>${c.title}</h3>${c.html}</div>`;
   if(c.t==='ex'){const say=plain(c.en);return `<div class="exc ${c.cls}"><div class="enline"><span class="en">${renderEn(c.en,c.cls)}</span>${spkBtn(say)}</div><button class="tgl" aria-expanded="false" onclick="tgl(this)">해석 + 풀이 보기 ▼</button><div class="trans"><div class="ko">${c.ko}</div><div class="note">${c.note}</div></div></div>`;}
-  if(c.t==='cpClassify')return classifyCpHTML_inline(c);
+  if(c.t==='cpClassify')return classifyCpHTML_inline(c,stageIdx);
   return '';}
 /* inline classify cp for stage 4 */
 const icpOK={};
-function classifyCpHTML_inline(c){
-  const sid=cur; /* captured at render time */
+function classifyCpHTML_inline(c,sid){
   return `<div class="qz" id="icp-${sid}"><div class="qz-head"><span class="badge">FINAL CHECK</span><b>${c.intro}</b></div>
   ${c.items.map((it,k)=>`<div class="selrow"><span class="mark" id="icm-${sid}-${k}">·</span>
     <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,'root')}</span>${spkBtn(plain(it.en))}
@@ -443,7 +442,7 @@ function cpPick(si,qi,oi,btn){
   if(oi===q.ans){opts.forEach((o,k)=>{o.disabled=true;if(k===oi)o.classList.add('right');});
     fb.className='fb show good';fb.innerHTML='✅ 정답! '+q.ex;cpOK[si][qi]=true;
     if(cpOK[si].every(v=>v))unlockNext(si);
-  }else{btn.classList.add('wrong');fb.className='fb show badf';fb.innerHTML='🤔 힌트: O = OC 관계(be동사 테스트)를 적용해 보세요.';setTimeout(()=>btn.classList.remove('wrong'),500);}}
+  }else{btn.classList.add('wrong');fb.className='fb show badf';fb.innerHTML='🤔 힌트: 주어가 행위를 당하는가(수동태)? / 의무·불필요·금지 중 무엇인가?';setTimeout(()=>btn.classList.remove('wrong'),500);}}
 function unlockNext(si){cpState[si].done=true;if(si+1>maxUnlocked)maxUnlocked=si+1;renderSteps();const ub=document.getElementById('ub'+si);if(ub)ub.classList.add('show');}
 
 /* exam */
@@ -452,7 +451,7 @@ const exAns=EXAM.map(q=>q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?
 let graded=false;
 function examHTML(){
   return `<div class="card" style="border:1.5px solid var(--ink)"><h3><span class="chip c-root">시험 안내</span>응시 전 확인</h3>
-    <ul><li>모든 문항이 <b>"왜?"를 묻습니다.</b> O=OC 테스트, to 유무, 원형 vs -ing — 알고리즘으로 풀어야 합니다.</li>
+    <ul><li>모든 문항이 <b>"왜?"를 묻습니다.</b> 능동/수동 판별, be동사의 시제·수, 의무·불필요·금지 구분 — 알고리즘으로 풀어야 합니다.</li>
     <li>WALK 문항은 단계별 순서대로 풀어야 다음 STEP이 열립니다.</li>
     <li>🔊로 예문을 들으며 문장의 리듬도 익히세요.</li></ul></div>
   ${EXAM.map((q,qi)=>{
@@ -488,7 +487,7 @@ function resetExam(){graded=false;EXAM.forEach((q,qi)=>{exAns[qi]=q.type==='walk
 function pathHTML(arr){return `<div class="path">${arr.map(([t,c],i)=>(i?'<span class="sep">▸</span>':'')+`<span class="crumb on-${c}">${t}</span>`).join('')}</div>`;}
 function renderAll(){
   document.getElementById('main').innerHTML=STAGES.map((s,i)=>{
-    let inner=s.exam?examHTML():(s.cards||[]).map(cardHTML).join('')+(s.cp?cpHTML(i,s.cp):'');
+    let inner=s.exam?examHTML():(s.cards||[]).map(c=>cardHTML(c,i)).join('')+(s.cp?cpHTML(i,s.cp):'');
     return `<section class="stage ${i===cur?'show':''}" id="st${i}">${pathHTML(s.pathArr)}<h2 class="stitle">${s.title}</h2><p class="ssub">${s.sub}</p>${inner}<div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전 단계</button>`:'<span></span>'}<span style="font-size:.78rem;color:var(--sub)">${i+1} / ${STAGES.length}</span></div></section>`;}).join('');
   renderSteps();}
 renderAll();
