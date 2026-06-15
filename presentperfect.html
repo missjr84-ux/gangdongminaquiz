@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>현재완료 완전 정복 (차세대) — 고1 시험 대비</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F0;--card:#FFFFFF;--ink:#23272F;--sub:#727784;--line:#E7E2D6;
+  --root:#1F3A5F;--root-bg:#E8EEF6;--b:#B8860B;--b-bg:#FEF8E1;--c:#1E7A5A;--c-bg:#E2F3EB;
+  --d:#C84F2F;--d-bg:#FBE8E0;--e:#5D4FA3;--e-bg:#EBE7F8;
+  --hl:#FFE45C;--ok:#1E7A5A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;
+  background-image:radial-gradient(#e9e4d6 1px,transparent 1px);background-size:26px 26px;}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 90px}
+header{padding:38px 0 10px;text-align:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.1em;color:var(--e);
+  border:1.5px solid var(--e);border-radius:999px;padding:3px 14px;margin-bottom:14px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.7rem,5.5vw,2.5rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:10px;font-size:.95rem}
+.feat{display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.feat .f{font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:999px;background:#fff;border:1.5px solid var(--e);color:var(--e)}
+.levelbar{display:flex;justify-content:center;gap:6px;margin-top:12px;flex-wrap:wrap}
+.lv{font-size:.72rem;font-weight:700;padding:3px 12px;border-radius:999px;border:1.5px solid}
+.lv.l1{color:var(--c);border-color:var(--c);background:var(--c-bg)}
+.lv.l2{color:var(--b);border-color:var(--b);background:var(--b-bg)}
+.lv.l3{color:var(--e);border-color:var(--e);background:var(--e-bg)}
+.lv.l4{color:var(--d);border-color:var(--d);background:var(--d-bg)}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);margin:22px -16px 0;padding:10px 8px}
+.steps{display:flex;justify-content:center;gap:3px;max-width:780px;margin:0 auto;flex-wrap:wrap}
+.step{flex:1;max-width:96px;min-width:56px;border:none;background:transparent;cursor:pointer;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.92rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.6rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,39,47,.12)}
+.step.cur .lb{color:var(--ink)}
+.step.done .dot{background:var(--ink);border-color:var(--ink);color:#fff}
+.step.locked{opacity:.42;cursor:not-allowed}
+.step:not(.locked):hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:24px 0 6px;font-size:.8rem;font-weight:700}
+.path .crumb{padding:2px 10px;border-radius:999px;background:#fff;border:1.5px solid var(--line)}
+.path .crumb.on-root{border-color:var(--root);color:var(--root);background:var(--root-bg)}
+.path .crumb.on-b{border-color:var(--b);color:var(--b);background:var(--b-bg)}
+.path .crumb.on-c{border-color:var(--c);color:var(--c);background:var(--c-bg)}
+.path .crumb.on-d{border-color:var(--d);color:var(--d);background:var(--d-bg)}
+.path .crumb.on-e{border-color:var(--e);color:var(--e);background:var(--e-bg)}
+.path .sep{color:var(--sub)}
+.lvchip{font-size:.66rem;font-weight:800;padding:2px 9px;border-radius:999px;margin-left:4px}
+.lvchip.l1{color:var(--c);background:var(--c-bg)}.lvchip.l2{color:var(--b);background:var(--b-bg)}
+.lvchip.l3{color:var(--e);background:var(--e-bg)}.lvchip.l4{color:var(--d);background:var(--d-bg)}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.5rem;margin:4px 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ssub{color:var(--sub);font-size:.93rem;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin:14px 0;box-shadow:0 1px 3px rgba(40,35,20,.05)}
+.card h3{font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h3 .chip{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.chip.c-root{background:var(--root-bg);color:var(--root)}.chip.c-b{background:var(--b-bg);color:var(--b)}
+.chip.c-c{background:var(--c-bg);color:var(--c)}.chip.c-d{background:var(--d-bg);color:var(--d)}.chip.c-e{background:var(--e-bg);color:var(--e)}
+.card p{margin:6px 0}.card ul{margin:6px 0 6px 20px}.card li{margin:4px 0}
+.card table{border-collapse:collapse;width:100%;margin:8px 0;font-size:.9rem}
+.card th,.card td{border:1px solid var(--line);padding:5px 8px;text-align:center}
+.card th{background:#F7F5EE;font-weight:700}.card td.lf{text-align:left}
+.kw{font-weight:700}.kw.b{color:var(--b)}.kw.c{color:var(--c)}.kw.d{color:var(--d)}.kw.e{color:var(--e)}.kw.root{color:var(--root)}
+.diff-box{margin-top:12px;border:2px solid var(--d);border-radius:12px;padding:12px 14px;background:#FDF1EC}
+.diff-box .dh{font-weight:800;color:var(--d);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.tip-box{margin-top:12px;border:1.5px dashed var(--ink);border-radius:10px;padding:11px 14px;background:#FFFDF4;font-size:.92rem}
+.tip-box b{display:block;margin-bottom:2px}
+.formula{background:var(--root-bg);border:1.5px solid var(--root);border-radius:10px;padding:10px 14px;margin:10px 0;font-weight:700;text-align:center;font-size:1.02rem;color:var(--root)}
+.formula .pill{background:#fff;border:1px solid var(--root);border-radius:6px;padding:1px 8px;margin:0 2px;display:inline-block}
+.use-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.use-card{border:1.8px solid;border-radius:12px;padding:11px 13px}
+.use-card .ut{font-weight:800;font-size:.92rem;margin-bottom:3px}
+.use-card .us{font-size:.78rem;color:var(--sub);margin-bottom:5px}
+.use-card.u1{border-color:var(--c);background:var(--c-bg)}
+.use-card.u2{border-color:var(--b);background:var(--b-bg)}
+.use-card.u3{border-color:var(--e);background:var(--e-bg)}
+.use-card.u4{border-color:var(--d);background:var(--d-bg)}
+@media(max-width:520px){.use-grid{grid-template-columns:1fr}}
+.enline{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.en{font-family:'Lora',serif;font-size:1.1rem;line-height:1.7}
+.hl{padding:1px 3px;border-radius:3px;font-weight:600;background:linear-gradient(180deg,transparent 30%,var(--hl) 30%)}
+.hl.b{box-shadow:inset 0 -2.5px 0 var(--b)}.hl.c{box-shadow:inset 0 -2.5px 0 var(--c)}.hl.d{box-shadow:inset 0 -2.5px 0 var(--d)}.hl.e{box-shadow:inset 0 -2.5px 0 var(--e)}.hl.root{box-shadow:inset 0 -2.5px 0 var(--root)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:34px;height:34px;cursor:pointer;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--ink)}.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.exc{border-left:4px solid var(--line);padding:12px 16px;margin:12px 0;background:#fff;border-radius:0 10px 10px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.exc.b{border-left-color:var(--b)}.exc.c{border-left-color:var(--c)}.exc.d{border-left-color:var(--d)}.exc.e{border-left-color:var(--e)}.exc.root{border-left-color:var(--root)}
+.tgl{margin-top:8px;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:4px 12px;font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--sub)}
+.tgl:hover{border-color:var(--ink);color:var(--ink)}.tgl[aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.trans{display:none;margin-top:9px;font-size:.9rem;background:#F7F5EE;border-radius:8px;padding:9px 12px}
+.trans.open{display:block}.trans .ko{font-weight:600}.trans .note{color:var(--sub);font-size:.85rem;margin-top:3px}
+.tree{padding:6px 0 6px 4px}.tree ul{list-style:none;padding-left:26px;position:relative}.tree>ul{padding-left:0}
+.tree ul ul::before{content:"";position:absolute;left:8px;top:-8px;bottom:14px;border-left:2px solid var(--line)}
+.tree li{position:relative;padding:5px 0}.tree ul ul li::before{content:"";position:absolute;left:-18px;top:21px;width:16px;border-top:2px solid var(--line)}
+.node{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.8px solid var(--line);border-radius:10px;padding:5px 12px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.18s;font-family:inherit}
+.node .e{font-family:'Lora',serif;font-weight:400;font-style:italic;color:var(--sub);font-size:.82rem}
+.node:hover{transform:translateX(2px)}
+.node.nd-root{border-color:var(--root);background:var(--root-bg)}.node.nd-b{border-color:var(--b);background:var(--b-bg)}
+.node.nd-c{border-color:var(--c);background:var(--c-bg)}.node.nd-d{border-color:var(--d);background:var(--d-bg)}.node.nd-e{border-color:var(--e);background:var(--e-bg)}
+.node.leaf{border-style:dashed;font-family:'Lora',serif;font-style:italic;font-weight:600}
+.qz{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:20px 22px;margin:26px 0;box-shadow:4px 4px 0 rgba(35,39,47,.9)}
+.qz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.qz-head .badge{background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:999px}
+.q{margin:18px 0;padding-top:16px;border-top:1px dashed var(--line)}.q:first-of-type{border-top:none}
+.qno{font-weight:700;font-size:.8rem;color:var(--sub);margin-bottom:4px}.qtext{font-weight:600;margin-bottom:10px}
+.qsent{margin:8px 0 12px;padding:10px 14px;background:#F7F5EE;border-radius:10px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;font-family:inherit;font-size:.92rem;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:9px 13px;cursor:pointer;transition:.15s;line-height:1.55}
+.opt:hover:not(:disabled){border-color:var(--ink)}.opt.sel{border-color:var(--ink);background:#F2F0E8;box-shadow:inset 0 0 0 1px var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--c-bg);box-shadow:inset 0 0 0 1px var(--ok)}
+.opt.wrong{border-color:var(--bad);background:#FBE5E1;box-shadow:inset 0 0 0 1px var(--bad);animation:shake .3s}
+.opt:disabled{cursor:default}@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.fb{display:none;margin-top:9px;font-size:.87rem;border-radius:8px;padding:9px 12px}.fb.show{display:block}
+.fb.good{background:var(--c-bg);border:1px solid var(--ok)}.fb.badf{background:#FBE5E1;border:1px solid var(--bad)}
+.selrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:9px 0;padding:9px 12px;background:#fff;border:1.5px solid var(--line);border-radius:10px}
+.selrow select{font-family:inherit;font-size:.88rem;padding:5px 8px;border-radius:8px;border:1.5px solid var(--line);background:#fff}
+.selrow .mark{font-weight:700;min-width:22px;text-align:center}
+.walkstep{margin:12px 0;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.walkstep .wp{font-weight:600;font-size:.9rem;margin-bottom:8px}.walkstep.lockedw{opacity:.45;pointer-events:none}
+.btn{font-family:inherit;font-weight:700;font-size:.95rem;border:none;border-radius:12px;padding:12px 26px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:3px 3px 0 rgba(35,39,47,.35)}
+.btn.primary:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 rgba(35,39,47,.35)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:28px 0 10px;gap:10px}
+.unlock-banner{display:none;align-items:center;gap:10px;margin-top:16px;background:var(--c-bg);border:1.5px solid var(--ok);border-radius:12px;padding:12px 16px;font-weight:600;animation:fadeUp .4s ease}
+.unlock-banner.show{display:flex}
+.score-wrap{text-align:center;padding:10px 0 4px}.score-big{font-family:'Black Han Sans',sans-serif;font-size:3.2rem;line-height:1.1}
+.grade{font-weight:700;margin-top:2px}.branchbars{margin:18px 0 6px;text-align:left}.bb{margin:10px 0}
+.bb .bl{display:flex;justify-content:space-between;font-size:.83rem;font-weight:700;margin-bottom:4px}
+.bb .track{height:12px;background:#EFEBDF;border-radius:99px;overflow:hidden}.bb .fill{height:100%;border-radius:99px;width:0;transition:width .8s ease}
+.dict{background:var(--e-bg);border:2px solid var(--e);border-radius:14px;padding:18px 20px;margin:20px 0}
+.dict-h{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--e);margin-bottom:4px}
+.dict-h .pb{background:var(--e);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:999px}
+.dict-sub{font-size:.85rem;color:var(--sub);margin-bottom:10px}
+.dict-item{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0}
+.dict-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.dict-controls .pbtn{border:1.5px solid var(--e);background:#fff;color:var(--e);border-radius:9px;padding:7px 14px;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.dict-controls .pbtn:hover{background:var(--e);color:#fff}
+.dict-controls .hint{font-size:.8rem;color:var(--sub)}
+.dict-input{width:100%;font-family:'Lora',serif;font-size:1rem;padding:9px 12px;border:1.5px solid var(--line);border-radius:9px;background:#fff}
+.dict-input:focus{outline:none;border-color:var(--e)}
+.dict-check{margin-top:8px;border:none;background:var(--ink);color:#fff;border-radius:9px;padding:8px 18px;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.dict-result{display:none;margin-top:10px;font-size:.95rem;line-height:1.9}.dict-result.show{display:block}
+.dict-result .tok{padding:1px 5px;border-radius:5px;margin:0 1px;font-family:'Lora',serif}
+.dict-result .tok.ok{background:var(--c-bg);color:var(--ok)}.dict-result .tok.no{background:#FBE5E1;color:var(--bad);text-decoration:line-through}
+.dict-result .ans{margin-top:6px;font-size:.88rem;color:var(--sub)}.dict-result .ans b{color:var(--ink);font-family:'Lora',serif}
+.dict-score{font-weight:800;margin-top:6px}
+.review-box{background:#FFF7E8;border:2px solid var(--b);border-radius:14px;padding:18px 20px;margin:20px 0}
+.review-box .rh{display:flex;align-items:center;gap:8px;font-weight:800;color:#8a6608;margin-bottom:6px}
+.review-box .rh .pb{background:var(--b);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:999px}
+.empty-review{background:var(--c-bg);border:2px solid var(--ok);border-radius:14px;padding:18px;text-align:center;font-weight:700;color:var(--ok)}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:46px}
+@media(max-width:520px){.card,.qz{padding:16px 14px}.step .lb{font-size:.54rem}.en{font-size:1rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">PRESENT PERFECT · 차세대 · 기초 → 고1</div>
+  <h1>현재완료 <span class="mark">완전 정복</span></h1>
+  <p class="tagline">have/has + 과거분사. 4용법부터 과거와의 구별, 현재완료진행까지 — 고1 시험 범위 완전 대비.</p>
+  <div class="feat"><span class="f">🔁 적응형 오답 복습</span><span class="f">✍️ 받아쓰기</span><span class="f">🔊 전체 듣기</span></div>
+  <div class="levelbar">
+    <span class="lv l1">🌱 초급</span><span class="lv l2">🌿 중급</span><span class="lv l3">🌳 중상급</span><span class="lv l4">🏔️ 고1 심화</span>
+  </div>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>현재완료 완전 정복 (차세대) · 적응형 복습 + 받아쓰기 + 듣기</footer>
+</div>
+<script>
+/* ===== TREE ===== */
+const TREE={k:'현재완료',e:'Present Perfect',c:'root',kids:[
+  {k:'형태',e:'have/has + p.p.',c:'c',kids:[
+    {leaf:'긍정: have done',say:'I have done it.'},
+    {leaf:'부정: have not done',say:'I have not done it.'},
+    {leaf:'의문: Have you done?',say:'Have you done it?'}
+  ]},
+  {k:'4용법',e:'Four Uses',c:'b',kids:[
+    {leaf:'경험: ever/never',say:'I have never seen snow.'},
+    {leaf:'완료: just/already/yet',say:'I have just finished.'},
+    {leaf:'계속: for/since',say:'I have lived here for years.'},
+    {leaf:'결과: gone/lost',say:'He has gone to Seoul.'}
+  ]},
+  {k:'vs 과거단순',e:'vs Simple Past',c:'d',kids:[
+    {leaf:'특정 시점 → 과거',say:'I saw him yesterday.'},
+    {leaf:'시점 없음 → 완료',say:'I have seen him before.'}
+  ]},
+  {k:'현재완료진행',e:'have been -ing',c:'e',kids:[
+    {leaf:'동작의 계속·강조',say:'I have been studying for hours.'}
+  ]}
+]};
+
+/* ===== STAGES ===== */
+const STAGES=[
+
+/* 0 큰 그림 */
+{id:'map',icon:'🌉',lv:'l1',label:'큰 그림',pathArr:[['현재완료','root']],
+ title:'1단계 · 현재완료란? 과거와 현재를 잇는 다리',titleLv:'l1',
+ sub:'현재완료는 "과거에 일어난 일이 지금까지 이어지거나 영향을 미칠 때" 써요. 단순 과거(끝난 일)와 가장 큰 차이가 바로 이 "현재와의 연결"입니다.',
+ cards:[
+  {t:'h',chip:['개념','root'],title:'과거 ─────▶ 지금 (연결)',html:
+   `<p>단순 과거는 과거에 <b>딱 끝난 일</b>이지만, 현재완료는 그 일이 <b>지금까지 연결</b>돼요.</p>
+    <table>
+    <tr><th></th><th>단순 과거</th><th>현재완료</th></tr>
+    <tr><td class="lf">시점</td><td>과거에 끝남 (지금과 단절)</td><td>과거 ~ 지금 연결</td></tr>
+    <tr><td class="lf">예문</td><td class="lf">I lost my key. (잃었었다)</td><td class="lf">I have lost my key. (잃어서 지금도 없다)</td></tr>
+    </table>
+    <div class="diff-box"><div class="dh">⭐ 한 줄 핵심</div>
+    "지금 어떤가?"에 영향을 주면 현재완료, 그냥 과거 사실이면 단순 과거!</div>`},
+  {t:'h',chip:['형태','c'],title:'형태: have / has + 과거분사(p.p.)',html:
+   `<div class="formula">주어 + <span class="pill">have / has</span> + <span class="pill">과거분사(p.p.)</span></div>
+    <ul>
+      <li>I / You / We / They → <b>have</b> + p.p.</li>
+      <li>He / She / It → <b>has</b> + p.p.</li>
+    </ul>
+    <p>줄임말: I've, you've, he's(=he has), she's, it's / 부정 haven't, hasn't</p>
+    <div class="tip-box"><b>주의</b>he's는 he is일 수도, he has일 수도 있어요. 뒤에 p.p.가 오면 he has! (He's gone = He has gone)</div>`},
+  {t:'tree'},
+ ],
+ cp:[
+  {q:'현재완료가 단순 과거와 다른 가장 큰 점은?',
+   opts:['더 옛날 일이다','과거의 일이 현재까지 연결된다','미래의 일이다','항상 의문문이다'],
+   ans:1,ex:'현재완료의 핵심은 "과거~현재의 연결". 단순 과거는 지금과 단절된 끝난 일.'},
+  {q:'"She ___ finished her work." (주어 She) 빈칸은?',
+   opts:['have','has','had','having'],
+   ans:1,ex:'3인칭 단수 She → has + p.p.'},
+  {q:'"He\'s gone home."에서 \'s는 무엇의 줄임?',
+   opts:['he is','he was','he has','he does'],
+   ans:2,ex:'뒤에 p.p.(gone)가 왔으므로 he has. (He has gone)'}
+ ]},
+
+/* 1 과거분사 + 부정·의문 */
+{id:'pp',icon:'🔤',lv:'l1',label:'과거분사 p.p.',pathArr:[['현재완료','root'],['과거분사','c']],
+ title:'2단계 · 과거분사(p.p.) & 부정·의문문',titleLv:'l1',
+ sub:'현재완료의 재료인 과거분사를 정확히 만드는 게 먼저예요. 규칙·불규칙 p.p.와 부정·의문문 만드는 법을 익혀요.',
+ cards:[
+  {t:'h',chip:['규칙 p.p.','c'],title:'규칙 과거분사 = 과거형과 같음 (-ed)',html:
+   `<p>규칙 동사는 과거형과 과거분사가 똑같아요(+ed).</p>
+    <table>
+    <tr><th>동사원형</th><th>과거</th><th>과거분사(p.p.)</th></tr>
+    <tr><td>play</td><td>played</td><td>played</td></tr>
+    <tr><td>study</td><td>studied</td><td>studied</td></tr>
+    <tr><td>live</td><td>lived</td><td>lived</td></tr>
+    </table>`},
+  {t:'h',chip:['불규칙 p.p.','d'],title:'⭐ 불규칙 과거분사 (반드시 암기!)',html:
+   `<table>
+    <tr><th>원형</th><th>과거</th><th>p.p.</th><th>원형</th><th>과거</th><th>p.p.</th></tr>
+    <tr><td>go</td><td>went</td><td><b>gone</b></td><td>see</td><td>saw</td><td><b>seen</b></td></tr>
+    <tr><td>eat</td><td>ate</td><td><b>eaten</b></td><td>do</td><td>did</td><td><b>done</b></td></tr>
+    <tr><td>write</td><td>wrote</td><td><b>written</b></td><td>take</td><td>took</td><td><b>taken</b></td></tr>
+    <tr><td>be</td><td>was</td><td><b>been</b></td><td>have</td><td>had</td><td><b>had</b></td></tr>
+    <tr><td>give</td><td>gave</td><td><b>given</b></td><td>break</td><td>broke</td><td><b>broken</b></td></tr>
+    <tr><td>come</td><td>came</td><td><b>come</b></td><td>run</td><td>ran</td><td><b>run</b></td></tr>
+    <tr><td>know</td><td>knew</td><td><b>known</b></td><td>speak</td><td>spoke</td><td><b>spoken</b></td></tr>
+    </table>
+    <div class="tip-box"><b>유형으로 외우기</b>A-B-B: buy-bought-bought / A-B-C: go-went-gone, give-gave-given / A-A-A: cut-cut-cut, put-put-put</div>`},
+  {t:'h',chip:['부정·의문','e'],title:'부정문 & 의문문',html:
+   `<ul>
+      <li>부정: have/has + <b>not</b> + p.p. → I <b>haven't</b> finished. / She <b>hasn't</b> eaten.</li>
+      <li>의문: <b>Have/Has</b> + 주어 + p.p. ~? → <b>Have</b> you done it? — Yes, I have. / No, I haven't.</li>
+    </ul>
+    <div class="tip-box"><b>대답에 주의</b>Yes, I have. / No, I haven't. (do/did로 답하지 않음!)</div>`},
+  {t:'ex',cls:'c',en:'I have [[written]] three letters today.',ko:'나는 오늘 편지 세 통을 썼다.',note:'write의 p.p.는 written(불규칙). 현재완료 완료 용법.'},
+  {t:'ex',cls:'e',en:'She [[hasn\'t]] [[seen]] this movie.',ko:'그녀는 이 영화를 본 적이 없다.',note:'부정: has not(hasn\'t) + p.p.(seen). see→seen.'},
+  {t:'ex',cls:'e',en:'[[Have]] you ever [[eaten]] sushi?',ko:'너는 초밥을 먹어 본 적 있니?',note:'의문: Have + 주어 + p.p.? eat→eaten. 경험 용법.'},
+ ],
+ cp:[
+  {q:'see의 과거분사(p.p.)는?',
+   opts:['saw','seen','seed','seeing'],
+   ans:1,ex:'see-saw-seen. p.p.는 seen.'},
+  {q:'"I ___ finished my homework yet." (아직 안 끝냈다) 빈칸은?',
+   opts:['have','haven\'t','am not','don\'t'],
+   ans:1,ex:'부정 → haven\'t + p.p. (have not finished).'},
+  {q:'"Have you done it?"의 올바른 대답은?',
+   opts:['Yes, I did.','Yes, I do.','Yes, I have.','Yes, I am.'],
+   ans:2,ex:'현재완료 의문문은 have/has로 대답 → Yes, I have.'}
+ ]},
+
+/* 2 4용법 */
+{id:'uses',icon:'🍀',lv:'l2',label:'4용법',pathArr:[['현재완료','root'],['4용법','b']],
+ title:'3단계 · 현재완료의 4가지 용법',titleLv:'l2',
+ sub:'경험·완료·계속·결과. 용법마다 함께 쓰는 신호 단어가 정해져 있어요. 이 신호 단어를 세트로 외우면 해석이 쉬워집니다.',
+ cards:[
+  {t:'h',chip:['4용법 한눈에','b'],title:'용법별 의미와 신호 단어',html:
+   `<div class="use-grid">
+     <div class="use-card u1"><div class="ut">① 경험</div><div class="us">~해 본 적 있다</div>
+       신호: ever, never, before, once, twice, ~ times<br><i>I have <b>never</b> been there.</i></div>
+     <div class="use-card u2"><div class="ut">② 완료</div><div class="us">막 ~했다 (지금 완료)</div>
+       신호: just, already, yet(부정·의문)<br><i>She has <b>just</b> arrived.</i></div>
+     <div class="use-card u3"><div class="ut">③ 계속</div><div class="us">계속 ~해 오고 있다</div>
+       신호: for+기간, since+시점, how long<br><i>I have lived here <b>for</b> 5 years.</i></div>
+     <div class="use-card u4"><div class="ut">④ 결과</div><div class="us">~해서 지금 …한 상태</div>
+       신호: gone, lost, become<br><i>He has <b>gone</b> to Busan. (지금 없음)</i></div>
+   </div>`},
+  {t:'h',chip:['신호 단어 위치','d'],title:'⭐ 신호 단어 위치 (고1 빈출!)',html:
+   `<ul>
+      <li><b>just / already / never / ever</b>: have와 p.p. <b>사이</b><br>
+      <span style="margin-left:14px">I have <b>just</b> eaten. / She has <b>already</b> left.</span></li>
+      <li><b>yet</b>: 문장 <b>끝</b>, 부정·의문문에서<br>
+      <span style="margin-left:14px">I haven't finished <b>yet</b>. / Have you done it <b>yet</b>?</span></li>
+    </ul>
+    <div class="diff-box"><div class="dh">⭐ already vs yet</div>
+    already = 긍정문 "벌써" (have already done)<br>
+    yet = 부정문 "아직"(not yet) / 의문문 "벌써"(done yet?)</div>`},
+  {t:'ex',cls:'b',en:'I have [[never]] [[been]] abroad.',ko:'나는 해외에 가 본 적이 없다.',note:'경험 용법. never + p.p.(been). be→been.'},
+  {t:'ex',cls:'b',en:'They have [[already]] [[left]] the office.',ko:'그들은 이미 사무실을 떠났다.',note:'완료 용법. already는 have와 p.p. 사이. leave→left.'},
+  {t:'ex',cls:'e',en:'We have known each other [[since]] 2015.',ko:'우리는 2015년부터 서로 알아 왔다.',note:'계속 용법. since+시점(2015). know→known.'},
+  {t:'ex',cls:'d',en:'She has [[gone]] to Paris.',ko:'그녀는 파리로 가 버렸다. (지금 여기 없음)',note:'결과 용법. has gone = 가고 없는 상태.'},
+ ],
+ cp:[
+  {q:'"I have ___ seen a whale." (한 번도 본 적 없다) 빈칸은?',
+   opts:['ever','never','just','already'],
+   ans:1,ex:'경험 용법의 부정 "~한 적 없다" → never. (have와 p.p. 사이에 위치)'},
+  {q:'"She hasn\'t come ___ ." (아직) 빈칸은?',
+   opts:['already','just','yet','ever'],
+   ans:2,ex:'부정문에서 "아직" → yet (문장 끝).'},
+  {q:'"I have lived here ___ ten years." 빈칸은?',
+   opts:['since','for','ago','in'],
+   ans:1,ex:'계속 용법. 기간(ten years) → for. (시점이면 since)'}
+ ]},
+
+/* 3 vs 과거단순 */
+{id:'vspast',icon:'⚖️',lv:'l3',label:'vs 과거',pathArr:[['현재완료','root'],['vs 과거단순','d']],
+ title:'4단계 · 현재완료 vs 과거단순 (시험 최빈출!)',titleLv:'l3',
+ sub:'가장 많이 틀리는 부분이에요. "특정 과거 시점을 콕 집으면 과거단순, 시점이 없으면 현재완료"가 핵심 판별법입니다.',
+ cards:[
+  {t:'h',chip:['판별법','d'],title:'시간 부사가 열쇠',html:
+   `<table>
+    <tr><th></th><th>현재완료 ✅</th><th>과거단순 ⏮️</th></tr>
+    <tr><td class="lf">특정 시점</td><td>❌ 없음</td><td>✅ 있음</td></tr>
+    <tr><td class="lf">현재 연결</td><td>✅ 연결됨</td><td>❌ 끊김</td></tr>
+    <tr><td class="lf">예</td><td class="lf">I have seen it. (언제인지 X)</td><td class="lf">I saw it yesterday.</td></tr>
+    </table>`},
+  {t:'h',chip:['함께 못 쓰는 부사','d'],title:'⭐ 현재완료와 절대 못 쓰는 부사 (단골 함정!)',html:
+   `<div class="diff-box"><div class="dh">⭐ 이 단어들 보이면 → 과거단순!</div>
+    <b>yesterday, ago, last ~, in + 과거연도, just now, when ~?</b><br>
+    이런 "딱 정해진 과거 시점"은 현재완료와 함께 쓸 수 없어요.<br><br>
+    ✗ I have seen him <b>yesterday</b>. → ✓ I <b>saw</b> him yesterday.<br>
+    ✗ She has come <b>two days ago</b>. → ✓ She <b>came</b> two days ago.<br>
+    ✗ <b>When</b> have you finished? → ✓ <b>When</b> did you finish?</div>`},
+  {t:'h',chip:['been to vs gone to','d'],title:'⭐ have been to vs have gone to',html:
+   `<table>
+    <tr><th>have been to ~</th><th>have gone to ~</th></tr>
+    <tr><td class="lf">~에 가 본 적 있다 (경험)<br>지금 <b>여기 있음</b></td><td class="lf">~로 가 버렸다 (결과)<br>지금 <b>여기 없음</b></td></tr>
+    </table>
+    <p><i>I have <b>been</b> to Japan twice.</i> (가 봤다, 지금 여기 있음)<br>
+    <i>He has <b>gone</b> to Japan.</i> (가 버렸다, 지금 여기 없음)</p>
+    <div class="tip-box"><b>주의</b>주어가 I/you인데 gone to를 쓰면 어색해요. (말하는 내가 가버렸을 순 없으니) → 보통 has gone to는 3인칭.</div>`},
+  {t:'ex',cls:'e',en:'I have [[seen]] this movie before.',ko:'나는 전에 이 영화를 본 적이 있다.',note:'시점 없음(before) → 현재완료 경험.'},
+  {t:'ex',cls:'d',en:'I [[saw]] this movie [[last night]].',ko:'나는 어젯밤에 이 영화를 봤다.',note:'last night(특정 시점) → 과거단순. (✗have seen ~ last night)'},
+  {t:'ex',cls:'e',en:'My dad has [[been]] to New York.',ko:'아빠는 뉴욕에 가 본 적이 있다.',note:'have been to = 경험(지금 여기 있음).'},
+ ],
+ cp:[
+  {q:'"I ___ him two days ago." 빈칸은?',
+   opts:['have met','met','have seen','has met'],
+   ans:1,ex:'two days ago(특정 과거 시점) → 과거단순 met. 현재완료 불가!'},
+  {q:'"She has been a teacher ___ 2010." 빈칸은?',
+   opts:['for','since','ago','in'],
+   ans:1,ex:'시점 2010 → since. (계속 용법)'},
+  {q:'"He has ___ to London, so he isn\'t here now." 빈칸은?',
+   opts:['been','gone','went','being'],
+   ans:1,ex:'지금 없음(결과) → has gone to.'}
+ ]},
+
+/* 4 고1 심화 현재완료진행 */
+{id:'adv',icon:'🏔️',lv:'l4',label:'고1 심화',pathArr:[['현재완료','root'],['고1 심화','e']],
+ title:'5단계 · 고1 심화 — for/since & 현재완료진행',titleLv:'l4',
+ sub:'고1 시험의 변별 포인트예요. for/since의 디테일, since절, 그리고 현재완료진행(have been -ing)을 다룹니다.',
+ cards:[
+  {t:'h',chip:['for vs since','e'],title:'for + 기간 / since + 시점·절',html:
+   `<table>
+    <tr><th>for + 기간(얼마 동안)</th><th>since + 시점(언제부터)</th></tr>
+    <tr><td class="lf">for three years (3년 동안)<br>for a long time</td><td class="lf">since 2010 (2010년부터)<br>since last week</td></tr>
+    </table>
+    <div class="diff-box"><div class="dh">⭐ since + 과거시제 절 (고1 빈출!)</div>
+    since 뒤에 「주어+과거동사」 절이 올 수 있어요.<br>
+    I have known her <b>since we were kids</b>. (우리가 어렸을 때부터)<br>
+    → 주절은 현재완료, since절은 <b>과거시제</b>!</div>`},
+  {t:'h',chip:['현재완료진행','e'],title:'⭐ 현재완료진행: have been + -ing',html:
+   `<p>과거부터 지금까지 <b>계속 진행 중인 동작</b>을 강조해요. (현재완료 계속 용법의 진행형 강조판)</p>
+    <div class="formula">주어 + <span class="pill">have/has been</span> + 동사-ing</div>
+    <ul>
+      <li>I <b>have been studying</b> for three hours. (3시간째 계속 공부하는 중)</li>
+      <li>It <b>has been raining</b> since morning. (아침부터 계속 비 옴)</li>
+    </ul>
+    <div class="diff-box"><div class="dh">⭐ 현재완료 vs 현재완료진행</div>
+    have lived (상태·결과 강조) ↔ have been living (계속·진행 강조)<br>
+    동작이 지금도 진행 중임을 강조하면 현재완료진행!<br>
+    <span style="font-size:.84rem">※ know, like 같은 상태동사는 진행형 불가 → have known (○) / have been knowing (✗)</span></div>`},
+  {t:'h',chip:['부사 위치','d'],title:'심화 — 부사·표현 위치 총정리',html:
+   `<ul>
+      <li>just/already/never/ever → have와 p.p. 사이</li>
+      <li>yet → 문장 끝 (부정·의문)</li>
+      <li>for/since + 기간/시점 → 보통 문장 끝</li>
+      <li>How long → 의문문 맨 앞: <b>How long</b> have you lived here?</li>
+    </ul>`},
+  {t:'ex',cls:'e',en:'I have been [[waiting]] for an hour.',ko:'나는 한 시간째 기다리고 있다.',note:'현재완료진행 have been + -ing. 계속 진행 강조.'},
+  {t:'ex',cls:'e',en:'We have been friends [[since]] we met in 2018.',ko:'우리는 2018년에 만난 이후로 친구이다.',note:'since + 과거절(we met). 주절은 현재완료.'},
+  {t:'ex',cls:'e',en:'It has been [[snowing]] all day.',ko:'하루 종일 눈이 내리고 있다.',note:'현재완료진행. 동작(snow)이 계속 진행 중임을 강조.'},
+ ],
+ cp:[
+  {q:'"I have been ___ English for two years." 빈칸은?',
+   opts:['study','studied','studying','studies'],
+   ans:2,ex:'현재완료진행 have been + -ing → studying.'},
+  {q:'"She has lived here ___ she was born." 빈칸은?',
+   opts:['for','since','ago','during'],
+   ans:1,ex:'뒤에 절(she was born)이 오므로 since. (since + 과거절)'},
+  {q:'다음 중 현재완료진행으로 쓸 수 없는 동사는?',
+   opts:['wait','study','know','rain'],
+   ans:2,ex:'know는 상태동사라 진행형 불가. have known (○) / have been knowing (✗).'}
+ ]},
+
+/* 5 종합시험 */
+{id:'exam',icon:'🏆',lv:'l4',label:'종합 시험',pathArr:[['현재완료','root'],['전체 통합','root']],
+ title:'최종 관문 · 현재완료 종합 시험 (10문항)',titleLv:'l4',
+ sub:'형태·4용법·과거 비교·현재완료진행까지 모두 섞었습니다. 채점 후 틀린 문항은 오답 복습으로, 그리고 받아쓰기로 마무리해요.',
+ exam:true}
+];
+
+/* ===== EXAM ===== */
+const CLS_LB=['경험','완료','계속','결과'];
+const EXAM=[
+{type:'mc',tags:['form'],q:'[초급] "She ___ already eaten lunch." 빈칸은?',
+ opts:['have','has','had','is'],
+ ans:1,ex:'3인칭 단수 → has + p.p. (has eaten).'},
+
+{type:'mc',tags:['form'],q:'[초급] "Have you ever ___ a famous person?" (만나다) 빈칸은?',
+ opts:['meet','met','meeting','meets'],
+ ans:1,ex:'meet의 p.p.는 met. 경험 용법 의문문.'},
+
+{type:'mc',tags:['uses'],q:'[중급] "I haven\'t finished my report ___ ." (아직) 빈칸은?',
+ opts:['already','yet','just','ever'],
+ ans:1,ex:'부정문에서 "아직" → yet (문장 끝).'},
+
+{type:'mc',tags:['uses'],q:'[중급] "He has lived in Seoul ___ 2015." 빈칸은?',
+ opts:['for','since','ago','during'],
+ ans:1,ex:'시점 2015 → since (계속 용법).'},
+
+{type:'mc',tags:['vspast'],q:'[중상급] "I ___ him at the party last night." 빈칸은?',
+ opts:['have seen','saw','have met','has seen'],
+ ans:1,ex:'last night(특정 과거 시점) → 과거단순 saw. 현재완료 불가!'},
+
+{type:'mc',tags:['vspast'],q:'[중상급] "My sister has ___ to Canada, so she isn\'t home." 빈칸은?',
+ opts:['been','gone','went','being'],
+ ans:1,ex:'지금 없음(결과) → has gone to.'},
+
+{type:'walk',tags:['adv'],sent:'I have been [[reading]] this book for two hours.',say:'I have been reading this book for two hours.',
+ q:'[고1] 이 문장의 시제를 분석하시오.',
+ steps:[
+  {p:'STEP 1 · have been reading의 시제는?',opts:['현재완료','현재완료진행','과거진행'],ans:1},
+  {p:'STEP 2 · 무엇을 강조하나?',opts:['이미 끝남','두 시간째 계속 읽는 중(진행)','미래에 읽을 것'],ans:1},
+  {p:'STEP 3 · for two hours는 무엇을 나타내나?',opts:['시점','기간(얼마 동안)','횟수'],ans:1}],
+ ex:'현재완료진행(have been + -ing): 과거부터 지금까지 계속 진행 중인 동작 강조. for + 기간.'},
+
+{type:'mc',tags:['adv'],q:'[고1] "I have known her ___ we were children." 빈칸은?',
+ opts:['for','since','ago','when'],
+ ans:1,ex:'뒤에 과거절(we were children) → since.'},
+
+{type:'mc',tags:['adv'],q:'[고1] 다음 중 어법상 틀린 문장은?',
+ opts:['It has been raining since noon.','I have been knowing him for years.','She has been working hard.','They have been waiting.'],
+ ans:1,ex:'know는 상태동사 → 진행형 불가. have known (○), have been knowing (✗).'},
+
+{type:'classify',tags:['uses'],q:'[종합] 각 문장의 현재완료 용법을 고르시오.',
+ items:[
+  {en:'I have [[just]] finished my homework.',ans:1,why:'just → 완료 용법(막 ~했다)'},
+  {en:'She has [[lived]] here for ten years.',ans:2,why:'for + 기간 → 계속 용법'},
+  {en:'Have you [[ever]] been to Europe?',ans:0,why:'ever → 경험 용법(~해 본 적)'}]},
+];
+
+/* ===== DICTATION ===== */
+const DICT=[
+  {en:'I have never been abroad.',ko:'나는 해외에 가 본 적이 없다.'},
+  {en:'She has just finished her homework.',ko:'그녀는 막 숙제를 끝냈다.'},
+  {en:'We have lived here since 2015.',ko:'우리는 2015년부터 여기 살아왔다.'},
+  {en:'He has gone to Busan.',ko:'그는 부산으로 가 버렸다.'},
+  {en:'It has been raining all day.',ko:'하루 종일 비가 오고 있다.'}
+];
+
+/* ===== ENGINE ===== */
+let cur=0,maxUnlocked=0;
+const cpState=STAGES.map(()=>({done:false}));
+const LVNAME={l1:'🌱 초급',l2:'🌿 중급',l3:'🌳 중상급',l4:'🏔️ 고1'};
+const wrongLog=[];
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){
+  if(!('speechSynthesis' in window)){alert('Chrome 브라우저를 권장합니다.');return;}
+  speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.85;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);}
+function spkBtn(text){return `<button class="spk" title="듣기" aria-label="영어 듣기" onclick="speak(this.dataset.say,this)" data-say="${text.replace(/"/g,'&quot;')}">🔊</button>`;}
+function plain(s){return s.replace(/\[\[|\]\]|\{\{|\}\}/g,'').replace(/<[^>]+>/g,'');}
+function renderEn(s,cls){return s.replace(/\[\[(.+?)\]\]/g,`<span class="hl ${cls||'root'}">$1</span>`);}
+function tgl(btn){const t=btn.nextElementSibling;const open=t.classList.toggle('open');btn.setAttribute('aria-expanded',open);btn.textContent=open?'해석 닫기 ▲':'해석 + 풀이 보기 ▼';}
+function renderSteps(){
+  document.getElementById('steps').innerHTML=STAGES.map((s,i)=>{
+    const lock=i>maxUnlocked,done=cpState[i].done;
+    return `<button class="step ${i===cur?'cur':''} ${done?'done':''} ${lock?'locked':''}" onclick="go(${i})" ${lock?'aria-disabled="true"':''}>
+      <span class="dot">${lock?'🔒':done?'✓':s.icon}</span><span class="lb">${s.label}</span></button>`;}).join('');}
+function go(i){
+  if(i>maxUnlocked){alert('🔒 이전 단계의 체크포인트를 통과하면 열립니다!');return;}
+  window.speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0});}
+function treeHTML(node){
+  if(node.leaf!==undefined){const say=node.say||node.leaf;
+    return `<li><button class="node leaf" onclick="speak(this.dataset.say,this)" data-say="${say}">${node.leaf} 🔉</button></li>`;}
+  const kids=node.kids&&node.kids.length?`<ul>${node.kids.map(treeHTML).join('')}</ul>`:'';
+  return `<li><button class="node nd-${node.c}" onclick="speak(this.dataset.say,this)" data-say="${node.e.replace(/=.+$/,'').trim()}">${node.k} <span class="e">${node.e} 🔉</span></button>${kids}</li>`;}
+function cardHTML(c){
+  if(c.t==='tree')return `<div class="card"><h3><span class="chip c-root">전체 지도</span>로직 트리 — 노드를 누르면 예문을 읽어 줍니다</h3><div class="tree"><ul>${treeHTML(TREE)}</ul></div></div>`;
+  if(c.t==='h')return `<div class="card"><h3><span class="chip c-${c.chip[1]}">${c.chip[0]}</span>${c.title}</h3>${c.html}</div>`;
+  if(c.t==='ex'){const say=plain(c.en);return `<div class="exc ${c.cls}"><div class="enline"><span class="en">${renderEn(c.en,c.cls)}</span>${spkBtn(say)}</div><button class="tgl" aria-expanded="false" onclick="tgl(this)">해석 + 풀이 보기 ▼</button><div class="trans"><div class="ko">${c.ko}</div><div class="note">${c.note}</div></div></div>`;}
+  return '';}
+function cpHTML(i,qs){
+  return `<div class="qz" id="cp${i}"><div class="qz-head"><span class="badge">CHECKPOINT</span><b>체크포인트 — 모두 맞히면 다음 단계가 열립니다</b></div>
+  ${qs.map((q,k)=>`<div class="q"><div class="qno">Q${k+1} / ${qs.length}</div><div class="qtext">${q.q}</div>
+    <div class="opts">${q.opts.map((o,oi)=>`<button class="opt" onclick="cpPick(${i},${k},${oi},this)">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>
+    <div class="fb" id="fb-${i}-${k}"></div></div>`).join('')}
+  <div class="unlock-banner" id="ub${i}">🎉 통과! 다음 단계가 열렸습니다. <button class="btn primary" onclick="go(${i+1})">다음 단계로 →</button></div></div>`;}
+const cpOK=STAGES.map(s=>s.cp?s.cp.map(()=>false):[]);
+function logWrong(q){ if(!wrongLog.some(w=>w.q===q.q)) wrongLog.push({q:q.q,opts:q.opts,ans:q.ans,ex:q.ex}); }
+function cpPick(si,qi,oi,btn){
+  const q=STAGES[si].cp[qi],fb=document.getElementById(`fb-${si}-${qi}`);
+  const opts=btn.parentElement.querySelectorAll('.opt');
+  if(oi===q.ans){opts.forEach((o,k)=>{o.disabled=true;if(k===oi)o.classList.add('right');});
+    fb.className='fb show good';fb.innerHTML='✅ 정답! '+q.ex;cpOK[si][qi]=true;
+    if(cpOK[si].every(v=>v))unlockNext(si);
+  }else{logWrong(q);btn.classList.add('wrong');fb.className='fb show badf';fb.innerHTML='🤔 다시! (이 문항은 마지막 <b>오답 복습</b>에 자동 저장됩니다)';setTimeout(()=>btn.classList.remove('wrong'),500);}}
+function unlockNext(si){cpState[si].done=true;if(si+1>maxUnlocked)maxUnlocked=si+1;renderSteps();const ub=document.getElementById('ub'+si);if(ub)ub.classList.add('show');}
+const exAns=EXAM.map(q=>q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1);
+let graded=false;
+function examHTML(){
+  return `<div class="card" style="border:1.5px solid var(--ink)"><h3><span class="chip c-root">시험 안내</span>응시 전 확인</h3>
+    <ul><li>문항 앞 [초급]~[고1]은 난이도입니다.</li>
+    <li>채점 후, 틀린 문항만 모은 <b>🔁 오답 복습</b>과 <b>✍️ 받아쓰기</b>가 아래에 나타나요.</li></ul></div>
+  ${EXAM.map((q,qi)=>{
+    let body='';
+    const sent=q.sent?`<div class="qsent"><div class="enline"><span class="en">${renderEn(q.sent,'root')}</span>${spkBtn(q.say||plain(q.sent))}</div></div>`:'';
+    if(q.type==='mc'){body=`<div class="opts">${q.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${oi}" onclick="exPick(${qi},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>`;}
+    else if(q.type==='walk'){body=q.steps.map((st,si)=>`<div class="walkstep ${si>0?'lockedw':''}" id="ws-${qi}-${si}"><div class="wp">${st.p}</div><div class="opts">${st.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${si}-${oi}" onclick="exWalk(${qi},${si},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div></div>`).join('');}
+    else{body=q.items.map((it,k)=>`<div class="selrow"><span class="mark" id="em-${qi}-${k}">·</span>
+        <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,'root')}</span>${spkBtn(plain(it.en))}
+        <select id="es-${qi}-${k}" onchange="exAns[${qi}][${k}]=+this.value"><option value="-1">— 용법 선택 —</option>${CLS_LB.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
+        <div class="fb" id="ef-${qi}-${k}" style="flex-basis:100%"></div></div>`).join('');}
+    return `<div class="qz" id="eq${qi}"><div class="qz-head"><span class="badge">${q.type==='walk'?'WALK · 단계 분석':q.type==='classify'?'SORT · 용법 분류':'CHOICE · 어법'}</span><b>문항 ${qi+1} / ${EXAM.length}</b></div>
+      <div class="qtext">${q.q}</div>${sent}${body}<div class="fb" id="exfb${qi}"></div></div>`;}).join('')}
+  <div style="text-align:center;margin:30px 0"><button class="btn primary" id="gradeBtn" onclick="grade()" style="font-size:1.05rem;padding:15px 40px">📝 최종 채점하기</button></div>
+  <div id="result"></div><div id="reviewArea"></div><div id="dictArea"></div>`;}
+function exPick(qi,oi){if(graded)return;exAns[qi]=oi;EXAM[qi].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${k}`).classList.toggle('sel',k===oi));}
+function exWalk(qi,si,oi){if(graded)return;exAns[qi][si]=oi;EXAM[qi].steps[si].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${si}-${k}`).classList.toggle('sel',k===oi));const next=document.getElementById(`ws-${qi}-${si+1}`);if(next)next.classList.remove('lockedw');}
+function grade(){
+  for(let qi=0;qi<EXAM.length;qi++){const a=exAns[qi];const empty=Array.isArray(a)?a.some(v=>v<0):a<0;
+    if(empty){document.getElementById('eq'+qi).scrollIntoView({block:'center'});const f=document.getElementById('exfb'+qi);f.className='fb show badf';f.textContent='⚠️ 답하지 않은 부분이 있어요.';return;}}
+  graded=true;document.getElementById('gradeBtn').disabled=true;
+  let score=0;
+  EXAM.forEach((q,qi)=>{
+    let ok;
+    if(q.type==='mc'){ok=exAns[qi]===q.ans;q.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${k}`);el.disabled=true;if(k===q.ans)el.classList.add('right');else if(k===exAns[qi])el.classList.add('wrong');});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 정답! ':'❌ 오답. ')+q.ex; if(!ok)logWrong(q);}
+    else if(q.type==='walk'){ok=q.steps.every((st,si)=>exAns[qi][si]===st.ans);q.steps.forEach((st,si)=>st.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${si}-${k}`);el.disabled=true;if(k===st.ans)el.classList.add('right');else if(k===exAns[qi][si])el.classList.add('wrong');}));const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 완벽한 분석! ':'❌ 분석 오류. ')+q.ex; if(!ok)logWrong({q:q.q,opts:q.steps[0].opts,ans:q.steps[0].ans,ex:q.ex});}
+    else{ok=q.items.every((it,k)=>exAns[qi][k]===it.ans);q.items.forEach((it,k)=>{const f=document.getElementById(`ef-${qi}-${k}`),m=document.getElementById(`em-${qi}-${k}`);document.getElementById(`es-${qi}-${k}`).disabled=true;const good=exAns[qi][k]===it.ans;m.textContent=good?'✅':'❌';f.className='fb show '+(good?'good':'badf');f.innerHTML=`<b>${CLS_LB[it.ans]}</b> — ${it.why}`;});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=ok?'✅ 용법을 완벽히 분류!':'❌ 위 해설을 확인하세요.'; if(!ok)logWrong({q:q.q,opts:CLS_LB,ans:q.items[0].ans,ex:'4용법(경험·완료·계속·결과)의 신호 단어를 다시 확인하세요.'});}
+    if(ok)score++;});
+  const gr=score>=9?['🥇 현재완료 마스터','고1 시험 완벽 대비!']:score>=7?['🥈 거의 완성','과거 비교와 현재완료진행을 한 번 더!']:score>=5?['🥉 성장 중','4용법과 vs 과거단순을 복습하세요.']:['🌱 다시 도전','1단계부터 차근차근!'];
+  const bars=[['형태·p.p.','form','var(--c)'],['4용법','uses','var(--b)'],['vs 과거단순','vspast','var(--d)'],['고1 심화(진행)','adv','var(--e)']].map(([lb,t,col])=>{
+    const rel=EXAM.map((q,qi)=>[q,qi]).filter(([q])=>q.tags.includes(t));
+    const tot=rel.length;
+    const ok2=rel.filter(([q,qi])=>q.type==='mc'?exAns[qi]===q.ans:q.type==='walk'?q.steps.every((st,si)=>exAns[qi][si]===st.ans):q.items.every((it,k)=>exAns[qi][k]===it.ans)).length;
+    const p=tot?Math.round(ok2/tot*100):100;
+    return `<div class="bb"><div class="bl"><span>${lb}</span><span>${ok2} / ${tot}</span></div><div class="track"><div class="fill" style="background:${col}" data-w="${p}%"></div></div></div>`;}).join('');
+  document.getElementById('result').innerHTML=`<div class="qz"><div class="score-wrap"><div class="score-big">${score} / 10</div><div class="grade">${gr[0]}</div><p style="font-size:.9rem;margin-top:6px">${gr[1]}</p><div class="branchbars">${bars}</div><div style="margin-top:18px"><button class="btn ghost" onclick="resetExam()">처음부터 다시 풀기</button></div></div></div>`;
+  renderReview(); renderDictation();
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w),60));}
+
+/* ===== 적응형 오답 복습 ===== */
+let reviewQueue=[];
+function renderReview(){
+  const area=document.getElementById('reviewArea');
+  if(wrongLog.length===0){area.innerHTML=`<div class="empty-review">🎉 틀린 문항이 없어요! 복습할 게 없습니다. 완벽해요.</div>`;return;}
+  reviewQueue=wrongLog.map((w,i)=>i);
+  area.innerHTML=`<div class="review-box"><div class="rh"><span class="pb">🔁 ADAPTIVE</span>오답 집중 복습 — 학습·시험에서 틀린 ${wrongLog.length}문항</div>
+    <p style="font-size:.86rem;color:var(--sub);margin-bottom:8px">틀렸던 문제만 모았어요. 모두 맞히면 복습이 끝납니다. (틀리면 큐 뒤로 다시 들어가요.)</p>
+    <div id="reviewSlot"></div></div>`;
+  showReview();
+}
+function showReview(){
+  const slot=document.getElementById('reviewSlot');
+  if(reviewQueue.length===0){slot.innerHTML=`<div class="empty-review">✅ 오답 복습 완료! 약점을 모두 극복했어요. 👏</div>`;return;}
+  const wi=reviewQueue[0];const w=wrongLog[wi];
+  slot.innerHTML=`<div class="q" style="border:none"><div class="qno">남은 복습 ${reviewQueue.length}문항</div><div class="qtext">${w.q}</div>
+    <div class="opts">${w.opts.map((o,oi)=>`<button class="opt" id="rv-${oi}" onclick="reviewPick(${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>
+    <div class="fb" id="rvfb"></div></div>`;
+}
+function reviewPick(oi){
+  const wi=reviewQueue[0];const w=wrongLog[wi];const fb=document.getElementById('rvfb');
+  const opts=document.querySelectorAll('#reviewSlot .opt');
+  if(oi===w.ans){opts.forEach((o,k)=>{o.disabled=true;if(k===w.ans)o.classList.add('right');});
+    fb.className='fb show good';fb.innerHTML='✅ 정답! '+w.ex+'<br><button class="btn primary" style="margin-top:10px;padding:8px 18px" onclick="reviewNext(true)">다음 →</button>';
+  }else{opts[oi].classList.add('wrong');fb.className='fb show badf';fb.innerHTML='❌ 다시. 이 문제는 큐 뒤로 갑니다.<br><button class="btn ghost" style="margin-top:10px;padding:8px 18px" onclick="reviewNext(false)">계속 →</button>';}
+}
+function reviewNext(correct){const wi=reviewQueue.shift();if(!correct)reviewQueue.push(wi);showReview();}
+
+/* ===== 받아쓰기 ===== */
+function renderDictation(){
+  const area=document.getElementById('dictArea');
+  area.innerHTML=`<div class="dict"><div class="dict-h"><span class="pb">✍️ DICTATION</span>받아쓰기 — 듣고 그대로 입력하세요</div>
+    <div class="dict-sub">🔊를 눌러 문장을 듣고, 빈칸에 영어로 정확히 타이핑한 뒤 [채점]을 누르세요. 단어별로 맞고 틀림을 보여줍니다.</div>
+    ${DICT.map((d,i)=>`<div class="dict-item">
+      <div class="dict-controls">
+        <button class="pbtn" onclick="speak(this.dataset.say,null)" data-say="${d.en.replace(/"/g,'&quot;')}">🔊 듣기</button>
+        <button class="pbtn" onclick="speakSlow(this.dataset.say)" data-say="${d.en.replace(/"/g,'&quot;')}">🐢 천천히</button>
+        <span class="hint">힌트: ${d.ko}</span>
+      </div>
+      <input class="dict-input" id="di-${i}" type="text" placeholder="여기에 들은 문장을 입력..." autocomplete="off" spellcheck="false">
+      <button class="dict-check" onclick="checkDict(${i})">채점하기</button>
+      <div class="dict-result" id="dr-${i}"></div>
+    </div>`).join('')}
+  </div>`;
+}
+function speakSlow(text){if(!('speechSynthesis' in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.55;speechSynthesis.speak(u);}
+function normWord(w){return w.toLowerCase().replace(/[.,!?;:'"]/g,'');}
+function checkDict(i){
+  const d=DICT[i];const input=document.getElementById('di-'+i).value.trim();
+  const res=document.getElementById('dr-'+i);
+  const ansWords=d.en.split(/\s+/);
+  const inWords=input.split(/\s+/).filter(x=>x);
+  let correct=0;
+  const toks=ansWords.map((aw,k)=>{
+    const iw=inWords[k]||'';
+    const ok=normWord(iw)===normWord(aw);
+    if(ok)correct++;
+    return `<span class="tok ${ok?'ok':'no'}">${iw||'∅'}</span>`;
+  }).join(' ');
+  const pct=Math.round(correct/ansWords.length*100);
+  res.className='dict-result show';
+  res.innerHTML=`<div>${toks}</div>
+    <div class="dict-score" style="color:${pct===100?'var(--ok)':pct>=60?'var(--b)':'var(--bad)'}">${pct===100?'🎉 완벽!':'정확도 '+pct+'%'} (${correct}/${ansWords.length} 단어)</div>
+    <div class="ans">정답: <b>${d.en}</b></div>`;
+}
+function resetExam(){graded=false;wrongLog.length=0;EXAM.forEach((q,qi)=>{exAns[qi]=q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1;});renderAll();go(STAGES.length-1);}
+function pathHTML(arr){return `<div class="path">${arr.map(([t,c],i)=>(i?'<span class="sep">▸</span>':'')+`<span class="crumb on-${c}">${t}</span>`).join('')}</div>`;}
+function renderAll(){
+  document.getElementById('main').innerHTML=STAGES.map((s,i)=>{
+    let inner=s.exam?examHTML():(s.cards||[]).map(cardHTML).join('')+(s.cp?cpHTML(i,s.cp):'');
+    const lvtag=s.titleLv?`<span class="lvchip ${s.titleLv}">${LVNAME[s.titleLv]}</span>`:'';
+    return `<section class="stage ${i===cur?'show':''}" id="st${i}">${pathHTML(s.pathArr)}<h2 class="stitle">${s.title}${lvtag}</h2><p class="ssub">${s.sub}</p>${inner}<div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전 단계</button>`:'<span></span>'}<span style="font-size:.78rem;color:var(--sub)">${i+1} / ${STAGES.length}</span></div></section>`;}).join('');
+  renderSteps();}
+renderAll();
+</script>
+</body>
+</html>
