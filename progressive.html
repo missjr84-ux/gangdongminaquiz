@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>진행형 완전 정복 — 현재진행 & 과거진행</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F0;--card:#FFFFFF;--ink:#23272F;--sub:#727784;--line:#E7E2D6;
+  --root:#1F3A5F;--root-bg:#E8EEF6;
+  --b:#B8860B;--b-bg:#FEF8E1;
+  --c:#1E7A5A;--c-bg:#E2F3EB;
+  --d:#C84F2F;--d-bg:#FBE8E0;
+  --e:#5D4FA3;--e-bg:#EBE7F8;
+  --hl:#FFE45C;--ok:#1E7A5A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;
+  background-image:radial-gradient(#e9e4d6 1px,transparent 1px);background-size:26px 26px;}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 90px}
+header{padding:36px 0 8px;text-align:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.13em;color:var(--e);
+  border:1.5px solid var(--e);border-radius:999px;padding:3px 14px;margin-bottom:14px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.8rem,6vw,2.6rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:10px;font-size:.95rem}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);margin:22px -16px 0;padding:10px 8px}
+.steps{display:flex;justify-content:center;gap:3px;max-width:760px;margin:0 auto;flex-wrap:wrap}
+.step{flex:1;max-width:110px;min-width:70px;border:none;background:transparent;cursor:pointer;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.63rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,39,47,.12)}
+.step.cur .lb{color:var(--ink)}
+.step:hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}
+.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:24px 0 6px;font-size:.8rem;font-weight:700}
+.path .crumb{padding:2px 10px;border-radius:999px;background:#fff;border:1.5px solid var(--line)}
+.path .crumb.on-root{border-color:var(--root);color:var(--root);background:var(--root-bg)}
+.path .crumb.on-c{border-color:var(--c);color:var(--c);background:var(--c-bg)}
+.path .crumb.on-d{border-color:var(--d);color:var(--d);background:var(--d-bg)}
+.path .crumb.on-e{border-color:var(--e);color:var(--e);background:var(--e-bg)}
+.path .sep{color:var(--sub)}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.5rem;margin:4px 0 4px}
+.ssub{color:var(--sub);font-size:.93rem;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin:14px 0;
+  box-shadow:0 1px 3px rgba(40,35,20,.05)}
+.card h3{font-size:1.06rem;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h3 .chip{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.chip.c-root{background:var(--root-bg);color:var(--root)}
+.chip.c-c{background:var(--c-bg);color:var(--c)}
+.chip.c-d{background:var(--d-bg);color:var(--d)}
+.chip.c-e{background:var(--e-bg);color:var(--e)}
+.card p{margin:6px 0}.card ul{margin:6px 0 6px 20px}.card li{margin:4px 0}
+.card table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.92rem}
+.card th,.card td{border:1px solid var(--line);padding:6px 9px;text-align:center}
+.card td.lf{text-align:left}
+.card th{background:#F7F5EE;font-weight:700}
+.kw{font-weight:700}
+.kw.c{color:var(--c)}.kw.d{color:var(--d)}.kw.e{color:var(--e)}
+.diff-box{margin-top:12px;border:2px solid var(--d);border-radius:12px;padding:12px 14px;background:#FDF1EC}
+.diff-box .dh{font-weight:800;color:var(--d);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.tip-box{margin-top:12px;border:1.5px dashed var(--ink);border-radius:10px;padding:11px 14px;background:#FFFDF4;font-size:.93rem}
+.tip-box b{display:block;margin-bottom:2px}
+.formula{background:var(--e-bg);border:1.5px solid var(--e);border-radius:10px;padding:10px 14px;margin:10px 0;
+  font-weight:700;text-align:center;font-size:1.02rem;color:var(--e)}
+.formula .pill{background:#fff;border:1px solid var(--e);border-radius:6px;padding:1px 8px;margin:0 2px;display:inline-block}
+.ex-line{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:7px 0;padding:8px 11px;background:#F7F5EE;border-radius:9px}
+.ex-line .en{font-family:'Lora',serif;font-size:1.06rem}
+.ex-line .ko{color:var(--sub);font-size:.86rem}
+.hl{padding:1px 4px;border-radius:3px;font-weight:700;background:linear-gradient(180deg,transparent 35%,var(--hl) 35%)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:32px;height:32px;
+  cursor:pointer;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--ink)}
+.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.prac{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:16px 18px;margin:18px 0;box-shadow:3px 3px 0 rgba(35,39,47,.85)}
+.prac-h{display:flex;align-items:center;gap:8px;font-weight:800;margin-bottom:4px}
+.prac-h .pb{background:var(--ink);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:999px}
+.prac-sub{font-size:.85rem;color:var(--sub);margin-bottom:6px}
+.pq{padding:13px 0 4px;border-top:1px dashed var(--line)}
+.pq:first-of-type{border-top:none}
+.pq .qn{font-weight:700;font-size:.82rem;color:var(--sub)}
+.pq .qt{font-weight:600;margin:3px 0 9px}
+.popts{display:flex;flex-wrap:wrap;gap:7px}
+.popt{font-family:inherit;font-size:.95rem;background:#fff;border:1.5px solid var(--line);border-radius:9px;
+  padding:8px 15px;cursor:pointer;transition:.15s;font-weight:600}
+.popt:hover:not(:disabled){border-color:var(--ink);background:#F7F5EE}
+.popt.right{border-color:var(--ok);background:var(--c-bg);color:var(--ok)}
+.popt.wrong{border-color:var(--bad);background:#FBE5E1;color:var(--bad);animation:shake .3s}
+.popt:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.pfb{display:none;margin-top:9px;font-size:.9rem;border-radius:8px;padding:9px 12px;line-height:1.6}
+.pfb.show{display:block}
+.pfb.good{background:var(--c-bg);border:1px solid var(--ok)}
+.pfb.badf{background:#FBE5E1;border:1px solid var(--bad)}
+.reveal-btn{margin-top:10px;border:1.5px solid var(--ink);background:var(--ink);color:#fff;border-radius:9px;
+  padding:7px 16px;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.reveal-btn:hover{background:#000}
+.ansbox{display:none;margin-top:9px;padding:10px 13px;background:var(--e-bg);border:1.5px solid var(--e);border-radius:9px;font-size:.92rem}
+.ansbox.show{display:block}
+.ansbox .a{font-weight:700;color:var(--e);font-family:'Lora',serif}
+.btn{font-family:inherit;font-weight:700;font-size:.95rem;border:none;border-radius:12px;padding:11px 24px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:3px 3px 0 rgba(35,39,47,.35)}
+.btn.primary:hover{transform:translate(-1px,-1px)}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:26px 0 10px;gap:10px}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:44px}
+@media(max-width:520px){.card,.prac{padding:14px 13px}.step .lb{font-size:.56rem}.ex-line .en{font-size:.98rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">PROGRESSIVE · 현재진행 & 과거진행</div>
+  <h1>진행형 <span class="mark">완전 정복</span></h1>
+  <p class="tagline">"~하는 중이에요"를 말하는 법. 현재진행형과 과거진행형만 깊이 있게 다룹니다.<br>설명을 읽고 <b>버튼을 눌러 바로 정답을 확인</b>하세요. 🔊로 발음도 들어요.</p>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>진행형 완전 정복 · 현재진행 & 과거진행 집중 · 즉시 정답확인</footer>
+</div>
+<script>
+const STAGES=[
+
+/* 0 큰 그림 */
+{icon:'🎬',label:'큰 그림',crumb:[['진행형이란?','root']],
+ title:'1단계 · 진행형이란? "~하는 중"',
+ sub:'진행형은 어느 한 순간에 "한창 하고 있는 중인" 동작을 나타내요. 핵심 재료는 be동사 + 동사-ing 입니다.',
+ blocks:[
+ {type:'h',chip:['기본 개념','root'],title:'진행 중인 동작을 콕 집어서',html:
+  `<p>그냥 "공부한다(study)"가 아니라, <b>바로 지금/그때 한창 공부하고 있는 중</b>이라는 걸 표현하고 싶을 때 진행형을 써요.</p>
+   <div class="formula"><span class="pill">be동사</span> + <span class="pill">동사 + ing</span> = ~하는 중이다</div>
+   <ul>
+     <li>She <span class="kw c">studies</span>. → 공부한다 (그냥 사실/습관)</li>
+     <li>She <span class="kw e">is studying</span>. → 공부하는 <b>중이다</b> (지금 한창!)</li>
+   </ul>`},
+ {type:'h',chip:['두 종류','e'],title:'언제의 "중"이냐에 따라 두 가지',html:
+  `<table>
+   <tr><th>종류</th><th>형태</th><th>의미</th><th>예문</th></tr>
+   <tr><td class="lf">현재진행</td><td>am/are/is + -ing</td><td>지금 ~하는 중</td><td class="lf">I am eating now.</td></tr>
+   <tr><td class="lf">과거진행</td><td>was/were + -ing</td><td>그때 ~하는 중이었다</td><td class="lf">I was eating then.</td></tr>
+   </table>
+   <div class="tip-box"><b>딱 한 가지만 바뀌어요!</b>be동사를 <b>현재(am/are/is)</b>로 하면 현재진행, <b>과거(was/were)</b>로 하면 과거진행. 뒤의 동사-ing는 똑같아요.</div>`},
+ {type:'ex',cls:'e',pairs:[
+   ['I [[am reading]] a book.','나는 책을 읽는 중이다.'],
+   ['I [[was reading]] a book.','나는 책을 읽는 중이었다.'],
+ ]},
+ ],
+ prac:{title:'개념 확인',sub:'버튼을 누르면 바로 정답을 알려줘요.',
+  items:[
+   {q:'진행형의 기본 형태는?',opts:['be동사 + 동사원형','be동사 + 동사-ing','do + 동사원형'],ans:1,fb:'정답! 진행형 = be동사 + 동사-ing 예요.'},
+   {q:'"She is dancing."의 뜻으로 알맞은 것은?',opts:['그녀는 춤춘다(습관)','그녀는 춤추는 중이다(지금)','그녀는 춤췄다'],ans:1,fb:'정답! is + dancing → 지금 춤추는 중.'},
+   {q:'현재진행과 과거진행의 차이를 만드는 것은?',opts:['뒤의 동사-ing','앞의 be동사(현재 am/are/is ↔ 과거 was/were)','문장 길이'],ans:1,fb:'맞아요! be동사가 현재냐 과거냐로 갈려요. -ing는 그대로!'},
+  ]}
+},
+
+/* 1 -ing 만들기 */
+{icon:'✏️',label:'-ing 만들기',crumb:[['진행형이란?','root'],['-ing 규칙','c']],
+ title:'2단계 · 동사에 -ing 붙이기',
+ sub:'진행형의 재료인 "동사-ing"를 정확히 만드는 법이에요. 3가지 규칙과, 진행형으로 쓸 수 없는 동사까지 알아봐요.',
+ blocks:[
+ {type:'h',chip:['3가지 규칙','c'],title:'-ing 만드는 규칙',html:
+  `<table>
+   <tr><th>규칙</th><th>방법</th><th>예시</th></tr>
+   <tr><td class="lf">① 대부분</td><td>그냥 +ing</td><td class="lf">eat→eating, go→going, play→playing</td></tr>
+   <tr><td class="lf">② -e로 끝남</td><td>e를 빼고 +ing</td><td class="lf">make→making, come→coming, write→writing</td></tr>
+   <tr><td class="lf">③ 단모음+단자음</td><td>자음을 한 번 더 +ing</td><td class="lf">run→running, sit→sitting, swim→swimming</td></tr>
+   </table>
+   <div class="tip-box"><b>③번 주의</b>"단모음 1개 + 단자음 1개"로 끝나는 짧은 동사만! run(u+n), sit(i+t), put(u+t) → 자음 두 번. 단, 끝이 w·x·y면 중복 안 함(play→playing).</div>`},
+ {type:'h',chip:['진행형 불가','d'],title:'진행형으로 쓸 수 없는 동사 (상태동사)',html:
+  `<p>"동작"이 아니라 "상태·감정·생각"을 나타내는 동사는 진행형으로 쓰지 않아요. (계속 이어지는 상태라서 굳이 "~하는 중"이라고 안 함)</p>
+   <ul>
+     <li>마음·생각: know(알다), think(생각하다*), believe(믿다), understand(이해하다), remember(기억하다)</li>
+     <li>감정: like(좋아하다), love(사랑하다), hate(싫어하다), want(원하다), need(필요하다)</li>
+     <li>소유: have(가지다*), own(소유하다)</li>
+   </ul>
+   <div class="diff-box"><div class="dh">⭐ 꼭 기억!</div>
+   ✗ I am knowing the answer. → ✓ I <b>know</b> the answer.<br>
+   ✗ She is wanting a doll. → ✓ She <b>wants</b> a doll.<br>
+   <span style="font-size:.85rem;color:var(--sub)">* have가 "먹다", think가 "곰곰이 고민하다"의 뜻일 땐 진행형 가능: I am having lunch.(점심 먹는 중)</span></div>`},
+ {type:'ex',cls:'c',pairs:[
+   ['make → [[making]]','만들다 (e 빼고 +ing)'],
+   ['run → [[running]]','달리다 (n 한 번 더)'],
+   ['study → [[studying]]','공부하다 (그냥 +ing)'],
+ ]},
+ ],
+ prac:{title:'-ing 만들기 연습',sub:'버튼으로 바로 확인하세요. (3문제 이상)',
+  items:[
+   {q:'come의 -ing형은?',opts:['comeing','coming','comming'],ans:1,fb:'정답! -e로 끝나면 e를 빼고 +ing → coming.'},
+   {q:'sit의 -ing형은?',opts:['siting','sitting','siteing'],ans:1,fb:'정답! 단모음(i)+단자음(t) → t를 한 번 더 → sitting.'},
+   {q:'play의 -ing형은?',opts:['plaing','playing','playying'],ans:1,fb:'정답! 끝이 y라 그냥 +ing → playing. (자음 중복 안 함)'},
+   {q:'다음 중 진행형으로 쓸 수 없는 동사는?',opts:['run','eat','know','read'],ans:2,fb:'정답! know(알다)는 상태동사라 진행형 불가. ✗I am knowing → ✓I know.'},
+   {q:'"나는 답을 안다"를 바르게 쓴 것은?',opts:['I am knowing the answer.','I know the answer.'],ans:1,fb:'정답! know는 진행형이 안 되므로 그냥 I know.'},
+  ]}
+},
+
+/* 2 현재진행형 */
+{icon:'🕐',label:'현재진행형',crumb:[['진행형이란?','root'],['현재진행','c']],
+ title:'3단계 · 현재진행형 — am/are/is + 동사-ing',
+ sub:'지금 이 순간 하고 있는 동작이에요. be동사가 주어에 따라 am/are/is로 바뀌는 게 포인트입니다.',
+ blocks:[
+ {type:'h',chip:['주어별 변화','c'],title:'주어에 따라 am / are / is',html:
+  `<table>
+   <tr><th>주어</th><th>be동사</th><th>예문</th></tr>
+   <tr><td class="lf">I</td><td><b>am</b></td><td class="lf">I am playing.</td></tr>
+   <tr><td class="lf">You / We / They</td><td><b>are</b></td><td class="lf">They are playing.</td></tr>
+   <tr><td class="lf">He / She / It</td><td><b>is</b></td><td class="lf">She is playing.</td></tr>
+   </table>
+   <div class="tip-box"><b>신호 단어</b>now(지금), right now(바로 지금), at the moment(지금 이 순간), Look!(봐!), Listen!(들어봐!)</div>`},
+ {type:'h',chip:['부정문','d'],title:'부정문: be동사 + not + -ing',html:
+  `<p>be동사 뒤에 <b>not</b>만 넣으면 끝!</p>
+   <div class="formula">주어 + am/are/is + <span class="pill">not</span> + 동사-ing</div>
+   <div class="ex-line"><span class="en">She <span class="hl">is not (isn't)</span> sleeping.</span><span class="ko">그녀는 자고 있지 않다.</span></div>`},
+ {type:'h',chip:['의문문','e'],title:'의문문: be동사를 앞으로!',html:
+  `<div class="formula"><span class="pill">Am/Are/Is</span> + 주어 + 동사-ing ~?</div>
+   <ul>
+     <li>You are eating. → <b>Are you</b> eating? — Yes, I am. / No, I'm not.</li>
+     <li>He is running. → <b>Is he</b> running? — Yes, he is. / No, he isn't.</li>
+   </ul>
+   <div class="diff-box"><div class="dh">⭐ 차이 정리</div>
+   평서문 <b>She is reading</b> → 부정 <b>She isn't reading</b> → 의문 <b>Is she reading?</b><br>
+   be동사만 움직이면 돼요. (do/does 필요 없음!)</div>`},
+ {type:'ex',cls:'c',pairs:[
+   ['Look! It [[is raining]].','봐! 비가 오고 있어.'],
+   ['They [[are not]] watching TV.','그들은 TV를 보고 있지 않다.'],
+   ['[[Are]] you [[listening]] to me?','너 내 말 듣고 있니?'],
+ ]},
+ ],
+ prac:{title:'현재진행형 연습',sub:'버튼으로 바로 확인!',
+  items:[
+   {q:'I _____ playing soccer.',opts:['am','are','is'],ans:0,fb:'정답! 주어 I → am + -ing.'},
+   {q:'They _____ studying.',opts:['am','are','is'],ans:1,fb:'정답! You/We/They → are + -ing.'},
+   {q:'She is _____ now. (run)',opts:['runing','running'],ans:1,fb:'정답! run은 단모음+단자음이라 running.'},
+   {q:'부정문: He _____ sleeping.',opts:['isn\'t','don\'t','doesn\'t'],ans:0,fb:'정답! 진행형 부정은 be동사+not → isn\'t. (doesn\'t 아님!)'},
+   {q:'의문문: _____ you cooking?',opts:['Do','Are','Is'],ans:1,fb:'정답! 주어 you → Are you cooking? be동사를 앞으로.'},
+  ]}
+},
+
+/* 3 현재형 vs 현재진행형 */
+{icon:'⚖️',label:'현재형 vs 진행',crumb:[['진행형이란?','root'],['현재형 vs 진행','d']],
+ title:'4단계 · 현재형 vs 현재진행형 (가장 중요!)',
+ sub:'가장 헷갈리는 부분이에요. "늘/항상 하는 일"이면 현재형, "바로 지금 하는 중"이면 현재진행형. 이 차이를 확실히 잡아요.',
+ blocks:[
+ {type:'h',chip:['핵심 차이','d'],title:'습관(늘) ↔ 지금(중)',html:
+  `<div class="diff-box"><div class="dh">⭐ 이것만 기억하세요!</div>
+   <b>현재형</b> (동사원형/-s) → 늘·항상·자주 하는 일 (습관·사실)<br>
+   <span style="margin-left:14px">She <b>studies</b> English <b>every day</b>. (매일 공부해)</span><br><br>
+   <b>현재진행형</b> (am/are/is + -ing) → 바로 지금 하는 중<br>
+   <span style="margin-left:14px">She <b>is studying</b> English <b>now</b>. (지금 공부하는 중)</span></div>`},
+ {type:'h',chip:['신호 단어','c'],title:'신호 단어로 구별하기',html:
+  `<table>
+   <tr><th>현재형 (습관)</th><th>현재진행형 (지금)</th></tr>
+   <tr><td class="lf">every day / week (매일/매주)</td><td class="lf">now / right now (지금)</td></tr>
+   <tr><td class="lf">always, usually, often (늘/보통/자주)</td><td class="lf">at the moment (지금 이 순간)</td></tr>
+   <tr><td class="lf">on Mondays (월요일마다)</td><td class="lf">Look! / Listen! (봐! 들어봐!)</td></tr>
+   </table>
+   <div class="tip-box"><b>판단 순서</b>① 문장에 신호 단어가 있나? → every day면 현재형, now면 진행형!<br>② 없으면? "늘 그런 일"이면 현재형, "지금 한창"이면 진행형.</div>`},
+ {type:'ex',cls:'c',pairs:[
+   ['He [[walks]] to school every day.','그는 매일 학교에 걸어간다. (습관)'],
+   ['He [[is walking]] to school now.','그는 지금 학교에 걸어가는 중이다. (지금)'],
+ ]},
+ ],
+ prac:{title:'현재형 vs 현재진행 연습',sub:'신호 단어를 보고 골라요. 버튼으로 바로 확인!',
+  items:[
+   {q:'She _____ TV every evening.',opts:['watches','is watching'],ans:0,fb:'정답! every evening(매일 저녁=습관) → 현재형 watches.'},
+   {q:'Look! She _____ TV.',opts:['watches','is watching'],ans:1,fb:'정답! Look!(지금) → 현재진행 is watching.'},
+   {q:'I _____ to music right now.',opts:['listen','am listening'],ans:1,fb:'정답! right now(바로 지금) → 현재진행 am listening.'},
+   {q:'We _____ English on Mondays.',opts:['study','are studying'],ans:0,fb:'정답! on Mondays(월요일마다=습관) → 현재형 study.'},
+   {q:'"그는 지금 자는 중이다"로 알맞은 것은?',opts:['He sleeps now.','He is sleeping now.'],ans:1,fb:'정답! now/진행 중 → is sleeping. (sleeps는 습관)'},
+  ]}
+},
+
+/* 4 과거진행형 */
+{icon:'⏮️',label:'과거진행형',crumb:[['진행형이란?','root'],['과거진행','d']],
+ title:'5단계 · 과거진행형 — was/were + 동사-ing',
+ sub:'과거의 어느 순간에 "한창 하고 있던 중"이었다는 뜻이에요. be동사만 과거(was/were)로 바꾸면 됩니다.',
+ blocks:[
+ {type:'h',chip:['주어별 변화','d'],title:'주어에 따라 was / were',html:
+  `<table>
+   <tr><th>주어</th><th>be동사(과거)</th><th>예문</th></tr>
+   <tr><td class="lf">I / He / She / It</td><td><b>was</b></td><td class="lf">I was sleeping.</td></tr>
+   <tr><td class="lf">You / We / They</td><td><b>were</b></td><td class="lf">They were sleeping.</td></tr>
+   </table>
+   <div class="tip-box"><b>현재진행과 비교</b>현재진행 am/are/is → 과거진행 was/were 로만 바꾸면 끝! (-ing는 그대로)<br>I <b>am</b> eating → I <b>was</b> eating</div>`},
+ {type:'h',chip:['부정·의문','e'],title:'부정문·의문문도 똑같은 방식',html:
+  `<ul>
+     <li>부정: was/were + <b>not</b> + -ing → He <b>wasn't</b> sleeping.</li>
+     <li>의문: <b>Was/Were</b> + 주어 + -ing? → <b>Were</b> you sleeping? — Yes, I was.</li>
+   </ul>`},
+ {type:'h',chip:['when 패턴','d'],title:'자주 나오는 when 패턴',html:
+  `<p>"~하고 있었는데 (그때) …했다"를 표현할 때 과거진행 + when + 과거형을 자주 써요.</p>
+   <div class="formula">과거진행 (배경) + <span class="pill">when</span> + 과거형 (갑자기 일어난 일)</div>
+   <div class="ex-line"><span class="en">I <span class="hl">was sleeping</span> when she called.</span><span class="ko">그녀가 전화했을 때 나는 자고 있었다.</span></div>
+   <p style="font-size:.86rem;color:var(--sub)">→ 자고 있던 것(배경, 진행)이 먼저, 전화 온 것(사건)이 그 중간에 일어남.</p>`},
+ {type:'ex',cls:'d',pairs:[
+   ['They [[were playing]] soccer at 5.','그들은 5시에 축구를 하고 있었다.'],
+   ['I [[was taking]] a shower when you came.','네가 왔을 때 나는 샤워하는 중이었다.'],
+   ['[[Was]] she [[cooking]] then?','그녀는 그때 요리하고 있었니?'],
+ ]},
+ ],
+ prac:{title:'과거진행형 연습',sub:'버튼으로 바로 확인!',
+  items:[
+   {q:'I _____ reading at 9 p.m.',opts:['was','were'],ans:0,fb:'정답! I → was + -ing.'},
+   {q:'They _____ playing games.',opts:['was','were'],ans:1,fb:'정답! They → were + -ing.'},
+   {q:'He _____ sleeping when I called. (부정 아님, 진행)',opts:['was','were'],ans:0,fb:'정답! He → was sleeping.'},
+   {q:'의문문: _____ you watching TV?',opts:['Was','Were','Did'],ans:1,fb:'정답! 주어 you → Were you watching? be동사 과거를 앞으로.'},
+   {q:'"네가 왔을 때 나는 먹고 있었다" → I _____ when you came.',opts:['was eating','am eating','eat'],ans:0,fb:'정답! 과거의 그 순간 진행 중 → was eating. when 패턴.'},
+  ]}
+},
+
+/* 5 종합 */
+{icon:'🎯',label:'종합 정리',crumb:[['진행형이란?','root'],['종합','root']],
+ title:'6단계 · 현재진행 vs 과거진행 + 종합',
+ sub:'두 진행형을 나란히 비교하고, 시간 신호로 구별하는 연습으로 마무리해요.',
+ blocks:[
+ {type:'h',chip:['총정리표','root'],title:'현재진행 vs 과거진행 한눈에',html:
+  `<table>
+   <tr><th></th><th>현재진행 (지금)</th><th>과거진행 (그때)</th></tr>
+   <tr><td class="lf">be동사</td><td>am / are / is</td><td>was / were</td></tr>
+   <tr><td class="lf">평서문</td><td class="lf">She is eating.</td><td class="lf">She was eating.</td></tr>
+   <tr><td class="lf">부정문</td><td class="lf">She isn't eating.</td><td class="lf">She wasn't eating.</td></tr>
+   <tr><td class="lf">의문문</td><td class="lf">Is she eating?</td><td class="lf">Was she eating?</td></tr>
+   <tr><td class="lf">신호</td><td class="lf">now, Look!</td><td class="lf">then, at 5 p.m., when ~</td></tr>
+   </table>
+   <div class="diff-box"><div class="dh">⭐ 핵심 한 줄</div>
+   똑같은 진행형인데, be동사만 <b>현재(am/are/is)</b>면 "지금 ~하는 중", <b>과거(was/were)</b>면 "그때 ~하고 있던 중"!</div>`},
+ {type:'h',chip:['상태동사 재확인','d'],title:'잊지 말기 — 진행형 불가 동사',html:
+  `<p>know, like, want, have(소유), love 같은 상태동사는 현재진행이든 과거진행이든 <b>진행형으로 쓰지 않아요.</b></p>
+   <p>✗ I was knowing → ✓ I knew &nbsp;|&nbsp; ✗ She is wanting → ✓ She wants</p>`},
+ ],
+ prac:{title:'🏆 종합 마무리 연습',sub:'두 진행형을 섞었어요. 버튼으로 바로 확인!',
+  items:[
+   {q:'(지금) Look! The dog _____ . (run)',opts:['is running','was running'],ans:0,fb:'정답! Look!(지금) → 현재진행 is running.'},
+   {q:'(그때) They _____ dinner at 7 last night. (have=먹다)',opts:['are having','were having'],ans:1,fb:'정답! last night/at 7(과거 그때) → 과거진행 were having.'},
+   {q:'부정문(현재): She _____ sleeping now.',opts:['isn\'t','wasn\'t'],ans:0,fb:'정답! now(현재) → isn\'t sleeping.'},
+   {q:'의문문(과거): _____ you studying then?',opts:['Are','Were'],ans:1,fb:'정답! then(그때, 과거) → Were you studying?'},
+   {q:'다음 중 어법상 틀린 것은?',opts:['I am eating now.','She is knowing the answer.','They were playing.'],ans:1,fb:'정답! know는 상태동사라 진행형 불가 → She knows the answer.'},
+   {q:'"내가 들어갔을 때 그는 자고 있었다" → He _____ when I came in.',opts:['is sleeping','was sleeping','sleeps'],ans:1,fb:'정답! 과거의 그 순간 진행 중 → was sleeping. (when 패턴)'},
+  ]}
+},
+];
+
+/* ====== ENGINE ====== */
+let cur=0;
+function renderSteps(){
+  document.getElementById('steps').innerHTML=STAGES.map((s,i)=>
+    `<button class="step ${i===cur?'cur':''}" onclick="go(${i})"><span class="dot">${s.icon}</span><span class="lb">${s.label}</span></button>`).join('');
+}
+function go(i){window.speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0,behavior:'smooth'});}
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){
+  if(!('speechSynthesis' in window)){alert('Chrome 브라우저를 권장합니다.');return;}
+  speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.82;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);}
+function plain(s){return s.replace(/\[\[|\]\]/g,'');}
+function renderEn(s){return s.replace(/\[\[(.+?)\]\]/g,'<span class="hl">$1</span>');}
+function spkBtn(t){return `<button class="spk" title="듣기" onclick="speak(this.dataset.say,this)" data-say="${t.replace(/"/g,'&quot;')}">🔊</button>`;}
+function blockHTML(b){
+  if(b.type==='h')return `<div class="card"><h3><span class="chip c-${b.chip[1]}">${b.chip[0]}</span>${b.title}</h3>${b.html}</div>`;
+  if(b.type==='ex'){
+    return `<div class="card"><h3><span class="chip c-${b.cls}">예문</span>읽고 🔊로 들어보세요</h3>`+
+      b.pairs.map(([en,ko])=>`<div class="ex-line"><span class="en">${renderEn(en)}</span>${spkBtn(plain(en))}<span class="ko">${ko}</span></div>`).join('')+`</div>`;
+  }
+  return '';
+}
+function pracHTML(si,p){
+  return `<div class="prac"><div class="prac-h"><span class="pb">PRACTICE</span>${p.title}</div><div class="prac-sub">${p.sub}</div>`+
+    p.items.map((it,qi)=>`<div class="pq"><div class="qn">Q${qi+1}</div><div class="qt">${it.q}</div>
+      <div class="popts">${it.opts.map((o,oi)=>`<button class="popt" id="p-${si}-${qi}-${oi}" onclick="pracPick(${si},${qi},${oi})">${o}</button>`).join('')}</div>
+      <button class="reveal-btn" onclick="reveal(${si},${qi})">정답 바로 보기 👁️</button>
+      <div class="ansbox" id="ans-${si}-${qi}"><span class="a">정답: ${it.opts[it.ans]}</span><br>${it.fb}</div>
+      <div class="pfb" id="pfb-${si}-${qi}"></div></div>`).join('')+`</div>`;
+}
+function pracPick(si,qi,oi){
+  const it=STAGES[si].prac.items[qi];
+  const fb=document.getElementById(`pfb-${si}-${qi}`);
+  const btn=document.getElementById(`p-${si}-${qi}-${oi}`);
+  if(oi===it.ans){
+    it.opts.forEach((_,k)=>{const b=document.getElementById(`p-${si}-${qi}-${k}`);b.disabled=true;if(k===it.ans)b.classList.add('right');});
+    fb.className='pfb show good';fb.innerHTML='✅ '+it.fb;
+  }else{
+    btn.classList.add('wrong');
+    fb.className='pfb show badf';fb.innerHTML='❌ 다시 한 번! 위 설명을 떠올려 보세요. (정답이 궁금하면 <b>정답 바로 보기</b>를 누르세요)';
+    setTimeout(()=>btn.classList.remove('wrong'),400);
+  }
+}
+function reveal(si,qi){
+  const box=document.getElementById(`ans-${si}-${qi}`);box.classList.add('show');
+  const it=STAGES[si].prac.items[qi];
+  it.opts.forEach((_,k)=>{const b=document.getElementById(`p-${si}-${qi}-${k}`);if(k===it.ans)b.classList.add('right');});
+}
+function crumbHTML(arr){return `<div class="path">${arr.map(([t,c],i)=>(i?'<span class="sep">▸</span>':'')+`<span class="crumb on-${c}">${t}</span>`).join('')}</div>`;}
+function renderAll(){
+  document.getElementById('main').innerHTML=STAGES.map((s,i)=>{
+    const body=s.blocks.map(blockHTML).join('')+(s.prac?pracHTML(i,s.prac):'');
+    return `<section class="stage ${i===cur?'show':''}">${crumbHTML(s.crumb)}<h2 class="stitle">${s.title}</h2><p class="ssub">${s.sub}</p>${body}
+      <div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전</button>`:'<span></span>'}
+      ${i<STAGES.length-1?`<button class="btn primary" onclick="go(${i+1})">다음 →</button>`:'<span style="font-size:.82rem;color:var(--sub)">끝까지 완료! 🎉</span>'}</div></section>`;
+  }).join('');
+  renderSteps();
+}
+renderAll();
+</script>
+</body>
+</html>
