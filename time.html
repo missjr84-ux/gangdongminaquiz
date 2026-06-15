@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>시제의 지도 — 영어의 시간 표현 완전 정복</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F0;--card:#FFFFFF;--ink:#23272F;--sub:#727784;--line:#E7E2D6;
+  --root:#1F3A5F;--root-bg:#E8EEF6;
+  --b:#B8860B;--b-bg:#FEF8E1;
+  --c:#1E7A5A;--c-bg:#E2F3EB;
+  --d:#C84F2F;--d-bg:#FBE8E0;
+  --e:#5D4FA3;--e-bg:#EBE7F8;
+  --hl:#FFE45C;--ok:#1E7A5A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;
+  background-image:radial-gradient(#e9e4d6 1px,transparent 1px);background-size:26px 26px;}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 90px}
+header{padding:38px 0 10px;text-align:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.18em;color:var(--root);
+  border:1.5px solid var(--root);border-radius:999px;padding:3px 14px;margin-bottom:14px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.9rem,6vw,2.7rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:10px;font-size:.95rem}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);margin:22px -16px 0;padding:10px 8px}
+.steps{display:flex;justify-content:center;gap:3px;max-width:780px;margin:0 auto;flex-wrap:wrap}
+.step{flex:1;max-width:96px;min-width:62px;border:none;background:transparent;cursor:pointer;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.64rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,39,47,.12)}
+.step.cur .lb{color:var(--ink)}
+.step.done .dot{background:var(--ink);border-color:var(--ink);color:#fff}
+.step.locked{opacity:.42;cursor:not-allowed}
+.step:not(.locked):hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}
+.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:26px 0 8px;font-size:.8rem;font-weight:700}
+.path .crumb{padding:2px 10px;border-radius:999px;background:#fff;border:1.5px solid var(--line)}
+.path .crumb.on-root{border-color:var(--root);color:var(--root);background:var(--root-bg)}
+.path .crumb.on-b{border-color:var(--b);color:var(--b);background:var(--b-bg)}
+.path .crumb.on-c{border-color:var(--c);color:var(--c);background:var(--c-bg)}
+.path .crumb.on-d{border-color:var(--d);color:var(--d);background:var(--d-bg)}
+.path .crumb.on-e{border-color:var(--e);color:var(--e);background:var(--e-bg)}
+.path .sep{color:var(--sub)}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.55rem;margin:4px 0 4px}
+.ssub{color:var(--sub);font-size:.93rem;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin:14px 0;
+  box-shadow:0 1px 3px rgba(40,35,20,.05)}
+.card h3{font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h3 .chip{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.chip.c-root{background:var(--root-bg);color:var(--root)}
+.chip.c-b{background:var(--b-bg);color:var(--b)}
+.chip.c-c{background:var(--c-bg);color:var(--c)}
+.chip.c-d{background:var(--d-bg);color:var(--d)}
+.chip.c-e{background:var(--e-bg);color:var(--e)}
+.card p{margin:6px 0}.card ul{margin:6px 0 6px 20px}.card li{margin:3px 0}
+.card table{border-collapse:collapse;width:100%;margin:8px 0;font-size:.9rem}
+.card th,.card td{border:1px solid var(--line);padding:5px 8px;text-align:center}
+.card th{background:#F7F5EE;font-weight:700}
+.card td:first-child{text-align:left;font-weight:600}
+.kw{font-weight:700}
+.kw.b{color:var(--b)}.kw.c{color:var(--c)}.kw.d{color:var(--d)}.kw.e{color:var(--e)}.kw.root{color:var(--root)}
+.test-box{margin-top:12px;border:1.5px dashed var(--ink);border-radius:10px;padding:12px 14px;background:#FFFDF4;font-size:.92rem}
+.test-box b{display:block;margin-bottom:2px}
+.tbox-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.tbox-col{flex:1;min-width:160px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.tbox-col .lbl{font-weight:700;font-size:.8rem;color:var(--sub);margin-bottom:4px}
+.timeline{display:flex;align-items:center;gap:0;margin:14px 0;overflow-x:auto;padding:4px 0}
+.tl-seg{display:flex;align-items:center;gap:0}
+.tl-dot{width:14px;height:14px;border-radius:50%;background:var(--line);border:2px solid var(--sub);flex-shrink:0}
+.tl-dot.now{background:var(--d);border-color:var(--d);width:18px;height:18px}
+.tl-dot.act{background:var(--c);border-color:var(--c)}
+.tl-dot.fut{background:var(--b);border-color:var(--b)}
+.tl-line{height:3px;background:var(--line);flex:1;min-width:24px}
+.tl-line.act{background:var(--c)}
+.tl-lbl{font-size:.72rem;font-weight:600;color:var(--sub);text-align:center;margin-top:3px;white-space:nowrap}
+.tl-wrap{display:flex;flex-direction:column;align-items:center}
+.enline{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.en{font-family:'Lora',serif;font-size:1.12rem;line-height:1.7}
+.hl{padding:1px 3px;border-radius:3px;font-weight:600;background:linear-gradient(180deg,transparent 30%,var(--hl) 30%)}
+.hl.b{box-shadow:inset 0 -2.5px 0 var(--b)}.hl.c{box-shadow:inset 0 -2.5px 0 var(--c)}
+.hl.d{box-shadow:inset 0 -2.5px 0 var(--d)}.hl.e{box-shadow:inset 0 -2.5px 0 var(--e)}
+.hl.root{box-shadow:inset 0 -2.5px 0 var(--root)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:34px;height:34px;
+  cursor:pointer;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--ink)}
+.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.exc{border-left:4px solid var(--line);padding:12px 16px;margin:12px 0;background:#fff;border-radius:0 10px 10px 0;
+  border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.exc.b{border-left-color:var(--b)}.exc.c{border-left-color:var(--c)}
+.exc.d{border-left-color:var(--d)}.exc.e{border-left-color:var(--e)}.exc.root{border-left-color:var(--root)}
+.tgl{margin-top:8px;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:4px 12px;
+  font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--sub)}
+.tgl:hover{border-color:var(--ink);color:var(--ink)}
+.tgl[aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.trans{display:none;margin-top:9px;font-size:.9rem;background:#F7F5EE;border-radius:8px;padding:9px 12px}
+.trans.open{display:block}
+.trans .ko{font-weight:600}.trans .note{color:var(--sub);font-size:.85rem;margin-top:3px}
+.tree{padding:6px 0 6px 4px}
+.tree ul{list-style:none;padding-left:26px;position:relative}
+.tree>ul{padding-left:0}
+.tree ul ul::before{content:"";position:absolute;left:8px;top:-8px;bottom:14px;border-left:2px solid var(--line)}
+.tree li{position:relative;padding:5px 0}
+.tree ul ul li::before{content:"";position:absolute;left:-18px;top:21px;width:16px;border-top:2px solid var(--line)}
+.node{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.8px solid var(--line);
+  border-radius:10px;padding:5px 12px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.18s;font-family:inherit}
+.node .e{font-family:'Lora',serif;font-weight:400;font-style:italic;color:var(--sub);font-size:.82rem}
+.node:hover{transform:translateX(2px)}
+.node.nd-root{border-color:var(--root);background:var(--root-bg)}
+.node.nd-b{border-color:var(--b);background:var(--b-bg)}
+.node.nd-c{border-color:var(--c);background:var(--c-bg)}
+.node.nd-d{border-color:var(--d);background:var(--d-bg)}
+.node.nd-e{border-color:var(--e);background:var(--e-bg)}
+.node.leaf{border-style:dashed;font-family:'Lora',serif;font-style:italic;font-weight:600}
+.qz{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:20px 22px;margin:26px 0;
+  box-shadow:4px 4px 0 rgba(35,39,47,.9)}
+.qz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.qz-head .badge{background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:999px}
+.q{margin:18px 0;padding-top:16px;border-top:1px dashed var(--line)}
+.q:first-of-type{border-top:none}
+.qno{font-weight:700;font-size:.8rem;color:var(--sub);margin-bottom:4px}
+.qtext{font-weight:600;margin-bottom:10px}
+.qsent{margin:8px 0 12px;padding:10px 14px;background:#F7F5EE;border-radius:10px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;font-family:inherit;font-size:.92rem;background:#fff;border:1.5px solid var(--line);
+  border-radius:10px;padding:9px 13px;cursor:pointer;transition:.15s;line-height:1.55}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.sel{border-color:var(--ink);background:#F2F0E8;box-shadow:inset 0 0 0 1px var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--c-bg);box-shadow:inset 0 0 0 1px var(--ok)}
+.opt.wrong{border-color:var(--bad);background:#FBE5E1;box-shadow:inset 0 0 0 1px var(--bad);animation:shake .3s}
+.opt:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.fb{display:none;margin-top:9px;font-size:.87rem;border-radius:8px;padding:9px 12px}
+.fb.show{display:block}
+.fb.good{background:var(--c-bg);border:1px solid var(--ok)}
+.fb.badf{background:#FBE5E1;border:1px solid var(--bad)}
+.selrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:9px 0;padding:9px 12px;background:#fff;border:1.5px solid var(--line);border-radius:10px}
+.selrow select{font-family:inherit;font-size:.88rem;padding:5px 8px;border-radius:8px;border:1.5px solid var(--line);background:#fff}
+.selrow .mark{font-weight:700;min-width:22px;text-align:center}
+.walkstep{margin:12px 0;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.walkstep .wp{font-weight:600;font-size:.9rem;margin-bottom:8px}
+.walkstep.lockedw{opacity:.45;pointer-events:none}
+.btn{font-family:inherit;font-weight:700;font-size:.95rem;border:none;border-radius:12px;padding:12px 26px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:3px 3px 0 rgba(35,39,47,.35)}
+.btn.primary:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 rgba(35,39,47,.35)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:28px 0 10px;gap:10px}
+.unlock-banner{display:none;align-items:center;gap:10px;margin-top:16px;background:var(--c-bg);border:1.5px solid var(--ok);
+  border-radius:12px;padding:12px 16px;font-weight:600;animation:fadeUp .4s ease}
+.unlock-banner.show{display:flex}
+.score-wrap{text-align:center;padding:10px 0 4px}
+.score-big{font-family:'Black Han Sans',sans-serif;font-size:3.2rem;line-height:1.1}
+.grade{font-weight:700;margin-top:2px}
+.branchbars{margin:18px 0 6px;text-align:left}
+.bb{margin:10px 0}
+.bb .bl{display:flex;justify-content:space-between;font-size:.83rem;font-weight:700;margin-bottom:4px}
+.bb .track{height:12px;background:#EFEBDF;border-radius:99px;overflow:hidden}
+.bb .fill{height:100%;border-radius:99px;width:0;transition:width .8s ease}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:46px}
+@media(max-width:520px){.card,.qz{padding:16px 14px}.step .lb{font-size:.58rem}.en{font-size:1.02rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">ENGLISH TENSES · 초5~중1 완전 정복</div>
+  <h1>시제의 <span class="mark">지도</span>를 그리다</h1>
+  <p class="tagline">현재·과거·미래·진행·완료까지 — 영어가 시간을 표현하는 7가지 방법을 뿌리부터 이해합니다.<br>🔊 버튼으로 모든 영어 문장을 들어보세요.</p>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>시제의 지도 · 초5~중1 영문법 · Web Speech API 듣기 지원</footer>
+</div>
+<script>
+/* ===== TREE ===== */
+const TREE={k:'시제',e:'Tenses',c:'root',kids:[
+  {k:'현재',e:'Present',c:'c',kids:[
+    {k:'현재단순',e:'Simple Present',c:'c',kids:[
+      {leaf:'습관·반복: I eat rice.',say:'I eat rice every day.'},
+      {leaf:'사실·진리: The sun rises.',say:'The sun rises in the east.'},
+      {leaf:'3인칭 단수 +s/es',say:'She likes music.'}
+    ]},
+    {k:'현재진행',e:'Present Progressive',c:'c',kids:[
+      {leaf:'am/are/is + -ing',say:'She is studying now.'},
+      {leaf:'지금 이 순간 진행 중',say:'They are playing soccer right now.'}
+    ]}
+  ]},
+  {k:'과거',e:'Past',c:'d',kids:[
+    {k:'과거단순',e:'Simple Past',c:'d',kids:[
+      {leaf:'규칙: +ed (walked, studied)',say:'He walked to school yesterday.'},
+      {leaf:'불규칙: go→went, see→saw',say:'She went to the park last Sunday.'}
+    ]},
+    {k:'과거진행',e:'Past Progressive',c:'d',kids:[
+      {leaf:'was/were + -ing',say:'I was sleeping when she called.'},
+      {leaf:'과거 특정 시점에 진행 중',say:'They were having dinner at 7.'}
+    ]}
+  ]},
+  {k:'미래',e:'Future',c:'b',kids:[
+    {k:'will',e:'Simple Future',c:'b',kids:[
+      {leaf:'즉흥적 결정·예측',say:'I will help you.'},
+      {leaf:'부정: will not = won\'t',say:'She won\'t come today.'}
+    ]},
+    {k:'be going to',e:'Near Future',c:'b',kids:[
+      {leaf:'계획·예정',say:'I am going to visit my grandma.'},
+      {leaf:'근거 있는 예측',say:'Look at those clouds. It is going to rain.'}
+    ]}
+  ]},
+  {k:'현재완료',e:'Present Perfect',c:'e',kids:[
+    {leaf:'형태: have/has + p.p.',say:'have plus past participle'},
+    {k:'4용법',e:'Four Uses',c:'e',kids:[
+      {leaf:'경험: have ever / never',say:'I have never seen snow.'},
+      {leaf:'완료: have just / already / yet',say:'She has just finished her homework.'},
+      {leaf:'계속: for / since',say:'He has lived here for ten years.'},
+      {leaf:'결과: have gone / lost',say:'He has gone to Japan.'}
+    ]},
+    {leaf:'vs 과거단순: 시간부사가 열쇠',say:'I saw him yesterday. I have seen him before.'}
+  ]}
+]};
+
+/* ===== STAGES ===== */
+const STAGES=[
+
+/* ── 0 큰 그림 ── */
+{id:'map',icon:'🗺️',label:'큰 그림',pathArr:[['시제','root']],
+ title:'1단계 · 큰 그림 — 시제는 "시간의 지도"',
+ sub:'영어는 동사의 형태를 바꿔 시간을 표현합니다. 몇 시제인지 외우기 전에 "언제 어느 시점의 일인가"를 묻는 습관을 먼저 만드세요.',
+ cards:[
+  {t:'h',chip:['지도','root'],title:'왜 시제를 배우나 — 동사가 시간을 품는다',html:
+   `<p>한국어는 문장 끝 어미(~했어, ~해, ~할 거야)로 시간을 표현하지만, 영어는 <b>동사의 형태</b> 자체를 바꿉니다.</p>
+    <ul>
+      <li>I <span class="kw c">eat</span> breakfast. → 매일 먹는다 (현재단순)</li>
+      <li>I <span class="kw c">am eating</span> now. → 지금 막 먹는 중 (현재진행)</li>
+      <li>I <span class="kw d">ate</span> breakfast. → 아까 먹었다 (과거단순)</li>
+      <li>I <span class="kw b">will eat</span> breakfast. → 나중에 먹을 것 (미래)</li>
+      <li>I <span class="kw e">have eaten</span> breakfast. → 이미 먹었다 (현재완료)</li>
+    </ul>
+    <div class="test-box"><b>🔑 핵심 질문 — 시제를 고를 때 이 두 가지를 물어보세요</b>
+    ① 언제의 일인가? (과거 / 지금 / 미래)<br>
+    ② 순간의 일인가, 흐름이 있는 일인가?</div>`},
+  {t:'h',chip:['타임라인','root'],title:'7가지 시제 한눈에',html:
+   `<table>
+    <tr><th>시제</th><th>형태</th><th>핵심 의미</th><th>신호 단어</th></tr>
+    <tr><td>현재단순</td><td>동사원형(+s)</td><td>습관·사실</td><td>every day, always, usually</td></tr>
+    <tr><td>현재진행</td><td>am/are/is +-ing</td><td>지금 진행 중</td><td>now, right now, at the moment</td></tr>
+    <tr><td>과거단순</td><td>동사 과거형</td><td>과거의 완료된 일</td><td>yesterday, last ~, ago</td></tr>
+    <tr><td>과거진행</td><td>was/were +-ing</td><td>과거 특정 시점 진행</td><td>at 7 p.m., when ~</td></tr>
+    <tr><td>will 미래</td><td>will +원형</td><td>즉흥적 결정·예측</td><td>tomorrow, soon</td></tr>
+    <tr><td>be going to</td><td>be going to +원형</td><td>계획·예정·근거있는 예측</td><td>tomorrow, this weekend</td></tr>
+    <tr><td>현재완료</td><td>have/has +p.p.</td><td>경험·완료·계속·결과</td><td>ever, never, just, already, for, since</td></tr>
+    </table>`},
+  {t:'tree'},
+ ],
+ cp:[
+  {q:'"I eat breakfast every morning."에서 eat이 현재단순인 이유는?',
+   opts:['지금 이 순간 먹고 있기 때문에','매일 반복되는 습관을 나타내기 때문에','어제 먹었기 때문에','앞으로 먹을 것이기 때문에'],
+   ans:1,ex:'현재단순은 매일 반복되는 습관·사실을 나타냅니다. 신호 단어 every morning이 핵심입니다.'},
+  {q:'동사 형태로 시제를 판별할 때 가장 먼저 물어야 할 것은?',
+   opts:['동사가 몇 음절인가','주어가 몇 인칭인가','언제의 일인가(과거/지금/미래)','문장이 긍정인가 부정인가'],
+   ans:2,ex:'시제 판별의 첫 질문은 "언제의 일인가?"입니다. 그 다음 순간인지/흐름인지를 판단합니다.'}
+ ]},
+
+/* ── 1 현재단순·현재진행 ── */
+{id:'pres',icon:'🕐',label:'현재단순·진행',pathArr:[['시제','root'],['현재','c']],
+ title:'2단계 · 현재단순 & 현재진행 — 습관 vs 지금',
+ sub:'현재단순은 "항상 그런 일", 현재진행은 "지금 이 순간". 이 둘을 헷갈리면 의미가 크게 달라집니다.',
+ cards:[
+  {t:'h',chip:['현재단순','c'],title:'현재단순 — 습관·반복·사실',html:
+   `<p>현재단순은 <b>매일 일어나는 일, 변하지 않는 사실, 진리</b>를 나타냅니다.</p>
+    <div class="test-box"><b>⚙️ 형태 규칙</b>
+    주어가 I / You / We / They → 동사원형<br>
+    주어가 He / She / It (3인칭 단수) → 동사 +s / +es / -y→ies<br>
+    <br>
+    <b>신호 단어:</b> always, usually, often, sometimes, never / every day[week/year] / in the morning</div>`},
+  {t:'h',chip:['3인칭단수','c'],title:'3인칭 단수 현재 +s/es 규칙',html:
+   `<ul>
+    <li>대부분: +s → like<b>s</b>, eat<b>s</b>, read<b>s</b></li>
+    <li>-s/-sh/-ch/-x/-o 끝: +es → wash→wash<b>es</b>, go→go<b>es</b></li>
+    <li>자음+y 끝: y→i + es → study→stud<b>ies</b>, cry→cr<b>ies</b></li>
+    <li>불규칙: have → <b>has</b></li>
+    </ul>`},
+  {t:'h',chip:['현재진행','c'],title:'현재진행 — am/are/is + 동사-ing',html:
+   `<p>현재진행은 <b>지금 이 순간 진행되고 있는 동작</b>을 나타냅니다.</p>
+    <div class="test-box"><b>⚙️ -ing 형태 규칙</b>
+    대부분: +ing → eat<b>ing</b>, read<b>ing</b><br>
+    -e로 끝: e 빼고 +ing → come→com<b>ing</b>, make→mak<b>ing</b><br>
+    단모음+단자음 끝: 자음 중복 +ing → run→runn<b>ing</b>, sit→sitt<b>ing</b><br>
+    <br>
+    <b>신호 단어:</b> now, right now, at the moment, these days, Look!</div>
+    <div class="test-box"><b>🚫 진행형이 불가능한 동사 (상태동사)</b>
+    know, like, love, hate, want, need, have(소유), understand, believe<br>
+    → ×I am knowing. ✓ I know.</div>`},
+  {t:'ex',cls:'c',en:'She [[studies]] English every evening.',ko:'그녀는 매일 저녁 영어를 공부한다.',note:'3인칭 단수 She + 습관(every evening) → studies(-y→ies). 현재단순.'},
+  {t:'ex',cls:'c',en:'She [[is studying]] English right now.',ko:'그녀는 지금 바로 영어를 공부하는 중이다.',note:'지금 이 순간 진행(right now) → is studying. 현재진행.'},
+  {t:'ex',cls:'c',en:'The sun [[rises]] in the east.',ko:'태양은 동쪽에서 뜬다.',note:'변하지 않는 사실 → 현재단순 rises(rise+s).'},
+  {t:'ex',cls:'c',en:'[[Don\'t]] make noise! The baby [[is sleeping]].',ko:'소리 내지 마! 아기가 자고 있어.',note:'지금 진행 중인 상태 → is sleeping.'},
+ ],
+ cp:[
+  {q:'"He ______ TV every night." 빈칸에 알맞은 것은?',
+   opts:['watch','watches','is watching','watched'],
+   ans:1,ex:'주어가 He(3인칭 단수) + 습관(every night) → 현재단순 → watch+es = watches.'},
+  {q:'"Look! They ______ soccer." 빈칸에 알맞은 것은?',
+   opts:['play','plays','are playing','played'],
+   ans:2,ex:'Look! → 지금 이 순간 진행 중 → 현재진행 are playing. (주어 They → are)'},
+  {q:'다음 중 현재진행형으로 쓸 수 없는 동사는?',
+   opts:['run','eat','know','sleep'],
+   ans:2,ex:'know는 상태동사라 진행형 불가. ×I am knowing. ✓I know.'}
+ ]},
+
+/* ── 2 과거단순·과거진행 ── */
+{id:'past',icon:'⏮️',label:'과거단순·진행',pathArr:[['시제','root'],['과거','d']],
+ title:'3단계 · 과거단순 & 과거진행 — 끝난 일 vs 진행 중이던 일',
+ sub:'과거단순은 "그때 완료된 일", 과거진행은 "그 순간 하고 있던 일"입니다. when 절과 함께 자주 나오는 패턴을 익히세요.',
+ cards:[
+  {t:'h',chip:['과거단순','d'],title:'과거단순 — 규칙·불규칙 변화',html:
+   `<p>과거단순은 <b>과거에 끝난 일</b>을 나타냅니다.</p>
+    <div class="test-box"><b>⚙️ 규칙 변화 (+ed)</b>
+    대부분: +ed → walk→walk<b>ed</b>, play→play<b>ed</b><br>
+    -e로 끝: +d → like→like<b>d</b><br>
+    자음+y: y→i+ed → study→stud<b>ied</b><br>
+    단모음+단자음: 자음 중복+ed → stop→stopp<b>ed</b></div>
+    <div class="test-box"><b>⚙️ 핵심 불규칙 동사 (반드시 암기)</b>
+    go→went / come→came / see→saw / have→had / eat→ate / make→made / take→took / give→gave / get→got / buy→bought / think→thought / know→knew / write→wrote / run→ran / begin→began / break→broke / speak→spoke / tell→told / feel→felt / leave→left</div>
+    <div class="test-box"><b>📌 신호 단어</b>yesterday / last night[week/year] / ago / in 2020 / just now / at that time</div>`},
+  {t:'h',chip:['과거진행','d'],title:'과거진행 — was/were + -ing',html:
+   `<p>과거진행은 <b>과거의 특정 시점에 진행 중이던 동작</b>을 나타냅니다.</p>
+    <ul>
+      <li>I / He / She / It → <b>was</b> + -ing</li>
+      <li>You / We / They → <b>were</b> + -ing</li>
+    </ul>
+    <div class="test-box"><b>🔁 when 절과 함께 쓰는 패턴</b>
+    과거진행(배경) + when + 과거단순(사건 발생)<br>
+    <i>I <b>was sleeping</b> when she <b>called</b>.</i><br>
+    → "그녀가 전화했을 때 나는 자고 있는 중이었다."</div>`},
+  {t:'ex',cls:'d',en:'He [[went]] to school yesterday.',ko:'그는 어제 학교에 갔다.',note:'어제(yesterday) 끝난 일 → 과거단순 went(go의 불규칙 과거).'},
+  {t:'ex',cls:'d',en:'She [[studied]] hard last night.',ko:'그녀는 어젯밤에 열심히 공부했다.',note:'last night → 과거단순. study(자음+y) → studied.'},
+  {t:'ex',cls:'d',en:'I [[was watching]] TV when Mom came home.',ko:'엄마가 집에 왔을 때 나는 TV를 보고 있는 중이었다.',note:'배경(과거진행 was watching) + 사건 발생(과거단순 came). when 절 패턴.'},
+  {t:'ex',cls:'d',en:'They [[were playing]] soccer at 4 p.m.',ko:'그들은 오후 4시에 축구를 하고 있는 중이었다.',note:'특정 시각에 진행 중 → 과거진행 were playing.'},
+ ],
+ cp:[
+  {q:'"She ______ a book two hours ago." 빈칸은?',
+   opts:['reads','is reading','read','has read'],
+   ans:2,ex:'two hours ago → 과거 완료 신호 → 과거단순 read(read의 과거형은 read, 발음 [red]).'},
+  {q:'"I ______ dinner when he called." 빈칸은?',
+   opts:['had','have','was having','am having'],
+   ans:2,ex:'when he called = 과거 특정 시점 / 그 순간 진행 중 → 과거진행 was having.'},
+  {q:'study의 과거형은?',
+   opts:['studyed','studied','studing','studeid'],
+   ans:1,ex:'자음+y로 끝나므로 y→i + ed = studied.'}
+ ]},
+
+/* ── 3 미래 ── */
+{id:'fut',icon:'🔮',label:'미래',pathArr:[['시제','root'],['미래','b']],
+ title:'4단계 · 미래 — will vs be going to',
+ sub:'둘 다 미래를 표현하지만 쓰는 상황이 다릅니다. will은 즉흥적 결정·단순 예측, be going to는 계획·근거 있는 예측입니다.',
+ cards:[
+  {t:'h',chip:['will','b'],title:'will + 동사원형 — 즉흥적 결정·예측',html:
+   `<ul>
+    <li>지금 막 결정한 것 → <i>"It's cold." "I <b>will</b> close the window."</i></li>
+    <li>단순한 미래 예측 → <i>I think it <b>will</b> rain tomorrow.</i></li>
+    <li>부정: <b>will not = won't</b></li>
+    <li>의문: <b>Will</b> + 주어 + 동사원형 ~?</li>
+    </ul>
+    <div class="test-box"><b>📌 신호 단어</b>tomorrow / soon / next ~(week/month/year) / in the future</div>`},
+  {t:'h',chip:['be going to','b'],title:'be going to + 동사원형 — 계획·근거 있는 예측',html:
+   `<ul>
+    <li>미리 세워 둔 계획 → <i>I <b>am going to visit</b> my grandma this weekend.</i></li>
+    <li>눈앞의 증거가 있는 예측 → <i>Look at the clouds. It <b>is going to rain</b>.</i></li>
+    </ul>
+    <div class="test-box"><b>🆚 will vs be going to 결정 알고리즘</b>
+    지금 막 결정? → will<br>
+    이미 계획·일정이 있었음? → be going to<br>
+    눈에 보이는 근거가 있음? → be going to<br>
+    단순한 예측? → will (또는 be going to 모두 가능)</div>`},
+  {t:'ex',cls:'b',en:'"Are you hungry?" "Yes, I [[will]] make a sandwich."',ko:'"배고프니?" "응, 내가 샌드위치를 만들게."',note:'방금 결정한 것 → will. (미리 계획한 것이 아님)'},
+  {t:'ex',cls:'b',en:'I [[am going to]] study abroad next year.',ko:'나는 내년에 유학을 갈 예정이다.',note:'이미 세운 계획 → be going to.'},
+  {t:'ex',cls:'b',en:'Look at those clouds! It [[is going to]] rain.',ko:'저 구름 봐! 비가 올 거야.',note:'눈앞의 근거(구름) → be going to.'},
+  {t:'ex',cls:'b',en:'[[Will]] you help me with this?',ko:'이것 좀 도와줄래?',note:'will 의문문: Will + 주어 + 동사원형? 부탁·요청에도 쓰임.'},
+ ],
+ cp:[
+  {q:'"It\'s cold. I ______ close the window." 알맞은 것은?',
+   opts:['am going to','will','was going to','would'],
+   ans:1,ex:'춥다는 말을 듣고 지금 막 결정 → will. (미리 계획한 것이 아님)'},
+  {q:'"I ______ visit my uncle this Sunday." (이미 계획된 일) 알맞은 것은?',
+   opts:['will','am going to','was','have visited'],
+   ans:1,ex:'이미 세워 둔 계획 → be going to.'},
+  {q:'will의 부정 축약형은?',
+   opts:['willn\'t','won\'t','willon\'t','will not\'t'],
+   ans:1,ex:'will not의 축약형은 won\'t (will not → won\'t).'}
+ ]},
+
+/* ── 4 현재완료 ── */
+{id:'perf',icon:'✅',label:'현재완료',pathArr:[['시제','root'],['현재완료','e']],
+ title:'5단계 · 현재완료 — have/has + 과거분사(p.p.)',
+ sub:'현재완료는 과거의 일이 현재와 연결되어 있을 때 씁니다. 4가지 용법과 신호 단어를 세트로 익히세요.',
+ cards:[
+  {t:'h',chip:['현재완료 형태','e'],title:'have/has + 과거분사 (p.p.)',html:
+   `<ul>
+    <li>I / You / We / They → <b>have</b> + p.p.</li>
+    <li>He / She / It → <b>has</b> + p.p.</li>
+    <li>부정: have/has <b>not</b> + p.p. (haven't / hasn't)</li>
+    <li>의문: <b>Have/Has</b> + 주어 + p.p. ~?</li>
+    </ul>
+    <div class="test-box"><b>주요 불규칙 과거분사 (p.p.)</b>
+    go→gone / come→come / see→seen / eat→eaten / make→made / take→taken / give→given / write→written / break→broken / speak→spoken / know→known / do→done / be→been / have→had / buy→bought / think→thought / feel→felt / leave→left</div>`},
+  {t:'h',chip:['4용법','e'],title:'현재완료의 4가지 용법',html:
+   `<div class="tbox-row">
+    <div class="tbox-col"><div class="lbl">① 경험</div>과거부터 지금까지 ~해 본 적이 있다<br><b>ever / never / before / once / twice</b><br><i>Have you ever seen snow?</i></div>
+    <div class="tbox-col"><div class="lbl">② 완료</div>막 ~을 끝마쳤다<br><b>just / already / yet</b><br><i>I have just finished it.</i></div>
+    </div>
+    <div class="tbox-row">
+    <div class="tbox-col"><div class="lbl">③ 계속</div>과거부터 지금까지 계속 ~하고 있다<br><b>for + 기간 / since + 시점</b><br><i>She has lived here for 3 years.</i></div>
+    <div class="tbox-col"><div class="lbl">④ 결과</div>과거의 동작으로 현재 ~한 상태<br><b>have gone / have lost</b><br><i>He has gone to London.</i> (지금 없음)</div>
+    </div>`},
+  {t:'ex',cls:'e',en:'I [[have never eaten]] sushi.',ko:'나는 초밥을 먹어 본 적이 없다.',note:'경험 용법. never = not ~ ever. eat-ate-eaten.'},
+  {t:'ex',cls:'e',en:'She [[has just finished]] her homework.',ko:'그녀는 방금 숙제를 끝마쳤다.',note:'완료 용법. just는 have와 p.p. 사이에 위치. finish-finished-finished.'},
+  {t:'ex',cls:'e',en:'He [[has lived]] in Seoul [[for]] ten years.',ko:'그는 10년 동안 서울에 살아 왔다.',note:'계속 용법. for + 기간(ten years). live-lived-lived.'},
+  {t:'ex',cls:'e',en:'I [[have lost]] my phone.',ko:'나는 핸드폰을 잃어버렸다. (지금도 없는 상태)',note:'결과 용법. 잃어버린 과거 동작 → 현재 없는 상태. lose-lost-lost.'},
+  {t:'ex',cls:'e',en:'[[Have]] you ever [[been]] to Paris?',ko:'파리에 가 본 적 있니?',note:'경험 경험 의문문. Have + 주어 + ever + p.p.? been = be의 p.p. = "방문한 적이 있다"'},
+ ],
+ cp:[
+  {q:'"She ______ here for five years." (계속 살아오고 있음) 빈칸은?',
+   opts:['lives','lived','has lived','is living'],
+   ans:2,ex:'과거부터 지금까지 계속(for 5 years) → 현재완료 has lived. (주어 She → has)'},
+  {q:'"I ______ already ______ my homework." 빈칸에 알맞은 것은?',
+   opts:['have / done','did / do','am / doing','was / done'],
+   ans:0,ex:'already → 완료 용법 → have + already + p.p. = have already done.'},
+  {q:'for와 since의 차이로 옳은 것은?',
+   opts:['for = 시점(2020년부터), since = 기간(3년 동안)','for = 기간(3년 동안), since = 시점(2020년부터)','둘 다 기간을 나타낸다','둘 다 시점을 나타낸다'],
+   ans:1,ex:'for + 기간(for three years, for a long time) / since + 시점(since 2020, since last summer).'}
+ ]},
+
+/* ── 5 현재완료 vs 과거단순 ── */
+{id:'perfvspast',icon:'⚖️',label:'완료 vs 과거',pathArr:[['시제','root'],['현재완료','e'],['vs 과거단순','d']],
+ title:'6단계 · 현재완료 vs 과거단순 — 시간 부사가 열쇠',
+ sub:'가장 많이 헷갈리는 구별입니다. "과거 특정 시점을 언급하면 과거단순, 그 시점이 없으면 현재완료"가 핵심입니다.',
+ cards:[
+  {t:'h',chip:['결정 규칙','e'],title:'한 눈에 정리 — 어떤 시제를 쓸까?',html:
+   `<table>
+    <tr><th></th><th>현재완료 ✅</th><th>과거단순 ⏮️</th></tr>
+    <tr><td>시점 언급</td><td>❌ 없음</td><td>✅ 있음 (yesterday, last ~, ago, in 2020)</td></tr>
+    <tr><td>현재와 연결</td><td>✅ 연결됨</td><td>❌ 끊어진 과거</td></tr>
+    <tr><td>초점</td><td>결과·경험·지속</td><td>그 사건 자체</td></tr>
+    </table>
+    <div class="test-box"><b>🚨 함께 못 쓰는 시간 부사</b>
+    현재완료와 <b>절대 함께 쓰지 않는</b> 표현:<br>
+    ✗ yesterday / last ~ / ~ ago / in 2020 / just now<br>
+    → 이 단어들이 보이면 과거단순!</div>`},
+  {t:'ex',cls:'e',en:'I [[have seen]] that movie.',ko:'나는 그 영화를 (본 적이) 있다. (경험, 언제인지 안 밝힘)',note:'특정 시점 없음 → 현재완료. "그 영화를 본 경험"이 지금도 의미 있음.'},
+  {t:'ex',cls:'d',en:'I [[saw]] that movie [[last week]].',ko:'나는 지난주에 그 영화를 봤다.',note:'last week → 특정 시점 있음 → 과거단순. 현재완료 불가(×I have seen it last week).'},
+  {t:'ex',cls:'e',en:'[[Has]] she [[finished]] her work [[yet]]?',ko:'그녀는 아직 일을 끝마쳤니? / 벌써 끝마쳤니?',note:'yet → 완료 용법. 의문문에서 yet = "벌써/아직". 부정에서 yet = "아직".'},
+  {t:'ex',cls:'d',en:'She [[finished]] her work [[an hour ago]].',ko:'그녀는 한 시간 전에 일을 마쳤다.',note:'an hour ago → 과거 특정 시점 → 과거단순. ×has finished ~ ago.'},
+  {t:'h',chip:['been vs gone','e'],title:'have been to vs have gone to',html:
+   `<ul>
+    <li><b>have been to</b> ~: ~에 가 본 적 있다 (지금 여기 있음, 경험)</li>
+    <li><b>have gone to</b> ~: ~에 가고 없다 (지금 없음, 결과)</li>
+    </ul>
+    <p><i>I have <b>been</b> to Japan twice.</i> (일본에 두 번 가 봤다. 지금 여기 있음.)<br>
+    <i>She has <b>gone</b> to Japan.</i> (그녀는 일본에 가고 없다. 지금 여기 없음.)</p>`},
+ ],
+ cp:[
+  {q:'"I ______ my keys." (키를 잃어버려서 지금도 없음) 알맞은 것은?',
+   opts:['lost','have lost','lose','was losing'],
+   ans:1,ex:'과거의 행동(잃어버림)이 현재까지 이어짐(지금도 없음) → 현재완료 결과 용법 have lost.'},
+  {q:'"She ______ to Paris last summer." 알맞은 것은?',
+   opts:['has gone','has been','went','goes'],
+   ans:2,ex:'last summer → 특정 과거 시점 → 과거단순 went. ×has gone last summer.'},
+  {q:'"He ______ to the store." (지금 가게에 가서 없는 상태) 알맞은 것은?',
+   opts:['has been','has gone','went','goes'],
+   ans:1,ex:'지금 없다(결과) → have gone to. (has been = 가 본 적 있음 but 지금 여기 있음)'}
+ ]},
+
+/* ── 6 종합시험 ── */
+{id:'exam',icon:'🏆',label:'종합 시험',pathArr:[['시제','root'],['전체 통합','root']],
+ title:'최종 관문 · 시제 종합 시험 (10문항)',
+ sub:'"언제의 일인가?" + "신호 단어는 무엇인가?"로 모든 문항을 풀어보세요. 7가지 시제 전 영역을 점검합니다.',
+ exam:true}
+];
+
+/* ===== EXAM ===== */
+const EXAM=[
+{type:'mc',tags:['pres'],q:'"My sister ______ yoga every morning." 빈칸은?',
+ opts:['practice','practices','is practicing','practiced'],
+ ans:1,ex:'주어 My sister(3인칭 단수) + 습관(every morning) → 현재단순 practices(practice→practices, -ce이므로 +s).'},
+
+{type:'walk',tags:['pres'],sent:'She [[is reading]] a book right now.',say:'She is reading a book right now.',
+ q:'이 문장을 현재진행 알고리즘으로 분석하시오.',
+ steps:[
+  {p:'STEP 1 · is reading의 형태는?',opts:['be동사(is) + 동사원형','be동사(is) + 동사-ing','일반동사 과거형'],ans:1},
+  {p:'STEP 2 · 현재진행을 사용한 이유로 옳은 것은?',opts:['매일 하는 습관이므로','right now(지금 이 순간) 진행 중이므로','과거에 한 일이므로'],ans:1},
+  {p:'STEP 3 · "She read books."로 바꾸면 의미가 어떻게 달라지나?',opts:['현재진행 → 뜻 같음','과거단순 → 과거에 읽었다는 의미로 바뀜','미래 → 앞으로 읽을 것으로 바뀜'],ans:1}],
+ ex:'현재진행(is reading): 지금 이 순간 책을 읽는 중. 현재단순(reads): 습관적으로 책을 읽는다. 과거(read): 과거에 읽었다.'},
+
+{type:'mc',tags:['past'],q:'"We ______ dinner when the lights went out." 빈칸은?',
+ opts:['had','were having','have had','have been having'],
+ ans:1,ex:'when the lights went out = 과거 특정 시점 / 그 순간 진행 중 → 과거진행 were having.'},
+
+{type:'mc',tags:['past'],q:'다음 중 불규칙 과거형이 잘못 짝지어진 것은?',
+ opts:['go → went','eat → ate','make → maked','buy → bought'],
+ ans:2,ex:'make의 과거형은 maked(×)가 아니라 made(○). 불규칙 변화.'},
+
+{type:'mc',tags:['fut'],q:'"It\'s very hot in here." "OK, I ______ open the window." 빈칸은?',
+ opts:['am going to','will','was going to','have opened'],
+ ans:1,ex:'덥다는 말을 듣고 지금 막 결정 → will. (미리 계획한 것이 아님)'},
+
+{type:'mc',tags:['fut'],q:'"Look at that car! It ______ crash!" 빈칸에 알맞은 것은?',
+ opts:['will','is going to','would','was going to'],
+ ans:1,ex:'눈앞에 근거(저 차)가 보임 → 근거 있는 예측 → be going to. It(단수) → is going to.'},
+
+{type:'walk',tags:['perf'],sent:'I [[have never tried]] Mexican food.',say:'I have never tried Mexican food.',
+ q:'현재완료 용법을 분석하시오.',
+ steps:[
+  {p:'STEP 1 · 이 문장의 현재완료 형태는?',opts:['have + 동사원형','have + 동사-ing','have + 과거분사(tried)'],ans:2},
+  {p:'STEP 2 · never가 나타내는 현재완료 용법은?',opts:['경험 — 지금까지 해 본 적 없음','완료 — 막 끝났음','계속 — 계속하고 있음'],ans:0},
+  {p:'STEP 3 · try의 과거분사(p.p.)가 tried인 이유는?',opts:['불규칙이므로','자음+y→y를 i로 바꾸고 +ed이므로','그냥 +ed이므로'],ans:1}],
+ ex:'never = not ~ ever → 경험 용법 부정. try(자음+y) → tried(과거분사도 동일 형태).'},
+
+{type:'mc',tags:['perf'],q:'"She ______ in this city ______ 2018." 빈칸에 알맞은 것은?',
+ opts:['lived / for','has lived / since','has lived / for','lived / since'],
+ ans:1,ex:'과거부터 지금까지 계속(계속 용법) → 현재완료 has lived. 2018(시점) → since. (for는 기간)'},
+
+{type:'mc',tags:['pvp'],q:'다음 중 어법상 옳은 문장은?',
+ opts:['I have seen him yesterday.','She has gone to the store. She\'s not here.','He has bought a car last year.','We have met them two days ago.'],
+ ans:1,ex:'① yesterday → 과거단순 써야 함. ② have gone(결과) → 지금 없음 ✓. ③ last year → 과거단순. ④ two days ago → 과거단순.'},
+
+{type:'classify',tags:['all'],q:'각 문장의 시제를 고르시오.',
+ items:[
+  {en:'He goes to school every day.',ans:0,why:'습관(every day) → 현재단순'},
+  {en:'They were playing soccer at 5 p.m.',ans:3,why:'과거 특정 시각에 진행 중 → 과거진행'},
+  {en:'I have already eaten lunch.',ans:5,why:'already → 완료 용법 → 현재완료'}]},
+];
+
+/* ===== ENGINE ===== */
+const CLS_LB=['현재단순','현재진행','과거단순','과거진행','will 미래','현재완료'];
+let cur=0,maxUnlocked=0;
+const cpState=STAGES.map(()=>({done:false}));
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){
+  if(!('speechSynthesis' in window)){alert('Chrome 브라우저를 권장합니다.');return;}
+  speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.85;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);}
+function spkBtn(text){return `<button class="spk" title="듣기" aria-label="영어 듣기" onclick="speak(this.dataset.say,this)" data-say="${text.replace(/"/g,'&quot;')}">🔊</button>`;}
+function plain(s){return s.replace(/\[\[|\]\]|\{\{|\}\}/g,'').replace(/<[^>]+>/g,'');}
+function renderEn(s,cls){return s.replace(/\[\[(.+?)\]\]/g,`<span class="hl ${cls||'root'}">$1</span>`);}
+function tgl(btn){const t=btn.nextElementSibling;const open=t.classList.toggle('open');btn.setAttribute('aria-expanded',open);btn.textContent=open?'해석 닫기 ▲':'해석 + 풀이 보기 ▼';}
+function renderSteps(){
+  document.getElementById('steps').innerHTML=STAGES.map((s,i)=>{
+    const lock=i>maxUnlocked,done=cpState[i].done;
+    return `<button class="step ${i===cur?'cur':''} ${done?'done':''} ${lock?'locked':''}" onclick="go(${i})" ${lock?'aria-disabled="true"':''}>
+      <span class="dot">${lock?'🔒':done?'✓':s.icon}</span><span class="lb">${s.label}</span></button>`;}).join('');}
+function go(i){
+  if(i>maxUnlocked){alert('🔒 이전 단계의 체크포인트를 통과하면 열립니다!');return;}
+  window.speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0});}
+function treeHTML(node){
+  if(node.leaf!==undefined){const say=node.say||node.leaf;
+    return `<li><button class="node leaf" onclick="speak(this.dataset.say,this)" data-say="${say}">${node.leaf} 🔉</button></li>`;}
+  const kids=node.kids&&node.kids.length?`<ul>${node.kids.map(treeHTML).join('')}</ul>`:'';
+  return `<li><button class="node nd-${node.c}" onclick="speak(this.dataset.say,this)" data-say="${node.e.replace(/=.+$/,'').trim()}">${node.k} <span class="e">${node.e} 🔉</span></button>${kids}</li>`;}
+function cardHTML(c){
+  if(c.t==='tree')return `<div class="card"><h3><span class="chip c-root">전체 지도</span>로직 트리 — 노드를 누르면 영어 명칭을 읽어 줍니다</h3><div class="tree"><ul>${treeHTML(TREE)}</ul></div></div>`;
+  if(c.t==='h')return `<div class="card"><h3><span class="chip c-${c.chip[1]}">${c.chip[0]}</span>${c.title}</h3>${c.html}</div>`;
+  if(c.t==='ex'){const say=plain(c.en);return `<div class="exc ${c.cls}"><div class="enline"><span class="en">${renderEn(c.en,c.cls)}</span>${spkBtn(say)}</div><button class="tgl" aria-expanded="false" onclick="tgl(this)">해석 + 풀이 보기 ▼</button><div class="trans"><div class="ko">${c.ko}</div><div class="note">${c.note}</div></div></div>`;}
+  return '';}
+function cpHTML(i,qs){
+  return `<div class="qz" id="cp${i}"><div class="qz-head"><span class="badge">CHECKPOINT</span><b>체크포인트 — 모두 맞히면 다음 단계가 열립니다</b></div>
+  ${qs.map((q,k)=>`<div class="q"><div class="qno">Q${k+1} / ${qs.length}</div><div class="qtext">${q.q}</div>
+    <div class="opts">${q.opts.map((o,oi)=>`<button class="opt" onclick="cpPick(${i},${k},${oi},this)">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>
+    <div class="fb" id="fb-${i}-${k}"></div></div>`).join('')}
+  <div class="unlock-banner" id="ub${i}">🌿 통과! 다음 단계가 열렸습니다. <button class="btn primary" onclick="go(${i+1})">다음 단계로 →</button></div></div>`;}
+const cpOK=STAGES.map(s=>s.cp?s.cp.map(()=>false):[]);
+function cpPick(si,qi,oi,btn){
+  const q=STAGES[si].cp[qi],fb=document.getElementById(`fb-${si}-${qi}`);
+  const opts=btn.parentElement.querySelectorAll('.opt');
+  if(oi===q.ans){opts.forEach((o,k)=>{o.disabled=true;if(k===oi)o.classList.add('right');});
+    fb.className='fb show good';fb.innerHTML='✅ 정답! '+q.ex;cpOK[si][qi]=true;
+    if(cpOK[si].every(v=>v))unlockNext(si);
+  }else{btn.classList.add('wrong');fb.className='fb show badf';fb.innerHTML='🤔 힌트: 신호 단어(시간 부사)와 "지금/과거/미래" 중 어디인지를 먼저 확인하세요.';setTimeout(()=>btn.classList.remove('wrong'),500);}}
+function unlockNext(si){cpState[si].done=true;if(si+1>maxUnlocked)maxUnlocked=si+1;renderSteps();const ub=document.getElementById('ub'+si);if(ub)ub.classList.add('show');}
+const exAns=EXAM.map(q=>q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1);
+let graded=false;
+function examHTML(){
+  return `<div class="card" style="border:1.5px solid var(--ink)"><h3><span class="chip c-root">시험 안내</span>응시 전 확인</h3>
+    <ul><li>모든 문항이 <b>"왜 그 시제인가?"</b>를 묻습니다. 신호 단어와 문맥으로 판단하세요.</li>
+    <li>WALK 문항은 단계별로 풀어야 다음 STEP이 열립니다.</li>
+    <li>🔊로 예문을 들으며 리듬도 익히세요.</li></ul></div>
+  ${EXAM.map((q,qi)=>{
+    let body='';
+    const sent=q.sent?`<div class="qsent"><div class="enline"><span class="en">${renderEn(q.sent,'root')}</span>${spkBtn(q.say||plain(q.sent))}</div></div>`:'';
+    if(q.type==='mc'){body=`<div class="opts">${q.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${oi}" onclick="exPick(${qi},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>`;}
+    else if(q.type==='walk'){body=q.steps.map((st,si)=>`<div class="walkstep ${si>0?'lockedw':''}" id="ws-${qi}-${si}"><div class="wp">${st.p}</div><div class="opts">${st.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${si}-${oi}" onclick="exWalk(${qi},${si},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div></div>`).join('');}
+    else{body=q.items.map((it,k)=>`<div class="selrow"><span class="mark" id="em-${qi}-${k}">·</span>
+        <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,'root')}</span>${spkBtn(plain(it.en))}
+        <select id="es-${qi}-${k}" onchange="exAns[${qi}][${k}]=+this.value"><option value="-1">— 시제 선택 —</option>${CLS_LB.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
+        <div class="fb" id="ef-${qi}-${k}" style="flex-basis:100%"></div></div>`).join('');}
+    return `<div class="qz" id="eq${qi}"><div class="qz-head"><span class="badge">${q.type==='walk'?'WALK · 단계 분석':q.type==='classify'?'SORT · 시제 분류':'WHY · 개념'}</span><b>문항 ${qi+1} / ${EXAM.length}</b></div>
+      <div class="qtext">${q.q}</div>${sent}${body}<div class="fb" id="exfb${qi}"></div></div>`;}).join('')}
+  <div style="text-align:center;margin:30px 0"><button class="btn primary" id="gradeBtn" onclick="grade()" style="font-size:1.05rem;padding:15px 40px">📝 최종 채점하기</button></div>
+  <div id="result"></div>`;}
+function exPick(qi,oi){if(graded)return;exAns[qi]=oi;EXAM[qi].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${k}`).classList.toggle('sel',k===oi));}
+function exWalk(qi,si,oi){if(graded)return;exAns[qi][si]=oi;EXAM[qi].steps[si].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${si}-${k}`).classList.toggle('sel',k===oi));const next=document.getElementById(`ws-${qi}-${si+1}`);if(next)next.classList.remove('lockedw');}
+function grade(){
+  for(let qi=0;qi<EXAM.length;qi++){const a=exAns[qi];const empty=Array.isArray(a)?a.some(v=>v<0):a<0;
+    if(empty){document.getElementById('eq'+qi).scrollIntoView({block:'center'});const f=document.getElementById('exfb'+qi);f.className='fb show badf';f.textContent='⚠️ 답하지 않은 부분이 있어요.';return;}}
+  graded=true;document.getElementById('gradeBtn').disabled=true;
+  let score=0;
+  const tagBuckets={pres:[],past:[],fut:[],perf:[],pvp:[],all:[]};
+  EXAM.forEach((q,qi)=>{
+    let ok;
+    if(q.type==='mc'){ok=exAns[qi]===q.ans;q.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${k}`);el.disabled=true;if(k===q.ans)el.classList.add('right');else if(k===exAns[qi])el.classList.add('wrong');});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 정답! ':'❌ 오답. ')+q.ex;}
+    else if(q.type==='walk'){ok=q.steps.every((st,si)=>exAns[qi][si]===st.ans);q.steps.forEach((st,si)=>st.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${si}-${k}`);el.disabled=true;if(k===st.ans)el.classList.add('right');else if(k===exAns[qi][si])el.classList.add('wrong');}));const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 완벽한 분석! ':'❌ 분석 오류. ')+q.ex;}
+    else{ok=q.items.every((it,k)=>exAns[qi][k]===it.ans);q.items.forEach((it,k)=>{const f=document.getElementById(`ef-${qi}-${k}`),m=document.getElementById(`em-${qi}-${k}`);document.getElementById(`es-${qi}-${k}`).disabled=true;const good=exAns[qi][k]===it.ans;m.textContent=good?'✅':'❌';f.className='fb show '+(good?'good':'badf');f.innerHTML=`<b>${CLS_LB[it.ans]}</b> — ${it.why}`;});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=ok?'✅ 시제를 완벽히 분류!':'❌ 위 해설을 확인하세요.';}
+    if(ok)score++;
+    q.tags.forEach(t=>{if(tagBuckets[t])tagBuckets[t].push(ok);});});
+  const gr=score>=9?['🥇 시제 마스터','7가지 시제를 완벽히 이해했습니다!']:score>=7?['🥈 거의 완성','틀린 시제의 신호 단어를 한 번 더 확인하세요.']:score>=5?['🥉 성장 중','현재완료와 과거단순 구별부터 복습하세요.']:['🌱 다시 도전','1단계 큰 그림부터 차근차근!'];
+  const bars=[['현재 (단순·진행) 🕐','pres','var(--c)'],['과거 (단순·진행) ⏮️','past','var(--d)'],['미래 (will·going to) 🔮','fut','var(--b)'],['현재완료 & vs 과거 ✅','perf','var(--e)']].map(([lb,t,col])=>{
+    const arr=[...(tagBuckets[t]||[]),(t==='perf'?tagBuckets.pvp:tagBuckets.all).flat()].flat();
+    const tot=EXAM.filter(q=>q.tags.includes(t)).length||0;
+    const ok2=EXAM.filter((q,qi)=>q.tags.includes(t)&&(q.type==='mc'?exAns[qi]===q.ans:q.type==='walk'?q.steps.every((st,si)=>exAns[qi][si]===st.ans):q.items.every((it,k)=>exAns[qi][k]===it.ans))).length;
+    const p=tot?Math.round(ok2/tot*100):100;
+    return `<div class="bb"><div class="bl"><span>${lb}</span><span>${ok2} / ${tot}</span></div><div class="track"><div class="fill" style="background:${col}" data-w="${p}%"></div></div></div>`;}).join('');
+  document.getElementById('result').innerHTML=`<div class="qz"><div class="score-wrap"><div class="score-big">${score} / 10</div><div class="grade">${gr[0]}</div><p style="font-size:.9rem;margin-top:6px">${gr[1]}</p><div class="branchbars">${bars}</div><div style="margin-top:18px"><button class="btn ghost" onclick="resetExam()">처음부터 다시 풀기</button></div></div></div>`;
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w),60));}
+function resetExam(){graded=false;EXAM.forEach((q,qi)=>{exAns[qi]=q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1;});renderAll();go(STAGES.length-1);}
+function pathHTML(arr){return `<div class="path">${arr.map(([t,c],i)=>(i?'<span class="sep">▸</span>':'')+`<span class="crumb on-${c}">${t}</span>`).join('')}</div>`;}
+function renderAll(){
+  document.getElementById('main').innerHTML=STAGES.map((s,i)=>{
+    let inner=s.exam?examHTML():(s.cards||[]).map(cardHTML).join('')+(s.cp?cpHTML(i,s.cp):'');
+    return `<section class="stage ${i===cur?'show':''}" id="st${i}">${pathHTML(s.pathArr)}<h2 class="stitle">${s.title}</h2><p class="ssub">${s.sub}</p>${inner}<div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전 단계</button>`:'<span></span>'}<span style="font-size:.78rem;color:var(--sub)">${i+1} / ${STAGES.length}</span></div></section>`;}).join('');
+  renderSteps();}
+renderAll();
+</script>
+</body>
+</html>
