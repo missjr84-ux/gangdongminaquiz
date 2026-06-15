@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>원장 관리 콘솔 — 학생 관리</title>
+<title>MANAGER — 누적 저장 학생관리</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800;900&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -118,6 +118,13 @@ header.top{display:flex;justify-content:space-between;align-items:flex-start;gap
   .row .check-pill{grid-area:chip}
 }
 
+.history-box{background:var(--surface-2);border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:18px}
+.history-box .h-title{font-size:.8rem;font-weight:800;color:var(--ink-soft);margin-bottom:8px}
+.history-list{display:flex;flex-direction:column;gap:7px;max-height:170px;overflow:auto}
+.history-item{font-size:.8rem;background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+.history-item b{font-family:'IBM Plex Mono',monospace;color:var(--accent-ink)}
+.history-item span{color:var(--ink-soft)}
+
 /* ===== detail panel ===== */
 .scrim{position:fixed;inset:0;background:rgba(20,30,36,.42);opacity:0;pointer-events:none;transition:opacity .22s;z-index:40}
 .scrim.open{opacity:1;pointer-events:auto}
@@ -221,11 +228,13 @@ header.top{display:flex;justify-content:space-between;align-items:flex-start;gap
       <option value="grade">정렬: 학년순</option>
       <option value="att">정렬: 출결 낮은순</option>
     </select>
+    <button class="tbtn" onclick="exportData()">백업</button>
+    <button class="tbtn" onclick="importData()">가져오기</button>
     <button class="tbtn primary" onclick="addStudent()">+ 학생 추가</button>
   </div>
 
   <div class="list" id="list"></div>
-  <p class="savenote">💾 모든 정보는 <b>이 기기에만</b> 안전하게 저장됩니다. 다시 열어도 그대로 남아 있어요.</p>
+  <p class="savenote">💾 모든 정보는 <b>이 기기 브라우저에 누적 저장</b>됩니다. 점검 완료 때마다 기록이 쌓여요. 단, 다른 기기에서는 따로 백업/가져오기가 필요해요.</p>
 </div>
 
 <!-- detail panel -->
@@ -247,17 +256,19 @@ header.top{display:flex;justify-content:space-between;align-items:flex-start;gap
   </div>
 </div>
 
+<input type="file" id="importFile" accept="application/json" style="display:none" onchange="handleImportFile(event)">
 <div class="toast" id="toast"></div>
 
 <script>
 /* ============ state & storage ============ */
-const KEY='crm-data-v1';
+const KEY='manager-cumulative-v2';
 let state={academy:'○○영어학원',students:[]};
-let hasStore=!!(window.storage&&window.storage.get);
 let openId=null;
 
 function uid(){return 's'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
 function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function ensureStudent(s){if(!s.history)s.history=[]; if(!s.created)s.created=todayStr(); return s;}
+function snapshotStudent(s,kind='점검'){return {date:todayStr(),kind,att:+s.att||0,hw:+s.hw||0,mock:+s.mock||0,level:+s.level||0,vocab:+s.vocab||0,risk:s.risk||'하',memo:s.memo||''};}
 
 const SAMPLE=[
   {id:uid(),name:'김서연',grade:'중2',att:96,hw:88,mock:84,level:90,vocab:95,risk:'하',memo:'성실하고 단어 암기 우수. 독해 속도만 더 끌어올리면 좋음.',next:'',checked:''},
@@ -268,16 +279,49 @@ const SAMPLE=[
 ];
 
 async function load(){
-  if(hasStore){
-    try{const r=await window.storage.get(KEY); if(r&&r.value){state=JSON.parse(r.value);} else {state={academy:'○○영어학원',students:SAMPLE}; await save();}}
-    catch(e){state={academy:'○○영어학원',students:SAMPLE};}
-  } else {state={academy:'○○영어학원',students:SAMPLE};}
+  try{
+    const raw=localStorage.getItem(KEY) || localStorage.getItem('crm-data-v1');
+    if(raw){
+      state=JSON.parse(raw);
+    } else {
+      state={academy:'○○영어학원',students:SAMPLE};
+      save();
+    }
+  }catch(e){
+    console.error('load failed',e);
+    state={academy:'○○영어학원',students:SAMPLE};
+  }
   if(!state.students)state.students=[];
+  state.students.forEach(ensureStudent);
+  save();
   renderAll();
 }
-async function save(){
-  if(!hasStore)return;
-  try{await window.storage.set(KEY,JSON.stringify(state));}catch(e){console.error('save failed',e);}
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(state));}
+  catch(e){console.error('save failed',e);toast('저장 공간이 부족할 수 있어요. 백업을 해주세요.');}
+}
+function exportData(){
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='manager_backup_'+todayStr()+'.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('백업 파일을 내려받았어요');
+}
+function importData(){document.getElementById('importFile').click();}
+function handleImportFile(e){
+  const file=e.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      if(!data.students||!Array.isArray(data.students))throw new Error('invalid');
+      state=data; state.students.forEach(ensureStudent); save(); renderAll(); toast('가져오기 완료');
+    }catch(err){toast('가져오기 실패: 백업 파일을 확인해 주세요');}
+  };
+  reader.readAsText(file,'utf-8');
+  e.target.value='';
 }
 
 /* ============ checkpoint logic ============ */
@@ -393,6 +437,12 @@ function render(){
 }
 
 /* ============ detail panel ============ */
+function renderHistory(s){
+  const h=(s.history||[]).slice().reverse();
+  if(!h.length)return '<div class="history-item"><span>아직 누적 기록이 없어요. 점검 완료를 누르면 기록됩니다.</span></div>';
+  return h.map(x=>`<div class="history-item"><b>${esc(x.date)}</b> <span>${esc(x.kind||'점검')}</span><br>출결 ${x.att}% · 과제 ${x.hw}% · 단어 ${x.vocab||0}점 · 위험도 ${esc(x.risk||'하')}</div>`).join('');
+}
+
 function openDetail(id){
   openId=id; const s=state.students.find(x=>x.id===id); if(!s)return;
   const ci=checkpointInfo(); const ck=isChecked(s);
@@ -409,6 +459,10 @@ function openDetail(id){
       <div class="checkstat">
         <div class="t"><b>이번 회차 (${ci.activeLabel})</b>${ck?'점검을 완료했어요':'아직 점검 전이에요'}</div>
         <div class="last">${s.checked?('최근 '+s.checked):'기록 없음'}</div>
+      </div>
+      <div class="history-box">
+        <div class="h-title">누적 점검 기록 (${(s.history||[]).length}회)</div>
+        <div class="history-list">${renderHistory(s)}</div>
       </div>
       <div class="field"><label>출결률</label>
         <div class="slider-row"><input type="range" min="0" max="100" value="${+s.att||0}" oninput="setField('att',+this.value);document.getElementById('attPct').textContent=this.value+'%'">
@@ -445,10 +499,21 @@ function openDetail(id){
 function closeDetail(){openId=null;document.getElementById('panel').classList.remove('open');document.getElementById('scrim').classList.remove('open');document.getElementById('panel').setAttribute('aria-hidden','true');}
 function setField(f,v){const s=state.students.find(x=>x.id===openId);if(!s)return;s[f]=v;save();render();renderRhythm();}
 function setRisk(r){const s=state.students.find(x=>x.id===openId);if(!s)return;s.risk=r;save();openDetail(openId);render();}
-function toggleCheck(){const s=state.students.find(x=>x.id===openId);if(!s)return;s.checked=isChecked(s)?'':todayStr();save();openDetail(openId);render();renderRhythm();toast(isChecked(s)?'점검 완료로 표시했어요':'점검 표시를 해제했어요');}
+function toggleCheck(){
+  const s=state.students.find(x=>x.id===openId);if(!s)return;ensureStudent(s);
+  if(isChecked(s)){
+    s.checked='';
+    toast('점검 표시를 해제했어요');
+  }else{
+    s.checked=todayStr();
+    s.history.push(snapshotStudent(s,'정기점검'));
+    toast('점검 완료 + 누적 기록 저장');
+  }
+  save();openDetail(openId);render();renderRhythm();
+}
 
 function addStudent(){
-  const s={id:uid(),name:'새 학생',grade:'',att:0,hw:0,mock:0,level:0,vocab:0,risk:'하',memo:'',next:'',checked:''};
+  const s={id:uid(),name:'새 학생',grade:'',att:0,hw:0,mock:0,level:0,vocab:0,risk:'하',memo:'',next:'',checked:'',created:todayStr(),history:[]};
   state.students.push(s);save();render();renderRhythm();openDetail(s.id);
   setTimeout(()=>{const inp=document.querySelector('.nm-edit');if(inp){inp.focus();inp.select();}},80);
 }
@@ -471,6 +536,8 @@ function makeReport(){
   if(s.vocab)r+=`▸ 단어시험: ${s.vocab}점\n`;
   if(s.next)r+=`▸ 다음 상담 예정: ${s.next}\n`;
   if(s.memo)r+=`\n[원장 코멘트]\n${s.memo}\n`;
+  const recent=(s.history||[]).slice(-3);
+  if(recent.length){r+=`\n[최근 누적 기록]\n`; recent.forEach(x=>{r+=`- ${x.date}: 출결 ${x.att}%, 과제 ${x.hw}%, 단어 ${x.vocab||0}점\n`;});}
   r+=`\n늘 관심 갖고 지도하겠습니다. 감사합니다. 🙏`;
   document.getElementById('reportText').value=r;
   document.getElementById('reportScrim').classList.add('open');
