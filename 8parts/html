@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8품사의 지도 — 단어를 일하는 방식으로 나누다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F0;--card:#FFFFFF;--ink:#23272F;--sub:#727784;--line:#E7E2D6;
+  --root:#1F3A5F;--root-bg:#E8EEF6;
+  --b:#B8860B;--b-bg:#FEF8E1;
+  --c:#1E7A5A;--c-bg:#E2F3EB;
+  --d:#C84F2F;--d-bg:#FBE8E0;
+  --e:#5D4FA3;--e-bg:#EBE7F8;
+  --hl:#FFE45C;--ok:#1E7A5A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;
+  background-image:radial-gradient(#e9e4d6 1px,transparent 1px);background-size:26px 26px;}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 90px}
+header{padding:38px 0 10px;text-align:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.18em;color:var(--root);
+  border:1.5px solid var(--root);border-radius:999px;padding:3px 14px;margin-bottom:14px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.9rem,6vw,2.7rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:10px;font-size:.95rem}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);margin:22px -16px 0;padding:10px 8px}
+.steps{display:flex;justify-content:center;gap:3px;max-width:780px;margin:0 auto;flex-wrap:wrap}
+.step{flex:1;max-width:96px;min-width:62px;border:none;background:transparent;cursor:pointer;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.66rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,39,47,.12)}
+.step.cur .lb{color:var(--ink)}
+.step.done .dot{background:var(--ink);border-color:var(--ink);color:#fff}
+.step.locked{opacity:.42;cursor:not-allowed}
+.step:not(.locked):hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}
+.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:26px 0 8px;font-size:.8rem;font-weight:700}
+.path .crumb{padding:2px 10px;border-radius:999px;background:#fff;border:1.5px solid var(--line)}
+.path .crumb.on-root{border-color:var(--root);color:var(--root);background:var(--root-bg)}
+.path .crumb.on-b{border-color:var(--b);color:var(--b);background:var(--b-bg)}
+.path .crumb.on-c{border-color:var(--c);color:var(--c);background:var(--c-bg)}
+.path .crumb.on-d{border-color:var(--d);color:var(--d);background:var(--d-bg)}
+.path .crumb.on-e{border-color:var(--e);color:var(--e);background:var(--e-bg)}
+.path .sep{color:var(--sub)}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.55rem;margin:4px 0 4px}
+.ssub{color:var(--sub);font-size:.93rem;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin:14px 0;
+  box-shadow:0 1px 3px rgba(40,35,20,.05)}
+.card h3{font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card h3 .chip{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.chip.c-root{background:var(--root-bg);color:var(--root)}
+.chip.c-b{background:var(--b-bg);color:var(--b)}
+.chip.c-c{background:var(--c-bg);color:var(--c)}
+.chip.c-d{background:var(--d-bg);color:var(--d)}
+.chip.c-e{background:var(--e-bg);color:var(--e)}
+.card p{margin:6px 0}.card ul{margin:6px 0 6px 20px}
+.card table{border-collapse:collapse;width:100%;margin:8px 0;font-size:.9rem}
+.card th,.card td{border:1px solid var(--line);padding:5px 8px;text-align:center}
+.card th{background:#F7F5EE}
+.kw{font-weight:700}
+.kw.b{color:var(--b)}.kw.c{color:var(--c)}.kw.d{color:var(--d)}.kw.e{color:var(--e)}.kw.root{color:var(--root)}
+.test-box{margin-top:12px;border:1.5px dashed var(--ink);border-radius:10px;padding:12px 14px;background:#FFFDF4;font-size:.92rem}
+.test-box b{display:block;margin-bottom:2px}
+.enline{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.en{font-family:'Lora',serif;font-size:1.12rem;line-height:1.7}
+.hl{padding:1px 3px;border-radius:3px;font-weight:600;background:linear-gradient(180deg,transparent 30%,var(--hl) 30%)}
+.hl.b{box-shadow:inset 0 -2.5px 0 var(--b)}.hl.c{box-shadow:inset 0 -2.5px 0 var(--c)}
+.hl.d{box-shadow:inset 0 -2.5px 0 var(--d)}.hl.e{box-shadow:inset 0 -2.5px 0 var(--e)}
+.hl.root{box-shadow:inset 0 -2.5px 0 var(--root)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:34px;height:34px;
+  cursor:pointer;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--ink)}
+.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.exc{border-left:4px solid var(--line);padding:12px 16px;margin:12px 0;background:#fff;border-radius:0 10px 10px 0;
+  border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.exc.b{border-left-color:var(--b)}.exc.c{border-left-color:var(--c)}
+.exc.d{border-left-color:var(--d)}.exc.e{border-left-color:var(--e)}.exc.root{border-left-color:var(--root)}
+.tgl{margin-top:8px;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:4px 12px;
+  font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--sub)}
+.tgl:hover{border-color:var(--ink);color:var(--ink)}
+.tgl[aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.trans{display:none;margin-top:9px;font-size:.9rem;background:#F7F5EE;border-radius:8px;padding:9px 12px}
+.trans.open{display:block}
+.trans .ko{font-weight:600}.trans .note{color:var(--sub);font-size:.85rem;margin-top:3px}
+.tree{padding:6px 0 6px 4px}
+.tree ul{list-style:none;padding-left:26px;position:relative}
+.tree>ul{padding-left:0}
+.tree ul ul::before{content:"";position:absolute;left:8px;top:-8px;bottom:14px;border-left:2px solid var(--line)}
+.tree li{position:relative;padding:5px 0}
+.tree ul ul li::before{content:"";position:absolute;left:-18px;top:21px;width:16px;border-top:2px solid var(--line)}
+.node{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.8px solid var(--line);
+  border-radius:10px;padding:5px 12px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.18s;font-family:inherit}
+.node .e{font-family:'Lora',serif;font-weight:400;font-style:italic;color:var(--sub);font-size:.82rem}
+.node:hover{transform:translateX(2px)}
+.node.nd-root{border-color:var(--root);background:var(--root-bg)}
+.node.nd-b{border-color:var(--b);background:var(--b-bg)}
+.node.nd-c{border-color:var(--c);background:var(--c-bg)}
+.node.nd-d{border-color:var(--d);background:var(--d-bg)}
+.node.nd-e{border-color:var(--e);background:var(--e-bg)}
+.node.leaf{border-style:dashed;font-family:'Lora',serif;font-style:italic;font-weight:600}
+.qz{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:20px 22px;margin:26px 0;
+  box-shadow:4px 4px 0 rgba(35,39,47,.9)}
+.qz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.qz-head .badge{background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:999px}
+.q{margin:18px 0;padding-top:16px;border-top:1px dashed var(--line)}
+.q:first-of-type{border-top:none}
+.qno{font-weight:700;font-size:.8rem;color:var(--sub);margin-bottom:4px}
+.qtext{font-weight:600;margin-bottom:10px}
+.qsent{margin:8px 0 12px;padding:10px 14px;background:#F7F5EE;border-radius:10px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;font-family:inherit;font-size:.92rem;background:#fff;border:1.5px solid var(--line);
+  border-radius:10px;padding:9px 13px;cursor:pointer;transition:.15s;line-height:1.55}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.sel{border-color:var(--ink);background:#F2F0E8;box-shadow:inset 0 0 0 1px var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--c-bg);box-shadow:inset 0 0 0 1px var(--ok)}
+.opt.wrong{border-color:var(--bad);background:#FBE5E1;box-shadow:inset 0 0 0 1px var(--bad);animation:shake .3s}
+.opt:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.fb{display:none;margin-top:9px;font-size:.87rem;border-radius:8px;padding:9px 12px}
+.fb.show{display:block}
+.fb.good{background:var(--c-bg);border:1px solid var(--ok)}
+.fb.badf{background:#FBE5E1;border:1px solid var(--bad)}
+.selrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:9px 0;padding:9px 12px;background:#fff;border:1.5px solid var(--line);border-radius:10px}
+.selrow select{font-family:inherit;font-size:.88rem;padding:5px 8px;border-radius:8px;border:1.5px solid var(--line);background:#fff}
+.selrow .mark{font-weight:700;min-width:22px;text-align:center}
+.walkstep{margin:12px 0;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.walkstep .wp{font-weight:600;font-size:.9rem;margin-bottom:8px}
+.walkstep.lockedw{opacity:.45;pointer-events:none}
+.btn{font-family:inherit;font-weight:700;font-size:.95rem;border:none;border-radius:12px;padding:12px 26px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:3px 3px 0 rgba(35,39,47,.35)}
+.btn.primary:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 rgba(35,39,47,.35)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:28px 0 10px;gap:10px}
+.unlock-banner{display:none;align-items:center;gap:10px;margin-top:16px;background:var(--c-bg);border:1.5px solid var(--ok);
+  border-radius:12px;padding:12px 16px;font-weight:600;animation:fadeUp .4s ease}
+.unlock-banner.show{display:flex}
+.score-wrap{text-align:center;padding:10px 0 4px}
+.score-big{font-family:'Black Han Sans',sans-serif;font-size:3.2rem;line-height:1.1}
+.grade{font-weight:700;margin-top:2px}
+.branchbars{margin:18px 0 6px;text-align:left}
+.bb{margin:10px 0}
+.bb .bl{display:flex;justify-content:space-between;font-size:.83rem;font-weight:700;margin-bottom:4px}
+.bb .track{height:12px;background:#EFEBDF;border-radius:99px;overflow:hidden}
+.bb .fill{height:100%;border-radius:99px;width:0;transition:width .8s ease}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:46px}
+@media(max-width:520px){.card,.qz{padding:16px 14px}.step .lb{font-size:.58rem}.en{font-size:1.02rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">ENGLISH GRAMMAR · 8 PARTS OF SPEECH</div>
+  <h1>8품사의 <span class="mark">지도</span>를 그리다</h1>
+  <p class="tagline">단어를 '문장에서 하는 일'로 8갈래로 나눕니다. 처음 배우지만, 원리로 이해하면 외울 게 없습니다.<br>🔊 버튼으로 모든 영어 표현을 들어보세요.</p>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>8품사의 지도 · 고1 영문법 입문 · Web Speech API 듣기 지원</footer>
+</div>
+<script>
+/* ===== DATA ===== */
+const TREE={k:'8품사',e:'Eight Parts of Speech',c:'root',kids:[
+  {k:'명사',e:'Noun',c:'b',kids:[
+    {leaf:'보통·집합·고유·물질·추상',say:'common collective proper material abstract noun'},
+    {leaf:'가산 / 불가산',say:'countable and uncountable nouns'},
+    {leaf:'복수형 (규칙·불규칙)',say:'plural forms'},
+    {leaf:'역할: 주어·목적어·보어',say:'subject object complement'}
+  ]},
+  {k:'대명사',e:'Pronoun',c:'b',kids:[
+    {leaf:'인칭 (주격·소유격·목적격·소유대명사·재귀)',say:'personal pronoun'},
+    {leaf:'지시 (this/that/these/those)',say:'demonstrative pronoun'},
+    {leaf:'부정 (some/any/one/each/all)',say:'indefinite pronoun'},
+    {leaf:'의문 (who/what/which)',say:'interrogative pronoun'}
+  ]},
+  {k:'동사',e:'Verb',c:'d',kids:[
+    {leaf:'be동사 / 일반동사 / 조동사',say:'be verb, general verb, auxiliary verb'},
+    {leaf:'자동사 / 타동사',say:'intransitive and transitive verbs'},
+    {leaf:'동작·상태를 나타냄',say:'action and state'}
+  ]},
+  {k:'형용사',e:'Adjective',c:'c',kids:[
+    {leaf:'한정적(명사 앞) / 서술적(보어)',say:'attributive and predicative'},
+    {leaf:'수량형용사 (many/much/few/little)',say:'quantity adjectives'}
+  ]},
+  {k:'부사',e:'Adverb',c:'c',kids:[
+    {leaf:'동사·형용사·부사·문장 수식',say:'adverb modifies verb adjective adverb sentence'},
+    {leaf:'형용사+ly / 동형(fast,hard,early)',say:'adjective plus ly'},
+    {leaf:'빈도부사 위치',say:'frequency adverb position'}
+  ]},
+  {k:'전치사',e:'Preposition',c:'e',kids:[
+    {leaf:'시간 at/on/in',say:'at on in for time'},
+    {leaf:'장소·방향 at/on/in/to',say:'place and direction'},
+    {leaf:'뒤의 대명사는 목적격',say:'object of a preposition'}
+  ]},
+  {k:'접속사',e:'Conjunction',c:'e',kids:[
+    {leaf:'등위 (and/but/or/so)',say:'coordinating conjunction'},
+    {leaf:'종속 (when/because/if/that)',say:'subordinating conjunction'},
+    {leaf:'상관 (both A and B, either/or)',say:'correlative conjunction'}
+  ]},
+  {k:'감탄사',e:'Interjection',c:'b',kids:[
+    {leaf:'감정 표현 (Oh! Wow! Oops!)',say:'interjection'},
+    {leaf:'문장과 독립적',say:'independent of the sentence'}
+  ]}
+]};
+
+const STAGES=[
+/* ── 0 큰 그림 ── */
+{id:'map',icon:'🗺️',label:'큰 그림',pathArr:[['8품사','root']],
+ title:'1단계 · 큰 그림 — 단어를 8가지 일꾼으로 나누다',
+ sub:'8품사는 단어를 "문장에서 하는 일(기능)"에 따라 나눈 8개의 갈래입니다. 단어에 품사가 박혀 있는 게 아니라, 문장 속 역할이 품사를 정합니다.',
+ cards:[
+  {t:'h',chip:['지도','root'],title:'품사란 무엇인가 — 글자가 아니라 "역할"',html:
+   `<p>품사는 단어를 <b>문장에서 하는 일</b>로 분류한 것입니다. 그래서 <b>같은 단어도 역할이 바뀌면 품사가 달라집니다.</b></p>
+    <ul><li><i>the <b>water</b></i> (그 물) → <span class="kw b">명사</span> / <i>I <b>water</b> the plants.</i> (물을 주다) → <span class="kw d">동사</span></li>
+        <li><i>a <b>fast</b> car</i> (빠른 차) → <span class="kw c">형용사</span> / <i>run <b>fast</b></i> (빨리 달리다) → <span class="kw c">부사</span></li></ul>
+    <div class="test-box"><b>🔑 핵심 원리</b>품사를 알면 문장의 뼈대(주어·동사·목적어)가 보입니다. "이 단어가 지금 무슨 일을 하지?"를 묻는 것이 8품사 학습의 전부입니다.</div>`},
+  {t:'h',chip:['목록','root'],title:'8품사 한눈에',html:
+   `<table><tr><th>품사</th><th>하는 일</th><th>예</th></tr>
+    <tr><td><span class="kw b">명사</span></td><td>사람·사물·개념의 이름</td><td>book, Tom, water</td></tr>
+    <tr><td><span class="kw b">대명사</span></td><td>명사를 대신함</td><td>I, you, it, this</td></tr>
+    <tr><td><span class="kw d">동사</span></td><td>동작·상태</td><td>run, is, can</td></tr>
+    <tr><td><span class="kw c">형용사</span></td><td>명사를 꾸밈/보어</td><td>happy, three</td></tr>
+    <tr><td><span class="kw c">부사</span></td><td>동사·형용사·부사·문장 꾸밈</td><td>very, slowly</td></tr>
+    <tr><td><span class="kw e">전치사</span></td><td>명사 앞에서 관계를 나타냄</td><td>in, on, with</td></tr>
+    <tr><td><span class="kw e">접속사</span></td><td>말과 말을 연결</td><td>and, but, because</td></tr>
+    <tr><td><span class="kw b">감탄사</span></td><td>감정을 나타내는 독립어</td><td>Oh!, Wow!</td></tr></table>`},
+  {t:'tree'},
+ ],
+ cp:[
+  {q:'8품사는 무엇을 기준으로 단어를 나눈 것인가?',
+   opts:['단어의 글자 수','단어가 문장에서 하는 일(기능·역할)','단어의 발음','단어가 어려운 정도'],
+   ans:1,ex:'품사는 "기능"으로 나눈 갈래입니다. 그래서 같은 단어도 문장 속 역할에 따라 품사가 달라집니다.'},
+  {q:'"I water the flowers."에서 water의 품사는?',
+   opts:['명사','동사','형용사','전치사'],
+   ans:1,ex:'뒤에 목적어(the flowers)를 두고 "물을 주다"라는 동작을 나타내므로 동사입니다. "the water"처럼 쓰면 명사가 됩니다.'}
+ ]},
+
+/* ── 1 명사·대명사 ── */
+{id:'noun',icon:'🧱',label:'명사·대명사',pathArr:[['8품사','root'],['명사·대명사','b']],
+ title:'2단계 · 명사 & 대명사 — 이름 붙이기와 대신하기',
+ sub:'명사는 "이름", 대명사는 "그 이름을 대신하는 말"입니다. 가산/불가산 구별과 인칭대명사의 격이 핵심입니다.',
+ cards:[
+  {t:'h',chip:['명사','b'],title:'명사 — 종류와 가산/불가산',html:
+   `<p>명사는 사람·사물·장소·개념의 <b>이름</b>입니다.</p>
+    <ul><li><b>보통명사</b> book, dog / <b>집합명사</b> family, team / <b>고유명사</b> Korea, Tom(대문자!)</li>
+        <li><b>물질명사</b> water, money / <b>추상명사</b> love, time</li></ul>
+    <div class="test-box"><b>⚖️ 가산 vs 불가산</b><b>가산명사</b>: 셀 수 있음 → a/an 가능, 복수형 가능, many.<br><b>불가산명사</b>(물질·추상): 셀 수 없음 → a/an·복수형 불가, much. (×a water, ×informations)</div>`},
+  {t:'h',chip:['명사-복수','b'],title:'복수형 — 규칙과 불규칙',html:
+   `<ul><li>규칙: +s (books), +es (boxes, buses), 자음+y→ies (baby→babies), f(e)→ves (leaf→leaves)</li>
+        <li>불규칙: man→men, woman→women, child→children, foot→feet, tooth→teeth, mouse→mice</li>
+        <li>단·복수 동일: sheep, fish, deer</li></ul>`},
+  {t:'ex',cls:'b',en:'Tom bought [[three books]] at the [[store]].',ko:'Tom은 가게에서 책 세 권을 샀다.',note:'book(보통명사·가산)의 복수 books, store(장소 명사). 명사는 목적어 자리에도 온다.'},
+  {t:'ex',cls:'b',en:'I need some [[water]] and [[information]].',ko:'나는 약간의 물과 정보가 필요하다.',note:'water(물질)·information(추상)은 불가산 → a/an·복수 불가. some으로 양을 표현.'},
+  {t:'h',chip:['대명사','b'],title:'대명사 — 인칭대명사의 격',html:
+   `<p>대명사는 앞에 나온 <b>명사를 대신</b>해 같은 말의 반복을 피합니다.</p>
+    <table><tr><th>인칭</th><th>주격</th><th>소유격</th><th>목적격</th><th>소유대명사</th><th>재귀</th></tr>
+    <tr><td>나</td><td>I</td><td>my</td><td>me</td><td>mine</td><td>myself</td></tr>
+    <tr><td>너</td><td>you</td><td>your</td><td>you</td><td>yours</td><td>yourself</td></tr>
+    <tr><td>그</td><td>he</td><td>his</td><td>him</td><td>his</td><td>himself</td></tr>
+    <tr><td>그녀</td><td>she</td><td>her</td><td>her</td><td>hers</td><td>herself</td></tr>
+    <tr><td>그것</td><td>it</td><td>its</td><td>it</td><td>—</td><td>itself</td></tr></table>
+    <p>그 밖에 <b>지시</b>(this/that/these/those), <b>부정</b>(some/any/one/each/all), <b>의문</b>(who/what/which) 대명사가 있습니다.</p>`},
+  {t:'ex',cls:'b',en:'[[She]] gave [[him]] [[her]] pen; the blue one is [[hers]].',ko:'그녀는 그에게 자기 펜을 주었다; 파란 것이 그녀의 것이다.',note:'주격 She / 목적격 him / 소유격 her(+명사) / 소유대명사 hers(=her pen).'},
+  {t:'ex',cls:'b',en:'He hurt [[himself]] while cooking.',ko:'그는 요리하다가 자신을 다쳤다.',note:'주어(He)와 목적어가 같은 사람 → 재귀대명사 himself.'},
+ ],
+ cp:[
+  {q:'다음 중 셀 수 없는 명사(불가산)는?',
+   opts:['book','water','apple','pen'],
+   ans:1,ex:'water는 물질명사로 불가산입니다 → a water·waters 불가, much water. 나머지는 모두 가산명사.'},
+  {q:'빈칸에 알맞은 것은?  "He likes ______." (she)',
+   opts:['she','her','hers'],
+   ans:1,ex:'동사 likes의 목적어 자리이므로 목적격 her. (주격 she, 소유대명사 hers)'},
+  {q:'빈칸에 알맞은 것은?  "She looked at ______ in the mirror." (그녀 자신)',
+   opts:['her','herself','hers'],
+   ans:1,ex:'주어(She)와 가리키는 대상이 같으므로 재귀대명사 herself.'}
+ ]},
+
+/* ── 2 동사 ── */
+{id:'verb',icon:'⚙️',label:'동사',pathArr:[['8품사','root'],['동사','d']],
+ title:'3단계 · 동사 — 문장의 심장',
+ sub:'동사는 주어의 동작이나 상태를 나타내며, 문장에 반드시 하나 있어야 합니다. be동사·일반동사·조동사, 그리고 자동사·타동사를 구분하세요.',
+ cards:[
+  {t:'h',chip:['동사','d'],title:'동사의 3종류',html:
+   `<ul><li><b>be동사</b> (am/are/is/was/were): "~이다, ~에 있다" — 주어와 보어를 연결</li>
+        <li><b>일반동사</b> (run, eat, like, have): 동작이나 상태</li>
+        <li><b>조동사</b> (can/will/must/may/should): 일반동사를 도움 → <b>뒤에 반드시 동사원형</b></li></ul>
+    <div class="test-box"><b>🔑 핵심</b>조동사 뒤에는 인칭·시제와 상관없이 항상 <b>동사원형</b>. (She can <b>swim</b>. ×swims ×swimming)</div>`},
+  {t:'h',chip:['자·타동사','d'],title:'자동사 vs 타동사',html:
+   `<ul><li><b>자동사</b>: 목적어가 필요 <b>없는</b> 동사 (go, come, sleep, happen, arrive, smile)</li>
+        <li><b>타동사</b>: 목적어가 필요한 동사 (like, have, make, eat, want)</li></ul>
+    <p>"무엇을?"이라고 물어 답이 있으면 타동사, 없으면 자동사입니다.</p>`},
+  {t:'ex',cls:'d',en:'She [[is]] a famous scientist.',ko:'그녀는 유명한 과학자다.',note:'be동사 is — 주어 She와 보어(scientist)를 연결.'},
+  {t:'ex',cls:'d',en:'Birds [[fly]] south in winter.',ko:'새들은 겨울에 남쪽으로 난다.',note:'일반동사 fly(자동사) — 뒤에 목적어가 없다.'},
+  {t:'ex',cls:'d',en:'You [[must finish]] your homework.',ko:'너는 숙제를 끝내야 한다.',note:'조동사 must + 동사원형 finish. (×finishes)'},
+  {t:'ex',cls:'d',en:'He [[made]] a sandwich.',ko:'그는 샌드위치를 만들었다.',note:'타동사 made + 목적어 a sandwich.'},
+ ],
+ cp:[
+  {q:'빈칸에 알맞은 것은?  "She can ______ very fast."',
+   opts:['runs','run','running'],
+   ans:1,ex:'조동사 can 뒤에는 항상 동사원형 → run.'},
+  {q:'다음 중 목적어가 필요 없는 자동사는?',
+   opts:['like','make','sleep','want'],
+   ans:2,ex:'sleep은 목적어 없이 쓰이는 자동사입니다. like/make/want는 목적어가 필요한 타동사.'}
+ ]},
+
+/* ── 3 형용사·부사 ── */
+{id:'adj',icon:'🎨',label:'형용사·부사',pathArr:[['8품사','root'],['형용사·부사','c']],
+ title:'4단계 · 형용사 & 부사 — 꾸미는 말 둘',
+ sub:'형용사는 "명사"를 꾸미고, 부사는 "동사·형용사·부사·문장"을 꾸밉니다. 무엇을 꾸미느냐로 둘을 가릅니다.',
+ cards:[
+  {t:'h',chip:['형용사','c'],title:'형용사 — 명사를 꾸미거나 보어가 됨',html:
+   `<ul><li><b>한정적 용법</b>: 명사 바로 앞에서 꾸밈 → <i>a <b>kind</b> teacher</i></li>
+        <li><b>서술적 용법</b>: 동사 뒤 보어 → <i>The teacher is <b>kind</b>.</i></li></ul>
+    <div class="test-box"><b>🔢 수량형용사</b><b>가산복수</b> 앞: many, (a) few → many books.<br><b>불가산</b> 앞: much, (a) little → much money.<br>둘 다 가능: some, any, a lot of, no.</div>`},
+  {t:'h',chip:['부사','c'],title:'부사 — 동사·형용사·부사·문장을 꾸밈',html:
+   `<ul><li>종류: 시간(now, today), 장소(here, there), 방법(slowly), 정도(very, too), 빈도(always, often)</li>
+        <li>형태: 대개 <b>형용사+ly</b> (slow→slowly, easy→easily)</li>
+        <li>예외: fast, hard, early, late, high는 <b>형용사와 형태가 같은 부사</b>. good의 부사는 <b>well</b>.</li></ul>
+    <div class="test-box"><b>⏱️ 빈도부사 위치</b>be동사·조동사 <b>뒤</b>, 일반동사 <b>앞</b>. (She <b>is always</b> late. / She <b>always comes</b> late.)</div>`},
+  {t:'h',chip:['형 vs 부','c'],title:'형용사인지 부사인지 가리는 법',html:
+   `<p><b>명사를 꾸미면 형용사</b>, <b>동사·형용사·부사를 꾸미면 부사</b>입니다.</p>
+    <ul><li>He is a <b>careful</b> driver. → 명사 driver를 꾸밈 = 형용사</li>
+        <li>He drives <b>carefully</b>. → 동사 drives를 꾸밈 = 부사</li></ul>`},
+  {t:'ex',cls:'c',en:'She is a [[careful]] driver, and she drives [[carefully]].',ko:'그녀는 조심스러운 운전자이고, 조심스럽게 운전한다.',note:'careful(형용사, driver 수식) vs carefully(부사, drives 수식).'},
+  {t:'ex',cls:'c',en:'He is [[always]] [[very]] [[busy]].',ko:'그는 항상 매우 바쁘다.',note:'always(빈도부사, be동사 뒤) / very(정도부사, busy 수식) / busy(형용사, 보어).'},
+  {t:'ex',cls:'c',en:'He runs [[fast]] and studies [[hard]].',ko:'그는 빨리 달리고 열심히 공부한다.',note:'fast·hard는 -ly 없이도 부사로 쓰인다(동사 수식).'},
+ ],
+ cp:[
+  {q:'빈칸에 알맞은 것은?  "The baby is sleeping ______."',
+   opts:['quiet','quietly'],
+   ans:1,ex:'동사 is sleeping을 꾸미므로 부사 quietly. (quiet은 형용사)'},
+  {q:'빈칸에 알맞은 것은?  "I don\'t have ______ money."',
+   opts:['many','much'],
+   ans:1,ex:'money는 불가산명사 → much. many는 가산복수 앞에 쓴다.'},
+  {q:'빈도부사 always의 위치가 옳은 문장은?',
+   opts:['She always is happy.','She is always happy.'],
+   ans:1,ex:'빈도부사는 be동사 뒤에 온다 → She is always happy.'}
+ ]},
+
+/* ── 4 전치사 ── */
+{id:'prep',icon:'🔗',label:'전치사',pathArr:[['8품사','root'],['전치사','e']],
+ title:'5단계 · 전치사 — 명사 앞에서 관계를 잇다',
+ sub:'전치사는 명사·대명사 앞에서 시간·장소·방향 등의 관계를 나타냅니다. 전치사+명사 = 전치사구이며, 뒤의 대명사는 목적격입니다.',
+ cards:[
+  {t:'h',chip:['전치사','e'],title:'시간·장소의 at / on / in',html:
+   `<table><tr><th></th><th>at</th><th>on</th><th>in</th></tr>
+    <tr><td>시간</td><td>시각(at 7)</td><td>요일·날짜(on Monday)</td><td>월·계절·연도(in May, in 2024)</td></tr>
+    <tr><td>장소</td><td>좁은 지점(at the door)</td><td>접촉·표면(on the wall)</td><td>넓은 공간 내부(in Seoul)</td></tr></table>
+    <p>방향: <b>to</b>(~로), <b>into</b>(~안으로), <b>from</b>(~로부터), <b>out of</b>(~밖으로).</p>
+    <div class="test-box"><b>🕘 관용</b>in the morning/afternoon/evening, 그러나 <b>at night</b>.</div>`},
+  {t:'h',chip:['목적격','e'],title:'전치사 뒤 대명사는 목적격',html:
+   `<p>전치사의 목적어가 대명사이면 반드시 <b>목적격</b>을 씁니다.</p>
+    <ul><li>for <b>me</b> (○) / for I (×)</li><li>between you and <b>me</b> (○) / between you and I (×)</li></ul>`},
+  {t:'ex',cls:'e',en:'The class starts [[at]] 9 [[on]] Monday.',ko:'수업은 월요일 9시에 시작한다.',note:'시각 at 9, 요일 on Monday.'},
+  {t:'ex',cls:'e',en:'We arrived [[in]] Busan [[in]] 2023.',ko:'우리는 2023년에 부산에 도착했다.',note:'도시 in Busan, 연도 in 2023.'},
+  {t:'ex',cls:'e',en:'This present is [[for him]].',ko:'이 선물은 그를 위한 것이다.',note:'전치사 for + 목적격 him. (×for he)'},
+  {t:'ex',cls:'e',en:'The cat jumped [[onto the sofa]].',ko:'고양이가 소파 위로 뛰어올랐다.',note:'onto+명사 = 전치사구(방향). 전치사구는 문장에서 형용사·부사 역할을 한다.'},
+ ],
+ cp:[
+  {q:'빈칸에 알맞은 전치사는?  "My birthday is ______ May."',
+   opts:['at','on','in'],
+   ans:2,ex:'월(month) 앞에는 in → in May.'},
+  {q:'빈칸에 알맞은 것은?  "Please sit between Tom and ______." (I/me)',
+   opts:['I','me'],
+   ans:1,ex:'전치사 between의 목적어이므로 목적격 me. between you/Tom and me.'}
+ ]},
+
+/* ── 5 접속사·감탄사 ── */
+{id:'conj',icon:'➕',label:'접속사·감탄사',pathArr:[['8품사','root'],['접속사·감탄사','e']],
+ title:'6단계 · 접속사 & 감탄사 — 연결과 감정',
+ sub:'접속사는 단어·구·절을 이어 줍니다(등위·종속·상관). 감탄사는 감정을 나타내는, 문장과 독립된 말입니다.',
+ cards:[
+  {t:'h',chip:['접속사','e'],title:'접속사의 3종류',html:
+   `<ul><li><b>등위접속사</b> and(그리고), but(그러나), or(또는), so(그래서): 문법적으로 <b>대등한</b> 것끼리 연결</li>
+        <li><b>종속접속사</b> when, because, if, that, although, while: <b>종속절</b>을 주절에 연결</li>
+        <li><b>상관접속사</b>(짝을 이룸): <b>both A and B</b>(둘 다), <b>not only A but also B</b>(A뿐 아니라 B도), <b>either A or B</b>(둘 중 하나), <b>neither A nor B</b>(둘 다 아닌)</li></ul>`},
+  {t:'h',chip:['감탄사','b'],title:'감탄사 — 감정을 나타내는 독립어',html:
+   `<p>기쁨·놀람·슬픔·아픔 등 <b>감정</b>을 나타내며, 문장과 <b>문법적으로 독립</b>되어 보통 콤마(,)나 느낌표(!)와 함께 씁니다.</p>
+    <ul><li>Oh!, Wow!(놀람·감탄), Oops!(실수), Ouch!(아픔), Alas!(슬픔), Well,(말 시작)</li></ul>`},
+  {t:'ex',cls:'e',en:'I like tea, [[but]] she likes coffee.',ko:'나는 차를 좋아하지만, 그녀는 커피를 좋아한다.',note:'등위접속사 but — 대등한 두 문장을 역접으로 연결.'},
+  {t:'ex',cls:'e',en:'We stayed inside [[because]] it rained.',ko:'비가 와서 우리는 안에 있었다.',note:'종속접속사 because — 이유의 종속절을 연결.'},
+  {t:'ex',cls:'e',en:'[[Both]] Sumi [[and]] Jiho can swim.',ko:'수미와 지호 둘 다 수영할 수 있다.',note:'상관접속사 both A and B(둘 다).'},
+  {t:'ex',cls:'b',en:'[[Wow]], what a beautiful view!',ko:'와, 정말 아름다운 경치다!',note:'감탄사 Wow — 감정을 나타내고 문장과 독립적.'},
+ ],
+ cp:[
+  {q:'빈칸에 알맞은 접속사는?  "It was cold, ______ I wore a coat."',
+   opts:['but','so','or'],
+   ans:1,ex:'"추웠다, 그래서 코트를 입었다" — 결과를 잇는 등위접속사 so.'},
+  {q:'빈칸에 알맞은 상관접속사는?  "______ Sumi ______ Jiho can swim." (둘 다 가능)',
+   opts:['both / and','either / or','not only / but'],
+   ans:0,ex:'"둘 다"는 both A and B.'},
+  {q:'감탄사에 대한 설명으로 옳은 것은?',
+   opts:['문장의 주어로 쓰인다','감정을 나타내며 문장과 문법적으로 독립적이다','명사를 꾸민다'],
+   ans:1,ex:'감탄사는 감정을 나타내는 독립어로, 주어·목적어 같은 문장 성분이 아닙니다.'}
+ ]},
+
+/* ── 6 판별 ── */
+{id:'sort',icon:'🔀',label:'판별 훈련',pathArr:[['8품사','root'],['전체 통합','root']],
+ title:'7단계 · 판별 훈련 — 같은 단어, 다른 품사',
+ sub:'품사는 단어의 "역할"로 정해집니다. 한 단어가 자리에 따라 여러 품사가 될 수 있어요. 자리와 역할로 판별하세요.',
+ cards:[
+  {t:'h',chip:['알고리즘','root'],title:'⚙️ 품사 판별 3질문',html:
+   `<ul style="list-style:none;margin-left:0">
+    <li>① 무엇의 <b>이름</b>인가? → 명사 / 그것을 대신하나? → 대명사</li>
+    <li>② 주어의 <b>동작·상태</b>인가? → 동사</li>
+    <li>③ <b>명사</b>를 꾸미나? → 형용사 / <b>동사·형용사·부사</b>를 꾸미나? → 부사</li>
+    <li>④ <b>명사 앞</b>에서 관계를 잇나? → 전치사 / 말을 <b>연결</b>하나? → 접속사 / 홀로 <b>감정</b>인가? → 감탄사</li></ul>
+    <div class="test-box"><b>🔁 같은 단어, 다른 품사</b><i>water</i>(명사/동사), <i>fast</i>(형용사/부사), <i>like</i>(동사/전치사), <i>that</i>(대명사/접속사) — 자리와 역할로 결정!</div>`},
+  {t:'ex',cls:'root',en:'I [[water]] the plants, and the [[water]] is cold.',ko:'나는 식물에 물을 주고, 그 물은 차갑다.',note:'첫 water=동사(목적어 the plants), 둘째 water=명사(the+명사).'},
+  {t:'ex',cls:'root',en:'It is a [[fast]] car, but he drives too [[fast]].',ko:'그것은 빠른 차지만, 그는 너무 빨리 운전한다.',note:'첫 fast=형용사(car 수식), 둘째 fast=부사(drives 수식).'},
+  {t:'ex',cls:'root',en:'I [[like]] you, and you look [[like]] your mom.',ko:'나는 너를 좋아하고, 너는 네 엄마를 닮았다.',note:'첫 like=동사(좋아하다), 둘째 like=전치사(~처럼/같은). look like ~ = ~처럼 보이다.'},
+ ],
+ cp:[
+  {q:'"This is a clean room."에서 clean의 품사는?',
+   opts:['동사','형용사','부사'],
+   ans:1,ex:'명사 room을 꾸미므로 형용사. "I clean my room."이라면 동사가 된다.'},
+  {q:'"He runs fast."에서 fast의 품사는?',
+   opts:['형용사','부사'],
+   ans:1,ex:'동사 runs를 꾸미므로 부사. "a fast runner"라면 형용사.'},
+  {q:'"I like apples."와 "He looks like his father."에서 like의 품사를 각각 고르면?',
+   opts:['동사 / 동사','동사 / 전치사','전치사 / 동사'],
+   ans:1,ex:'첫 문장의 like는 "좋아하다"(동사), 둘째 문장의 like는 "~처럼"(전치사). look like ~ 표현.'}
+ ]},
+
+/* ── 7 시험 ── */
+{id:'exam',icon:'🏆',label:'종합 시험',pathArr:[['8품사','root'],['전체 통합','root']],
+ title:'최종 관문 · 8품사 종합 시험 (10문항)',
+ sub:'단어를 보고 "무슨 일을 하는지"로 품사를 가려내세요. 8품사 전 영역을 점검합니다.',
+ exam:true}
+];
+
+/* ===== EXAM ===== */
+const EXAM=[
+{type:'classify',tags:['n','v','r'],q:'밑줄 친 단어의 품사를 고르시오.',
+ items:[
+  {en:'She is reading a [[book]].',ans:0,why:'사물의 이름이자 목적어 → 명사'},
+  {en:'He runs [[quickly]].',ans:4,why:'동사 runs를 꾸밈 → 부사'},
+  {en:'[[Wow]], it is amazing!',ans:7,why:'감정을 나타내는 독립어 → 감탄사'}]},
+
+{type:'mc',tags:['v'],q:'"I water the plants every day."에서 water의 품사와 그 이유는?',
+ opts:['명사 — 물이라는 사물이므로','동사 — 목적어(the plants)를 두고 "물을 주다"라는 동작이므로','형용사 — plants를 꾸미므로','전치사 — 명사 앞이므로'],
+ ans:1,ex:'목적어를 취하며 동작을 나타내므로 동사. "the water"처럼 쓰면 명사가 된다. 품사는 자리·역할로 결정된다.'},
+
+{type:'mc',tags:['n'],q:'다음 중 셀 수 없는 명사(불가산명사)는?',
+ opts:['apple','desk','water','book'],
+ ans:2,ex:'water는 물질명사로 불가산 → a/an·복수형 불가, much water. 나머지는 가산명사.'},
+
+{type:'walk',tags:['n'],q:'인칭대명사의 격을 분석하시오.',
+ steps:[
+  {p:'STEP 1 · 주어 자리: "Tom and ______ are friends." (I/me)',opts:['I','me','my'],ans:0},
+  {p:'STEP 2 · 목적어 자리: "The teacher praised ______." (he)',opts:['he','him','his'],ans:1},
+  {p:'STEP 3 · 주어와 같은 대상: "He cut ______ while cooking." (그 자신)',opts:['him','his','himself'],ans:2}],
+ ex:'주어 자리는 주격(I), 목적어 자리는 목적격(him), 주어와 목적어가 같은 사람이면 재귀대명사(himself).'},
+
+{type:'mc',tags:['v'],q:'빈칸에 알맞은 것과 이유는?  "You must ______ your homework now."',
+ opts:['does — 3인칭이므로','do — 조동사(must) 뒤에는 동사원형이므로','doing — 진행이므로','did — 과거이므로'],
+ ans:1,ex:'조동사 뒤에는 인칭·시제와 관계없이 항상 동사원형 → do.'},
+
+{type:'mc',tags:['v'],q:'빈칸에 알맞은 것과 이유는?  "He drives ______."',
+ opts:['careful — 명사를 꾸미므로','carefully — 동사 drives를 꾸미므로 부사','careful — 보어이므로','carefully — 형용사이므로'],
+ ans:1,ex:'동사 drives를 수식하므로 부사 carefully. 형용사 careful은 명사를 꾸민다(a careful driver).'},
+
+{type:'mc',tags:['v'],q:'빈칸에 알맞은 것은?  "There isn\'t ______ water in the cup."',
+ opts:['many','a few','much','few'],
+ ans:2,ex:'water는 불가산명사 → much/little. many/few는 가산복수 앞에 쓴다.'},
+
+{type:'walk',tags:['r'],q:'전치사를 분석하시오.',
+ steps:[
+  {p:'STEP 1 · "I have a lesson ______ Sunday."',opts:['at','on','in'],ans:1},
+  {p:'STEP 2 · "I usually exercise ______ the morning."',opts:['at','on','in'],ans:2},
+  {p:'STEP 3 · "This is for you and ______." (I/me)',opts:['I','me','my'],ans:1}],
+ ex:'요일은 on, "in the morning"은 in(관용), 전치사(for) 뒤 대명사는 목적격 me.'},
+
+{type:'mc',tags:['r'],q:'빈칸에 알맞은 접속사와 그 종류는?  "I stayed home ______ it was raining."',
+ opts:['so — 등위접속사(결과)','because — 종속접속사(이유)','but — 등위접속사(역접)','and — 등위접속사(나열)'],
+ ans:1,ex:'"비가 오고 있었기 때문에 집에 있었다" — 이유를 나타내는 종속접속사 because.'},
+
+{type:'classify',tags:['r'],q:'밑줄 친 단어의 품사를 고르시오.',
+ items:[
+  {en:'Both Tom [[and]] Jane passed.',ans:6,why:'대등한 두 대상을 연결 → 접속사(상관접속사 both A and B)'},
+  {en:'[[Oops]]! I made a mistake.',ans:7,why:'실수에 대한 감정의 독립어 → 감탄사'},
+  {en:'The cat is sleeping [[under]] the table.',ans:5,why:'명사(the table) 앞에서 위치 관계를 나타냄 → 전치사'}]},
+];
+
+/* ===== ENGINE ===== */
+const CLS_LB=['명사','대명사','동사','형용사','부사','전치사','접속사','감탄사'];
+let cur=0,maxUnlocked=0;
+const cpState=STAGES.map(()=>({done:false}));
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){
+  if(!('speechSynthesis' in window)){alert('Chrome 브라우저를 권장합니다.');return;}
+  speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.9;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);}
+function spkBtn(text){return `<button class="spk" title="듣기" aria-label="영어 듣기" onclick="speak(this.dataset.say,this)" data-say="${text.replace(/"/g,'&quot;')}">🔊</button>`;}
+function plain(s){return s.replace(/\[\[|\]\]|\{\{|\}\}/g,'').replace(/<[^>]+>/g,'');}
+function renderEn(s,cls){return s.replace(/\[\[(.+?)\]\]/g,`<span class="hl ${cls||'root'}">$1</span>`);}
+function tgl(btn){const t=btn.nextElementSibling;const open=t.classList.toggle('open');btn.setAttribute('aria-expanded',open);btn.textContent=open?'해석 닫기 ▲':'해석 + 풀이 보기 ▼';}
+function renderSteps(){
+  document.getElementById('steps').innerHTML=STAGES.map((s,i)=>{
+    const lock=i>maxUnlocked,done=cpState[i].done;
+    return `<button class="step ${i===cur?'cur':''} ${done?'done':''} ${lock?'locked':''}" onclick="go(${i})" ${lock?'aria-disabled="true"':''}>
+      <span class="dot">${lock?'🔒':done?'✓':s.icon}</span><span class="lb">${s.label}</span></button>`;}).join('');}
+function go(i){
+  if(i>maxUnlocked){alert('🔒 이전 단계의 체크포인트를 통과하면 열립니다!');return;}
+  window.speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0});}
+function treeHTML(node){
+  if(node.leaf!==undefined){const say=node.say||node.leaf;
+    return `<li><button class="node leaf" onclick="speak(this.dataset.say,this)" data-say="${say}">${node.leaf} 🔉</button></li>`;}
+  const kids=node.kids&&node.kids.length?`<ul>${node.kids.map(treeHTML).join('')}</ul>`:'';
+  return `<li><button class="node nd-${node.c}" onclick="speak(this.dataset.say,this)" data-say="${node.e.replace(/=.+$/,'').trim()}">${node.k} <span class="e">${node.e} 🔉</span></button>${kids}</li>`;}
+function cardHTML(c){
+  if(c.t==='tree')return `<div class="card"><h3><span class="chip c-root">전체 지도</span>로직 트리 — 노드를 누르면 영어 명칭을 읽어 줍니다</h3><div class="tree"><ul>${treeHTML(TREE)}</ul></div></div>`;
+  if(c.t==='h')return `<div class="card"><h3><span class="chip c-${c.chip[1]}">${c.chip[0]}</span>${c.title}</h3>${c.html}</div>`;
+  if(c.t==='ex'){const say=plain(c.en);return `<div class="exc ${c.cls}"><div class="enline"><span class="en">${renderEn(c.en,c.cls)}</span>${spkBtn(say)}</div><button class="tgl" aria-expanded="false" onclick="tgl(this)">해석 + 풀이 보기 ▼</button><div class="trans"><div class="ko">${c.ko}</div><div class="note">${c.note}</div></div></div>`;}
+  return '';}
+function cpHTML(i,qs){
+  return `<div class="qz" id="cp${i}"><div class="qz-head"><span class="badge">CHECKPOINT</span><b>체크포인트 — 모두 맞히면 다음 단계가 열립니다</b></div>
+  ${qs.map((q,k)=>`<div class="q"><div class="qno">Q${k+1} / ${qs.length}</div><div class="qtext">${q.q}</div>
+    <div class="opts">${q.opts.map((o,oi)=>`<button class="opt" onclick="cpPick(${i},${k},${oi},this)">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>
+    <div class="fb" id="fb-${i}-${k}"></div></div>`).join('')}
+  <div class="unlock-banner" id="ub${i}">🌿 통과! 다음 단계가 열렸습니다. <button class="btn primary" onclick="go(${i+1})">다음 단계로 →</button></div></div>`;}
+const cpOK=STAGES.map(s=>s.cp?s.cp.map(()=>false):[]);
+function cpPick(si,qi,oi,btn){
+  const q=STAGES[si].cp[qi],fb=document.getElementById(`fb-${si}-${qi}`);
+  const opts=btn.parentElement.querySelectorAll('.opt');
+  if(oi===q.ans){opts.forEach((o,k)=>{o.disabled=true;if(k===oi)o.classList.add('right');});
+    fb.className='fb show good';fb.innerHTML='✅ 정답! '+q.ex;cpOK[si][qi]=true;
+    if(cpOK[si].every(v=>v))unlockNext(si);
+  }else{btn.classList.add('wrong');fb.className='fb show badf';fb.innerHTML='🤔 다시 생각해보세요. 힌트: 그 단어가 <b>문장에서 하는 일(역할)</b>로 판단하세요.';setTimeout(()=>btn.classList.remove('wrong'),500);}}
+function unlockNext(si){cpState[si].done=true;if(si+1>maxUnlocked)maxUnlocked=si+1;renderSteps();const ub=document.getElementById('ub'+si);if(ub)ub.classList.add('show');}
+
+/* exam */
+const exAns=EXAM.map(q=>q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1);
+let graded=false;
+function examHTML(){
+  return `<div class="card" style="border:1.5px solid var(--ink)"><h3><span class="chip c-root">시험 안내</span>응시 전 확인</h3>
+    <ul><li>모든 문항이 단어의 <b>"역할"</b>을 묻습니다. 자리와 하는 일로 품사를 판별하세요.</li>
+    <li>WALK 문항은 단계별 순서대로 풀어야 다음 STEP이 열립니다.</li>
+    <li>🔊로 예문을 들으며 익히세요.</li></ul></div>
+  ${EXAM.map((q,qi)=>{
+    let body='';
+    const sent=q.sent?`<div class="qsent"><div class="enline"><span class="en">${renderEn(q.sent,'root')}</span>${spkBtn(q.say||plain(q.sent))}</div></div>`:'';
+    if(q.type==='mc'){body=`<div class="opts">${q.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${oi}" onclick="exPick(${qi},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>`;}
+    else if(q.type==='walk'){body=q.steps.map((st,si)=>`<div class="walkstep ${si>0?'lockedw':''}" id="ws-${qi}-${si}"><div class="wp">${st.p}</div><div class="opts">${st.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${si}-${oi}" onclick="exWalk(${qi},${si},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div></div>`).join('');}
+    else{body=q.items.map((it,k)=>`<div class="selrow"><span class="mark" id="em-${qi}-${k}">·</span>
+        <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,'root')}</span>${spkBtn(plain(it.en))}
+        <select id="es-${qi}-${k}" onchange="exAns[${qi}][${k}]=+this.value"><option value="-1">— 품사 선택 —</option>${CLS_LB.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
+        <div class="fb" id="ef-${qi}-${k}" style="flex-basis:100%"></div></div>`).join('');}
+    return `<div class="qz" id="eq${qi}"><div class="qz-head"><span class="badge">${q.type==='walk'?'WALK · 단계 분석':q.type==='classify'?'SORT · 품사 분류':'WHY · 개념'}</span><b>문항 ${qi+1} / ${EXAM.length}</b></div>
+      <div class="qtext">${q.q}</div>${sent}${body}<div class="fb" id="exfb${qi}"></div></div>`;}).join('')}
+  <div style="text-align:center;margin:30px 0"><button class="btn primary" id="gradeBtn" onclick="grade()" style="font-size:1.05rem;padding:15px 40px">📝 최종 채점하기</button></div>
+  <div id="result"></div>`;}
+function exPick(qi,oi){if(graded)return;exAns[qi]=oi;EXAM[qi].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${k}`).classList.toggle('sel',k===oi));}
+function exWalk(qi,si,oi){if(graded)return;exAns[qi][si]=oi;EXAM[qi].steps[si].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${si}-${k}`).classList.toggle('sel',k===oi));const next=document.getElementById(`ws-${qi}-${si+1}`);if(next)next.classList.remove('lockedw');}
+function grade(){
+  for(let qi=0;qi<EXAM.length;qi++){const a=exAns[qi];const empty=Array.isArray(a)?a.some(v=>v<0):a<0;
+    if(empty){document.getElementById('eq'+qi).scrollIntoView({block:'center'});const f=document.getElementById('exfb'+qi);f.className='fb show badf';f.textContent='⚠️ 답하지 않은 부분이 있어요.';return;}}
+  graded=true;document.getElementById('gradeBtn').disabled=true;
+  let score=0;
+  EXAM.forEach((q,qi)=>{
+    let ok;
+    if(q.type==='mc'){ok=exAns[qi]===q.ans;q.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${k}`);el.disabled=true;if(k===q.ans)el.classList.add('right');else if(k===exAns[qi])el.classList.add('wrong');});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 정답! ':'❌ 오답. ')+q.ex;}
+    else if(q.type==='walk'){ok=q.steps.every((st,si)=>exAns[qi][si]===st.ans);q.steps.forEach((st,si)=>st.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${si}-${k}`);el.disabled=true;if(k===st.ans)el.classList.add('right');else if(k===exAns[qi][si])el.classList.add('wrong');}));const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 완벽한 분석! ':'❌ 분석 오류. ')+q.ex;}
+    else{ok=q.items.every((it,k)=>exAns[qi][k]===it.ans);q.items.forEach((it,k)=>{const f=document.getElementById(`ef-${qi}-${k}`),m=document.getElementById(`em-${qi}-${k}`);document.getElementById(`es-${qi}-${k}`).disabled=true;const good=exAns[qi][k]===it.ans;m.textContent=good?'✅':'❌';f.className='fb show '+(good?'good':'badf');f.innerHTML=`<b>${CLS_LB[it.ans]}</b> — ${it.why}`;});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=ok?'✅ 품사를 모두 정확히 구분!':'❌ 위 해설을 확인하세요.';}
+    if(ok)score++;});
+  const gr=score>=9?['🎖️ 8품사 마스터','단어의 역할로 품사를 꿰뚫어 봅니다!']:score>=7?['🌿 거의 완성','헷갈린 품사만 7단계 판별 훈련으로 한 번 더!']:score>=5?['🌱 성장 중','형용사·부사 구별과 전치사부터 복습하세요.']:['🫘 다시 도전','1단계 큰 그림부터 차근차근!'];
+  const bars=[['체언 (명사·대명사) 🧱','n','var(--b)'],['용언·수식어 (동사·형용사·부사) ⚙️','v','var(--c)'],['연결·관계 (전치사·접속사·감탄사) 🔗','r','var(--e)']].map(([lb,t,col])=>{
+    const tot=EXAM.filter(q=>q.tags.includes(t)).length||0;
+    const ok2=EXAM.filter((q,qi)=>{if(!q.tags.includes(t))return false;const a=exAns[qi];return q.type==='mc'?a===q.ans:q.type==='walk'?q.steps.every((st,si)=>a[si]===st.ans):q.items.every((it,k)=>a[k]===it.ans);}).length;
+    const p=tot?Math.round(ok2/tot*100):100;
+    return `<div class="bb"><div class="bl"><span>${lb}</span><span>${ok2} / ${tot}</span></div><div class="track"><div class="fill" style="background:${col}" data-w="${p}%"></div></div></div>`;}).join('');
+  document.getElementById('result').innerHTML=`<div class="qz"><div class="score-wrap"><div class="score-big">${score} / 10</div><div class="grade">${gr[0]}</div><p style="font-size:.9rem;margin-top:6px">${gr[1]}</p><div class="branchbars">${bars}</div><div style="margin-top:18px"><button class="btn ghost" onclick="resetExam()">처음부터 다시 풀기</button></div></div></div>`;
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  requestAnimationFrame(()=>setTimeout(()=>document.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w),60));}
+function resetExam(){graded=false;EXAM.forEach((q,qi)=>{exAns[qi]=q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1;});renderAll();go(STAGES.length-1);}
+function pathHTML(arr){return `<div class="path">${arr.map(([t,c],i)=>(i?'<span class="sep">▸</span>':'')+`<span class="crumb on-${c}">${t}</span>`).join('')}</div>`;}
+function renderAll(){
+  document.getElementById('main').innerHTML=STAGES.map((s,i)=>{
+    let inner=s.exam?examHTML():(s.cards||[]).map(cardHTML).join('')+(s.cp?cpHTML(i,s.cp):'');
+    return `<section class="stage ${i===cur?'show':''}" id="st${i}">${pathHTML(s.pathArr)}<h2 class="stitle">${s.title}</h2><p class="ssub">${s.sub}</p>${inner}<div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전 단계</button>`:'<span></span>'}<span style="font-size:.78rem;color:var(--sub)">${i+1} / ${STAGES.length}</span></div></section>`;}).join('');
+  renderSteps();}
+renderAll();
+</script>
+</body>
+</html>
