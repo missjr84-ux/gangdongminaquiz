@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>시제의 지도 (쉬운 버전) — 주어에 따라 동사가 변해요</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F0;--card:#FFFFFF;--ink:#23272F;--sub:#727784;--line:#E7E2D6;
+  --root:#1F3A5F;--root-bg:#E8EEF6;
+  --b:#B8860B;--b-bg:#FEF8E1;
+  --c:#1E7A5A;--c-bg:#E2F3EB;
+  --d:#C84F2F;--d-bg:#FBE8E0;
+  --e:#5D4FA3;--e-bg:#EBE7F8;
+  --hl:#FFE45C;--ok:#1E7A5A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;
+  background-image:radial-gradient(#e9e4d6 1px,transparent 1px);background-size:26px 26px;}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 90px}
+header{padding:36px 0 8px;text-align:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.14em;color:var(--root);
+  border:1.5px solid var(--root);border-radius:999px;padding:3px 14px;margin-bottom:14px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.8rem,6vw,2.6rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:10px;font-size:.95rem}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);margin:22px -16px 0;padding:10px 8px}
+.steps{display:flex;justify-content:center;gap:3px;max-width:760px;margin:0 auto;flex-wrap:wrap}
+.step{flex:1;max-width:96px;min-width:60px;border:none;background:transparent;cursor:pointer;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.64rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,39,47,.12)}
+.step.cur .lb{color:var(--ink)}
+.step:hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}
+.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:24px 0 6px;font-size:.8rem;font-weight:700}
+.path .crumb{padding:2px 10px;border-radius:999px;background:#fff;border:1.5px solid var(--line)}
+.path .crumb.on-root{border-color:var(--root);color:var(--root);background:var(--root-bg)}
+.path .crumb.on-b{border-color:var(--b);color:var(--b);background:var(--b-bg)}
+.path .crumb.on-c{border-color:var(--c);color:var(--c);background:var(--c-bg)}
+.path .crumb.on-d{border-color:var(--d);color:var(--d);background:var(--d-bg)}
+.path .crumb.on-e{border-color:var(--e);color:var(--e);background:var(--e-bg)}
+.path .sep{color:var(--sub)}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.5rem;margin:4px 0 4px}
+.ssub{color:var(--sub);font-size:.93rem;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin:14px 0;
+  box-shadow:0 1px 3px rgba(40,35,20,.05)}
+.card h3{font-size:1.06rem;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h3 .chip{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.chip.c-root{background:var(--root-bg);color:var(--root)}
+.chip.c-b{background:var(--b-bg);color:var(--b)}
+.chip.c-c{background:var(--c-bg);color:var(--c)}
+.chip.c-d{background:var(--d-bg);color:var(--d)}
+.chip.c-e{background:var(--e-bg);color:var(--e)}
+.card p{margin:6px 0}.card ul{margin:6px 0 6px 20px}.card li{margin:4px 0}
+.card table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.92rem}
+.card th,.card td{border:1px solid var(--line);padding:6px 9px;text-align:center}
+.card th{background:#F7F5EE;font-weight:700}
+.card td.lf{text-align:left}
+.big-en{font-family:'Lora',serif;font-weight:600}
+.kw{font-weight:700}
+.kw.b{color:var(--b)}.kw.c{color:var(--c)}.kw.d{color:var(--d)}.kw.e{color:var(--e)}.kw.root{color:var(--root)}
+.diff-box{margin-top:12px;border:2px solid var(--d);border-radius:12px;padding:12px 14px;background:#FDF1EC}
+.diff-box .dh{font-weight:800;color:var(--d);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.tip-box{margin-top:12px;border:1.5px dashed var(--ink);border-radius:10px;padding:11px 14px;background:#FFFDF4;font-size:.93rem}
+.tip-box b{display:block;margin-bottom:2px}
+.formula{background:var(--root-bg);border:1.5px solid var(--root);border-radius:10px;padding:10px 14px;margin:10px 0;
+  font-weight:700;text-align:center;font-size:1.02rem;color:var(--root)}
+.formula .pill{background:#fff;border:1px solid var(--root);border-radius:6px;padding:1px 8px;margin:0 2px;display:inline-block}
+.ex-line{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:7px 0;padding:8px 11px;background:#F7F5EE;border-radius:9px}
+.ex-line .en{font-family:'Lora',serif;font-size:1.06rem}
+.ex-line .ko{color:var(--sub);font-size:.86rem}
+.hl{padding:1px 4px;border-radius:3px;font-weight:700;background:linear-gradient(180deg,transparent 35%,var(--hl) 35%)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:32px;height:32px;
+  cursor:pointer;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--ink)}
+.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+/* practice block */
+.prac{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:16px 18px;margin:18px 0;box-shadow:3px 3px 0 rgba(35,39,47,.85)}
+.prac-h{display:flex;align-items:center;gap:8px;font-weight:800;margin-bottom:4px}
+.prac-h .pb{background:var(--ink);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:999px}
+.prac-sub{font-size:.85rem;color:var(--sub);margin-bottom:6px}
+.pq{padding:13px 0 4px;border-top:1px dashed var(--line)}
+.pq:first-of-type{border-top:none}
+.pq .qn{font-weight:700;font-size:.82rem;color:var(--sub)}
+.pq .qt{font-weight:600;margin:3px 0 9px}
+.pq .qt .blank-sp{display:inline-block;min-width:60px;border-bottom:2px solid var(--ink);text-align:center;font-family:'Lora',serif}
+.popts{display:flex;flex-wrap:wrap;gap:7px}
+.popt{font-family:inherit;font-size:.95rem;background:#fff;border:1.5px solid var(--line);border-radius:9px;
+  padding:8px 15px;cursor:pointer;transition:.15s;font-weight:600}
+.popt:hover:not(:disabled){border-color:var(--ink);background:#F7F5EE}
+.popt.right{border-color:var(--ok);background:var(--c-bg);color:var(--ok)}
+.popt.wrong{border-color:var(--bad);background:#FBE5E1;color:var(--bad);animation:shake .3s}
+.popt:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.pfb{display:none;margin-top:9px;font-size:.9rem;border-radius:8px;padding:9px 12px;line-height:1.6}
+.pfb.show{display:block}
+.pfb.good{background:var(--c-bg);border:1px solid var(--ok)}
+.pfb.badf{background:#FBE5E1;border:1px solid var(--bad)}
+.reveal-btn{margin-top:10px;border:1.5px solid var(--ink);background:var(--ink);color:#fff;border-radius:9px;
+  padding:7px 16px;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.reveal-btn:hover{background:#000}
+.ansbox{display:none;margin-top:9px;padding:10px 13px;background:var(--root-bg);border:1.5px solid var(--root);border-radius:9px;font-size:.92rem}
+.ansbox.show{display:block}
+.ansbox .a{font-weight:700;color:var(--root);font-family:'Lora',serif}
+.btn{font-family:inherit;font-weight:700;font-size:.95rem;border:none;border-radius:12px;padding:11px 24px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:3px 3px 0 rgba(35,39,47,.35)}
+.btn.primary:hover{transform:translate(-1px,-1px)}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:26px 0 10px;gap:10px}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:44px}
+@media(max-width:520px){.card,.prac{padding:14px 13px}.step .lb{font-size:.56rem}.ex-line .en{font-size:.98rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">EASY TENSES · 초5~중1</div>
+  <h1>시제의 <span class="mark">지도</span>를 그리다 <span style="font-size:.5em;vertical-align:middle">쉬운 버전</span></h1>
+  <p class="tagline">주어에 따라 동사가 어떻게 변하는지, 평서문·의문문·부정문까지 천천히.<br>설명을 읽은 뒤 <b>버튼을 눌러 바로 정답을 확인</b>하세요. 🔊로 발음도 들어요.</p>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>시제의 지도 (쉬운 버전) · 주어별 동사변화 집중 · 즉시 정답확인</footer>
+</div>
+<script>
+/* ============ DATA ============ */
+const STAGES=[
+
+/* 0. 큰 그림 */
+{icon:'🧩',label:'큰 그림',crumb:[['시제 시작','root']],
+ title:'1단계 · 주어와 동사는 짝꿍이에요',
+ sub:'영어 동사는 "누가(주어)" 하느냐에 따라 모양이 바뀝니다. 이 변화를 이해하는 것이 시제의 첫걸음이에요.',
+ blocks:[
+ {type:'h',chip:['먼저 알기','root'],title:'인칭이 뭐예요?',html:
+  `<p>영어에서 주어는 <b>인칭</b>과 <b>수(단수/복수)</b>로 나뉩니다.</p>
+   <table>
+   <tr><th>인칭</th><th>단수 (한 명/하나)</th><th>복수 (여럿)</th></tr>
+   <tr><td>1인칭 (나/우리)</td><td class="lf">I (나는)</td><td class="lf">we (우리는)</td></tr>
+   <tr><td>2인칭 (너/너희)</td><td class="lf">you (너는)</td><td class="lf">you (너희는)</td></tr>
+   <tr><td>3인칭 (그 외 전부)</td><td class="lf">he, she, it, Tom, the dog</td><td class="lf">they, my friends</td></tr>
+   </table>
+   <div class="diff-box"><div class="dh">⭐ 가장 중요한 차이</div>
+   영어 동사가 특별히 모양을 바꾸는 주어는 딱 하나, <b>3인칭 단수</b>(he/she/it 등)예요. 이것만 잘 잡으면 절반은 끝납니다.</div>`},
+ {type:'h',chip:['시제란','root'],title:'시제 = 동사로 시간 말하기',html:
+  `<p>같은 동사도 <b>언제</b>의 일인지에 따라 모양이 달라져요.</p>
+   <ul>
+   <li>I <span class="kw c">play</span> soccer. → (요즘) 축구를 해 — <b>현재</b></li>
+   <li>I <span class="kw d">played</span> soccer. → (어제) 축구를 했어 — <b>과거</b></li>
+   <li>I <span class="kw b">will play</span> soccer. → (내일) 축구를 할 거야 — <b>미래</b></li>
+   <li>I <span class="kw e">am playing</span> soccer. → (지금) 축구를 하는 중 — <b>진행</b></li>
+   </ul>
+   <div class="tip-box"><b>이 순서로 배워요</b>① be동사 → ② 일반동사 현재(★3인칭) → ③ 과거 → ④ 미래 → ⑤ 진행형. 천천히 따라오면 됩니다!</div>`},
+ ],
+ prac:{title:'개념 확인',sub:'버튼을 누르면 바로 정답을 알려줘요.',
+  items:[
+   {q:'"he, she, it"은 몇 인칭일까요?',opts:['1인칭','2인칭','3인칭'],ans:2,fb:'정답! he/she/it과 사람·사물 이름은 모두 3인칭이에요. 동사가 가장 많이 변하는 주어죠.'},
+   {q:'영어 동사가 특별히 모양을 바꾸는 주어는?',opts:['1인칭 I','2인칭 you','3인칭 단수 he/she/it'],ans:2,fb:'맞아요! 3인칭 단수일 때 동사가 변해요. 이게 한국 학생들이 가장 자주 틀리는 부분이에요.'},
+   {q:'"played"는 어느 시간을 나타낼까요?',opts:['현재','과거','미래'],ans:1,fb:'정답! play에 -ed가 붙어 과거(했다)가 되었어요.'},
+  ]}
+},
+
+/* 1. be동사 */
+{icon:'🟰',label:'be동사',crumb:[['시제 시작','root'],['be동사','c']],
+ title:'2단계 · be동사 (am / are / is)',
+ sub:'be동사는 "~이다, ~에 있다"라는 뜻이에요. 주어에 따라 am, are, is로 달라집니다. 이게 주어별 변화의 가장 쉬운 출발점이에요.',
+ blocks:[
+ {type:'h',chip:['주어별 변화','c'],title:'주어에 따라 am / are / is',html:
+  `<table>
+   <tr><th>주어</th><th>be동사</th><th>예문</th><th>줄임말</th></tr>
+   <tr><td class="lf">I</td><td><b>am</b></td><td class="lf">I am happy.</td><td>I'm</td></tr>
+   <tr><td class="lf">You / We / They</td><td><b>are</b></td><td class="lf">You are kind.</td><td>You're</td></tr>
+   <tr><td class="lf">He / She / It</td><td><b>is</b></td><td class="lf">She is a teacher.</td><td>She's</td></tr>
+   </table>
+   <div class="tip-box"><b>외우는 법</b>"<b>I am</b>, <b>너희(You/We/They) are</b>, <b>그것(He/She/It) is</b>" — 노래처럼 외워요!</div>`},
+ {type:'ex',cls:'c',pairs:[
+   ['I [[am]] a student.','나는 학생이다.'],
+   ['You [[are]] my friend.','너는 내 친구다.'],
+   ['He [[is]] tall.','그는 키가 크다.'],
+   ['They [[are]] in the room.','그들은 방에 있다.'],
+ ]},
+ {type:'h',chip:['부정문','d'],title:'부정문: be동사 + not',html:
+  `<p>"~가 아니다"는 be동사 뒤에 <b>not</b>만 붙이면 끝!</p>
+   <div class="formula"><span class="pill">주어</span> + <span class="pill">am/are/is</span> + <span class="pill">not</span> ...</div>
+   <table>
+   <tr><th>긍정</th><th>부정</th><th>줄임말</th></tr>
+   <tr><td class="lf">I am</td><td class="lf">I am not</td><td>—</td></tr>
+   <tr><td class="lf">You are</td><td class="lf">You are not</td><td>aren't</td></tr>
+   <tr><td class="lf">He is</td><td class="lf">He is not</td><td>isn't</td></tr>
+   </table>`},
+ {type:'ex',cls:'d',pairs:[
+   ['She [[is not]] (isn\'t) angry.','그녀는 화나지 않았다.'],
+   ['We [[are not]] (aren\'t) ready.','우리는 준비되지 않았다.'],
+ ]},
+ {type:'h',chip:['의문문','e'],title:'의문문: be동사를 앞으로!',html:
+  `<p>"~이니?"라고 물을 때는 <b>be동사를 주어 앞으로</b> 옮기고 물음표를 붙여요.</p>
+   <div class="formula"><span class="pill">Am/Are/Is</span> + <span class="pill">주어</span> ... ?</div>
+   <ul>
+   <li>You are happy. → <b>Are you</b> happy? (너 행복하니?)</li>
+   <li>대답: Yes, I am. / No, I'm not.</li>
+   <li>He is a doctor. → <b>Is he</b> a doctor? — Yes, he is. / No, he isn't.</li>
+   </ul>
+   <div class="diff-box"><div class="dh">⭐ 차이 정리</div>
+   평서문 <b>You are</b> → 부정 <b>You are not</b> → 의문 <b>Are you ~?</b><br>
+   be동사는 not을 붙이거나 앞으로 보내기만 하면 돼요. (do/does 필요 없음!)</div>`},
+ ],
+ prac:{title:'be동사 연습',sub:'버튼을 눌러 바로 확인하세요. (3문제 이상)',
+  items:[
+   {q:'I _____ a singer.',opts:['am','are','is'],ans:0,fb:'정답! 주어가 I일 때는 항상 am이에요.'},
+   {q:'They _____ at home.',opts:['am','are','is'],ans:1,fb:'정답! You/We/They는 are.'},
+   {q:'It _____ cold today.',opts:['am','are','is'],ans:2,fb:'정답! He/She/It은 is.'},
+   {q:'부정문: She _____ a nurse.',opts:['am not','isn\'t','aren\'t'],ans:1,fb:'정답! She is → 부정은 She isn\'t (is not).'},
+   {q:'의문문: _____ you tired?',opts:['Is','Am','Are'],ans:2,fb:'정답! You가 주어이므로 Are you ~? 의문문은 be동사를 앞으로 보내요.'},
+  ]}
+},
+
+/* 2. 일반동사 현재 (★3인칭) */
+{icon:'⭐',label:'일반동사 현재',crumb:[['시제 시작','root'],['일반동사 현재','d']],
+ title:'3단계 · 일반동사 현재 — 3인칭 단수가 핵심!',
+ sub:'먹다(eat), 좋아하다(like) 같은 일반동사는 현재시제에서 주어가 3인칭 단수일 때만 모양이 바뀝니다. 한국 학생들이 가장 어려워하는 부분, 여기서 확실히 잡아요.',
+ blocks:[
+ {type:'h',chip:['1·2인칭/복수','c'],title:'먼저 쉬운 것부터 — I / You / We / They',html:
+  `<p>주어가 <b>I, You, We, They</b>(그리고 복수)일 때는 동사를 <b>그대로</b> 써요.</p>
+   <div class="ex-line"><span class="en">I <span class="hl">like</span> pizza.</span><span class="ko">나는 피자를 좋아해.</span></div>
+   <div class="ex-line"><span class="en">You <span class="hl">play</span> the piano.</span><span class="ko">너는 피아노를 쳐.</span></div>
+   <div class="ex-line"><span class="en">They <span class="hl">run</span> fast.</span><span class="ko">그들은 빨리 달려.</span></div>`},
+ {type:'h',chip:['★3인칭 단수','d'],title:'주어가 He / She / It이면 동사에 -s!',html:
+  `<p>주어가 <b>3인칭 단수</b>(he, she, it, Tom, my dog...)이면 동사 끝에 <b>-s</b> 또는 <b>-es</b>를 붙여요.</p>
+   <div class="formula"><span class="pill">He/She/It</span> + 동사 + <span class="pill">-s / -es</span></div>
+   <div class="ex-line"><span class="en">She <span class="hl">likes</span> pizza.</span><span class="ko">그녀는 피자를 좋아해.</span></div>
+   <div class="ex-line"><span class="en">He <span class="hl">plays</span> the piano.</span><span class="ko">그는 피아노를 쳐.</span></div>
+   <div class="diff-box"><div class="dh">⭐ 가장 중요한 차이 (꼭 기억!)</div>
+   I/You/We/They <b>like</b> &nbsp;↔&nbsp; He/She/It <b>likes</b><br>
+   주어가 한 명(3인칭 단수)이면 동사에 -s가 붙는다! 이걸 빠뜨리는 실수가 가장 많아요.</div>`},
+ {type:'h',chip:['-s 붙이는 규칙','d'],title:'-s / -es 붙이는 5가지 규칙',html:
+  `<table>
+   <tr><th>규칙</th><th>예시</th></tr>
+   <tr><td class="lf">대부분 → +s</td><td class="lf">like→likes, run→runs, eat→eats</td></tr>
+   <tr><td class="lf">-s,-sh,-ch,-x,-o → +es</td><td class="lf">go→goes, watch→watches, wash→washes</td></tr>
+   <tr><td class="lf">자음+y → y를 i로, +es</td><td class="lf">study→studies, cry→cries, fly→flies</td></tr>
+   <tr><td class="lf">모음+y → 그냥 +s</td><td class="lf">play→plays, enjoy→enjoys</td></tr>
+   <tr><td class="lf">특별(불규칙)</td><td class="lf">have→has</td></tr>
+   </table>`},
+ {type:'h',chip:['부정문','e'],title:'부정문: don\'t / doesn\'t + 동사원형',html:
+  `<p>일반동사는 not을 바로 못 붙여요. <b>do/does</b>의 도움이 필요해요.</p>
+   <div class="formula">I/You/We/They + <span class="pill">don't</span> + 동사원형<br>He/She/It + <span class="pill">doesn't</span> + 동사원형</div>
+   <div class="ex-line"><span class="en">I <span class="hl">don't like</span> coffee.</span><span class="ko">나는 커피를 안 좋아해.</span></div>
+   <div class="ex-line"><span class="en">She <span class="hl">doesn't like</span> coffee.</span><span class="ko">그녀는 커피를 안 좋아해.</span></div>
+   <div class="diff-box"><div class="dh">⭐ 핵심 함정!</div>
+   doesn't 뒤에는 동사를 <b>원형</b>으로! (-s를 doesn't가 이미 가져갔으니까)<br>
+   ✗ She doesn't <b>likes</b> &nbsp; → &nbsp; ✓ She doesn't <b>like</b></div>`},
+ {type:'h',chip:['의문문','e'],title:'의문문: Do / Does + 주어 + 동사원형?',html:
+  `<p>물어볼 때도 <b>Do/Does</b>를 문장 맨 앞에 써요.</p>
+   <div class="formula"><span class="pill">Do</span> + I/you/we/they + 동사원형 ~?<br><span class="pill">Does</span> + he/she/it + 동사원형 ~?</div>
+   <ul>
+   <li><b>Do you</b> like music? — Yes, I do. / No, I don't.</li>
+   <li><b>Does she</b> like music? — Yes, she does. / No, she doesn't.</li>
+   </ul>
+   <div class="diff-box"><div class="dh">⭐ 의문문에서도 동사는 원형!</div>
+   Does she <b>likes</b>? ✗ &nbsp;→&nbsp; Does she <b>like</b>? ✓ (Does가 -s를 가져갔어요)</div>`},
+ {type:'h',chip:['한눈에','d'],title:'3인칭 단수 평서·부정·의문 총정리',html:
+  `<table>
+   <tr><th></th><th>I / You / We / They</th><th>He / She / It (★)</th></tr>
+   <tr><td class="lf">평서문</td><td class="lf">I <b>like</b> it.</td><td class="lf">He <b>likes</b> it.</td></tr>
+   <tr><td class="lf">부정문</td><td class="lf">I <b>don't like</b> it.</td><td class="lf">He <b>doesn't like</b> it.</td></tr>
+   <tr><td class="lf">의문문</td><td class="lf"><b>Do</b> you like it?</td><td class="lf"><b>Does</b> he like it?</td></tr>
+   </table>
+   <div class="tip-box"><b>한 줄 요약</b>3인칭 단수는 평서문에서 <b>동사+s</b>, 부정·의문에서는 <b>does</b>가 그 -s를 대신 가져가고 동사는 <b>원형</b>!</div>`},
+ ],
+ prac:{title:'3인칭 단수 집중 연습',sub:'가장 중요한 부분이라 문제가 많아요. 버튼으로 바로 확인!',
+  items:[
+   {q:'I _____ soccer every day.',opts:['play','plays'],ans:0,fb:'정답! 주어 I는 동사 그대로 play.'},
+   {q:'He _____ soccer every day.',opts:['play','plays'],ans:1,fb:'정답! He(3인칭 단수)는 동사+s → plays. ⭐ 이게 핵심!'},
+   {q:'She _____ to school. (go)',opts:['gos','goes'],ans:1,fb:'정답! go는 -o로 끝나서 +es → goes.'},
+   {q:'My dad _____ English. (study)',opts:['studys','studies'],ans:1,fb:'정답! 자음+y → y를 i로 바꾸고 +es → studies.'},
+   {q:'Tom _____ a nice car. (have)',opts:['haves','has'],ans:1,fb:'정답! have는 특별하게 has로 변해요.'},
+   {q:'부정문: She _____ meat.',opts:['don\'t eat','doesn\'t eat','doesn\'t eats'],ans:1,fb:'정답! 3인칭 단수 부정은 doesn\'t + 동사원형(eat). doesn\'t eats는 틀려요!'},
+   {q:'의문문: _____ he like pizza?',opts:['Do','Does','Is'],ans:1,fb:'정답! 3인칭 단수 의문문은 Does + 주어 + 동사원형. Does he like ~?'},
+   {q:'다음 중 옳은 문장은?',opts:['She doesn\'t likes it.','She doesn\'t like it.'],ans:1,fb:'정답! doesn\'t 뒤에는 동사원형 like. (doesn\'t가 이미 -s 역할을 함)'},
+  ]}
+},
+
+/* 3. 과거시제 */
+{icon:'⏮️',label:'과거시제',crumb:[['시제 시작','root'],['과거','d']],
+ title:'4단계 · 과거시제 — 어제의 일',
+ sub:'과거에 끝난 일을 말해요. 과거시제의 가장 좋은 점은 주어가 1인칭이든 3인칭이든 동사 모양이 똑같다는 거예요!',
+ blocks:[
+ {type:'h',chip:['be동사 과거','d'],title:'be동사 과거: was / were',html:
+  `<table>
+   <tr><th>주어</th><th>현재</th><th>과거</th></tr>
+   <tr><td class="lf">I / He / She / It</td><td>am / is</td><td><b>was</b></td></tr>
+   <tr><td class="lf">You / We / They</td><td>are</td><td><b>were</b></td></tr>
+   </table>
+   <div class="ex-line"><span class="en">I <span class="hl">was</span> tired.</span><span class="ko">나는 피곤했다.</span></div>
+   <div class="ex-line"><span class="en">They <span class="hl">were</span> happy.</span><span class="ko">그들은 행복했다.</span></div>
+   <p>부정: was/were + not (wasn't / weren't) · 의문: Was/Were + 주어 ~?</p>`},
+ {type:'h',chip:['일반동사 과거','d'],title:'일반동사 과거: -ed (주어 상관없이 똑같아요!)',html:
+  `<div class="diff-box"><div class="dh">⭐ 좋은 소식!</div>
+   과거에서는 <b>3인칭 단수여도 -s를 안 붙여요.</b> 모든 주어가 똑같은 과거형을 써요!<br>
+   I play<b>ed</b> / He play<b>ed</b> / They play<b>ed</b> — 전부 같아요.</div>
+   <table>
+   <tr><th>규칙</th><th>예시</th></tr>
+   <tr><td class="lf">대부분 +ed</td><td class="lf">play→played, walk→walked</td></tr>
+   <tr><td class="lf">-e로 끝 → +d</td><td class="lf">like→liked, live→lived</td></tr>
+   <tr><td class="lf">자음+y → ied</td><td class="lf">study→studied, cry→cried</td></tr>
+   <tr><td class="lf">단모음+단자음 → 자음 두 번</td><td class="lf">stop→stopped</td></tr>
+   </table>`},
+ {type:'h',chip:['불규칙','d'],title:'꼭 외우는 불규칙 과거형',html:
+  `<table>
+   <tr><td class="lf">go→went</td><td class="lf">eat→ate</td><td class="lf">see→saw</td></tr>
+   <tr><td class="lf">have→had</td><td class="lf">make→made</td><td class="lf">take→took</td></tr>
+   <tr><td class="lf">come→came</td><td class="lf">give→gave</td><td class="lf">get→got</td></tr>
+   <tr><td class="lf">buy→bought</td><td class="lf">do→did</td><td class="lf">say→said</td></tr>
+   </table>
+   <div class="tip-box"><b>신호 단어</b>yesterday(어제), last week(지난주), ago(~전에), in 2020</div>`},
+ {type:'h',chip:['부정·의문','e'],title:'과거 부정·의문: did의 마법',html:
+  `<p>일반동사 과거의 부정·의문은 <b>did</b>를 쓰고, 동사는 <b>원형</b>으로 돌아가요!</p>
+   <div class="formula">부정: 주어 + <span class="pill">didn't</span> + 동사원형<br>의문: <span class="pill">Did</span> + 주어 + 동사원형 ~?</div>
+   <div class="ex-line"><span class="en">She <span class="hl">didn't go</span> to school.</span><span class="ko">그녀는 학교에 가지 않았다.</span></div>
+   <div class="ex-line"><span class="en"><span class="hl">Did</span> you <span class="hl">eat</span> lunch?</span><span class="ko">너 점심 먹었니?</span></div>
+   <div class="diff-box"><div class="dh">⭐ 차이 (현재 do/does ↔ 과거 did)</div>
+   현재: don't/doesn't &nbsp;→&nbsp; 과거: <b>didn't</b> (주어 상관없이 하나!)<br>
+   did 뒤에도 동사는 <b>원형</b>: ✗ Did you ate? → ✓ Did you <b>eat</b>?</div>`},
+ ],
+ prac:{title:'과거시제 연습',sub:'버튼으로 바로 확인하세요.',
+  items:[
+   {q:'I _____ happy yesterday.',opts:['was','were'],ans:0,fb:'정답! I는 과거에 was.'},
+   {q:'They _____ at the park.',opts:['was','were'],ans:1,fb:'정답! You/We/They는 과거에 were.'},
+   {q:'He _____ to school yesterday. (go)',opts:['goed','went','goes'],ans:1,fb:'정답! go의 과거는 불규칙 went.'},
+   {q:'She _____ hard last night. (study)',opts:['studyed','studied'],ans:1,fb:'정답! 자음+y → studied.'},
+   {q:'부정문: We _____ the movie.',opts:['didn\'t see','didn\'t saw'],ans:0,fb:'정답! didn\'t + 동사원형(see). didn\'t saw는 틀려요!'},
+   {q:'의문문: _____ you eat breakfast?',opts:['Do','Did','Was'],ans:1,fb:'정답! 과거 의문문은 Did + 주어 + 동사원형.'},
+  ]}
+},
+
+/* 4. 미래시제 */
+{icon:'🔮',label:'미래시제',crumb:[['시제 시작','root'],['미래','b']],
+ title:'5단계 · 미래시제 — 내일의 일',
+ sub:'앞으로 할 일을 말해요. will과 be going to 두 가지가 있고, 둘의 쓰임 차이가 핵심이에요.',
+ blocks:[
+ {type:'h',chip:['will','b'],title:'will + 동사원형',html:
+  `<p>주어가 무엇이든 <b>will + 동사원형</b>! (will은 모양이 안 변해요)</p>
+   <div class="formula"><span class="pill">주어</span> + <span class="pill">will</span> + 동사원형</div>
+   <div class="ex-line"><span class="en">I <span class="hl">will call</span> you.</span><span class="ko">내가 너에게 전화할게.</span></div>
+   <div class="ex-line"><span class="en">She <span class="hl">will come</span> soon.</span><span class="ko">그녀는 곧 올 거야.</span></div>
+   <p>부정: will not = <b>won't</b> · 의문: <b>Will</b> + 주어 + 동사원형 ~?</p>
+   <div class="diff-box"><div class="dh">⭐ 차이</div>3인칭 단수여도 will은 그대로! ✗ She wills → ✓ She <b>will</b> come. 그리고 will 뒤는 항상 동사원형(comes ✗).</div>`},
+ {type:'h',chip:['be going to','b'],title:'be going to + 동사원형',html:
+  `<p>주어에 따라 <b>am/are/is</b> going to로 변해요.</p>
+   <table>
+   <tr><td class="lf">I</td><td><b>am</b> going to</td></tr>
+   <tr><td class="lf">You/We/They</td><td><b>are</b> going to</td></tr>
+   <tr><td class="lf">He/She/It</td><td><b>is</b> going to</td></tr>
+   </table>
+   <div class="ex-line"><span class="en">I <span class="hl">am going to</span> study.</span><span class="ko">나는 공부할 거야.</span></div>
+   <div class="ex-line"><span class="en">He <span class="hl">is going to</span> play.</span><span class="ko">그는 놀 거야.</span></div>`},
+ {type:'h',chip:['차이점','b'],title:'will vs be going to — 언제 뭘 쓰나',html:
+  `<div class="diff-box"><div class="dh">⭐ 핵심 차이</div>
+   <b>will</b> → 지금 막 결정한 일, 단순한 예측<br>
+   <span style="margin-left:14px">"The phone is ringing." "I <b>will</b> get it." (지금 결정)</span><br><br>
+   <b>be going to</b> → 미리 정한 계획, 눈에 보이는 근거가 있는 예측<br>
+   <span style="margin-left:14px">"I <b>am going to</b> visit my grandma this weekend." (계획)</span><br>
+   <span style="margin-left:14px">"Look at the clouds! It <b>is going to</b> rain." (근거)</span></div>`},
+ ],
+ prac:{title:'미래시제 연습',sub:'버튼으로 바로 확인!',
+  items:[
+   {q:'He _____ help us tomorrow.',opts:['will','wills'],ans:0,fb:'정답! will은 주어와 상관없이 그대로. She wills ✗.'},
+   {q:'will 뒤에 올 동사 형태는? "She will _____ ."',opts:['comes','come'],ans:1,fb:'정답! will 뒤에는 항상 동사원형 come.'},
+   {q:'I _____ going to read a book.',opts:['am','is','are'],ans:0,fb:'정답! 주어 I는 am going to.'},
+   {q:'"전화가 울려요." "내가 받을게."(지금 결정) → I _____ get it.',opts:['will','am going to'],ans:0,fb:'정답! 지금 막 결정한 일은 will.'},
+   {q:'구름을 보며 "비가 올 거야"(근거 있음) → It _____ rain.',opts:['will','is going to'],ans:1,fb:'정답! 눈에 보이는 근거가 있는 예측은 be going to.'},
+  ]}
+},
+
+/* 5. 진행형 */
+{icon:'🏃',label:'진행형',crumb:[['시제 시작','root'],['진행형','e']],
+ title:'6단계 · 진행형 — "~하는 중이에요"',
+ sub:'바로 그 순간 하고 있는 동작을 말해요. be동사 + 동사-ing 형태이고, be동사가 주어에 따라 변하는 게 포인트예요.',
+ blocks:[
+ {type:'h',chip:['현재진행','e'],title:'현재진행: am/are/is + 동사-ing (지금)',html:
+  `<div class="formula"><span class="pill">am/are/is</span> + 동사<span class="pill">-ing</span></div>
+   <table>
+   <tr><td class="lf">I</td><td><b>am</b> playing</td></tr>
+   <tr><td class="lf">You/We/They</td><td><b>are</b> playing</td></tr>
+   <tr><td class="lf">He/She/It</td><td><b>is</b> playing</td></tr>
+   </table>
+   <div class="ex-line"><span class="en">She <span class="hl">is studying</span> now.</span><span class="ko">그녀는 지금 공부하는 중이다.</span></div>
+   <div class="ex-line"><span class="en">They <span class="hl">are running</span>.</span><span class="ko">그들은 달리는 중이다.</span></div>`},
+ {type:'h',chip:['-ing 규칙','e'],title:'-ing 만드는 규칙',html:
+  `<table>
+   <tr><td class="lf">대부분 +ing</td><td class="lf">eat→eating, go→going</td></tr>
+   <tr><td class="lf">-e로 끝 → e 빼고 +ing</td><td class="lf">make→making, come→coming</td></tr>
+   <tr><td class="lf">단모음+단자음 → 자음 두 번</td><td class="lf">run→running, sit→sitting</td></tr>
+   </table>`},
+ {type:'h',chip:['과거진행','d'],title:'과거진행: was/were + 동사-ing (그때)',html:
+  `<p>과거의 어느 순간에 "하고 있던 중"이었다는 뜻이에요. be동사만 과거(was/were)로 바꿔요.</p>
+   <div class="formula"><span class="pill">was/were</span> + 동사<span class="pill">-ing</span></div>
+   <div class="ex-line"><span class="en">I <span class="hl">was sleeping</span> at 10.</span><span class="ko">나는 10시에 자는 중이었다.</span></div>
+   <div class="ex-line"><span class="en">They <span class="hl">were eating</span> dinner.</span><span class="ko">그들은 저녁을 먹는 중이었다.</span></div>`},
+ {type:'h',chip:['차이점','e'],title:'현재형 vs 현재진행 — 가장 중요한 차이',html:
+  `<div class="diff-box"><div class="dh">⭐ 헷갈리지 마세요!</div>
+   She <b>studies</b> English. → 매일/늘 (습관) — 현재형<br>
+   She <b>is studying</b> English. → 지금 이 순간 (진행 중) — 현재진행<br><br>
+   <b>now, right now, Look!</b>이 보이면 진행형!<br>
+   <b>every day, usually, always</b>가 보이면 현재형!</div>
+   <div class="tip-box"><b>주의</b>like, know, love, want, have(가지다) 같은 동사는 진행형으로 안 써요. ✗ I am knowing → ✓ I know</div>`},
+ ],
+ prac:{title:'진행형 연습',sub:'버튼으로 바로 확인!',
+  items:[
+   {q:'She is _____ now. (run)',opts:['runing','running'],ans:1,fb:'정답! run은 단모음+단자음이라 n을 한 번 더 → running.'},
+   {q:'I _____ watching TV.',opts:['am','is','are'],ans:0,fb:'정답! 주어 I → am + -ing.'},
+   {q:'They _____ playing soccer.',opts:['is','are'],ans:1,fb:'정답! They → are + -ing.'},
+   {q:'과거진행: He _____ sleeping at 9.',opts:['was','were'],ans:0,fb:'정답! He는 과거진행에서 was + -ing.'},
+   {q:'"매일 공부한다"는? She _____ English every day.',opts:['studies','is studying'],ans:0,fb:'정답! every day(습관) → 현재형 studies. 진행형이 아니에요!'},
+   {q:'"지금 공부하는 중"은? Look! She _____ English.',opts:['studies','is studying'],ans:1,fb:'정답! Look!/now(지금) → 현재진행 is studying.'},
+  ]}
+},
+
+/* 6. 총정리 */
+{icon:'🎯',label:'총정리',crumb:[['시제 시작','root'],['총정리','root']],
+ title:'7단계 · 한눈에 보는 차이점 총정리',
+ sub:'지금까지 배운 것을 표 하나로 모았어요. 차이점만 또렷이 기억하면 됩니다. 마지막 종합 연습으로 마무리해요!',
+ blocks:[
+ {type:'h',chip:['총정리표','root'],title:'주어 "She"로 보는 모든 시제',html:
+  `<table>
+   <tr><th>시제</th><th>평서문</th><th>부정문</th><th>의문문</th></tr>
+   <tr><td class="lf">현재 (3인칭)</td><td class="lf">She <b>likes</b> it.</td><td class="lf">She <b>doesn't like</b> it.</td><td class="lf"><b>Does</b> she like it?</td></tr>
+   <tr><td class="lf">과거</td><td class="lf">She <b>liked</b> it.</td><td class="lf">She <b>didn't like</b> it.</td><td class="lf"><b>Did</b> she like it?</td></tr>
+   <tr><td class="lf">미래(will)</td><td class="lf">She <b>will like</b> it.</td><td class="lf">She <b>won't like</b> it.</td><td class="lf"><b>Will</b> she like it?</td></tr>
+   <tr><td class="lf">현재진행</td><td class="lf">She <b>is liking</b>*</td><td class="lf">She <b>isn't</b> ...ing</td><td class="lf"><b>Is</b> she ...ing?</td></tr>
+   </table>
+   <p style="font-size:.82rem;color:var(--sub)">* like는 보통 진행형으로 안 쓰지만 형태 비교용으로만 표시했어요. 진행형은 run, eat 같은 동작 동사로 연습!</p>`},
+ {type:'h',chip:['핵심 3가지','d'],title:'딱 이것만 기억해요',html:
+  `<div class="diff-box"><div class="dh">⭐ 차이점 핵심 3</div>
+   ① <b>현재 3인칭 단수</b>는 동사+s (She like<b>s</b>) → 부정·의문에선 <b>does</b>가 -s 가져감<br>
+   ② <b>과거</b>는 주어 상관없이 -ed/불규칙, 부정·의문은 <b>did</b> + 원형<br>
+   ③ <b>진행형</b>은 be(am/are/is/was/were) + 동사-ing (지금/그때 하는 중)</div>`},
+ ],
+ prac:{title:'🏆 종합 마무리 연습',sub:'모든 시제를 섞었어요. 버튼으로 바로 확인!',
+  items:[
+   {q:'(현재) My sister _____ K-pop. (love)',opts:['love','loves'],ans:1,fb:'정답! 3인칭 단수 → loves.'},
+   {q:'(현재 부정) He _____ vegetables.',opts:['don\'t like','doesn\'t like'],ans:1,fb:'정답! 3인칭 단수 부정 doesn\'t + 원형 like.'},
+   {q:'(과거) We _____ to Busan last year. (go)',opts:['goed','went'],ans:1,fb:'정답! go의 과거 went. 과거는 주어 상관없이 동일!'},
+   {q:'(과거 의문) _____ you finish your homework?',opts:['Do','Did'],ans:1,fb:'정답! 과거 의문문 Did + 주어 + 원형.'},
+   {q:'(미래) It _____ rain tomorrow.',opts:['will','wills'],ans:0,fb:'정답! will은 변하지 않아요.'},
+   {q:'(현재진행) Look! The baby _____ . (sleep)',opts:['sleeps','is sleeping'],ans:1,fb:'정답! Look!(지금) → 현재진행 is sleeping.'},
+   {q:'(고르기) "그녀는 지금 노래하는 중이다"',opts:['She sings now.','She is singing now.'],ans:1,fb:'정답! now/진행 중 → is singing.'},
+   {q:'(고르기) 옳은 3인칭 단수 의문문은?',opts:['Does she likes it?','Does she like it?'],ans:1,fb:'정답! Does 뒤 동사는 원형 like!'},
+  ]}
+},
+];
+
+/* ============ ENGINE ============ */
+let cur=0;
+function renderSteps(){
+  document.getElementById('steps').innerHTML=STAGES.map((s,i)=>
+    `<button class="step ${i===cur?'cur':''}" onclick="go(${i})"><span class="dot">${s.icon}</span><span class="lb">${s.label}</span></button>`).join('');
+}
+function go(i){window.speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0,behavior:'smooth'});}
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){
+  if(!('speechSynthesis' in window)){alert('Chrome 브라우저를 권장합니다.');return;}
+  speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.82;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);}
+function plain(s){return s.replace(/\[\[|\]\]/g,'');}
+function renderEn(s){return s.replace(/\[\[(.+?)\]\]/g,'<span class="hl">$1</span>');}
+function spkBtn(t){return `<button class="spk" title="듣기" onclick="speak(this.dataset.say,this)" data-say="${t.replace(/"/g,'&quot;')}">🔊</button>`;}
+
+function blockHTML(b){
+  if(b.type==='h')return `<div class="card"><h3><span class="chip c-${b.chip[1]}">${b.chip[0]}</span>${b.title}</h3>${b.html}</div>`;
+  if(b.type==='ex'){
+    return `<div class="card"><h3><span class="chip c-${b.cls}">예문</span>읽고 🔊로 들어보세요</h3>`+
+      b.pairs.map(([en,ko])=>`<div class="ex-line"><span class="en">${renderEn(en)}</span>${spkBtn(plain(en))}<span class="ko">${ko}</span></div>`).join('')+`</div>`;
+  }
+  return '';
+}
+/* practice: button to check answer instantly + reveal */
+function pracHTML(si,p){
+  return `<div class="prac"><div class="prac-h"><span class="pb">PRACTICE</span>${p.title}</div><div class="prac-sub">${p.sub}</div>`+
+    p.items.map((it,qi)=>`<div class="pq"><div class="qn">Q${qi+1}</div><div class="qt">${it.q}</div>
+      <div class="popts">${it.opts.map((o,oi)=>`<button class="popt" id="p-${si}-${qi}-${oi}" onclick="pracPick(${si},${qi},${oi})">${o}</button>`).join('')}</div>
+      <button class="reveal-btn" onclick="reveal(${si},${qi})">정답 바로 보기 👁️</button>
+      <div class="ansbox" id="ans-${si}-${qi}"><span class="a">정답: ${it.opts[it.ans]}</span><br>${it.fb}</div>
+      <div class="pfb" id="pfb-${si}-${qi}"></div></div>`).join('')+`</div>`;
+}
+function pracPick(si,qi,oi){
+  const it=STAGES[si].prac.items[qi];
+  const fb=document.getElementById(`pfb-${si}-${qi}`);
+  const btn=document.getElementById(`p-${si}-${qi}-${oi}`);
+  if(oi===it.ans){
+    it.opts.forEach((_,k)=>{const b=document.getElementById(`p-${si}-${qi}-${k}`);b.disabled=true;if(k===it.ans)b.classList.add('right');});
+    fb.className='pfb show good';fb.innerHTML='✅ '+it.fb;
+  }else{
+    btn.classList.add('wrong');
+    fb.className='pfb show badf';fb.innerHTML='❌ 다시 한 번! 위 설명을 떠올려 보세요. (정답이 궁금하면 <b>정답 바로 보기</b>를 누르세요)';
+    setTimeout(()=>btn.classList.remove('wrong'),400);
+  }
+}
+function reveal(si,qi){
+  const box=document.getElementById(`ans-${si}-${qi}`);box.classList.add('show');
+  const it=STAGES[si].prac.items[qi];
+  it.opts.forEach((_,k)=>{const b=document.getElementById(`p-${si}-${qi}-${k}`);if(k===it.ans)b.classList.add('right');});
+}
+function crumbHTML(arr){return `<div class="path">${arr.map(([t,c],i)=>(i?'<span class="sep">▸</span>':'')+`<span class="crumb on-${c}">${t}</span>`).join('')}</div>`;}
+function renderAll(){
+  document.getElementById('main').innerHTML=STAGES.map((s,i)=>{
+    const body=s.blocks.map(blockHTML).join('')+(s.prac?pracHTML(i,s.prac):'');
+    return `<section class="stage ${i===cur?'show':''}">${crumbHTML(s.crumb)}<h2 class="stitle">${s.title}</h2><p class="ssub">${s.sub}</p>${body}
+      <div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전</button>`:'<span></span>'}
+      ${i<STAGES.length-1?`<button class="btn primary" onclick="go(${i+1})">다음 →</button>`:'<span style="font-size:.82rem;color:var(--sub)">끝까지 완료! 🎉</span>'}</div></section>`;
+  }).join('');
+  renderSteps();
+}
+renderAll();
+</script>
+</body>
+</html>
