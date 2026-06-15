@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>미래시제 완전 정복 — will · be going to · 미래진행형</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F0;--card:#FFFFFF;--ink:#23272F;--sub:#727784;--line:#E7E2D6;
+  --root:#1F3A5F;--root-bg:#E8EEF6;
+  --b:#B8860B;--b-bg:#FEF8E1;
+  --c:#1E7A5A;--c-bg:#E2F3EB;
+  --d:#C84F2F;--d-bg:#FBE8E0;
+  --e:#5D4FA3;--e-bg:#EBE7F8;
+  --hl:#FFE45C;--ok:#1E7A5A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;
+  background-image:radial-gradient(#e9e4d6 1px,transparent 1px);background-size:26px 26px;}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 90px}
+header{padding:36px 0 8px;text-align:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.12em;color:var(--b);
+  border:1.5px solid var(--b);border-radius:999px;padding:3px 14px;margin-bottom:14px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.7rem,5.5vw,2.5rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:10px;font-size:.95rem}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);margin:22px -16px 0;padding:10px 8px}
+.steps{display:flex;justify-content:center;gap:3px;max-width:760px;margin:0 auto;flex-wrap:wrap}
+.step{flex:1;max-width:110px;min-width:68px;border:none;background:transparent;cursor:pointer;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.63rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,39,47,.12)}
+.step.cur .lb{color:var(--ink)}
+.step:hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}
+.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:24px 0 6px;font-size:.8rem;font-weight:700}
+.path .crumb{padding:2px 10px;border-radius:999px;background:#fff;border:1.5px solid var(--line)}
+.path .crumb.on-root{border-color:var(--root);color:var(--root);background:var(--root-bg)}
+.path .crumb.on-b{border-color:var(--b);color:var(--b);background:var(--b-bg)}
+.path .crumb.on-c{border-color:var(--c);color:var(--c);background:var(--c-bg)}
+.path .crumb.on-d{border-color:var(--d);color:var(--d);background:var(--d-bg)}
+.path .crumb.on-e{border-color:var(--e);color:var(--e);background:var(--e-bg)}
+.path .sep{color:var(--sub)}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.5rem;margin:4px 0 4px}
+.ssub{color:var(--sub);font-size:.93rem;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin:14px 0;
+  box-shadow:0 1px 3px rgba(40,35,20,.05)}
+.card h3{font-size:1.06rem;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h3 .chip{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.chip.c-root{background:var(--root-bg);color:var(--root)}
+.chip.c-b{background:var(--b-bg);color:var(--b)}
+.chip.c-c{background:var(--c-bg);color:var(--c)}
+.chip.c-d{background:var(--d-bg);color:var(--d)}
+.chip.c-e{background:var(--e-bg);color:var(--e)}
+.card p{margin:6px 0}.card ul{margin:6px 0 6px 20px}.card li{margin:4px 0}
+.card table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.92rem}
+.card th,.card td{border:1px solid var(--line);padding:6px 9px;text-align:center}
+.card td.lf{text-align:left}
+.card th{background:#F7F5EE;font-weight:700}
+.kw{font-weight:700}
+.kw.b{color:var(--b)}.kw.c{color:var(--c)}.kw.d{color:var(--d)}.kw.e{color:var(--e)}
+.diff-box{margin-top:12px;border:2px solid var(--d);border-radius:12px;padding:12px 14px;background:#FDF1EC}
+.diff-box .dh{font-weight:800;color:var(--d);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.tip-box{margin-top:12px;border:1.5px dashed var(--ink);border-radius:10px;padding:11px 14px;background:#FFFDF4;font-size:.93rem}
+.tip-box b{display:block;margin-bottom:2px}
+.formula{background:var(--b-bg);border:1.5px solid var(--b);border-radius:10px;padding:10px 14px;margin:10px 0;
+  font-weight:700;text-align:center;font-size:1.02rem;color:#8a6608}
+.formula .pill{background:#fff;border:1px solid var(--b);border-radius:6px;padding:1px 8px;margin:0 2px;display:inline-block}
+.ex-line{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:7px 0;padding:8px 11px;background:#F7F5EE;border-radius:9px}
+.ex-line .en{font-family:'Lora',serif;font-size:1.06rem}
+.ex-line .ko{color:var(--sub);font-size:.86rem}
+.hl{padding:1px 4px;border-radius:3px;font-weight:700;background:linear-gradient(180deg,transparent 35%,var(--hl) 35%)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:32px;height:32px;
+  cursor:pointer;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--ink)}
+.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.prac{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:16px 18px;margin:18px 0;box-shadow:3px 3px 0 rgba(35,39,47,.85)}
+.prac-h{display:flex;align-items:center;gap:8px;font-weight:800;margin-bottom:4px}
+.prac-h .pb{background:var(--ink);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:999px}
+.prac-sub{font-size:.85rem;color:var(--sub);margin-bottom:6px}
+.pq{padding:13px 0 4px;border-top:1px dashed var(--line)}
+.pq:first-of-type{border-top:none}
+.pq .qn{font-weight:700;font-size:.82rem;color:var(--sub)}
+.pq .qt{font-weight:600;margin:3px 0 9px}
+.popts{display:flex;flex-wrap:wrap;gap:7px}
+.popt{font-family:inherit;font-size:.95rem;background:#fff;border:1.5px solid var(--line);border-radius:9px;
+  padding:8px 15px;cursor:pointer;transition:.15s;font-weight:600}
+.popt:hover:not(:disabled){border-color:var(--ink);background:#F7F5EE}
+.popt.right{border-color:var(--ok);background:var(--c-bg);color:var(--ok)}
+.popt.wrong{border-color:var(--bad);background:#FBE5E1;color:var(--bad);animation:shake .3s}
+.popt:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.pfb{display:none;margin-top:9px;font-size:.9rem;border-radius:8px;padding:9px 12px;line-height:1.6}
+.pfb.show{display:block}
+.pfb.good{background:var(--c-bg);border:1px solid var(--ok)}
+.pfb.badf{background:#FBE5E1;border:1px solid var(--bad)}
+.reveal-btn{margin-top:10px;border:1.5px solid var(--ink);background:var(--ink);color:#fff;border-radius:9px;
+  padding:7px 16px;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.reveal-btn:hover{background:#000}
+.ansbox{display:none;margin-top:9px;padding:10px 13px;background:var(--b-bg);border:1.5px solid var(--b);border-radius:9px;font-size:.92rem}
+.ansbox.show{display:block}
+.ansbox .a{font-weight:700;color:#8a6608;font-family:'Lora',serif}
+.btn{font-family:inherit;font-weight:700;font-size:.95rem;border:none;border-radius:12px;padding:11px 24px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:3px 3px 0 rgba(35,39,47,.35)}
+.btn.primary:hover{transform:translate(-1px,-1px)}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:26px 0 10px;gap:10px}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:44px}
+@media(max-width:520px){.card,.prac{padding:14px 13px}.step .lb{font-size:.56rem}.ex-line .en{font-size:.98rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">FUTURE · will · be going to · 미래진행</div>
+  <h1>미래시제 <span class="mark">완전 정복</span></h1>
+  <p class="tagline">앞으로 일어날 일을 말하는 법. will, be going to, 그리고 미래진행형(will be -ing)까지.<br>설명을 읽고 <b>버튼을 눌러 바로 정답을 확인</b>하세요. 🔊로 발음도 들어요.</p>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>미래시제 완전 정복 · will · be going to · 미래진행형 집중 · 즉시 정답확인</footer>
+</div>
+<script>
+const STAGES=[
+
+/* 0 큰 그림 */
+{icon:'🔮',label:'큰 그림',crumb:[['미래를 말하기','root']],
+ title:'1단계 · 미래를 말하는 방법들',
+ sub:'영어에는 미래를 표현하는 방법이 여러 가지예요. "얼마나 정해진 일인가, 무엇을 근거로 말하는가"에 따라 골라 씁니다.',
+ blocks:[
+ {type:'h',chip:['기본 개념','root'],title:'미래 = 아직 안 일어난 일',html:
+  `<p>지금이나 과거가 아니라 <b>앞으로</b> 일어날 일을 말할 때 미래 표현을 써요. 대표 3가지를 배웁니다.</p>
+   <table>
+   <tr><th>방법</th><th>형태</th><th>핵심 느낌</th></tr>
+   <tr><td class="lf">will</td><td>will + 동사원형</td><td>즉흥 결정·단순 예측</td></tr>
+   <tr><td class="lf">be going to</td><td>am/are/is going to + 원형</td><td>계획·근거 있는 예측</td></tr>
+   <tr><td class="lf">미래진행</td><td>will be + 동사-ing</td><td>미래 그때 ~하는 중일 것</td></tr>
+   </table>
+   <div class="tip-box"><b>신호 단어</b>tomorrow(내일), next week/year(다음 주/내년), soon(곧), this weekend(이번 주말), in the future(미래에)</div>`},
+ {type:'h',chip:['느낌 비교','b'],title:'같은 미래라도 느낌이 달라요',html:
+  `<ul>
+     <li>I <span class="kw b">will</span> call her. → (방금 마음먹음) 내가 전화할게</li>
+     <li>I <span class="kw c">am going to</span> call her. → (원래 그러려고 했음) 전화할 거야</li>
+     <li>I <span class="kw e">will be calling</span> her at 8. → (8시에) 전화하고 있을 거야</li>
+   </ul>
+   <div class="tip-box"><b>이 순서로 배워요</b>① will → ② be going to → ③ 둘의 차이(가장 중요!) → ④ 미래진행형 → ⑤ 종합. 천천히!</div>`},
+ ],
+ prac:{title:'개념 확인',sub:'버튼을 누르면 바로 정답을 알려줘요.',
+  items:[
+   {q:'will 다음에 오는 동사의 형태는?',opts:['동사원형','동사-ing','동사 과거형'],ans:0,fb:'정답! will + 동사원형이에요. (will go, will eat)'},
+   {q:'다음 중 미래를 나타내는 신호 단어가 아닌 것은?',opts:['tomorrow','yesterday','next week'],ans:1,fb:'정답! yesterday(어제)는 과거예요. 미래는 tomorrow, next week.'},
+   {q:'"be going to" 뒤에 오는 동사의 형태는?',opts:['동사원형','동사-ing','동사 과거형'],ans:0,fb:'정답! be going to + 동사원형. (am going to go)'},
+  ]}
+},
+
+/* 1 will */
+{icon:'⭐',label:'will',crumb:[['미래를 말하기','root'],['will','b']],
+ title:'2단계 · will + 동사원형',
+ sub:'will은 주어가 무엇이든 모양이 변하지 않아요. 가장 간단한 미래 표현입니다.',
+ blocks:[
+ {type:'h',chip:['형태','b'],title:'주어와 상관없이 will + 동사원형',html:
+  `<div class="formula">주어 + <span class="pill">will</span> + 동사원형</div>
+   <table>
+   <tr><th>주어</th><th>예문</th></tr>
+   <tr><td class="lf">I / You / We / They</td><td class="lf">I will go. / They will go.</td></tr>
+   <tr><td class="lf">He / She / It</td><td class="lf">She will go. (✗ wills)</td></tr>
+   </table>
+   <div class="diff-box"><div class="dh">⭐ 자주 하는 실수</div>
+   3인칭 단수여도 will은 변하지 않고, 뒤 동사도 <b>원형</b>이에요!<br>
+   ✗ She <b>wills</b> go. / ✗ She will <b>goes</b>. → ✓ She <b>will go</b>.</div>`},
+ {type:'h',chip:['언제 쓰나','b'],title:'will을 쓰는 경우',html:
+  `<ul>
+     <li>지금 막 정한 일 → "It's hot. I <b>will</b> open the window."</li>
+     <li>단순한 미래 예측 → "I think it <b>will</b> rain tomorrow."</li>
+     <li>약속·부탁 → "I <b>will</b> help you." / "<b>Will</b> you help me?"</li>
+   </ul>`},
+ {type:'h',chip:['부정·의문','d'],title:'부정문 won\'t / 의문문',html:
+  `<ul>
+     <li>부정: will not = <b>won't</b> + 동사원형 → She <b>won't</b> come.</li>
+     <li>의문: <b>Will</b> + 주어 + 동사원형 ~? → <b>Will</b> you go? — Yes, I will. / No, I won't.</li>
+   </ul>`},
+ {type:'ex',cls:'b',pairs:[
+   ['I [[will call]] you tonight.','내가 오늘 밤 전화할게.'],
+   ['She [[won\'t]] be late.','그녀는 늦지 않을 거야.'],
+   ['[[Will]] you come to my party?','내 파티에 올래?'],
+ ]},
+ ],
+ prac:{title:'will 연습',sub:'버튼으로 바로 확인!',
+  items:[
+   {q:'She _____ help us tomorrow.',opts:['will','wills'],ans:0,fb:'정답! will은 주어와 상관없이 그대로. wills ✗.'},
+   {q:'will 뒤에 올 형태: "He will _____ ."',opts:['comes','come','coming'],ans:1,fb:'정답! will + 동사원형 → come.'},
+   {q:'will의 부정 축약형은?',opts:['willn\'t','won\'t','will not\'t'],ans:1,fb:'정답! will not → won\'t.'},
+   {q:'의문문: _____ you call me later?',opts:['Will','Do','Are'],ans:0,fb:'정답! Will + 주어 + 동사원형 ~?'},
+   {q:'"나는 그것을 하지 않을 것이다" → I _____ do it.',opts:['won\'t','don\'t','am not'],ans:0,fb:'정답! 미래 부정 → won\'t do.'},
+  ]}
+},
+
+/* 2 be going to */
+{icon:'📋',label:'be going to',crumb:[['미래를 말하기','root'],['be going to','c']],
+ title:'3단계 · be going to + 동사원형',
+ sub:'be going to는 앞의 be동사가 주어에 따라 am/are/is로 변해요. 미리 정해 둔 계획을 말할 때 자주 씁니다.',
+ blocks:[
+ {type:'h',chip:['형태','c'],title:'주어에 따라 am/are/is going to',html:
+  `<table>
+   <tr><th>주어</th><th>형태</th><th>예문</th></tr>
+   <tr><td class="lf">I</td><td><b>am</b> going to</td><td class="lf">I am going to study.</td></tr>
+   <tr><td class="lf">You / We / They</td><td><b>are</b> going to</td><td class="lf">They are going to study.</td></tr>
+   <tr><td class="lf">He / She / It</td><td><b>is</b> going to</td><td class="lf">She is going to study.</td></tr>
+   </table>
+   <div class="tip-box"><b>핵심</b>going to는 그대로 두고, 앞의 be동사만 주어에 맞춰 am/are/is. 그 뒤에는 <b>동사원형</b>!</div>`},
+ {type:'h',chip:['언제 쓰나','c'],title:'be going to를 쓰는 경우',html:
+  `<ul>
+     <li>미리 세워 둔 계획·예정 → "I <b>am going to</b> visit my grandma this weekend."</li>
+     <li>눈에 보이는 근거가 있는 예측 → "Look at the clouds! It <b>is going to</b> rain."</li>
+   </ul>`},
+ {type:'h',chip:['부정·의문','d'],title:'부정문·의문문',html:
+  `<ul>
+     <li>부정: be동사 + <b>not</b> going to → She <b>isn't</b> going to come.</li>
+     <li>의문: <b>be동사</b> + 주어 + going to ~? → <b>Are</b> you going to go? — Yes, I am.</li>
+   </ul>`},
+ {type:'ex',cls:'c',pairs:[
+   ['I [[am going to]] buy a new bike.','나는 새 자전거를 살 예정이다.'],
+   ['He [[is going to]] join the club.','그는 그 동아리에 가입할 거야.'],
+   ['[[Are]] you [[going to]] watch the movie?','너 그 영화 볼 거야?'],
+ ]},
+ ],
+ prac:{title:'be going to 연습',sub:'버튼으로 바로 확인!',
+  items:[
+   {q:'I _____ going to read a book.',opts:['am','is','are'],ans:0,fb:'정답! 주어 I → am going to.'},
+   {q:'She _____ going to travel.',opts:['am','is','are'],ans:1,fb:'정답! He/She/It → is going to.'},
+   {q:'They _____ going to play soccer.',opts:['is','are'],ans:1,fb:'정답! You/We/They → are going to.'},
+   {q:'be going to 뒤 동사: "I am going to _____ ."',opts:['studying','study','studies'],ans:1,fb:'정답! be going to + 동사원형 → study.'},
+   {q:'부정문: He _____ going to come.',opts:['isn\'t','doesn\'t','won\'t'],ans:0,fb:'정답! be동사+not → isn\'t going to come.'},
+  ]}
+},
+
+/* 3 will vs be going to */
+{icon:'⚖️',label:'will vs going to',crumb:[['미래를 말하기','root'],['will vs going to','d']],
+ title:'4단계 · will vs be going to (가장 중요!)',
+ sub:'둘 다 미래지만 쓰는 상황이 달라요. "지금 막 정했나, 원래 계획했나? 눈에 보이는 근거가 있나?"로 구별합니다.',
+ blocks:[
+ {type:'h',chip:['핵심 차이','d'],title:'즉흥 결정 ↔ 계획된 일',html:
+  `<div class="diff-box"><div class="dh">⭐ 이것만 기억하세요!</div>
+   <b>will</b> → 말하는 <b>지금 막 결정</b>한 일 / 단순한 예측<br>
+   <span style="margin-left:14px">"The phone is ringing." "I <b>will</b> get it." (지금 결정해서 받음)</span><br><br>
+   <b>be going to</b> → <b>이미 정해 둔 계획</b> / 눈에 보이는 <b>근거</b>가 있는 예측<br>
+   <span style="margin-left:14px">"I <b>am going to</b> meet Tom tonight." (전부터 약속됨)</span><br>
+   <span style="margin-left:14px">"Look! It <b>is going to</b> rain." (먹구름이라는 근거)</span></div>`},
+ {type:'h',chip:['상황별 정리','c'],title:'상황으로 구별하기',html:
+  `<table>
+   <tr><th>상황</th><th>알맞은 표현</th></tr>
+   <tr><td class="lf">방금 마음먹음 (즉흥)</td><td>will</td></tr>
+   <tr><td class="lf">원래 계획·예정이 있었음</td><td>be going to</td></tr>
+   <tr><td class="lf">눈에 보이는 근거로 예측</td><td>be going to</td></tr>
+   <tr><td class="lf">막연한 예측 (그냥 그럴 것 같음)</td><td>will (보통)</td></tr>
+   <tr><td class="lf">약속·부탁</td><td>will</td></tr>
+   </table>`},
+ {type:'ex',cls:'d',pairs:[
+   ['"I\'m thirsty." "I [[will]] get you some water."','"목말라." "내가 물 가져다 줄게." (지금 결정)'],
+   ['I [[am going to]] start a diet next week.','나는 다음 주에 다이어트를 시작할 거야. (계획)'],
+   ['Look at his face. He [[is going to]] cry.','그의 얼굴을 봐. 울 것 같아. (근거 있는 예측)'],
+ ]},
+ ],
+ prac:{title:'will vs be going to 연습',sub:'상황을 보고 골라요. 버튼으로 바로 확인!',
+  items:[
+   {q:'"전화가 울려요." "내가 받을게."(지금 결정) → I _____ answer it.',opts:['will','am going to'],ans:0,fb:'정답! 지금 막 결정 → will.'},
+   {q:'구름을 보며 "비가 올 거야"(근거 있음) → It _____ rain.',opts:['will','is going to'],ans:1,fb:'정답! 눈에 보이는 근거(구름) → be going to.'},
+   {q:'"나는 이번 주말에 부산에 갈 예정이야"(계획) → I _____ go to Busan.',opts:['will','am going to'],ans:1,fb:'정답! 미리 정해 둔 계획 → be going to.'},
+   {q:'"이 가방 무거워 보여요." "제가 들어드릴게요."(지금 결정) → I _____ carry it.',opts:['will','am going to'],ans:0,fb:'정답! 방금 도와주기로 결정 → will.'},
+   {q:'be going to가 더 어울리는 경우는?',opts:['지금 막 정한 일','원래 계획된 일이나 근거 있는 예측'],ans:1,fb:'정답! be going to = 계획·근거 있는 예측.'},
+  ]}
+},
+
+/* 4 미래진행형 */
+{icon:'🕗',label:'미래진행형',crumb:[['미래를 말하기','root'],['미래진행','e']],
+ title:'5단계 · 미래진행형 — will be + 동사-ing',
+ sub:'미래의 어느 특정 시점에 "한창 ~하고 있을 것이다"라는 뜻이에요. will과 진행형(-ing)이 합쳐진 형태입니다.',
+ blocks:[
+ {type:'h',chip:['형태','e'],title:'will be + 동사-ing',html:
+  `<div class="formula">주어 + <span class="pill">will be</span> + 동사-ing</div>
+   <p>주어와 상관없이 항상 <b>will be</b> 그대로! 뒤에 동사-ing만 붙여요.</p>
+   <div class="ex-line"><span class="en">I <span class="hl">will be sleeping</span> at midnight.</span><span class="ko">나는 자정에 자고 있을 것이다.</span></div>
+   <div class="ex-line"><span class="en">She <span class="hl">will be studying</span> at 9 tonight.</span><span class="ko">그녀는 오늘 밤 9시에 공부하고 있을 것이다.</span></div>`},
+ {type:'h',chip:['언제 쓰나','e'],title:'미래의 특정 시점에 진행 중일 일',html:
+  `<p>그냥 "할 거야(will do)"가 아니라, <b>미래의 그 시각에 한창 하고 있는 중일 것</b>임을 강조해요. 보통 미래의 정확한 시각·때와 함께 써요.</p>
+   <div class="tip-box"><b>신호 표현</b>at 8 tomorrow(내일 8시에), this time tomorrow(내일 이맘때), at midnight(자정에)</div>
+   <div class="diff-box"><div class="dh">⭐ will vs 미래진행 느낌 차이</div>
+   I <b>will watch</b> TV tonight. → 오늘 밤 TV를 볼 것이다 (그냥 할 일)<br>
+   I <b>will be watching</b> TV at 9. → 9시에는 TV를 보고 있는 중일 것이다 (그 시각에 진행 중)</div>`},
+ {type:'h',chip:['부정·의문','d'],title:'부정문·의문문',html:
+  `<ul>
+     <li>부정: will <b>not</b> be + -ing (won't be -ing) → I <b>won't be</b> working tomorrow.</li>
+     <li>의문: <b>Will</b> + 주어 + <b>be</b> + -ing ~? → <b>Will</b> you <b>be</b> using the car?</li>
+   </ul>`},
+ {type:'ex',cls:'e',pairs:[
+   ['This time tomorrow, I [[will be flying]] to Jeju.','내일 이맘때 나는 제주로 날아가고 있을 것이다.'],
+   ['They [[will be waiting]] for us at 7.','그들은 7시에 우리를 기다리고 있을 것이다.'],
+   ['[[Will]] you [[be using]] your laptop tonight?','오늘 밤 네 노트북 쓰고 있을 거야?'],
+ ]},
+ ],
+ prac:{title:'미래진행형 연습',sub:'버튼으로 바로 확인!',
+  items:[
+   {q:'미래진행형의 기본 형태는?',opts:['will + 동사-ing','will be + 동사-ing','will be + 동사원형'],ans:1,fb:'정답! will be + 동사-ing 예요.'},
+   {q:'"She will be _____ at 8." (study)',opts:['study','studying','studies'],ans:1,fb:'정답! will be + 동사-ing → studying.'},
+   {q:'다음 중 올바른 미래진행형은?',opts:['I will be sleep.','I will sleeping.','I will be sleeping.'],ans:2,fb:'정답! will be + 동사-ing → will be sleeping.'},
+   {q:'부정문: I _____ be working tomorrow.',opts:['won\'t','don\'t','am not'],ans:0,fb:'정답! will not be → won\'t be working.'},
+   {q:'"내일 이맘때 나는 비행기를 타고 있을 것이다" 의 시제는?',opts:['단순미래(will)','미래진행형(will be -ing)','과거진행'],ans:1,fb:'정답! "그 시각에 ~하고 있는 중" → 미래진행형.'},
+  ]}
+},
+
+/* 5 종합 */
+{icon:'🎯',label:'종합 정리',crumb:[['미래를 말하기','root'],['종합','root']],
+ title:'6단계 · 미래 표현 총정리',
+ sub:'세 가지 미래 표현을 나란히 비교하고, 상황·신호로 구별하는 연습으로 마무리해요.',
+ blocks:[
+ {type:'h',chip:['총정리표','root'],title:'세 가지 미래 표현 한눈에',html:
+  `<table>
+   <tr><th></th><th>will</th><th>be going to</th><th>미래진행</th></tr>
+   <tr><td class="lf">형태</td><td>will + 원형</td><td>am/are/is going to + 원형</td><td>will be + -ing</td></tr>
+   <tr><td class="lf">느낌</td><td>즉흥·예측·약속</td><td>계획·근거 있는 예측</td><td>그 시각에 진행 중</td></tr>
+   <tr><td class="lf">부정</td><td>won't</td><td>be not going to</td><td>won't be -ing</td></tr>
+   <tr><td class="lf">예문</td><td class="lf">I will help.</td><td class="lf">I'm going to study.</td><td class="lf">I'll be studying at 9.</td></tr>
+   </table>
+   <div class="diff-box"><div class="dh">⭐ 핵심 한 줄</div>
+   <b>will</b>: 방금 정함/막연한 예측 · <b>be going to</b>: 원래 계획/근거 있는 예측 · <b>미래진행</b>: 미래 그 시각에 ~하는 중!</div>`},
+ {type:'h',chip:['실수 주의','d'],title:'자주 하는 실수 모음',html:
+  `<ul>
+     <li>✗ She wills come. → ✓ She <b>will</b> come. (will은 안 변함)</li>
+     <li>✗ I am going to studying. → ✓ I am going to <b>study</b>. (going to + 원형)</li>
+     <li>✗ I will be sleep. → ✓ I will be <b>sleeping</b>. (will be + -ing)</li>
+   </ul>`},
+ ],
+ prac:{title:'🏆 종합 마무리 연습',sub:'세 표현을 섞었어요. 버튼으로 바로 확인!',
+  items:[
+   {q:'(즉흥) "I\'m cold." "I _____ close the window."',opts:['will','am going to'],ans:0,fb:'정답! 지금 막 결정 → will.'},
+   {q:'(계획) I _____ visit my uncle this Sunday.',opts:['will','am going to'],ans:1,fb:'정답! 미리 정한 계획 → be going to.'},
+   {q:'(진행) At 10 tonight, she _____ a book.',opts:['will read','will be reading'],ans:1,fb:'정답! 그 시각에 진행 중 → 미래진행 will be reading.'},
+   {q:'will 형태가 틀린 것은?',opts:['He will go.','He will be going.','He wills go.'],ans:2,fb:'정답! wills ✗ → will은 변하지 않아요.'},
+   {q:'be going to 형태가 맞는 것은?',opts:['I am going to eat.','I am going to eating.','I will going to eat.'],ans:0,fb:'정답! be going to + 동사원형 → eat.'},
+   {q:'미래진행형이 맞는 것은?',opts:['They will wait at 7.','They will be waiting at 7.','They will be wait at 7.'],ans:1,fb:'정답! will be + -ing → will be waiting.'},
+  ]}
+},
+];
+
+/* ====== ENGINE ====== */
+let cur=0;
+function renderSteps(){
+  document.getElementById('steps').innerHTML=STAGES.map((s,i)=>
+    `<button class="step ${i===cur?'cur':''}" onclick="go(${i})"><span class="dot">${s.icon}</span><span class="lb">${s.label}</span></button>`).join('');
+}
+function go(i){window.speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0,behavior:'smooth'});}
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){
+  if(!('speechSynthesis' in window)){alert('Chrome 브라우저를 권장합니다.');return;}
+  speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.82;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);}
+function plain(s){return s.replace(/\[\[|\]\]/g,'');}
+function renderEn(s){return s.replace(/\[\[(.+?)\]\]/g,'<span class="hl">$1</span>');}
+function spkBtn(t){return `<button class="spk" title="듣기" onclick="speak(this.dataset.say,this)" data-say="${t.replace(/"/g,'&quot;')}">🔊</button>`;}
+function blockHTML(b){
+  if(b.type==='h')return `<div class="card"><h3><span class="chip c-${b.chip[1]}">${b.chip[0]}</span>${b.title}</h3>${b.html}</div>`;
+  if(b.type==='ex'){
+    return `<div class="card"><h3><span class="chip c-${b.cls}">예문</span>읽고 🔊로 들어보세요</h3>`+
+      b.pairs.map(([en,ko])=>`<div class="ex-line"><span class="en">${renderEn(en)}</span>${spkBtn(plain(en))}<span class="ko">${ko}</span></div>`).join('')+`</div>`;
+  }
+  return '';
+}
+function pracHTML(si,p){
+  return `<div class="prac"><div class="prac-h"><span class="pb">PRACTICE</span>${p.title}</div><div class="prac-sub">${p.sub}</div>`+
+    p.items.map((it,qi)=>`<div class="pq"><div class="qn">Q${qi+1}</div><div class="qt">${it.q}</div>
+      <div class="popts">${it.opts.map((o,oi)=>`<button class="popt" id="p-${si}-${qi}-${oi}" onclick="pracPick(${si},${qi},${oi})">${o}</button>`).join('')}</div>
+      <button class="reveal-btn" onclick="reveal(${si},${qi})">정답 바로 보기 👁️</button>
+      <div class="ansbox" id="ans-${si}-${qi}"><span class="a">정답: ${it.opts[it.ans]}</span><br>${it.fb}</div>
+      <div class="pfb" id="pfb-${si}-${qi}"></div></div>`).join('')+`</div>`;
+}
+function pracPick(si,qi,oi){
+  const it=STAGES[si].prac.items[qi];
+  const fb=document.getElementById(`pfb-${si}-${qi}`);
+  const btn=document.getElementById(`p-${si}-${qi}-${oi}`);
+  if(oi===it.ans){
+    it.opts.forEach((_,k)=>{const b=document.getElementById(`p-${si}-${qi}-${k}`);b.disabled=true;if(k===it.ans)b.classList.add('right');});
+    fb.className='pfb show good';fb.innerHTML='✅ '+it.fb;
+  }else{
+    btn.classList.add('wrong');
+    fb.className='pfb show badf';fb.innerHTML='❌ 다시 한 번! 위 설명을 떠올려 보세요. (정답이 궁금하면 <b>정답 바로 보기</b>를 누르세요)';
+    setTimeout(()=>btn.classList.remove('wrong'),400);
+  }
+}
+function reveal(si,qi){
+  const box=document.getElementById(`ans-${si}-${qi}`);box.classList.add('show');
+  const it=STAGES[si].prac.items[qi];
+  it.opts.forEach((_,k)=>{const b=document.getElementById(`p-${si}-${qi}-${k}`);if(k===it.ans)b.classList.add('right');});
+}
+function crumbHTML(arr){return `<div class="path">${arr.map(([t,c],i)=>(i?'<span class="sep">▸</span>':'')+`<span class="crumb on-${c}">${t}</span>`).join('')}</div>`;}
+function renderAll(){
+  document.getElementById('main').innerHTML=STAGES.map((s,i)=>{
+    const body=s.blocks.map(blockHTML).join('')+(s.prac?pracHTML(i,s.prac):'');
+    return `<section class="stage ${i===cur?'show':''}">${crumbHTML(s.crumb)}<h2 class="stitle">${s.title}</h2><p class="ssub">${s.sub}</p>${body}
+      <div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전</button>`:'<span></span>'}
+      ${i<STAGES.length-1?`<button class="btn primary" onclick="go(${i+1})">다음 →</button>`:'<span style="font-size:.82rem;color:var(--sub)">끝까지 완료! 🎉</span>'}</div></section>`;
+  }).join('');
+  renderSteps();
+}
+renderAll();
+</script>
+</body>
+</html>
