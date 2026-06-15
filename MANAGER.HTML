@@ -1,560 +1,71 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>원장 관리 콘솔 — 학생 관리</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>원장 관리 콘솔 v3 — 날짜별 누적 저장</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800;900&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;800;900&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#EBEEEA; --surface:#FFFFFF; --surface-2:#F6F8F5;
-  --ink:#1E2C34; --ink-soft:#5C6B71; --line:#DDE3DD;
-  --accent:#1F7A6B; --accent-soft:#E1F0EB; --accent-ink:#155A4F;
-  --gold:#B0831A; --gold-soft:#FBF1D9;
-  --low:#1F7A6B; --low-soft:#E1F0EB;
-  --mid:#C2891B; --mid-soft:#FBF0D7;
-  --high:#C0392B; --high-soft:#FbE6E2;
-  --r:14px; --shadow:0 1px 3px rgba(30,44,52,.06),0 8px 24px rgba(30,44,52,.05);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;
-  -webkit-font-smoothing:antialiased;}
-.num{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;}
-.app{max-width:1080px;margin:0 auto;padding:20px 18px 80px}
-
-/* ===== header ===== */
-header.top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:16px}
-.brand{display:flex;flex-direction:column;gap:4px}
-.brand .name{display:flex;align-items:center;gap:8px}
-.brand h1{font-family:'Gothic A1',sans-serif;font-weight:900;font-size:1.5rem;letter-spacing:-.01em}
-.brand .edit-name{border:none;background:none;cursor:pointer;color:var(--ink-soft);font-size:.85rem;padding:2px 4px;border-radius:6px}
-.brand .edit-name:hover{background:var(--surface-2);color:var(--ink)}
-.brand .sub{font-size:.82rem;color:var(--ink-soft)}
-.solo{display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--line);
-  border-radius:999px;padding:7px 14px;font-size:.82rem;font-weight:600;box-shadow:var(--shadow)}
-.solo .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
-.solo b{font-family:'IBM Plex Mono',monospace;color:var(--accent-ink)}
-
-/* ===== rhythm strip (signature) ===== */
-.rhythm{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;
-  margin-bottom:14px;box-shadow:var(--shadow)}
-.rhythm-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-.rhythm-head .label{font-size:.78rem;font-weight:700;letter-spacing:.04em;color:var(--accent-ink);
-  text-transform:uppercase}
-.rhythm-head .status{font-size:.92rem;font-weight:600}
-.rhythm-head .status b{font-family:'IBM Plex Mono',monospace;color:var(--accent)}
-.strip{display:grid;grid-template-columns:repeat(31,1fr);gap:3px}
-.cell{height:30px;border-radius:5px;background:var(--surface-2);position:relative;display:flex;align-items:center;
-  justify-content:center;font-size:.6rem;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace}
-.cell.cp{background:var(--gold-soft);color:var(--gold);font-weight:700;box-shadow:inset 0 0 0 1.5px var(--gold)}
-.cell.today{background:var(--accent);color:#fff;font-weight:700;box-shadow:0 0 0 3px var(--accent-soft)}
-.cell.past{opacity:.5}
-.rhythm-foot{margin-top:10px;font-size:.78rem;color:var(--ink-soft);display:flex;gap:16px;flex-wrap:wrap}
-.rhythm-foot .lg{display:inline-flex;align-items:center;gap:5px}
-.rhythm-foot .sw{width:11px;height:11px;border-radius:3px}
-
-/* ===== stat cards ===== */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow)}
-.stat .k{font-size:.78rem;color:var(--ink-soft);font-weight:600;margin-bottom:4px}
-.stat .v{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:1.9rem;line-height:1}
-.stat .v small{font-size:.9rem;color:var(--ink-soft);font-weight:500}
-.stat.warn .v{color:var(--high)}
-.stat.due .v{color:var(--gold)}
-@media(max-width:680px){.stats{grid-template-columns:repeat(2,1fr)}}
-
-/* ===== toolbar ===== */
-.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
-.search{flex:1;min-width:160px;position:relative}
-.search input{width:100%;font-family:inherit;font-size:.92rem;padding:10px 14px 10px 36px;border:1px solid var(--line);
-  border-radius:11px;background:var(--surface)}
-.search input:focus{outline:none;border-color:var(--accent)}
-.search .ic{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-size:.9rem}
-.tbtn{font-family:inherit;font-weight:600;font-size:.88rem;border:1px solid var(--line);background:var(--surface);
-  color:var(--ink);border-radius:11px;padding:10px 14px;cursor:pointer;white-space:nowrap}
-.tbtn:hover{border-color:var(--ink-soft)}
-.tbtn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.tbtn.primary:hover{background:var(--accent-ink)}
-.sortsel{font-family:inherit;font-size:.88rem;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:var(--surface);cursor:pointer}
-
-/* ===== list ===== */
-.list{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
-.list-head{display:grid;grid-template-columns:1.6fr .7fr .7fr .8fr .9fr 28px;gap:10px;padding:11px 18px;
-  font-size:.74rem;font-weight:700;color:var(--ink-soft);background:var(--surface-2);border-bottom:1px solid var(--line);
-  letter-spacing:.02em}
-.row{display:grid;grid-template-columns:1.6fr .7fr .7fr .8fr .9fr 28px;gap:10px;padding:13px 18px;align-items:center;
-  border-bottom:1px solid var(--line);cursor:pointer;transition:background .12s}
-.row:last-child{border-bottom:none}
-.row:hover{background:var(--surface-2)}
-.row .nm{font-weight:600;display:flex;align-items:center;gap:8px}
-.row .nm .grade{font-size:.74rem;color:var(--ink-soft);font-weight:500;background:var(--surface-2);
-  border:1px solid var(--line);border-radius:6px;padding:1px 7px}
-.row:hover .nm .grade{background:#fff}
-.chip{display:inline-flex;align-items:center;gap:5px;font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:999px}
-.chip .d{width:7px;height:7px;border-radius:50%}
-.chip.low{background:var(--low-soft);color:var(--low)} .chip.low .d{background:var(--low)}
-.chip.mid{background:var(--mid-soft);color:var(--mid)} .chip.mid .d{background:var(--mid)}
-.chip.high{background:var(--high-soft);color:var(--high)} .chip.high .d{background:var(--high)}
-.row .met{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:.9rem}
-.row .met.bad{color:var(--high)}
-.check-pill{font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:999px;text-align:center;white-space:nowrap}
-.check-pill.done{background:var(--accent-soft);color:var(--accent-ink)}
-.check-pill.todo{background:var(--gold-soft);color:var(--gold)}
-.row .arrow{color:var(--ink-soft);text-align:right}
-.empty{padding:50px 20px;text-align:center;color:var(--ink-soft)}
-.empty b{display:block;color:var(--ink);font-weight:700;margin-bottom:6px;font-size:1.05rem}
-
-/* mobile list → cards */
-@media(max-width:680px){
-  .list-head{display:none}
-  .row{grid-template-columns:1fr auto;grid-template-areas:"nm chip" "mets mets";gap:8px 10px;padding:14px 16px}
-  .row .nm{grid-area:nm} .row .chipcell{grid-area:chip;text-align:right}
-  .row .metcell{grid-area:mets;display:flex;gap:14px;font-size:.82rem;color:var(--ink-soft)}
-  .row .metcell .lab{font-weight:500}
-  .row .arrow{display:none}
-  .row .check-pill{grid-area:chip}
-}
-
-/* ===== detail panel ===== */
-.scrim{position:fixed;inset:0;background:rgba(20,30,36,.42);opacity:0;pointer-events:none;transition:opacity .22s;z-index:40}
-.scrim.open{opacity:1;pointer-events:auto}
-.panel{position:fixed;top:0;right:0;height:100%;width:440px;max-width:92vw;background:var(--surface);
-  box-shadow:-10px 0 40px rgba(20,30,36,.18);transform:translateX(100%);transition:transform .26s cubic-bezier(.4,0,.2,1);
-  z-index:50;display:flex;flex-direction:column}
-.panel.open{transform:translateX(0)}
-.panel-head{padding:18px 20px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.panel-head .nm-edit{font-family:'Gothic A1',sans-serif;font-weight:800;font-size:1.3rem;border:none;background:none;
-  width:100%;color:var(--ink);padding:2px 0}
-.panel-head .nm-edit:focus{outline:none;background:var(--surface-2);border-radius:6px;padding:2px 6px}
-.panel-head .grade-edit{font-family:inherit;font-size:.85rem;color:var(--ink-soft);border:1px solid var(--line);
-  border-radius:8px;padding:4px 8px;margin-top:6px;width:120px}
-.panel-head .grade-edit:focus{outline:none;border-color:var(--accent)}
-.xbtn{border:none;background:var(--surface-2);width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:1.1rem;color:var(--ink-soft);flex:none}
-.xbtn:hover{background:var(--line)}
-.panel-body{flex:1;overflow-y:auto;padding:18px 20px}
-.field{margin-bottom:18px}
-.field>label{display:block;font-size:.8rem;font-weight:700;color:var(--ink-soft);margin-bottom:7px}
-.slider-row{display:flex;align-items:center;gap:12px}
-.slider-row input[type=range]{flex:1;accent-color:var(--accent)}
-.slider-row .pct{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:1rem;min-width:48px;text-align:right}
-.score-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.score-cell label{display:block;font-size:.74rem;color:var(--ink-soft);margin-bottom:4px;font-weight:500}
-.score-cell input{width:100%;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:1rem;padding:8px 10px;
-  border:1px solid var(--line);border-radius:9px;text-align:center}
-.score-cell input:focus{outline:none;border-color:var(--accent)}
-.risk-toggle{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.risk-opt{font-family:inherit;font-weight:700;font-size:.88rem;padding:10px;border-radius:10px;border:1.5px solid var(--line);
-  background:var(--surface);cursor:pointer;color:var(--ink-soft)}
-.risk-opt[data-r="하"].on{border-color:var(--low);background:var(--low-soft);color:var(--low)}
-.risk-opt[data-r="중"].on{border-color:var(--mid);background:var(--mid-soft);color:var(--mid)}
-.risk-opt[data-r="상"].on{border-color:var(--high);background:var(--high-soft);color:var(--high)}
-.field textarea{width:100%;font-family:inherit;font-size:.92rem;padding:10px 12px;border:1px solid var(--line);
-  border-radius:10px;resize:vertical;min-height:80px;line-height:1.55}
-.field textarea:focus{outline:none;border-color:var(--accent)}
-.field input[type=date]{font-family:inherit;font-size:.92rem;padding:9px 12px;border:1px solid var(--line);border-radius:10px}
-.field input[type=date]:focus{outline:none;border-color:var(--accent)}
-.checkstat{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--surface-2);
-  border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:18px}
-.checkstat .t{font-size:.82rem}
-.checkstat .t b{display:block;font-size:.74rem;color:var(--ink-soft);font-weight:600}
-.checkstat .last{font-family:'IBM Plex Mono',monospace;font-weight:600}
-.panel-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:9px;background:var(--surface)}
-.foot-row{display:flex;gap:9px}
-.pbtn{flex:1;font-family:inherit;font-weight:700;font-size:.92rem;border:none;border-radius:11px;padding:12px;cursor:pointer}
-.pbtn.check{background:var(--accent);color:#fff}
-.pbtn.check:hover{background:var(--accent-ink)}
-.pbtn.check.done{background:var(--accent-soft);color:var(--accent-ink)}
-.pbtn.report{background:var(--gold);color:#fff}
-.pbtn.report:hover{filter:brightness(.95)}
-.pbtn.ghost{background:var(--surface);border:1px solid var(--line);color:var(--ink-soft);flex:none;padding:12px 16px}
-.pbtn.ghost:hover{border-color:var(--high);color:var(--high)}
-
-
-/* ===== history ===== */
-.history-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--surface-2);border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-bottom:14px}
-.history-tools label{font-size:.8rem;font-weight:700;color:var(--ink-soft)}
-.history-tools input[type=date]{font-family:inherit;font-size:.9rem;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:#fff}
-.history-list{display:flex;flex-direction:column;gap:9px;margin-top:8px}
-.history-item{border:1px solid var(--line);border-radius:11px;background:var(--surface-2);padding:11px 12px}
-.history-item .hdate{font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--accent-ink);font-size:.86rem;margin-bottom:5px}
-.history-item .hmeta{font-size:.82rem;color:var(--ink);display:flex;flex-wrap:wrap;gap:6px 12px;margin-bottom:5px}
-.history-item .hmemo{font-size:.84rem;color:var(--ink-soft);white-space:pre-wrap;line-height:1.5}
-.history-empty{font-size:.84rem;color:var(--ink-soft);background:var(--surface-2);border:1px dashed var(--line);border-radius:11px;padding:14px;text-align:center}
-
-/* ===== report modal ===== */
-.modal-scrim{position:fixed;inset:0;background:rgba(20,30,36,.5);display:none;align-items:center;justify-content:center;
-  z-index:60;padding:18px}
-.modal-scrim.open{display:flex}
-.modal{background:var(--surface);border-radius:16px;width:100%;max-width:440px;max-height:88vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.3)}
-.modal-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
-.modal-head h3{font-family:'Gothic A1',sans-serif;font-weight:800;font-size:1.05rem}
-.modal-body{padding:16px 20px;overflow-y:auto}
-.modal-body .hint{font-size:.82rem;color:var(--ink-soft);margin-bottom:10px}
-.modal-body textarea{width:100%;font-family:'IBM Plex Sans KR',sans-serif;font-size:.9rem;line-height:1.7;
-  padding:14px;border:1px solid var(--line);border-radius:11px;min-height:230px;background:var(--surface-2);resize:vertical}
-.modal-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:9px}
-.copied{font-size:.82rem;color:var(--accent);font-weight:700;align-self:center;margin-right:auto;opacity:0;transition:opacity .2s}
-.copied.show{opacity:1}
-
-/* ===== toast ===== */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;
-  padding:11px 20px;border-radius:11px;font-size:.88rem;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:80}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.loading{padding:60px 20px;text-align:center;color:var(--ink-soft)}
-.savenote{font-size:.74rem;color:var(--ink-soft);text-align:center;margin-top:18px}
-.savenote b{color:var(--accent-ink)}
+:root{--bg:#EBEEEA;--surface:#fff;--surface2:#F6F8F5;--ink:#1E2C34;--soft:#5C6B71;--line:#DDE3DD;--accent:#1F7A6B;--accent2:#E1F0EB;--gold:#B0831A;--gold2:#FBF1D9;--red:#C0392B;--red2:#FBE6E2;--r:15px;--shadow:0 1px 3px rgba(30,44,52,.06),0 8px 24px rgba(30,44,52,.05)}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}.mono{font-family:'IBM Plex Mono',monospace}.app{max-width:1120px;margin:0 auto;padding:20px 16px 70px}header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:14px}.brand h1{font-family:'Gothic A1',sans-serif;font-size:1.45rem;font-weight:900}.brand p{color:var(--soft);font-size:.86rem}.badge{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:700;box-shadow:var(--shadow);font-size:.86rem}.badge b{color:var(--accent)}.notice{background:#fff;border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:var(--r);padding:13px 15px;margin-bottom:14px;box-shadow:var(--shadow);font-size:.9rem}.notice b{color:var(--accent)}.grid{display:grid;grid-template-columns:340px 1fr;gap:14px}.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}.card-h{padding:14px 16px;background:var(--surface2);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px}.card-h h2{font-size:.95rem;font-weight:800}.body{padding:14px 16px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.input,.select,textarea{font-family:inherit;width:100%;border:1px solid var(--line);border-radius:11px;background:#fff;padding:10px 12px;font-size:.92rem}.input:focus,.select:focus,textarea:focus{outline:none;border-color:var(--accent)}.btn{font-family:inherit;font-weight:800;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 12px;cursor:pointer;white-space:nowrap}.btn:hover{border-color:var(--soft)}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.btn.gold{background:var(--gold);border-color:var(--gold);color:#fff}.btn.red{background:var(--red2);border-color:var(--red2);color:var(--red)}.btn.small{font-size:.8rem;padding:7px 9px}.student-list{display:flex;flex-direction:column;gap:7px;max-height:68vh;overflow:auto}.stu{border:1px solid var(--line);border-radius:12px;padding:10px 11px;cursor:pointer;background:#fff}.stu:hover,.stu.on{border-color:var(--accent);background:var(--accent2)}.stu .top{display:flex;justify-content:space-between;gap:8px}.stu .name{font-weight:800}.stu .meta{font-size:.78rem;color:var(--soft);margin-top:3px}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:2px 8px;font-size:.72rem;font-weight:800}.pill.low{background:var(--accent2);color:var(--accent)}.pill.mid{background:var(--gold2);color:var(--gold)}.pill.high{background:var(--red2);color:var(--red)}.formgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.field{margin-bottom:13px}.field label{display:block;color:var(--soft);font-size:.78rem;font-weight:800;margin-bottom:5px}.scoregrid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.riskrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.riskrow button.on[data-r="하"]{background:var(--accent2);border-color:var(--accent);color:var(--accent)}.riskrow button.on[data-r="중"]{background:var(--gold2);border-color:var(--gold);color:var(--gold)}.riskrow button.on[data-r="상"]{background:var(--red2);border-color:var(--red);color:var(--red)}.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}.history{width:100%;border-collapse:collapse;font-size:.86rem}.history th,.history td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}.history th{color:var(--soft);font-size:.76rem;background:var(--surface2)}.empty{padding:28px 10px;text-align:center;color:var(--soft)}.foot{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;border-radius:12px;padding:11px 17px;font-weight:800;opacity:0;transition:.2s;z-index:99}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.modal{position:fixed;inset:0;background:rgba(20,30,36,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}.modal.open{display:flex}.box{background:#fff;border-radius:16px;max-width:560px;width:100%;box-shadow:0 18px 60px rgba(0,0,0,.25);overflow:hidden}.box-h{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.box-b{padding:16px}.box textarea{min-height:260px;line-height:1.65}@media(max-width:820px){.grid{grid-template-columns:1fr}.student-list{max-height:none}.scoregrid,.formgrid{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr}}@media(max-width:520px){.scoregrid{grid-template-columns:1fr 1fr}.foot .btn{flex:1}.card-h{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
 <body>
 <div class="app">
-  <header class="top">
-    <div class="brand">
-      <div class="name"><h1 id="acaName">○○영어학원</h1><button class="edit-name" onclick="editAcademy()">이름 수정</button></div>
-      <span class="sub">원장 관리 콘솔 · 학생 학습 관리</span>
-    </div>
-    <div class="solo">
-      <span class="dot"></span>원장님이 <b id="soloCount">0</b>명을 혼자 관리하고 있어요
-    </div>
-  </header>
-
-  <section class="rhythm" id="rhythm"><div class="loading">불러오는 중…</div></section>
-
-  <section class="stats" id="stats"></section>
-
-  <div class="toolbar">
-    <div class="search"><span class="ic">🔍</span><input id="search" type="text" placeholder="학생 이름 검색" oninput="render()"></div>
-    <select class="sortsel" id="sort" onchange="render()">
-      <option value="risk">정렬: 위험도순</option>
-      <option value="check">정렬: 점검 필요순</option>
-      <option value="name">정렬: 이름순</option>
-      <option value="grade">정렬: 학년순</option>
-      <option value="att">정렬: 출결 낮은순</option>
-    </select>
-    <button class="tbtn primary" onclick="addStudent()">+ 학생 추가</button>
-  </div>
-
-  <div class="list" id="list"></div>
-  <p class="savenote">💾 모든 정보는 <b>이 기기에만</b> 안전하게 저장됩니다. 다시 열어도 그대로 남아 있어요.</p>
+<header><div class="brand"><h1 id="academyTitle">○○영어학원</h1><p>원장 관리 콘솔 v3 · 학생별 날짜 기록이 누적 저장됩니다</p></div><div class="badge">저장 방식: <b>브라우저 localStorage</b></div></header>
+<div class="notice"><b>중요:</b> 이 버전은 GitHub Pages에서 작동하는 localStorage 저장 방식입니다. 같은 기기·같은 브라우저에서는 계속 누적됩니다. 기기 변경 대비로 반드시 <b>백업 다운로드</b>를 눌러 보관하세요.</div>
+<div class="grid">
+<section class="card"><div class="card-h"><h2>학생 목록</h2><button class="btn small primary" onclick="addStudent()">+ 학생</button></div><div class="body"><div class="toolbar"><input class="input" id="search" placeholder="이름 검색" oninput="renderList()"><button class="btn small" onclick="editAcademy()">학원명</button></div><div class="student-list" id="studentList"></div><div class="foot"><button class="btn" onclick="downloadBackup()">백업 다운로드</button><label class="btn" for="restoreFile">복원 업로드</label><input id="restoreFile" type="file" accept="application/json" style="display:none" onchange="restoreBackup(event)"></div></div></section>
+<section class="card"><div class="card-h"><h2 id="detailTitle">학생을 선택하세요</h2><div><button class="btn small gold" onclick="makeReport()">학부모 리포트</button> <button class="btn small red" onclick="deleteStudent()">삭제</button></div></div><div class="body" id="detailBody"><div class="empty">왼쪽에서 학생을 누르거나 + 학생을 추가하세요.</div></div></section>
 </div>
-
-<!-- detail panel -->
-<div class="scrim" id="scrim" onclick="closeDetail()"></div>
-<aside class="panel" id="panel" aria-hidden="true"></aside>
-
-<!-- report modal -->
-<div class="modal-scrim" id="reportScrim">
-  <div class="modal">
-    <div class="modal-head"><h3>학부모 전달용 리포트</h3><button class="xbtn" onclick="closeReport()">✕</button></div>
-    <div class="modal-body">
-      <p class="hint">아래 내용을 복사해 카카오톡 채팅창에 붙여넣어 보내세요. (직접 수정도 가능합니다)</p>
-      <textarea id="reportText"></textarea>
-    </div>
-    <div class="modal-foot">
-      <span class="copied" id="copiedMsg">✓ 복사됐어요</span>
-      <button class="pbtn report" style="flex:none;padding:11px 20px" onclick="copyReport()">📋 복사하기</button>
-    </div>
-  </div>
 </div>
-
+<div class="modal" id="reportModal"><div class="box"><div class="box-h"><b>학부모 전달용 문구</b><button class="btn small" onclick="closeReport()">닫기</button></div><div class="box-b"><textarea id="reportText"></textarea><div class="foot"><button class="btn primary" onclick="copyReport()">복사하기</button></div></div></div></div>
 <div class="toast" id="toast"></div>
-
 <script>
-/* ============ state & storage ============ */
-const KEY='crm-data-v1';
+const KEY='gangdongmina-manager-v3-local-history';
 let state={academy:'○○영어학원',students:[]};
-let hasStore=!!(window.storage&&window.storage.get);
-let openId=null;
-
-function uid(){return 's'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
-function todayStr(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
-
-const SAMPLE=[
-  {id:uid(),name:'김서연',grade:'중2',att:96,hw:88,mock:84,level:90,vocab:95,risk:'하',memo:'성실하고 단어 암기 우수. 독해 속도만 더 끌어올리면 좋음.',next:'',checked:''},
-  {id:uid(),name:'이준호',grade:'중1',att:74,hw:55,mock:62,level:68,vocab:60,risk:'상',memo:'최근 결석·과제 누락 잦음. 어머니 상담 필요. 흥미 떨어진 듯.',next:'',checked:''},
-  {id:uid(),name:'박지민',grade:'초6',att:90,hw:80,mock:0,level:75,vocab:82,risk:'중',memo:'기초 문법 보강 중. 진행형/시제 더 연습 필요.',next:'',checked:''},
-  {id:uid(),name:'최예나',grade:'고1',att:98,hw:95,mock:91,level:94,vocab:97,risk:'하',memo:'상위권. 내신 대비 서술형 집중 지도 중.',next:'',checked:''},
-  {id:uid(),name:'정우진',grade:'초5',att:82,hw:70,mock:0,level:66,vocab:72,risk:'중',memo:'활발하지만 집중 시간 짧음. 단어시험 재시 자주 발생.',next:'',checked:''},
-];
-
-async function load(){
-  if(hasStore){
-    try{const r=await window.storage.get(KEY); if(r&&r.value){state=JSON.parse(r.value);} else {state={academy:'○○영어학원',students:SAMPLE}; await save();}}
-    catch(e){state={academy:'○○영어학원',students:SAMPLE};}
-  } else {state={academy:'○○영어학원',students:SAMPLE};}
-  if(!state.students)state.students=[];
-  state.students.forEach(s=>{if(!Array.isArray(s.history))s.history=[];});
-  renderAll();
-}
-async function save(){
-  if(!hasStore)return;
-  try{await window.storage.set(KEY,JSON.stringify(state));}catch(e){console.error('save failed',e);}
-}
-
-/* ============ checkpoint logic ============ */
-function lastDayOfMonth(y,m){return new Date(y,m+1,0).getDate();}
-function checkpointInfo(){
-  const d=new Date(); const y=d.getFullYear(),m=d.getMonth(),day=d.getDate();
-  const ld=lastDayOfMonth(y,m);
-  // checkpoints: 15th and last day
-  let activeDate, activeLabel, nextDate, nextLabel, isToday=false;
-  const mid=new Date(y,m,15), end=new Date(y,m,ld);
-  const t=new Date(y,m,day);
-  if(day<15){
-    // active = previous month end
-    const pm=new Date(y,m,0); activeDate=pm; activeLabel=(pm.getMonth()+1)+'월 말일';
-    nextDate=mid; nextLabel=(m+1)+'월 중순(15일)';
-  } else if(day<ld){
-    activeDate=mid; activeLabel=(m+1)+'월 중순(15일)';
-    nextDate=end; nextLabel=(m+1)+'월 말일';
-  } else { // day==ld
-    activeDate=end; activeLabel=(m+1)+'월 말일'; isToday=true;
-    const nm=new Date(y,m+1,15); nextDate=nm; nextLabel=(nm.getMonth()+1)+'월 중순(15일)';
-  }
-  if(day===15){isToday=true;}
-  const dday=Math.ceil((nextDate-t)/(1000*60*60*24));
-  return {activeDate,activeLabel,nextDate,nextLabel,isToday,dday,y,m,ld,day};
-}
-function isChecked(s){
-  const ci=checkpointInfo();
-  if(Array.isArray(s.history) && s.history.some(h=>new Date(h.date) >= ci.activeDate)) return true;
-  if(!s.checked)return false;
-  return new Date(s.checked) >= ci.activeDate;
-}
-
-/* ============ render ============ */
-function renderAll(){renderRhythm();render();}
-
-function renderRhythm(){
-  document.getElementById('acaName').textContent=state.academy;
-  const ci=checkpointInfo();
-  const due=state.students.filter(s=>!isChecked(s)).length;
-  let cells='';
-  for(let i=1;i<=ci.ld;i++){
-    let cls='cell';
-    if(i===15||i===ci.ld)cls+=' cp';
-    if(i<ci.day)cls+=' past';
-    if(i===ci.day)cls+=' today';
-    cells+=`<div class="${cls}" title="${ci.m+1}월 ${i}일">${i}</div>`;
-  }
-  const statusTxt = ci.isToday
-    ? `<span style="color:var(--accent)">오늘이 점검일입니다!</span> 점검 대상 <b>${due}</b>명`
-    : `다음 점검 <b>${ci.nextLabel}</b>까지 <b>D-${ci.dday}</b> · 점검 대상 <b>${due}</b>명`;
-  document.getElementById('rhythm').innerHTML=`
-    <div class="rhythm-head">
-      <span class="label">📅 이번 달 점검 리듬</span>
-      <span class="status">${statusTxt}</span>
-    </div>
-    <div class="strip">${cells}</div>
-    <div class="rhythm-foot">
-      <span class="lg"><span class="sw" style="background:var(--gold-soft);box-shadow:inset 0 0 0 1.5px var(--gold)"></span>점검일 (중순 15일 · 말일)</span>
-      <span class="lg"><span class="sw" style="background:var(--accent)"></span>오늘</span>
-      <span class="lg">이번 회차: <b style="font-family:'IBM Plex Mono'">${ci.activeLabel}</b></span>
-    </div>`;
-}
-
-function riskRank(r){return r==='상'?0:r==='중'?1:2;}
-function gradeRank(g){const o=['초3','초4','초5','초6','중1','중2','중3','고1','고2','고3'];const i=o.indexOf(g);return i<0?99:i;}
-
-function renderStats(){
-  const st=state.students;
-  const total=st.length;
-  const due=st.filter(s=>!isChecked(s)).length;
-  const high=st.filter(s=>s.risk==='상').length;
-  const avgAtt=total?Math.round(st.reduce((a,s)=>a+(+s.att||0),0)/total):0;
-  document.getElementById('stats').innerHTML=`
-    <div class="stat"><div class="k">총 학생</div><div class="v num">${total}<small> 명</small></div></div>
-    <div class="stat due"><div class="k">이번 회차 점검 대상</div><div class="v num">${due}<small> 명</small></div></div>
-    <div class="stat warn"><div class="k">퇴원위험 ‘상’</div><div class="v num">${high}<small> 명</small></div></div>
-    <div class="stat"><div class="k">평균 출결률</div><div class="v num">${avgAtt}<small>%</small></div></div>`;
-  document.getElementById('soloCount').textContent=total;
-}
-
-function render(){
-  renderStats();
-  const q=(document.getElementById('search').value||'').trim();
-  const sort=document.getElementById('sort').value;
-  let arr=state.students.filter(s=>!q||s.name.includes(q));
-  arr.sort((a,b)=>{
-    if(sort==='risk')return riskRank(a.risk)-riskRank(b.risk)||a.name.localeCompare(b.name,'ko');
-    if(sort==='check')return (isChecked(a)?1:0)-(isChecked(b)?1:0)||riskRank(a.risk)-riskRank(b.risk);
-    if(sort==='name')return a.name.localeCompare(b.name,'ko');
-    if(sort==='grade')return gradeRank(a.grade)-gradeRank(b.grade)||a.name.localeCompare(b.name,'ko');
-    if(sort==='att')return (+a.att||0)-(+b.att||0);
-    return 0;
-  });
-  const list=document.getElementById('list');
-  if(state.students.length===0){
-    list.innerHTML=`<div class="empty"><b>아직 등록된 학생이 없어요</b>‘+ 학생 추가’를 눌러 첫 학생을 등록해 보세요.</div>`;return;
-  }
-  if(arr.length===0){list.innerHTML=`<div class="empty"><b>‘${q}’ 검색 결과가 없어요</b>다른 이름으로 검색해 보세요.</div>`;return;}
-  const riskCls={'하':'low','중':'mid','상':'high'};
-  let html=`<div class="list-head"><span>이름 · 학년</span><span>위험도</span><span>출결</span><span>과제</span><span>점검</span><span></span></div>`;
-  arr.forEach(s=>{
-    const ck=isChecked(s);
-    html+=`<div class="row" onclick="openDetail('${s.id}')">
-      <span class="nm">${s.name}<span class="grade">${s.grade||'-'}</span></span>
-      <span class="chipcell"><span class="chip ${riskCls[s.risk]||'low'}"><span class="d"></span>${s.risk||'하'}</span></span>
-      <span class="metcell met ${(+s.att<80)?'bad':''}"><span class="lab" style="display:none">출결 </span>${s.att||0}%</span>
-      <span class="met ${(+s.hw<70)?'bad':''}">${s.hw||0}%</span>
-      <span><span class="check-pill ${ck?'done':'todo'}">${ck?'점검완료':'점검필요'}</span></span>
-      <span class="arrow">›</span>
-    </div>`;
-  });
-  list.innerHTML=html;
-}
-
-
-function historyHTML(s){
-  const hist=Array.isArray(s.history)?[...s.history]:[];
-  hist.sort((a,b)=>String(b.date).localeCompare(String(a.date)) || String(b.created||'').localeCompare(String(a.created||'')));
-  if(hist.length===0) return `<div class="history-empty">아직 누적 기록이 없어요. 날짜를 선택하고 ‘점검 기록 저장’을 누르면 여기에 쌓입니다.</div>`;
-  return `<div class="history-list">`+hist.map((h,i)=>`
-    <div class="history-item">
-      <div class="hdate">${esc(h.date||'날짜 없음')}</div>
-      <div class="hmeta">
-        <span>출결 ${h.att||0}%</span><span>과제 ${h.hw||0}%</span><span>단어 ${h.vocab||0}점</span><span>레벨 ${h.level||0}점</span><span>모의 ${h.mock||0}점</span><span>위험도 ${esc(h.risk||'-')}</span>
-      </div>
-      ${h.memo?`<div class="hmemo">${esc(h.memo)}</div>`:''}
-      <button class="tbtn" style="margin-top:8px;padding:6px 10px;font-size:.78rem" onclick="deleteHistory('${s.id}',${i});event.stopPropagation();">이 기록 삭제</button>
-    </div>`).join('')+`</div>`;
-}
-function deleteHistory(studentId, sortedIndex){
-  const s=state.students.find(x=>x.id===studentId); if(!s||!Array.isArray(s.history))return;
-  const sorted=[...s.history].sort((a,b)=>String(b.date).localeCompare(String(a.date)) || String(b.created||'').localeCompare(String(a.created||'')));
-  const target=sorted[sortedIndex];
-  const idx=s.history.indexOf(target);
-  if(idx>=0){s.history.splice(idx,1); save(); openDetail(studentId); render(); renderRhythm(); toast('누적 기록을 삭제했어요');}
-}
-
-/* ============ detail panel ============ */
-function openDetail(id){
-  openId=id; const s=state.students.find(x=>x.id===id); if(!s)return;
-  const ci=checkpointInfo(); const ck=isChecked(s);
-  const rOpt=r=>`<button class="risk-opt ${s.risk===r?'on':''}" data-r="${r}" onclick="setRisk('${r}')">${r}</button>`;
-  document.getElementById('panel').innerHTML=`
-    <div class="panel-head">
-      <div style="flex:1">
-        <input class="nm-edit" value="${esc(s.name)}" oninput="setField('name',this.value)" aria-label="학생 이름">
-        <input class="grade-edit" value="${esc(s.grade||'')}" placeholder="학년 (예: 중2)" oninput="setField('grade',this.value)" aria-label="학년">
-      </div>
-      <button class="xbtn" onclick="closeDetail()">✕</button>
-    </div>
-    <div class="panel-body">
-      <div class="checkstat">
-        <div class="t"><b>이번 회차 (${ci.activeLabel})</b>${ck?'점검을 완료했어요':'아직 점검 전이에요'}</div>
-        <div class="last">${s.checked?('최근 '+s.checked):'기록 없음'}</div>
-      </div>
-      <div class="field"><label>출결률</label>
-        <div class="slider-row"><input type="range" min="0" max="100" value="${+s.att||0}" oninput="setField('att',+this.value);document.getElementById('attPct').textContent=this.value+'%'">
-        <span class="pct" id="attPct">${+s.att||0}%</span></div></div>
-      <div class="field"><label>과제 제출률</label>
-        <div class="slider-row"><input type="range" min="0" max="100" value="${+s.hw||0}" oninput="setField('hw',+this.value);document.getElementById('hwPct').textContent=this.value+'%'">
-        <span class="pct" id="hwPct">${+s.hw||0}%</span></div></div>
-      <div class="field"><label>점수 기록</label>
-        <div class="score-row">
-          <div class="score-cell"><label>모의고사</label><input type="number" min="0" max="100" value="${s.mock||''}" placeholder="–" oninput="setField('mock',this.value)"></div>
-          <div class="score-cell"><label>레벨테스트</label><input type="number" min="0" max="100" value="${s.level||''}" placeholder="–" oninput="setField('level',this.value)"></div>
-          <div class="score-cell"><label>단어시험</label><input type="number" min="0" max="100" value="${s.vocab||''}" placeholder="–" oninput="setField('vocab',this.value)"></div>
-        </div></div>
-      <div class="field"><label>퇴원위험도 <span style="font-weight:500;color:var(--ink-soft)">(원장님만 보는 내부 표시)</span></label>
-        <div class="risk-toggle">${rOpt('하')}${rOpt('중')}${rOpt('상')}</div></div>
-      <div class="field"><label>상담 메모</label>
-        <textarea placeholder="상담 내용, 특이사항, 지도 방향 등을 적어두세요" oninput="setField('memo',this.value)">${esc(s.memo||'')}</textarea></div>
-      <div class="field"><label>다음 상담 예정일</label>
-        <input type="date" value="${s.next||''}" oninput="setField('next',this.value)"></div>
-      <div class="field"><label>누적 기록 날짜</label>
-        <div class="history-tools">
-          <label for="histDate">기록일</label>
-          <input type="date" id="histDate" value="${todayStr()}">
-          <span style="font-size:.78rem;color:var(--ink-soft)">중순/월말 외 날짜도 선택 가능</span>
-        </div>
-      </div>
-      <div class="field"><label>점검 이력</label>
-        ${historyHTML(s)}
-      </div>
-    </div>
-    <div class="panel-foot">
-      <div class="foot-row">
-        <button class="pbtn check ${ck?'done':''}" onclick="toggleCheck()">${ck?'✓ 이번 회차 점검 완료됨':'선택 날짜로 점검 기록 저장'}</button>
-      </div>
-      <div class="foot-row">
-        <button class="pbtn report" onclick="makeReport()">📋 학부모 리포트 만들기</button>
-        <button class="pbtn ghost" onclick="removeStudent()" title="학생 삭제">🗑</button>
-      </div>
-    </div>`;
-  document.getElementById('panel').classList.add('open');
-  document.getElementById('panel').setAttribute('aria-hidden','false');
-  document.getElementById('scrim').classList.add('open');
-}
-function closeDetail(){openId=null;document.getElementById('panel').classList.remove('open');document.getElementById('scrim').classList.remove('open');document.getElementById('panel').setAttribute('aria-hidden','true');}
-function setField(f,v){const s=state.students.find(x=>x.id===openId);if(!s)return;s[f]=v;save();render();renderRhythm();}
-function setRisk(r){const s=state.students.find(x=>x.id===openId);if(!s)return;s.risk=r;save();openDetail(openId);render();}
-function toggleCheck(){
-  const s=state.students.find(x=>x.id===openId);if(!s)return;
-  if(!Array.isArray(s.history))s.history=[];
-  const dateInput=document.getElementById('histDate');
-  const d=(dateInput&&dateInput.value)||todayStr();
-  s.history.push({
-    date:d, created:new Date().toISOString(),
-    att:+s.att||0, hw:+s.hw||0, mock:+s.mock||0, level:+s.level||0, vocab:+s.vocab||0,
-    risk:s.risk||'하', memo:s.memo||''
-  });
-  s.checked=d;
-  save();openDetail(openId);render();renderRhythm();toast(d+' 기록을 누적 저장했어요');
-}
-
-function addStudent(){
-  const s={id:uid(),name:'새 학생',grade:'',att:0,hw:0,mock:0,level:0,vocab:0,risk:'하',memo:'',next:'',checked:'',history:[]};
-  state.students.push(s);save();render();renderRhythm();openDetail(s.id);
-  setTimeout(()=>{const inp=document.querySelector('.nm-edit');if(inp){inp.focus();inp.select();}},80);
-}
-function removeStudent(){
-  const s=state.students.find(x=>x.id===openId);if(!s)return;
-  if(!confirm(`‘${s.name}’ 학생을 삭제할까요? 되돌릴 수 없습니다.`))return;
-  state.students=state.students.filter(x=>x.id!==openId);save();closeDetail();render();renderRhythm();toast('학생을 삭제했어요');
-}
-
-/* ============ report ============ */
-function makeReport(){
-  const s=state.students.find(x=>x.id===openId);if(!s)return;
-  const line=(label,val,suffix='')=> (val!==''&&val!==undefined&&val!==null&&val!==0)||val===0&&false ? `▸ ${label}: ${val}${suffix}\n` : '';
-  let r=`[${state.academy}] ${s.name} 학생 학습 리포트\n(${todayStr()})\n\n`;
-  if(s.grade)r+=`▸ 학년: ${s.grade}\n`;
-  r+=`▸ 출결률: ${s.att||0}%\n`;
-  r+=`▸ 과제 제출률: ${s.hw||0}%\n`;
-  if(s.mock)r+=`▸ 최근 모의고사: ${s.mock}점\n`;
-  if(s.level)r+=`▸ 레벨테스트: ${s.level}점\n`;
-  if(s.vocab)r+=`▸ 단어시험: ${s.vocab}점\n`;
-  if(s.next)r+=`▸ 다음 상담 예정: ${s.next}\n`;
-  if(s.memo)r+=`\n[원장 코멘트]\n${s.memo}\n`;
-  r+=`\n늘 관심 갖고 지도하겠습니다. 감사합니다. 🙏`;
-  document.getElementById('reportText').value=r;
-  document.getElementById('reportScrim').classList.add('open');
-  document.getElementById('copiedMsg').classList.remove('show');
-}
-function closeReport(){document.getElementById('reportScrim').classList.remove('open');}
-function copyReport(){
-  const ta=document.getElementById('reportText');
-  ta.select();
-  let ok=false;
-  try{ navigator.clipboard.writeText(ta.value); ok=true; }catch(e){ try{ok=document.execCommand('copy');}catch(_){} }
-  if(ok){document.getElementById('copiedMsg').classList.add('show');toast('리포트를 복사했어요. 카톡에 붙여넣으세요!');}
-  else{toast('복사가 안 되면 직접 선택해 복사해 주세요');}
-}
-
-/* ============ misc ============ */
-function editAcademy(){
-  const v=prompt('학원 이름을 입력하세요',state.academy);
-  if(v&&v.trim()){state.academy=v.trim();save();renderRhythm();}
-}
-function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-let toastT;
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeReport();closeDetail();}});
-
+let selectedId=null;
+let selectedDate=today();
+function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function uid(){return 's_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7)}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1700)}
+function load(){try{const raw=localStorage.getItem(KEY); if(raw) state=JSON.parse(raw)}catch(e){console.error(e)} if(!state.students.length){state.students=[sample('김서연','중2'),sample('이준호','중1'),sample('박지민','초6')]; save()} document.getElementById('academyTitle').textContent=state.academy; renderList();}
+function save(){localStorage.setItem(KEY,JSON.stringify(state));}
+function sample(name,grade){return {id:uid(),name,grade,phone:'',school:'',risk:'하',memo:'',next:'',records:{}}}
+function getStudent(){return state.students.find(s=>s.id===selectedId)}
+function getRecord(s,date=selectedDate){if(!s.records) s.records={}; if(!s.records[date]) s.records[date]={att:'',hw:'',vocab:'',level:'',mock:'',note:'',savedAt:''}; return s.records[date]}
+function latestRecord(s){const dates=Object.keys(s.records||{}).sort().reverse();return dates.length?s.records[dates[0]]:{} }
+function renderList(){const q=document.getElementById('search').value.trim();const box=document.getElementById('studentList');let arr=state.students.filter(s=>!q||s.name.includes(q));arr.sort((a,b)=>a.name.localeCompare(b.name,'ko')); if(!arr.length){box.innerHTML='<div class="empty">학생이 없습니다.</div>';return} box.innerHTML=arr.map(s=>{const r=latestRecord(s);const cls=s.risk==='상'?'high':s.risk==='중'?'mid':'low';return `<div class="stu ${s.id===selectedId?'on':''}" onclick="selectStudent('${s.id}')"><div class="top"><span class="name">${esc(s.name)}</span><span class="pill ${cls}">${s.risk}</span></div><div class="meta">${esc(s.grade||'-')} · 최근 출결 ${r.att||'-'} · 최근 숙제 ${r.hw||'-'}</div></div>`}).join('')}
+function selectStudent(id){selectedId=id;selectedDate=today();renderList();renderDetail()}
+function addStudent(){const s={id:uid(),name:'새 학생',grade:'',phone:'',school:'',risk:'하',memo:'',next:'',records:{}};state.students.push(s);selectedId=s.id;selectedDate=today();save();renderList();renderDetail();setTimeout(()=>document.getElementById('name')?.select(),80)}
+function setStudentField(k,v){const s=getStudent(); if(!s)return; s[k]=v; save(); renderList(); if(k==='name') document.getElementById('detailTitle').textContent=v||'새 학생'}
+function setRecordField(k,v){const s=getStudent(); if(!s)return; const r=getRecord(s); r[k]=v; save(); renderList();}
+function setRisk(r){const s=getStudent(); if(!s)return; s.risk=r; save(); renderList(); renderDetail()}
+function saveDateRecord(){const s=getStudent(); if(!s)return; const r=getRecord(s); r.savedAt=new Date().toLocaleString('ko-KR'); save(); renderDetail(); renderList(); toast(selectedDate+' 기록 저장 완료')}
+function renderDetail(){const s=getStudent(); if(!s){document.getElementById('detailBody').innerHTML='<div class="empty">학생을 선택하세요.</div>';return} document.getElementById('detailTitle').textContent=s.name||'새 학생'; const r=getRecord(s); const riskBtn=x=>`<button class="btn ${s.risk===x?'on':''}" data-r="${x}" onclick="setRisk('${x}')">${x}</button>`; const dates=Object.keys(s.records||{}).sort().reverse(); document.getElementById('detailBody').innerHTML=`
+<div class="split"><div><div class="field"><label>학생 이름</label><input class="input" id="name" value="${esc(s.name)}" oninput="setStudentField('name',this.value)"></div></div><div><div class="field"><label>학년</label><input class="input" value="${esc(s.grade)}" placeholder="예: 중2" oninput="setStudentField('grade',this.value)"></div></div></div>
+<div class="split"><div class="field"><label>학교</label><input class="input" value="${esc(s.school)}" placeholder="예: 천일중" oninput="setStudentField('school',this.value)"></div><div class="field"><label>연락처/메모용</label><input class="input" value="${esc(s.phone)}" oninput="setStudentField('phone',this.value)"></div></div>
+<div class="field"><label>퇴원위험도</label><div class="riskrow">${riskBtn('하')}${riskBtn('중')}${riskBtn('상')}</div></div>
+<hr style="border:none;border-top:1px solid var(--line);margin:14px 0">
+<div class="field"><label>기록 날짜 — 과거/미래 날짜 모두 선택 가능</label><input class="input mono" type="date" value="${selectedDate}" onchange="selectedDate=this.value;renderDetail()"></div>
+<div class="scoregrid"><div class="field"><label>출결</label><input class="input mono" value="${esc(r.att)}" placeholder="예: 출석/결석/96%" oninput="setRecordField('att',this.value)"></div><div class="field"><label>숙제</label><input class="input mono" value="${esc(r.hw)}" placeholder="예: 완료/70%" oninput="setRecordField('hw',this.value)"></div><div class="field"><label>단어</label><input class="input mono" value="${esc(r.vocab)}" placeholder="점수" oninput="setRecordField('vocab',this.value)"></div><div class="field"><label>레벨</label><input class="input mono" value="${esc(r.level)}" placeholder="점수" oninput="setRecordField('level',this.value)"></div><div class="field"><label>내신/모고</label><input class="input mono" value="${esc(r.mock)}" placeholder="점수" oninput="setRecordField('mock',this.value)"></div></div>
+<div class="field"><label>이 날짜 수업/상담 기록</label><textarea rows="4" placeholder="오늘 수업 내용, 숙제 미제출 사유, 상담 메모 등" oninput="setRecordField('note',this.value)">${esc(r.note)}</textarea></div>
+<div class="field"><label>다음 상담 예정일</label><input class="input mono" type="date" value="${esc(s.next)}" oninput="setStudentField('next',this.value)"></div>
+<div class="field"><label>학생 고정 메모</label><textarea rows="3" placeholder="성향, 학부모 특이사항, 장기 지도 방향" oninput="setStudentField('memo',this.value)">${esc(s.memo)}</textarea></div>
+<div class="foot"><button class="btn primary" onclick="saveDateRecord()">오늘/선택 날짜 기록 저장</button><button class="btn" onclick="clearDateRecord()">선택 날짜 기록 삭제</button></div>
+<h3 style="font-size:.95rem;margin:20px 0 8px">날짜별 누적 기록</h3>
+${dates.length?`<table class="history"><thead><tr><th>날짜</th><th>출결</th><th>숙제</th><th>점수</th><th>기록</th><th></th></tr></thead><tbody>${dates.map(d=>{const x=s.records[d];return `<tr><td class="mono">${d}</td><td>${esc(x.att||'-')}</td><td>${esc(x.hw||'-')}</td><td>단어 ${esc(x.vocab||'-')} / 레벨 ${esc(x.level||'-')} / 내신 ${esc(x.mock||'-')}</td><td>${esc(x.note||'')}</td><td><button class="btn small" onclick="selectedDate='${d}';renderDetail()">열기</button></td></tr>`}).join('')}</tbody></table>`:'<div class="empty">아직 저장된 날짜 기록이 없습니다.</div>'}`}
+function clearDateRecord(){const s=getStudent(); if(!s)return; if(!s.records||!s.records[selectedDate]){toast('삭제할 기록이 없어요');return} if(confirm(selectedDate+' 기록을 삭제할까요?')){delete s.records[selectedDate]; save(); renderDetail(); renderList(); toast('삭제 완료')}}
+function deleteStudent(){const s=getStudent(); if(!s)return; if(confirm('학생 '+s.name+' 을/를 삭제할까요?')){state.students=state.students.filter(x=>x.id!==s.id);selectedId=null;save();renderList();document.getElementById('detailTitle').textContent='학생을 선택하세요';document.getElementById('detailBody').innerHTML='<div class="empty">학생을 선택하세요.</div>';}}
+function editAcademy(){const v=prompt('학원 이름',state.academy); if(v&&v.trim()){state.academy=v.trim();document.getElementById('academyTitle').textContent=state.academy;save()}}
+function downloadBackup(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='manager-backup-'+today()+'.json';a.click();URL.revokeObjectURL(a.href);toast('백업 파일 다운로드')}
+function restoreBackup(e){const f=e.target.files[0]; if(!f)return; const reader=new FileReader(); reader.onload=()=>{try{const data=JSON.parse(reader.result); if(!data.students) throw new Error('bad'); if(confirm('현재 데이터를 백업 파일 내용으로 교체할까요?')){state=data;selectedId=null;save();document.getElementById('academyTitle').textContent=state.academy||'○○영어학원';renderList();document.getElementById('detailBody').innerHTML='<div class="empty">복원 완료. 학생을 선택하세요.</div>';toast('복원 완료')}}catch(err){alert('백업 파일 형식이 맞지 않습니다.')}};reader.readAsText(f);e.target.value=''}
+function makeReport(){const s=getStudent(); if(!s){toast('학생을 먼저 선택하세요');return} const dates=Object.keys(s.records||{}).sort().reverse(); const recent=dates.slice(0,5); let txt=`[${state.academy}] ${s.name} 학생 학습 리포트\n작성일: ${today()}\n\n`; if(s.grade)txt+=`학년: ${s.grade}\n`; if(s.school)txt+=`학교: ${s.school}\n`; if(s.next)txt+=`다음 상담 예정: ${s.next}\n`; txt+='\n[최근 기록]\n'; if(!recent.length)txt+='아직 저장된 기록이 없습니다.\n'; recent.forEach(d=>{const r=s.records[d];txt+=`- ${d}: 출결 ${r.att||'-'}, 숙제 ${r.hw||'-'}, 단어 ${r.vocab||'-'}, 레벨 ${r.level||'-'}, 내신/모고 ${r.mock||'-'}\n`; if(r.note)txt+=`  코멘트: ${r.note}\n`}); if(s.memo)txt+=`\n[지도 메모]\n${s.memo}\n`; txt+='\n늘 관심 갖고 지도하겠습니다. 감사합니다.'; document.getElementById('reportText').value=txt; document.getElementById('reportModal').classList.add('open')}
+function closeReport(){document.getElementById('reportModal').classList.remove('open')}
+function copyReport(){const t=document.getElementById('reportText');t.select();navigator.clipboard?.writeText(t.value).then(()=>toast('복사 완료')).catch(()=>{document.execCommand('copy');toast('복사 완료')})}
 load();
 </script>
 </body>
