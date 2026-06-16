@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Love Humpback Whales · 거꾸로 영작</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F7F8;--card:#FFFFFF;--ink:#16323B;--sub:#5E7178;--line:#DCE6E7;
+  --root:#0E6E8C;--root-bg:#E2F0F4;--b:#B8860B;--b-bg:#FEF8E1;--c:#1E7A6B;--c-bg:#E1F0EC;
+  --d:#C84F2F;--d-bg:#FBE8E0;--e:#4F73B3;--e-bg:#E7EEF8;
+  --hl:#9FE7DC;--ok:#1E7A6B;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;
+  background-image:radial-gradient(#dde9ea 1px,transparent 1px);background-size:26px 26px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 90px}
+header{padding:34px 0 8px;text-align:center}
+.eyebrow{display:inline-block;font-size:.76rem;font-weight:700;letter-spacing:.06em;color:var(--root);border:1.5px solid var(--root);border-radius:999px;padding:3px 14px;margin-bottom:12px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.55rem,5vw,2.2rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 5px}
+.tagline{color:var(--sub);margin-top:9px;font-size:.92rem}
+.feat{display:flex;justify-content:center;gap:7px;margin-top:11px;flex-wrap:wrap}
+.feat .f{font-size:.71rem;font-weight:700;padding:4px 11px;border-radius:999px;background:#fff;border:1.5px solid var(--root);color:var(--root)}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(243,247,248,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin:20px -16px 0;padding:9px 6px}
+.steps{display:flex;justify-content:center;gap:3px;max-width:760px;margin:0 auto;flex-wrap:wrap}
+.step{flex:1;max-width:118px;min-width:58px;border:none;background:transparent;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.6rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(22,50,59,.12)}
+.step.cur .lb{color:var(--ink)}
+.step.done .dot{background:var(--c);border-color:var(--c);color:#fff}
+.step.locked{opacity:.4;cursor:not-allowed}
+.step:not(.locked):hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.45rem;margin:22px 0 4px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.ssub{color:var(--sub);font-size:.92rem;margin-bottom:6px}
+.secprog{font-size:.82rem;font-weight:700;color:var(--root);background:var(--root-bg);border-radius:999px;padding:4px 13px;display:inline-block;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:17px 19px;margin:13px 0;box-shadow:0 1px 3px rgba(20,40,45,.05)}
+.card.mastered{border-color:var(--c);background:linear-gradient(180deg,#F2FAF7,#fff)}
+.cn{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap}
+.cn .num{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:.74rem;color:#fff;background:var(--root);border-radius:6px;padding:2px 9px}
+.cn .gtag{font-size:.7rem;font-weight:700;color:var(--e);background:var(--e-bg);border-radius:999px;padding:2px 9px}
+.cn .star{margin-left:auto;font-size:.95rem}
+.ko{font-size:1.12rem;font-weight:600;line-height:1.6;margin-bottom:10px}
+.hintrow{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:9px}
+.hbtn{border:1.5px solid var(--line);background:#fff;color:var(--sub);border-radius:8px;padding:5px 11px;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer}
+.hbtn:hover{border-color:var(--root);color:var(--root)}
+.hbtn.on{background:var(--root);border-color:var(--root);color:#fff}
+.wc{font-size:.78rem;color:var(--sub);font-family:'IBM Plex Mono',monospace}
+.hintbox{display:none;margin:0 0 9px;padding:9px 12px;background:#F4F8F9;border-radius:9px;font-size:.86rem}
+.hintbox.show{display:block}
+.hintbox .firstletters{font-family:'Lora',serif;font-size:1.05rem;letter-spacing:.04em;color:var(--root)}
+.hintbox .kw{display:inline-block;margin:2px 8px 2px 0}
+.hintbox .kw b{font-family:'Lora',serif;color:var(--ink)}
+.inrow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap}
+.einput{flex:1;min-width:200px;font-family:'Lora',serif;font-size:1.05rem;padding:10px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.einput:focus{outline:none;border-color:var(--root)}
+.gradeb{border:none;background:var(--ink);color:#fff;border-radius:10px;padding:10px 20px;font-family:inherit;font-weight:700;font-size:.92rem;cursor:pointer;white-space:nowrap}
+.gradeb:hover{background:#0c252c}
+.result{display:none;margin-top:11px}.result.show{display:block}
+.tokens{font-family:'Lora',serif;font-size:1.06rem;line-height:1.95;margin-bottom:6px}
+.tok{padding:1px 5px;border-radius:5px;margin:0 1px}
+.tok.ok{background:var(--c-bg);color:var(--ok)}
+.tok.no{background:#FBE5E1;color:var(--bad);text-decoration:line-through}
+.tok.miss{background:#FBE5E1;color:var(--bad);opacity:.6}
+.scoreline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0}
+.scorepct{font-family:'Black Han Sans',sans-serif;font-size:1.3rem}
+.spk{border:1.5px solid var(--line);background:#fff;border-radius:999px;width:34px;height:34px;cursor:pointer;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center}
+.spk:hover{border-color:var(--ink)}.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.model{font-family:'Lora',serif;font-size:1.02rem;background:#F4F8F9;border-left:3px solid var(--c);padding:7px 12px;border-radius:0 8px 8px 0;margin:6px 0}
+.gnote{font-size:.84rem;color:#444;background:var(--b-bg);border-radius:8px;padding:8px 12px;margin-top:6px}
+.gnote b{color:#8a6608}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:22px 0 8px;gap:10px}
+.btn{font-family:inherit;font-weight:700;font-size:.93rem;border:none;border-radius:11px;padding:11px 22px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--root);color:#fff;box-shadow:3px 3px 0 rgba(14,110,140,.3)}
+.btn.primary:hover{transform:translate(-1px,-1px)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.unlock{display:none;align-items:center;gap:10px;margin-top:14px;background:var(--c-bg);border:1.5px solid var(--c);border-radius:12px;padding:12px 16px;font-weight:600}
+.unlock.show{display:flex}
+/* summary */
+.sumcard{background:var(--card);border:2px solid var(--root);border-radius:var(--r);padding:22px;margin:14px 0}
+.sumtotal{text-align:center;margin-bottom:10px}
+.sumtotal .big{font-family:'Black Han Sans';font-size:2.6rem;line-height:1}
+.sumtotal .g{font-weight:700;margin-top:4px;font-size:1.05rem}
+.bars{margin-top:10px}
+.barrow{margin:8px 0}
+.barrow .bl{display:flex;justify-content:space-between;font-size:.83rem;font-weight:700;margin-bottom:3px}
+.barrow .tk{height:12px;background:#E7EFEF;border-radius:99px;overflow:hidden}
+.barrow .fl{height:100%;border-radius:99px;width:0;transition:width .8s ease;background:var(--c)}
+.review-box{background:#FFF7E8;border:2px solid var(--b);border-radius:14px;padding:18px 20px;margin:16px 0}
+.review-box .rh{display:flex;align-items:center;gap:8px;font-weight:800;color:#8a6608;margin-bottom:6px}
+.review-box .rh .pb{background:var(--b);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:999px}
+.empty-review{background:var(--c-bg);border:2px solid var(--c);border-radius:14px;padding:20px;text-align:center;font-weight:700;color:var(--ok)}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:36px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:11px;font-size:.88rem;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:80}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:520px){.card{padding:14px 14px}.step .lb{font-size:.55rem}.ko{font-size:1.05rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">천재(이상기) 중2 · Lesson 4 · 거꾸로 영작</div>
+  <h1>I Love <span class="mark">Humpback Whales</span></h1>
+  <p class="tagline">한글을 보고 영어 문장을 직접 써 보세요. 본문 28문장 · 단어별 채점 · 문법 포인트까지.</p>
+  <div class="feat"><span class="f">✍️ 한글 → 영작</span><span class="f">🔤 힌트</span><span class="f">🔊 정답 듣기</span><span class="f">🔁 오답 복습</span></div>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>I Love Humpback Whales · 거꾸로 영작 차세대 · 본문 28문장 + 적응형 복습</footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ============ 데이터: 본문 28문장 ============ */
+const SECTIONS=[
+ {id:'intro',icon:'🐋',label:'소개',sub:'Nikau의 일기 — 혹등고래 연구 소개',items:[
+  {n:1,ko:'키아 오라나! 나는 뉴질랜드에서 온 Nikau야.',en:"Kia Orana! I'm Nikau from New Zealand.",kw:[["Kia Orana","마오리어 인사"],["from","~에서 온"]],g:'from ~ : ~출신의/~에서 온'},
+  {n:2,ko:'나는 쿡 제도의 한 고래 연구 센터에서 일하고 있어.',en:"I'm working at a whale research center in the Cook Islands.",kw:[["research center","연구 센터"],["the Cook Islands","쿡 제도"]],g:'현재진행형 am working. 「at + 장소」.'},
+  {n:3,ko:'나는 혹등고래가 바다에서 가장 놀라운 동물이라고 생각해.',en:"I think humpback whales are the most amazing animals in the ocean.",kw:[["humpback whale","혹등고래"],["amazing","놀라운"]],g:'the most amazing = amazing의 최상급. I think (that) ~ : 명사절 that 생략.'},
+  {n:4,ko:'나는 내 일과 생각을 기록하기 위해 그들에 관한 일기를 써 왔어.',en:"I have kept a diary about them to record my work and thoughts.",kw:[["keep a diary","일기를 쓰다"],["record","기록하다"]],g:'현재완료(계속) have kept. to record = 목적의 부사적 용법(~하기 위해).'},
+ ]},
+ {id:'jul1',icon:'🌊',label:'7월 1일',sub:'돌아온 혹등고래들',items:[
+  {n:5,ko:'마침내, 혹등고래들이 돌아왔어!',en:"Finally, the humpback whales are back!",kw:[["finally","마침내"],["be back","돌아오다"]],g:'finally = 마침내(= at last, eventually).'},
+  {n:6,ko:'그들은 출산하기 위해 남극해로부터 약 6,500km를 이동해 왔어.',en:"They have traveled about 6,500 km from the Southern Ocean to give birth.",kw:[["about","약, 대략"],["give birth","출산하다"]],g:'현재완료(계속) have traveled. to give birth = 목적의 부사적 용법.'},
+  {n:7,ko:'그 크고 친근한 거인들은 우리 배 가까이 와서 잠시 동안 놀았어.',en:"The big and friendly giants came close to our boat and played for a while.",kw:[["giant","거대한 동물"],["close","가까이(부사)"],["for a while","잠시 동안"]],g:'came ~ and played : 과거형 동사 병렬. close = 부사(가까이).'},
+  {n:8,ko:'갑자기, 그들은 높이 뛰어올라 거대한 물보라를 일으켰어.',en:"All of a sudden, they jumped up high and made huge splashes.",kw:[["all of a sudden","갑자기"],["high","높이(부사)"],["splash","물보라"]],g:'all of a sudden = 갑자기(= suddenly). high = 부사(높이).'},
+  {n:9,ko:'고래를 보는 것은 결코 지루해지지 않아.',en:"Watching whales never gets boring.",kw:[["watching","보는 것(동명사)"],["get boring","지루해지다"]],g:'동명사 주어 Watching → 3인칭 단수(gets). get + 형용사 = ~해지다.'},
+ ]},
+ {id:'jul17',icon:'🛰️',label:'7월 17일',sub:'드론으로 꼬리표 달기',items:[
+  {n:10,ko:'오늘, 나는 혹등고래에 꼬리표를 붙이기 위해 드론을 날렸어.',en:"Today, I flew a drone to tag humpback whales.",kw:[["flew","fly의 과거"],["tag","꼬리표를 붙이다"]],g:'flew = fly의 과거형. to tag = 목적의 부사적 용법.'},
+  {n:11,ko:'나는 그들을 가까이 따라가서 그들의 등에 조심스럽게 꼬리표를 떨어뜨렸어.',en:"I followed them closely and dropped tags carefully onto their backs.",kw:[["closely","가까이(부사)"],["onto","~위로"]],g:'followed ~ and dropped : 과거형 병렬. onto = ~ 위로.'},
+  {n:12,ko:'우리는 그 꼬리표들로부터 그들에 관한 많은 정보를 얻어.',en:"We get a lot of information about them from the tags.",kw:[["a lot of","많은"],["information","정보(셀 수 없음)"]],g:'a lot of + 셀 수 없는 명사(information). them = humpback whales.'},
+  {n:13,ko:'나는 특히 그들의 노래에 관심이 있는데, 그 꼬리표들이 몇 년 동안 그것들을 기록해 왔어.',en:"I am particularly interested in their songs, and the tags have recorded them for several years.",kw:[["particularly","특히"],["be interested in","~에 관심이 있다"]],g:'be interested in ~. have recorded = 현재완료(계속) + for several years.'},
+  {n:14,ko:'그들의 노래는 최대 30분까지 지속되고 물속에서 수천 킬로미터를 이동할 수 있어!',en:"Their songs last up to 30 minutes and can travel thousands of kilometers underwater!",kw:[["last","지속되다"],["up to","~까지"],["thousands of","수천의"]],g:'last = 지속되다. up to ~ = ~까지. thousands of = 수천의.'},
+  {n:15,ko:'그 노래들은 아름답지만, 우리는 아직 그것들에 대해 많이 알지 못해.',en:"The songs are beautiful, but we still don't know much about them.",kw:[["still","아직도"],["much","많이"]],g:'still = 아직도. much = 많이(부정문). them = the songs.'},
+ ]},
+ {id:'aug2',icon:'🦈',label:'8월 2일',sub:'나를 구해 준 고래',items:[
+  {n:16,ko:'나는 물속에서 몇몇 혹등고래들을 촬영하고 있었어.',en:"I was filming some humpback whales underwater.",kw:[["film","촬영하다"],["underwater","물속에서"]],g:'과거진행형 was filming(~을 촬영하고 있었다).'},
+  {n:17,ko:'갑자기, 한 고래가 가까이 와서 나를 세게 밀었어.',en:"Suddenly, one whale came close and pushed me hard.",kw:[["close","가까이(부사)"],["hard","세게(부사)"]],g:'close = 가까이, hard = 세게. 둘 다 부사.'},
+  {n:18,ko:'나는 헤엄쳐 도망치려고 했지만, 그것은 나를 물 밖으로 계속 밀었어.',en:"I tried to swim away, but it kept pushing me out of the water.",kw:[["try to","~하려고 노력하다"],["keep -ing","계속 ~하다"],["out of","~밖으로"]],g:'try + to부정사 = ~하려고 노력하다. keep + 동명사 = 계속 ~하다.'},
+  {n:19,ko:'나는 너무 놀랐어.',en:"I was so surprised.",kw:[["so","너무"],["surprised","놀란"]],g:'주어가 감정을 느끼므로 -ed형(surprised). so = 너무.'},
+  {n:20,ko:'그때 누군가 배에서 소리쳤어, "범상어가 오고 있어!"',en:'Then somebody shouted from the boat, "A tiger shark is coming!"',kw:[["shout","소리치다"],["tiger shark","범상어"]],g:'shout = 소리치다(= yell). "A tiger shark is coming!" 현재진행형.'},
+  {n:21,ko:'나는 안전하게 배에 올라탔어.',en:"I safely got on the boat.",kw:[["safely","안전하게"],["get on","타다"]],g:'safely = 부사(안전하게). get on = (배·버스에) 타다.'},
+  {n:22,ko:'나는 그 고래가 나를 구하려 하고 있었다는 것을 깨달았어.',en:"I realized that the whale was trying to save me.",kw:[["realize","깨닫다"],["try to save","구하려 하다"]],g:'명사절 접속사 that. was trying = 과거진행형.'},
+  {n:23,ko:'혹등고래는 때때로 다른 바다 동물들을 돕지만, 나는 그들이 내 생명을 구할 거라고는 전혀 예상하지 못했어.',en:"Humpback whales sometimes help other sea animals, but I never expected them to save my life.",kw:[["sometimes","때때로(빈도부사)"],["other","다른"],["expect A to","A가 ~할 것을 예상하다"]],g:'expect + 목적어 + to부정사. other + 복수명사. never = 전혀 ~않다.'},
+ ]},
+ {id:'aug5',icon:'🌏',label:'8월 5일',sub:'고래와 인간의 공존',items:[
+  {n:24,ko:'오늘 아침, 나는 해안에서 죽은 혹등고래 한 마리를 발견했어.',en:"This morning, I found a dead humpback whale on the coast.",kw:[["dead","죽은"],["coast","해안"]],g:'dead = 죽은(↔ alive).'},
+  {n:25,ko:'그것의 배 속에는 정말 많은 비닐봉지와 어망이 있었어.',en:"There were so many plastic bags and fishing nets in its stomach.",kw:[["so many","정말 많은"],["fishing net","어망"],["stomach","위, 배"]],g:'There were + 복수명사. its = the dead humpback whale\u2019s.'},
+  {n:26,ko:'인간의 활동은 고래에게 가장 큰 위험이야.',en:"Human activities are the greatest danger to whales.",kw:[["activity","활동"],["danger","위험"]],g:'the greatest = great의 최상급.'},
+  {n:27,ko:'바다는 고래와 다른 바다 동물들의 서식지야.',en:"The ocean is home to whales and other sea animals.",kw:[["home to","~의 서식지"],["ocean","바다"]],g:'be home to ~ = ~의 서식지이다.'},
+  {n:28,ko:'나는 인간과 바다 동물들이 조화롭게 살기를 원해.',en:"I want humans and sea animals to live in harmony.",kw:[["want A to","A가 ~하기를 원하다"],["in harmony","조화롭게"]],g:'want + 목적어 + to부정사. in harmony = 조화롭게.'},
+ ]},
+];
+
+/* ============ 엔진 ============ */
+const NSEC=SECTIONS.length;
+let cur=0, maxUnlocked=0;
+// state[s][i] = {best:0~100, graded:bool, mastered:bool}
+const ST=SECTIONS.map(sec=>sec.items.map(()=>({best:0,graded:false,mastered:false})));
+
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){if(!('speechSynthesis' in window)){alert('Chrome 브라우저를 권장합니다.');return;}
+  speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.9;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);}
+
+function normW(w){return w.toLowerCase().replace(/[.,!?;:"'\u2019\u201c\u201d]/g,'');}
+function firstLetters(s){return s.split(/\s+/).map(w=>{
+  let out='';for(let i=0;i<w.length;i++){const ch=w[i];out+= i===0?ch:(/[A-Za-z0-9]/.test(ch)?'_':ch);}return out;}).join(' ');}
+
+function go(i){
+  if(i>maxUnlocked){toast('🔒 이전 단락을 모두 풀면 열려요!');return;}
+  speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0});
+  if(i===NSEC)renderSummary();
+}
+function renderSteps(){
+  const labels=[...SECTIONS.map(s=>s.label),'종합'];
+  const icons=[...SECTIONS.map(s=>s.icon),'🏁'];
+  document.getElementById('steps').innerHTML=labels.map((lb,i)=>{
+    const lock=i>maxUnlocked;
+    const done=i<NSEC ? ST[i].every(x=>x.mastered) : ST.flat().every(x=>x.mastered);
+    return `<button class="step ${i===cur?'cur':''} ${done?'done':''} ${lock?'locked':''}" onclick="go(${i})">
+      <span class="dot">${lock?'🔒':done?'✓':icons[i]}</span><span class="lb">${lb}</span></button>`;
+  }).join('');
+}
+
+function sentCard(si,ii,it){
+  const st=ST[si][ii];
+  const star=st.mastered?'⭐':(st.graded?`${st.best}%`:'');
+  return `<div class="card ${st.mastered?'mastered':''}" id="card-${si}-${ii}">
+    <div class="cn"><span class="num">${String(it.n).padStart(2,'0')}</span>
+      <span class="gtag">${it.g.split('.')[0]}</span><span class="star" id="star-${si}-${ii}">${star}</span></div>
+    <div class="ko">${it.ko}</div>
+    <div class="hintrow">
+      <span class="wc">단어 ${it.en.split(/\s+/).length}개</span>
+      <button class="hbtn" onclick="toggleHint('fl-${si}-${ii}',this)">🔤 첫 글자</button>
+      <button class="hbtn" onclick="toggleHint('kw-${si}-${ii}',this)">💡 핵심 단어</button>
+    </div>
+    <div class="hintbox" id="fl-${si}-${ii}"><span class="firstletters">${firstLetters(it.en)}</span></div>
+    <div class="hintbox" id="kw-${si}-${ii}">${it.kw.map(k=>`<span class="kw"><b>${k[0]}</b> ${k[1]}</span>`).join('')}</div>
+    <div class="inrow">
+      <input class="einput" id="in-${si}-${ii}" type="text" placeholder="여기에 영어 문장을 쓰세요..." autocomplete="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')gradeSent(${si},${ii})">
+      <button class="gradeb" onclick="gradeSent(${si},${ii})">채점</button>
+    </div>
+    <div class="result" id="res-${si}-${ii}"></div>
+  </div>`;
+}
+function toggleHint(id,btn){const el=document.getElementById(id);const open=el.classList.toggle('show');btn.classList.toggle('on',open);}
+
+function gradeSent(si,ii){
+  const it=SECTIONS[si].items[ii];
+  const val=(document.getElementById(`in-${si}-${ii}`).value||'').trim();
+  if(!val){toast('문장을 입력해 주세요!');return;}
+  const ans=it.en.split(/\s+/), got=val.split(/\s+/);
+  let correct=0; const toks=[];
+  ans.forEach((aw,k)=>{const gw=got[k]||'';const ok=gw&&normW(gw)===normW(aw);if(ok)correct++;
+    toks.push(`<span class="tok ${ok?'ok':(gw?'no':'miss')}">${gw||aw}</span>`);});
+  const pct=Math.round(correct/ans.length*100);
+  const st=ST[si][ii]; st.graded=true; st.best=Math.max(st.best,pct); if(pct===100)st.mastered=true;
+  const res=document.getElementById(`res-${si}-${ii}`); res.className='result show';
+  res.innerHTML=`<div class="tokens">${toks.join(' ')}</div>
+    <div class="scoreline"><span class="scorepct" style="color:${pct===100?'var(--ok)':pct>=60?'var(--b)':'var(--bad)'}">${pct===100?'🎉 100%':pct+'%'}</span>
+      <span style="font-size:.85rem;color:var(--sub)">${correct}/${ans.length} 단어</span>
+      <button class="spk" onclick="speak(this.dataset.s,this)" data-s="${it.en.replace(/"/g,'&quot;')}">🔊</button></div>
+    <div class="model">정답: ${it.en}</div>
+    <div class="gnote"><b>문법 포인트</b> · ${it.g}</div>`;
+  document.getElementById(`star-${si}-${ii}`).textContent=st.mastered?'⭐':`${st.best}%`;
+  document.getElementById(`card-${si}-${ii}`).classList.toggle('mastered',st.mastered);
+  // 단락 완료 체크 → 다음 잠금 해제
+  updateSectionProgress(si);
+}
+function updateSectionProgress(si){
+  const items=ST[si];
+  const gradedAll=items.every(x=>x.graded);
+  const masteredN=items.filter(x=>x.mastered).length;
+  const pe=document.getElementById(`prog-${si}`);
+  if(pe)pe.textContent=`완성 ${masteredN} / ${items.length} 문장 ⭐`;
+  if(gradedAll && si+1>maxUnlocked && si<NSEC){
+    maxUnlocked=si+1;
+    const ub=document.getElementById(`unlock-${si}`); if(ub){ub.classList.add('show');
+      if(si<NSEC-1)ub.innerHTML=`다음 단락이 열렸어요! <button class="btn primary" style="padding:8px 16px" onclick="go(${si+1})">${SECTIONS[si+1].label} →</button>`;
+      else ub.innerHTML=`모든 단락 완료! <button class="btn primary" style="padding:8px 16px" onclick="go(${NSEC})">🏁 종합 결과 보기 →</button>`;}
+  }
+  renderSteps();
+}
+
+/* ===== 종합 + 적응형 복습 ===== */
+let rq=[]; // review queue of [si,ii]
+function renderSummary(){
+  const host=document.getElementById('sumBody');
+  const flat=ST.flat();
+  const gradedN=flat.filter(x=>x.graded).length;
+  if(gradedN<flat.length){host.innerHTML=`<div class="empty-review" style="background:#FFF7E8;border-color:var(--b);color:#8a6608">아직 영작하지 않은 문장이 있어요. 각 단락에서 28문장을 모두 채점하면 종합 분석이 완성됩니다. (현재 ${gradedN}/28)</div>`;return;}
+  const masteredN=flat.filter(x=>x.mastered).length;
+  const avg=Math.round(flat.reduce((a,x)=>a+x.best,0)/flat.length);
+  const grade=masteredN===28?['🥇 완벽! 28문장 마스터','모든 문장을 100%로 완성했어요!']
+    :avg>=90?['🥈 훌륭해요','거의 다 왔어요. 남은 문장만 복습!']
+    :avg>=75?['🥉 잘하고 있어요','오답을 복습하면 완성됩니다.']
+    :['🌱 한 번 더!','문법 포인트를 보며 다시 도전해요.'];
+  const bars=SECTIONS.map((sec,i)=>{const m=ST[i].filter(x=>x.mastered).length;const p=Math.round(m/ST[i].length*100);
+    return `<div class="barrow"><div class="bl"><span>${sec.icon} ${sec.label}</span><span>${m}/${ST[i].length} ⭐ · ${p}%</span></div>
+      <div class="tk"><div class="fl" data-w="${p}%"></div></div></div>`;}).join('');
+  host.innerHTML=`<div class="sumcard">
+    <div class="sumtotal"><div class="big">${masteredN} / 28</div><div class="g">${grade[0]}</div>
+      <p style="font-size:.9rem;color:var(--sub);margin-top:4px">평균 정확도 ${avg}% · ${grade[1]}</p></div>
+    <div class="bars">${bars}</div></div>
+    <div id="reviewArea"></div>`;
+  renderReview();
+  requestAnimationFrame(()=>setTimeout(()=>host.querySelectorAll('.fl').forEach(f=>f.style.width=f.dataset.w),60));
+}
+function renderReview(){
+  const area=document.getElementById('reviewArea');if(!area)return;
+  rq=[];ST.forEach((sec,si)=>sec.forEach((x,ii)=>{if(!x.mastered)rq.push([si,ii]);}));
+  if(rq.length===0){area.innerHTML=`<div class="empty-review">🎉 모든 문장을 100% 마스터했어요! 더 복습할 게 없습니다. 정말 잘했어요.</div>`;return;}
+  area.innerHTML=`<div class="review-box"><div class="rh"><span class="pb">🔁 ADAPTIVE</span>오답 집중 복습 — 아직 완성 못한 ${rq.length}문장</div>
+    <p style="font-size:.85rem;color:var(--sub);margin-bottom:8px">100%가 안 된 문장만 모았어요. 100%로 맞히면 복습에서 빠지고, 틀리면 큐 뒤로 다시 들어갑니다.</p>
+    <div id="rslot"></div></div>`;
+  showReview();
+}
+function showReview(){
+  const slot=document.getElementById('rslot');if(!slot)return;
+  if(rq.length===0){slot.innerHTML=`<div class="empty-review">✅ 복습 완료! 모든 문장을 마스터했어요. 👏</div>`;renderSteps();return;}
+  const [si,ii]=rq[0];const it=SECTIONS[si].items[ii];
+  slot.innerHTML=`<div style="font-size:.8rem;color:var(--sub);font-weight:700;margin-bottom:4px">남은 복습 ${rq.length}문장 · 본문 ${String(it.n).padStart(2,'0')}</div>
+    <div class="ko">${it.ko}</div>
+    <div class="hintrow"><span class="wc">단어 ${it.en.split(/\s+/).length}개</span>
+      <button class="hbtn" onclick="toggleHint('rfl',this)">🔤 첫 글자</button></div>
+    <div class="hintbox" id="rfl"><span class="firstletters">${firstLetters(it.en)}</span></div>
+    <div class="inrow"><input class="einput" id="rin" type="text" placeholder="다시 영작해 보세요..." autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')gradeReview()">
+      <button class="gradeb" onclick="gradeReview()">채점</button></div>
+    <div class="result" id="rres"></div>`;
+}
+function gradeReview(){
+  const [si,ii]=rq[0];const it=SECTIONS[si].items[ii];
+  const val=(document.getElementById('rin').value||'').trim();if(!val){toast('문장을 입력해 주세요!');return;}
+  const ans=it.en.split(/\s+/),got=val.split(/\s+/);let correct=0;const toks=[];
+  ans.forEach((aw,k)=>{const gw=got[k]||'';const ok=gw&&normW(gw)===normW(aw);if(ok)correct++;toks.push(`<span class="tok ${ok?'ok':(gw?'no':'miss')}">${gw||aw}</span>`);});
+  const pct=Math.round(correct/ans.length*100);
+  const st=ST[si][ii];st.best=Math.max(st.best,pct);
+  const res=document.getElementById('rres');res.className='result show';
+  const done=pct===100;if(done)st.mastered=true;
+  res.innerHTML=`<div class="tokens">${toks.join(' ')}</div>
+    <div class="scoreline"><span class="scorepct" style="color:${done?'var(--ok)':'var(--bad)'}">${done?'🎉 100%':pct+'%'}</span>
+      <button class="spk" onclick="speak(this.dataset.s,this)" data-s="${it.en.replace(/"/g,'&quot;')}">🔊</button></div>
+    <div class="model">정답: ${it.en}</div>
+    <div class="gnote"><b>문법 포인트</b> · ${it.g}</div>
+    <button class="btn ${done?'primary':'ghost'}" style="margin-top:10px;padding:8px 18px" onclick="reviewNext(${done})">${done?'다음 →':'큐 뒤로 보내고 계속 →'}</button>`;
+}
+function reviewNext(done){const item=rq.shift();if(!done)rq.push(item);
+  // 상단 바·스텝 갱신
+  const flat=ST.flat();const masteredN=flat.filter(x=>x.mastered).length;
+  showReview();
+  if(rq.length===0){renderSummary();}
+}
+
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),1900);}
+
+/* ===== 빌드 ===== */
+function renderAll(){
+  let html='';
+  SECTIONS.forEach((sec,si)=>{
+    const cards=sec.items.map((it,ii)=>sentCard(si,ii,it)).join('');
+    html+=`<section class="stage ${si===cur?'show':''}" id="st${si}">
+      <h2 class="stitle">${sec.icon} ${sec.label}</h2>
+      <p class="ssub">${sec.sub}</p>
+      <span class="secprog" id="prog-${si}">완성 0 / ${sec.items.length} 문장 ⭐</span>
+      ${cards}
+      <div class="unlock" id="unlock-${si}"></div>
+      <div class="navrow">${si>0?`<button class="btn ghost" onclick="go(${si-1})">← 이전</button>`:'<span></span>'}
+        <span style="font-size:.78rem;color:var(--sub)">${si+1} / ${NSEC} 단락</span></div>
+    </section>`;
+  });
+  html+=`<section class="stage ${cur===NSEC?'show':''}" id="st${NSEC}">
+    <h2 class="stitle">🏁 종합 결과</h2>
+    <p class="ssub">28문장을 얼마나 영작했는지 확인하고, 못 맞힌 문장만 모아 복습하세요.</p>
+    <div id="sumBody"></div></section>`;
+  document.getElementById('main').innerHTML=html;
+  renderSteps();
+}
+renderAll();
+</script>
+</body>
+</html>
