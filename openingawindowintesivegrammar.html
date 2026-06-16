@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4과 천재(이재용) 핵심문법 시험 — 차세대</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F0;--card:#FFFFFF;--ink:#23272F;--sub:#727784;--line:#E7E2D6;
+  --root:#1F3A5F;--root-bg:#E8EEF6;--b:#B8860B;--b-bg:#FEF8E1;--c:#1E7A5A;--c-bg:#E2F3EB;
+  --d:#C84F2F;--d-bg:#FBE8E0;--e:#5D4FA3;--e-bg:#EBE7F8;
+  --hl:#FFE45C;--ok:#1E7A5A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;
+  background-image:radial-gradient(#e9e4d6 1px,transparent 1px);background-size:26px 26px;}
+.wrap{max-width:800px;margin:0 auto;padding:0 16px 90px}
+header{padding:36px 0 10px;text-align:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--root);
+  border:1.5px solid var(--root);border-radius:999px;padding:3px 14px;margin-bottom:14px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.6rem,5vw,2.3rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:10px;font-size:.93rem}
+.feat{display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.feat .f{font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:999px;background:#fff;border:1.5px solid var(--e);color:var(--e)}
+.levelbar{display:flex;justify-content:center;gap:6px;margin-top:12px;flex-wrap:wrap}
+.lv{font-size:.72rem;font-weight:700;padding:3px 12px;border-radius:999px;border:1.5px solid}
+.lv.l1{color:var(--c);border-color:var(--c);background:var(--c-bg)}
+.lv.l2{color:var(--b);border-color:var(--b);background:var(--b-bg)}
+.lv.l3{color:var(--e);border-color:var(--e);background:var(--e-bg)}
+.lv.l4{color:var(--d);border-color:var(--d);background:var(--d-bg)}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);margin:22px -16px 0;padding:10px 8px}
+.steps{display:flex;justify-content:center;gap:4px;max-width:800px;margin:0 auto;flex-wrap:wrap}
+.step{flex:1;max-width:120px;min-width:64px;border:none;background:transparent;cursor:pointer;font-family:inherit;
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.92rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.62rem;font-weight:600;color:var(--sub);white-space:nowrap;text-align:center}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,39,47,.12)}
+.step.cur .lb{color:var(--ink)}
+.step.done .dot{background:var(--ink);border-color:var(--ink);color:#fff}
+.step.locked{opacity:.42;cursor:not-allowed}
+.step:not(.locked):hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.5rem;margin:22px 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.lvchip{font-size:.66rem;font-weight:800;padding:2px 9px;border-radius:999px}
+.lvchip.l1{color:var(--c);background:var(--c-bg)}.lvchip.l2{color:var(--b);background:var(--b-bg)}
+.lvchip.l3{color:var(--e);background:var(--e-bg)}.lvchip.l4{color:var(--d);background:var(--d-bg)}
+.ssub{color:var(--sub);font-size:.93rem;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin:14px 0;box-shadow:0 1px 3px rgba(40,35,20,.05)}
+.card h3{font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h3 .chip{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.chip.c-root{background:var(--root-bg);color:var(--root)}.chip.c-b{background:var(--b-bg);color:var(--b)}
+.chip.c-c{background:var(--c-bg);color:var(--c)}.chip.c-d{background:var(--d-bg);color:var(--d)}.chip.c-e{background:var(--e-bg);color:var(--e)}
+.card p{margin:6px 0}.card ul{margin:6px 0 6px 20px}.card li{margin:4px 0}
+.card table{border-collapse:collapse;width:100%;margin:8px 0;font-size:.9rem}
+.card th,.card td{border:1px solid var(--line);padding:5px 8px;text-align:center}
+.card th{background:#F7F5EE;font-weight:700}.card td.lf{text-align:left}
+.diff-box{margin-top:12px;border:2px solid var(--d);border-radius:12px;padding:12px 14px;background:#FDF1EC}
+.diff-box .dh{font-weight:800;color:var(--d);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.tip-box{margin-top:12px;border:1.5px dashed var(--ink);border-radius:10px;padding:11px 14px;background:#FFFDF4;font-size:.92rem}
+.tip-box b{display:block;margin-bottom:2px}
+.formula{background:var(--root-bg);border:1.5px solid var(--root);border-radius:10px;padding:10px 14px;margin:10px 0;font-weight:700;text-align:center;font-size:1.02rem;color:var(--root)}
+.formula .pill{background:#fff;border:1px solid var(--root);border-radius:6px;padding:1px 8px;margin:0 2px;display:inline-block}
+.enline{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.en{font-family:'Lora',serif;font-size:1.08rem;line-height:1.7}
+.hl{padding:1px 3px;border-radius:3px;font-weight:600;background:linear-gradient(180deg,transparent 30%,var(--hl) 30%)}
+.hl.b{box-shadow:inset 0 -2.5px 0 var(--b)}.hl.c{box-shadow:inset 0 -2.5px 0 var(--c)}.hl.d{box-shadow:inset 0 -2.5px 0 var(--d)}.hl.e{box-shadow:inset 0 -2.5px 0 var(--e)}.hl.root{box-shadow:inset 0 -2.5px 0 var(--root)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:34px;height:34px;cursor:pointer;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--ink)}.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.exc{border-left:4px solid var(--line);padding:12px 16px;margin:12px 0;background:#fff;border-radius:0 10px 10px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.exc.b{border-left-color:var(--b)}.exc.c{border-left-color:var(--c)}.exc.d{border-left-color:var(--d)}.exc.e{border-left-color:var(--e)}.exc.root{border-left-color:var(--root)}
+.tgl{margin-top:8px;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:4px 12px;font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--sub)}
+.tgl:hover{border-color:var(--ink);color:var(--ink)}.tgl[aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.trans{display:none;margin-top:9px;font-size:.9rem;background:#F7F5EE;border-radius:8px;padding:9px 12px}
+.trans.open{display:block}.trans .ko{font-weight:600}.trans .note{color:var(--sub);font-size:.85rem;margin-top:3px}
+.qz{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:20px 22px;margin:22px 0;box-shadow:4px 4px 0 rgba(35,39,47,.9)}
+.qz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.qz-head .badge{background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:999px}
+.q{margin:16px 0;padding-top:14px;border-top:1px dashed var(--line)}.q:first-of-type{border-top:none}
+.qno{font-weight:700;font-size:.78rem;color:var(--sub);margin-bottom:4px;display:flex;gap:6px;align-items:center}
+.qno .ql{font-size:.64rem;font-weight:800;padding:1px 7px;border-radius:999px}
+.ql.l1{background:var(--c-bg);color:var(--c)}.ql.l2{background:var(--b-bg);color:var(--b)}.ql.l3{background:var(--e-bg);color:var(--e)}.ql.l4{background:var(--d-bg);color:var(--d)}
+.qtext{font-weight:600;margin-bottom:10px}
+.qsent{margin:6px 0 10px;padding:9px 13px;background:#F7F5EE;border-radius:10px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{text-align:left;font-family:inherit;font-size:.92rem;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:9px 13px;cursor:pointer;transition:.15s;line-height:1.5}
+.opt:hover:not(:disabled){border-color:var(--ink)}.opt.sel{border-color:var(--ink);background:#F2F0E8;box-shadow:inset 0 0 0 1px var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--c-bg);box-shadow:inset 0 0 0 1px var(--ok)}
+.opt.wrong{border-color:var(--bad);background:#FBE5E1;box-shadow:inset 0 0 0 1px var(--bad);animation:shake .3s}
+.opt:disabled{cursor:default}@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.fb{display:none;margin-top:9px;font-size:.87rem;border-radius:8px;padding:9px 12px}.fb.show{display:block}
+.fb.good{background:var(--c-bg);border:1px solid var(--ok)}.fb.badf{background:#FBE5E1;border:1px solid var(--bad)}
+.selrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0;padding:9px 12px;background:#fff;border:1.5px solid var(--line);border-radius:10px}
+.selrow select{font-family:inherit;font-size:.86rem;padding:5px 8px;border-radius:8px;border:1.5px solid var(--line);background:#fff}
+.selrow .mark{font-weight:700;min-width:22px;text-align:center}
+.walkstep{margin:10px 0;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.walkstep .wp{font-weight:600;font-size:.9rem;margin-bottom:8px}.walkstep.lockedw{opacity:.45;pointer-events:none}
+.btn{font-family:inherit;font-weight:700;font-size:.95rem;border:none;border-radius:12px;padding:12px 26px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:3px 3px 0 rgba(35,39,47,.35)}
+.btn.primary:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 rgba(35,39,47,.35)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:24px 0 10px;gap:10px}
+.tscore{display:none;text-align:center;padding:14px;border-radius:12px;margin-top:16px;font-weight:700}
+.tscore.show{display:block}
+.tscore .big{font-family:'Black Han Sans';font-size:2rem}
+.unlock-banner{display:none;align-items:center;gap:10px;margin-top:14px;background:var(--c-bg);border:1.5px solid var(--ok);border-radius:12px;padding:12px 16px;font-weight:600}
+.unlock-banner.show{display:flex}
+/* summary */
+.sumcard{background:var(--card);border:2px solid var(--root);border-radius:var(--r);padding:22px;margin:14px 0;box-shadow:var(--shadow)}
+.sumtotal{text-align:center;margin-bottom:8px}
+.sumtotal .big{font-family:'Black Han Sans';font-size:3rem;line-height:1}
+.sumtotal .grade{font-weight:700;margin-top:4px;font-size:1.05rem}
+.bb{margin:12px 0}
+.bb .bl{display:flex;justify-content:space-between;font-size:.86rem;font-weight:700;margin-bottom:4px}
+.bb .track{height:14px;background:#EFEBDF;border-radius:99px;overflow:hidden}
+.bb .fill{height:100%;border-radius:99px;width:0;transition:width .8s ease}
+.diag{margin-top:8px;font-size:.88rem;background:#F7F5EE;border-radius:10px;padding:10px 14px}
+.diag .row{display:flex;gap:8px;align-items:baseline;margin:4px 0}
+.diag .row .ic{flex:none}
+.locked-note{text-align:center;color:var(--sub);padding:40px 20px}
+.dict{background:var(--e-bg);border:2px solid var(--e);border-radius:14px;padding:18px 20px;margin:18px 0}
+.dict-h{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--e);margin-bottom:4px}
+.dict-h .pb{background:var(--e);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:999px}
+.dict-sub{font-size:.85rem;color:var(--sub);margin-bottom:10px}
+.dict-item{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0}
+.dict-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.dict-controls .pbtn{border:1.5px solid var(--e);background:#fff;color:var(--e);border-radius:9px;padding:7px 14px;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.dict-controls .pbtn:hover{background:var(--e);color:#fff}
+.dict-controls .hint{font-size:.8rem;color:var(--sub)}
+.dict-input{width:100%;font-family:'Lora',serif;font-size:1rem;padding:9px 12px;border:1.5px solid var(--line);border-radius:9px;background:#fff}
+.dict-input:focus{outline:none;border-color:var(--e)}
+.dict-check{margin-top:8px;border:none;background:var(--ink);color:#fff;border-radius:9px;padding:8px 18px;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.dict-result{display:none;margin-top:10px;font-size:.95rem;line-height:1.9}.dict-result.show{display:block}
+.dict-result .tok{padding:1px 5px;border-radius:5px;margin:0 1px;font-family:'Lora',serif}
+.dict-result .tok.ok{background:var(--c-bg);color:var(--ok)}.dict-result .tok.no{background:#FBE5E1;color:var(--bad);text-decoration:line-through}
+.dict-result .ans{margin-top:6px;font-size:.88rem;color:var(--sub)}.dict-result .ans b{color:var(--ink);font-family:'Lora',serif}
+.dict-score{font-weight:800;margin-top:6px}
+.review-box{background:#FFF7E8;border:2px solid var(--b);border-radius:14px;padding:18px 20px;margin:18px 0}
+.review-box .rh{display:flex;align-items:center;gap:8px;font-weight:800;color:#8a6608;margin-bottom:6px}
+.review-box .rh .pb{background:var(--b);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:999px}
+.empty-review{background:var(--c-bg);border:2px solid var(--ok);border-radius:14px;padding:18px;text-align:center;font-weight:700;color:var(--ok)}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:40px}
+@media(max-width:520px){.card,.qz,.sumcard{padding:16px 14px}.step .lb{font-size:.56rem}.en{font-size:1rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">4과 · 천재(이재용) · 핵심문법 시험 · 차세대</div>
+  <h1>4과 <span class="mark">핵심문법</span> 시험</h1>
+  <p class="tagline">현재완료진행형 · so ~ that · 관계부사 · if/whether — 고2 개념부터 심화까지. 각 10문항, 총 40문항.</p>
+  <div class="feat"><span class="f">🔁 적응형 오답 복습</span><span class="f">✍️ 받아쓰기</span><span class="f">📊 종합 분석</span><span class="f">🔊 전체 듣기</span></div>
+  <div class="levelbar">
+    <span class="lv l1">🌱 기초</span><span class="lv l2">🌿 중급</span><span class="lv l3">🌳 중상급</span><span class="lv l4">🏔️ 고2 심화</span>
+  </div>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>4과 천재(이재용) 핵심문법 시험 · 차세대 · 종합 분석 + 오답복습 + 받아쓰기</footer>
+</div>
+<script>
+/* ============================================================
+   TOPICS: 각 주제 = 개념/심화 카드 + 핵심문법시험 10문항
+   ============================================================ */
+const TOPICS=[
+
+/* ===== ① 현재완료진행형 ===== */
+{key:'pp',icon:'⏳',label:'현재완료진행형',lv:'l3',
+ title:'① 현재완료진행형 (have/has been + -ing)',titleLv:'l3',
+ sub:'과거에 시작된 동작이 지금까지 계속 진행 중임을 강조해요. 현재완료(완료/결과)와의 구별, 상태동사 제한이 시험 포인트입니다.',
+ cards:[
+  {t:'h',chip:['개념','root'],title:'형태와 의미',html:
+   `<div class="formula">주어 + <span class="pill">have / has been</span> + 동사-ing</div>
+    <p>과거 어느 시점에 시작 → <b>지금까지 계속 진행 중</b>(또는 방금까지)인 동작을 강조해요.</p>
+    <ul><li>I <b>have been studying</b> for three hours. (3시간째 계속 공부 중)</li>
+    <li>It <b>has been raining</b> since morning. (아침부터 계속 비 옴)</li></ul>`},
+  {t:'h',chip:['⭐ 헷갈림','d'],title:'현재완료 vs 현재완료진행 (최빈출 구별!)',html:
+   `<div class="diff-box"><div class="dh">⭐ 무엇을 강조하나?</div>
+    <table style="margin:6px 0">
+    <tr><th></th><th>현재완료 (have p.p.)</th><th>현재완료진행 (have been -ing)</th></tr>
+    <tr><td class="lf">강조</td><td>완료·결과·경험</td><td>동작의 계속·진행</td></tr>
+    <tr><td class="lf">예</td><td class="lf">I have read the book.<br>(다 읽음 — 완료)</td><td class="lf">I have been reading the book.<br>(계속 읽는 중 — 진행)</td></tr>
+    </table>
+    "다 했다"는 완료, "계속 해 오고 있다"는 진행!</div>`},
+  {t:'h',chip:['⭐ 헷갈림','d'],title:'상태동사는 진행형 불가!',html:
+   `<div class="diff-box"><div class="dh">⭐ 진행형으로 쓸 수 없는 동사</div>
+    상태·감정·소유를 나타내는 동사는 진행형이 안 돼요:<br>
+    <b>know, believe, like, love, want, have(소유), belong, seem</b><br><br>
+    ✗ I have been knowing him. → ✓ I <b>have known</b> him.<br>
+    ✗ I have been having a car. → ✓ I <b>have had</b> a car.<br>
+    <span style="font-size:.84rem">※ have가 "먹다/시간을 보내다"면 동작동사 → having 가능 (I have been having lunch.)</span></div>`},
+  {t:'h',chip:['심화','e'],title:'결과가 보이는 뉘앙스 & How long',html:
+   `<ul>
+    <li><b>방금까지의 동작이 현재에 흔적을 남길 때</b>: "Your eyes are red. <b>Have you been crying?</b>" (울어서 눈이 빨감)</li>
+    <li><b>기간 질문</b>: <b>How long</b> have you been waiting? — for/since로 답.</li>
+    <li>현재완료진행은 "지금도 진행 중"이거나 "방금 끝나 결과가 보임" 둘 다 가능.</li></ul>`},
+  {t:'ex',cls:'e',en:'She has been [[teaching]] English for ten years.',ko:'그녀는 10년째 영어를 가르쳐 오고 있다.',note:'have been + -ing, for+기간. 계속·진행 강조.'},
+  {t:'ex',cls:'d',en:'Your hair is wet. [[Have]] you [[been]] swimming?',ko:'머리가 젖었네. 너 수영하고 있었니?',note:'방금까지의 동작이 현재에 흔적(젖은 머리)을 남김.'},
+ ],
+ test:[
+  {type:'mc',lv:'l1',tags:['form'],q:'빈칸에 알맞은 것은? (3년째 계속 배워 오는 중)',
+   sent:'She ___ English for three years.',
+   opts:['has learned','has been learning','is learning','has been learn'],ans:1,
+   ex:'계속 진행 강조 → has been + -ing → has been learning.'},
+  {type:'mc',lv:'l1',tags:['form'],q:'빈칸에 알맞은 be동사 형태는?',
+   sent:'They ___ been playing soccer all afternoon.',
+   opts:['has','have','had','are'],ans:1,
+   ex:'복수주어 They → have been + -ing.'},
+  {type:'mc',lv:'l2',tags:['stative'],q:'다음 중 현재완료진행형으로 쓸 수 없는 동사는?',
+   opts:['study','wait','know','rain'],ans:2,
+   ex:'know는 상태동사라 진행형 불가. → have known (○).'},
+  {type:'mc',lv:'l2',tags:['result'],q:'대화의 빈칸에 알맞은 것은?',
+   sent:'A: Your hands are so dirty! \u00a0 B: I ___ in the garden.',
+   opts:['gardened','have been gardening','garden','will garden'],ans:1,
+   ex:'손이 더러운 이유 = 방금까지 정원일을 계속 함 → have been gardening.'},
+  {type:'mc',lv:'l2',tags:['forsince'],q:'빈칸에 알맞은 것은?',
+   sent:'It has been raining ___ this morning.',
+   opts:['for','since','during','from'],ans:1,
+   ex:'시점(this morning) → since. (기간이면 for)'},
+  {type:'mc',lv:'l3',tags:['result'],q:'빈칸에 알맞은 것은?',
+   sent:'Her eyes are red. She ___ .',
+   opts:['cried','has been crying','cries','is cry'],ans:1,
+   ex:'눈이 빨간 결과 = 방금까지 계속 욺 → has been crying.'},
+  {type:'classify',lv:'l3',tags:['vsperfect'],q:'각 문장이 ‘완료·결과’인지 ‘진행·계속’인지 고르시오.',
+   labels:['완료·결과','진행·계속'],
+   items:[
+    {en:'I have [[painted]] the wall. (다 칠함)',ans:0,why:'have p.p. = 완료(벽을 다 칠한 상태)'},
+    {en:'I have been [[painting]] the wall. (계속 칠하는 중)',ans:1,why:'have been -ing = 진행·계속(아직 칠하는 중)'}]},
+  {type:'mc',lv:'l3',tags:['howlong'],q:'빈칸에 알맞은 것은?',
+   sent:'___ have you been living in Seoul?',
+   opts:['How long','How many','How much','How often'],ans:0,
+   ex:'기간을 물음 → How long + have been -ing.'},
+  {type:'mc',lv:'l4',tags:['stative'],q:'밑줄 친 부분을 바르게 고친 것은?',
+   sent:'I have been knowing him for years.',
+   opts:['have known','am knowing','had been knowing','know'],ans:0,
+   ex:'know는 상태동사 → 진행형 불가 → have known.'},
+  {type:'walk',lv:'l4',tags:['analyze'],q:'다음 문장을 분석하시오.',
+   sent:'He has been talking on the phone for an hour.',
+   steps:[
+    {p:'STEP 1 · 시제는?',opts:['현재완료','현재완료진행','과거진행'],ans:1},
+    {p:'STEP 2 · 무엇을 강조하나?',opts:['이미 끝남(완료)','한 시간째 계속 통화 중(진행)','미래 예정'],ans:1},
+    {p:'STEP 3 · for an hour는?',opts:['시점','기간','횟수'],ans:1}],
+   ex:'have been + talking = 현재완료진행, for+기간으로 계속을 강조.'},
+ ]},
+
+/* ===== ② so ~ that ===== */
+{key:'so',icon:'🔗',label:'so ~ that',lv:'l3',
+ title:'② so + 형용사/부사 + that (~해서 …하다)',titleLv:'l3',
+ sub:'"너무 ~해서 그 결과 …하다"를 나타내요. so와 such 구별, so that(목적)과의 혼동, too~to·enough 전환이 핵심입니다.',
+ cards:[
+  {t:'h',chip:['개념','root'],title:'so + 형용사/부사 + that + 주어 + 동사',html:
+   `<div class="formula"><span class="pill">so</span> + 형용사/부사 + <span class="pill">that</span> + 주어 + 동사</div>
+    <p>"<b>너무</b> ~해서 <b>(그 결과)</b> …하다" — 정도가 지나쳐 어떤 결과가 생김.</p>
+    <ul><li>He is <b>so</b> tired <b>that</b> he can't walk. (너무 피곤해서 걸을 수 없다)</li>
+    <li>She ran <b>so</b> fast <b>that</b> nobody could catch her.</li></ul>
+    <span style="font-size:.85rem;color:var(--sub)">※ 구어에서 that은 생략 가능.</span>`},
+  {t:'h',chip:['⭐ 헷갈림','d'],title:'so vs such — 뒤에 무엇이 오나?',html:
+   `<div class="diff-box"><div class="dh">⭐ 구조가 다르다!</div>
+    <b>so</b> + <u>형용사/부사 단독</u> + that &nbsp;→ so kind that…<br>
+    <b>such</b> + <u>(a/an) + 형용사 + 명사</u> + that &nbsp;→ such a kind person that…<br><br>
+    같은 뜻, 다른 어순: <b>so</b> good <b>a</b> book = <b>such a</b> good book<br>
+    (so 뒤에는 형용사가 먼저! a/an이 형용사 뒤로 감)</div>`},
+  {t:'h',chip:['⭐ 헷갈림','d'],title:'so ~ that (결과) ≠ so that (목적)',html:
+   `<div class="diff-box"><div class="dh">⭐ 완전히 다른 구문!</div>
+    <b>so + 형/부 + that</b> = <u>결과</u> "너무 ~해서 …하다"<br>
+    <span style="margin-left:14px">He is so smart <b>that</b> he solved it. (너무 똑똑해서 풀었다)</span><br><br>
+    <b>so that + 주어 + can/will</b> = <u>목적</u> "~하기 위해서"<br>
+    <span style="margin-left:14px">He studied hard <b>so that</b> he could pass. (합격하기 위해 공부했다)</span><br><br>
+    that 앞에 형용사/부사가 있으면 결과, so that이 통째로 오면 목적!</div>`},
+  {t:'h',chip:['심화','e'],title:'전환: too ~ to / enough to / such ~ that',html:
+   `<table>
+    <tr><th>so ~ that (… can't)</th><th>= too ~ to</th></tr>
+    <tr><td class="lf">so weak that he can't lift it</td><td class="lf">too weak to lift it</td></tr>
+    </table>
+    <table>
+    <tr><th>so ~ that (… can)</th><th>= 형용사 + enough to</th></tr>
+    <tr><td class="lf">so strong that she can lift it</td><td class="lf">strong enough to lift it</td></tr>
+    </table>
+    <p><b>such a 형 명 that</b> ↔ <b>so 형 that</b>: such a hot day that… = The day was <b>so</b> hot <b>that</b>…</p>`},
+  {t:'h',chip:['심화','e'],title:'도치 — So + 형용사 + 동사 + 주어',html:
+   `<p>강조를 위해 So + 형용사를 문두로 보내면 <b>주어와 동사가 도치</b>돼요.</p>
+    <p>He was so tired that… → <b>So tired was he that</b> he fell asleep at once.</p>`},
+  {t:'ex',cls:'b',en:'It was [[such]] a good movie [[that]] I watched it twice.',ko:'너무 좋은 영화여서 나는 두 번 봤다.',note:'such + a + 형 + 명 + that. (so good a movie와 동일)'},
+  {t:'ex',cls:'e',en:'[[So]] tired [[was]] he that he fell asleep.',ko:'그는 너무 피곤해서 잠들어 버렸다.',note:'So+형용사 도치 → was he. 심화 어순.'},
+ ],
+ test:[
+  {type:'mc',lv:'l1',tags:['form'],q:'빈칸에 알맞은 것은?',
+   sent:'He ran ___ fast that I couldn\u2019t catch him.',
+   opts:['so','such','very','too'],ans:0,
+   ex:'부사(fast) 단독 → so. so + 부사 + that.'},
+  {type:'mc',lv:'l1',tags:['such'],q:'빈칸에 알맞은 것은?',
+   sent:'It was ___ a good movie that everyone cried.',
+   opts:['so','such','very','too'],ans:1,
+   ex:'a + 형용사 + 명사(a good movie) → such.'},
+  {type:'mc',lv:'l2',tags:['sosuch'],q:'빈칸에 알맞은 것은?',
+   sent:'She is ___ kind that everyone likes her.',
+   opts:['so','such','such a','very'],ans:0,
+   ex:'형용사(kind) 단독 → so.'},
+  {type:'mc',lv:'l2',tags:['order'],q:'어순이 올바른 것은? (그것은 너무 좋은 책이어서…)',
+   opts:['so a good book','so good a book','such good a book','a such good book'],ans:1,
+   ex:'so 뒤에는 형용사가 먼저 → so good a book (= such a good book).'},
+  {type:'mc',lv:'l2',tags:['tooto'],q:'빈칸에 알맞은 것은? (의미 동일)',
+   sent:'He is so weak that he can\u2019t lift it. = He is ___ weak ___ lift it.',
+   opts:['too / to','so / to','very / to','too / that'],ans:0,
+   ex:'so ~ that … can\u2019t = too ~ to. → too weak to lift.'},
+  {type:'mc',lv:'l3',tags:['purpose'],q:'밑줄 친 so that의 의미는?',
+   sent:'He studied hard so that he could pass the exam.',
+   opts:['결과 (너무 ~해서)','목적 (~하기 위해)','이유 (~때문에)','조건 (~라면)'],ans:1,
+   ex:'so that + 주어 + could = 목적 "합격하기 위해".'},
+  {type:'mc',lv:'l3',tags:['such2so'],q:'빈칸에 알맞은 것은? (의미 동일)',
+   sent:'It was such a hot day that we stayed in. = The day was ___ hot ___ we stayed in.',
+   opts:['so / that','such / that','too / to','very / that'],ans:0,
+   ex:'such a 형 명 that → so 형 that. → so hot that.'},
+  {type:'mc',lv:'l3',tags:['enough'],q:'빈칸에 알맞은 것은? (의미 동일)',
+   sent:'She is so smart that she can solve it. = She is smart ___ to solve it.',
+   opts:['enough','so','too','such'],ans:0,
+   ex:'so ~ that … can = 형용사 + enough to. → smart enough to.'},
+  {type:'mc',lv:'l4',tags:['inversion'],q:'빈칸에 알맞은 것은? (도치)',
+   sent:'So tired ___ he that he fell asleep at once.',
+   opts:['was','did','had','is'],ans:0,
+   ex:'So + 형용사 도치 → be동사 + 주어. 과거이므로 was he.'},
+  {type:'mc',lv:'l4',tags:['error'],q:'밑줄 친 부분을 바르게 고친 것은?',
+   sent:'She is so a nice person that we all love her.',
+   opts:['such a nice person','so nice person','a so nice person','such nice a person'],ans:0,
+   ex:'a+형+명 구조에는 such → such a nice person (또는 so nice a person).'},
+ ]},
+
+/* ===== ③ 관계부사 ===== */
+{key:'rel',icon:'🔀',label:'관계부사',lv:'l3',
+ title:'③ 관계부사 (when · where · why · how)',titleLv:'l3',
+ sub:'선행사를 꾸미는 관계사절을 이끌되, 절 안에서 부사 역할을 해요. 관계대명사와의 구별(완전/불완전), the way how 금지가 핵심입니다.',
+ cards:[
+  {t:'h',chip:['개념','root'],title:'관계부사 = 접속사 + 부사',html:
+   `<table>
+    <tr><th>선행사</th><th>관계부사</th><th>예</th></tr>
+    <tr><td class="lf">the time/day (시간)</td><td>when</td><td class="lf">the day <b>when</b> we met</td></tr>
+    <tr><td class="lf">the place (장소)</td><td>where</td><td class="lf">the house <b>where</b> I live</td></tr>
+    <tr><td class="lf">the reason (이유)</td><td>why</td><td class="lf">the reason <b>why</b> he left</td></tr>
+    <tr><td class="lf">the way (방법)</td><td>how</td><td class="lf"><b>how</b> he did it</td></tr>
+    </table>
+    <p>관계부사 = <b>전치사 + 관계대명사(which)</b>: where = in/at which, when = on/in which.</p>`},
+  {t:'h',chip:['⭐ 헷갈림','d'],title:'the way how는 함께 못 쓴다!',html:
+   `<div class="diff-box"><div class="dh">⭐ 방법의 the way / how</div>
+    ✗ the way <b>how</b> he solved it (둘 다 쓰면 틀림!)<br>
+    ✓ <b>the way</b> he solved it &nbsp;또는&nbsp; <b>how</b> he solved it &nbsp;또는&nbsp; the way <b>in which</b> he solved it<br>
+    → the way와 how 중 <b>하나만</b>!</div>`},
+  {t:'h',chip:['⭐ 헷갈림','d'],title:'관계대명사 vs 관계부사 — 절이 완전한가?',html:
+   `<div class="diff-box"><div class="dh">⭐ 가장 중요한 판별법</div>
+    뒤 문장이 <b>완전</b>(주어·목적어 다 있음) → <b>관계부사</b><br>
+    뒤 문장이 <b>불완전</b>(주어나 목적어 빠짐) → <b>관계대명사</b><br><br>
+    the town <b>where</b> I lived → I lived (완전) ○ 관계부사<br>
+    the town <b>which</b> I visited → I visited __ (목적어 빠짐, 불완전) ○ 관계대명사<br>
+    <span style="font-size:.84rem">※ 같은 선행사라도 뒤 동사가 자동사(live)면 where, 타동사(visit)면 which!</span></div>`},
+  {t:'h',chip:['심화','e'],title:'전치사+which 전환 & 계속적 용법',html:
+   `<ul>
+    <li><b>전환</b>: the house <b>where</b> I live = the house <b>in which</b> I live.</li>
+    <li><b>계속적 용법</b>(콤마): I went to Busan, <b>where</b> I met her. (= and there)</li>
+    <li>선행사 the place/time/reason은 생략 가능: (the place) where I work.</li></ul>`},
+  {t:'ex',cls:'c',en:'This is the café [[where]] we first met.',ko:'여기가 우리가 처음 만난 카페다.',note:'장소 선행사 + 완전한 절 → 관계부사 where.'},
+  {t:'ex',cls:'d',en:'This is the book [[which]] I bought.',ko:'이것이 내가 산 책이다.',note:'bought의 목적어 빠짐(불완전) → 관계대명사 which. (where ✗)'},
+ ],
+ test:[
+  {type:'mc',lv:'l1',tags:['when'],q:'빈칸에 알맞은 관계부사는?',
+   sent:'I still remember the day ___ we first met.',
+   opts:['when','where','which','why'],ans:0,
+   ex:'시간 선행사(the day) + 완전한 절 → when.'},
+  {type:'mc',lv:'l1',tags:['where'],q:'빈칸에 알맞은 관계부사는?',
+   sent:'That is the house ___ I was born.',
+   opts:['when','where','why','what'],ans:1,
+   ex:'장소 선행사(the house) + 완전한 절 → where.'},
+  {type:'mc',lv:'l2',tags:['why'],q:'빈칸에 알맞은 관계부사는?',
+   sent:'Tell me the reason ___ you were late.',
+   opts:['how','why','where','when'],ans:1,
+   ex:'이유 선행사(the reason) → why.'},
+  {type:'mc',lv:'l2',tags:['howway'],q:'어법상 올바른 표현은? (그가 그것을 푼 방법)',
+   opts:['the way how he solved it','the way he solved it','how way he solved it','the how he solved it'],ans:1,
+   ex:'the way와 how는 함께 못 씀 → the way he solved it (또는 how he solved it).'},
+  {type:'mc',lv:'l3',tags:['vsrelpron'],q:'빈칸에 알맞은 것은?',
+   sent:'This is the town ___ I visited last summer.',
+   opts:['where','which','when','why'],ans:1,
+   ex:'visited의 목적어가 빠짐(불완전) → 관계대명사 which. (where ✗)'},
+  {type:'mc',lv:'l3',tags:['vsrelpron'],q:'빈칸에 알맞은 것은?',
+   sent:'This is the town ___ I stayed for a week.',
+   opts:['which','that','where','what'],ans:2,
+   ex:'stayed는 자동사라 뒤가 완전 → 관계부사 where.'},
+  {type:'mc',lv:'l3',tags:['prepwhich'],q:'빈칸에 알맞은 것은? (의미 동일)',
+   sent:'the house where I live = the house ___ ___ I live',
+   opts:['in which','which in','at that','on which'],ans:0,
+   ex:'where = in which. → the house in which I live.'},
+  {type:'classify',lv:'l3',tags:['judge'],q:'각 빈칸에 들어갈 것이 관계대명사인지 관계부사인지 고르시오.',
+   labels:['관계대명사 (which)','관계부사 (where)'],
+   items:[
+    {en:'the city ___ I really love (love의 목적어 없음)',ans:0,why:'불완전(목적어 빠짐) → 관계대명사 which'},
+    {en:'the city ___ I was born (완전한 절)',ans:1,why:'완전 → 관계부사 where'}]},
+  {type:'mc',lv:'l4',tags:['continuous'],q:'빈칸에 알맞은 것은? (계속적 용법)',
+   sent:'I visited Busan, ___ I met an old friend.',
+   opts:['where','which','that','what'],ans:0,
+   ex:'콤마 뒤 "그리고 거기서" → 계속적 용법 where.'},
+  {type:'mc',lv:'l4',tags:['error'],q:'다음을 어법에 맞게 고친 것은?',
+   sent:'Do you know the way how he escaped?',
+   opts:['the way he escaped','the way how escaped','how the way he escaped','the way in how he escaped'],ans:0,
+   ex:'the way how 중복 → the way he escaped (또는 how he escaped).'},
+ ]},
+
+/* ===== ④ if / whether ===== */
+{key:'ifw',icon:'❓',label:'if / whether',lv:'l3',
+ title:'④ if / whether (~인지 아닌지)',titleLv:'l3',
+ sub:'"~인지 아닌지" 명사절을 이끌어요. whether만 가능한 자리, 그리고 명사절 if와 조건절 if의 미래시제 차이가 시험 단골입니다.',
+ cards:[
+  {t:'h',chip:['개념','root'],title:'~인지 아닌지 (명사절)',html:
+   `<p>동사의 목적어 등으로 "~인지 (아닌지)"를 나타내요. 대부분 if·whether 둘 다 가능.</p>
+    <ul><li>I don't know <b>if/whether</b> he is honest. (그가 정직한지 모르겠다)</li>
+    <li>I wonder <b>if/whether</b> she will come.</li></ul>`},
+  {t:'h',chip:['⭐ 헷갈림','d'],title:'whether만 되는 자리 (if 불가!)',html:
+   `<div class="diff-box"><div class="dh">⭐ 이 4곳은 whether만!</div>
+    ① <b>주어 자리</b>: <b>Whether</b> he comes or not doesn't matter. (If ✗)<br>
+    ② <b>전치사 뒤</b>: It depends on <b>whether</b> you try. (on if ✗)<br>
+    ③ <b>to부정사 앞</b>: I'm not sure <b>whether</b> to go. (if to ✗)<br>
+    ④ <b>or not 바로 앞</b>: I don't know <b>whether or not</b> he agrees. (if or not ✗)<br>
+    <span style="font-size:.84rem">※ if도 "... or not"을 떨어뜨리면 가능: if he agrees <b>or not</b> (○)</span></div>`},
+  {t:'h',chip:['⭐ 헷갈림','d'],title:'명사절 if vs 조건절 if — 미래시제 차이!',html:
+   `<div class="diff-box"><div class="dh">⭐ will을 쓰느냐 마느냐</div>
+    <b>명사절 if</b> ("~인지"): 미래는 <b>will</b> 그대로!<br>
+    <span style="margin-left:14px">I don't know if he <b>will come</b> tomorrow. (올지 안 올지)</span><br><br>
+    <b>조건절 if</b> ("만약 ~라면", 부사절): 미래라도 <b>현재시제</b>!<br>
+    <span style="margin-left:14px">If it <b>rains</b> tomorrow, I'll stay home. (✗will rain)</span><br><br>
+    "~인지"로 해석되면 명사절(will), "만약"으로 해석되면 조건절(현재시제)!</div>`},
+  {t:'h',chip:['심화','e'],title:'whether A or B / if ~ or not',html:
+   `<ul>
+    <li><b>whether A or B</b>: I don't know whether he is right <b>or</b> wrong.</li>
+    <li><b>whether or not</b> (붙여 씀): whether or not it rains.</li>
+    <li><b>if ~ or not</b> (떨어뜨림): if it rains <b>or not</b>. (if or not은 ✗)</li></ul>`},
+  {t:'ex',cls:'e',en:'[[Whether]] he agrees or not doesn\'t matter.',ko:'그가 동의하든 안 하든 중요하지 않다.',note:'주어 자리 → whether만 가능. (If ✗)'},
+  {t:'ex',cls:'d',en:'I don\'t know if he [[will arrive]] on time.',ko:'그가 제시간에 도착할지 모르겠다.',note:'명사절 if → 미래 will 그대로. (조건절이 아님)'},
+ ],
+ test:[
+  {type:'mc',lv:'l1',tags:['basic'],q:'빈칸에 알맞은 것은? (~인지)',
+   sent:'I don\u2019t know ___ he is honest.',
+   opts:['that','if','what','which'],ans:1,
+   ex:'"~인지" 명사절 → if (whether도 가능).'},
+  {type:'mc',lv:'l1',tags:['basic'],q:'빈칸에 알맞은 것은?',
+   sent:'I wonder ___ she will come to the party.',
+   opts:['whether','that','what','which'],ans:0,
+   ex:'"올지 (아닐지)" 명사절 → whether (if도 가능).'},
+  {type:'mc',lv:'l2',tags:['subject'],q:'빈칸에 알맞은 것은? (주어 자리)',
+   sent:'___ he passes or not doesn\u2019t matter to me.',
+   opts:['If','Whether','That','What'],ans:1,
+   ex:'주어 자리에는 if 불가 → Whether만 가능.'},
+  {type:'mc',lv:'l2',tags:['prep'],q:'빈칸에 알맞은 것은? (전치사 뒤)',
+   sent:'It depends on ___ you work hard.',
+   opts:['if','whether','that','what'],ans:1,
+   ex:'전치사(on) 뒤에는 if 불가 → whether.'},
+  {type:'mc',lv:'l2',tags:['toinf'],q:'빈칸에 알맞은 것은? (to부정사 앞)',
+   sent:'I\u2019m not sure ___ to go or stay.',
+   opts:['if','whether','that','what'],ans:1,
+   ex:'to부정사 앞에는 if 불가 → whether to go.'},
+  {type:'mc',lv:'l3',tags:['ornot'],q:'빈칸에 알맞은 것은? (or not 바로 앞)',
+   sent:'I don\u2019t know ___ or not she agrees.',
+   opts:['if','whether','that','which'],ans:1,
+   ex:'whether or not은 붙여 쓸 수 있지만 if or not은 불가.'},
+  {type:'mc',lv:'l3',tags:['nounfuture'],q:'빈칸에 알맞은 것은? (명사절)',
+   sent:'I don\u2019t know if he ___ tomorrow.',
+   opts:['comes','will come','came','come'],ans:1,
+   ex:'명사절 if("올지")는 미래 will 그대로 → will come.'},
+  {type:'mc',lv:'l3',tags:['condition'],q:'빈칸에 알맞은 것은? (조건절)',
+   sent:'If it ___ tomorrow, we will cancel the trip.',
+   opts:['rains','will rain','rained','is raining'],ans:0,
+   ex:'조건의 if(부사절)에서는 미래라도 현재시제 → rains.'},
+  {type:'classify',lv:'l4',tags:['judge'],q:'각 빈칸에 if도 가능한지, whether만 가능한지 고르시오.',
+   labels:['whether만 가능','if도 가능'],
+   items:[
+    {en:'It depends on ___ he comes. (전치사 뒤)',ans:0,why:'전치사 뒤 → whether만'},
+    {en:'I don\u2019t know ___ he came. (목적어 자리)',ans:1,why:'동사의 목적어 자리 → if도 가능'}]},
+  {type:'mc',lv:'l4',tags:['error'],q:'밑줄 친 부분을 바르게 고친 것은?',
+   sent:'I asked him if or not he was ready.',
+   opts:['whether or not he was ready','if or not ready','that or not he was','whether he ready or'],ans:0,
+   ex:'if or not 불가 → whether or not he was ready (또는 if he was ready or not).'},
+ ]},
+];
+
+/* ===== DICTATION (4주제 혼합) ===== */
+const DICT=[
+  {en:'I have been waiting for an hour.',ko:'나는 한 시간째 기다리고 있다.'},
+  {en:'It has been raining since this morning.',ko:'아침부터 비가 계속 오고 있다.'},
+  {en:'He is so tired that he cannot walk.',ko:'그는 너무 피곤해서 걸을 수 없다.'},
+  {en:'This is the house where I was born.',ko:'여기가 내가 태어난 집이다.'},
+  {en:'I do not know whether he will come.',ko:'나는 그가 올지 모르겠다.'},
+  {en:'Whether he agrees or not does not matter.',ko:'그가 동의하든 안 하든 중요하지 않다.'}
+];
+
+/* ============================================================
+   ENGINE
+   ============================================================ */
+const LVNAME={l1:'🌱 기초',l2:'🌿 중급',l3:'🌳 중상급',l4:'🏔️ 고2'};
+const NTOPIC=TOPICS.length;
+let cur=0,maxUnlocked=0;
+const wrongLog=[];
+const topicGraded=TOPICS.map(()=>false);
+const topicScore=TOPICS.map(()=>null); // {correct,total}
+const testAns=TOPICS.map(tp=>tp.test.map(q=>q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1));
+
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){
+  if(!('speechSynthesis' in window)){alert('Chrome 브라우저를 권장합니다.');return;}
+  speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.85;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);}
+function speakSlow(text){if(!('speechSynthesis' in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.55;speechSynthesis.speak(u);}
+function spkBtn(text){return `<button class="spk" title="듣기" aria-label="영어 듣기" onclick="speak(this.dataset.say,this)" data-say="${String(text).replace(/"/g,'&quot;')}">🔊</button>`;}
+function plain(s){return s.replace(/\[\[|\]\]/g,'').replace(/<[^>]+>/g,'').replace(/\u00a0/g,' ');}
+function renderEn(s,cls){return s.replace(/\[\[(.+?)\]\]/g,`<span class="hl ${cls||'root'}">$1</span>`);}
+function tgl(btn){const t=btn.nextElementSibling;const open=t.classList.toggle('open');btn.setAttribute('aria-expanded',open);btn.textContent=open?'해석 닫기 ▲':'해석 + 풀이 보기 ▼';}
+
+function renderSteps(){
+  const labels=[...TOPICS.map(t=>t.label),'종합 분석'];
+  const icons=[...TOPICS.map(t=>t.icon),'📊'];
+  document.getElementById('steps').innerHTML=labels.map((lb,i)=>{
+    const lock=i>maxUnlocked;
+    const done=i<NTOPIC?topicGraded[i]:(topicGraded.every(Boolean));
+    return `<button class="step ${i===cur?'cur':''} ${done?'done':''} ${lock?'locked':''}" onclick="go(${i})" ${lock?'aria-disabled="true"':''}>
+      <span class="dot">${lock?'🔒':done?'✓':icons[i]}</span><span class="lb">${lb}</span></button>`;}).join('');}
+function go(i){
+  if(i>maxUnlocked){alert('🔒 이전 주제의 핵심문법시험을 채점하면 열립니다!');return;}
+  window.speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0});}
+
+function cardHTML(c){
+  if(c.t==='h')return `<div class="card"><h3><span class="chip c-${c.chip[1]}">${c.chip[0]}</span>${c.title}</h3>${c.html}</div>`;
+  if(c.t==='ex'){const say=plain(c.en);return `<div class="exc ${c.cls}"><div class="enline"><span class="en">${renderEn(c.en,c.cls)}</span>${spkBtn(say)}</div><button class="tgl" aria-expanded="false" onclick="tgl(this)">해석 + 풀이 보기 ▼</button><div class="trans"><div class="ko">${c.ko}</div><div class="note">${c.note}</div></div></div>`;}
+  return '';}
+
+function logWrong(o){ if(!wrongLog.some(w=>w.q===o.q)) wrongLog.push(o); }
+
+/* ---- topic test render ---- */
+function testHTML(ti){
+  const tp=TOPICS[ti];
+  let body=tp.test.map((q,qi)=>{
+    const sent=q.sent?`<div class="qsent"><div class="enline"><span class="en">${renderEn(q.sent,'root')}</span>${spkBtn(plain(q.sent))}</div></div>`:'';
+    let inner='';
+    if(q.type==='mc'){inner=`<div class="opts">${q.opts.map((o,oi)=>`<button class="opt" id="t-${ti}-${qi}-${oi}" onclick="pick(${ti},${qi},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>`;}
+    else if(q.type==='walk'){inner=q.steps.map((st,si)=>`<div class="walkstep ${si>0?'lockedw':''}" id="tw-${ti}-${qi}-${si}"><div class="wp">${st.p}</div><div class="opts">${st.opts.map((o,oi)=>`<button class="opt" id="t-${ti}-${qi}-${si}-${oi}" onclick="pickWalk(${ti},${qi},${si},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div></div>`).join('');}
+    else{inner=q.items.map((it,k)=>`<div class="selrow"><span class="mark" id="tm-${ti}-${qi}-${k}">·</span>
+      <span class="en" style="flex:1;min-width:180px">${renderEn(it.en,'root')}</span>${spkBtn(plain(it.en))}
+      <select id="ts-${ti}-${qi}-${k}" onchange="testAns[${ti}][${qi}][${k}]=+this.value"><option value="-1">— 선택 —</option>${q.labels.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
+      <div class="fb" id="tf-${ti}-${qi}-${k}" style="flex-basis:100%"></div></div>`).join('');}
+    const tn=q.type==='walk'?'WALK':q.type==='classify'?'SORT':'CHOICE';
+    return `<div class="q" id="tq-${ti}-${qi}"><div class="qno"><span class="ql ${q.lv}">${LVNAME[q.lv]}</span> 문항 ${qi+1} / ${tp.test.length} · ${tn}</div>
+      <div class="qtext">${q.q}</div>${sent}${inner}<div class="fb" id="tfb-${ti}-${qi}"></div></div>`;
+  }).join('');
+  return `<div class="qz"><div class="qz-head"><span class="badge">핵심문법시험</span><b>${tp.label} — 10문항</b></div>
+    ${body}
+    <div style="text-align:center;margin-top:22px"><button class="btn primary" id="gradeBtn-${ti}" onclick="gradeTopic(${ti})">📝 ${tp.label} 채점하기</button></div>
+    <div class="tscore" id="tscore-${ti}"></div>
+    <div class="unlock-banner" id="ub-${ti}"></div></div>`;
+}
+function pick(ti,qi,oi){if(topicGraded[ti])return;testAns[ti][qi]=oi;TOPICS[ti].test[qi].opts.forEach((_,k)=>document.getElementById(`t-${ti}-${qi}-${k}`).classList.toggle('sel',k===oi));}
+function pickWalk(ti,qi,si,oi){if(topicGraded[ti])return;testAns[ti][qi][si]=oi;TOPICS[ti].test[qi].steps[si].opts.forEach((_,k)=>document.getElementById(`t-${ti}-${qi}-${si}-${k}`).classList.toggle('sel',k===oi));const nx=document.getElementById(`tw-${ti}-${qi}-${si+1}`);if(nx)nx.classList.remove('lockedw');}
+
+function gradeTopic(ti){
+  const tp=TOPICS[ti];
+  for(let qi=0;qi<tp.test.length;qi++){const a=testAns[ti][qi];const empty=Array.isArray(a)?a.some(v=>v<0):a<0;
+    if(empty){document.getElementById('tq-'+ti+'-'+qi).scrollIntoView({block:'center'});const f=document.getElementById('tfb-'+ti+'-'+qi);f.className='fb show badf';f.textContent='⚠️ 답하지 않은 부분이 있어요.';return;}}
+  topicGraded[ti]=true;document.getElementById('gradeBtn-'+ti).disabled=true;
+  let correct=0;
+  tp.test.forEach((q,qi)=>{
+    let ok;
+    if(q.type==='mc'){ok=testAns[ti][qi]===q.ans;q.opts.forEach((_,k)=>{const el=document.getElementById(`t-${ti}-${qi}-${k}`);el.disabled=true;if(k===q.ans)el.classList.add('right');else if(k===testAns[ti][qi])el.classList.add('wrong');});const f=document.getElementById(`tfb-${ti}-${qi}`);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 정답! ':'❌ 오답. ')+q.ex;if(!ok)logWrong({q:q.q+' '+(q.sent?'['+plain(q.sent)+']':''),opts:q.opts,ans:q.ans,ex:q.ex});}
+    else if(q.type==='walk'){ok=q.steps.every((st,si)=>testAns[ti][qi][si]===st.ans);q.steps.forEach((st,si)=>st.opts.forEach((_,k)=>{const el=document.getElementById(`t-${ti}-${qi}-${si}-${k}`);el.disabled=true;if(k===st.ans)el.classList.add('right');else if(k===testAns[ti][qi][si])el.classList.add('wrong');}));const f=document.getElementById(`tfb-${ti}-${qi}`);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 완벽한 분석! ':'❌ 분석 오류. ')+q.ex;if(!ok)logWrong({q:q.q+' ['+plain(q.sent)+']',opts:q.steps[0].opts,ans:q.steps[0].ans,ex:q.ex});}
+    else{ok=q.items.every((it,k)=>testAns[ti][qi][k]===it.ans);q.items.forEach((it,k)=>{const f=document.getElementById(`tf-${ti}-${qi}-${k}`),m=document.getElementById(`tm-${ti}-${qi}-${k}`);document.getElementById(`ts-${ti}-${qi}-${k}`).disabled=true;const good=testAns[ti][qi][k]===it.ans;m.textContent=good?'✅':'❌';f.className='fb show '+(good?'good':'badf');f.innerHTML=`<b>${q.labels[it.ans]}</b> — ${it.why}`;});const f=document.getElementById(`tfb-${ti}-${qi}`);f.className='fb show '+(ok?'good':'badf');f.innerHTML=ok?'✅ 분류 정확!':'❌ 위 해설 확인.';if(!ok)logWrong({q:q.q,opts:q.labels,ans:q.items[0].ans,ex:'각 문장이 어떤 경우인지 다시 확인하세요.'});}
+    if(ok)correct++;
+  });
+  topicScore[ti]={correct,total:tp.test.length};
+  const pct=Math.round(correct/tp.test.length*100);
+  const col=pct>=80?'var(--c-bg)':pct>=60?'var(--b-bg)':'#FBE5E1';
+  const ts=document.getElementById('tscore-'+ti);ts.className='tscore show';ts.style.background=col;
+  ts.innerHTML=`<div class="big">${correct} / ${tp.test.length}</div><div>${tp.label} 정답률 ${pct}%</div>`;
+  if(ti+1>maxUnlocked)maxUnlocked=ti+1;
+  const ub=document.getElementById('ub-'+ti);ub.classList.add('show');
+  if(ti<NTOPIC-1){ub.innerHTML=`다음 주제가 열렸어요! <button class="btn primary" style="padding:8px 18px" onclick="go(${ti+1})">${TOPICS[ti+1].label} →</button>`;}
+  else{ub.innerHTML=`모든 주제 완료! <button class="btn primary" style="padding:8px 18px" onclick="go(${NTOPIC})">📊 종합 분석 보기 →</button>`;}
+  renderSteps();
+  if(topicGraded.every(Boolean))renderSummary();
+  ub.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+/* ---- summary ---- */
+function renderSummary(){
+  const host=document.getElementById('summaryBody');
+  if(!topicGraded.every(Boolean)){host.innerHTML=`<div class="locked-note">🔒 네 주제의 핵심문법시험을 모두 채점하면<br>여기에서 종합 분석을 볼 수 있어요.</div>`;return;}
+  const totalC=topicScore.reduce((a,s)=>a+s.correct,0);
+  const totalN=topicScore.reduce((a,s)=>a+s.total,0);
+  const pct=Math.round(totalC/totalN*100);
+  const grade=pct>=90?['🥇 4과 핵심문법 완전 정복','네 영역 모두 탄탄합니다!']
+    :pct>=75?['🥈 우수','약한 영역만 보완하면 완벽해요.']
+    :pct>=60?['🥉 기본 완성','심화 포인트를 다시 짚어보세요.']
+    :['🌱 개념 재학습 권장','헷갈림 박스(⭐)부터 다시 보세요.'];
+  const colors=['var(--c)','var(--b)','var(--e)','var(--d)'];
+  const bars=TOPICS.map((tp,i)=>{
+    const s=topicScore[i];const p=Math.round(s.correct/s.total*100);
+    return `<div class="bb"><div class="bl"><span>${tp.icon} ${tp.label}</span><span>${s.correct} / ${s.total} · ${p}%</span></div>
+      <div class="track"><div class="fill" style="background:${colors[i]}" data-w="${p}%"></div></div></div>`;}).join('');
+  const diag=TOPICS.map((tp,i)=>{
+    const p=Math.round(topicScore[i].correct/topicScore[i].total*100);
+    const v=p>=80?['🟢','탄탄해요']:p>=60?['🟡','한 번 더 점검']:['🔴','집중 복습 필요'];
+    return `<div class="row"><span class="ic">${v[0]}</span><span><b>${tp.label}</b> ${p}% — ${v[1]}</span></div>`;}).join('');
+  const weak=TOPICS.map((tp,i)=>({n:tp.label,p:topicScore[i].correct/topicScore[i].total})).sort((a,b)=>a.p-b.p)[0];
+  host.innerHTML=`<div class="sumcard">
+    <div class="sumtotal"><div class="big">${totalC} / ${totalN}</div><div class="grade">${grade[0]}</div><p style="font-size:.92rem;color:var(--sub);margin-top:4px">${grade[1]}</p></div>
+    ${bars}
+    <div class="diag"><div style="font-weight:800;margin-bottom:4px">📋 영역별 진단</div>${diag}
+      <div class="row" style="margin-top:8px;border-top:1px dashed var(--line);padding-top:8px"><span class="ic">🎯</span><span>가장 약한 영역: <b>${weak.n}</b> — 아래 오답 복습으로 집중 보완하세요.</span></div>
+    </div>
+  </div>
+  <div id="reviewArea"></div>
+  <div id="dictArea"></div>`;
+  renderReview();renderDictation();
+  requestAnimationFrame(()=>setTimeout(()=>host.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w),60));
+}
+
+/* ---- adaptive review ---- */
+let reviewQueue=[];
+function renderReview(){
+  const area=document.getElementById('reviewArea');if(!area)return;
+  if(wrongLog.length===0){area.innerHTML=`<div class="empty-review">🎉 틀린 문항이 없어요! 40문항을 모두 맞혔습니다. 완벽해요.</div>`;return;}
+  reviewQueue=wrongLog.map((w,i)=>i);
+  area.innerHTML=`<div class="review-box"><div class="rh"><span class="pb">🔁 ADAPTIVE</span>오답 집중 복습 — 틀린 ${wrongLog.length}문항</div>
+    <p style="font-size:.86rem;color:var(--sub);margin-bottom:8px">네 주제에서 틀린 문제만 모았어요. 모두 맞히면 복습이 끝납니다. (틀리면 큐 뒤로 다시 들어가요.)</p>
+    <div id="reviewSlot"></div></div>`;
+  showReview();
+}
+function showReview(){
+  const slot=document.getElementById('reviewSlot');if(!slot)return;
+  if(reviewQueue.length===0){slot.innerHTML=`<div class="empty-review">✅ 오답 복습 완료! 약점을 모두 극복했어요. 👏</div>`;return;}
+  const w=wrongLog[reviewQueue[0]];
+  slot.innerHTML=`<div class="q" style="border:none"><div class="qno">남은 복습 ${reviewQueue.length}문항</div><div class="qtext">${w.q}</div>
+    <div class="opts">${w.opts.map((o,oi)=>`<button class="opt" id="rv-${oi}" onclick="reviewPick(${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>
+    <div class="fb" id="rvfb"></div></div>`;
+}
+function reviewPick(oi){
+  const w=wrongLog[reviewQueue[0]];const fb=document.getElementById('rvfb');const opts=document.querySelectorAll('#reviewSlot .opt');
+  if(oi===w.ans){opts.forEach((o,k)=>{o.disabled=true;if(k===w.ans)o.classList.add('right');});
+    fb.className='fb show good';fb.innerHTML='✅ 정답! '+w.ex+'<br><button class="btn primary" style="margin-top:10px;padding:8px 18px" onclick="reviewNext(true)">다음 →</button>';
+  }else{opts[oi].classList.add('wrong');fb.className='fb show badf';fb.innerHTML='❌ 다시. 이 문제는 큐 뒤로 갑니다.<br><button class="btn ghost" style="margin-top:10px;padding:8px 18px" onclick="reviewNext(false)">계속 →</button>';}
+}
+function reviewNext(correct){const wi=reviewQueue.shift();if(!correct)reviewQueue.push(wi);showReview();}
+
+/* ---- dictation ---- */
+function renderDictation(){
+  const area=document.getElementById('dictArea');if(!area)return;
+  area.innerHTML=`<div class="dict"><div class="dict-h"><span class="pb">✍️ DICTATION</span>받아쓰기 — 듣고 그대로 입력하세요</div>
+    <div class="dict-sub">🔊로 문장을 듣고 영어로 정확히 타이핑한 뒤 [채점]을 누르세요. 단어별로 맞고 틀림을 보여줍니다.</div>
+    ${DICT.map((d,i)=>`<div class="dict-item">
+      <div class="dict-controls">
+        <button class="pbtn" onclick="speak(this.dataset.say,null)" data-say="${d.en.replace(/"/g,'&quot;')}">🔊 듣기</button>
+        <button class="pbtn" onclick="speakSlow(this.dataset.say)" data-say="${d.en.replace(/"/g,'&quot;')}">🐢 천천히</button>
+        <span class="hint">힌트: ${d.ko}</span></div>
+      <input class="dict-input" id="di-${i}" type="text" placeholder="여기에 들은 문장을 입력..." autocomplete="off" spellcheck="false">
+      <button class="dict-check" onclick="checkDict(${i})">채점하기</button>
+      <div class="dict-result" id="dr-${i}"></div></div>`).join('')}
+  </div>`;
+}
+function normWord(w){return w.toLowerCase().replace(/[.,!?;:'"]/g,'');}
+function checkDict(i){
+  const d=DICT[i];const input=document.getElementById('di-'+i).value.trim();const res=document.getElementById('dr-'+i);
+  const ansWords=d.en.split(/\s+/);const inWords=input.split(/\s+/).filter(x=>x);let correct=0;
+  const toks=ansWords.map((aw,k)=>{const iw=inWords[k]||'';const ok=normWord(iw)===normWord(aw);if(ok)correct++;return `<span class="tok ${ok?'ok':'no'}">${iw||'∅'}</span>`;}).join(' ');
+  const pct=Math.round(correct/ansWords.length*100);
+  res.className='dict-result show';
+  res.innerHTML=`<div>${toks}</div><div class="dict-score" style="color:${pct===100?'var(--ok)':pct>=60?'var(--b)':'var(--bad)'}">${pct===100?'🎉 완벽!':'정확도 '+pct+'%'} (${correct}/${ansWords.length} 단어)</div><div class="ans">정답: <b>${d.en}</b></div>`;
+}
+
+/* ---- build ---- */
+function renderAll(){
+  let html='';
+  TOPICS.forEach((tp,i)=>{
+    const cards=tp.cards.map(cardHTML).join('');
+    html+=`<section class="stage ${i===cur?'show':''}" id="st${i}">
+      <h2 class="stitle">${tp.title} <span class="lvchip ${tp.titleLv}">${LVNAME[tp.titleLv]}</span></h2>
+      <p class="ssub">${tp.sub}</p>${cards}${testHTML(i)}
+      <div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전 주제</button>`:'<span></span>'}<span style="font-size:.78rem;color:var(--sub)">${i+1} / ${NTOPIC}</span></div>
+    </section>`;
+  });
+  html+=`<section class="stage ${cur===NTOPIC?'show':''}" id="st${NTOPIC}">
+    <h2 class="stitle">📊 종합 분석 <span class="lvchip l4">전체</span></h2>
+    <p class="ssub">네 주제의 점수를 종합해 어느 영역이 탄탄하고 어디가 약한지 진단합니다. 그다음 오답 복습과 받아쓰기로 마무리하세요.</p>
+    <div id="summaryBody"></div></section>`;
+  document.getElementById('main').innerHTML=html;
+  renderSteps();renderSummary();
+}
+renderAll();
+</script>
+</body>
+</html>
