@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>동아윤 2학년 4단원 Are You Money Smart? 문법</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F0;--card:#FFFFFF;--ink:#23272F;--sub:#727784;--line:#E7E2D6;
+  --root:#1F3A5F;--root-bg:#E8EEF6;
+  --b:#B8860B;--b-bg:#FEF8E1;
+  --c:#1E7A5A;--c-bg:#E2F3EB;
+  --d:#C84F2F;--d-bg:#FBE8E0;
+  --e:#5D4FA3;--e-bg:#EBE7F8;
+  --hl:#FFE45C;--ok:#1E7A5A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;
+  background-image:radial-gradient(#e9e4d6 1px,transparent 1px);background-size:26px 26px;}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 90px}
+header{padding:38px 0 10px;text-align:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.18em;color:var(--root);border:1.5px solid var(--root);border-radius:999px;padding:3px 14px;margin-bottom:14px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.9rem,6vw,2.7rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:10px;font-size:.95rem}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin:22px -16px 0;padding:10px 8px}
+.steps{display:flex;justify-content:center;gap:4px;max-width:780px;margin:0 auto}
+.step{flex:1;max-width:118px;border:none;background:transparent;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.68rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,39,47,.12)}
+.step.cur .lb{color:var(--ink)}
+.step.done .dot{background:var(--ink);border-color:var(--ink);color:#fff}
+.step.locked{opacity:.42;cursor:not-allowed}
+.step:not(.locked):hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:26px 0 8px;font-size:.8rem;font-weight:700}
+.path .crumb{padding:2px 10px;border-radius:999px;background:#fff;border:1.5px solid var(--line)}
+.path .crumb.on-root{border-color:var(--root);color:var(--root);background:var(--root-bg)}
+.path .crumb.on-b{border-color:var(--b);color:var(--b);background:var(--b-bg)}
+.path .crumb.on-c{border-color:var(--c);color:var(--c);background:var(--c-bg)}
+.path .crumb.on-d{border-color:var(--d);color:var(--d);background:var(--d-bg)}
+.path .crumb.on-e{border-color:var(--e);color:var(--e);background:var(--e-bg)}
+.path .sep{color:var(--sub)}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.55rem;margin:4px 0 4px}
+.ssub{color:var(--sub);font-size:.93rem;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin:14px 0;box-shadow:0 1px 3px rgba(40,35,20,.05)}
+.card h3{font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card h3 .chip{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.chip.c-root{background:var(--root-bg);color:var(--root)}.chip.c-b{background:var(--b-bg);color:var(--b)}
+.chip.c-c{background:var(--c-bg);color:var(--c)}.chip.c-d{background:var(--d-bg);color:var(--d)}.chip.c-e{background:var(--e-bg);color:var(--e)}
+.card p{margin:6px 0}.card ul{margin:6px 0 6px 20px}
+.kw{font-weight:700}.kw.b{color:var(--b)}.kw.c{color:var(--c)}.kw.d{color:var(--d)}.kw.e{color:var(--e)}.kw.root{color:var(--root)}
+.test-box{margin-top:12px;border:1.5px dashed var(--ink);border-radius:10px;padding:12px 14px;background:#FFFDF4;font-size:.92rem}
+.test-box b{display:block;margin-bottom:2px}
+.enline{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.en{font-family:'Lora',serif;font-size:1.12rem;line-height:1.7}
+.hl{padding:1px 3px;border-radius:3px;font-weight:600;background:linear-gradient(180deg,transparent 30%,var(--hl) 30%)}
+.hl.b{box-shadow:inset 0 -2.5px 0 var(--b)}.hl.c{box-shadow:inset 0 -2.5px 0 var(--c)}
+.hl.d{box-shadow:inset 0 -2.5px 0 var(--d)}.hl.e{box-shadow:inset 0 -2.5px 0 var(--e)}.hl.root{box-shadow:inset 0 -2.5px 0 var(--root)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:34px;height:34px;cursor:pointer;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--ink)}.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.exc{border-left:4px solid var(--line);padding:12px 16px;margin:12px 0;background:#fff;border-radius:0 10px 10px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.exc.b{border-left-color:var(--b)}.exc.c{border-left-color:var(--c)}.exc.d{border-left-color:var(--d)}.exc.e{border-left-color:var(--e)}.exc.root{border-left-color:var(--root)}
+.tgl{margin-top:8px;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:4px 12px;font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--sub)}
+.tgl:hover{border-color:var(--ink);color:var(--ink)}.tgl[aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.trans{display:none;margin-top:9px;font-size:.9rem;background:#F7F5EE;border-radius:8px;padding:9px 12px}.trans.open{display:block}
+.trans .ko{font-weight:600}.trans .note{color:var(--sub);font-size:.85rem;margin-top:3px}
+/* formula box */
+.fbox{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0;padding:12px 16px;background:#fff;border:2px solid var(--ink);border-radius:12px;font-family:'Lora',serif}
+.fbox .seg{padding:4px 10px;border-radius:8px;font-weight:700;font-size:.95rem}
+.fbox .plus{color:var(--sub);font-size:1.1rem}
+.tree{padding:6px 0 6px 4px}.tree ul{list-style:none;padding-left:26px;position:relative}.tree>ul{padding-left:0}
+.tree ul ul::before{content:"";position:absolute;left:8px;top:-8px;bottom:14px;border-left:2px solid var(--line)}
+.tree li{position:relative;padding:5px 0}
+.tree ul ul li::before{content:"";position:absolute;left:-18px;top:21px;width:16px;border-top:2px solid var(--line)}
+.node{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.8px solid var(--line);border-radius:10px;padding:5px 12px;font-weight:600;font-size:.9rem;cursor:pointer;transition:.18s;font-family:inherit}
+.node .e{font-family:'Lora',serif;font-weight:400;font-style:italic;color:var(--sub);font-size:.82rem}
+.node:hover{transform:translateX(2px)}.node.nd-root{border-color:var(--root);background:var(--root-bg)}
+.node.nd-b{border-color:var(--b);background:var(--b-bg)}.node.nd-c{border-color:var(--c);background:var(--c-bg)}
+.node.nd-d{border-color:var(--d);background:var(--d-bg)}.node.nd-e{border-color:var(--e);background:var(--e-bg)}
+.node.leaf{border-style:dashed;font-family:'Lora',serif;font-style:italic;font-weight:600}
+.qz{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:20px 22px;margin:26px 0;box-shadow:4px 4px 0 rgba(35,39,47,.9)}
+.qz-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.qz-head .badge{background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:999px}
+.q{margin:18px 0;padding-top:16px;border-top:1px dashed var(--line)}.q:first-of-type{border-top:none}
+.qno{font-weight:700;font-size:.8rem;color:var(--sub);margin-bottom:4px}.qtext{font-weight:600;margin-bottom:10px}
+.qsent{margin:8px 0 12px;padding:10px 14px;background:#F7F5EE;border-radius:10px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;font-family:inherit;font-size:.92rem;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:9px 13px;cursor:pointer;transition:.15s;line-height:1.55}
+.opt:hover:not(:disabled){border-color:var(--ink)}.opt.sel{border-color:var(--ink);background:#F2F0E8;box-shadow:inset 0 0 0 1px var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--c-bg);box-shadow:inset 0 0 0 1px var(--ok)}
+.opt.wrong{border-color:var(--bad);background:#FBE5E1;box-shadow:inset 0 0 0 1px var(--bad);animation:shake .3s}
+.opt:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.fb{display:none;margin-top:9px;font-size:.87rem;border-radius:8px;padding:9px 12px}.fb.show{display:block}
+.fb.good{background:var(--c-bg);border:1px solid var(--ok)}.fb.badf{background:#FBE5E1;border:1px solid var(--bad)}
+.selrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:9px 0;padding:9px 12px;background:#fff;border:1.5px solid var(--line);border-radius:10px}
+.selrow select{font-family:inherit;font-size:.88rem;padding:5px 8px;border-radius:8px;border:1.5px solid var(--line);background:#fff}
+.selrow .mark{font-weight:700;min-width:22px;text-align:center}
+.walkstep{margin:12px 0;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.walkstep .wp{font-weight:600;font-size:.9rem;margin-bottom:8px}.walkstep.lockedw{opacity:.45;pointer-events:none}
+.btn{font-family:inherit;font-weight:700;font-size:.95rem;border:none;border-radius:12px;padding:12px 26px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:3px 3px 0 rgba(35,39,47,.35)}
+.btn.primary:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 rgba(35,39,47,.35)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:28px 0 10px;gap:10px}
+.unlock-banner{display:none;align-items:center;gap:10px;margin-top:16px;background:var(--c-bg);border:1.5px solid var(--ok);border-radius:12px;padding:12px 16px;font-weight:600;animation:fadeUp .4s ease}
+.unlock-banner.show{display:flex}
+.score-wrap{text-align:center;padding:10px 0 4px}.score-big{font-family:'Black Han Sans',sans-serif;font-size:3.2rem;line-height:1.1}
+.grade{font-weight:700;margin-top:2px}.branchbars{margin:18px 0 6px;text-align:left}.bb{margin:10px 0}
+.bb .bl{display:flex;justify-content:space-between;font-size:.83rem;font-weight:700;margin-bottom:4px}
+.bb .track{height:12px;background:#EFEBDF;border-radius:99px;overflow:hidden}
+.bb .fill{height:100%;border-radius:99px;width:0;transition:width .8s ease}
+.advice{margin-top:14px;font-size:.9rem;background:#F7F5EE;border-radius:10px;padding:12px 14px;text-align:left}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:46px}
+@media(max-width:520px){.card,.qz{padding:16px 14px}.step .lb{font-size:.6rem}.en{font-size:1.02rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">동아윤 2학년 · 4단원 · ARE YOU MONEY SMART?</div>
+  <h1>Are You Money Smart? <span class="mark">문법</span></h1>
+  <p class="tagline">주격 관계대명사 & 접속사 if · unless — 개념확인 → 실전적용 → 통합검증<br>🔊 버튼으로 모든 영어 예문을 들어보세요.</p>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>동아윤 2학년 4단원 Are You Money Smart? 문법 · 문법 3단계 검증 시스템 · Web Speech API 듣기</footer>
+</div>
+<script>
+/* ===== DATA ===== */
+const TREE={k:'Lesson 4 문법',e:'Grammar',c:'root',kids:[
+  {k:'주격 관계대명사',e:'Subject Relative Pronoun',c:'d',kids:[
+    {k:'역할',e:'접속사 + 대명사',c:'d',kids:[{leaf:'두 문장 연결 + 선행사 수식',say:'connects two sentences and modifies the antecedent'}]},
+    {k:'형태',e:'who / which / that',c:'d',kids:[{leaf:'사람 → who',say:'who for people'},{leaf:'사물·동물 → which',say:'which for things'},{leaf:'사람·사물·동물 → that',say:'that for all'}]},
+    {k:'시험 포인트',e:'Agreement',c:'e',kids:[{leaf:'동사는 선행사의 수에 일치',say:'verb agrees with the antecedent'},{leaf:'시제는 원래 문장 따름',say:'tense follows the original sentence'}]},
+    {k:'that만 가능',e:'that only',c:'e',kids:[{leaf:'사람+동물 / 사람+사물',say:'people and animals'},{leaf:'최상급·서수·한정사',say:'superlative ordinal all every only'},{leaf:'부정대명사 선행사',say:'indefinite pronoun'}]}
+  ]},
+  {k:'접속사 if',e:'Conjunction if',c:'c',kids:[
+    {k:'의미',e:'만약 ~라면 (조건)',c:'c',kids:[{leaf:'조건 부사절을 이끔',say:'leads a conditional adverb clause'}]},
+    {k:'시험 포인트',e:'현재시제 = 미래대용',c:'b',kids:[{leaf:'if절은 미래도 현재시제로!',say:'use present tense for future in if clause'}]},
+    {k:'unless',e:'= if ... not',c:'e',kids:[{leaf:'unless = ~하지 않는 한',say:'unless means if not'},{leaf:'unless절에 not 중복 금지',say:'do not use not in unless clause'}]}
+  ]}
+]};
+
+const STAGES=[
+/* ── 0 큰 그림 ── */
+{id:'map',icon:'🌳',label:'큰 그림',pathArr:[['Lesson 4 문법','root']],
+ title:'1단계 · 큰 그림 — 본문 속 두 문법',
+ sub:'본문 문장 두 개가 모든 것의 뿌리입니다. 먼저 숲 전체를 본 뒤 한 가지씩 검증합니다.',
+ cards:[
+  {t:'h',chip:['지도','root'],title:'본문에서 나온 두 문법',html:
+   `<p>이 단원의 핵심 문법은 본문(Are You Money Smart?) 문장 두 개에 들어 있습니다.</p>
+    <ul><li><span class="kw d">주격 관계대명사</span> — <i>There are marketing strategies <b>which</b> influence your decisions.</i></li>
+        <li><span class="kw c">접속사 if</span> — <i><b>If</b> a product becomes hot, people naturally want to have it.</i></li></ul>
+    <div class="test-box"><b>🔑 두 나무의 핵심 질문</b>① 관계대명사: 선행사가 <b>사람? 사물?</b> 그리고 절 안에서 <b>주어 역할</b>인가? → who/which/that<br>② if: 조건 부사절 안에서 미래의 일을 <b>현재시제</b>로 쓰는가?</div>`},
+  {t:'ex',cls:'d',en:'There are marketing strategies [[which]] influence your decisions.',ko:'너의 결정에 영향을 주는 마케팅 전략들이 있다.',note:'선행사 strategies(사물,복수) + which가 절 안에서 주어 역할 → 주격 관계대명사. 동사 influence는 복수 일치.'},
+  {t:'ex',cls:'c',en:'[[If]] a product becomes hot, people naturally want to have it.',ko:'제품이 인기를 얻게 되면, 사람들은 자연스럽게 그것을 갖고 싶어 한다.',note:'조건 부사절 if: 만약 ~라면. becomes(현재시제)로 막연한 미래/일반적 사실을 나타냄.'},
+  {t:'tree'},
+ ],
+ cp:[
+  {q:'"There are marketing strategies which influence your decisions."에서 which가 주격 관계대명사인 이유는?',
+   opts:['which가 항상 주격이기 때문','which가 이끄는 절 안에서 선행사(strategies)가 주어 역할을 하기 때문','strategies가 복수이기 때문','문장 맨 앞에 있기 때문'],
+   ans:1,ex:'관계대명사가 이끄는 절에서 선행사가 주어 역할을 하면 주격입니다. which influence... 에서 influence의 주어가 비어 있고 strategies가 그 자리를 채웁니다.'},
+  {q:'"If a product becomes hot, ..."에서 becomes(현재시제)를 쓴 이유는?',
+   opts:['과거의 일이기 때문','조건의 if 부사절에서는 미래의 일도 현재시제로 쓰기 때문','becomes가 불규칙 동사이기 때문','product가 단수이기 때문'],
+   ans:1,ex:'시간·조건의 부사절에서는 미래라도 현재시제를 씁니다. If a product will become hot(✗) → becomes(○). 이것이 if의 1순위 시험 포인트입니다.'}
+ ]},
+
+/* ── 1 관계대명사 형태 (개념 확인) ── */
+{id:'rel-form',icon:'🔤',label:'관·대 형태',pathArr:[['Lesson 4 문법','root'],['주격 관계대명사','d'],['형태','d']],
+ title:'2단계 · 주격 관계대명사 — who / which / that',
+ sub:'개념 확인: 선행사가 사람인지 사물인지, 그리고 두 문장이 어떻게 하나로 합쳐지는지 정확히 잡습니다.',
+ cards:[
+  {t:'h',chip:['개념','d'],title:'관계대명사 = 접속사 + 대명사',html:
+   `<p>관계대명사는 <b>두 문장을 연결하는 접속사</b>인 동시에 <b>공통 대상(선행사)을 대신하는 대명사</b>입니다. 절은 선행사를 꾸미는 <b>형용사</b> 역할을 합니다.</p>
+    <div class="test-box"><b>🔧 두 문장 → 한 문장</b>He has some friends. + <b>They</b> speak French.<br>→ He has some friends <b>who[that]</b> speak French.<br>(공통 대상 some friends = 선행사, They를 관계대명사로!)</div>`},
+  {t:'h',chip:['형태표','d'],title:'선행사에 따른 형태',html:
+   `<ul><li>선행사가 <b>사람</b> → <span class="kw d">who</span></li>
+        <li>선행사가 <b>사물·동물</b> → <span class="kw d">which</span></li>
+        <li>사람·사물·동물 모두 → <span class="kw d">that</span></li></ul>`},
+  {t:'ex',cls:'d',en:'I like people [[who/that]] do their best in everything.',ko:'나는 모든 면에서 최선을 다하는 사람을 좋아한다.',note:'선행사 people(사람) → who 또는 that. 절 안에서 주어 역할.'},
+  {t:'ex',cls:'d',en:'Tim is the actor [[who/that]] starred in this movie.',ko:'Tim은 이 영화에서 주연을 맡았던 배우다.',note:'선행사 the actor(사람) → who/that.'},
+  {t:'ex',cls:'d',en:'Are there any flowers [[which/that]] look like cups?',ko:'컵처럼 생긴 꽃이 있나요?',note:'선행사 flowers(사물) → which/that. 복수 선행사 → 동사 look.'},
+  {t:'ex',cls:'d',en:"I'm reading the letter [[which/that]] came yesterday.",ko:'나는 어제 온 편지를 읽고 있다.',note:'I am reading the letter. + It came yesterday. → It을 which/that으로.'},
+ ],
+ cp:[
+  {q:'"Ms. Song ( who / which ) teaches English is very kind."에서 알맞은 것은?',
+   opts:['who — 선행사 Ms. Song이 사람이기 때문','which — teaches가 동사이기 때문','which — English가 사물이기 때문','둘 다 가능'],
+   ans:0,ex:'선행사 Ms. Song은 사람이므로 who(또는 that). which는 사물·동물에만 씁니다.'},
+  {q:'"He has some friends. + They speak French." 두 문장을 옳게 결합한 것은?',
+   opts:['He has some friends who they speak French.','He has some friends who speak French.','He has some friends which speak French.','He has some friends speak French.'],
+   ans:1,ex:'They를 관계대명사 who로 바꿔 연결합니다. ①처럼 they를 남기면 주어 중복(✗). 선행사가 사람이므로 which(✗).'}
+ ]},
+
+/* ── 2 관계대명사 수일치·시제 (개념 핵심) ── */
+{id:'rel-agr',icon:'⚖️',label:'수일치·시제',pathArr:[['Lesson 4 문법','root'],['주격 관계대명사','d'],['시험 포인트','e']],
+ title:'3단계 · 핵심 검증 — 동사 수일치 & 시제',
+ sub:'가장 자주 틀리는 핵심! 관계대명사절 동사는 선행사의 수에, 시제는 원래 문장에 맞춥니다.',
+ cards:[
+  {t:'h',chip:['수일치','e'],title:'관계대명사절 동사 = 선행사의 수에 일치',html:
+   `<p>주격 관계대명사절의 동사는 <b>선행사의 수(단수/복수)</b>를 따릅니다. 관계대명사 자체가 아니라 <b>선행사</b>를 봐야 합니다!</p>
+    <ul><li>선행사 단수 → 단수동사: <i>the letter which <b>comes</b></i></li>
+        <li>선행사 복수 → 복수동사: <i>strategies which <b>influence</b></i></li></ul>`},
+  {t:'ex',cls:'e',en:'There are marketing strategies [[which influence]] your decisions.',ko:'너의 결정에 영향을 주는 마케팅 전략들이 있다.',note:'선행사 strategies(복수) → influence(복수동사). influences(✗).'},
+  {t:'ex',cls:'e',en:'Ms. Song [[who teaches]] English is very kind.',ko:'영어를 가르치는 송 선생님은 매우 친절하다.',note:'선행사 Ms. Song(단수) → teaches(단수동사).'},
+  {t:'h',chip:['시제','e'],title:'시제는 원래 문장의 시제를 따름',html:
+   `<p>관계대명사절의 시제는 <b>원래 두 번째 문장의 시제</b>를 그대로 씁니다. 앞 문장(주절)과 일치시킬 필요가 없습니다.</p>
+    <div class="test-box"><b>💡 주의</b>I'm reading the letter <b>which came</b> yesterday.<br>주절은 현재진행(am reading)이지만, 관계사절은 과거(came) 그대로! yesterday가 과거를 알려줍니다.</div>`},
+  {t:'ex',cls:'e',en:'Tim is the actor [[who starred]] in this movie.',ko:'Tim은 이 영화에서 주연을 맡았던 배우다.',note:'주절은 현재(is)지만 관계사절은 과거(starred). 시제 불일치가 정상!'},
+ ],
+ cp:[
+  {q:'"The books which ___ on the desk are mine." 빈칸으로 옳은 것과 이유는?',
+   opts:['is — 관계대명사 which는 단수이므로','are — 선행사 books가 복수이므로 복수동사','was — 과거이므로','am — 1인칭이므로'],
+   ans:1,ex:'관계대명사절 동사는 선행사(books, 복수)에 일치 → are. which를 단수로 착각하면 안 됩니다.'},
+  {q:'"This is the cake which my mom ___ yesterday."(어제 만든) 빈칸은?',
+   opts:['makes','made','will make','is making'],
+   ans:1,ex:'yesterday(어제)가 있으므로 과거 made. 관계사절 시제는 원래 시점(과거)을 따릅니다. 주절(is)과 일치시킬 필요 없음.'}
+ ]},
+
+/* ── 3 that만 가능 (개념 심화) ── */
+{id:'rel-that',icon:'⭐',label:'that만 가능',pathArr:[['Lesson 4 문법','root'],['주격 관계대명사','d'],['that만 가능','e']],
+ title:'4단계 · that만 쓰는 경우 — 함정 모음',
+ sub:'who/which를 못 쓰고 that만 허용되는 3가지 경우. 시험 단골 함정입니다.',
+ cards:[
+  {t:'h',chip:['that 전용','e'],title:'관계대명사 that만 허용되는 3가지',html:
+   `<ul><li>① 선행사가 <b>사람+동물</b> 또는 <b>사람+사물</b></li>
+        <li>② 선행사에 <b>최상급·서수·한정사</b>(all, every, only, some, much, little 등) 포함</li>
+        <li>③ 선행사가 <b>부정대명사</b>(something, anything, nothing...) </li></ul>`},
+  {t:'ex',cls:'e',en:'Look at the boy and his dog [[that]] are running in the park.',ko:'공원에서 달리고 있는 남학생과 그의 개를 봐.',note:'선행사 = 사람(the boy)+동물(his dog) → that만! who/which 불가. (that are 생략 가능)'},
+  {t:'ex',cls:'e',en:'There was little [[that]] interested her at the party.',ko:'파티에서 그녀의 흥미를 끄는 것이 거의 없었다.',note:'선행사에 한정사 little 포함 → that. which interested(✗).'},
+  {t:'ex',cls:'e',en:'I described the people and the places [[that]] inspire me.',ko:'나는 나에게 영감을 주는 사람들과 장소들을 묘사했다.',note:'선행사 = 사람(people)+사물(places) → that만 가능.'},
+  {t:'cpClassify',intro:'⛳ that 전용 판별 — 각 선행사에 who/which를 쓸 수 있나요? (5개 모두 정답이어야 다음 단계)',
+   items:[
+   {en:'the boy and his dog that are running',ans:2,why:'사람+동물 → that만 (who·which 불가)'},
+   {en:'Ms. Song who teaches English',ans:0,why:'사람 단독 → who 가능'},
+   {en:'the letter which came yesterday',ans:1,why:'사물 단독 → which 가능'},
+   {en:'little that interested her',ans:2,why:'한정사 little 포함 → that만'},
+   {en:'the people and the places that inspire me',ans:2,why:'사람+사물 → that만'}
+  ]}
+ ]},
+
+/* ── 4 if / unless (개념 핵심 + 함정) ── */
+{id:'if',icon:'🔀',label:'if / unless',pathArr:[['Lesson 4 문법','root'],['접속사 if','c']],
+ title:'5단계 · 접속사 if & unless — 조건의 핵심',
+ sub:'if절의 현재시제(미래 대용)와 unless(= if not)가 핵심. unless에 not 중복은 최대 함정입니다.',
+ cards:[
+  {t:'h',chip:['if 핵심','b'],title:'if 부사절 = 미래도 현재시제로!',html:
+   `<p>접속사 if는 "만약 ~라면"으로 조건을 나타냅니다. 막연한 미래, 보편적 진리(습관), 과학적 사실, 자연 법칙을 진술합니다.</p>
+    <div class="test-box"><b>🚨 1순위 시험 포인트</b>if 부사절은 미래의 상황이라도 <b>현재시제</b>로 씁니다.<br>If it <b>will rain</b> tomorrow (✗) → If it <b>rains</b> tomorrow (○)</div>`},
+  {t:'ex',cls:'b',en:"You will miss the subway [[if you don't leave]] now.",ko:'지금 출발하지 않으면, 너는 지하철을 놓칠 것이다.',note:"주절은 미래(will miss), if절은 현재(don't leave). 조건절은 현재시제!"},
+  {t:'ex',cls:'b',en:'[[If it rains]] tomorrow, I will stay home.',ko:'내일 비가 오면, 나는 집에 머물 것이다.',note:'tomorrow(미래)지만 if절은 rains(현재). If it will rain(✗).'},
+  {t:'ex',cls:'b',en:'[[If you water]] the plants well, they grow well.',ko:'식물에 물을 충분히 주면, 식물은 잘 자란다.',note:'과학적 사실/습관 → if + 현재시제, 주절도 현재.'},
+  {t:'h',chip:['unless','e'],title:'unless = if ... not (~하지 않는 한)',html:
+   `<p><b>unless</b>는 부정의 조건 "~하지 않는 한, 만약 ~가 아니라면"을 나타냅니다. <b>unless 자체에 부정 의미가 들어 있어</b> 절 안에 not을 또 쓰면 안 됩니다!</p>
+    <div class="test-box"><b>🚨 not 중복 금지</b>If you <b>don't</b> study hard, you will fail.<br>= <b>Unless</b> you study hard, you will fail. (○)<br>Unless you <b>don't</b> study hard (✗✗)</div>`},
+  {t:'ex',cls:'e',en:"You won't improve [[unless you practice]] every day.",ko:'매일 연습하지 않는 한, 너는 향상되지 않을 것이다.',note:'unless = if you don\'t practice. unless 안에 don\'t 쓰면 의미 반대로 틀림!'},
+ ],
+ cp:[
+  {q:'"If it ( rains / will rain ) tomorrow, we will cancel the picnic." 알맞은 것과 이유는?',
+   opts:['will rain — 내일은 미래이므로','rains — 조건의 if 부사절은 미래라도 현재시제로 쓰므로','rained — 과거이므로','raining — 진행형이므로'],
+   ans:1,ex:'시간·조건의 부사절은 미래를 현재시제로 표현합니다. tomorrow가 있어도 rains. 주절(will cancel)만 미래로.'},
+  {q:'"If you don\'t study hard, you will fail."을 unless로 바꾼 것으로 옳은 것은?',
+   opts:["Unless you don't study hard, you will fail.","Unless you study hard, you will fail.","Unless you will study hard, you will fail.","If unless you study hard, you will fail."],
+   ans:1,ex:'unless = if ... not. don\'t가 unless 안에 흡수되므로 not 없이 "Unless you study hard". don\'t를 또 쓰면 이중부정으로 틀립니다.'}
+ ]},
+
+/* ── 5 통합 시험 ── */
+{id:'exam',icon:'🏆',label:'통합 검증',pathArr:[['Lesson 4 문법','root'],['3단계 통합 검증','root']],
+ title:'최종 관문 · 통합 검증 시험 (12문항)',
+ sub:'개념확인 → 실전적용 → 통합검증의 마지막 단계. 본문 활용·빈칸·틀린 것 찾기·결합 문항으로 검증합니다.',
+ exam:true}
+];
+
+/* ===== EXAM (3단계 통합 검증) ===== */
+const EXAM=[
+/* 개념확인 WALK */
+{type:'walk',tags:['rel'],sent:'There are marketing strategies [[which influence]] your decisions.',say:'There are marketing strategies which influence your decisions.',
+ q:'본문 문장의 관계대명사를 분석하시오.',
+ steps:[
+  {p:'STEP 1 · 선행사는 무엇인가?',opts:['decisions','marketing strategies','There'],ans:1},
+  {p:'STEP 2 · which가 주격인 이유는?',opts:['which가 절 안에서 influence의 주어 역할을 하기 때문','strategies가 복수이기 때문','문장 중간에 있기 때문'],ans:0},
+  {p:'STEP 3 · 동사 influence(복수형)를 쓴 이유는?',opts:['which는 항상 복수이므로','선행사 strategies가 복수이므로 수일치','influence가 불규칙이므로'],ans:1}],
+ ex:'선행사 marketing strategies(복수) + which가 절 안 주어 역할 → 주격 관계대명사. 동사는 선행사에 수일치하여 복수형 influence.'},
+/* 빈칸 + 수일치 */
+{type:'mc',tags:['rel'],q:'"I have a friend who ___ four languages." 빈칸으로 옳은 것은?',
+ opts:['speak','speaks','speaking','to speak'],
+ ans:1,ex:'선행사 a friend(단수) → 단수동사 speaks. 관계대명사절 동사는 선행사의 수에 일치합니다.'},
+/* 괄호 고르기 (사람/사물) */
+{type:'mc',tags:['rel'],q:'"The bicycle ( who / which ) broke down this morning is fixed." 알맞은 것은?',
+ opts:['who — 자전거를 의인화하므로','which — 선행사 bicycle이 사물이므로','둘 다 가능','that만 가능'],
+ ans:1,ex:'선행사 The bicycle은 사물 → which(또는 that). who는 사람 전용입니다.'},
+/* that 전용 */
+{type:'mc',tags:['rel'],q:'"I described the people and the places ( who / that ) inspire me." 알맞은 것과 이유는?',
+ opts:['who — people이 사람이므로','that — 선행사가 사람+사물(the people and the places)이므로 that만 가능','which — places가 사물이므로','둘 다 가능'],
+ ans:1,ex:'선행사가 사람(people)+사물(places)이 함께 오면 who도 which도 못 쓰고 that만 가능합니다.'},
+/* 틀린 것 고치기 */
+{type:'mc',tags:['rel'],q:'밑줄 친 부분이 어법상 틀린 문장은?',
+ opts:['I have a sister who loves cats.','This is the building which is the tallest in the world.','There was little that interested her.','Ms. Song which teaches English is kind.'],
+ ans:3,ex:'④ Ms. Song은 사람이므로 which(✗) → who/that. 나머지는 모두 옳습니다.'},
+/* 두 문장 결합 */
+{type:'walk',tags:['rel'],sent:"I'm reading the letter. + It came yesterday.",say:"I'm reading the letter. It came yesterday.",
+ q:'두 문장을 관계대명사로 결합하시오.',
+ steps:[
+  {p:'STEP 1 · 두 문장의 공통 대상(선행사)은?',opts:['I','the letter','yesterday'],ans:1},
+  {p:'STEP 2 · It을 무엇으로 바꾸나?',opts:['who','which 또는 that','where'],ans:1},
+  {p:'STEP 3 · 결합된 문장의 시제로 came을 쓰는 이유는?',opts:['주절 시제(am reading)에 맞춰야 하므로','원래 문장(It came yesterday)의 과거시제를 따르므로','yesterday는 항상 현재이므로'],ans:1}],
+ ex:"I'm reading the letter which[that] came yesterday. 선행사 the letter(사물)→which/that. 시제는 원래 문장(came, 과거)을 따름 — 주절과 일치 불필요."},
+/* if 현재시제 */
+{type:'mc',tags:['if'],q:'"If it ( rains / will rain ) a lot, we will cancel the picnic." 알맞은 것은?',
+ opts:['will rain','rains','rained','is raining'],
+ ans:1,ex:'조건의 if 부사절은 미래의 일도 현재시제로 씁니다 → rains. 주절(will cancel)만 미래.'},
+/* if 본문 활용 */
+{type:'mc',tags:['if'],sent:'[[If a product becomes hot]], people naturally want to have it.',say:'If a product becomes hot, people naturally want to have it.',
+ q:'본문 문장에서 becomes를 쓴 이유로 옳은 것은?',
+ opts:['과거의 사실이므로','if 조건 부사절에서는 미래·일반적 상황을 현재시제로 나타내므로','product가 복수이므로','becomes가 조동사이므로'],
+ ans:1,ex:'if 조건절은 막연한 미래나 일반적 사실을 현재시제로 진술합니다. will become(✗) → becomes(○).'},
+/* unless 변환 */
+{type:'mc',tags:['if'],q:'"If you don\'t leave now, you will miss the subway."를 unless로 바꾼 것은?',
+ opts:["Unless you don't leave now, you will miss the subway.","Unless you leave now, you will miss the subway.","Unless you will leave now, you will miss the subway.","If unless you leave now, you will miss the subway."],
+ ans:1,ex:'unless = if ... not. don\'t가 unless에 흡수 → "Unless you leave now". not 중복(don\'t) 쓰면 틀림.'},
+/* unless not 중복 함정 */
+{type:'mc',tags:['if'],q:'어법상 옳은 문장은?',
+ opts:["Unless you don't study hard, you will fail.","Unless you study hard, you will fail.","If you study hard, you will fail.","Unless you will study hard, you will fail."],
+ ans:1,ex:'unless 자체에 부정 의미가 있어 not 중복 금지 → ①✗. unless절도 현재시제 → ④✗(will). ③은 의미가 반대.'},
+/* SORT 통합 분류 */
+{type:'classify',tags:['rel','if'],q:'각 문장의 핵심 문법을 분류하시오.',
+ items:[
+  {en:'I like people who do their best.',ans:0,why:'선행사 people(사람) + 주격 관계대명사 who'},
+  {en:'If it rains tomorrow, I will stay home.',ans:1,why:'조건 if절 — 미래도 현재시제(rains)'},
+  {en:'You will fail unless you study hard.',ans:2,why:'unless = if not, 부정 조건'}]},
+/* 종합 틀린 것 */
+{type:'mc',tags:['rel','if'],q:'밑줄 친 부분이 어법상 <b>옳은</b> 것은?',
+ opts:["If it will rain tomorrow, I'll stay home.","The books which is on the desk are mine.","Tim is the actor who starred in this movie.","Unless you don't hurry, you'll be late."],
+ ans:2,ex:'① will rain → rains(조건절 현재). ② which is → which are(선행사 books 복수). ④ don\'t 중복(✗). ③ 선행사 the actor(사람)+who+과거시제 starred 모두 정상.'}
+];
+
+/* ===== ENGINE ===== */
+const CLS_LB=['who 가능','which 가능','that만 가능'], CLS_KEY=['d','c','e'];
+/* classify for stage 4 uses its own labels */
+const CP_CLS_LB=['OC=명사','OC=to부정사','OC=형용사'];
+let cur=0,maxUnlocked=0;
+const cpState=STAGES.map(()=>({done:false}));
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){
+  if(!('speechSynthesis' in window)){alert('Chrome 브라우저를 권장합니다.');return;}
+  speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.9;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);}
+function spkBtn(text){return `<button class="spk" title="듣기" aria-label="영어 듣기" onclick="speak(this.dataset.say,this)" data-say="${text.replace(/"/g,'&quot;')}">🔊</button>`;}
+function plain(s){return s.replace(/\[\[|\]\]|\{\{|\}\}/g,'').replace(/<[^>]+>/g,'');}
+function renderEn(s,cls){return s.replace(/\[\[(.+?)\]\]/g,`<span class="hl ${cls||'root'}">$1</span>`);}
+function tgl(btn){const t=btn.nextElementSibling;const open=t.classList.toggle('open');btn.setAttribute('aria-expanded',open);btn.textContent=open?'해석 닫기 ▲':'해석 + 풀이 보기 ▼';}
+function renderSteps(){
+  document.getElementById('steps').innerHTML=STAGES.map((s,i)=>{
+    const lock=i>maxUnlocked,done=cpState[i].done;
+    return `<button class="step ${i===cur?'cur':''} ${done?'done':''} ${lock?'locked':''}" onclick="go(${i})" ${lock?'aria-disabled="true"':''}>
+      <span class="dot">${lock?'🔒':done?'✓':s.icon}</span><span class="lb">${s.label}</span></button>`;}).join('');}
+function go(i){
+  if(i>maxUnlocked){alert('🔒 이전 단계의 체크포인트를 통과하면 열립니다!');return;}
+  window.speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0});}
+function treeHTML(node){
+  if(node.leaf!==undefined){const say=node.say||node.leaf;return `<li><button class="node leaf" onclick="speak(this.dataset.say,this)" data-say="${say}">${node.leaf} 🔉</button></li>`;}
+  const kids=node.kids&&node.kids.length?`<ul>${node.kids.map(treeHTML).join('')}</ul>`:'';
+  return `<li><button class="node nd-${node.c}" onclick="speak(this.dataset.say,this)" data-say="${node.e.replace(/=.+$/,'').trim()}">${node.k} <span class="e">${node.e} 🔉</span></button>${kids}</li>`;}
+function cardHTML(c){
+  if(c.t==='tree')return `<div class="card"><h3><span class="chip c-root">전체 지도</span>로직 트리 — 노드를 누르면 영어 명칭을 읽어 줍니다</h3><div class="tree"><ul>${treeHTML(TREE)}</ul></div></div>`;
+  if(c.t==='h')return `<div class="card"><h3><span class="chip c-${c.chip[1]}">${c.chip[0]}</span>${c.title}</h3>${c.html}</div>`;
+  if(c.t==='ex'){const say=plain(c.en);return `<div class="exc ${c.cls}"><div class="enline"><span class="en">${renderEn(c.en,c.cls)}</span>${spkBtn(say)}</div><button class="tgl" aria-expanded="false" onclick="tgl(this)">해석 + 풀이 보기 ▼</button><div class="trans"><div class="ko">${c.ko}</div><div class="note">${c.note}</div></div></div>`;}
+  if(c.t==='cpClassify')return classifyCpHTML_inline(c);
+  return '';}
+/* inline classify cp for stage 4 */
+const icpOK={};
+function classifyCpHTML_inline(c){
+  const sid=cur; /* captured at render time */
+  return `<div class="qz" id="icp-${sid}"><div class="qz-head"><span class="badge">FINAL CHECK</span><b>${c.intro}</b></div>
+  ${c.items.map((it,k)=>`<div class="selrow"><span class="mark" id="icm-${sid}-${k}">·</span>
+    <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,'root')}</span>${spkBtn(plain(it.en))}
+    <select id="ics-${sid}-${k}"><option value="-1">— 선택 —</option>${CLS_LB.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
+    <div class="fb" id="icf-${sid}-${k}" style="flex-basis:100%"></div></div>`).join('')}
+  <div style="margin-top:14px"><button class="btn primary" onclick="icpCheck(${sid})">채점하기</button></div>
+  <div class="unlock-banner" id="ub${sid}">🏆 완벽! 최종 시험이 열렸습니다. <button class="btn primary" onclick="go(${sid+1})">시험 보러 가기 →</button></div></div>`;}
+function icpCheck(sid){
+  const c=STAGES[sid].cards.find(x=>x.t==='cpClassify');let all=true;
+  c.items.forEach((it,k)=>{
+    const v=+document.getElementById(`ics-${sid}-${k}`).value,m=document.getElementById(`icm-${sid}-${k}`),f=document.getElementById(`icf-${sid}-${k}`);
+    if(v===it.ans){m.textContent='✅';f.className='fb show good';f.innerHTML=`<b>${CLS_LB[it.ans]}</b> — ${it.why}`;document.getElementById(`ics-${sid}-${k}`).disabled=true;}
+    else{all=false;m.textContent='❌';f.className='fb show badf';f.innerHTML=v<0?'선택해 주세요.':'선행사가 사람? 사물? / if·unless 구별!';}});
+  if(all)unlockNext(sid);}
+function cpHTML(i,qs){
+  return `<div class="qz" id="cp${i}"><div class="qz-head"><span class="badge">CHECKPOINT</span><b>체크포인트 — 모두 맞히면 다음 가지가 열립니다</b></div>
+  ${qs.map((q,k)=>`<div class="q"><div class="qno">Q${k+1} / ${qs.length}</div><div class="qtext">${q.q}</div>
+    <div class="opts">${q.opts.map((o,oi)=>`<button class="opt" onclick="cpPick(${i},${k},${oi},this)">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>
+    <div class="fb" id="fb-${i}-${k}"></div></div>`).join('')}
+  <div class="unlock-banner" id="ub${i}">🌿 통과! 다음 가지가 열렸습니다. <button class="btn primary" onclick="go(${i+1})">다음 단계로 →</button></div></div>`;}
+const cpOK=STAGES.map(s=>s.cp?s.cp.map(()=>false):[]);
+function cpPick(si,qi,oi,btn){
+  const q=STAGES[si].cp[qi],fb=document.getElementById(`fb-${si}-${qi}`);
+  const opts=btn.parentElement.querySelectorAll('.opt');
+  if(oi===q.ans){opts.forEach((o,k)=>{o.disabled=true;if(k===oi)o.classList.add('right');});
+    fb.className='fb show good';fb.innerHTML='✅ 정답! '+q.ex;cpOK[si][qi]=true;
+    if(cpOK[si].every(v=>v))unlockNext(si);
+  }else{btn.classList.add('wrong');fb.className='fb show badf';fb.innerHTML='🤔 힌트: O = OC 관계(be동사 테스트)를 적용해 보세요.';setTimeout(()=>btn.classList.remove('wrong'),500);}}
+function unlockNext(si){cpState[si].done=true;if(si+1>maxUnlocked)maxUnlocked=si+1;renderSteps();const ub=document.getElementById('ub'+si);if(ub)ub.classList.add('show');}
+
+/* exam */
+const EXAM_CLS_LB=['주격 관계대명사','조건 if','unless'];
+const exAns=EXAM.map(q=>q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1);
+let graded=false;
+function examHTML(){
+  return `<div class="card" style="border:1.5px solid var(--ink)"><h3><span class="chip c-root">시험 안내</span>응시 전 확인</h3>
+    <ul><li>모든 문항이 <b>"왜?"를 묻습니다.</b> O=OC 테스트, to 유무, 원형 vs -ing — 알고리즘으로 풀어야 합니다.</li>
+    <li>WALK 문항은 단계별 순서대로 풀어야 다음 STEP이 열립니다.</li>
+    <li>🔊로 예문을 들으며 문장의 리듬도 익히세요.</li></ul></div>
+  ${EXAM.map((q,qi)=>{
+    let body='';
+    const sent=q.sent?`<div class="qsent"><div class="enline"><span class="en">${renderEn(q.sent,'root')}</span>${spkBtn(q.say||plain(q.sent))}</div></div>`:'';
+    if(q.type==='mc'){body=`<div class="opts">${q.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${oi}" onclick="exPick(${qi},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div>`;}
+    else if(q.type==='walk'){body=q.steps.map((st,si)=>`<div class="walkstep ${si>0?'lockedw':''}" id="ws-${qi}-${si}"><div class="wp">${st.p}</div><div class="opts">${st.opts.map((o,oi)=>`<button class="opt" id="e-${qi}-${si}-${oi}" onclick="exWalk(${qi},${si},${oi})">${String.fromCharCode(9312+oi)} ${o}</button>`).join('')}</div></div>`).join('');}
+    else{body=q.items.map((it,k)=>`<div class="selrow"><span class="mark" id="em-${qi}-${k}">·</span>
+        <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,'root')}</span>${spkBtn(plain(it.en))}
+        <select id="es-${qi}-${k}" onchange="exAns[${qi}][${k}]=+this.value"><option value="-1">— 선택 —</option>${EXAM_CLS_LB.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
+        <div class="fb" id="ef-${qi}-${k}" style="flex-basis:100%"></div></div>`).join('');}
+    return `<div class="qz" id="eq${qi}"><div class="qz-head"><span class="badge">${q.type==='walk'?'WALK · 단계 분석':q.type==='classify'?'SORT · 분류':'WHY · 개념'}</span><b>문항 ${qi+1} / ${EXAM.length}</b></div>
+      <div class="qtext">${q.q}</div>${sent}${body}<div class="fb" id="exfb${qi}"></div></div>`;}).join('')}
+  <div style="text-align:center;margin:30px 0"><button class="btn primary" id="gradeBtn" onclick="grade()" style="font-size:1.05rem;padding:15px 40px">📝 최종 채점하기</button></div>
+  <div id="result"></div>`;}
+function exPick(qi,oi){if(graded)return;exAns[qi]=oi;EXAM[qi].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${k}`).classList.toggle('sel',k===oi));}
+function exWalk(qi,si,oi){if(graded)return;exAns[qi][si]=oi;EXAM[qi].steps[si].opts.forEach((_,k)=>document.getElementById(`e-${qi}-${si}-${k}`).classList.toggle('sel',k===oi));const next=document.getElementById(`ws-${qi}-${si+1}`);if(next)next.classList.remove('lockedw');}
+function grade(){
+  for(let qi=0;qi<EXAM.length;qi++){const a=exAns[qi];const empty=Array.isArray(a)?a.some(v=>v<0):a<0;
+    if(empty){document.getElementById('eq'+qi).scrollIntoView({block:'center'});const f=document.getElementById('exfb'+qi);f.className='fb show badf';f.textContent='⚠️ 답하지 않은 부분이 있어요.';return;}}
+  graded=true;document.getElementById('gradeBtn').disabled=true;
+  let score=0;
+  EXAM.forEach((q,qi)=>{
+    let ok;
+    if(q.type==='mc'){ok=exAns[qi]===q.ans;q.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${k}`);el.disabled=true;if(k===q.ans)el.classList.add('right');else if(k===exAns[qi])el.classList.add('wrong');});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 정답! ':'❌ 오답. ')+q.ex;}
+    else if(q.type==='walk'){ok=q.steps.every((st,si)=>exAns[qi][si]===st.ans);q.steps.forEach((st,si)=>st.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${si}-${k}`);el.disabled=true;if(k===st.ans)el.classList.add('right');else if(k===exAns[qi][si])el.classList.add('wrong');}));const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 완벽한 분석! ':'❌ 분석 오류. ')+q.ex;}
+    else{ok=q.items.every((it,k)=>exAns[qi][k]===it.ans);q.items.forEach((it,k)=>{const f=document.getElementById(`ef-${qi}-${k}`),m=document.getElementById(`em-${qi}-${k}`);document.getElementById(`es-${qi}-${k}`).disabled=true;const good=exAns[qi][k]===it.ans;m.textContent=good?'✅':'❌';f.className='fb show '+(good?'good':'badf');f.innerHTML=`<b>${EXAM_CLS_LB[it.ans]}</b> — ${it.why}`;});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=ok?'✅ 완벽 분류!':'❌ 위 해설을 확인하세요.';}
+    if(ok)score++;});
+  const gr=score>=9?['🎖️ 문법 마스터','주격 관계대명사와 if·unless가 완벽합니다!']:score>=7?['🌿 거의 완성','that 전용 경우와 unless not 중복만 한 번 더!']:score>=5?['🌱 성장 중','3단계 수일치·시제부터 다시 검증해 보세요.']:['🫘 다시 도전','1단계 큰 그림부터 차근차근!'];
+  document.getElementById('result').innerHTML=`<div class="qz"><div class="score-wrap"><div class="score-big">${score} / 10</div><div class="grade">${gr[0]}</div><p style="font-size:.9rem;margin-top:6px">${gr[1]}</p><div style="margin-top:18px"><button class="btn ghost" onclick="resetExam()">처음부터 다시 풀기</button></div></div></div>`;
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});}
+function resetExam(){graded=false;EXAM.forEach((q,qi)=>{exAns[qi]=q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1;});renderAll();go(STAGES.length-1);}
+function pathHTML(arr){return `<div class="path">${arr.map(([t,c],i)=>(i?'<span class="sep">▸</span>':'')+`<span class="crumb on-${c}">${t}</span>`).join('')}</div>`;}
+function renderAll(){
+  document.getElementById('main').innerHTML=STAGES.map((s,i)=>{
+    let inner=s.exam?examHTML():(s.cards||[]).map(cardHTML).join('')+(s.cp?cpHTML(i,s.cp):'');
+    return `<section class="stage ${i===cur?'show':''}" id="st${i}">${pathHTML(s.pathArr)}<h2 class="stitle">${s.title}</h2><p class="ssub">${s.sub}</p>${inner}<div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전 단계</button>`:'<span></span>'}<span style="font-size:.78rem;color:var(--sub)">${i+1} / ${STAGES.length}</span></div></section>`;}).join('');
+  renderSteps();}
+renderAll();
+
+</script>
+</body>
+</html>
