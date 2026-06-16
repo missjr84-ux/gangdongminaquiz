@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promise Me! · 거꾸로 영작</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F8F4;--card:#FFFFFF;--ink:#1B3A2E;--sub:#5E7A6E;--line:#DAE7DF;
+  --root:#1E7A5A;--root-bg:#E1F2EA;--b:#B8860B;--b-bg:#FEF8E1;--c:#1E7A5A;--c-bg:#E1F2EA;
+  --d:#C84F2F;--d-bg:#FBE8E0;--e:#4F73B3;--e-bg:#E7EEF8;
+  --hl:#A7E8C4;--ok:#1E7A5A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(#dde9e1 1px,transparent 1px);background-size:26px 26px}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px 90px}
+header{padding:34px 0 8px;text-align:center}
+.eyebrow{display:inline-block;font-size:.76rem;font-weight:700;letter-spacing:.05em;color:var(--root);border:1.5px solid var(--root);border-radius:999px;padding:3px 14px;margin-bottom:12px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.55rem,5vw,2.2rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 5px}
+.tagline{color:var(--sub);margin-top:9px;font-size:.92rem}
+.feat{display:flex;justify-content:center;gap:7px;margin-top:11px;flex-wrap:wrap}
+.feat .f{font-size:.71rem;font-weight:700;padding:4px 11px;border-radius:999px;background:#fff;border:1.5px solid var(--root);color:var(--root)}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(243,248,244,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin:20px -16px 0;padding:9px 6px}
+.steps{display:flex;justify-content:center;gap:3px;max-width:760px;margin:0 auto;flex-wrap:wrap}
+.step{flex:1;max-width:108px;min-width:54px;border:none;background:transparent;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.59rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(27,58,46,.12)}
+.step.cur .lb{color:var(--ink)}
+.step.done .dot{background:var(--c);border-color:var(--c);color:#fff}
+.step.locked{opacity:.4;cursor:not-allowed}
+.step:not(.locked):hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.4rem;margin:22px 0 4px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.ssub{color:var(--sub);font-size:.91rem;margin-bottom:14px}
+/* 흐름·요지 정리 카드 */
+.flow{background:linear-gradient(180deg,#FBFEFC,#fff);border:2px solid var(--root);border-radius:16px;padding:18px 20px;margin:8px 0 18px}
+.flow .fh{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--root);font-size:1.05rem;margin-bottom:8px}
+.flow .fh .pb{background:var(--root);color:#fff;font-size:.68rem;padding:2px 10px;border-radius:999px;font-weight:700}
+.flow .story{font-size:.95rem;line-height:1.75;margin-bottom:10px}
+.flow .story b{background:linear-gradient(transparent 60%,var(--hl) 60%);padding:0 2px}
+.gist{background:var(--b-bg);border:1.5px solid var(--b);border-radius:11px;padding:10px 14px;display:flex;gap:9px;align-items:flex-start}
+.gist .gl{flex:none;font-size:.7rem;font-weight:800;color:#fff;background:var(--b);border-radius:6px;padding:2px 8px;margin-top:1px}
+.gist .gt{font-weight:700;font-size:.93rem;color:#6a5408}
+.keyexp{margin-top:10px;font-size:.85rem;color:var(--sub)}
+.keyexp .kx{display:inline-block;background:#EEF4F0;border-radius:7px;padding:2px 9px;margin:2px 5px 2px 0}
+.keyexp .kx b{color:var(--ink);font-family:'Lora',serif}
+.startbtn{text-align:center;margin:14px 0 4px}
+/* 영작 카드 */
+.wsec{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1rem;color:var(--root);margin:16px 0 6px;display:flex;align-items:center;gap:7px}
+.wcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:10px 0}
+.wcard.mastered{border-color:var(--c);background:linear-gradient(180deg,#F1FAF5,#fff)}
+.wn{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.wn .num{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:.72rem;color:#fff;background:var(--root);border-radius:6px;padding:2px 8px}
+.wn .gtag{font-size:.68rem;font-weight:700;color:var(--e);background:var(--e-bg);border-radius:999px;padding:2px 8px}
+.wn .star{margin-left:auto;font-size:.9rem}
+.wko{font-size:1.07rem;font-weight:600;margin-bottom:9px}
+.whint{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.wc{font-size:.76rem;color:var(--sub);font-family:'IBM Plex Mono',monospace}
+.hbtn{border:1.5px solid var(--line);background:#fff;color:var(--sub);border-radius:8px;padding:4px 10px;font-family:inherit;font-size:.76rem;font-weight:700;cursor:pointer}
+.hbtn:hover{border-color:var(--root);color:var(--root)}.hbtn.on{background:var(--root);border-color:var(--root);color:#fff}
+.hintbox{display:none;margin-bottom:8px;padding:8px 11px;background:#F1F7F3;border-radius:9px;font-size:.85rem}
+.hintbox.show{display:block}.hintbox .fl{font-family:'Lora',serif;font-size:1.02rem;letter-spacing:.04em;color:var(--root)}
+.hintbox .kw{display:inline-block;margin:1px 7px 1px 0}.hintbox .kw b{font-family:'Lora',serif;color:var(--ink)}
+.wrow{display:flex;gap:8px;flex-wrap:wrap}
+.wrow input{flex:1;min-width:190px;font-family:'Lora',serif;font-size:1.03rem;padding:9px 12px;border:1.5px solid var(--line);border-radius:10px}
+.wrow input:focus{outline:none;border-color:var(--root)}
+.wrow button{border:none;background:var(--ink);color:#fff;border-radius:10px;padding:9px 18px;font-family:inherit;font-weight:700;cursor:pointer}
+.wres{display:none;margin-top:10px}.wres.show{display:block}
+.tokens{font-family:'Lora',serif;font-size:1.02rem;line-height:1.9;margin-bottom:5px}
+.tok{padding:1px 5px;border-radius:5px;margin:0 1px}.tok.ok{background:var(--c-bg);color:var(--ok)}.tok.no{background:#FBE5E1;color:var(--bad);text-decoration:line-through}.tok.miss{background:#FBE5E1;color:var(--bad);opacity:.6}
+.scoreline{display:flex;align-items:center;gap:9px;margin:4px 0}.scorepct{font-family:'Black Han Sans';font-size:1.2rem}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:32px;height:32px;cursor:pointer;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center}
+.spk:hover{border-color:var(--ink)}.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.model{font-family:'Lora',serif;font-size:1rem;background:#F1F7F3;border-left:3px solid var(--c);padding:6px 11px;border-radius:0 8px 8px 0;margin:5px 0}
+.gnote{font-size:.82rem;color:#444;background:var(--b-bg);border-radius:8px;padding:7px 11px;margin-top:5px}.gnote b{color:#8a6608}
+.btn{font-family:inherit;font-weight:700;font-size:.93rem;border:none;border-radius:11px;padding:11px 22px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--root);color:#fff;box-shadow:3px 3px 0 rgba(30,122,90,.3)}
+.btn.primary:hover{transform:translate(-1px,-1px)}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.secprog{font-size:.82rem;font-weight:700;color:var(--root);background:var(--root-bg);border-radius:999px;padding:4px 13px;display:inline-block;margin:4px 0 6px}
+.unlock{display:none;align-items:center;gap:10px;margin-top:14px;background:var(--c-bg);border:1.5px solid var(--c);border-radius:12px;padding:12px 16px;font-weight:600}
+.unlock.show{display:flex}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:22px 0 8px;gap:10px}
+/* summary */
+.sumcard{background:var(--card);border:2px solid var(--root);border-radius:var(--r);padding:22px;margin:14px 0}
+.sumtotal{text-align:center;margin-bottom:10px}.sumtotal .big{font-family:'Black Han Sans';font-size:2.6rem;line-height:1}
+.sumtotal .g{font-weight:700;margin-top:4px;font-size:1.05rem}
+.barrow{margin:8px 0}.barrow .bl{display:flex;justify-content:space-between;font-size:.83rem;font-weight:700;margin-bottom:3px}
+.barrow .tk{height:12px;background:#E5EFE9;border-radius:99px;overflow:hidden}.barrow .fl2{height:100%;border-radius:99px;width:0;transition:width .8s ease;background:var(--c)}
+.review-box{background:#FFF7E8;border:2px solid var(--b);border-radius:14px;padding:18px 20px;margin:16px 0}
+.review-box .rh{display:flex;align-items:center;gap:8px;font-weight:800;color:#8a6608;margin-bottom:6px}
+.review-box .rh .pb{background:var(--b);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:999px}
+.empty-review{background:var(--c-bg);border:2px solid var(--c);border-radius:14px;padding:18px;text-align:center;font-weight:700;color:var(--ok)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:11px;font-size:.88rem;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:80}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+footer{text-align:center;color:var(--sub);font-size:.77rem;margin-top:34px}
+@media(max-width:520px){.wcard,.flow{padding:14px}.step .lb{font-size:.54rem}.wko{font-size:1rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">천재(이상기) 중2 · Lesson 2 Living Healthy · 거꾸로 영작</div>
+  <h1>Promise <span class="mark">Me!</span></h1>
+  <p class="tagline">먼저 <b>한글 흐름·요지</b>를 정리하고, 그다음 <b>한글 → 영어 영작</b>으로 이어집니다. 본문 37문장.</p>
+  <div class="feat"><span class="f">📖 흐름·요지 정리</span><span class="f">✍️ 거꾸로 영작</span><span class="f">🔊 듣기</span><span class="f">🔁 오답 복습</span></div>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>Promise Me! · 거꾸로 영작 차세대 · 단락별 흐름·요지 정리 + 영작 + 적응형 복습</footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ================= 데이터 ================= */
+/* 단락: 흐름(story)·요지(gist)·핵심표현(key) + 문장들 */
+const SECTIONS=[
+ {id:'intro',icon:'🐶',label:'도입',title:'도입 · Bailey의 고민 (01–05)',
+  story:'동네의 친근한 개 <b>Bailey</b>가 자신을 소개해요. Bailey는 사랑스러운 친구 <b>Jin</b>과 그녀의 <b>스마트폰</b>에 관한 이야기를 들려주려 해요. (꼬리 <b>tail</b> → 이야기 <b>tale</b> 말장난) Jin이 스마트폰에 너무 빠져 있어서 Bailey는 조금 걱정스러워요.',
+  gist:'Bailey는 친구 Jin이 스마트폰에 빠져 있는 것을 걱정한다.',
+  key:[["be into","~에 빠지다"],["a bit","조금(=a little)"],["because","~하기 때문에"]],
+  items:[
+   {n:1,ko:'안녕! 나는 이 동네의 친근한 개 Bailey야.',en:"Hi! I'm Bailey, the friendly dog in town.",g:'동격(=) the friendly dog',kw:[["friendly","친근한"]]},
+   {n:2,ko:'너에게 줄 꼬리(tail)가 있어.',en:"I have a tail for you.",g:'tail 꼬리',kw:[["tail","꼬리"]]},
+   {n:3,ko:'아이쿠, 이야기(tale) 말이야!',en:"Oops, I mean a tale!",g:'tale 이야기 (동음이의어 tail-tale)',kw:[["I mean","~말이야"],["tale","이야기"]]},
+   {n:4,ko:'그건 내 사랑스러운 친구 Jin과 그녀의 스마트폰에 관한 거야.',en:"It's about my sweet friend Jin and her smartphone.",g:'It = The tale / 동격 Jin',kw:[["be about","~에 관한 것이다"]]},
+   {n:5,ko:'그녀가 그것에 너무 빠져 있어서 나는 좀 걱정돼.',en:"I'm a bit worried because she's so into it.",g:'because + 주어 + 동사 / be into',kw:[["a bit worried","좀 걱정되는"],["so into it","그것에 너무 빠진"]]},
+  ]},
+ {id:'pm4',icon:'🎧',label:'오후 4시',title:'오후 4시 · 들리지 않는 Bailey (06–13)',
+  story:'Bailey는 하루 종일 Jin을 기다렸지만, Jin은 <b>이어폰</b> 때문에 Bailey의 말을 듣지 못해요. 이어폰에서 천둥 같은 큰 소리가 새어 나와요. Bailey는 그 <b>큰 소리가 청력을 해칠 수 있다</b>며, 이어폰을 빼고 함께 놀자고 해요.',
+  gist:'큰 소리의 이어폰은 청력에 해롭다 — 이어폰을 빼고 함께 놀자.',
+  key:[["block out","막다, 차단하다"],["take off","빼다, 벗다"],["harm","해치다"]],
+  items:[
+   {n:6,ko:'멍멍! Jin, 나는 하루 종일 너를 기다리고 있었어.',en:"Bow-wow! Jin, I was waiting for you all day.",g:'과거진행형 was waiting / wait for',kw:[["wait for","~를 기다리다"],["all day","하루 종일"]]},
+   {n:7,ko:'나가서 놀자!',en:"Let's go out and play!",g:"Let's + 동사원형 병렬",kw:[["go out","나가다"]]},
+   {n:8,ko:'아, 너는 내 말을 못 듣는구나.',en:"Oh, you can't hear me.",g:"can't = cannot 부정",kw:[["can't hear","못 듣다"]]},
+   {n:9,ko:'네 귀에 있는 그 작은 이어폰이 나를 차단하고 있어.',en:"Those tiny earphones in your ears are blocking me out.",g:'those + 복수명사 / block out',kw:[["tiny","아주 작은"],["block out","차단하다"]]},
+   {n:10,ko:'나는 거기서 천둥 같은 소리를 들을 수 있어.',en:"I can hear the thundering sounds from them.",g:'them = those tiny earphones',kw:[["thundering","천둥 같은"]]},
+   {n:11,ko:'노래하는 괴물들이 거기 살고 있는 거야?',en:"Are some singing monsters living there?",g:'현재진행형 의문문',kw:[["singing","노래하는"],["monster","괴물"]]},
+   {n:12,ko:'그 시끄러운 소리는 네 청력을 해칠 거야.',en:"Those loud sounds will harm your hearing.",g:'will + 동사원형 / harm',kw:[["loud","시끄러운"],["harm","해치다"],["hearing","청력"]]},
+   {n:13,ko:'제발 그것들을 빼고 나랑 놀아 줘!',en:"Please take them off and play with me!",g:'take off (them) / them = earphones',kw:[["take off","빼다"]]},
+  ]},
+ {id:'pm11',icon:'😣',label:'오후 11시',title:'오후 11시 · 지친 눈 (14–19)',
+  story:'밤이 늦었는데도 Jin은 여전히 폰으로 바빠요. 눈이 <b>빨개</b> 보이고 계속 <b>비벼요</b>. Bailey는 눈에 <b>휴식</b>을 주라며, 눈을 감고 좋아하는 간식을 떠올리는 <b>쉬는 방법</b>을 알려 줘요.',
+  gist:'늦게까지 화면을 보면 눈이 피로해진다 — 눈에 휴식을 주자.',
+  key:[["be busy with","~로 바쁘다"],["look + 형용사","~하게 보이다"],["keep + -ing","계속 ~하다"],["give ~ a break","~에 휴식을 주다"]],
+  items:[
+   {n:14,ko:'늦었는데도, 너는 여전히 폰으로 바빠.',en:"It's late, but you're still busy with your phone.",g:'비인칭주어 It / be busy with',kw:[["still","여전히"],["be busy with","~로 바쁘다"]]},
+   {n:15,ko:'뭔가 재미있는 걸 보고 있는 거야?',en:"Are you watching something interesting?",g:'-thing + 형용사(뒤에서 수식)',kw:[["something interesting","뭔가 재미있는 것"]]},
+   {n:16,ko:'네 눈이 빨개 보이고, 너는 계속 그것들을 비벼.',en:"Your eyes look pink, and you keep rubbing them.",g:'look + 형용사 / keep + 동명사',kw:[["look pink","빨개 보이다"],["keep rubbing","계속 비비다"]]},
+   {n:17,ko:'제발 네 눈에 휴식을 줘!',en:"Please give your eyes a break!",g:'give ~ a break',kw:[["give a break","휴식을 주다"]]},
+   {n:18,ko:'내가 쉬는 방법을 보여 줄게.',en:"I'll show you how to rest.",g:'how + to부정사 (~하는 방법)',kw:[["how to rest","쉬는 방법"]]},
+   {n:19,ko:'눈을 감고 네가 좋아하는 간식을 생각해 봐.',en:"Close your eyes and think about your favorite snacks.",g:'명령문 병렬 (Close ~ and think ~)',kw:[["think about","~에 대해 생각하다"],["snack","간식"]]},
+  ]},
+ {id:'next',icon:'🧠',label:'다음날',title:'다음 날 아침 · 건망증과 작전 (20–26)',
+  story:'학교에 갔다가 <b>뭔가 잊고</b> 돌아오는 Jin. 요즘 <b>건망증</b>이 심해요. 뉴스에 따르면 많은 십대가 <b>디지털 기기를 너무 많이 써서</b> 기억력 문제를 겪는대요. Bailey는 Jin이 그런 십대가 아니길 바라며, <b>목줄을 가져다주고 춤을 추는 작전</b>을 펼쳐요.',
+  gist:'디지털 기기 과사용은 기억력에 영향을 줄 수 있다.',
+  key:[["forgetful","잘 잊어버리는"],["because","~하기 때문에"],["one of + 복수명사","~ 중 하나"],["bring A B","A에게 B를 가져다주다"]],
+  items:[
+   {n:20,ko:'좋은 아침! 학교에서 즐겁게 보내!',en:"Good morning! Have fun at school!",g:'have fun 즐거운 시간을 보내다',kw:[["have fun","즐겁게 보내다"]]},
+   {n:21,ko:'어, 너 돌아오는구나.',en:"Oh, you're coming back.",g:'현재진행형 (가까운 동작)',kw:[["come back","돌아오다"]]},
+   {n:22,ko:'또 뭔가 잊어버린 거야?',en:"Did you forget something again?",g:'과거시제 의문문 (Did + 주어 + 동사원형)',kw:[["forget","잊어버리다"]]},
+   {n:23,ko:'너 요즘 잘 잊어버려.',en:"You're forgetful these days.",g:'forgetful / these days(요즘)',kw:[["forgetful","잘 잊어버리는"],["these days","요즘"]]},
+   {n:24,ko:'봐! 뉴스에서 많은 십대들이 디지털 기기를 너무 많이 사용해서 기억력 문제를 겪는다고 해.',en:"Look! The news says many teens experience memory problems because they use digital devices too much.",g:'says (that) 생략 / because + 주어 + 동사',kw:[["experience","겪다"],["memory problems","기억력 문제"],["digital devices","디지털 기기"]]},
+   {n:25,ko:'나는 네가 그런 십대들 중 하나가 아니길 바라, 내 똑똑한 친구야.',en:"I hope you're not one of those teens, my smart friend.",g:'hope (that) 생략 / one of + 복수명사',kw:[["one of","~ 중 하나"],["those teens","그 십대들"]]},
+   {n:26,ko:'그날 방과 후에, 나는 그녀에게 내 목줄을 가져다주고 귀여운 춤을 췄어.',en:"After school that day, I brought her my leash and did a cute dance.",g:'brought·did 병렬 / bring A B',kw:[["brought","가져다줬다"],["leash","목줄"]]},
+  ]},
+ {id:'plan',icon:'🤝',label:'약속',title:'작전 성공 · 함께한 시간과 약속 (27–31)',
+  story:'작전이 <b>효과가 있었어요</b>! Jin이 폰을 <b>내려놓고</b> 둘은 동네를 산책해요. Bailey는 무척 행복했어요. Bailey는 Jin에게 폰을 <b>덜 쓰고</b> 자기와 <b>더 많은 시간</b>을 보내자고, 약속해 달라고 부탁해요.',
+  gist:'폰을 덜 쓰고, 소중한 친구와 더 많은 시간을 보내자.',
+  key:[["work","효과가 있다"],["put down","내려놓다"],["less / more","더 적게 / 더 많이(비교급)"]],
+  items:[
+   {n:27,ko:'내 계획이 효과가 있었어!',en:"My plan worked!",g:'work = 효과가 있다',kw:[["work","효과가 있다"]]},
+   {n:28,ko:'그녀는 폰을 내려놓았고, 우리는 동네를 돌아다녔어.',en:"She put down her phone, and we walked around town.",g:'put down (put은 과거형) / walk around',kw:[["put down","내려놓다"],["walk around","돌아다니다"]]},
+   {n:29,ko:'나는 너무 행복했어.',en:"I was so happy.",g:'so + 형용사',kw:[["so happy","너무 행복한"]]},
+   {n:30,ko:'Jin, 제발 폰을 덜 쓰고 나와 더 많은 시간을 보내 줘!',en:"Jin, please use your phone less and spend more time with me!",g:'명령문 병렬 / less·more 비교급',kw:[["less","덜"],["spend time","시간을 보내다"],["more","더"]]},
+   {n:31,ko:'나에게 약속해 줄 수 있어?',en:"Can you promise me?",g:'Can you ~? / promise',kw:[["promise","약속하다"]]},
+  ]},
+ {id:'tips',icon:'💡',label:'건강 팁',title:'Digital Life Tips · 건강한 디지털 생활 (32–37)',
+  story:'건강한 디지털 생활을 위한 팁이에요. <b>60-60 규칙</b>: 이어폰은 하루 60분 미만, 음량은 최대치의 60% 아래로. <b>20-20 규칙</b>: 20분 화면을 본 뒤 20초 동안 눈을 쉬고 멀리 보기. <b>두뇌 훈련</b>: 할 일을 기억하려고 머리를 쓰면, 스마트폰 없이도 충분히 똑똑해요!',
+  gist:'60-60 규칙·20-20 규칙으로 귀·눈·두뇌를 건강하게 지키자.',
+  key:[["less than","~ 미만의"],["make sure","반드시 ~해라"],["what to do","무엇을 할지"],["형용사 + enough","충분히 ~한"]],
+  items:[
+   {n:32,ko:'하루에 60분 미만으로 이어폰을 사용하세요.',en:"Use earphones for less than 60 minutes a day.",g:'less than ~(미만) / a day(하루에)',kw:[["less than","~ 미만"],["a day","하루에"]]},
+   {n:33,ko:'음량이 최대치의 60퍼센트 아래인지 반드시 확인하세요.',en:"Make sure the volume is below 60 percent of the maximum.",g:'Make sure (that) ~ / below(아래에)',kw:[["make sure","반드시 확인하다"],["below","~ 아래에"],["maximum","최대치"]]},
+   {n:34,ko:'20분의 스크린 타임 후에 20초 동안 눈을 쉬게 하세요.',en:"Rest your eyes for 20 seconds after 20 minutes of screen time.",g:'for + 기간 / screen time',kw:[["rest","쉬게 하다"],["screen time","스크린 타임"]]},
+   {n:35,ko:'이 휴식 동안, 멀리 바라보세요.',en:"During this break, look far away.",g:'During + 명사 / look far away',kw:[["during","~ 동안"],["far away","멀리"]]},
+   {n:36,ko:'무엇을 할지 기억하기 위해 두뇌를 사용하세요.',en:"Use your brain to remember what to do.",g:'목적의 to부정사 / what to do',kw:[["to remember","기억하기 위해"],["what to do","무엇을 할지"]]},
+   {n:37,ko:'너는 스마트폰 없이도 충분히 똑똑해!',en:"You are smart enough without your smartphone!",g:'형용사 + enough / without(~없이)',kw:[["smart enough","충분히 똑똑한"],["without","~ 없이"]]},
+  ]},
+];
+
+/* ================= 엔진 ================= */
+const NSEC=SECTIONS.length;
+let cur=0, maxUnlocked=0;
+const flowSeen=SECTIONS.map(()=>false);
+const ST=SECTIONS.map(sec=>sec.items.map(()=>({graded:false,best:0,mastered:false})));
+
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(t,btn){if(!('speechSynthesis' in window)){alert('Chrome 권장');return;}speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));const u=new SpeechSynthesisUtterance(t);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.9;if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}speechSynthesis.speak(u);}
+function spk(t){return `<button class="spk" onclick="speak(this.dataset.s,this)" data-s="${String(t).replace(/"/g,'&quot;')}">🔊</button>`;}
+function normW(w){return w.toLowerCase().replace(/[.,!?;:"'\u2019\u201c\u201d]/g,'');}
+function firstLetters(s){return s.split(/\s+/).map(w=>{let o='';for(let i=0;i<w.length;i++){o+=i===0?w[i]:(/[A-Za-z0-9]/.test(w[i])?'_':w[i]);}return o;}).join(' ');}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),1900);}
+function toggleHint(id,btn){const el=document.getElementById(id);const open=el.classList.toggle('show');if(btn)btn.classList.toggle('on',open);}
+
+function renderSteps(){
+  const labels=[...SECTIONS.map(s=>s.label),'종합'];const icons=[...SECTIONS.map(s=>s.icon),'🏁'];
+  document.getElementById('steps').innerHTML=labels.map((lb,i)=>{
+    const lock=i>maxUnlocked;
+    const done=i<NSEC?ST[i].every(x=>x.mastered):ST.flat().every(x=>x.mastered);
+    return `<button class="step ${i===cur?'cur':''} ${done?'done':''} ${lock?'locked':''}" onclick="go(${i})"><span class="dot">${lock?'🔒':done?'✓':icons[i]}</span><span class="lb">${lb}</span></button>`;
+  }).join('');
+}
+function go(i){if(i>maxUnlocked){toast('🔒 이전 단락을 모두 영작하면 열려요!');return;}speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0});if(i===NSEC)renderSummary();}
+
+/* 흐름·요지 정리 → 영작 펼치기 */
+function openWriting(si){
+  flowSeen[si]=true;
+  document.getElementById('writeWrap-'+si).style.display='block';
+  document.getElementById('startBtn-'+si).style.display='none';
+  document.getElementById('writeWrap-'+si).scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function sentCard(si,it){
+  const i=it.n-1;
+  return `<div class="wcard" id="wc-${i}"><div class="wn"><span class="num">${String(it.n).padStart(2,'0')}</span><span class="gtag">${it.g}</span><span class="star" id="ws-${i}"></span></div>
+    <div class="wko">${it.ko}</div>
+    <div class="whint"><span class="wc">단어 ${it.en.split(/\s+/).length}개</span>
+      <button class="hbtn" onclick="toggleHint('wfl-${i}',this)">🔤 첫 글자</button>
+      <button class="hbtn" onclick="toggleHint('wkw-${i}',this)">💡 단어</button></div>
+    <div class="hintbox" id="wfl-${i}"><span class="fl">${firstLetters(it.en)}</span></div>
+    <div class="hintbox" id="wkw-${i}">${it.kw.map(k=>`<span class="kw"><b>${k[0]}</b> ${k[1]}</span>`).join('')}</div>
+    <div class="wrow"><input id="wi-${i}" type="text" placeholder="영어로 쓰세요..." autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')gradeWrite(${i})">
+      <button onclick="gradeWrite(${i})">채점</button></div>
+    <div class="wres" id="wr-${i}"></div></div>`;
+}
+function gradeWrite(i){
+  // 어느 섹션의 몇 번째인지 찾기
+  let si=-1,it=null;SECTIONS.forEach((s,k)=>s.items.forEach(x=>{if(x.n-1===i){si=k;it=x;}}));
+  const val=(document.getElementById(`wi-${i}`).value||'').trim();if(!val){toast('문장을 입력하세요');return;}
+  const ans=it.en.split(/\s+/),got=val.split(/\s+/);let c=0;const toks=[];
+  ans.forEach((aw,k)=>{const gw=got[k]||'';const ok=gw&&normW(gw)===normW(aw);if(ok)c++;toks.push(`<span class="tok ${ok?'ok':(gw?'no':'miss')}">${gw||aw}</span>`);});
+  const pct=Math.round(c/ans.length*100);const st=ST[si][i-(SECTIONS[si].items[0].n-1)];
+  st.graded=true;st.best=Math.max(st.best,pct);if(pct===100)st.mastered=true;
+  const r=document.getElementById(`wr-${i}`);r.className='wres show';
+  r.innerHTML=`<div class="tokens">${toks.join(' ')}</div>
+    <div class="scoreline"><span class="scorepct" style="color:${pct===100?'var(--ok)':pct>=60?'var(--b)':'var(--bad)'}">${pct===100?'🎉 100%':pct+'%'}</span>
+      <span style="font-size:.83rem;color:var(--sub)">${c}/${ans.length} 단어</span>${spk(it.en)}</div>
+    <div class="model">정답: ${it.en}</div><div class="gnote"><b>문법</b> · ${it.g}</div>`;
+  document.getElementById(`ws-${i}`).textContent=st.mastered?'⭐':`${st.best}%`;
+  document.getElementById(`wc-${i}`).classList.toggle('mastered',st.mastered);
+  updateProg(si);
+}
+function updateProg(si){
+  const items=ST[si];const mast=items.filter(x=>x.mastered).length;const graded=items.every(x=>x.graded);
+  const pe=document.getElementById('prog-'+si);if(pe)pe.textContent=`완성 ${mast} / ${items.length} 문장 ⭐`;
+  if(graded && si+1>maxUnlocked && si<NSEC){maxUnlocked=si+1;const ub=document.getElementById('unlock-'+si);if(ub){ub.classList.add('show');
+    if(si<NSEC-1)ub.innerHTML=`다음 단락이 열렸어요! <button class="btn primary" style="padding:8px 16px" onclick="go(${si+1})">${SECTIONS[si+1].label} →</button>`;
+    else ub.innerHTML=`모든 단락 완료! <button class="btn primary" style="padding:8px 16px" onclick="go(${NSEC})">🏁 종합 결과 →</button>`;}}
+  renderSteps();
+}
+
+/* 종합 + 적응형 복습 */
+let rq=[];
+function renderSummary(){
+  const host=document.getElementById('sumBody');const flat=ST.flat();
+  const gradedN=flat.filter(x=>x.graded).length;
+  if(gradedN<flat.length){host.innerHTML=`<div class="empty-review" style="background:#FFF7E8;border-color:var(--b);color:#8a6608">아직 영작하지 않은 문장이 있어요. 6단락 37문장을 모두 채점하면 종합 분석이 완성됩니다. (현재 ${gradedN}/37)</div>`;return;}
+  const mast=flat.filter(x=>x.mastered).length;const avg=Math.round(flat.reduce((a,x)=>a+x.best,0)/flat.length);
+  const grade=mast===37?['🥇 완벽! 37문장 마스터','모든 문장을 100%로 완성했어요!']:avg>=90?['🥈 훌륭해요','거의 다 왔어요. 남은 문장만 복습!']:avg>=75?['🥉 잘하고 있어요','오답을 복습하면 완성됩니다.']:['🌱 한 번 더!','흐름·요지를 다시 보고 도전해요.'];
+  const bars=SECTIONS.map((sec,i)=>{const m=ST[i].filter(x=>x.mastered).length;const p=Math.round(m/ST[i].length*100);
+    return `<div class="barrow"><div class="bl"><span>${sec.icon} ${sec.label}</span><span>${m}/${ST[i].length} ⭐ · ${p}%</span></div><div class="tk"><div class="fl2" data-w="${p}%"></div></div></div>`;}).join('');
+  host.innerHTML=`<div class="sumcard"><div class="sumtotal"><div class="big">${mast} / 37</div><div class="g">${grade[0]}</div><p style="font-size:.9rem;color:var(--sub);margin-top:4px">평균 정확도 ${avg}% · ${grade[1]}</p></div>${bars}</div><div id="reviewArea"></div>`;
+  renderReview();
+  requestAnimationFrame(()=>setTimeout(()=>host.querySelectorAll('.fl2').forEach(f=>f.style.width=f.dataset.w),60));
+}
+function renderReview(){
+  const area=document.getElementById('reviewArea');if(!area)return;rq=[];
+  ST.forEach((sec,si)=>sec.forEach((x,k)=>{if(!x.mastered)rq.push(SECTIONS[si].items[k].n-1);}));
+  if(rq.length===0){area.innerHTML=`<div class="empty-review">🎉 37문장을 모두 100% 마스터했어요! 정말 잘했어요.</div>`;return;}
+  area.innerHTML=`<div class="review-box"><div class="rh"><span class="pb">🔁 ADAPTIVE</span>오답 집중 복습 — 아직 완성 못한 ${rq.length}문장</div>
+    <p style="font-size:.85rem;color:var(--sub);margin-bottom:8px">100%가 안 된 문장만 모았어요. 100%로 맞히면 빠지고, 틀리면 큐 뒤로 갑니다.</p><div id="rslot"></div></div>`;
+  showReview();
+}
+function showReview(){
+  const slot=document.getElementById('rslot');if(!slot)return;
+  if(rq.length===0){slot.innerHTML=`<div class="empty-review">✅ 복습 완료! 모든 문장을 마스터했어요. 👏</div>`;renderSteps();return;}
+  const i=rq[0];let it=null;SECTIONS.forEach(s=>s.items.forEach(x=>{if(x.n-1===i)it=x;}));
+  slot.innerHTML=`<div style="font-size:.8rem;color:var(--sub);font-weight:700;margin-bottom:4px">남은 복습 ${rq.length}문장 · 본문 ${String(it.n).padStart(2,'0')}</div>
+    <div class="wko">${it.ko}</div>
+    <div class="whint"><span class="wc">단어 ${it.en.split(/\s+/).length}개</span><button class="hbtn" onclick="toggleHint('rfl',this)">🔤 첫 글자</button></div>
+    <div class="hintbox" id="rfl"><span class="fl">${firstLetters(it.en)}</span></div>
+    <div class="wrow"><input class="" id="rin" type="text" placeholder="다시 영작..." autocomplete="off" spellcheck="false" style="flex:1;min-width:190px;font-family:'Lora',serif;font-size:1.03rem;padding:9px 12px;border:1.5px solid var(--line);border-radius:10px" onkeydown="if(event.key==='Enter')gradeReview()">
+      <button onclick="gradeReview()" style="border:none;background:var(--ink);color:#fff;border-radius:10px;padding:9px 18px;font-family:inherit;font-weight:700;cursor:pointer">채점</button></div>
+    <div class="wres" id="rres"></div>`;
+}
+function gradeReview(){
+  const i=rq[0];let si=-1,it=null;SECTIONS.forEach((s,k)=>s.items.forEach(x=>{if(x.n-1===i){si=k;it=x;}}));
+  const val=(document.getElementById('rin').value||'').trim();if(!val){toast('문장을 입력하세요');return;}
+  const ans=it.en.split(/\s+/),got=val.split(/\s+/);let c=0;const toks=[];
+  ans.forEach((aw,k)=>{const gw=got[k]||'';const ok=gw&&normW(gw)===normW(aw);if(ok)c++;toks.push(`<span class="tok ${ok?'ok':(gw?'no':'miss')}">${gw||aw}</span>`);});
+  const pct=Math.round(c/ans.length*100);const idx=i-(SECTIONS[si].items[0].n-1);const st=ST[si][idx];st.best=Math.max(st.best,pct);
+  const done=pct===100;if(done)st.mastered=true;
+  const r=document.getElementById('rres');r.className='wres show';
+  r.innerHTML=`<div class="tokens">${toks.join(' ')}</div>
+    <div class="scoreline"><span class="scorepct" style="color:${done?'var(--ok)':'var(--bad)'}">${done?'🎉 100%':pct+'%'}</span>${spk(it.en)}</div>
+    <div class="model">정답: ${it.en}</div><div class="gnote"><b>문법</b> · ${it.g}</div>
+    <button class="btn ${done?'primary':'ghost'}" style="margin-top:10px;padding:8px 18px" onclick="reviewNext(${done})">${done?'다음 →':'큐 뒤로 보내고 계속 →'}</button>`;
+}
+function reviewNext(done){const x=rq.shift();if(!done)rq.push(x);showReview();if(rq.length===0)renderSummary();}
+
+/* 빌드 */
+function renderAll(){
+  let html='';
+  SECTIONS.forEach((sec,si)=>{
+    const flow=`<div class="flow">
+      <div class="fh"><span class="pb">📖 흐름·요지</span>먼저 읽고 이해해요</div>
+      <div class="story">${sec.story}</div>
+      <div class="gist"><span class="gl">요지</span><span class="gt">${sec.gist}</span></div>
+      <div class="keyexp">핵심 표현 — ${sec.key.map(k=>`<span class="kx"><b>${k[0]}</b> ${k[1]}</span>`).join('')}</div>
+      <div class="startbtn" id="startBtn-${si}"><button class="btn primary" onclick="openWriting(${si})">✍️ 이제 영작 시작하기 →</button></div>
+    </div>`;
+    const cards=sec.items.map(it=>sentCard(si,it)).join('');
+    html+=`<section class="stage ${si===cur?'show':''}" id="st${si}">
+      <h2 class="stitle">${sec.title.split('·')[0].trim()} <span style="font-size:.8rem;color:var(--sub);font-weight:400">${sec.title.includes('·')?sec.title.split('·').slice(1).join('·').trim():''}</span></h2>
+      <p class="ssub">한글 흐름과 요지를 먼저 정리한 뒤, 한 문장씩 영작합니다.</p>
+      ${flow}
+      <div id="writeWrap-${si}" style="display:none">
+        <div class="wsec">✍️ 거꾸로 영작</div>
+        <span class="secprog" id="prog-${si}">완성 0 / ${sec.items.length} 문장 ⭐</span>
+        ${cards}
+        <div class="unlock" id="unlock-${si}"></div>
+      </div>
+      <div class="navrow">${si>0?`<button class="btn ghost" onclick="go(${si-1})">← 이전</button>`:'<span></span>'}<span style="font-size:.78rem;color:var(--sub)">${si+1} / ${NSEC} 단락</span></div>
+    </section>`;
+  });
+  html+=`<section class="stage ${cur===NSEC?'show':''}" id="st${NSEC}">
+    <h2 class="stitle">🏁 종합 결과</h2><p class="ssub">37문장을 얼마나 영작했는지 확인하고, 못 맞힌 문장만 복습하세요.</p><div id="sumBody"></div></section>`;
+  document.getElementById('main').innerHTML=html;renderSteps();
+}
+renderAll();
+</script>
+</body>
+</html>
