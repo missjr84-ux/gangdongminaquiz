@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meeting Friends Again after 20 Years · 통합 학습</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F4F9;--card:#FFFFFF;--ink:#222539;--sub:#6B6E84;--line:#E2E2EE;
+  --root:#5246C7;--root-bg:#EAE8FA;--b:#B8860B;--b-bg:#FEF8E1;--c:#1E9E7A;--c-bg:#E0F4EE;
+  --d:#D8513B;--d-bg:#FBE8E2;--e:#2E84C4;--e-bg:#E2F0FA;--p:#C44E96;--p-bg:#FAE6F2;
+  --hl:#FFE45C;--ok:#1E9E7A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(#e4e4ef 1px,transparent 1px);background-size:26px 26px}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 90px}
+header{padding:32px 0 8px;text-align:center}
+.eyebrow{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.05em;color:var(--root);border:1.5px solid var(--root);border-radius:999px;padding:3px 13px;margin-bottom:11px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.4rem,4.5vw,2rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 56%,var(--hl) 56%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:9px;font-size:.91rem}
+.tabs{position:sticky;top:0;z-index:50;background:rgba(244,244,249,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin:18px -16px 0;padding:8px 6px}
+.tabrow{display:flex;justify-content:center;gap:5px;max-width:780px;margin:0 auto;flex-wrap:wrap}
+.tab{border:1.5px solid var(--line);background:#fff;cursor:pointer;font-family:inherit;font-weight:700;font-size:.84rem;padding:8px 14px;border-radius:11px;color:var(--sub);display:flex;align-items:center;gap:6px}
+.tab .ic{font-size:1rem}
+.tab.cur{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab .badge{font-size:.66rem;background:var(--c);color:#fff;border-radius:999px;padding:1px 7px;font-family:'IBM Plex Mono',monospace}
+.tab.cur .badge{background:#fff;color:var(--ink)}
+.view{display:none;animation:fadeUp .4s ease}.view.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+h2.vtitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.4rem;margin:22px 0 4px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.vsub{color:var(--sub);font-size:.91rem;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin:13px 0;box-shadow:0 1px 3px rgba(30,30,50,.05)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:32px;height:32px;cursor:pointer;font-size:.9rem;display:inline-flex;align-items:center;justify-content:center}
+.spk:hover{border-color:var(--ink)}.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.en{font-family:'Lora',serif}
+/* quiz */
+.q{margin:14px 0;padding-top:13px;border-top:1px dashed var(--line)}.q:first-child{border-top:none}
+.qno{font-weight:700;font-size:.76rem;color:var(--sub);margin-bottom:5px;display:flex;gap:6px;align-items:center}
+.qtag{font-size:.66rem;font-weight:800;padding:1px 8px;border-radius:999px}
+.qtag.match{background:var(--e-bg);color:var(--e)}.qtag.syn{background:var(--c-bg);color:var(--c)}
+.qtag.ant{background:var(--d-bg);color:var(--d)}.qtag.spell{background:var(--p-bg);color:var(--p)}
+.qtext{font-weight:600;margin-bottom:9px;font-size:1.02rem}
+.qtext .big{font-family:'Lora',serif;font-size:1.15rem;color:var(--root)}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{text-align:left;font-family:inherit;font-size:.93rem;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:9px 13px;cursor:pointer;transition:.15s}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--c-bg)}
+.opt.wrong{border-color:var(--bad);background:#FBE5E1;animation:shake .3s}
+.opt:disabled{cursor:default}@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.spellrow{display:flex;gap:8px;flex-wrap:wrap}
+.spellrow input{flex:1;min-width:170px;font-family:'Lora',serif;font-size:1.05rem;padding:9px 12px;border:1.5px solid var(--line);border-radius:10px}
+.spellrow input:focus{outline:none;border-color:var(--p)}
+.spellrow button{border:none;background:var(--ink);color:#fff;border-radius:10px;padding:9px 18px;font-family:inherit;font-weight:700;cursor:pointer}
+.fb{display:none;margin-top:8px;font-size:.86rem;border-radius:8px;padding:8px 12px}.fb.show{display:block}
+.fb.good{background:var(--c-bg);border:1px solid var(--ok)}.fb.bad{background:#FBE5E1;border:1px solid var(--bad)}
+.hintb{font-family:'Lora',serif;color:var(--p);font-size:.92rem;margin-top:4px}
+/* grammar map */
+.gmap{background:var(--card);border:2px solid var(--root);border-radius:16px;padding:20px;margin:16px 0}
+.gmap h3{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.25rem;color:var(--root);display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.gmap .gi{font-size:.9rem;color:var(--sub);margin-bottom:14px}
+.tree{display:flex;flex-direction:column;align-items:center;gap:0;margin:6px 0 8px}
+.tnode{background:var(--root-bg);border:1.5px solid var(--root);color:var(--root);font-weight:700;border-radius:10px;padding:8px 16px;text-align:center;font-size:.95rem}
+.tconn{width:2px;height:16px;background:var(--root)}
+.tbranch{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.tleaf{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:7px 13px;text-align:center;font-size:.88rem;min-width:90px}
+.tleaf b{color:var(--ink)}
+.tleaf .ko{display:block;font-size:.75rem;color:var(--sub);margin-top:2px}
+.formula{background:#fff;border:1.5px dashed var(--root);border-radius:10px;padding:9px 14px;text-align:center;font-weight:700;margin:10px 0;color:var(--root)}
+.formula .pill{background:var(--root-bg);border-radius:6px;padding:1px 8px;margin:0 2px;display:inline-block}
+.exline{display:flex;align-items:center;gap:9px;flex-wrap:wrap;background:#F7F7FC;border-radius:9px;padding:8px 12px;margin:6px 0}
+.exline .ex{flex:1;min-width:160px}
+.exline .ex .e{font-family:'Lora',serif;font-size:1.02rem}
+.exline .ex .k{font-size:.8rem;color:var(--sub)}
+.hl{padding:0 3px;border-radius:3px;font-weight:600;background:linear-gradient(180deg,transparent 35%,var(--hl) 35%)}
+.diffb{margin-top:10px;border:2px solid var(--d);border-radius:11px;padding:11px 14px;background:#FDF0EC;font-size:.9rem}
+.diffb .dh{font-weight:800;color:var(--d);margin-bottom:3px}
+.cp{margin-top:14px;border-top:2px dashed var(--line);padding-top:12px}
+.cp .cph{font-weight:800;font-size:.9rem;margin-bottom:8px;color:var(--ink)}
+/* writing */
+.wsec{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.05rem;color:var(--root);margin:18px 0 6px;display:flex;align-items:center;gap:7px}
+.wcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin:10px 0}
+.wcard.mastered{border-color:var(--c);background:linear-gradient(180deg,#F1FAF6,#fff)}
+.wn{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.wn .num{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:.72rem;color:#fff;background:var(--root);border-radius:6px;padding:2px 8px}
+.wn .gtag{font-size:.68rem;font-weight:700;color:var(--e);background:var(--e-bg);border-radius:999px;padding:2px 8px}
+.wn .star{margin-left:auto;font-size:.9rem}
+.wko{font-size:1.06rem;font-weight:600;margin-bottom:9px}
+.whint{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.wc{font-size:.76rem;color:var(--sub);font-family:'IBM Plex Mono',monospace}
+.hbtn{border:1.5px solid var(--line);background:#fff;color:var(--sub);border-radius:8px;padding:4px 10px;font-family:inherit;font-size:.76rem;font-weight:700;cursor:pointer}
+.hbtn:hover{border-color:var(--root);color:var(--root)}.hbtn.on{background:var(--root);border-color:var(--root);color:#fff}
+.hintbox{display:none;margin-bottom:8px;padding:8px 11px;background:#F4F4FB;border-radius:9px;font-size:.85rem}
+.hintbox.show{display:block}.hintbox .fl{font-family:'Lora',serif;font-size:1.02rem;letter-spacing:.04em;color:var(--root)}
+.hintbox .kw{display:inline-block;margin:1px 7px 1px 0}.hintbox .kw b{font-family:'Lora',serif;color:var(--ink)}
+.wrow{display:flex;gap:8px;flex-wrap:wrap}
+.wrow input{flex:1;min-width:190px;font-family:'Lora',serif;font-size:1.03rem;padding:9px 12px;border:1.5px solid var(--line);border-radius:10px}
+.wrow input:focus{outline:none;border-color:var(--root)}
+.wrow button{border:none;background:var(--ink);color:#fff;border-radius:10px;padding:9px 18px;font-family:inherit;font-weight:700;cursor:pointer}
+.wres{display:none;margin-top:10px}.wres.show{display:block}
+.tokens{font-family:'Lora',serif;font-size:1.02rem;line-height:1.9;margin-bottom:5px}
+.tok{padding:1px 5px;border-radius:5px;margin:0 1px}.tok.ok{background:var(--c-bg);color:var(--ok)}.tok.no{background:#FBE5E1;color:var(--bad);text-decoration:line-through}.tok.miss{background:#FBE5E1;color:var(--bad);opacity:.6}
+.scoreline{display:flex;align-items:center;gap:9px;margin:4px 0}.scorepct{font-family:'Black Han Sans';font-size:1.2rem}
+.model{font-family:'Lora',serif;font-size:1rem;background:#F4F4FB;border-left:3px solid var(--c);padding:6px 11px;border-radius:0 8px 8px 0;margin:5px 0}
+.gnote{font-size:.82rem;color:#444;background:var(--b-bg);border-radius:8px;padding:7px 11px;margin-top:5px}.gnote b{color:#8a6608}
+.btn{font-family:inherit;font-weight:700;font-size:.92rem;border:none;border-radius:11px;padding:11px 20px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--root);color:#fff;box-shadow:3px 3px 0 rgba(82,70,199,.3)}
+.btn.primary:hover{transform:translate(-1px,-1px)}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+/* summary */
+.sumcard{background:var(--card);border:2px solid var(--root);border-radius:var(--r);padding:22px;margin:14px 0}
+.sumtotal{text-align:center;margin-bottom:12px}.sumtotal .big{font-family:'Black Han Sans';font-size:2.4rem;line-height:1}
+.sumtotal .g{font-weight:700;margin-top:4px;font-size:1.05rem}
+.barrow{margin:9px 0}.barrow .bl{display:flex;justify-content:space-between;font-size:.85rem;font-weight:700;margin-bottom:3px}
+.barrow .tk{height:13px;background:#E9E9F3;border-radius:99px;overflow:hidden}.barrow .fl2{height:100%;border-radius:99px;width:0;transition:width .8s ease}
+.empty-review{background:var(--c-bg);border:2px solid var(--c);border-radius:14px;padding:18px;text-align:center;font-weight:700;color:var(--ok)}
+.review-box{background:#FFF7E8;border:2px solid var(--b);border-radius:14px;padding:18px;margin:14px 0}
+.review-box .rh{display:flex;align-items:center;gap:8px;font-weight:800;color:#8a6608;margin-bottom:6px}
+.review-box .rh .pb{background:var(--b);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:999px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:11px;font-size:.88rem;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:80}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+footer{text-align:center;color:var(--sub);font-size:.77rem;margin-top:34px}
+@media(max-width:520px){.card,.gmap{padding:15px 14px}.tab{font-size:.78rem;padding:7px 11px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">중학 영어 · Reading · 통합 학습 (단어 · 문법 · 영작)</div>
+  <h1>Meeting Friends Again <span class="mark">after 20 Years</span></h1>
+  <p class="tagline">단어 시험 · 핵심문법 지도 · 한글 → 거꾸로 영작을 한 곳에서!</p>
+</header>
+<nav class="tabs"><div class="tabrow" id="tabrow"></div></nav>
+<main id="main"></main>
+<footer>Meeting Friends Again after 20 Years · 단어 + 핵심문법 + 거꾸로 영작 통합</footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ================= 데이터 ================= */
+/* 본문 31문장: 한글 / 영어 / 문법태그 / 핵심단어힌트 / 단락 */
+const SENT=[
+ {n:1,grp:0,ko:'오늘은 특별한 날이야.',en:"Today is a special day.",g:'be동사 현재',kw:[["special","특별한"]]},
+ {n:2,grp:0,ko:'우리는 중학교 동창회를 하고 있어!',en:"We are having our middle school reunion!",g:'현재진행형',kw:[["reunion","동창회"]]},
+ {n:3,grp:0,ko:'우리는 20년 전에 같은 반이었어.',en:"We were in the same class 20 years ago.",g:'be동사 과거 were',kw:[["20 years ago","20년 전에"]]},
+ {n:4,grp:0,ko:'이제 모두가 놀라운 직업을 가지고 있어.',en:"Now everybody has amazing jobs.",g:'3인칭 단수 has',kw:[["amazing","놀라운"],["job","직업"]]},
+ {n:5,grp:0,ko:'그들에 대해 알아보자!',en:"Let's find out about them!",g:"Let's + 동사원형",kw:[["find out","알아보다"]]},
+ {n:6,grp:1,ko:'Eunji는 우리가 중학교에 다닐 때 사진 동아리에 있었어.',en:"Eunji was in the photography club when we were in middle school.",g:'when 부사절(과거)',kw:[["photography","사진(촬영)"],["club","동아리"]]},
+ {n:7,grp:1,ko:'그녀는 사진 찍는 것을 좋아했어.',en:"She loved taking pictures.",g:'동명사(love + -ing)',kw:[["take pictures","사진을 찍다"]]},
+ {n:8,grp:1,ko:'이제 그녀는 드론 사진작가야.',en:"Now she is a drone photographer.",g:'be동사 현재',kw:[["photographer","사진작가"]]},
+ {n:9,grp:1,ko:'드론은 거의 어디든 갈 수 있어.',en:"Drones can go almost anywhere.",g:'조동사 can',kw:[["almost","거의"],["anywhere","어디든"]]},
+ {n:10,grp:1,ko:'그래서 그녀는 하늘 높은 곳에서 사진을 찍을 수 있어.',en:"So she can take pictures from high up in the sky.",g:'So 그래서 / can',kw:[["high up","높은 곳에서"]]},
+ {n:11,grp:1,ko:'그녀는 멋진 순간들을 포착해.',en:"She captures great moments.",g:'3인칭 단수 captures',kw:[["capture","포착하다"],["moment","순간"]]},
+ {n:12,grp:1,ko:'그녀의 사진들은 놀라워!',en:"Her pictures are amazing!",g:'be동사 현재 복수',kw:[["amazing","놀라운"]]},
+ {n:13,grp:2,ko:'Jimin은 어때?',en:"How about Jimin?",g:'How about ~?',kw:[["How about","~는 어때?"]]},
+ {n:14,grp:2,ko:'그는 개 애호가였고 세 마리의 개를 키웠어.',en:"He was a dog lover and had three dogs.",g:'be동사·일반동사 과거',kw:[["lover","애호가"]]},
+ {n:15,grp:2,ko:'그는 이제 선생님이야.',en:"He is a teacher now.",g:'be동사 현재',kw:[["teacher","선생님"]]},
+ {n:16,grp:2,ko:'하지만 그는 아이들을 가르치지 않아.',en:"But he doesn't teach children.",g:"doesn't + 동사원형",kw:[["teach","가르치다"]]},
+ {n:17,grp:2,ko:'그는 개들을 가르쳐!',en:"He teaches dogs!",g:'3인칭 단수 teaches',kw:[["teach","가르치다"]]},
+ {n:18,grp:2,ko:'그는 그들을 돌보고 그들에게 예절을 가르쳐.',en:"He takes care of them and teaches manners to them.",g:'take care of / teach A to B',kw:[["take care of","돌보다"],["manners","예절"]]},
+ {n:19,grp:2,ko:'그가 개들과 이야기할 때, 그는 특별한 앱을 사용해.',en:"When he talks with the dogs, he uses a special application.",g:'when 부사절',kw:[["application","앱, 응용프로그램"]]},
+ {n:20,grp:2,ko:'그것은 개의 소리를 인간의 언어로 번역해.',en:"It translates dog sounds into human language.",g:'translate A into B',kw:[["translate","번역하다"],["language","언어"]]},
+ {n:21,grp:2,ko:'그는 개들을 이해할 때 행복함을 느껴.',en:"He feels happy when he understands the dogs.",g:'감각동사 feel + 형용사',kw:[["feel happy","행복함을 느끼다"],["understand","이해하다"]]},
+ {n:22,grp:3,ko:'Sohee는 관광 가이드로 일해.',en:"Sohee works as a tour guide.",g:'work as ~',kw:[["tour guide","관광 가이드"]]},
+ {n:23,grp:3,ko:'그녀는 전 세계를 여행해.',en:"She travels all around the world.",g:'3인칭 단수 travels',kw:[["all around the world","전 세계를"]]},
+ {n:24,grp:3,ko:'하지만 그녀는 한국을 떠나지 않아.',en:"But she doesn't leave Korea.",g:"doesn't + 동사원형",kw:[["leave","떠나다"]]},
+ {n:25,grp:3,ko:'그게 어떻게 가능해?',en:"How is that possible?",g:'의문문 How is ~?',kw:[["possible","가능한"]]},
+ {n:26,grp:3,ko:'그녀는 VR 세계에서 관광객들을 안내해!',en:"She guides tourists in a VR world!",g:'3인칭 단수 guides',kw:[["guide","안내하다"],["tourist","관광객"]]},
+ {n:27,grp:3,ko:'Sohee가 중학교에 다닐 때, 그녀는 우리에게 흥미로운 장소들에 대해 이야기하는 것을 좋아했어.',en:"When Sohee was in middle school, she liked telling us about interesting places.",g:'when 부사절 / 동명사(like + -ing)',kw:[["like telling","말하는 것을 좋아하다"],["interesting","흥미로운"]]},
+ {n:28,grp:3,ko:'이제 그녀는 자신의 관광객들과 같은 것을 해.',en:"Now she does the same thing with her tourists.",g:'3인칭 단수 does',kw:[["the same thing","같은 것"]]},
+ {n:29,grp:3,ko:'그녀는 또한 그들을 멀고 위험한 장소들로 데려가.',en:"She also takes them to faraway and dangerous places.",g:'take A to B',kw:[["faraway","멀리 떨어진"],["dangerous","위험한"]]},
+ {n:30,grp:3,ko:'그녀는 심지어 화성으로도 여행해.',en:"She even travels to Mars.",g:'even 심지어',kw:[["even","심지어"]]},
+ {n:31,grp:3,ko:'그거 신나겠다!',en:"That sounds exciting!",g:'감각동사 sound + 형용사',kw:[["sound exciting","신나게 들리다"]]},
+];
+const GRP=[{t:'도입 (01–05)',ic:'🎉'},{t:'Eunji · 드론 사진작가 (06–12)',ic:'📷'},{t:'Jimin · 개 선생님 (13–21)',ic:'🐕'},{t:'Sohee · VR 관광 가이드 (22–31)',ic:'🌍'}];
+
+/* 단어 퀴즈 */
+const VOCAB=[
+ {type:'match',q:'reunion',opts:['동창회, 재회','졸업식','입학','방학'],ans:0,ex:'reunion = 동창회/재회.'},
+ {type:'match',q:'photographer',opts:['사진작가','지휘자','요리사','조종사'],ans:0,ex:'photograph(사진)+er = 사진작가.'},
+ {type:'match',q:'capture',opts:['포착하다, 담아내다','지우다','떨어뜨리다','잊다'],ans:0,ex:'capture a moment = 순간을 포착하다.'},
+ {type:'match',q:'translate',opts:['번역하다','발명하다','반복하다','여행하다'],ans:0,ex:'translate A into B = A를 B로 번역하다.'},
+ {type:'match',q:'manners',opts:['예절, 매너','지도','동작','기계'],ans:0,ex:'teach manners = 예절을 가르치다.'},
+ {type:'match',q:'tourist',opts:['관광객','교사','선수','가수'],ans:0,ex:'tour(관광)+ist = 관광객.'},
+ {type:'syn',q:'amazing',opts:['wonderful','boring','tiny','sad'],ans:0,ex:'amazing ≈ wonderful(놀라운).'},
+ {type:'syn',q:'almost',opts:['nearly','never','exactly','really'],ans:0,ex:'almost ≈ nearly(거의).'},
+ {type:'syn',q:'faraway',opts:['distant','near','small','easy'],ans:0,ex:'faraway ≈ distant(멀리 떨어진).'},
+ {type:'syn',q:'exciting',opts:['thrilling','boring','calm','quiet'],ans:0,ex:'exciting ≈ thrilling(신나는).'},
+ {type:'syn',q:'interesting',opts:['fascinating','dull','tired','heavy'],ans:0,ex:'interesting ≈ fascinating(흥미로운).'},
+ {type:'ant',q:'dangerous',opts:['safe','scary','risky','wild'],ans:0,ex:'dangerous ↔ safe(안전한).'},
+ {type:'ant',q:'possible',opts:['impossible','probable','easy','real'],ans:0,ex:'possible ↔ impossible(불가능한).'},
+ {type:'ant',q:'special',opts:['ordinary','unique','rare','famous'],ans:0,ex:'special ↔ ordinary(평범한).'},
+ {type:'ant',q:'leave',opts:['stay','depart','exit','move'],ans:0,ex:'leave ↔ stay(머무르다).'},
+ {type:'ant',q:'happy',opts:['sad','glad','pleased','joyful'],ans:0,ex:'happy ↔ sad(슬픈).'},
+ {type:'spell',ko:'사진작가',en:'photographer',ex:'photograph + er.'},
+ {type:'spell',ko:'응용 프로그램(앱)',en:'application',ex:'app·li·ca·tion.'},
+ {type:'spell',ko:'위험한',en:'dangerous',ex:'danger + ous.'},
+ {type:'spell',ko:'가능한',en:'possible',ex:'pos·si·ble.'},
+];
+
+/* 핵심문법 지도 (로직 트리) */
+const GRAMMAR=[
+ {id:'sense',icon:'👂',title:'감각동사 + 형용사',intro:'느낀 것을 말할 때, 감각동사 뒤에는 부사가 아니라 형용사를 써요.',
+  tree:`<div class="tree">
+    <div class="tnode">감각으로 느낀 것을 말한다</div><div class="tconn"></div>
+    <div class="tnode">감각동사를 쓴다</div><div class="tconn"></div>
+    <div class="tbranch">
+      <div class="tleaf"><b>look</b><span class="ko">~해 보이다</span></div>
+      <div class="tleaf"><b>sound</b><span class="ko">~하게 들리다</span></div>
+      <div class="tleaf"><b>feel</b><span class="ko">~하게 느끼다</span></div>
+      <div class="tleaf"><b>taste</b><span class="ko">~한 맛이 나다</span></div>
+      <div class="tleaf"><b>smell</b><span class="ko">~한 냄새가 나다</span></div>
+    </div><div class="tconn"></div>
+    <div class="tnode" style="background:var(--c-bg);border-color:var(--c);color:var(--c)">+ 형용사 (보어) ✓</div>
+  </div>
+  <div class="formula"><span class="pill">감각동사</span> + <span class="pill">형용사</span> &nbsp;(부사 ✗)</div>`,
+  ex:[{en:'He feels [[happy]] when he understands the dogs.',ko:'그는 개들을 이해할 때 행복함을 느낀다.',note:'feel + 형용사(happy).'},
+      {en:'That sounds [[exciting]]!',ko:'그거 신나게 들린다!',note:'sound + 형용사(exciting).'},
+      {en:'Her pictures look [[amazing]].',ko:'그녀의 사진들은 놀라워 보인다.',note:'look + 형용사(amazing).'}],
+  diff:'sounds <b>exciting</b> (O) / sounds <b>excitingly</b> (✗) — 감각동사 뒤에는 부사가 아니라 <b>형용사</b>!',
+  cp:[
+   {q:'빈칸에 알맞은 것은? "That sounds ___ !"',opts:['exciting','excitingly','excitement','excite'],ans:0,ex:'sound + 형용사 → exciting.'},
+   {q:'어법상 옳은 문장은?',opts:['He feels happy.','He feels happily.','He feels happiness.','He feel happy.'],ans:0,ex:'feel + 형용사(happy), 주어 He → feels.'},
+   {q:'빈칸에 알맞은 것은? "The food tastes ___ ."',opts:['good','well','goodly','to good'],ans:0,ex:'taste + 형용사(good). (well은 부사)'}]},
+ {id:'gerund',icon:'🎬',title:'동명사 (목적어로 쓰는 -ing)',intro:'동사를 목적어 자리에 쓰려면 동사원형이 아니라 -ing(동명사)로 바꿔요.',
+  tree:`<div class="tree">
+    <div class="tnode">동사 뒤 목적어 자리에 "동사"를 쓰고 싶다</div><div class="tconn"></div>
+    <div class="tnode">동사 + <b>-ing</b> (동명사)로!</div><div class="tconn"></div>
+    <div class="tbranch">
+      <div class="tleaf"><b>love + -ing</b><span class="ko">~하기를 좋아하다</span></div>
+      <div class="tleaf"><b>like + -ing</b><span class="ko">~하기를 좋아하다</span></div>
+      <div class="tleaf"><b>enjoy + -ing</b><span class="ko">~하기를 즐기다</span></div>
+      <div class="tleaf"><b>finish + -ing</b><span class="ko">~하기를 끝내다</span></div>
+    </div></div>
+  <div class="formula"><span class="pill">love / like / enjoy ...</span> + <span class="pill">동사-ing</span></div>`,
+  ex:[{en:'She loved [[taking]] pictures.',ko:'그녀는 사진 찍는 것을 좋아했다.',note:'love + 동명사(taking).'},
+      {en:'She liked [[telling]] us about interesting places.',ko:'그녀는 흥미로운 장소들에 대해 말하는 것을 좋아했다.',note:'like + 동명사(telling).'},
+      {en:'I enjoy [[reading]] books.',ko:'나는 책 읽기를 즐긴다.',note:'enjoy는 동명사만 목적어로!'}],
+  diff:'enjoy·finish는 <b>동명사만</b> 가능! enjoy <b>reading</b> (O) / enjoy <b>to read</b> (✗). (love·like는 to부정사도 가능)',
+  cp:[
+   {q:'빈칸에 알맞은 것은? "She loved ___ pictures."',opts:['taking','take','to taking','takes'],ans:0,ex:'love + 동명사(taking).'},
+   {q:'어법상 옳은 문장은?',opts:['I enjoy reading books.','I enjoy to read books.','I enjoy read books.','I enjoy reads books.'],ans:0,ex:'enjoy + 동명사(reading)만 가능.'},
+   {q:'빈칸에 알맞은 것은? "She liked ___ us about places."',opts:['telling','tell','to telling','told'],ans:0,ex:'like + 동명사(telling).'}]},
+];
+
+/* ================= 엔진 ================= */
+const TABS=[{id:'vocab',ic:'🔤',label:'단어'},{id:'grammar',ic:'🗺️',label:'핵심문법'},{id:'write',ic:'✍️',label:'거꾸로 영작'},{id:'sum',ic:'🏁',label:'종합'}];
+let curTab='vocab';
+// 상태
+const vState=VOCAB.map(()=>({done:false,ok:false}));
+const gState=GRAMMAR.map(g=>g.cp.map(()=>({done:false,ok:false})));
+const wState=SENT.map(()=>({graded:false,best:0,mastered:false}));
+
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(t,btn){if(!('speechSynthesis' in window)){alert('Chrome 권장');return;}speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));const u=new SpeechSynthesisUtterance(t);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.9;if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}speechSynthesis.speak(u);}
+function spk(t){return `<button class="spk" onclick="speak(this.dataset.s,this)" data-s="${String(t).replace(/"/g,'&quot;')}">🔊</button>`;}
+function normW(w){return w.toLowerCase().replace(/[.,!?;:"'\u2019\u201c\u201d]/g,'');}
+function firstLetters(s){return s.split(/\s+/).map(w=>{let o='';for(let i=0;i<w.length;i++){o+=i===0?w[i]:(/[A-Za-z0-9]/.test(w[i])?'_':w[i]);}return o;}).join(' ');}
+function renderEn(s){return s.replace(/\[\[(.+?)\]\]/g,'<span class="hl">$1</span>');}
+function plain(s){return s.replace(/\[\[|\]\]/g,'');}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),1900);}
+function toggleHint(id,btn){const el=document.getElementById(id);const open=el.classList.toggle('show');if(btn)btn.classList.toggle('on',open);}
+
+function renderTabs(){
+  const vp=Math.round(vState.filter(x=>x.ok).length/VOCAB.length*100);
+  const gAll=gState.flat();const gp=gAll.length?Math.round(gAll.filter(x=>x.ok).length/gAll.length*100):0;
+  const wp=Math.round(wState.filter(x=>x.mastered).length/SENT.length*100);
+  const prog={vocab:vState.some(x=>x.done)?vp+'%':'',grammar:gAll.some(x=>x.done)?gp+'%':'',write:wState.some(x=>x.graded)?wp+'%':'',sum:''};
+  document.getElementById('tabrow').innerHTML=TABS.map(t=>`<button class="tab ${t.id===curTab?'cur':''}" onclick="goTab('${t.id}')"><span class="ic">${t.ic}</span>${t.label}${prog[t.id]?`<span class="badge">${prog[t.id]}</span>`:''}</button>`).join('');
+}
+function goTab(id){curTab=id;document.querySelectorAll('.view').forEach(v=>v.classList.toggle('show',v.id==='view-'+id));renderTabs();window.scrollTo({top:0});if(id==='sum')renderSummary();}
+
+/* ---- 단어 ---- */
+function renderVocab(){
+  const TAG={match:'의미',syn:'유의어',ant:'반의어',spell:'철자'};
+  let html=`<h2 class="vtitle">🔤 단어 시험</h2><p class="vsub">의미 매칭 · 유의어 · 반의어 · 철자 — ${VOCAB.length}문항. 보기를 누르거나 철자를 입력하세요.</p>`;
+  VOCAB.forEach((q,i)=>{
+    let inner='';
+    if(q.type==='spell'){
+      inner=`<div class="qtext">우리말 뜻: <b>${q.ko}</b> &nbsp;<span class="hintb" id="vh-${i}" style="display:none"></span></div>
+        <div class="spellrow"><input id="vin-${i}" type="text" placeholder="영어 철자 입력..." autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')gradeVocab(${i})">
+        <button onclick="gradeVocab(${i})">채점</button></div>
+        <button class="hbtn" style="margin-top:6px" onclick="document.getElementById('vh-${i}').style.display='inline';document.getElementById('vh-${i}').textContent=firstLettersOf(${i})">🔤 첫 글자 힌트</button>`;
+    } else {
+      inner=`<div class="qtext"><span class="big">${q.q}</span> ${q.type==='match'?'의 뜻은?':q.type==='syn'?'의 유의어는?':'의 반의어는?'}</div>
+        <div class="opts">${q.opts.map((o,k)=>`<button class="opt" id="vo-${i}-${k}" onclick="pickVocab(${i},${k})">${k+1}. ${o}</button>`).join('')}</div>`;
+    }
+    html+=`<div class="card"><div class="q" id="vq-${i}"><div class="qno"><span class="qtag ${q.type}">${TAG[q.type]}</span> 문항 ${i+1} / ${VOCAB.length}</div>${inner}<div class="fb" id="vfb-${i}"></div></div></div>`;
+  });
+  return `<section class="view ${curTab==='vocab'?'show':''}" id="view-vocab">${html}</section>`;
+}
+function firstLettersOf(i){return firstLetters(VOCAB[i].en);}
+function pickVocab(i,k){const q=VOCAB[i];if(vState[i].done)return;vState[i].done=true;vState[i].ok=(k===q.ans);
+  q.opts.forEach((_,j)=>{const el=document.getElementById(`vo-${i}-${j}`);el.disabled=true;if(j===q.ans)el.classList.add('right');else if(j===k)el.classList.add('wrong');});
+  const fb=document.getElementById(`vfb-${i}`);fb.className='fb show '+(vState[i].ok?'good':'bad');fb.innerHTML=(vState[i].ok?'✅ 정답! ':'❌ 오답. ')+q.ex;renderTabs();}
+function gradeVocab(i){const q=VOCAB[i];const val=(document.getElementById(`vin-${i}`).value||'').trim();if(!val){toast('철자를 입력하세요');return;}
+  vState[i].done=true;vState[i].ok=(normW(val)===normW(q.en));
+  const fb=document.getElementById(`vfb-${i}`);fb.className='fb show '+(vState[i].ok?'good':'bad');
+  fb.innerHTML=(vState[i].ok?'✅ 정답! ':`❌ 정답: <b>${q.en}</b> `)+q.ex;
+  document.getElementById(`vin-${i}`).disabled=true;renderTabs();}
+
+/* ---- 문법 ---- */
+function renderGrammar(){
+  let html=`<h2 class="vtitle">🗺️ 핵심문법 지도</h2><p class="vsub">로직 트리로 한눈에! 감각동사·동명사를 지도처럼 따라가며 익히고, 체크포인트로 확인하세요.</p>`;
+  GRAMMAR.forEach((g,gi)=>{
+    const ex=g.ex.map(e=>`<div class="exline"><div class="ex"><div class="e">${renderEn(e.en)}</div><div class="k">${e.ko} · ${e.note}</div></div>${spk(plain(e.en))}</div>`).join('');
+    const cp=g.cp.map((c,ci)=>`<div class="q" id="gq-${gi}-${ci}"><div class="qno">체크포인트 ${ci+1}</div><div class="qtext">${c.q}</div>
+      <div class="opts">${c.opts.map((o,k)=>`<button class="opt" id="go-${gi}-${ci}-${k}" onclick="pickCp(${gi},${ci},${k})">${k+1}. ${o}</button>`).join('')}</div>
+      <div class="fb" id="gfb-${gi}-${ci}"></div></div>`).join('');
+    html+=`<div class="gmap"><h3>${g.icon} ${g.title}</h3><div class="gi">${g.intro}</div>
+      ${g.tree}${ex}
+      <div class="diffb"><div class="dh">⭐ 헷갈림 포인트</div>${g.diff}</div>
+      <div class="cp"><div class="cph">📝 체크포인트</div>${cp}</div></div>`;
+  });
+  return `<section class="view ${curTab==='grammar'?'show':''}" id="view-grammar">${html}</section>`;
+}
+function pickCp(gi,ci,k){const c=GRAMMAR[gi].cp[ci];if(gState[gi][ci].done)return;gState[gi][ci].done=true;gState[gi][ci].ok=(k===c.ans);
+  c.opts.forEach((_,j)=>{const el=document.getElementById(`go-${gi}-${ci}-${j}`);el.disabled=true;if(j===c.ans)el.classList.add('right');else if(j===k)el.classList.add('wrong');});
+  const fb=document.getElementById(`gfb-${gi}-${ci}`);fb.className='fb show '+(gState[gi][ci].ok?'good':'bad');fb.innerHTML=(gState[gi][ci].ok?'✅ 정답! ':'❌ 오답. ')+c.ex;renderTabs();}
+
+/* ---- 거꾸로 영작 ---- */
+function renderWrite(){
+  let html=`<h2 class="vtitle">✍️ 거꾸로 영작</h2><p class="vsub">한글을 보고 영어 문장을 직접 써 보세요. 본문 31문장 · 단어별 채점 · 문법 포인트.</p>`;
+  GRP.forEach((gr,gIdx)=>{
+    html+=`<div class="wsec">${gr.ic} ${gr.t}</div>`;
+    SENT.filter(s=>s.grp===gIdx).forEach(it=>{
+      const i=it.n-1;
+      html+=`<div class="wcard" id="wc-${i}"><div class="wn"><span class="num">${String(it.n).padStart(2,'0')}</span><span class="gtag">${it.g}</span><span class="star" id="ws-${i}"></span></div>
+        <div class="wko">${it.ko}</div>
+        <div class="whint"><span class="wc">단어 ${it.en.split(/\s+/).length}개</span>
+          <button class="hbtn" onclick="toggleHint('wfl-${i}',this)">🔤 첫 글자</button>
+          <button class="hbtn" onclick="toggleHint('wkw-${i}',this)">💡 단어</button></div>
+        <div class="hintbox" id="wfl-${i}"><span class="fl">${firstLetters(it.en)}</span></div>
+        <div class="hintbox" id="wkw-${i}">${it.kw.map(k=>`<span class="kw"><b>${k[0]}</b> ${k[1]}</span>`).join('')}</div>
+        <div class="wrow"><input id="wi-${i}" type="text" placeholder="영어로 쓰세요..." autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')gradeWrite(${i})">
+          <button onclick="gradeWrite(${i})">채점</button></div>
+        <div class="wres" id="wr-${i}"></div></div>`;
+    });
+  });
+  return `<section class="view ${curTab==='write'?'show':''}" id="view-write">${html}</section>`;
+}
+function gradeWrite(i){const it=SENT[i];const val=(document.getElementById(`wi-${i}`).value||'').trim();if(!val){toast('문장을 입력하세요');return;}
+  const ans=it.en.split(/\s+/),got=val.split(/\s+/);let c=0;const toks=[];
+  ans.forEach((aw,k)=>{const gw=got[k]||'';const ok=gw&&normW(gw)===normW(aw);if(ok)c++;toks.push(`<span class="tok ${ok?'ok':(gw?'no':'miss')}">${gw||aw}</span>`);});
+  const pct=Math.round(c/ans.length*100);const st=wState[i];st.graded=true;st.best=Math.max(st.best,pct);if(pct===100)st.mastered=true;
+  const r=document.getElementById(`wr-${i}`);r.className='wres show';
+  r.innerHTML=`<div class="tokens">${toks.join(' ')}</div>
+    <div class="scoreline"><span class="scorepct" style="color:${pct===100?'var(--ok)':pct>=60?'var(--b)':'var(--bad)'}">${pct===100?'🎉 100%':pct+'%'}</span>
+      <span style="font-size:.83rem;color:var(--sub)">${c}/${ans.length} 단어</span>${spk(it.en)}</div>
+    <div class="model">정답: ${it.en}</div><div class="gnote"><b>문법</b> · ${it.g}</div>`;
+  document.getElementById(`ws-${i}`).textContent=st.mastered?'⭐':`${st.best}%`;
+  document.getElementById(`wc-${i}`).classList.toggle('mastered',st.mastered);renderTabs();}
+
+/* ---- 종합 ---- */
+function renderSummary(){
+  const host=document.getElementById('sumBody');if(!host)return;
+  const vDone=vState.filter(x=>x.done).length,vOk=vState.filter(x=>x.ok).length;
+  const gAll=gState.flat(),gDone=gAll.filter(x=>x.done).length,gOk=gAll.filter(x=>x.ok).length;
+  const wGraded=wState.filter(x=>x.graded).length,wMast=wState.filter(x=>x.mastered).length;
+  const vp=Math.round(vOk/VOCAB.length*100),gp=Math.round(gOk/gAll.length*100),wp=Math.round(wMast/SENT.length*100);
+  const overall=Math.round((vp+gp+wp)/3);
+  const grade=overall>=90?['🥇 완벽해요!','단어·문법·영작 모두 탄탄합니다.']:overall>=75?['🥈 잘했어요','조금만 더 복습하면 완성!']:overall>=60?['🥉 좋아요','약한 부분을 다시 공부해요.']:['🌱 한 번 더!','각 탭을 다시 풀어보세요.'];
+  const bar=(lab,p,col,extra)=>`<div class="barrow"><div class="bl"><span>${lab}</span><span>${extra} · ${p}%</span></div><div class="tk"><div class="fl2" data-w="${p}%" style="background:${col}"></div></div></div>`;
+  // 오답/미완성 모음
+  const vWrong=VOCAB.filter((q,i)=>vState[i].done&&!vState[i].ok).length;
+  const wLeft=SENT.filter((s,i)=>wState[i].graded&&!wState[i].mastered).length;
+  host.innerHTML=`<div class="sumcard">
+    <div class="sumtotal"><div class="big">${overall}%</div><div class="g">${grade[0]}</div><p style="font-size:.9rem;color:var(--sub);margin-top:4px">${grade[1]}</p></div>
+    ${bar('🔤 단어',vp,'var(--e)',`${vOk}/${VOCAB.length} 정답 (푼 문항 ${vDone})`)}
+    ${bar('🗺️ 핵심문법',gp,'var(--root)',`${gOk}/${gAll.length} 체크포인트`)}
+    ${bar('✍️ 거꾸로 영작',wp,'var(--c)',`${wMast}/${SENT.length} 문장 마스터`)}
+  </div>
+  ${(vWrong||wLeft)?`<div class="review-box"><div class="rh"><span class="pb">🔁 복습 추천</span>아직 완성 못한 부분</div>
+    <p style="font-size:.88rem;color:#6a5408">${vWrong?`· 단어 오답 <b>${vWrong}</b>문항 → [🔤 단어] 탭에서 확인<br>`:''}${wLeft?`· 영작 미완성 <b>${wLeft}</b>문장 → [✍️ 거꾸로 영작] 탭에서 100%까지 도전`:''}</p></div>`
+   :(vDone&&wGraded?`<div class="empty-review">🎉 모든 영역을 완성했어요! 정말 잘했어요.</div>`:`<div class="review-box"><div class="rh"><span class="pb">진행 중</span>아직 안 푼 항목이 있어요</div><p style="font-size:.88rem;color:#6a5408">각 탭(단어·문법·영작)을 모두 풀면 종합 점수가 완성됩니다.</p></div>`)}`;
+  requestAnimationFrame(()=>setTimeout(()=>host.querySelectorAll('.fl2').forEach(f=>f.style.width=f.dataset.w),60));
+}
+
+/* ---- 빌드 ---- */
+function renderAll(){
+  document.getElementById('main').innerHTML=renderVocab()+renderGrammar()+renderWrite()
+    +`<section class="view ${curTab==='sum'?'show':''}" id="view-sum"><h2 class="vtitle">🏁 종합 결과</h2><p class="vsub">단어·문법·영작 세 영역의 성취를 한눈에 확인하세요.</p><div id="sumBody"></div></section>`;
+  renderTabs();
+}
+renderAll();
+</script>
+</body>
+</html>
