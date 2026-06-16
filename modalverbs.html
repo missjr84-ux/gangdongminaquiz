@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>조동사 인터랙티브 학습 · 차세대</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F0;--card:#FFFFFF;--ink:#23272F;--sub:#727784;--line:#E7E2D6;
+  --root:#1F3A5F;--root-bg:#E8EEF6;--b:#B8860B;--b-bg:#FEF8E1;--c:#1E7A5A;--c-bg:#E2F3EB;
+  --d:#C84F2F;--d-bg:#FBE8E0;--e:#5D4FA3;--e-bg:#EBE7F8;
+  --hl:#FFE45C;--ok:#1E7A5A;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;
+  background-image:radial-gradient(#e9e4d6 1px,transparent 1px);background-size:26px 26px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:800px;margin:0 auto;padding:0 16px 90px}
+header{padding:36px 0 10px;text-align:center}
+.eyebrow{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--root);border:1.5px solid var(--root);border-radius:999px;padding:3px 14px;margin-bottom:14px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.6rem,5vw,2.3rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 4px}
+.tagline{color:var(--sub);margin-top:10px;font-size:.93rem}
+.feat{display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.feat .f{font-size:.72rem;font-weight:700;padding:4px 12px;border-radius:999px;background:#fff;border:1.5px solid var(--e);color:var(--e)}
+.levelbar{display:flex;justify-content:center;gap:6px;margin-top:12px;flex-wrap:wrap}
+.lv{font-size:.72rem;font-weight:700;padding:3px 12px;border-radius:999px;border:1.5px solid}
+.lv.l1{color:var(--c);border-color:var(--c);background:var(--c-bg)}
+.lv.l2{color:var(--b);border-color:var(--b);background:var(--b-bg)}
+.lv.l3{color:var(--e);border-color:var(--e);background:var(--e-bg)}
+.lv.l4{color:var(--d);border-color:var(--d);background:var(--d-bg)}
+.stepper{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin:22px -16px 0;padding:10px 8px}
+.steps{display:flex;justify-content:center;gap:4px;max-width:800px;margin:0 auto;flex-wrap:wrap}
+.step{flex:1;max-width:120px;min-width:62px;border:none;background:transparent;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:10px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.92rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.62rem;font-weight:600;color:var(--sub);white-space:nowrap;text-align:center}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(35,39,47,.12)}
+.step.cur .lb{color:var(--ink)}
+.step.done .dot{background:var(--ink);border-color:var(--ink);color:#fff}
+.step.locked{opacity:.42;cursor:not-allowed}
+.step:not(.locked):hover .dot{transform:translateY(-2px)}
+.stage{display:none;animation:fadeUp .4s ease}.stage.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.5rem;margin:22px 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.lvchip{font-size:.66rem;font-weight:800;padding:2px 9px;border-radius:999px}
+.lvchip.l1{color:var(--c);background:var(--c-bg)}.lvchip.l2{color:var(--b);background:var(--b-bg)}.lvchip.l3{color:var(--e);background:var(--e-bg)}.lvchip.l4{color:var(--d);background:var(--d-bg)}
+.ssub{color:var(--sub);font-size:.93rem;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin:14px 0;box-shadow:0 1px 3px rgba(40,35,20,.05)}
+.card h3{font-size:1.05rem;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h3 .chip{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:999px}
+.chip.c-root{background:var(--root-bg);color:var(--root)}.chip.c-b{background:var(--b-bg);color:var(--b)}.chip.c-c{background:var(--c-bg);color:var(--c)}.chip.c-d{background:var(--d-bg);color:var(--d)}.chip.c-e{background:var(--e-bg);color:var(--e)}
+.card p{margin:6px 0}.card ul{margin:6px 0 6px 20px}.card li{margin:4px 0}
+.card table{border-collapse:collapse;width:100%;margin:8px 0;font-size:.9rem}
+.card th,.card td{border:1px solid var(--line);padding:5px 8px;text-align:center}
+.card th{background:#F7F5EE;font-weight:700}.card td.lf{text-align:left}
+.formula{background:var(--root-bg);border:1.5px solid var(--root);border-radius:10px;padding:10px 14px;margin:10px 0;font-weight:700;text-align:center;font-size:1.02rem;color:var(--root)}
+.formula .pill{background:#fff;border:1px solid var(--root);border-radius:6px;padding:1px 8px;margin:0 2px;display:inline-block}
+.diff-box{margin-top:12px;border:2px solid var(--d);border-radius:12px;padding:12px 14px;background:#FDF1EC}
+.diff-box .dh{font-weight:800;color:var(--d);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.exc{border-left:4px solid var(--line);padding:12px 16px;margin:12px 0;background:#fff;border-radius:0 10px 10px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.exc.b{border-left-color:var(--b)}.exc.c{border-left-color:var(--c)}.exc.d{border-left-color:var(--d)}.exc.e{border-left-color:var(--e)}.exc.root{border-left-color:var(--root)}
+.enline{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.en{font-family:'Lora',serif;font-size:1.08rem;line-height:1.7}
+.hl{padding:1px 3px;border-radius:3px;font-weight:600;background:linear-gradient(180deg,transparent 30%,var(--hl) 30%)}
+.spk{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;width:34px;height:34px;cursor:pointer;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;transition:.2s}
+.spk:hover{border-color:var(--ink)}.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.tgl{margin-top:8px;border:1.5px solid var(--line);background:#fff;border-radius:8px;padding:4px 12px;font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;color:var(--sub)}
+.tgl:hover{border-color:var(--ink);color:var(--ink)}.tgl[aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.trans{display:none;margin-top:9px;font-size:.9rem;background:#F7F5EE;border-radius:8px;padding:9px 12px}
+.trans.open{display:block}.trans .ko{font-weight:600}.trans .note{color:var(--sub);font-size:.85rem;margin-top:3px}
+.cp{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r);padding:18px 20px;margin:18px 0;box-shadow:4px 4px 0 rgba(35,39,47,.9)}
+.cp-head{display:flex;align-items:center;gap:9px;margin-bottom:4px;flex-wrap:wrap}
+.cp-head .badge{background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;padding:3px 11px;border-radius:999px}
+.q{margin:15px 0;padding-top:13px;border-top:1px dashed var(--line)}.q:first-of-type{border-top:none}
+.qno{font-weight:700;font-size:.78rem;color:var(--sub);margin-bottom:5px;display:flex;gap:6px;align-items:center}
+.qno .ql{font-size:.64rem;font-weight:800;padding:1px 7px;border-radius:999px}
+.ql.l1{background:var(--c-bg);color:var(--c)}.ql.l2{background:var(--b-bg);color:var(--b)}.ql.l3{background:var(--e-bg);color:var(--e)}.ql.l4{background:var(--d-bg);color:var(--d)}
+.qtext{font-weight:600;margin-bottom:9px}
+.qsent{margin:6px 0 9px;padding:9px 13px;background:#F7F5EE;border-radius:10px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{text-align:left;font-family:inherit;font-size:.92rem;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:9px 13px;cursor:pointer;transition:.15s;line-height:1.5}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--c-bg)}
+.opt.wrong{border-color:var(--bad);background:#FBE5E1;animation:shake .3s}
+.opt:disabled{cursor:default}@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.fb{display:none;margin-top:9px;font-size:.87rem;border-radius:8px;padding:9px 12px}.fb.show{display:block}
+.fb.good{background:var(--c-bg);border:1px solid var(--ok)}.fb.badf{background:#FBE5E1;border:1px solid var(--bad)}
+.btn{font-family:inherit;font-weight:700;font-size:.95rem;border:none;border-radius:12px;padding:12px 26px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--ink);color:#fff;box-shadow:3px 3px 0 rgba(35,39,47,.35)}
+.btn.primary:hover{transform:translate(-1px,-1px)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:24px 0 10px;gap:10px}
+.unlock-banner{display:none;align-items:center;gap:10px;margin-top:14px;background:var(--c-bg);border:1.5px solid var(--ok);border-radius:12px;padding:12px 16px;font-weight:600}
+.unlock-banner.show{display:flex}
+.cpscore{display:none;text-align:center;padding:12px;border-radius:12px;margin-top:14px;font-weight:700}.cpscore.show{display:block}
+/* summary */
+.sumcard{background:var(--card);border:2px solid var(--root);border-radius:var(--r);padding:22px;margin:14px 0}
+.sumtotal{text-align:center;margin-bottom:8px}.sumtotal .big{font-family:'Black Han Sans';font-size:2.6rem;line-height:1}
+.sumtotal .grade{font-weight:700;margin-top:4px;font-size:1.05rem}
+.bb{margin:11px 0}.bb .bl{display:flex;justify-content:space-between;font-size:.85rem;font-weight:700;margin-bottom:4px}
+.bb .track{height:13px;background:#EFEBDF;border-radius:99px;overflow:hidden}.bb .fill{height:100%;border-radius:99px;width:0;transition:width .8s ease}
+.dict{background:var(--e-bg);border:2px solid var(--e);border-radius:14px;padding:18px 20px;margin:18px 0}
+.dict-h{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--e);margin-bottom:4px}
+.dict-h .pb{background:var(--e);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:999px}
+.dict-sub{font-size:.85rem;color:var(--sub);margin-bottom:10px}
+.dict-item{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0}
+.dict-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.dict-controls .pbtn{border:1.5px solid var(--e);background:#fff;color:var(--e);border-radius:9px;padding:7px 14px;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.dict-controls .pbtn:hover{background:var(--e);color:#fff}
+.dict-controls .hint{font-size:.8rem;color:var(--sub)}
+.dict-input{width:100%;font-family:'Lora',serif;font-size:1rem;padding:9px 12px;border:1.5px solid var(--line);border-radius:9px}
+.dict-input:focus{outline:none;border-color:var(--e)}
+.dict-check{margin-top:8px;border:none;background:var(--ink);color:#fff;border-radius:9px;padding:8px 18px;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.dict-result{display:none;margin-top:10px;font-size:.95rem;line-height:1.9}.dict-result.show{display:block}
+.dict-result .tok{padding:1px 5px;border-radius:5px;margin:0 1px;font-family:'Lora',serif}
+.dict-result .tok.ok{background:var(--c-bg);color:var(--ok)}.dict-result .tok.no{background:#FBE5E1;color:var(--bad);text-decoration:line-through}
+.dict-result .ans{margin-top:6px;font-size:.88rem;color:var(--sub)}.dict-result .ans b{color:var(--ink);font-family:'Lora',serif}
+.dict-score{font-weight:800;margin-top:6px}
+.review-box{background:#FFF7E8;border:2px solid var(--b);border-radius:14px;padding:18px 20px;margin:18px 0}
+.review-box .rh{display:flex;align-items:center;gap:8px;font-weight:800;color:#8a6608;margin-bottom:6px}
+.review-box .rh .pb{background:var(--b);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:999px}
+.empty-review{background:var(--c-bg);border:2px solid var(--ok);border-radius:14px;padding:18px;text-align:center;font-weight:700;color:var(--ok)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:11px;font-size:.88rem;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:80}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:40px}
+@media(max-width:520px){.card,.cp,.sumcard{padding:16px 14px}.step .lb{font-size:.56rem}.en{font-size:1rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">영문법 단원 ⑫ · 조동사 · 차세대</div>
+  <h1>조동사 <span class="mark">Modal Verbs</span></h1>
+  <p class="tagline">can·may·must·should·will부터 「조동사 + have p.p.」까지 — 기초에서 고1 심화로.</p>
+  <div class="feat"><span class="f">🔁 적응형 오답 복습</span><span class="f">✍️ 받아쓰기</span><span class="f">📊 종합 분석</span><span class="f">🔊 전체 듣기</span></div>
+  <div class="levelbar"><span class="lv l1">🌱 기초</span><span class="lv l2">🌿 중급</span><span class="lv l3">🌳 중상급</span><span class="lv l4">🏔️ 고1 심화</span></div>
+</header>
+<nav class="stepper"><div class="steps" id="steps"></div></nav>
+<main id="main"></main>
+<footer>조동사 인터랙티브 · 차세대 · 기초→고1 + 종합시험 + 오답복습 + 받아쓰기</footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ================= 데이터 ================= */
+const STAGES=[
+ /* ===== 0. 기초: can/could, may, must/have to ===== */
+ {id:'basic',icon:'🌱',lv:'l1',label:'기초',title:'1단계 · 조동사의 기본',titleLv:'l1',
+  sub:'조동사는 동사 앞에서 능력·허락·의무·추측의 의미를 더해요. 뒤에는 항상 동사원형!',
+  cards:[
+   {t:'h',chip:['기본 규칙','root'],title:'조동사 + 동사원형',html:
+    `<div class="formula">주어 + <span class="pill">조동사</span> + <span class="pill">동사원형</span></div>
+     <ul><li>조동사 뒤에는 <b>항상 동사원형</b> (She can <b>swims</b> ✗ → can <b>swim</b> ✓)</li>
+     <li>조동사는 <b>주어에 따라 변하지 않음</b> (He cans ✗ → He can ✓)</li>
+     <li>조동사 두 개를 나란히 쓸 수 없음 (will can ✗ → will <b>be able to</b> ✓)</li></ul>`},
+   {t:'h',chip:['능력·허락','c'],title:'can / could',html:
+    `<table><tr><th>쓰임</th><th>예</th></tr>
+     <tr><td class="lf">능력 (~할 수 있다)</td><td class="lf">I <b>can</b> swim. = I <b>am able to</b> swim.</td></tr>
+     <tr><td class="lf">허락 (~해도 된다)</td><td class="lf"><b>Can</b> I sit here?</td></tr>
+     <tr><td class="lf">요청 (정중하게)</td><td class="lf"><b>Could</b> you help me?</td></tr></table>
+     <p>could는 can의 과거(~할 수 있었다)이자, 더 정중한 표현이에요.</p>`},
+   {t:'h',chip:['허락·약한 추측','e'],title:'may / might',html:
+    `<ul><li><b>허락</b>: You <b>may</b> go now. (가도 좋다)</li>
+     <li><b>약한 추측</b>: It <b>may/might</b> rain. (비가 올지도 몰라)</li></ul>
+     <p>might는 may보다 가능성이 조금 더 낮은 느낌이에요.</p>`},
+   {t:'h',chip:['의무','b'],title:'must / have to',html:
+    `<ul><li><b>must</b> = ~해야 한다 (강한 의무): You <b>must</b> wear a helmet.</li>
+     <li><b>have to</b> = ~해야 한다 (= must): I <b>have to</b> go now. (3인칭 단수는 <b>has to</b>)</li></ul>`},
+   {t:'ex',cls:'c',en:'She [[can]] play the piano very well.',ko:'그녀는 피아노를 매우 잘 칠 수 있다.',note:'can + 동사원형(play) = 능력.'},
+   {t:'ex',cls:'e',en:'It [[might]] snow tonight.',ko:'오늘 밤 눈이 올지도 모른다.',note:'might = 약한 추측(~일지도 모른다).'},
+   {t:'ex',cls:'b',en:'You [[must]] finish your homework first.',ko:'너는 먼저 숙제를 끝내야 한다.',note:'must = 강한 의무(~해야 한다).'},
+  ],
+  cp:[
+   {lv:'l1',q:'빈칸에 알맞은 것은?',sent:'She can ___ English.',opts:['speaks','speak','speaking','to speak'],ans:1,ex:'조동사(can) 뒤에는 동사원형 → speak.'},
+   {lv:'l1',q:'어법상 옳은 문장은?',opts:['He cans swim.','He can swims.','He can swim.','He can to swim.'],ans:2,ex:'조동사는 변하지 않고 뒤에 동사원형 → He can swim.'},
+   {lv:'l1',q:'빈칸에 알맞은 것은? (정중한 요청)',sent:'___ you pass me the salt, please?',opts:['Could','Must','May','Should'],ans:0,ex:'정중한 요청 → Could you ~?'},
+  ]},
+
+ /* ===== 1. 중급: should, will/would, 부정·의문 ===== */
+ {id:'mid',icon:'🌿',lv:'l2',label:'충고·의지',title:'2단계 · should / will & 부정·의문',titleLv:'l2',
+  sub:'충고(should), 의지·과거의 습관(will/would), 그리고 조동사의 부정문·의문문을 익혀요.',
+  cards:[
+   {t:'h',chip:['충고','c'],title:'should / ought to',html:
+    `<ul><li><b>should</b> = ~하는 게 좋다 (충고·약한 의무): You <b>should</b> see a doctor.</li>
+     <li><b>ought to</b> = should와 비슷 (~해야 한다): You <b>ought to</b> apologize.</li>
+     <li>부정: <b>should not(shouldn't)</b> = ~하지 않는 게 좋다.</li></ul>`},
+   {t:'h',chip:['의지·과거습관','e'],title:'will / would',html:
+    `<table><tr><th>쓰임</th><th>예</th></tr>
+     <tr><td class="lf">미래·의지</td><td class="lf">I <b>will</b> help you.</td></tr>
+     <tr><td class="lf">정중한 요청</td><td class="lf"><b>Would</b> you close the door?</td></tr>
+     <tr><td class="lf">과거의 습관</td><td class="lf">He <b>would</b> often visit us.</td></tr></table>`},
+   {t:'h',chip:['부정·의문','b'],title:'부정문과 의문문',html:
+    `<ul><li><b>부정</b>: 조동사 + not + 동사원형 (cannot, won't, must not, shouldn't…)</li>
+     <li><b>의문</b>: 조동사 + 주어 + 동사원형? (Can you ~? Should I ~?)</li>
+     <li>대답도 조동사로: "Can you swim?" – "Yes, I <b>can</b>. / No, I <b>can't</b>."</li></ul>`},
+   {t:'h',chip:['⭐ 헷갈림','d'],title:'must not vs don\'t have to',html:
+    `<div class="diff-box"><div class="dh">⭐ 의미가 완전히 달라요!</div>
+     <b>must not</b> = ~하면 <u>안 된다</u> (강한 금지)<br>
+     <span style="margin-left:14px">You <b>must not</b> touch it. (만지면 안 돼)</span><br><br>
+     <b>don't have to</b> = ~할 <u>필요가 없다</u> (불필요)<br>
+     <span style="margin-left:14px">You <b>don't have to</b> come. (올 필요 없어)</span></div>`},
+   {t:'ex',cls:'c',en:'You [[should]] drink more water.',ko:'너는 물을 더 마시는 게 좋겠다.',note:'should = 충고(~하는 게 좋다).'},
+   {t:'ex',cls:'e',en:'When I was young, I [[would]] play outside all day.',ko:'어렸을 때, 나는 하루 종일 밖에서 놀곤 했다.',note:'would = 과거의 습관(~하곤 했다).'},
+   {t:'ex',cls:'d',en:'You [[must not]] tell anyone this secret.',ko:'너는 이 비밀을 누구에게도 말하면 안 된다.',note:'must not = 강한 금지(~하면 안 된다).'},
+  ],
+  cp:[
+   {lv:'l2',q:'빈칸에 알맞은 것은? (충고)',sent:'You look tired. You ___ get some rest.',opts:['should','must not','will','would'],ans:0,ex:'충고 → should(~하는 게 좋다).'},
+   {lv:'l2',q:'밑줄 친 would의 의미는?',sent:'Every summer, we would go to the beach.',opts:['미래의 의지','과거의 습관(~하곤 했다)','정중한 요청','약한 추측'],ans:1,ex:'과거의 반복된 습관 → ~하곤 했다.'},
+   {lv:'l2',q:'우리말과 같은 것은? "너는 올 필요 없어."',opts:["You must not come.","You don't have to come.","You should come.","You cannot come."],ans:1,ex:"~할 필요 없다 → don't have to. (must not은 금지)"},
+  ]},
+
+ /* ===== 2. 중상급: 추측의 조동사, have to 시제 ===== */
+ {id:'upper',icon:'🌳',lv:'l3',label:'추측 강도',title:'3단계 · 추측의 조동사 & have to 시제',titleLv:'l3',
+  sub:'확신의 정도에 따라 must / may·might·could / can\'t를 구별하고, have to의 과거·미래형을 익혀요.',
+  cards:[
+   {t:'h',chip:['추측의 강도','root'],title:'확신의 정도에 따른 추측',html:
+    `<table><tr><th>조동사</th><th>의미(현재 추측)</th><th>확신</th></tr>
+     <tr><td><b>must</b></td><td class="lf">~임에 틀림없다</td><td>강함 (95%)</td></tr>
+     <tr><td><b>may/might/could</b></td><td class="lf">~일지도 모른다</td><td>약함 (30~50%)</td></tr>
+     <tr><td><b>can't</b></td><td class="lf">~일 리가 없다</td><td>강한 부정</td></tr></table>
+     <ul><li>He <b>must</b> be tired. (피곤한 게 틀림없어)</li>
+     <li>He <b>may</b> be at home. (집에 있을지도 몰라)</li>
+     <li>He <b>can't</b> be hungry; he just ate. (배고플 리 없어)</li></ul>`},
+   {t:'h',chip:['⭐ 헷갈림','d'],title:'추측의 must vs 부정 추측',html:
+    `<div class="diff-box"><div class="dh">⭐ "~임에 틀림없다"의 반대는?</div>
+     <b>must be</b> (~임에 틀림없다)의 부정은 <b>must not be</b>가 아니라 <b>can't be</b>!<br>
+     ✓ He must be rich. ↔ He <b>can't</b> be rich. (부자일 리 없다)<br>
+     ✗ He must not be rich. (이건 "부자가 아닌 게 틀림없다"는 어색한 추측)</div>`},
+   {t:'h',chip:['have to 시제','b'],title:'have to의 과거·미래',html:
+    `<table><tr><th>시제</th><th>형태</th><th>예</th></tr>
+     <tr><td>현재</td><td>have/has to</td><td class="lf">I have to go.</td></tr>
+     <tr><td>과거</td><td><b>had to</b></td><td class="lf">I had to go. (가야 했다)</td></tr>
+     <tr><td>미래</td><td><b>will have to</b></td><td class="lf">I will have to go. (가야 할 것이다)</td></tr></table>
+     <p>※ must는 과거형이 없어서 과거의 의무는 <b>had to</b>로 표현해요!</p>`},
+   {t:'ex',cls:'root',en:'The lights are off. They [[must]] be asleep.',ko:'불이 꺼져 있다. 그들은 자고 있는 게 틀림없다.',note:'must = 강한 추측(~임에 틀림없다).'},
+   {t:'ex',cls:'d',en:'That [[can\'t]] be true!',ko:'그것이 사실일 리가 없다!',note:"can't = ~일 리가 없다(강한 부정 추측)."},
+   {t:'ex',cls:'b',en:'Yesterday I [[had to]] stay home.',ko:'어제 나는 집에 있어야 했다.',note:'must의 과거 의무 → had to.'},
+  ],
+  cp:[
+   {lv:'l3',q:'빈칸에 알맞은 것은? (강한 추측)',sent:'She studied all night. She ___ be exhausted.',opts:['must','can\'t','may not','should'],ans:0,ex:'밤새 공부 → 지쳤음이 틀림없다 → must.'},
+   {lv:'l3',q:'"He must be sick."의 부정 추측으로 알맞은 것은?',opts:['He must not be sick.','He can\'t be sick.','He should not be sick.','He won\'t be sick.'],ans:1,ex:'must be(~임에 틀림없다)의 부정 → can\'t be(~일 리 없다).'},
+   {lv:'l3',q:'빈칸에 알맞은 것은? (과거의 의무)',sent:'I missed the bus, so I ___ walk home.',opts:['must','have to','had to','will have to'],ans:2,ex:'과거의 의무 → had to. (must는 과거형 없음)'},
+  ]},
+
+ /* ===== 3. 고1 심화: 조동사 + have p.p., used to ===== */
+ {id:'adv',icon:'🏔️',lv:'l4',label:'고1 심화',title:'4단계 · 조동사 + have p.p. / used to',titleLv:'l4',
+  sub:'「조동사 + have p.p.」로 과거에 대한 추측·후회를 나타내요. used to vs would도 구별합니다.',
+  cards:[
+   {t:'h',chip:['과거 추측·후회','root'],title:'조동사 + have + p.p.',html:
+    `<div class="formula">조동사 + <span class="pill">have</span> + <span class="pill">과거분사(p.p.)</span> = 과거에 대한 추측·후회</div>
+     <table><tr><th>형태</th><th>의미</th></tr>
+     <tr><td class="lf"><b>must have p.p.</b></td><td class="lf">~했음에 틀림없다 (과거 강한 추측)</td></tr>
+     <tr><td class="lf"><b>can't have p.p.</b></td><td class="lf">~했을 리가 없다</td></tr>
+     <tr><td class="lf"><b>may/might have p.p.</b></td><td class="lf">~했을지도 모른다</td></tr>
+     <tr><td class="lf"><b>should have p.p.</b></td><td class="lf">~했어야 했다 (후회·유감)</td></tr>
+     <tr><td class="lf"><b>shouldn't have p.p.</b></td><td class="lf">~하지 말았어야 했다</td></tr>
+     <tr><td class="lf"><b>could have p.p.</b></td><td class="lf">~할 수도 있었다 (그러나 안 함)</td></tr></table>`},
+   {t:'h',chip:['⭐ 헷갈림','d'],title:'must have vs should have',html:
+    `<div class="diff-box"><div class="dh">⭐ 추측 vs 후회</div>
+     <b>must have p.p.</b> = ~했음에 <u>틀림없다</u> (과거에 대한 강한 추측)<br>
+     <span style="margin-left:14px">The ground is wet. It <b>must have rained</b>. (비가 왔던 게 틀림없어)</span><br><br>
+     <b>should have p.p.</b> = ~했어야 <u>했는데</u> (안 해서 후회)<br>
+     <span style="margin-left:14px">I <b>should have studied</b> harder. (더 공부했어야 했는데)</span></div>`},
+   {t:'h',chip:['used to / would','e'],title:'used to vs would',html:
+    `<ul><li><b>used to + 동사원형</b> = (과거에) ~하곤 했다 / ~이었다 (지금은 아님)<br>
+     <span style="margin-left:6px">I <b>used to</b> live in Busan. (예전엔 부산에 살았다 — 상태 가능)</span></li>
+     <li><b>would</b> = 과거의 반복된 <u>동작</u>만 (~하곤 했다)<br>
+     <span style="margin-left:6px">I <b>would</b> play soccer after school. (동작 ○)</span></li></ul>
+     <div class="diff-box"><div class="dh">⭐ 차이</div>
+     과거의 <b>상태</b>(살았다, 있었다)에는 <b>used to</b>만! (would ✗)<br>
+     ✓ There <b>used to</b> be a tree here. / ✗ There would be a tree here.</div>`},
+   {t:'ex',cls:'root',en:'He didn\'t answer. He [[must have been]] busy.',ko:'그는 답하지 않았다. 그는 바빴음에 틀림없다.',note:'must have p.p. = 과거 강한 추측.'},
+   {t:'ex',cls:'d',en:'I [[should have brought]] an umbrella.',ko:'나는 우산을 가져왔어야 했다.',note:'should have p.p. = 과거의 후회(~했어야 했는데).'},
+   {t:'ex',cls:'e',en:'There [[used to]] be a bakery on this street.',ko:'이 거리에 예전에 빵집이 있었다.',note:'과거의 상태 → used to. (would 불가)'},
+  ],
+  cp:[
+   {lv:'l4',q:'빈칸에 알맞은 것은? (과거 강한 추측)',sent:'The grass is wet. It ___ last night.',opts:['must rain','must have rained','should rain','can rain'],ans:1,ex:'과거에 대한 강한 추측 → must have p.p. → must have rained.'},
+   {lv:'l4',q:'우리말과 같은 것은? "더 일찍 출발했어야 했는데."',opts:['I must have left earlier.','I should have left earlier.','I could leave earlier.','I would leave earlier.'],ans:1,ex:'과거의 후회 → should have p.p.'},
+   {lv:'l4',q:'빈칸에 알맞은 것은? (과거의 상태)',sent:'There ___ be a big tree here, but it\'s gone now.',opts:['would','used to','should','can'],ans:1,ex:'과거의 상태(있었다) → used to. (would는 상태 불가)'},
+   {lv:'l4',q:'밑줄 친 부분의 의미로 알맞은 것은?',sent:"You can't have seen him; he's abroad.",opts:['그를 봤어야 했다','그를 봤을 리가 없다','그를 볼 수 있었다','그를 봐도 된다'],ans:1,ex:"can't have p.p. = ~했을 리가 없다."},
+  ]},
+
+ /* ===== 4. 종합시험 + 복습 + 받아쓰기 ===== */
+ {id:'final',icon:'🎯',lv:'l4',label:'종합',title:'종합 시험 & 마무리',titleLv:'l4',
+  sub:'네 단계를 아우르는 종합 시험으로 실력을 확인하고, 오답 복습과 받아쓰기로 마무리해요.',
+  exam:true},
+];
+
+/* 종합시험 12문항 */
+const EXAM=[
+ {lv:'l1',q:'빈칸에 알맞은 것은?',sent:'My sister can ___ a bike.',opts:['rides','ride','riding','to ride'],ans:1,ex:'조동사 can + 동사원형 → ride.'},
+ {lv:'l1',q:'어법상 틀린 문장은?',opts:['He can swim.','She must go.','He cans run.','You may sit.'],ans:2,ex:'조동사는 변하지 않음 → He can run.'},
+ {lv:'l2',q:'빈칸에 알맞은 것은? (충고)',sent:'It\'s late. You ___ go to bed.',opts:['should','must not','can\'t','would'],ans:0,ex:'충고 → should.'},
+ {lv:'l2',q:'우리말과 같은 것은? "여기서 사진을 찍으면 안 된다."',opts:["You don't have to take photos here.","You must not take photos here.","You should take photos here.","You may take photos here."],ans:1,ex:'금지 → must not.'},
+ {lv:'l2',q:'밑줄 친 would의 의미는?',sent:'We would often go camping in summer.',opts:['미래 의지','과거의 습관','정중한 요청','약한 추측'],ans:1,ex:'과거의 습관 → ~하곤 했다.'},
+ {lv:'l3',q:'빈칸에 알맞은 것은? (강한 추측)',sent:'He hasn\'t eaten all day. He ___ be hungry.',opts:['must','can\'t','may not','should not'],ans:0,ex:'강한 추측 → must be.'},
+ {lv:'l3',q:'"She must be at home."의 부정 추측은?',opts:['She must not be at home.','She can\'t be at home.','She should not be at home.','She won\'t be at home.'],ans:1,ex:'must be의 부정 추측 → can\'t be.'},
+ {lv:'l3',q:'빈칸에 알맞은 것은? (과거의 의무)',sent:'There was no bus, so we ___ walk.',opts:['must','have to','had to','will have to'],ans:2,ex:'과거 의무 → had to.'},
+ {lv:'l4',q:'빈칸에 알맞은 것은? (과거 추측)',sent:'The window is broken. Someone ___ it.',opts:['must break','must have broken','should break','can break'],ans:1,ex:'과거 강한 추측 → must have p.p.'},
+ {lv:'l4',q:'우리말과 같은 것은? "그렇게 많이 먹지 말았어야 했는데."',opts:["I shouldn't have eaten so much.","I must not eat so much.","I couldn't eat so much.","I wouldn't eat so much."],ans:0,ex:'과거의 후회(하지 말걸) → shouldn\'t have p.p.'},
+ {lv:'l4',q:'빈칸에 알맞은 것은? (과거의 상태)',sent:'I ___ be afraid of dogs, but now I love them.',opts:['would','used to','should','must'],ans:1,ex:'과거의 상태 → used to.'},
+ {lv:'l4',q:'밑줄 친 부분의 의미는?',sent:'You could have told me earlier!',opts:['더 일찍 말해도 된다','더 일찍 말할 수도 있었는데(안 했다)','더 일찍 말해야 한다','더 일찍 말했음에 틀림없다'],ans:1,ex:'could have p.p. = ~할 수도 있었는데(안 함).'},
+];
+
+/* 받아쓰기 */
+const DICT=[
+ {en:'You should drink more water.',ko:'너는 물을 더 마시는 게 좋겠다.'},
+ {en:'He must be very tired.',ko:'그는 매우 피곤한 게 틀림없다.'},
+ {en:'You must not touch it.',ko:'너는 그것을 만지면 안 된다.'},
+ {en:'I had to stay home yesterday.',ko:'나는 어제 집에 있어야 했다.'},
+ {en:'I should have studied harder.',ko:'나는 더 열심히 공부했어야 했다.'},
+ {en:'There used to be a bakery here.',ko:'예전에 여기 빵집이 있었다.'},
+];
+
+/* ================= 엔진 ================= */
+const LVNAME={l1:'🌱 기초',l2:'🌿 중급',l3:'🌳 중상급',l4:'🏔️ 고1'};
+const NSTAGE=STAGES.length;
+let cur=0,maxUnlocked=0;
+const wrongLog=[];
+const cpDone=STAGES.map(s=>s.cp?s.cp.map(()=>false):[]);
+let examGraded=false, examScore=0;
+
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>v.lang==='en-US'&&/female|samantha|aria|zira|jenny/i.test(v.name))||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function speak(text,btn){if(!('speechSynthesis' in window)){alert('Chrome 권장');return;}speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.85;if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}speechSynthesis.speak(u);}
+function speakSlow(text){if(!('speechSynthesis' in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';if(voice)u.voice=voice;u.rate=0.55;speechSynthesis.speak(u);}
+function spkBtn(t){return `<button class="spk" onclick="speak(this.dataset.s,this)" data-s="${String(t).replace(/"/g,'&quot;')}">🔊</button>`;}
+function plain(s){return s.replace(/\[\[|\]\]/g,'').replace(/<[^>]+>/g,'');}
+function renderEn(s){return s.replace(/\[\[(.+?)\]\]/g,'<span class="hl">$1</span>');}
+function tgl(btn){const t=btn.nextElementSibling;const open=t.classList.toggle('open');btn.setAttribute('aria-expanded',open);btn.textContent=open?'해석 닫기 ▲':'해석 + 풀이 보기 ▼';}
+function normW(w){return w.toLowerCase().replace(/[.,!?;:"'\u2019\u201c\u201d]/g,'');}
+function logWrong(o){if(!wrongLog.some(w=>w.q===o.q))wrongLog.push(o);}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),1900);}
+
+function renderSteps(){
+  document.getElementById('steps').innerHTML=STAGES.map((s,i)=>{
+    const lock=i>maxUnlocked;
+    const done=i<NSTAGE-1 ? (cpDone[i].length>0&&cpDone[i].every(Boolean)) : examGraded;
+    return `<button class="step ${i===cur?'cur':''} ${done?'done':''} ${lock?'locked':''}" onclick="go(${i})">
+      <span class="dot">${lock?'🔒':done?'✓':s.icon}</span><span class="lb">${s.label}</span></button>`;
+  }).join('');
+}
+function go(i){if(i>maxUnlocked){toast('🔒 이전 단계의 체크포인트를 모두 풀면 열려요!');return;}
+  speechSynthesis&&speechSynthesis.cancel();cur=i;renderSteps();
+  document.querySelectorAll('.stage').forEach((s,k)=>s.classList.toggle('show',k===i));window.scrollTo({top:0});}
+
+function cardHTML(c){
+  if(c.t==='h')return `<div class="card"><h3><span class="chip c-${c.chip[1]}">${c.chip[0]}</span>${c.title}</h3>${c.html}</div>`;
+  if(c.t==='ex'){const say=plain(c.en);return `<div class="exc ${c.cls}"><div class="enline"><span class="en">${renderEn(c.en)}</span>${spkBtn(say)}</div><button class="tgl" aria-expanded="false" onclick="tgl(this)">해석 + 풀이 보기 ▼</button><div class="trans"><div class="ko">${c.ko}</div><div class="note">${c.note}</div></div></div>`;}
+  return '';
+}
+function cpHTML(si){
+  const s=STAGES[si];
+  const body=s.cp.map((c,ci)=>{
+    const sent=c.sent?`<div class="qsent"><span class="en">${c.sent}</span></div>`:'';
+    return `<div class="q" id="q-${si}-${ci}"><div class="qno"><span class="ql ${c.lv}">${LVNAME[c.lv]}</span> 체크포인트 ${ci+1} / ${s.cp.length}</div>
+      <div class="qtext">${c.q}</div>${sent}
+      <div class="opts">${c.opts.map((o,oi)=>`<button class="opt" id="o-${si}-${ci}-${oi}" onclick="cpPick(${si},${ci},${oi})">${oi+1}. ${o}</button>`).join('')}</div>
+      <div class="fb" id="fb-${si}-${ci}"></div></div>`;
+  }).join('');
+  return `<div class="cp"><div class="cp-head"><span class="badge">체크포인트</span><b>${s.label} 단계 확인</b></div>${body}
+    <div class="unlock-banner" id="ub-${si}"></div></div>`;
+}
+function cpPick(si,ci,oi){
+  const c=STAGES[si].cp[ci];if(cpDone[si][ci])return;
+  const ok=oi===c.ans;
+  c.opts.forEach((_,k)=>{const el=document.getElementById(`o-${si}-${ci}-${k}`);el.disabled=true;if(k===c.ans)el.classList.add('right');else if(k===oi)el.classList.add('wrong');});
+  const fb=document.getElementById(`fb-${si}-${ci}`);fb.className='fb show '+(ok?'good':'badf');fb.innerHTML=(ok?'✅ 정답! ':'❌ 오답. ')+c.ex;
+  cpDone[si][ci]=true;
+  if(!ok)logWrong({q:c.q+(c.sent?' ['+c.sent+']':''),opts:c.opts,ans:c.ans,ex:c.ex});
+  if(cpDone[si].every(Boolean)){
+    if(si+1>maxUnlocked)maxUnlocked=si+1;
+    const ub=document.getElementById(`ub-${si}`);ub.classList.add('show');
+    ub.innerHTML=`이 단계 완료! <button class="btn primary" style="padding:8px 18px" onclick="go(${si+1})">${STAGES[si+1].label} →</button>`;
+    ub.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  renderSteps();
+}
+
+/* 종합시험 */
+const examAns=EXAM.map(()=>-1);
+function examHTML(){
+  const body=EXAM.map((q,qi)=>{
+    const sent=q.sent?`<div class="qsent"><span class="en">${q.sent}</span></div>`:'';
+    return `<div class="q" id="eq-${qi}"><div class="qno"><span class="ql ${q.lv}">${LVNAME[q.lv]}</span> 문항 ${qi+1} / ${EXAM.length}</div>
+      <div class="qtext">${q.q}</div>${sent}
+      <div class="opts">${q.opts.map((o,oi)=>`<button class="opt" id="eo-${qi}-${oi}" onclick="examPick(${qi},${oi})">${oi+1}. ${o}</button>`).join('')}</div>
+      <div class="fb" id="efb-${qi}"></div></div>`;
+  }).join('');
+  return `<div class="cp"><div class="cp-head"><span class="badge">종합 시험</span><b>조동사 종합 ${EXAM.length}문항</b></div>${body}
+    <div style="text-align:center;margin-top:20px"><button class="btn primary" id="examBtn" onclick="gradeExam()">📝 채점하기</button></div>
+    <div class="cpscore" id="examScoreBox"></div></div>
+    <div id="afterExam"></div>`;
+}
+function examPick(qi,oi){if(examGraded)return;examAns[qi]=oi;EXAM[qi].opts.forEach((_,k)=>document.getElementById(`eo-${qi}-${k}`).classList.toggle('right',false));
+  EXAM[qi].opts.forEach((_,k)=>{const el=document.getElementById(`eo-${qi}-${k}`);el.style.borderColor=(k===oi)?'var(--ink)':'';el.style.background=(k===oi)?'#F2F0E8':'';});}
+function gradeExam(){
+  for(let i=0;i<EXAM.length;i++){if(examAns[i]<0){document.getElementById('eq-'+i).scrollIntoView({block:'center'});const f=document.getElementById('efb-'+i);f.className='fb show badf';f.textContent='⚠️ 아직 답하지 않았어요.';return;}}
+  examGraded=true;document.getElementById('examBtn').disabled=true;let correct=0;
+  EXAM.forEach((q,qi)=>{const ok=examAns[qi]===q.ans;if(ok)correct++;
+    q.opts.forEach((_,k)=>{const el=document.getElementById(`eo-${qi}-${k}`);el.disabled=true;el.style.borderColor='';el.style.background='';if(k===q.ans)el.classList.add('right');else if(k===examAns[qi])el.classList.add('wrong');});
+    const f=document.getElementById(`efb-${qi}`);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 정답! ':'❌ 오답. ')+q.ex;
+    if(!ok)logWrong({q:q.q+(q.sent?' ['+q.sent+']':''),opts:q.opts,ans:q.ans,ex:q.ex});});
+  examScore=correct;
+  const pct=Math.round(correct/EXAM.length*100);
+  const box=document.getElementById('examScoreBox');box.className='cpscore show';
+  box.style.background=pct>=80?'var(--c-bg)':pct>=60?'var(--b-bg)':'#FBE5E1';
+  box.innerHTML=`<div style="font-family:'Black Han Sans';font-size:2rem">${correct} / ${EXAM.length}</div><div>정답률 ${pct}%</div>`;
+  renderSummaryAfterExam();renderSteps();
+}
+function renderSummaryAfterExam(){
+  const host=document.getElementById('afterExam');
+  const pct=Math.round(examScore/EXAM.length*100);
+  const grade=pct>=90?['🥇 조동사 완전 정복','can부터 have p.p.까지 탄탄해요!']:pct>=75?['🥈 우수','약한 부분만 복습하면 완성!']:pct>=60?['🥉 기본 완성','심화(have p.p.)를 다시 점검해요.']:['🌱 개념 재학습','단계별 ⭐헷갈림 박스를 다시 보세요.'];
+  // 난이도대별 정답
+  const byLv={l1:[0,0],l2:[0,0],l3:[0,0],l4:[0,0]};
+  EXAM.forEach((q,qi)=>{byLv[q.lv][1]++;if(examAns[qi]===q.ans)byLv[q.lv][0]++;});
+  const bars=Object.entries(byLv).map(([lv,[c,t]])=>{const p=Math.round(c/t*100);const col={l1:'var(--c)',l2:'var(--b)',l3:'var(--e)',l4:'var(--d)'}[lv];
+    return `<div class="bb"><div class="bl"><span>${LVNAME[lv]}</span><span>${c}/${t} · ${p}%</span></div><div class="track"><div class="fill" data-w="${p}%" style="background:${col}"></div></div></div>`;}).join('');
+  host.innerHTML=`<div class="sumcard"><div class="sumtotal"><div class="big">${examScore} / ${EXAM.length}</div><div class="grade">${grade[0]}</div><p style="font-size:.9rem;color:var(--sub);margin-top:4px">${grade[1]}</p></div>${bars}</div>
+    <div id="reviewArea"></div><div id="dictArea"></div>`;
+  renderReview();renderDictation();
+  requestAnimationFrame(()=>setTimeout(()=>host.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w),60));
+}
+
+/* 적응형 복습 */
+let rq=[];
+function renderReview(){
+  const area=document.getElementById('reviewArea');if(!area)return;
+  if(wrongLog.length===0){area.innerHTML=`<div class="empty-review">🎉 틀린 문항이 없어요! 완벽합니다.</div>`;return;}
+  rq=wrongLog.map((_,i)=>i);
+  area.innerHTML=`<div class="review-box"><div class="rh"><span class="pb">🔁 ADAPTIVE</span>오답 집중 복습 — 틀린 ${wrongLog.length}문항</div>
+    <p style="font-size:.85rem;color:var(--sub);margin-bottom:8px">체크포인트·종합시험에서 틀린 문제만 모았어요. 다 맞히면 끝! (틀리면 큐 뒤로)</p><div id="rslot"></div></div>`;
+  showReview();
+}
+function showReview(){
+  const slot=document.getElementById('rslot');if(!slot)return;
+  if(rq.length===0){slot.innerHTML=`<div class="empty-review">✅ 오답 복습 완료! 약점을 모두 극복했어요. 👏</div>`;return;}
+  const w=wrongLog[rq[0]];
+  slot.innerHTML=`<div class="q" style="border:none"><div class="qno">남은 복습 ${rq.length}문항</div><div class="qtext">${w.q}</div>
+    <div class="opts">${w.opts.map((o,oi)=>`<button class="opt" id="rv-${oi}" onclick="reviewPick(${oi})">${oi+1}. ${o}</button>`).join('')}</div><div class="fb" id="rvfb"></div></div>`;
+}
+function reviewPick(oi){
+  const w=wrongLog[rq[0]];const fb=document.getElementById('rvfb');const opts=document.querySelectorAll('#rslot .opt');
+  if(oi===w.ans){opts.forEach((o,k)=>{o.disabled=true;if(k===w.ans)o.classList.add('right');});fb.className='fb show good';fb.innerHTML='✅ 정답! '+w.ex+'<br><button class="btn primary" style="margin-top:10px;padding:8px 18px" onclick="reviewNext(true)">다음 →</button>';}
+  else{opts[oi].classList.add('wrong');fb.className='fb show badf';fb.innerHTML='❌ 다시! 이 문제는 큐 뒤로 갑니다.<br><button class="btn ghost" style="margin-top:10px;padding:8px 18px" onclick="reviewNext(false)">계속 →</button>';}
+}
+function reviewNext(ok){const i=rq.shift();if(!ok)rq.push(i);showReview();}
+
+/* 받아쓰기 */
+function renderDictation(){
+  const area=document.getElementById('dictArea');if(!area)return;
+  area.innerHTML=`<div class="dict"><div class="dict-h"><span class="pb">✍️ DICTATION</span>받아쓰기 — 듣고 그대로 입력하세요</div>
+    <div class="dict-sub">🔊로 문장을 듣고 영어로 정확히 타이핑한 뒤 [채점]을 누르세요.</div>
+    ${DICT.map((d,i)=>`<div class="dict-item"><div class="dict-controls">
+      <button class="pbtn" onclick="speak(this.dataset.s,null)" data-s="${d.en.replace(/"/g,'&quot;')}">🔊 듣기</button>
+      <button class="pbtn" onclick="speakSlow(this.dataset.s)" data-s="${d.en.replace(/"/g,'&quot;')}">🐢 천천히</button>
+      <span class="hint">힌트: ${d.ko}</span></div>
+      <input class="dict-input" id="di-${i}" type="text" placeholder="들은 문장을 입력..." autocomplete="off" spellcheck="false">
+      <button class="dict-check" onclick="checkDict(${i})">채점하기</button>
+      <div class="dict-result" id="dr-${i}"></div></div>`).join('')}</div>`;
+}
+function checkDict(i){
+  const d=DICT[i];const input=document.getElementById('di-'+i).value.trim();const res=document.getElementById('dr-'+i);
+  const aw=d.en.split(/\s+/),iw=input.split(/\s+/).filter(x=>x);let c=0;
+  const toks=aw.map((a,k)=>{const g=iw[k]||'';const ok=normW(g)===normW(a);if(ok)c++;return `<span class="tok ${ok?'ok':'no'}">${g||'∅'}</span>`;}).join(' ');
+  const pct=Math.round(c/aw.length*100);res.className='dict-result show';
+  res.innerHTML=`<div>${toks}</div><div class="dict-score" style="color:${pct===100?'var(--ok)':pct>=60?'var(--b)':'var(--bad)'}">${pct===100?'🎉 완벽!':'정확도 '+pct+'%'} (${c}/${aw.length} 단어)</div><div class="ans">정답: <b>${d.en}</b></div>`;
+}
+
+/* 빌드 */
+function renderAll(){
+  let html='';
+  STAGES.forEach((s,i)=>{
+    let inner='';
+    if(s.exam){inner=examHTML();}
+    else{inner=s.cards.map(cardHTML).join('')+cpHTML(i);}
+    html+=`<section class="stage ${i===cur?'show':''}" id="st${i}">
+      <h2 class="stitle">${s.title} <span class="lvchip ${s.titleLv}">${LVNAME[s.titleLv]}</span></h2>
+      <p class="ssub">${s.sub}</p>${inner}
+      <div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전</button>`:'<span></span>'}<span style="font-size:.78rem;color:var(--sub)">${i+1} / ${NSTAGE}</span></div>
+    </section>`;
+  });
+  document.getElementById('main').innerHTML=html;renderSteps();
+}
+renderAll();
+</script>
+</body>
+</html>
