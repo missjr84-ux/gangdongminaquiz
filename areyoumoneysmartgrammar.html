@@ -73,7 +73,6 @@ h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.55
 .tgl:hover{border-color:var(--ink);color:var(--ink)}.tgl[aria-expanded="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
 .trans{display:none;margin-top:9px;font-size:.9rem;background:#F7F5EE;border-radius:8px;padding:9px 12px}.trans.open{display:block}
 .trans .ko{font-weight:600}.trans .note{color:var(--sub);font-size:.85rem;margin-top:3px}
-/* formula box */
 .fbox{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0;padding:12px 16px;background:#fff;border:2px solid var(--ink);border-radius:12px;font-family:'Lora',serif}
 .fbox .seg{padding:4px 10px;border-radius:8px;font-weight:700;font-size:.95rem}
 .fbox .plus{color:var(--sub);font-size:1.1rem}
@@ -176,7 +175,7 @@ const STAGES=[
    ans:1,ex:'시간·조건의 부사절에서는 미래라도 현재시제를 씁니다. If a product will become hot(✗) → becomes(○). 이것이 if의 1순위 시험 포인트입니다.'}
  ]},
 
-/* ── 1 관계대명사 형태 (개념 확인) ── */
+/* ── 1 관계대명사 형태 ── */
 {id:'rel-form',icon:'🔤',label:'관·대 형태',pathArr:[['Lesson 4 문법','root'],['주격 관계대명사','d'],['형태','d']],
  title:'2단계 · 주격 관계대명사 — who / which / that',
  sub:'개념 확인: 선행사가 사람인지 사물인지, 그리고 두 문장이 어떻게 하나로 합쳐지는지 정확히 잡습니다.',
@@ -202,7 +201,7 @@ const STAGES=[
    ans:1,ex:'They를 관계대명사 who로 바꿔 연결합니다. ①처럼 they를 남기면 주어 중복(✗). 선행사가 사람이므로 which(✗).'}
  ]},
 
-/* ── 2 관계대명사 수일치·시제 (개념 핵심) ── */
+/* ── 2 수일치·시제 ── */
 {id:'rel-agr',icon:'⚖️',label:'수일치·시제',pathArr:[['Lesson 4 문법','root'],['주격 관계대명사','d'],['시험 포인트','e']],
  title:'3단계 · 핵심 검증 — 동사 수일치 & 시제',
  sub:'가장 자주 틀리는 핵심! 관계대명사절 동사는 선행사의 수에, 시제는 원래 문장에 맞춥니다.',
@@ -227,7 +226,7 @@ const STAGES=[
    ans:1,ex:'yesterday(어제)가 있으므로 과거 made. 관계사절 시제는 원래 시점(과거)을 따릅니다. 주절(is)과 일치시킬 필요 없음.'}
  ]},
 
-/* ── 3 that만 가능 (개념 심화) ── */
+/* ── 3 that만 가능 ── */
 {id:'rel-that',icon:'⭐',label:'that만 가능',pathArr:[['Lesson 4 문법','root'],['주격 관계대명사','d'],['that만 가능','e']],
  title:'4단계 · that만 쓰는 경우 — 함정 모음',
  sub:'who/which를 못 쓰고 that만 허용되는 3가지 경우. 시험 단골 함정입니다.',
@@ -249,7 +248,7 @@ const STAGES=[
   ]}
  ]},
 
-/* ── 4 if / unless (개념 핵심 + 함정) ── */
+/* ── 4 if / unless ── */
 {id:'if',icon:'🔀',label:'if / unless',pathArr:[['Lesson 4 문법','root'],['접속사 if','c']],
  title:'5단계 · 접속사 if & unless — 조건의 핵심',
  sub:'if절의 현재시제(미래 대용)와 unless(= if not)가 핵심. unless에 not 중복은 최대 함정입니다.',
@@ -281,9 +280,8 @@ const STAGES=[
  exam:true}
 ];
 
-/* ===== EXAM (3단계 통합 검증) ===== */
+/* ===== EXAM ===== */
 const EXAM=[
-/* 개념확인 WALK */
 {type:'walk',tags:['rel'],sent:'There are marketing strategies [[which influence]] your decisions.',say:'There are marketing strategies which influence your decisions.',
  q:'본문 문장의 관계대명사를 분석하시오.',
  steps:[
@@ -291,23 +289,18 @@ const EXAM=[
   {p:'STEP 2 · which가 주격인 이유는?',opts:['which가 절 안에서 influence의 주어 역할을 하기 때문','strategies가 복수이기 때문','문장 중간에 있기 때문'],ans:0},
   {p:'STEP 3 · 동사 influence(복수형)를 쓴 이유는?',opts:['which는 항상 복수이므로','선행사 strategies가 복수이므로 수일치','influence가 불규칙이므로'],ans:1}],
  ex:'선행사 marketing strategies(복수) + which가 절 안 주어 역할 → 주격 관계대명사. 동사는 선행사에 수일치하여 복수형 influence.'},
-/* 빈칸 + 수일치 */
 {type:'mc',tags:['rel'],q:'"I have a friend who ___ four languages." 빈칸으로 옳은 것은?',
  opts:['speak','speaks','speaking','to speak'],
  ans:1,ex:'선행사 a friend(단수) → 단수동사 speaks. 관계대명사절 동사는 선행사의 수에 일치합니다.'},
-/* 괄호 고르기 (사람/사물) */
 {type:'mc',tags:['rel'],q:'"The bicycle ( who / which ) broke down this morning is fixed." 알맞은 것은?',
  opts:['who — 자전거를 의인화하므로','which — 선행사 bicycle이 사물이므로','둘 다 가능','that만 가능'],
  ans:1,ex:'선행사 The bicycle은 사물 → which(또는 that). who는 사람 전용입니다.'},
-/* that 전용 */
 {type:'mc',tags:['rel'],q:'"I described the people and the places ( who / that ) inspire me." 알맞은 것과 이유는?',
  opts:['who — people이 사람이므로','that — 선행사가 사람+사물(the people and the places)이므로 that만 가능','which — places가 사물이므로','둘 다 가능'],
  ans:1,ex:'선행사가 사람(people)+사물(places)이 함께 오면 who도 which도 못 쓰고 that만 가능합니다.'},
-/* 틀린 것 고치기 */
 {type:'mc',tags:['rel'],q:'밑줄 친 부분이 어법상 틀린 문장은?',
  opts:['I have a sister who loves cats.','This is the building which is the tallest in the world.','There was little that interested her.','Ms. Song which teaches English is kind.'],
  ans:3,ex:'④ Ms. Song은 사람이므로 which(✗) → who/that. 나머지는 모두 옳습니다.'},
-/* 두 문장 결합 */
 {type:'walk',tags:['rel'],sent:"I'm reading the letter. + It came yesterday.",say:"I'm reading the letter. It came yesterday.",
  q:'두 문장을 관계대명사로 결합하시오.',
  steps:[
@@ -315,39 +308,31 @@ const EXAM=[
   {p:'STEP 2 · It을 무엇으로 바꾸나?',opts:['who','which 또는 that','where'],ans:1},
   {p:'STEP 3 · 결합된 문장의 시제로 came을 쓰는 이유는?',opts:['주절 시제(am reading)에 맞춰야 하므로','원래 문장(It came yesterday)의 과거시제를 따르므로','yesterday는 항상 현재이므로'],ans:1}],
  ex:"I'm reading the letter which[that] came yesterday. 선행사 the letter(사물)→which/that. 시제는 원래 문장(came, 과거)을 따름 — 주절과 일치 불필요."},
-/* if 현재시제 */
 {type:'mc',tags:['if'],q:'"If it ( rains / will rain ) a lot, we will cancel the picnic." 알맞은 것은?',
  opts:['will rain','rains','rained','is raining'],
  ans:1,ex:'조건의 if 부사절은 미래의 일도 현재시제로 씁니다 → rains. 주절(will cancel)만 미래.'},
-/* if 본문 활용 */
 {type:'mc',tags:['if'],sent:'[[If a product becomes hot]], people naturally want to have it.',say:'If a product becomes hot, people naturally want to have it.',
  q:'본문 문장에서 becomes를 쓴 이유로 옳은 것은?',
  opts:['과거의 사실이므로','if 조건 부사절에서는 미래·일반적 상황을 현재시제로 나타내므로','product가 복수이므로','becomes가 조동사이므로'],
  ans:1,ex:'if 조건절은 막연한 미래나 일반적 사실을 현재시제로 진술합니다. will become(✗) → becomes(○).'},
-/* unless 변환 */
 {type:'mc',tags:['if'],q:'"If you don\'t leave now, you will miss the subway."를 unless로 바꾼 것은?',
  opts:["Unless you don't leave now, you will miss the subway.","Unless you leave now, you will miss the subway.","Unless you will leave now, you will miss the subway.","If unless you leave now, you will miss the subway."],
  ans:1,ex:'unless = if ... not. don\'t가 unless에 흡수 → "Unless you leave now". not 중복(don\'t) 쓰면 틀림.'},
-/* unless not 중복 함정 */
 {type:'mc',tags:['if'],q:'어법상 옳은 문장은?',
  opts:["Unless you don't study hard, you will fail.","Unless you study hard, you will fail.","If you study hard, you will fail.","Unless you will study hard, you will fail."],
  ans:1,ex:'unless 자체에 부정 의미가 있어 not 중복 금지 → ①✗. unless절도 현재시제 → ④✗(will). ③은 의미가 반대.'},
-/* SORT 통합 분류 */
 {type:'classify',tags:['rel','if'],q:'각 문장의 핵심 문법을 분류하시오.',
  items:[
   {en:'I like people who do their best.',ans:0,why:'선행사 people(사람) + 주격 관계대명사 who'},
   {en:'If it rains tomorrow, I will stay home.',ans:1,why:'조건 if절 — 미래도 현재시제(rains)'},
   {en:'You will fail unless you study hard.',ans:2,why:'unless = if not, 부정 조건'}]},
-/* 종합 틀린 것 */
 {type:'mc',tags:['rel','if'],q:'밑줄 친 부분이 어법상 <b>옳은</b> 것은?',
  opts:["If it will rain tomorrow, I'll stay home.","The books which is on the desk are mine.","Tim is the actor who starred in this movie.","Unless you don't hurry, you'll be late."],
  ans:2,ex:'① will rain → rains(조건절 현재). ② which is → which are(선행사 books 복수). ④ don\'t 중복(✗). ③ 선행사 the actor(사람)+who+과거시제 starred 모두 정상.'}
 ];
 
 /* ===== ENGINE ===== */
-const CLS_LB=['who 가능','which 가능','that만 가능'], CLS_KEY=['d','c','e'];
-/* classify for stage 4 uses its own labels */
-const CP_CLS_LB=['OC=명사','OC=to부정사','OC=형용사'];
+const CLS_LB=['who 가능','which 가능','that만 가능'];
 let cur=0,maxUnlocked=0;
 const cpState=STAGES.map(()=>({done:false}));
 let voice=null;
@@ -376,29 +361,30 @@ function treeHTML(node){
   if(node.leaf!==undefined){const say=node.say||node.leaf;return `<li><button class="node leaf" onclick="speak(this.dataset.say,this)" data-say="${say}">${node.leaf} 🔉</button></li>`;}
   const kids=node.kids&&node.kids.length?`<ul>${node.kids.map(treeHTML).join('')}</ul>`:'';
   return `<li><button class="node nd-${node.c}" onclick="speak(this.dataset.say,this)" data-say="${node.e.replace(/=.+$/,'').trim()}">${node.k} <span class="e">${node.e} 🔉</span></button>${kids}</li>`;}
-function cardHTML(c){
+/* ★ FIX: cardHTML(c, si) — 단계 인덱스 si를 인자로 받아 cpClassify에 정확히 전달 */
+function cardHTML(c, si){
   if(c.t==='tree')return `<div class="card"><h3><span class="chip c-root">전체 지도</span>로직 트리 — 노드를 누르면 영어 명칭을 읽어 줍니다</h3><div class="tree"><ul>${treeHTML(TREE)}</ul></div></div>`;
   if(c.t==='h')return `<div class="card"><h3><span class="chip c-${c.chip[1]}">${c.chip[0]}</span>${c.title}</h3>${c.html}</div>`;
   if(c.t==='ex'){const say=plain(c.en);return `<div class="exc ${c.cls}"><div class="enline"><span class="en">${renderEn(c.en,c.cls)}</span>${spkBtn(say)}</div><button class="tgl" aria-expanded="false" onclick="tgl(this)">해석 + 풀이 보기 ▼</button><div class="trans"><div class="ko">${c.ko}</div><div class="note">${c.note}</div></div></div>`;}
-  if(c.t==='cpClassify')return classifyCpHTML_inline(c);
+  if(c.t==='cpClassify')return classifyCpHTML_inline(c, si);
   return '';}
-/* inline classify cp for stage 4 */
-const icpOK={};
-function classifyCpHTML_inline(c){
-  const sid=cur; /* captured at render time */
+/* ★ FIX: sid를 cur가 아니라 인자 si로 받음 */
+function classifyCpHTML_inline(c, sid){
   return `<div class="qz" id="icp-${sid}"><div class="qz-head"><span class="badge">FINAL CHECK</span><b>${c.intro}</b></div>
   ${c.items.map((it,k)=>`<div class="selrow"><span class="mark" id="icm-${sid}-${k}">·</span>
     <span class="en" style="flex:1;min-width:200px">${renderEn(it.en,'root')}</span>${spkBtn(plain(it.en))}
     <select id="ics-${sid}-${k}"><option value="-1">— 선택 —</option>${CLS_LB.map((l,li)=>`<option value="${li}">${l}</option>`).join('')}</select>
     <div class="fb" id="icf-${sid}-${k}" style="flex-basis:100%"></div></div>`).join('')}
   <div style="margin-top:14px"><button class="btn primary" onclick="icpCheck(${sid})">채점하기</button></div>
-  <div class="unlock-banner" id="ub${sid}">🏆 완벽! 최종 시험이 열렸습니다. <button class="btn primary" onclick="go(${sid+1})">시험 보러 가기 →</button></div></div>`;}
+  <div class="unlock-banner" id="ub${sid}">🏆 완벽! 다음 단계가 열렸습니다. <button class="btn primary" onclick="go(${sid+1})">다음 단계로 →</button></div></div>`;}
 function icpCheck(sid){
-  const c=STAGES[sid].cards.find(x=>x.t==='cpClassify');let all=true;
+  const c=STAGES[sid].cards.find(x=>x.t==='cpClassify');
+  if(!c){console.error('cpClassify card not found at stage',sid);return;}
+  let all=true;
   c.items.forEach((it,k)=>{
     const v=+document.getElementById(`ics-${sid}-${k}`).value,m=document.getElementById(`icm-${sid}-${k}`),f=document.getElementById(`icf-${sid}-${k}`);
     if(v===it.ans){m.textContent='✅';f.className='fb show good';f.innerHTML=`<b>${CLS_LB[it.ans]}</b> — ${it.why}`;document.getElementById(`ics-${sid}-${k}`).disabled=true;}
-    else{all=false;m.textContent='❌';f.className='fb show badf';f.innerHTML=v<0?'선택해 주세요.':'선행사가 사람? 사물? / if·unless 구별!';}});
+    else{all=false;m.textContent='❌';f.className='fb show badf';f.innerHTML=v<0?'선택해 주세요.':'선행사가 사람? 사물? 아니면 that만 가능한 경우인지 확인하세요.';}});
   if(all)unlockNext(sid);}
 function cpHTML(i,qs){
   return `<div class="qz" id="cp${i}"><div class="qz-head"><span class="badge">CHECKPOINT</span><b>체크포인트 — 모두 맞히면 다음 가지가 열립니다</b></div>
@@ -413,7 +399,7 @@ function cpPick(si,qi,oi,btn){
   if(oi===q.ans){opts.forEach((o,k)=>{o.disabled=true;if(k===oi)o.classList.add('right');});
     fb.className='fb show good';fb.innerHTML='✅ 정답! '+q.ex;cpOK[si][qi]=true;
     if(cpOK[si].every(v=>v))unlockNext(si);
-  }else{btn.classList.add('wrong');fb.className='fb show badf';fb.innerHTML='🤔 힌트: O = OC 관계(be동사 테스트)를 적용해 보세요.';setTimeout(()=>btn.classList.remove('wrong'),500);}}
+  }else{btn.classList.add('wrong');fb.className='fb show badf';fb.innerHTML='🤔 다시 생각해 보세요. 위 개념 카드를 참고하면 도움이 됩니다.';setTimeout(()=>btn.classList.remove('wrong'),500);}}
 function unlockNext(si){cpState[si].done=true;if(si+1>maxUnlocked)maxUnlocked=si+1;renderSteps();const ub=document.getElementById('ub'+si);if(ub)ub.classList.add('show');}
 
 /* exam */
@@ -422,7 +408,7 @@ const exAns=EXAM.map(q=>q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?
 let graded=false;
 function examHTML(){
   return `<div class="card" style="border:1.5px solid var(--ink)"><h3><span class="chip c-root">시험 안내</span>응시 전 확인</h3>
-    <ul><li>모든 문항이 <b>"왜?"를 묻습니다.</b> O=OC 테스트, to 유무, 원형 vs -ing — 알고리즘으로 풀어야 합니다.</li>
+    <ul><li>모든 문항이 <b>"왜?"를 묻습니다.</b> 선행사 사람/사물, 수일치, 시제, if 현재시제, unless 중복을 알고리즘으로 풀어야 합니다.</li>
     <li>WALK 문항은 단계별 순서대로 풀어야 다음 STEP이 열립니다.</li>
     <li>🔊로 예문을 들으며 문장의 리듬도 익히세요.</li></ul></div>
   ${EXAM.map((q,qi)=>{
@@ -451,18 +437,20 @@ function grade(){
     else if(q.type==='walk'){ok=q.steps.every((st,si)=>exAns[qi][si]===st.ans);q.steps.forEach((st,si)=>st.opts.forEach((_,k)=>{const el=document.getElementById(`e-${qi}-${si}-${k}`);el.disabled=true;if(k===st.ans)el.classList.add('right');else if(k===exAns[qi][si])el.classList.add('wrong');}));const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=(ok?'✅ 완벽한 분석! ':'❌ 분석 오류. ')+q.ex;}
     else{ok=q.items.every((it,k)=>exAns[qi][k]===it.ans);q.items.forEach((it,k)=>{const f=document.getElementById(`ef-${qi}-${k}`),m=document.getElementById(`em-${qi}-${k}`);document.getElementById(`es-${qi}-${k}`).disabled=true;const good=exAns[qi][k]===it.ans;m.textContent=good?'✅':'❌';f.className='fb show '+(good?'good':'badf');f.innerHTML=`<b>${EXAM_CLS_LB[it.ans]}</b> — ${it.why}`;});const f=document.getElementById('exfb'+qi);f.className='fb show '+(ok?'good':'badf');f.innerHTML=ok?'✅ 완벽 분류!':'❌ 위 해설을 확인하세요.';}
     if(ok)score++;});
-  const gr=score>=9?['🎖️ 문법 마스터','주격 관계대명사와 if·unless가 완벽합니다!']:score>=7?['🌿 거의 완성','that 전용 경우와 unless not 중복만 한 번 더!']:score>=5?['🌱 성장 중','3단계 수일치·시제부터 다시 검증해 보세요.']:['🫘 다시 도전','1단계 큰 그림부터 차근차근!'];
-  document.getElementById('result').innerHTML=`<div class="qz"><div class="score-wrap"><div class="score-big">${score} / 10</div><div class="grade">${gr[0]}</div><p style="font-size:.9rem;margin-top:6px">${gr[1]}</p><div style="margin-top:18px"><button class="btn ghost" onclick="resetExam()">처음부터 다시 풀기</button></div></div></div>`;
+  const total=EXAM.length;
+  const ratio=score/total;
+  const gr=ratio>=0.9?['🎖️ 문법 마스터','주격 관계대명사와 if·unless가 완벽합니다!']:ratio>=0.7?['🌿 거의 완성','that 전용 경우와 unless not 중복만 한 번 더!']:ratio>=0.5?['🌱 성장 중','수일치·시제부터 다시 검증해 보세요.']:['🫘 다시 도전','1단계 큰 그림부터 차근차근!'];
+  document.getElementById('result').innerHTML=`<div class="qz"><div class="score-wrap"><div class="score-big">${score} / ${total}</div><div class="grade">${gr[0]}</div><p style="font-size:.9rem;margin-top:6px">${gr[1]}</p><div style="margin-top:18px"><button class="btn ghost" onclick="resetExam()">처음부터 다시 풀기</button></div></div></div>`;
   document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});}
 function resetExam(){graded=false;EXAM.forEach((q,qi)=>{exAns[qi]=q.type==='walk'?q.steps.map(()=>-1):q.type==='classify'?q.items.map(()=>-1):-1;});renderAll();go(STAGES.length-1);}
 function pathHTML(arr){return `<div class="path">${arr.map(([t,c],i)=>(i?'<span class="sep">▸</span>':'')+`<span class="crumb on-${c}">${t}</span>`).join('')}</div>`;}
+/* ★ FIX: cardHTML 호출 시 단계 인덱스 i 전달 */
 function renderAll(){
   document.getElementById('main').innerHTML=STAGES.map((s,i)=>{
-    let inner=s.exam?examHTML():(s.cards||[]).map(cardHTML).join('')+(s.cp?cpHTML(i,s.cp):'');
+    let inner=s.exam?examHTML():(s.cards||[]).map(c=>cardHTML(c,i)).join('')+(s.cp?cpHTML(i,s.cp):'');
     return `<section class="stage ${i===cur?'show':''}" id="st${i}">${pathHTML(s.pathArr)}<h2 class="stitle">${s.title}</h2><p class="ssub">${s.sub}</p>${inner}<div class="navrow">${i>0?`<button class="btn ghost" onclick="go(${i-1})">← 이전 단계</button>`:'<span></span>'}<span style="font-size:.78rem;color:var(--sub)">${i+1} / ${STAGES.length}</span></div></section>`;}).join('');
   renderSteps();}
 renderAll();
-
 </script>
 </body>
 </html>
