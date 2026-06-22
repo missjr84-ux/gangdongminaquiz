@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>핵심문법 · 중1 능률 4과</title>
+<style>
+:root{
+  --navy:#1a2744; --navy2:#27375c; --pink:#e8607a; --pink-d:#c93a5a;
+  --l2:#2f8f6b; --ink:#22262f; --sub:#6b7280; --line:#e3e6ec; --bg:#f4f6f9;
+  --ok:#2e7d32; --ok-bg:#e8f5e9; --no:#c62828; --no-bg:#fdecea; --amber:#b8860b;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',-apple-system,sans-serif;}
+.eng{font-family:'Georgia',serif;}
+.wrap{max-width:760px;margin:0 auto;padding:16px 14px 60px;}
+.head{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;border-radius:16px;padding:20px 18px;margin-bottom:14px;}
+.head .kick{font-size:13px;color:#ffc2cf;font-weight:700;letter-spacing:1px;}
+.head h1{font-size:23px;margin:6px 0 0;}
+.head .sub{font-size:14px;color:#cfd6e6;margin-top:4px;}
+
+/* 문법 선택 */
+.gr-select{display:flex;flex-direction:column;gap:10px;}
+.gr-pick{padding:18px 16px;border:2px solid var(--line);background:#fff;border-radius:14px;cursor:pointer;text-align:left;}
+.gr-pick h3{margin:0;font-size:18px;color:var(--navy);}
+.gr-pick small{color:var(--sub);font-size:13px;}
+
+/* 스텝 표시 */
+.steps{display:flex;gap:6px;margin-bottom:14px;}
+.step{flex:1;text-align:center;padding:10px 4px;border-radius:10px;font-size:13px;font-weight:700;background:#fff;color:var(--sub);border:2px solid var(--line);position:relative;}
+.step.on{background:var(--navy);color:#fff;border-color:var(--navy);}
+.step.done{background:var(--ok-bg);color:var(--ok);border-color:var(--ok);}
+.step.lock{opacity:.5;}
+.step .lockicon{font-size:11px;}
+
+.card{background:#fff;border-radius:16px;padding:20px 16px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:14px;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:14px 20px;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;background:var(--navy);color:#fff;}
+.btn:active{transform:scale(.97);}
+.btn.lg{width:100%;padding:17px;font-size:18px;margin-top:10px;}
+.btn.ghost{background:#fff;color:var(--navy);border:2px solid var(--navy);}
+.btn.sound{background:var(--l2);padding:8px 12px;font-size:14px;}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+.hidden{display:none;}
+
+/* 개념카드 */
+.concept-card{border-left:4px solid var(--navy);padding:4px 0 4px 14px;margin-bottom:18px;}
+.concept-card h3{margin:0 0 6px;font-size:17px;color:var(--navy);}
+.concept-card .body{font-size:15px;line-height:1.7;}
+.concept-card .body b{color:var(--pink-d);}
+.ex-list{margin-top:10px;background:#f7f8fa;border-radius:10px;padding:11px 13px;}
+.ex-list .ex{margin:7px 0;}
+.ex-list .ex-en{font-size:16px;color:var(--navy2);cursor:pointer;}
+.ex-list .ex-ko{font-size:13px;color:var(--sub);margin-top:2px;}
+
+/* 확인 퀴즈 */
+.cq-q{font-size:17px;font-weight:700;margin-bottom:12px;}
+.cq-opts{display:flex;flex-direction:column;gap:10px;}
+.cq-opt{padding:14px 16px;border:2px solid var(--line);background:#fff;border-radius:11px;font-size:16px;cursor:pointer;text-align:left;}
+.cq-opt.correct{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);font-weight:700;}
+.cq-opt.wrong{background:var(--no-bg);border-color:var(--no);color:var(--no);font-weight:700;}
+.lockmsg{background:#fff8e1;border:1.5px solid #e2a33b;border-radius:10px;padding:12px;font-size:14px;color:var(--amber);text-align:center;margin-top:10px;}
+
+/* 단어배열 */
+.arr-ko{font-size:17px;font-weight:700;margin-bottom:12px;}
+.arr-build{min-height:54px;border:2px dashed var(--line);border-radius:12px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-content:flex-start;}
+.arr-build:empty::before{content:"여기에 단어가 채워집니다";color:#bbb;font-size:14px;}
+.arr-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.word-chip{padding:11px 15px;border:2px solid var(--navy);background:#fff;color:var(--navy);border-radius:10px;font-size:16px;cursor:pointer;font-family:'Georgia',serif;}
+.word-chip:active{transform:scale(.95);}
+.word-chip.used{opacity:.3;pointer-events:none;}
+.word-chip.in-build{background:var(--navy);color:#fff;}
+.arr-feedback{font-size:16px;text-align:center;margin-top:8px;font-weight:700;}
+
+/* 영작 */
+.write-ko{font-size:17px;font-weight:700;margin-bottom:10px;}
+.write-input{width:100%;min-height:64px;padding:13px;border:2px solid var(--line);border-radius:12px;font-size:17px;font-family:'Georgia',serif;resize:vertical;}
+.write-input:focus{outline:none;border-color:var(--navy);}
+.write-result{margin-top:12px;font-size:16px;line-height:1.7;}
+.tok-ok{color:var(--ok);font-weight:700;}
+.tok-no{color:var(--no);font-weight:700;text-decoration:line-through;}
+.write-answer{margin-top:10px;padding:11px 13px;background:#f7f8fa;border-radius:10px;font-size:16px;}
+.counter{font-size:14px;color:var(--sub);text-align:center;margin-top:10px;}
+.result{text-align:center;padding:26px 16px;}
+.result .big{font-size:42px;font-weight:800;color:var(--navy);}
+.result .msg{font-size:17px;color:var(--sub);margin:12px 0;}
+.back-link{font-size:14px;color:var(--navy);text-decoration:underline;cursor:pointer;display:inline-block;margin-top:6px;}
+.tag-line{font-size:13px;color:var(--sub);text-align:center;margin-top:6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="kick">중1 능률(김기택) · 4과 Stay Safe at School</div>
+    <h1>핵심문법</h1>
+    <div class="sub">개념 → 확인 → 단어배열 → 영작 (단계 잠금)</div>
+  </div>
+
+  <!-- 문법 선택 -->
+  <div id="selectPane">
+    <div class="card">
+      <div style="font-size:16px;font-weight:700;margin-bottom:12px;">학습할 문법을 선택하세요</div>
+      <div class="gr-select" id="grList"></div>
+    </div>
+  </div>
+
+  <!-- 학습 진행 -->
+  <div id="studyPane" class="hidden">
+    <div class="steps" id="stepBar">
+      <div class="step" data-step="0">① 개념</div>
+      <div class="step" data-step="1">② 개념확인</div>
+      <div class="step lock" data-step="2">③ 단어배열 <span class="lockicon">🔒</span></div>
+      <div class="step lock" data-step="3">④ 영작 <span class="lockicon">🔒</span></div>
+    </div>
+
+    <!-- 0: 개념 -->
+    <div id="conceptStep">
+      <div class="card" id="conceptBox"></div>
+      <button class="btn lg" onclick="goStep(1)">개념 확인 문제로 →</button>
+      <span class="back-link" onclick="backToSelect()">← 문법 목록</span>
+    </div>
+
+    <!-- 1: 개념 확인 (통과해야 잠금 해제) -->
+    <div id="checkStep" class="hidden">
+      <div class="card">
+        <div class="cq-q" id="cqQ"></div>
+        <div class="cq-opts" id="cqOpts"></div>
+        <div class="counter" id="cqCount"></div>
+        <div class="lockmsg hidden" id="cqLock">개념 확인을 모두 통과하면 다음 단계가 열립니다.</div>
+      </div>
+      <span class="back-link" onclick="goStep(0)">← 개념 다시 보기</span>
+    </div>
+
+    <!-- 2: 단어배열 -->
+    <div id="arrStep" class="hidden">
+      <div class="card">
+        <div class="arr-ko" id="arrKo"></div>
+        <div class="arr-build" id="arrBuild"></div>
+        <div class="arr-bank" id="arrBank"></div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn ghost" style="flex:1;" onclick="resetArrange()">↺ 초기화</button>
+          <button class="btn" style="flex:2;" onclick="checkArrange()">채점하기</button>
+        </div>
+        <div class="arr-feedback" id="arrFb"></div>
+        <div class="counter" id="arrCount"></div>
+      </div>
+    </div>
+
+    <!-- 3: 영작 -->
+    <div id="writeStep" class="hidden">
+      <div class="card">
+        <div class="write-ko" id="wKo"></div>
+        <textarea class="write-input eng" id="wInput" placeholder="영어로 작성하세요" autocapitalize="off" spellcheck="false"></textarea>
+        <button class="btn lg" id="wCheckBtn" onclick="checkWrite()">채점하기</button>
+        <div class="write-result" id="wResult"></div>
+        <div class="write-answer hidden" id="wAnswer"></div>
+        <button class="btn ghost lg hidden" id="wNext" onclick="nextWrite()">다음 →</button>
+        <div class="counter" id="wCount"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 결과 -->
+  <div id="resultPane" class="hidden">
+    <div class="card result">
+      <div class="big" id="rScore"></div>
+      <div class="msg" id="rMsg"></div>
+      <button class="btn lg" onclick="backToSelect()">문법 목록으로</button>
+    </div>
+  </div>
+  <div class="tag-line">강동미나 영어학원 · 자체 제작 학습 콘텐츠</div>
+</div>
+
+<script>// 중1 능률(김기택) 4과 - 핵심문법 2개
+// 각 문법: concept(개념카드들), checkQuiz(개념 확인-통과해야 다음), arrange(단어배열), write(영작)
+
+const GRAMMAR = [
+{
+  id:"to_inf",
+  title:"to부정사의 명사적 용법",
+  badge:"중급",
+  concept:[
+    {h:"to부정사란?", body:"동사원형 앞에 <b>to</b>를 붙여, 문장에서 동사가 아닌 <b>명사·형용사·부사</b>의 역할을 하는 것."},
+    {h:"명사적 용법 = 명사처럼 쓰임", body:"문장에서 <b>주어·목적어·보어</b> 역할을 하고, <b>'~하는 것', '~하기'</b>로 해석한다.", ex:[
+      {en:"To cook spaghetti is not difficult.", ko:"스파게티를 요리하는 것은 어렵지 않다. (주어)"},
+      {en:"Tony wants to ride a bike.", ko:"Tony는 자전거를 타기를 원한다. (목적어)"},
+      {en:"My goal is to travel around the world.", ko:"나의 목표는 전 세계를 여행하는 것이다. (보어)"}
+    ]},
+    {h:"가주어 It", body:"to부정사(구)가 주어로 길면, 주어 자리에 <b>가주어 It</b>을 쓰고 to부정사를 <b>문장 맨 뒤</b>로 보낸다.", ex:[
+      {en:"It is not difficult to cook spaghetti.", ko:"= To cook spaghetti is not difficult."}
+    ]},
+    {h:"to부정사를 목적어로 취하는 동사", body:"want, hope, wish, plan, decide, expect, learn, need, promise 등은 뒤에 to부정사가 온다.", ex:[
+      {en:"I hope to win first prize.", ko:"나는 일등상을 받기를 희망한다."},
+      {en:"She decided to study abroad.", ko:"그녀는 해외에서 공부하기로 결정했다."}
+    ]}
+  ],
+  checkQuiz:[
+    {q:"빈칸에 알맞은 것은? My dream is ___ a pilot.", opts:["become","to become","becoming","became"], a:1},
+    {q:"to부정사의 명사적 용법 해석으로 알맞은 것은?", opts:["~하는 동안","~하는 것","~하기 위해","~한"], a:1},
+    {q:"빈칸에 알맞은 것은? She wants ___ a new phone.", opts:["buy","buys","to buy","bought"], a:2},
+    {q:"가주어 구문으로 옳은 것은?", opts:["Is it easy to swim?","It is easy to swim.","To it is easy swim.","Easy it is to swim."], a:1}
+  ],
+  arrange:[
+    {ko:"커피를 마시는 것은 나를 깨어있게 한다.", words:["awake","drink","me","coffee","to","keeps"], a:"To drink coffee keeps me awake."},
+    {ko:"내 꿈은 패션 디자이너가 되는 것이다.", words:["dream","fashion","designer","to","is","become","a","my"], a:"My dream is to become a fashion designer."},
+    {ko:"그는 저녁을 요리하기로 결정했다.", words:["to","decided","dinner","cook","he"], a:"He decided to cook dinner."},
+    {ko:"나는 너를 또 보기를 희망한다.", words:["hope","I","see","you","to","again"], a:"I hope to see you again."},
+    {ko:"우리는 쉬는 시간을 갖는 것이 필요하다.", words:["we","a","have","to","break","need"], a:"We need to have a break."}
+  ],
+  write:[
+    {ko:"영어를 배우는 것은 시간이 든다. (learn, take)", a:"To learn English takes time."},
+    {ko:"다른 사람들을 돕는 것은 나를 행복하게 만든다. (others, make)", a:"To help others makes me happy."},
+    {ko:"너무 빨리 운전하는 것은 위험하다. (it, dangerous, too)", a:"It is dangerous to drive too fast."},
+    {ko:"그는 일찍 올 것을 약속했다. (promise, early)", a:"He promised to come early."},
+    {ko:"너는 네 친구들에게 친절할 필요가 있다. (need, be, kind)", a:"You need to be kind to your friends."}
+  ]
+},
+{
+  id:"modal",
+  title:"조동사 should, will",
+  badge:"중급",
+  concept:[
+    {h:"조동사의 기본 규칙", body:"조동사 뒤에는 인칭·수와 관계없이 항상 <b>동사원형</b>을 쓴다.<br>긍정: 주어+조동사+동사원형 / 부정: 주어+조동사+<b>not</b>+동사원형 / 의문: 조동사+주어+동사원형?"},
+    {h:"should = ~해야 한다 (의무·충고)", body:"'~하는 것이 좋다'라는 의무나 충고의 의미.", ex:[
+      {en:"You should save water.", ko:"너는 물을 절약해야 한다."},
+      {en:"You shouldn't tell lies.", ko:"너는 거짓말을 해서는 안 된다."},
+      {en:"Should I stay here?", ko:"제가 여기 머물러야 하나요?"}
+    ]},
+    {h:"will = ~할 것이다 (의지·미래 예측)", body:"주어의 의지나 미래의 일에 대한 예측.", ex:[
+      {en:"I will be a great scientist.", ko:"나는 훌륭한 과학자가 될 것이다."},
+      {en:"It will rain tomorrow.", ko:"내일 비가 올 것이다."},
+      {en:"We won't sleep in class.", ko:"우리는 수업 시간에 자지 않을 것이다."}
+    ]},
+    {h:"참고", body:"should ≈ ought to / should보다 강한 의무 = must, have to / will(예측) ≈ be going to"}
+  ],
+  checkQuiz:[
+    {q:"빈칸에 알맞은 것은? You should ___ your homework.", opts:["did","does","do","to do"], a:2},
+    {q:"should의 의미로 알맞은 것은?", opts:["~할 수 있다","~해야 한다","~했었다","~하는 중이다"], a:1},
+    {q:"will의 부정 축약형은?", opts:["willn't","won't","willnot","don't will"], a:1},
+    {q:"의문문 어순으로 옳은 것은?", opts:["You should go?","Should you go?","Go should you?","Should go you?"], a:1}
+  ],
+  arrange:[
+    {ko:"나는 우리 엄마를 도와야 한다.", words:["should","help","I","mom","my"], a:"I should help my mom."},
+    {ko:"너는 밤에 운전하면 안 된다.", words:["you","not","should","night","drive","at"], a:"You should not drive at night."},
+    {ko:"내가 당신을 다시 만나야 하나요?", words:["meet","again","you","I","should"], a:"Should I meet you again?"},
+    {ko:"내일 비가 올 것이다.", words:["it","rainy","be","will","tomorrow"], a:"It will be rainy tomorrow."},
+    {ko:"학생들은 복도에서 뛰면 안 된다.", words:["should","the","run","hallway","students","in","not"], a:"Students should not run in the hallway."}
+  ],
+  write:[
+    {ko:"너는 부모님께 예의 바르게 행동해야 한다. (be, polite, parents)", a:"You should be polite to your parents."},
+    {ko:"내가 이 책을 읽어야 하나요? (read)", a:"Should I read this book?"},
+    {ko:"그는 곧 여기에 도착할 것이다. (arrive, soon)", a:"He will arrive here soon."},
+    {ko:"너는 너무 늦게까지 게임을 하면 안 된다. (games, too late)", a:"You should not play games too late."},
+    {ko:"그녀가 나를 도와줄까? (help)", a:"Will she help me?"}
+  ]
+}
+];
+</script>
+<script>
+/* ===== TTS ===== */
+let voices=[],chosenVoice=null,ttsUnlocked=false;
+function pickVoice(){voices=speechSynthesis.getVoices();const prefer=['Google US English','Google UK English Female','Samantha','Microsoft Aria','Microsoft Jenny','Microsoft Zira','Karen','Daniel','Alex'];for(const n of prefer){const v=voices.find(v=>v.name===n);if(v){chosenVoice=v;return;}}chosenVoice=voices.find(v=>v.lang==='en-US')||voices.find(v=>v.lang&&v.lang.startsWith('en'))||null;}
+if('speechSynthesis'in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function unlockTTS(){if(ttsUnlocked||!('speechSynthesis'in window))return;const u=new SpeechSynthesisUtterance('');u.volume=0;speechSynthesis.speak(u);ttsUnlocked=true;}
+document.body.addEventListener('touchstart',unlockTTS,{once:true});
+document.body.addEventListener('click',unlockTTS,{once:true});
+function speak(text,slow){if(!('speechSynthesis'in window))return;unlockTTS();speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);if(chosenVoice)u.voice=chosenVoice;u.lang='en-US';u.rate=slow?0.55:0.92;speechSynthesis.speak(u);}
+
+/* ===== 상태 ===== */
+let curGr=0, curStep=0, unlocked=[true,true,false,false];
+let cqPos=0, cqPass=0;
+let arrPos=0, arrScore=0, arrBuilt=[];
+let writePos=0, writeScore=0, writeAnswered=false;
+
+/* ===== 문법 선택 ===== */
+function renderGrList(){
+  const box=document.getElementById('grList');box.innerHTML='';
+  GRAMMAR.forEach((g,i)=>{
+    const b=document.createElement('button');
+    b.className='gr-pick';
+    b.innerHTML='<h3>'+g.title+'</h3><small>개념 + 확인 + 단어배열 + 영작</small>';
+    b.onclick=()=>openGrammar(i);
+    box.appendChild(b);
+  });
+}
+function openGrammar(i){
+  curGr=i; unlocked=[true,true,false,false];
+  document.getElementById('selectPane').classList.add('hidden');
+  document.getElementById('resultPane').classList.add('hidden');
+  document.getElementById('studyPane').classList.remove('hidden');
+  goStep(0);
+}
+function backToSelect(){
+  document.getElementById('studyPane').classList.add('hidden');
+  document.getElementById('resultPane').classList.add('hidden');
+  document.getElementById('selectPane').classList.remove('hidden');
+}
+
+/* ===== 스텝 이동 + 잠금 ===== */
+function goStep(s){
+  if(!unlocked[s]){ return; }
+  curStep=s;
+  ['conceptStep','checkStep','arrStep','writeStep'].forEach((id,i)=>document.getElementById(id).classList.toggle('hidden',i!==s));
+  // 스텝바 갱신
+  document.querySelectorAll('.step').forEach((el,i)=>{
+    el.classList.remove('on','done','lock');
+    if(i===s)el.classList.add('on');
+    else if(unlocked[i] && i<s)el.classList.add('done');
+    else if(!unlocked[i])el.classList.add('lock');
+  });
+  if(s===0)renderConcept();
+  else if(s===1)startCheck();
+  else if(s===2)startArrange();
+  else if(s===3)startWrite();
+}
+
+/* ===== 0: 개념 ===== */
+function renderConcept(){
+  const g=GRAMMAR[curGr]; const box=document.getElementById('conceptBox');
+  let html='<h2 style="margin:0 0 14px;color:var(--navy);font-size:20px;">'+g.title+'</h2>';
+  g.concept.forEach(c=>{
+    html+='<div class="concept-card"><h3>'+c.h+'</h3><div class="body">'+c.body+'</div>';
+    if(c.ex){html+='<div class="ex-list">';c.ex.forEach(e=>{html+='<div class="ex"><div class="ex-en" onclick="speak(this.textContent.trim())">'+e.en+'</div><div class="ex-ko">'+e.ko+'</div></div>';});html+='</div>';}
+    html+='</div>';
+  });
+  box.innerHTML=html;
+}
+
+/* ===== 1: 개념 확인 (통과 잠금) ===== */
+function startCheck(){ cqPos=0; cqPass=0; renderCheck(); }
+function renderCheck(){
+  const g=GRAMMAR[curGr];
+  if(cqPos>=g.checkQuiz.length){
+    // 전부 통과 시 다음 잠금 해제
+    if(cqPass===g.checkQuiz.length){
+      unlocked[2]=true;
+      document.getElementById('cqLock').classList.add('hidden');
+      goStep(2);
+    } else {
+      // 틀린 게 있으면 처음부터 다시
+      document.getElementById('cqLock').classList.remove('hidden');
+      document.getElementById('cqLock').textContent='틀린 문제가 있어요. 개념을 다시 보고 처음부터 풀어요.';
+      cqPos=0; cqPass=0;
+      setTimeout(renderCheck,1400);
+    }
+    return;
+  }
+  const q=g.checkQuiz[cqPos];
+  document.getElementById('cqQ').textContent=q.q;
+  document.getElementById('cqCount').textContent='개념 확인 '+(cqPos+1)+' / '+g.checkQuiz.length;
+  const box=document.getElementById('cqOpts');box.innerHTML='';
+  q.opts.forEach((o,i)=>{
+    const b=document.createElement('button');b.className='cq-opt';b.textContent=o;
+    b.onclick=()=>answerCheck(b,i===q.a,box);
+    box.appendChild(b);
+  });
+}
+function answerCheck(btn,ok,box){
+  [...box.children].forEach(b=>b.onclick=null);
+  if(ok){btn.classList.add('correct');cqPass++;}
+  else{
+    btn.classList.add('wrong');
+    const g=GRAMMAR[curGr];const correctTxt=g.checkQuiz[cqPos].opts[g.checkQuiz[cqPos].a];
+    [...box.children].forEach(b=>{if(b.textContent===correctTxt)b.classList.add('correct');});
+  }
+  setTimeout(()=>{cqPos++;renderCheck();},800);
+}
+
+/* ===== 2: 단어배열 ===== */
+function startArrange(){ arrPos=0; arrScore=0; renderArrange(); }
+function renderArrange(){
+  const g=GRAMMAR[curGr];
+  if(arrPos>=g.arrange.length){ unlocked[3]=true; goStep(3); return; }
+  arrBuilt=[];
+  const item=g.arrange[arrPos];
+  document.getElementById('arrKo').textContent=item.ko;
+  document.getElementById('arrCount').textContent='단어배열 '+(arrPos+1)+' / '+g.arrange.length;
+  document.getElementById('arrFb').textContent='';
+  document.getElementById('arrBuild').innerHTML='';
+  const bank=document.getElementById('arrBank');bank.innerHTML='';
+  // 단어 섞어서 배치
+  const shuffled=item.words.map((w,i)=>({w,i}));
+  shuffle(shuffled);
+  shuffled.forEach(obj=>{
+    const chip=document.createElement('button');
+    chip.className='word-chip';chip.textContent=obj.w;chip.dataset.i=obj.i;
+    chip.onclick=()=>addWord(chip,obj.w);
+    bank.appendChild(chip);
+  });
+}
+function addWord(chip,word){
+  if(chip.classList.contains('used'))return;
+  chip.classList.add('used');
+  arrBuilt.push({chip,word});
+  const b=document.createElement('button');
+  b.className='word-chip in-build';b.textContent=word;
+  b.onclick=()=>{ // 되돌리기
+    chip.classList.remove('used');
+    arrBuilt=arrBuilt.filter(x=>x.chip!==chip);
+    rebuildBuild();
+  };
+  document.getElementById('arrBuild').appendChild(b);
+}
+function rebuildBuild(){
+  const build=document.getElementById('arrBuild');build.innerHTML='';
+  arrBuilt.forEach(({chip,word})=>{
+    const b=document.createElement('button');b.className='word-chip in-build';b.textContent=word;
+    b.onclick=()=>{chip.classList.remove('used');arrBuilt=arrBuilt.filter(x=>x.chip!==chip);rebuildBuild();};
+    build.appendChild(b);
+  });
+}
+function resetArrange(){
+  document.querySelectorAll('#arrBank .word-chip').forEach(c=>c.classList.remove('used'));
+  arrBuilt=[]; document.getElementById('arrBuild').innerHTML=''; document.getElementById('arrFb').textContent='';
+}
+function checkArrange(){
+  const g=GRAMMAR[curGr];const item=g.arrange[arrPos];
+  const built=arrBuilt.map(x=>x.word).join(' ');
+  const ans=item.a.replace(/[.?!]/g,'').trim();
+  const fb=document.getElementById('arrFb');
+  if(built.toLowerCase()===ans.toLowerCase()){
+    fb.style.color='var(--ok)';fb.textContent='✅ 정답!  '+item.a;
+    arrScore++; speak(item.a);
+    setTimeout(()=>{arrPos++;renderArrange();},1300);
+  } else {
+    fb.style.color='var(--no)';fb.innerHTML='❌ 다시 해봐요<br><span style="font-weight:400;font-size:14px;color:var(--sub)">정답: '+item.a+'</span>';
+    setTimeout(()=>{arrPos++;renderArrange();},1900);
+  }
+}
+
+/* ===== 3: 영작 ===== */
+function startWrite(){ writePos=0; writeScore=0; renderWrite(); }
+function renderWrite(){
+  const g=GRAMMAR[curGr];
+  if(writePos>=g.write.length)return finishAll();
+  writeAnswered=false;
+  const w=g.write[writePos];
+  document.getElementById('wKo').textContent=w.ko;
+  document.getElementById('wInput').value='';
+  document.getElementById('wResult').innerHTML='';
+  document.getElementById('wAnswer').classList.add('hidden');
+  document.getElementById('wNext').classList.add('hidden');
+  document.getElementById('wCheckBtn').classList.remove('hidden');
+  document.getElementById('wCount').textContent='영작 '+(writePos+1)+' / '+g.write.length;
+}
+function norm(s){return s.toLowerCase().replace(/[.,!?'"\u201C\u201D]/g,'').replace(/\s+/g,' ').trim();}
+function checkWrite(){
+  if(writeAnswered)return;
+  const g=GRAMMAR[curGr];const w=g.write[writePos];
+  const ans=norm(document.getElementById('wInput').value);
+  const cor=norm(w.a);
+  const aw=ans.split(' '),cw=cor.split(' ');
+  let html='';
+  cw.forEach((c,i)=>{ if(aw[i]===c)html+='<span class="tok-ok">'+c+'</span> '; else html+='<span class="tok-no">'+(aw[i]||'___')+'</span> '; });
+  document.getElementById('wResult').innerHTML=html;
+  const perfect=ans===cor; if(perfect)writeScore++;
+  const ab=document.getElementById('wAnswer');ab.classList.remove('hidden');
+  ab.innerHTML=(perfect?'✅ 정답!':'정답: ')+'<b class="eng">'+w.a+'</b>';
+  document.getElementById('wCheckBtn').classList.add('hidden');
+  document.getElementById('wNext').classList.remove('hidden');
+  writeAnswered=true;
+}
+function nextWrite(){writePos++;renderWrite();}
+
+/* ===== 완료 ===== */
+function finishAll(){
+  document.getElementById('studyPane').classList.add('hidden');
+  const pane=document.getElementById('resultPane');pane.classList.remove('hidden');
+  const g=GRAMMAR[curGr];
+  const total=g.arrange.length+g.write.length;
+  const score=arrScore+writeScore;
+  document.getElementById('rScore').textContent=score+' / '+total;
+  document.getElementById('rMsg').innerHTML=g.title+' 완료! 🎉<br><span style="font-size:14px">단어배열 '+arrScore+'/'+g.arrange.length+' · 영작 '+writeScore+'/'+g.write.length+'</span>';
+}
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
+renderGrList();
+</script>
+</body>
+</html>
