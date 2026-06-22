@@ -833,16 +833,17 @@ function goTab(v){
 
 let tt; function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2000);}
 
-/* ═══ 학원명 표시 ═══ */
-document.getElementById('acNameHero').textContent=ACADEMY.name;
-document.title=ACADEMY.name+' — 우리 아이 영어 진단';
-
-/* ═══ 초기화 ═══ */
-(async function init(){
- try{ const nm=await window.storage.get('academyName',false); if(nm&&nm.value){ACADEMY.name=nm.value;document.getElementById('acNameHero').textContent=nm.value;document.title=nm.value+' — 우리 아이 영어 진단';} }catch(e){}
- renderWiz(); renderDemoHome(); renderFaq(); renderOps();
- if('speechSynthesis'in window){window.speechSynthesis.onvoiceschanged=()=>{};window.speechSynthesis.getVoices();}
-})();
+/* ═══ 초기화 — window.storage 없이 어디서나 동작 ═══ */
+document.getElementById('acNameHero').textContent = ACADEMY.name;
+document.title = ACADEMY.name + ' — 우리 아이 영어 진단';
+renderWiz();
+renderDemoHome();
+renderFaq();
+renderOps();
+if('speechSynthesis' in window){
+ window.speechSynthesis.onvoiceschanged = ()=>{};
+ window.speechSynthesis.getVoices();
+}
 </script>
 </body>
 </html>
