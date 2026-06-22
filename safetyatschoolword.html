@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>단어 학습 · 중1 능률 4과</title>
+<style>
+:root{
+  --navy:#1a2744; --navy2:#27375c; --pink:#e8607a; --pink-d:#c93a5a;
+  --l1:#3fa34d; --l2:#2f8f6b; --l3:#1f6e4a; --l4:#3a5f86;
+  --ink:#22262f; --sub:#6b7280; --line:#e3e6ec; --bg:#f4f6f9;
+  --ok:#2e7d32; --ok-bg:#e8f5e9; --no:#c62828; --no-bg:#fdecea;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font-family:'Noto Sans KR',-apple-system,sans-serif;}
+.eng{font-family:'Georgia',serif;}
+.wrap{max-width:760px;margin:0 auto;padding:16px 14px 60px;}
+
+/* 헤더 */
+.head{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;
+  border-radius:16px;padding:20px 18px;margin-bottom:14px;}
+.head .kick{font-size:13px;color:#ffc2cf;font-weight:700;letter-spacing:1px;}
+.head h1{font-size:23px;margin:6px 0 0;}
+.head .sub{font-size:14px;color:#cfd6e6;margin-top:4px;}
+
+/* 진행바 */
+.prog{height:10px;background:#e0e4ea;border-radius:6px;overflow:hidden;margin:12px 0;}
+.prog > i{display:block;height:100%;background:linear-gradient(90deg,var(--l1),var(--l2));width:0;transition:width .3s;}
+
+/* 탭 */
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.tab{flex:1;min-width:90px;padding:13px 8px;border:2px solid var(--line);background:#fff;
+  border-radius:12px;font-size:15px;font-weight:700;color:var(--sub);cursor:pointer;text-align:center;}
+.tab.on{background:var(--navy);color:#fff;border-color:var(--navy);}
+
+/* 버튼 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:14px 20px;border:none;border-radius:12px;font-size:17px;font-weight:700;
+  cursor:pointer;background:var(--navy);color:#fff;}
+.btn:active{transform:scale(.97);}
+.btn.lg{width:100%;padding:18px;font-size:19px;margin-top:10px;}
+.btn.ghost{background:#fff;color:var(--navy);border:2px solid var(--navy);}
+.btn.sound{background:var(--l2);padding:11px 15px;font-size:16px;}
+.btn.slow{background:#5a7a9a;padding:11px 15px;font-size:16px;}
+
+/* 카드 */
+.card{background:#fff;border-radius:16px;padding:22px 18px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:14px;}
+.center{text-align:center;}
+
+/* 학습 모드 */
+.flash .word{font-size:42px;font-weight:800;color:var(--navy);margin:8px 0;}
+.flash .ko{font-size:22px;color:var(--ink);margin:10px 0;}
+.flash .sound-row{display:flex;gap:10px;justify-content:center;margin:14px 0;}
+.synant{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px;}
+.chip{padding:7px 14px;border-radius:20px;font-size:15px;font-weight:700;}
+.chip.syn{background:var(--ok-bg);color:var(--ok);}
+.chip.ant{background:var(--no-bg);color:var(--no);}
+.chip .lbl{font-size:12px;opacity:.7;margin-right:4px;}
+.ex-box{margin-top:16px;background:#f7f8fa;border-radius:12px;padding:14px;text-align:left;}
+.ex-box .ex-en{font-size:18px;color:var(--navy2);}
+.ex-box .ex-ko{font-size:15px;color:var(--sub);margin-top:5px;}
+.nav-row{display:flex;gap:10px;margin-top:14px;}
+.nav-row .btn{flex:1;}
+.counter{font-size:15px;color:var(--sub);text-align:center;margin-top:8px;}
+
+/* 퀴즈 */
+.q-word{font-size:34px;font-weight:800;color:var(--navy);text-align:center;margin:6px 0 4px;}
+.q-prompt{font-size:16px;color:var(--sub);text-align:center;margin-bottom:16px;}
+.opts{display:flex;flex-direction:column;gap:11px;}
+.opt{padding:16px 18px;border:2px solid var(--line);background:#fff;border-radius:12px;
+  font-size:18px;cursor:pointer;text-align:left;transition:.15s;}
+.opt:active{transform:scale(.98);}
+.opt.correct{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);font-weight:700;}
+.opt.wrong{background:var(--no-bg);border-color:var(--no);color:var(--no);font-weight:700;}
+.opt.dim{opacity:.45;}
+
+/* 받아쓰기 */
+.dict-row{display:flex;gap:10px;justify-content:center;margin:16px 0;}
+.dict-input{width:100%;padding:16px;border:2px solid var(--line);border-radius:12px;
+  font-size:22px;text-align:center;font-family:'Georgia',serif;}
+.dict-input:focus{outline:none;border-color:var(--navy);}
+.dict-result{margin-top:14px;font-size:17px;text-align:center;}
+.dict-result .tok-ok{color:var(--ok);font-weight:700;}
+.dict-result .tok-no{color:var(--no);font-weight:700;text-decoration:line-through;}
+.dict-hint{font-size:15px;color:var(--sub);text-align:center;margin-top:8px;}
+
+/* 결과 */
+.result{text-align:center;padding:30px 18px;}
+.result .big{font-size:48px;font-weight:800;color:var(--navy);}
+.result .msg{font-size:18px;color:var(--sub);margin:12px 0;}
+.badge{display:inline-block;padding:5px 12px;border-radius:14px;font-size:13px;font-weight:700;margin-left:8px;}
+.b1{background:#eaf7ec;color:var(--l1);}.b2{background:#e7f6ef;color:var(--l2);}
+.hidden{display:none;}
+.tag-line{font-size:13px;color:var(--sub);text-align:center;margin-top:6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="kick">중1 능률(김기택) · 4과 Stay Safe at School</div>
+    <h1>단어 학습</h1>
+    <div class="sub">50개 단어 · 유의어/반의어 · 받아쓰기</div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab on" data-mode="learn" onclick="switchMode('learn')">📖 학습</div>
+    <div class="tab" data-mode="quiz" onclick="switchMode('quiz')">✏️ 뜻 퀴즈</div>
+    <div class="tab" data-mode="dict" onclick="switchMode('dict')">🎧 받아쓰기</div>
+  </div>
+
+  <div class="prog"><i id="progBar"></i></div>
+
+  <!-- 학습 모드 -->
+  <div id="learnPane">
+    <div class="card flash center">
+      <div class="sound-row">
+        <button class="btn sound" onclick="speakCur()">🔊 듣기</button>
+        <button class="btn slow" onclick="speakCur(true)">🐢 천천히</button>
+      </div>
+      <div class="word eng" id="fWord">—</div>
+      <div class="ko" id="fKo">—</div>
+      <div class="synant" id="fSynAnt"></div>
+      <div class="ex-box">
+        <div class="ex-en eng" id="fEx">—</div>
+        <div class="ex-ko" id="fExKo">—</div>
+      </div>
+      <div class="counter" id="fCount">1 / 50</div>
+      <div class="nav-row">
+        <button class="btn ghost" onclick="prevWord()">← 이전</button>
+        <button class="btn" onclick="nextWord()">다음 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 퀴즈 모드 -->
+  <div id="quizPane" class="hidden">
+    <div class="card">
+      <div class="sound-row" style="display:flex;gap:10px;justify-content:center;margin-bottom:6px;">
+        <button class="btn sound" onclick="speakQuiz()">🔊 듣기</button>
+        <button class="btn slow" onclick="speakQuiz(true)">🐢 천천히</button>
+      </div>
+      <div class="q-word eng" id="qWord">—</div>
+      <div class="q-prompt" id="qPrompt">알맞은 뜻을 고르세요</div>
+      <div class="opts" id="qOpts"></div>
+      <div class="counter" id="qCount"></div>
+    </div>
+  </div>
+
+  <!-- 받아쓰기 모드 -->
+  <div id="dictPane" class="hidden">
+    <div class="card center">
+      <div class="dict-row">
+        <button class="btn sound" onclick="speakDict()">🔊 듣기</button>
+        <button class="btn slow" onclick="speakDict(true)">🐢 천천히</button>
+      </div>
+      <div class="q-prompt" id="dKo">—</div>
+      <input class="dict-input eng" id="dInput" placeholder="들은 단어를 입력" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <button class="btn lg" onclick="checkDict()">채점하기</button>
+      <div class="dict-result" id="dResult"></div>
+      <div class="dict-hint" id="dHint"></div>
+      <div class="counter" id="dCount"></div>
+    </div>
+  </div>
+
+  <!-- 결과 -->
+  <div id="resultPane" class="hidden">
+    <div class="card result">
+      <div class="big" id="rScore">—</div>
+      <div class="msg" id="rMsg"></div>
+      <button class="btn lg" onclick="restartCurrent()">다시 풀기</button>
+    </div>
+  </div>
+  <div class="tag-line">강동미나 영어학원 · 자체 제작 학습 콘텐츠</div>
+</div>
+
+<script>// 중1 능률(김기택) 4과 - 단어 50개 (유의어/반의어 포함)
+const VOCAB = [
+  {en:"slip", ko:"미끄러지다", syn:["slide"], ant:["grip"], ex:"Be careful! You might slip on the ice.", exKo:"조심해! 얼음에서 미끄러질 수 있어."},
+  {en:"break", ko:"깨(지)다; 어기다; 쉬는 시간", syn:["crack","pause"], ant:["fix","keep"], ex:"Let's take a short break.", exKo:"잠깐 쉬는 시간을 갖자."},
+  {en:"bump", ko:"부딪치다", syn:["hit","knock"], ant:[], ex:"Don't bump the table.", exKo:"탁자에 부딪치지 마."},
+  {en:"hallway", ko:"복도", syn:["corridor"], ant:[], ex:"Students ran down the hallway.", exKo:"학생들이 복도를 달려 내려갔다."},
+  {en:"happen", ko:"발생하다, 일어나다", syn:["occur","take place"], ant:[], ex:"Accidents happen quickly.", exKo:"사고는 빠르게 일어난다."},
+  {en:"common", ko:"흔한", syn:["usual","ordinary"], ant:["rare","unusual"], ex:"Colds are common in winter.", exKo:"감기는 겨울에 흔하다."},
+  {en:"earthquake", ko:"지진", syn:["quake"], ant:[], ex:"The earthquake shook the city.", exKo:"지진이 도시를 흔들었다."},
+  {en:"spill", ko:"쏟다, 흘리다", syn:["pour out"], ant:[], ex:"Don't spill the milk.", exKo:"우유를 쏟지 마."},
+  {en:"injure", ko:"상처를 입히다, 다치게 하다", syn:["hurt","harm","wound"], ant:["heal","cure"], ex:"He injured his leg.", exKo:"그는 다리를 다쳤다."},
+  {en:"safety", ko:"안전", syn:["security"], ant:["danger","risk"], ex:"Safety comes first.", exKo:"안전이 우선이다."},
+  {en:"way", ko:"법, 방식; 길", syn:["method","road","path"], ant:[], ex:"This is the best way.", exKo:"이것이 최선의 방법이다."},
+  {en:"hold on to", ko:"~을 붙잡다", syn:["grab","grip"], ant:["let go of"], ex:"Hold on to the rail.", exKo:"난간을 붙잡아."},
+  {en:"carefully", ko:"조심스럽게, 주의 깊게", syn:["cautiously"], ant:["carelessly"], ex:"Walk carefully on the wet floor.", exKo:"젖은 바닥에서 조심히 걸어."},
+  {en:"a bowl of", ko:"~ 한 그릇", syn:[], ant:[], ex:"I ate a bowl of rice.", exKo:"나는 밥 한 그릇을 먹었다."},
+  {en:"keep", ko:"보유하다; 계속하다; 지키다", syn:["maintain","hold"], ant:["break","lose"], ex:"Keep your promise.", exKo:"약속을 지켜."},
+  {en:"make a fire", ko:"불을 피우다", syn:["build a fire"], ant:["put out a fire"], ex:"They made a fire to keep warm.", exKo:"그들은 따뜻하게 있으려고 불을 피웠다."},
+  {en:"warm up", ko:"준비 운동을 하다", syn:["stretch"], ant:["cool down"], ex:"Warm up before you run.", exKo:"달리기 전에 준비 운동을 해."},
+  {en:"during", ko:"~동안", syn:["throughout"], ant:[], ex:"Stay quiet during the test.", exKo:"시험 동안 조용히 해."},
+  {en:"below", ko:"아래에; ~의 아래에", syn:["under","beneath"], ant:["above","over"], ex:"Write your name below.", exKo:"아래에 이름을 써."},
+  {en:"end", ko:"끝나다; 끝", syn:["finish","stop"], ant:["begin","start"], ex:"The movie ended late.", exKo:"영화는 늦게 끝났다."},
+  {en:"promise", ko:"약속; 약속하다", syn:["vow","pledge"], ant:[], ex:"I promise to help you.", exKo:"너를 돕겠다고 약속할게."},
+  {en:"land", ko:"땅, 육지; 착지하다", syn:["ground","touch down"], ant:["take off"], ex:"The plane landed safely.", exKo:"비행기가 안전하게 착륙했다."},
+  {en:"watch out for", ko:"~을 조심하다", syn:["beware of","look out for"], ant:[], ex:"Watch out for cars.", exKo:"차를 조심해."},
+  {en:"finger", ko:"손가락", syn:[], ant:[], ex:"She cut her finger.", exKo:"그녀는 손가락을 베었다."},
+  {en:"drop to the ground", ko:"땅에 엎드리다", syn:["get down"], ant:["stand up"], ex:"Drop to the ground during an earthquake.", exKo:"지진 때는 땅에 엎드려."},
+  {en:"accident", ko:"사고", syn:["crash","mishap"], ant:[], ex:"A car accident happened here.", exKo:"여기서 교통사고가 났다."},
+  {en:"slippery", ko:"미끄러운", syn:["slick"], ant:["rough"], ex:"The road is slippery.", exKo:"길이 미끄럽다."},
+  {en:"bump into", ko:"~에 부딪치다", syn:["run into","collide with"], ant:[], ex:"I bumped into the door.", exKo:"나는 문에 부딪쳤다."},
+  {en:"careful", ko:"조심하는, 주의하는", syn:["cautious"], ant:["careless"], ex:"Be careful with knives.", exKo:"칼을 조심해."},
+  {en:"sidewalk", ko:"인도, 보도", syn:["pavement"], ant:["road"], ex:"Walk on the sidewalk.", exKo:"인도로 걸어."},
+  {en:"play sports", ko:"운동을 하다", syn:["do sports"], ant:[], ex:"I play sports every weekend.", exKo:"나는 주말마다 운동을 한다."},
+  {en:"be careful of", ko:"~을 조심[주의]하다", syn:["watch out for"], ant:[], ex:"Be careful of the dog.", exKo:"개를 조심해."},
+  {en:"look around", ko:"주변을 둘러보다", syn:["look about"], ant:[], ex:"Look around before you cross.", exKo:"건너기 전에 주변을 둘러봐."},
+  {en:"walk", ko:"걷다", syn:["stroll"], ant:["run"], ex:"Let's walk to school.", exKo:"학교까지 걸어가자."},
+  {en:"sometimes", ko:"가끔, 때때로", syn:["occasionally"], ant:["always","never"], ex:"I sometimes read at night.", exKo:"나는 가끔 밤에 책을 읽는다."},
+  {en:"hold", ko:"잡다, 들다", syn:["grab","grip","carry"], ant:["drop","release"], ex:"Hold my hand.", exKo:"내 손을 잡아."},
+  {en:"slow down", ko:"(속도를) 줄이다", syn:["decelerate"], ant:["speed up"], ex:"Slow down in the school zone.", exKo:"어린이 보호 구역에서 속도를 줄여."},
+  {en:"remember", ko:"기억하다", syn:["recall"], ant:["forget"], ex:"Remember the safety tips.", exKo:"안전 수칙을 기억해."},
+  {en:"cause", ko:"원인; 야기하다, 초래하다", syn:["reason","bring about"], ant:["result","effect"], ex:"Rain caused the accident.", exKo:"비가 사고를 일으켰다."},
+  {en:"loudly", ko:"크게, 큰 소리로", syn:["noisily"], ant:["quietly","softly"], ex:"He shouted loudly.", exKo:"그는 큰 소리로 외쳤다."},
+  {en:"land the wrong way", ko:"잘못 착지하다", syn:[], ant:[], ex:"He landed the wrong way and got hurt.", exKo:"그는 잘못 착지해서 다쳤다."},
+  {en:"injury", ko:"부상, 상처", syn:["wound","hurt"], ant:[], ex:"He had a knee injury.", exKo:"그는 무릎 부상을 입었다."},
+  {en:"watch", ko:"보다; 조심하다", syn:["look at","observe"], ant:[], ex:"Watch your step.", exKo:"발밑을 조심해."},
+  {en:"cover", ko:"가리다, 씌우다; 덮개", syn:["hide","protect"], ant:["uncover","reveal"], ex:"Cover your head.", exKo:"머리를 감싸."},
+  {en:"cross", ko:"건너다, 가로지르다", syn:["go across"], ant:[], ex:"Cross the road carefully.", exKo:"길을 조심히 건너."},
+  {en:"example", ko:"예, 사례", syn:["instance","sample"], ant:[], ex:"Give me an example.", exKo:"예를 하나 들어줘."},
+  {en:"learn", ko:"배우다, 알다", syn:["study","find out"], ant:["teach"], ex:"We learn about safety.", exKo:"우리는 안전에 대해 배운다."},
+  {en:"crosswalk", ko:"횡단보도", syn:["pedestrian crossing"], ant:[], ex:"Use the crosswalk.", exKo:"횡단보도를 이용해."},
+  {en:"stair", ko:"(하나의) 계단", syn:["step"], ant:[], ex:"She fell on the stairs.", exKo:"그녀는 계단에서 넘어졌다."},
+  {en:"follow", ko:"따라가다; (규칙 등을) 따르다", syn:["obey","go after"], ant:["lead","break"], ex:"Follow the rules.", exKo:"규칙을 따라."}
+];
+</script>
+<script>
+/* ============ TTS (자연스러운 음성 + 모바일 언락) ============ */
+let voices=[], chosenVoice=null, ttsUnlocked=false;
+function pickVoice(){
+  voices = speechSynthesis.getVoices();
+  // 자연스러운 영어 보이스 우선순위
+  const prefer = ['Google US English','Google UK English Female','Samantha',
+    'Microsoft Aria','Microsoft Jenny','Microsoft Zira','Karen','Daniel','Alex'];
+  for(const name of prefer){
+    const v = voices.find(v=>v.name===name);
+    if(v){chosenVoice=v;return;}
+  }
+  // en-US 우선, 없으면 아무 en
+  chosenVoice = voices.find(v=>v.lang==='en-US')
+    || voices.find(v=>v.lang && v.lang.startsWith('en')) || null;
+}
+if('speechSynthesis' in window){
+  pickVoice();
+  speechSynthesis.onvoiceschanged = pickVoice;
+}
+function unlockTTS(){
+  if(ttsUnlocked || !('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance('');
+  u.volume=0; speechSynthesis.speak(u);
+  ttsUnlocked=true;
+}
+document.body.addEventListener('touchstart',unlockTTS,{once:true});
+document.body.addEventListener('click',unlockTTS,{once:true});
+
+function speak(text, slow){
+  if(!('speechSynthesis' in window)) return;
+  unlockTTS();
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  if(chosenVoice) u.voice=chosenVoice;
+  u.lang='en-US';
+  u.rate = slow ? 0.55 : 0.92;
+  u.pitch = 1.0;
+  speechSynthesis.speak(u);
+}
+
+/* ============ 상태 ============ */
+let idx=0;
+let quizList=[], quizPos=0, quizScore=0, wrongLog=[];
+let dictList=[], dictPos=0, dictScore=0, dictWrong=[];
+
+/* ============ 학습 모드 ============ */
+function renderFlash(){
+  const w = VOCAB[idx];
+  document.getElementById('fWord').textContent = w.en;
+  document.getElementById('fKo').textContent = w.ko;
+  document.getElementById('fEx').textContent = w.ex;
+  document.getElementById('fExKo').textContent = w.exKo;
+  document.getElementById('fCount').textContent = (idx+1)+' / '+VOCAB.length;
+  let sa='';
+  if(w.syn.length) sa += '<span class="chip syn"><span class="lbl">유의어</span>'+w.syn.join(', ')+'</span>';
+  if(w.ant.length) sa += '<span class="chip ant"><span class="lbl">반의어</span>'+w.ant.join(', ')+'</span>';
+  if(!sa) sa = '<span class="chip" style="background:#eef0f3;color:#888;">유의어·반의어 없음</span>';
+  document.getElementById('fSynAnt').innerHTML = sa;
+  setProg((idx+1)/VOCAB.length);
+}
+function speakCur(slow){ speak(VOCAB[idx].en, slow); }
+function nextWord(){ idx=(idx+1)%VOCAB.length; renderFlash(); speakCur(); }
+function prevWord(){ idx=(idx-1+VOCAB.length)%VOCAB.length; renderFlash(); }
+
+/* ============ 퀴즈 모드 (적응형 오답복습) ============ */
+function startQuiz(){
+  quizList = VOCAB.map((_,i)=>i);
+  shuffle(quizList);
+  quizPos=0; quizScore=0; wrongLog=[];
+  document.getElementById('resultPane').classList.add('hidden');
+  document.getElementById('quizPane').classList.remove('hidden');
+  renderQuiz();
+}
+function renderQuiz(){
+  // wrongLog가 남아있고 메인 리스트 끝났으면 오답 재출제
+  let curIdx;
+  if(quizPos < quizList.length){ curIdx = quizList[quizPos]; }
+  else if(wrongLog.length){ curIdx = wrongLog.shift(); }
+  else { return finishQuiz(); }
+  const w = VOCAB[curIdx];
+  document.getElementById('qWord').textContent = w.en;
+  // 보기 4개 (정답 + 오답 3)
+  let opts=[w.ko];
+  let pool = VOCAB.filter((_,i)=>i!==curIdx);
+  shuffle(pool);
+  for(let i=0;i<3;i++) opts.push(pool[i].ko);
+  shuffle(opts);
+  const total = quizList.length;
+  const done = Math.min(quizPos+1,total);
+  document.getElementById('qCount').textContent =
+    '문항 '+done+' / '+total + (wrongLog.length?(' · 복습 대기 '+wrongLog.length):'');
+  const box = document.getElementById('qOpts');
+  box.innerHTML='';
+  opts.forEach(o=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.textContent=o;
+    b.onclick=()=>answerQuiz(b,o===w.ko,curIdx,box);
+    box.appendChild(b);
+  });
+  speak(w.en);
+}
+function answerQuiz(btn, ok, curIdx, box){
+  [...box.children].forEach(b=>b.onclick=null);
+  if(ok){
+    btn.classList.add('correct');
+    if(quizPos<quizList.length) quizScore++;
+  } else {
+    btn.classList.add('wrong');
+    [...box.children].forEach(b=>{ if(b.textContent===VOCAB[curIdx].ko) b.classList.add('correct'); });
+    if(!wrongLog.includes(curIdx)) wrongLog.push(curIdx); // 틀리면 큐에 추가
+  }
+  setTimeout(()=>{ quizPos++; renderQuiz(); }, 850);
+}
+function speakQuiz(slow){
+  const w = quizPos<quizList.length?VOCAB[quizList[quizPos]]:null;
+  if(w) speak(w.en,slow);
+}
+function finishQuiz(){
+  document.getElementById('quizPane').classList.add('hidden');
+  const pane=document.getElementById('resultPane');
+  pane.classList.remove('hidden');
+  document.getElementById('rScore').textContent = quizScore+' / '+quizList.length;
+  const pct = Math.round(quizScore/quizList.length*100);
+  document.getElementById('rMsg').innerHTML =
+    pct>=90?'완벽해요! 🎉':pct>=70?'잘했어요! 조금만 더':'복습이 필요해요. 학습 탭을 다시 봐요';
+  setProg(1);
+}
+
+/* ============ 받아쓰기 ============ */
+function startDict(){
+  dictList = VOCAB.map((_,i)=>i);
+  shuffle(dictList);
+  dictPos=0; dictScore=0; dictWrong=[];
+  document.getElementById('resultPane').classList.add('hidden');
+  document.getElementById('dictPane').classList.remove('hidden');
+  renderDict();
+}
+function renderDict(){
+  if(dictPos>=dictList.length) return finishDict();
+  const w=VOCAB[dictList[dictPos]];
+  document.getElementById('dKo').textContent = '뜻: '+w.ko;
+  document.getElementById('dInput').value='';
+  document.getElementById('dResult').innerHTML='';
+  document.getElementById('dHint').textContent='';
+  document.getElementById('dCount').textContent='문항 '+(dictPos+1)+' / '+dictList.length;
+  document.getElementById('dInput').focus();
+  setTimeout(()=>speak(w.en),300);
+}
+function speakDict(slow){ speak(VOCAB[dictList[dictPos]].en, slow); }
+function checkDict(){
+  const w=VOCAB[dictList[dictPos]];
+  const ans=document.getElementById('dInput').value.trim().toLowerCase();
+  const correct=w.en.toLowerCase();
+  // 단어별 채점
+  const ansWords=ans.split(/\s+/), corWords=correct.split(/\s+/);
+  let html='', allOk = ans===correct;
+  corWords.forEach((cw,i)=>{
+    const aw=ansWords[i]||'';
+    if(aw===cw) html+='<span class="tok-ok">'+cw+'</span> ';
+    else html+='<span class="tok-no">'+(aw||'___')+'</span> ';
+  });
+  document.getElementById('dResult').innerHTML = html;
+  document.getElementById('dHint').innerHTML = allOk
+    ? '✅ 정답!'
+    : '정답: <b class="eng">'+w.en+'</b>';
+  if(allOk) dictScore++; else if(!dictWrong.includes(dictList[dictPos])) dictWrong.push(dictList[dictPos]);
+  setTimeout(()=>{ dictPos++; renderDict(); }, allOk?700:1600);
+}
+document.getElementById('dInput').addEventListener('keydown',e=>{ if(e.key==='Enter') checkDict(); });
+function finishDict(){
+  document.getElementById('dictPane').classList.add('hidden');
+  const pane=document.getElementById('resultPane');
+  pane.classList.remove('hidden');
+  document.getElementById('rScore').textContent = dictScore+' / '+dictList.length;
+  const pct=Math.round(dictScore/dictList.length*100);
+  document.getElementById('rMsg').innerHTML = pct>=90?'받아쓰기 완벽! 🎉':pct>=70?'잘했어요!':'철자를 더 연습해봐요';
+}
+
+/* ============ 공통 ============ */
+let curMode='learn';
+function switchMode(m){
+  curMode=m;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.mode===m));
+  ['learnPane','quizPane','dictPane','resultPane'].forEach(p=>document.getElementById(p).classList.add('hidden'));
+  if(m==='learn'){ document.getElementById('learnPane').classList.remove('hidden'); renderFlash(); }
+  else if(m==='quiz'){ startQuiz(); }
+  else if(m==='dict'){ startDict(); }
+}
+function restartCurrent(){
+  if(curMode==='quiz') startQuiz();
+  else if(curMode==='dict') startDict();
+}
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} }
+function setProg(r){ document.getElementById('progBar').style.width=Math.round(r*100)+'%'; }
+
+renderFlash();
+</script>
+</body>
+</html>
