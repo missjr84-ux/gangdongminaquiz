@@ -3,81 +3,803 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>원장 관리 콘솔 — 반명 자유 변경 관리</title>
+<title>뮤엠 영어 — 우리 아이 영어 진단</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@600;700;800;900&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#EBEEEA;--surface:#fff;--surface2:#F6F8F5;--ink:#1E2C34;--soft:#5C6B71;--line:#DDE3DD;--accent:#1F7A6B;--accent2:#E1F0EB;--gold:#B0831A;--gold2:#FBF1D9;--red:#C0392B;--red2:#FBE6E2;--mid:#C2891B;--mid2:#FBF0D7;--r:14px;--shadow:0 1px 3px rgba(30,44,52,.06),0 8px 24px rgba(30,44,52,.05)}
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}.app{max-width:1100px;margin:0 auto;padding:20px 16px 70px}.mono{font-family:'IBM Plex Mono',monospace}
-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}h1{font-family:'Gothic A1',sans-serif;font-weight:900;font-size:1.45rem}.sub{font-size:.82rem;color:var(--soft);margin-top:4px}.topBtns{display:flex;gap:8px;flex-wrap:wrap}.pill{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 13px;font-weight:700;font-size:.82rem;box-shadow:var(--shadow)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:13px 0}.toolbar input,.toolbar select{font-family:inherit;border:1px solid var(--line);border-radius:11px;padding:10px 12px;background:#fff;font-size:.9rem}.toolbar input{flex:1;min-width:170px}.btn{font-family:inherit;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 13px;cursor:pointer;font-weight:700;font-size:.88rem}.btn:hover{border-color:var(--soft)}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.btn.danger{color:var(--red)}.btn.small{padding:5px 8px;border-radius:8px;font-size:.76rem}.btn.gold{background:var(--gold);border-color:var(--gold);color:#fff}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.stat{padding:13px 15px}.stat .k{font-size:.76rem;color:var(--soft);font-weight:700}.stat .v{font-family:'IBM Plex Mono',monospace;font-size:1.75rem;font-weight:700;line-height:1.1}.stat .v small{font-size:.8rem;color:var(--soft)}@media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
-.rhythm{padding:15px;margin-bottom:12px}.rhythmHead{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}.rhythmHead b{color:var(--accent)}.strip{display:grid;grid-template-columns:repeat(31,1fr);gap:3px}.day{height:26px;border-radius:5px;background:var(--surface2);font-size:.55rem;display:flex;align-items:center;justify-content:center;color:var(--soft)}.day.cp{background:var(--gold2);color:var(--gold);box-shadow:inset 0 0 0 1.5px var(--gold);font-weight:700}.day.today{background:var(--accent);color:#fff;box-shadow:0 0 0 3px var(--accent2)}
-.group{margin-bottom:12px;overflow:hidden}.groupHead{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;background:var(--surface2);border-bottom:1px solid var(--line);cursor:pointer}.groupTitle{font-weight:900;font-family:'Gothic A1',sans-serif}.groupMeta{font-size:.8rem;color:var(--soft);font-weight:700}.rows{display:block}.group.closed .rows{display:none}.row{display:grid;grid-template-columns:1.35fr .7fr .7fr .8fr 1fr 92px;gap:8px;align-items:center;padding:12px 15px;border-bottom:1px solid var(--line);cursor:pointer}.row:last-child{border-bottom:0}.row:hover{background:var(--surface2)}.name{font-weight:800}.gradeBadge{font-size:.72rem;border:1px solid var(--line);background:#fff;border-radius:8px;padding:2px 7px;margin-left:6px;color:var(--soft)}.chip{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:3px 9px;font-size:.74rem;font-weight:900}.risk-low{background:var(--accent2);color:var(--accent)}.risk-mid{background:var(--mid2);color:var(--mid)}.risk-high{background:var(--red2);color:var(--red)}.todo{background:var(--gold2);color:var(--gold)}.done{background:var(--accent2);color:var(--accent)}.met{font-family:'IBM Plex Mono',monospace;font-weight:700}.moveBtns{display:flex;gap:4px;justify-content:flex-end}.empty{padding:35px 20px;text-align:center;color:var(--soft)}
-@media(max-width:760px){.row{grid-template-columns:1fr auto;grid-template-areas:'name risk' 'info move';gap:8px}.row .nameCell{grid-area:name}.row .riskCell{grid-area:risk;text-align:right}.row .infoCell{grid-area:info;display:flex;gap:10px;font-size:.82rem;color:var(--soft);flex-wrap:wrap}.row .moveBtns{grid-area:move}.hideMobile{display:none}.strip{grid-template-columns:repeat(16,1fr)}}
-.scrim{position:fixed;inset:0;background:rgba(20,30,36,.42);opacity:0;pointer-events:none;transition:.2s;z-index:40}.scrim.open{opacity:1;pointer-events:auto}.panel{position:fixed;right:0;top:0;height:100%;width:470px;max-width:94vw;background:#fff;box-shadow:-10px 0 40px rgba(20,30,36,.18);transform:translateX(100%);transition:.24s;z-index:50;display:flex;flex-direction:column}.panel.open{transform:translateX(0)}.panelHead{padding:17px 18px;border-bottom:1px solid var(--line);display:flex;gap:8px;justify-content:space-between}.panelBody{padding:16px 18px;overflow:auto;flex:1}.panelFoot{border-top:1px solid var(--line);padding:13px 18px;display:flex;gap:8px;flex-wrap:wrap}.x{border:0;background:var(--surface2);border-radius:9px;width:34px;height:34px;cursor:pointer}.field{margin-bottom:15px}.field label{display:block;font-weight:800;color:var(--soft);font-size:.8rem;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;font-family:inherit;border:1px solid var(--line);border-radius:10px;padding:9px 11px;font-size:.92rem}.field textarea{min-height:78px;resize:vertical}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.history{border:1px solid var(--line);border-radius:12px;overflow:hidden}.hitem{padding:10px 12px;border-bottom:1px solid var(--line);background:#fff}.hitem:last-child{border-bottom:0}.hdate{font-family:'IBM Plex Mono',monospace;font-weight:800;color:var(--accent);font-size:.82rem}.hnote{font-size:.86rem;white-space:pre-wrap;color:var(--ink);margin-top:4px}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;border-radius:11px;padding:11px 18px;font-weight:800;font-size:.88rem;opacity:0;pointer-events:none;transition:.2s;z-index:80}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.savenote{text-align:center;color:var(--soft);font-size:.75rem;margin-top:14px}.savenote b{color:var(--accent)}
+:root{--bg:#F2F5F1;--surface:#fff;--surface2:#F6F8F5;--ink:#1E2C34;--soft:#5C6B71;--line:#DDE3DD;--accent:#1F7A6B;--accent2:#E1F0EB;--gold:#B0831A;--gold2:#FBF1D9;--red:#C0392B;--red2:#FBE6E2;--blue:#2C5E8C;--blue2:#E3EDF6;--warm:#F7F3EE;--warm2:#EDE6DC;--r:16px;--shadow:0 2px 8px rgba(30,44,52,.07),0 12px 32px rgba(30,44,52,.06)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+.app{max-width:680px;margin:0 auto;padding:0 16px 80px}
+
+/* hero */
+.hero{background:var(--accent);color:#fff;margin:0 -16px 0;padding:32px 28px 36px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;right:-40px;top:-40px;width:260px;height:260px;background:rgba(255,255,255,.06);border-radius:50%}
+.heroLabel{font-size:.78rem;font-weight:800;letter-spacing:.08em;opacity:.75;margin-bottom:8px;text-transform:uppercase}
+.heroTitle{font-family:'Gothic A1',sans-serif;font-weight:900;font-size:1.65rem;line-height:1.28;margin-bottom:10px;position:relative;z-index:1}
+.heroSub{font-size:.9rem;opacity:.82;line-height:1.6;position:relative;z-index:1}
+.heroSteps{display:flex;gap:0;margin-top:20px;position:relative;z-index:1}
+.hstep{flex:1;text-align:center;font-size:.72rem;font-weight:800;opacity:.7}
+.hstep span{display:block;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.18);margin:0 auto 5px;line-height:28px;font-size:.85rem}
+.hstep.cur{opacity:1}
+.hstep.cur span{background:rgba(255,255,255,.9);color:var(--accent)}
+.hstep-line{flex:0 0 20px;align-self:center;height:2px;background:rgba(255,255,255,.2);margin-bottom:14px}
+
+/* card & nav */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.wrapPad{padding:24px 22px}
+.qtitle{font-family:'Gothic A1',sans-serif;font-weight:900;font-size:1.15rem;margin-bottom:5px}
+.qhint{font-size:.84rem;color:var(--soft);margin-bottom:18px;line-height:1.55}
+.opts{display:grid;gap:10px}
+.opts.grid{grid-template-columns:repeat(auto-fill,minmax(88px,1fr))}
+.opt{font-family:inherit;text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:13px;padding:14px 16px;cursor:pointer;font-weight:700;font-size:.95rem;transition:.12s;line-height:1.4}
+.opt:hover{border-color:var(--accent);background:var(--accent2)}
+.opt.sel{border-color:var(--accent);background:var(--accent2);box-shadow:inset 0 0 0 1px var(--accent)}
+.opt small{display:block;font-weight:500;color:var(--soft);font-size:.78rem;margin-top:4px}
+.opt.center{text-align:center}
+.progress{display:flex;gap:5px;margin-bottom:20px}
+.pdot{flex:1;height:5px;border-radius:99px;background:var(--line)}
+.pdot.on{background:var(--accent)}
+.wizNav{display:flex;justify-content:space-between;gap:8px;margin-top:22px}
+.btn{font-family:inherit;border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:12px 18px;cursor:pointer;font-weight:700;font-size:.92rem;transition:.12s}
+.btn:hover{border-color:var(--soft)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.ghost{background:var(--surface2)}
+.btn.big{padding:15px 22px;font-size:1rem;border-radius:14px;width:100%}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* tabs */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 16px}
+.tab{font-family:inherit;border:1.5px solid var(--line);background:#fff;color:var(--soft);border-radius:12px;padding:10px 15px;cursor:pointer;font-weight:800;font-size:.88rem}
+.tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.view{display:none}.view.active{display:block}
+
+/* AI loading */
+.aiLoader{text-align:center;padding:40px 20px}
+.aiDots{display:inline-flex;gap:8px;margin-bottom:14px}
+.aiDots span{width:10px;height:10px;border-radius:50%;background:var(--accent);animation:bounce .9s infinite alternate}
+.aiDots span:nth-child(2){animation-delay:.2s}
+.aiDots span:nth-child(3){animation-delay:.4s}
+@keyframes bounce{to{transform:translateY(-10px);opacity:.4}}
+.aiLoadMsg{font-weight:700;color:var(--soft);font-size:.95rem}
+
+/* result */
+.resHero{background:linear-gradient(135deg,var(--accent) 0%,#155a4e 100%);color:#fff;border-radius:var(--r) var(--r) 0 0;padding:22px 22px 20px}
+.resKicker{font-size:.76rem;font-weight:800;opacity:.7;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
+.resTitle{font-family:'Gothic A1',sans-serif;font-weight:900;font-size:1.35rem;line-height:1.3;margin-bottom:10px}
+.resTagrow{display:flex;gap:6px;flex-wrap:wrap}
+.restag{background:rgba(255,255,255,.18);border-radius:99px;padding:3px 11px;font-size:.74rem;font-weight:800}
+.resBody{padding:22px}
+.sechead{font-family:'Gothic A1',sans-serif;font-weight:800;font-size:1rem;margin:20px 0 10px;display:flex;align-items:center;gap:7px;color:var(--ink)}
+.sechead .dot{width:8px;height:8px;border-radius:99px;background:var(--accent)}
+.aiAnswer{background:var(--warm);border:1px solid var(--warm2);border-radius:13px;padding:18px 20px;font-size:.97rem;line-height:1.85;white-space:pre-wrap;color:var(--ink)}
+.aiAnswer b{color:var(--accent)}
+.road{border-left:2px solid var(--accent2);margin-left:6px;padding-left:18px}
+.stage{position:relative;padding:9px 0}
+.stage::before{content:'';position:absolute;left:-25px;top:14px;width:11px;height:11px;border-radius:99px;background:#fff;border:2.5px solid var(--accent)}
+.stage.now::before{background:var(--accent)}
+.stage .nm{font-weight:800;font-size:.96rem}
+.stage .meta{font-size:.8rem;color:var(--soft);font-family:'IBM Plex Mono',monospace}
+.stage.now .nm{color:var(--accent)}
+.swatch{width:22px;height:22px;border-radius:6px;display:inline-block;vertical-align:middle;margin-right:7px;border:1px solid rgba(0,0,0,.08)}
+.note{font-size:.83rem;color:var(--soft);background:var(--gold2);border:1px solid #EBD9A8;border-radius:11px;padding:11px 13px;margin-top:10px}
+.note b{color:var(--gold)}
+
+/* inquiry form */
+.formCard{background:var(--surface);border:1.5px solid var(--accent);border-radius:var(--r);padding:22px;margin-top:20px;box-shadow:0 4px 20px rgba(31,122,107,.12)}
+.formTitle{font-family:'Gothic A1',sans-serif;font-weight:900;font-size:1.1rem;margin-bottom:5px;color:var(--accent)}
+.formSub{font-size:.84rem;color:var(--soft);margin-bottom:18px}
+.field{margin-bottom:14px}
+.field label{display:block;font-weight:800;color:var(--soft);font-size:.78rem;margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;font-family:inherit;border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;font-size:.93rem;color:var(--ink)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
+.field textarea{min-height:68px;resize:vertical}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.grid2{grid-template-columns:1fr}}
+.submitted{text-align:center;padding:30px 20px;background:var(--accent2);border-radius:var(--r);border:1px solid var(--accent)}
+.submitted .big-emoji{font-size:2.8rem;margin-bottom:10px}
+.submitted h3{font-family:'Gothic A1',sans-serif;font-weight:900;font-size:1.2rem;color:var(--accent);margin-bottom:8px}
+.submitted p{font-size:.9rem;color:var(--soft);line-height:1.65}
+
+/* quiz demo */
+.qcard{padding:16px 18px;margin-bottom:11px}
+.qn{font-weight:800;margin-bottom:11px;font-size:.95rem}
+.qn .idx{display:inline-flex;width:24px;height:24px;border-radius:7px;background:var(--accent2);color:var(--accent);font-family:'IBM Plex Mono',monospace;font-weight:700;align-items:center;justify-content:center;margin-right:7px;font-size:.8rem}
+.choices{display:grid;gap:7px}
+.choice{font-family:inherit;text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:11px 13px;cursor:pointer;font-weight:600;font-size:.91rem}
+.choice:hover{border-color:var(--accent)}
+.choice.right{border-color:var(--accent);background:var(--accent2);color:var(--accent);font-weight:800}
+.choice.wrong{border-color:var(--red);background:var(--red2);color:var(--red)}
+.fb{margin-top:8px;font-size:.84rem;border-radius:9px;padding:9px 12px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--accent2);color:var(--accent)}
+.fb.no{background:var(--red2);color:var(--red)}
+.demoGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+@media(max-width:500px){.demoGrid{grid-template-columns:1fr}}
+.demoCardBtn{padding:16px;cursor:pointer;text-align:left;transition:.12s;border:1.5px solid var(--line)}
+.demoCardBtn:hover{border-color:var(--accent);transform:translateY(-1px)}
+.demoCardBtn .lv{font-family:'Gothic A1',sans-serif;font-weight:900;font-size:1rem;margin-bottom:4px}
+.demoCardBtn .ds{font-size:.8rem;color:var(--soft)}
+.listen{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--accent);background:var(--accent2);color:var(--accent);border-radius:11px;padding:9px 14px;font-weight:800;font-size:.9rem;cursor:pointer;margin-bottom:10px;font-family:inherit}
+.listen:hover{background:var(--accent);color:#fff}
+
+/* faq */
+.faq{margin-bottom:9px;overflow:hidden}
+.faqQ{padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:800;font-size:.94rem}
+.faqA{display:none;padding:0 16px 16px;font-size:.91rem;line-height:1.75;color:var(--ink)}
+.faq.open .faqA{display:block}
+.faqA b{color:var(--accent)}
+.bandlabel{font-family:'Gothic A1',sans-serif;font-weight:800;color:var(--soft);font-size:.83rem;margin:18px 0 8px}
+
+/* ops */
+.opsgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+@media(max-width:500px){.opsgrid{grid-template-columns:1fr}}
+.opsCard{padding:15px 17px}
+.opsCard .t{font-family:'Gothic A1',sans-serif;font-weight:800;font-size:.93rem;margin-bottom:7px;color:var(--accent)}
+.opsCard ul{list-style:none;font-size:.88rem}
+.opsCard li{padding:4px 0 4px 16px;position:relative}
+.opsCard li::before{content:'·';position:absolute;left:4px;color:var(--accent);font-weight:900}
+.opsCard li b{color:var(--ink)}
+
+.foot{text-align:center;color:var(--soft);font-size:.75rem;margin-top:24px;line-height:1.7}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;border-radius:11px;padding:11px 18px;font-weight:800;font-size:.88rem;opacity:0;pointer-events:none;transition:.2s;z-index:80}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
-<div class="app">
-<header><div><h1 id="academyName">○○영어학원</h1><div class="sub">원장 관리 콘솔 · 반명 자유 변경 · 학년별/반별 학생 관리 · 날짜별 누적 기록</div></div><div class="topBtns"><span class="pill">총 <b id="totalTop" class="mono">0</b>명</span><button class="btn" onclick="editAcademy()">학원명 수정</button></div></header>
-<section class="card rhythm" id="rhythm"></section>
-<section class="stats" id="stats"></section>
-<div class="toolbar"><input id="search" placeholder="학생 이름 검색" oninput="render()"><select id="gradeFilter" onchange="render()"><option value="">전체 학년</option></select><button class="btn primary" onclick="addStudent()">+ 학생 추가</button><button class="btn" onclick="addGrade()">+ 학년/반 추가</button><button class="btn" onclick="expandAllGroups()">전체 펼치기</button><button class="btn" onclick="collapseAllGroups()">전체 접기</button><button class="btn" onclick="exportBackup()">백업 다운로드</button><label class="btn" for="importFile">백업 복원</label><input id="importFile" type="file" accept=".json" style="display:none" onchange="importBackup(event)"></div>
-<div id="groups"></div><p class="savenote">💾 이 버전은 GitHub Pages에서도 동작하는 <b>localStorage</b> 저장 방식입니다. 중요한 데이터는 주기적으로 백업 다운로드하세요.</p>
+
+<div class="hero">
+  <div style="max-width:680px;margin:0 auto;padding:0 0px">
+    <div class="heroLabel" id="acNameHero">뮤엠 영어</div>
+    <div class="heroTitle">우리 아이 영어,<br>어디서부터 시작할까요?</div>
+    <div class="heroSub">학년과 고민을 알려주시면 맞춤 커리큘럼과 답변을<br>바로 받아보실 수 있어요. (2~3분)</div>
+    <div class="heroSteps" id="heroSteps">
+      <div class="hstep cur" id="hs0"><span>1</span>학년·경험</div>
+      <div class="hstep-line"></div>
+      <div class="hstep" id="hs1"><span>2</span>고민·목표</div>
+      <div class="hstep-line"></div>
+      <div class="hstep" id="hs2"><span>3</span>맞춤 답변</div>
+    </div>
+  </div>
 </div>
-<div id="scrim" class="scrim" onclick="closePanel()"></div><aside id="panel" class="panel"></aside><div id="toast" class="toast"></div>
+
+<div class="app">
+  <div class="tabs" style="margin-top:18px">
+    <button class="tab active" data-v="diag" onclick="goTab('diag')">📋 내 아이 진단</button>
+    <button class="tab" data-v="demo" onclick="goTab('demo')">🎯 수업 맛보기</button>
+    <button class="tab" data-v="faq" onclick="goTab('faq')">💬 자주 묻는 질문</button>
+    <button class="tab" data-v="ops" onclick="goTab('ops')">📌 수업 안내</button>
+  </div>
+
+  <!-- ===== 진단 ===== -->
+  <section id="v-diag" class="view active">
+    <div class="card" id="wizCard"></div>
+  </section>
+
+  <!-- ===== 수업 맛보기 ===== -->
+  <section id="v-demo" class="view">
+    <div id="demoHome"></div>
+    <div id="demoDetail" style="display:none"></div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="v-faq" class="view"><div id="faqBox"></div></section>
+
+  <!-- ===== 수업 안내 ===== -->
+  <section id="v-ops" class="view"><div id="opsBox"></div></section>
+
+  <p class="foot">
+    이 페이지에 입력하신 정보는 맞춤 답변 생성에만 활용되며,<br>
+    상담 신청을 하셔야만 학원에 전달됩니다.
+  </p>
+</div>
+<div id="toast" class="toast"></div>
+
 <script>
-const KEY='manager-v6-custom-grade-groups-local';
-const DEFAULT_GRADES=['초1','초2','초3','초4','초5','초6','중1','중2','중3'];
-let state={academy:'○○영어학원',grades:[...DEFAULT_GRADES],collapsed:{},students:[]};let openId=null;
-function getGrades(){if(!state.grades||!Array.isArray(state.grades)||state.grades.length===0)state.grades=[...DEFAULT_GRADES];return state.grades;}
-const sample=[
-{name:'김서연',grade:'중2',att:96,hw:88,mock:84,level:90,vocab:95,risk:'하',memo:'성실하고 단어 암기 우수.',history:{}},
-{name:'이준호',grade:'중1',att:74,hw:55,mock:62,level:68,vocab:60,risk:'상',memo:'결석·과제 누락 관리 필요.',history:{}},
-{name:'박지민',grade:'초6',att:90,hw:80,mock:0,level:75,vocab:82,risk:'중',memo:'기초 문법 보강 중.',history:{}}
+/* ═══ 학원 정보 (원장님이 직접 수정하는 부분) ═══ */
+/* ═══════════════════════════════════════════════════════
+   ✏️  원장님 설정 — 이 부분만 수정하시면 됩니다
+   ═══════════════════════════════════════════════════════ */
+const ACADEMY = {
+  name:    '뮤엠 영어',           // ← 학원명
+  phone:   '010-0000-0000',       // ← 연락처
+  address: '서울 강동구',          // ← 주소
+  intro:   '영어를 오래 잘하는 아이로 키우는 뮤엠 영어입니다.',
+
+  // Formspree 설정 ─────────────────────────────────────
+  // 1) formspree.io 접속 → 회원가입(이메일 입력)
+  // 2) "+ New Form" 클릭 → 폼 생성
+  // 3) 생성된 ID(예: xabcde12)를 아래에 붙여넣기
+  formspreeId: 'xpqgzapv',    // ← ✏️ Formspree ID
+
+  // 카카오 오픈채팅 설정 ────────────────────────────────
+  // 카카오 오픈채팅 링크 또는 카카오 채널 채팅 링크
+  // 예1) 오픈채팅: 'https://open.kakao.com/o/xxxxxxx'
+  // 예2) 카카오 채널: 'http://pf.kakao.com/_xxxxx/chat'
+  kakaoUrl: '',                   // ← ✏️ 카카오 링크 붙여넣기
+};
+
+/* ═══ 공통 데이터 (원장용 콘솔과 동일) ═══ */
+const LEVELS=[
+ {id:'white',  nm:'화이트',      full:'화이트 (파닉스·그래마·커뮤니케이션 6권)', color:'#9aa0a6', months:12, demo:'phonics'},
+ {id:'yellow', nm:'옐로우',      full:'옐로우 (2,000+ 프레이즈·청크)',           color:'#E8B91F', months:8,  demo:'yellow'},
+ {id:'pink',   nm:'핑크',        full:'핑크 (전학년 교과 내용 스피킹)',           color:'#E27FA6', months:5,  demo:'pink'},
+ {id:'greenblue',nm:'그린·블루', full:'그린·블루 (에세이 라이팅)',               color:'#3FA15C', months:12, demo:'greenblue'},
+ {id:'redblack',nm:'레드·블랙',  full:'레드·블랙 (사회 이슈 디베이트 라이팅)',    color:'#C0392B', months:12, demo:'redblack'},
+ {id:'middle', nm:'중등 커리',   full:'중등 내신 커리 (구글클래스+1:1직강+서술형 모의)', color:'#2C5E8C', months:null, demo:'middle'},
+ {id:'grammar',nm:'문법 8권',    full:'문법 8권 (센텐스·프레이즈 빌드업)',         color:'#7A5BB0', months:null, demo:'grammar'},
 ];
-function uid(){return 's'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
-function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-function save(){localStorage.setItem(KEY,JSON.stringify(state))}
-function load(){try{const raw=localStorage.getItem(KEY);if(raw){state=JSON.parse(raw)}else{state={academy:'○○영어학원',collapsed:{},students:sample.map((s,i)=>({...s,id:uid(),order:i+1,checked:''}))};save()}}catch(e){alert('저장 데이터 읽기 오류. 백업 파일이 있으면 복원하세요.');}
- if(!state.collapsed)state.collapsed={}; if(!state.students)state.students=[]; if(!state.grades||!Array.isArray(state.grades)||state.grades.length===0)state.grades=[...DEFAULT_GRADES]; state.students.forEach((s,i)=>{if(s.order==null)s.order=i+1;if(!s.history)s.history={};if(!s.grade)s.grade=state.grades[0]||'초1'; if(!state.grades.includes(s.grade))state.grades.push(s.grade)}); renderAll()}
-function gradeOrder(g){let i=getGrades().indexOf(g);return i<0?999:i}
-function groupedStudents(){let q=document.getElementById('search')?.value.trim()||'';let gf=document.getElementById('gradeFilter')?.value||'';let arr=state.students.filter(s=>(!q||s.name.includes(q))&&(!gf||s.grade===gf));arr.sort((a,b)=>gradeOrder(a.grade)-gradeOrder(b.grade)||(a.order||0)-(b.order||0));let map={};arr.forEach(s=>{let g=getGrades().includes(s.grade)?s.grade:(getGrades()[0]||'초1');(map[g]||(map[g]=[])).push(s)});return map}
-function checkpointInfo(){const d=new Date(),y=d.getFullYear(),m=d.getMonth(),day=d.getDate(),ld=new Date(y,m+1,0).getDate();let active,next,alabel,nlabel;if(day<15){active=new Date(y,m,1);next=new Date(y,m,15);alabel=(m+1)+'월 초~중순';nlabel=(m+1)+'월 15일'}else{active=new Date(y,m,15);next=new Date(y,m,ld);alabel=(m+1)+'월 중순~말';nlabel=(m+1)+'월 말일'}return{y,m,day,ld,active,next,alabel,nlabel,dday:Math.max(0,Math.ceil((next-new Date(y,m,day))/(86400000)))}}
-function isChecked(s){if(!s.checked)return false;return new Date(s.checked)>=checkpointInfo().active}
-function renderAll(){renderGradeFilter();renderRhythm();render()}
-function renderGradeFilter(){const sel=document.getElementById('gradeFilter');const cur=sel.value;sel.innerHTML='<option value="">전체 학년</option>'+getGrades().map(g=>`<option value="${esc(g)}">${esc(g)}</option>`).join('');if(getGrades().includes(cur))sel.value=cur}
-function renderRhythm(){const ci=checkpointInfo();let cells='';for(let i=1;i<=ci.ld;i++){let cls='day';if(i===15||i===ci.ld)cls+=' cp';if(i===ci.day)cls+=' today';cells+=`<div class="${cls}">${i}</div>`}document.getElementById('rhythm').innerHTML=`<div class="rhythmHead"><b>이번 회차: ${ci.alabel}</b><span>다음 점검 ${ci.nlabel}까지 <b>D-${ci.dday}</b></span></div><div class="strip">${cells}</div>`;document.getElementById('academyName').textContent=state.academy}
-function renderStats(){const st=state.students,total=st.length,due=st.filter(s=>!isChecked(s)).length,high=st.filter(s=>s.risk==='상').length,avg=total?Math.round(st.reduce((a,s)=>a+(+s.att||0),0)/total):0;document.getElementById('stats').innerHTML=`<div class="card stat"><div class="k">총 학생</div><div class="v">${total}<small> 명</small></div></div><div class="card stat"><div class="k">점검 대상</div><div class="v" style="color:var(--gold)">${due}<small> 명</small></div></div><div class="card stat"><div class="k">위험도 상</div><div class="v" style="color:var(--red)">${high}<small> 명</small></div></div><div class="card stat"><div class="k">평균 출결</div><div class="v">${avg}<small>%</small></div></div>`;document.getElementById('totalTop').textContent=total}
-function render(){renderStats();const map=groupedStudents();let html='';getGrades().forEach(g=>{const arr=map[g]||[];const closed=!!state.collapsed[g];const avg=arr.length?Math.round(arr.reduce((a,s)=>a+(+s.att||0),0)/arr.length):0;const high=arr.filter(s=>s.risk==='상').length;html+=`<section class="card group ${closed?'closed':''}"><div class="groupHead" onclick="toggleGroup('${escAttr(g)}')"><div style="flex:1;cursor:pointer"><span class="groupTitle">${closed?'▶':'▼'} ${esc(g)}</span> <span class="groupMeta">${arr.length}명${arr.length?' · 평균출결 '+avg+'% · 위험 '+high+'명':' · 비어 있음'}</span></div><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end"><button class="btn small" onclick="event.stopPropagation();renameGrade('${escAttr(g)}')">반명 변경</button><button class="btn small primary" onclick="event.stopPropagation();addStudent('${escAttr(g)}')">+ 이 반에 추가</button></div></div><div class="rows">${arr.length?arr.map(s=>rowHtml(s)).join(''):'<div class="empty">이 학년에 등록된 학생이 없어요.</div>'}</div></section>`});document.getElementById('groups').innerHTML=html}
-function rowHtml(s){const risk=s.risk==='상'?'risk-high':s.risk==='중'?'risk-mid':'risk-low';return `<div class="row" onclick="openPanel('${s.id}')"><div class="nameCell"><span class="name">${esc(s.name)}</span><span class="gradeBadge">${esc(s.grade||'기타')}</span></div><div class="riskCell"><span class="chip ${risk}">${s.risk||'하'}</span></div><div class="infoCell met">출결 ${s.att||0}%</div><div class="infoCell met hideMobile">과제 ${s.hw||0}%</div><div class="infoCell"><span class="chip ${isChecked(s)?'done':'todo'}">${isChecked(s)?'점검완료':'점검필요'}</span></div><div class="moveBtns" onclick="event.stopPropagation()"><button class="btn small" onclick="moveStudent('${s.id}',-1)">↑</button><button class="btn small" onclick="moveStudent('${s.id}',1)">↓</button></div></div>`}
-function toggleGroup(g){state.collapsed[g]=!state.collapsed[g];save();render()}
-function openGroup(g){state.collapsed[g]=false;save();render()}
-function moveStudent(id,dir){const s=state.students.find(x=>x.id===id);if(!s)return;let same=state.students.filter(x=>(x.grade||'기타')===(s.grade||'기타')).sort((a,b)=>(a.order||0)-(b.order||0));let idx=same.findIndex(x=>x.id===id),j=idx+dir;if(j<0||j>=same.length)return;let tmp=same[idx].order;same[idx].order=same[j].order;same[j].order=tmp;save();render();toast('순서를 저장했어요')}
-function addStudent(grade){const grades=getGrades();let g=grade||document.getElementById('gradeFilter')?.value||grades[0]||'초1';if(!grades.includes(g)){state.grades.push(g)}state.collapsed[g]=false;let max=Math.max(0,...state.students.filter(x=>x.grade===g).map(s=>s.order||0));let s={id:uid(),order:max+1,name:'새 학생',grade:g,att:0,hw:0,mock:0,level:0,vocab:0,risk:'하',memo:'',checked:'',history:{}};state.students.push(s);save();renderAll();openPanel(s.id);setTimeout(()=>{const inp=document.querySelector('#panel input');if(inp){inp.focus();inp.select();}},60)}
-function addGrade(){let v=prompt('추가할 학년/반 이름을 입력하세요. 예: 초1A, 중2 내신반, 예비중');if(!v||!v.trim())return;v=v.trim();if(state.grades.includes(v)){toast('이미 있는 학년/반이에요');return}state.grades.push(v);state.collapsed[v]=false;save();renderAll();toast(v+' 그룹을 추가했어요')}
-function renameGrade(oldName){let next=prompt('바꿀 반 이름을 입력하세요',oldName);if(!next||!next.trim())return;next=next.trim();if(next===oldName)return;if(state.grades.includes(next)){toast('이미 있는 반 이름이에요');return}let idx=state.grades.indexOf(oldName);if(idx<0)return;state.grades[idx]=next;state.students.forEach(s=>{if(s.grade===oldName)s.grade=next});state.collapsed[next]=state.collapsed[oldName]||false;delete state.collapsed[oldName];const sel=document.getElementById('gradeFilter');if(sel&&sel.value===oldName)sel.value=next;save();renderAll();toast('반 이름을 변경했어요: '+oldName+' → '+next)}
-function openPanel(id){openId=id;const s=state.students.find(x=>x.id===id);if(!s)return;document.getElementById('panel').innerHTML=`<div class="panelHead"><div><b style="font-size:1.15rem">학생 상세</b><div style="font-size:.78rem;color:var(--soft)">수정하면 자동 저장됩니다</div></div><button class="x" onclick="closePanel()">✕</button></div><div class="panelBody"><div class="grid2"><div class="field"><label>이름</label><input value="${esc(s.name)}" oninput="setF('name',this.value)"></div><div class="field"><label>학년/반 그룹</label><select onchange="setF('grade',this.value,true)">${getGrades().map(g=>`<option ${s.grade===g?'selected':''}>${esc(g)}</option>`).join('')}</select></div></div><div class="grid2"><div class="field"><label>출결률</label><input type="number" min="0" max="100" value="${s.att||0}" oninput="setF('att',+this.value)"></div><div class="field"><label>과제 제출률</label><input type="number" min="0" max="100" value="${s.hw||0}" oninput="setF('hw',+this.value)"></div></div><div class="grid3"><div class="field"><label>모의</label><input type="number" value="${s.mock||''}" oninput="setF('mock',+this.value)"></div><div class="field"><label>레벨</label><input type="number" value="${s.level||''}" oninput="setF('level',+this.value)"></div><div class="field"><label>단어</label><input type="number" value="${s.vocab||''}" oninput="setF('vocab',+this.value)"></div></div><div class="field"><label>위험도</label><select onchange="setF('risk',this.value)"><option ${s.risk==='하'?'selected':''}>하</option><option ${s.risk==='중'?'selected':''}>중</option><option ${s.risk==='상'?'selected':''}>상</option></select></div><div class="field"><label>상담/지도 메모</label><textarea oninput="setF('memo',this.value)">${esc(s.memo||'')}</textarea></div><div class="field"><label>날짜별 기록 추가/수정</label><div class="grid2"><input id="recDate" type="date" value="${today()}"><button class="btn primary" onclick="saveDayRecord()">오늘/선택 날짜 기록 저장</button></div></div><div class="field"><textarea id="recNote" placeholder="예: 결석, 숙제 미제출, 단어 80점, 학부모 상담 필요"></textarea></div><div class="field"><label>날짜별 누적 기록</label><div class="history" id="historyBox">${historyHtml(s)}</div></div></div><div class="panelFoot"><button class="btn primary" onclick="markChecked()">이번 회차 점검 완료</button><button class="btn gold" onclick="makeReport()">리포트 복사</button><button class="btn danger" onclick="deleteStudent()">삭제</button></div>`;document.getElementById('scrim').classList.add('open');document.getElementById('panel').classList.add('open')}
-function closePanel(){openId=null;document.getElementById('scrim').classList.remove('open');document.getElementById('panel').classList.remove('open')}
-function setF(f,v,reorder=false){const s=state.students.find(x=>x.id===openId);if(!s)return;s[f]=v;if(reorder){state.collapsed[v]=false;let max=Math.max(0,...state.students.filter(x=>x.grade===v).map(x=>x.order||0));s.order=max+1}save();render();renderRhythm()}
-function saveDayRecord(){const s=state.students.find(x=>x.id===openId);if(!s)return;const d=document.getElementById('recDate').value||today();const note=document.getElementById('recNote').value.trim();if(!note){toast('기록 내용을 입력해 주세요');return}if(!s.history)s.history={};s.history[d]=note;s.checked=d;save();document.getElementById('recNote').value='';document.getElementById('historyBox').innerHTML=historyHtml(s);render();toast('날짜별 기록을 저장했어요')}
-function historyHtml(s){const h=s.history||{};const keys=Object.keys(h).sort().reverse();if(keys.length===0)return '<div class="hitem"><span style="color:var(--soft)">아직 날짜별 기록이 없어요.</span></div>';return keys.map(k=>`<div class="hitem"><div class="hdate">${k}</div><div class="hnote">${esc(h[k])}</div><button class="btn small danger" onclick="deleteRecord('${k}')">기록 삭제</button></div>`).join('')}
-function deleteRecord(d){const s=state.students.find(x=>x.id===openId);if(!s)return;if(!confirm(d+' 기록을 삭제할까요?'))return;delete s.history[d];save();document.getElementById('historyBox').innerHTML=historyHtml(s);render()}
-function markChecked(){const s=state.students.find(x=>x.id===openId);if(!s)return;s.checked=today();save();render();toast('점검 완료로 표시했어요')}
-function deleteStudent(){const s=state.students.find(x=>x.id===openId);if(!s)return;if(!confirm('삭제하면 되돌릴 수 없어요. 삭제할까요?'))return;state.students=state.students.filter(x=>x.id!==openId);save();closePanel();render();toast('삭제했어요')}
-function makeReport(){const s=state.students.find(x=>x.id===openId);if(!s)return;let last=Object.keys(s.history||{}).sort().reverse()[0];let r=`[${state.academy}] ${s.name} 학생 학습 리포트\n${today()}\n\n▸ 학년: ${s.grade}\n▸ 출결률: ${s.att||0}%\n▸ 과제 제출률: ${s.hw||0}%\n▸ 모의/레벨/단어: ${s.mock||'-'} / ${s.level||'-'} / ${s.vocab||'-'}\n\n[원장 코멘트]\n${s.memo||''}\n`;if(last)r+=`\n[최근 기록 ${last}]\n${s.history[last]}\n`;navigator.clipboard?.writeText(r).then(()=>toast('리포트를 복사했어요')).catch(()=>{prompt('복사해서 카톡에 붙여넣으세요',r)})}
-function editAcademy(){let v=prompt('학원명을 입력하세요',state.academy);if(v&&v.trim()){state.academy=v.trim();save();renderRhythm()}}
-function expandAllGroups(){getGrades().forEach(g=>state.collapsed[g]=false);save();render();toast('전체 학년을 펼쳤어요')}
-function collapseAllGroups(){getGrades().forEach(g=>state.collapsed[g]=true);save();render();toast('전체 학년을 접었어요')}
-function exportBackup(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='student-manager-backup-'+today()+'.json';a.click();URL.revokeObjectURL(a.href)}
-function importBackup(e){const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const data=JSON.parse(rd.result);if(!data.students)throw new Error('bad');state=data;if(!state.collapsed)state.collapsed={};save();renderAll();toast('백업을 복원했어요')}catch(err){alert('백업 파일 형식이 맞지 않습니다.')}};rd.readAsText(f);e.target.value=''}
-function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-function escAttr(s){return String(s==null?'':s).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}
-let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1800)}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closePanel()});load();
+function lv(id){return LEVELS.find(l=>l.id===id)}
+
+const GRADES=['초1','초2','초3','초4','초5','초6','중1','중2','중3'];
+function gnum(g){return GRADES.indexOf(g)+1}
+function gname(n){if(n<1)return '미취학';if(n<=9)return GRADES[n-1];return '고등 연계';}
+function band(g){const n=gnum(g);if(n<=3)return 'low';if(n<=6)return 'mid';return 'high';}
+
+const WORRIES={
+ low:[
+  ['fun','영어를 싫어하게 되지 않을까 걱정돼요','거부감·흥미'],
+  ['phonics_time','파닉스 떼는 데 얼마나 걸리나요','파닉스 기간'],
+  ['exposure','집에서 영어 노출이 부족한데 괜찮을까요','가정 노출량'],
+  ['late','또래보다 늦게 시작한 건 아닌지 걱정돼요','시작 시점'],
+ ],
+ mid:[
+  ['toolate','지금 시작이 너무 늦은 건 아닌지 걱정돼요','시작 시점'],
+  ['exam_prep','중학교 내신·문법 대비가 될까요','내신 연결'],
+  ['reading','리딩·어휘가 제대로 늘까요','읽기·단어'],
+  ['speaking','회화도 같이 잡힐 수 있을까요','말하기'],
+ ],
+ high:[
+  ['naesin','내신·수행평가를 꼼꼼히 챙겨주나요','내신·수행'],
+  ['seosul','서술형·모의고사 준비가 될까요','서술형·모의'],
+  ['suneung','수능까지 연결이 될까요','입시 연결'],
+  ['homework','숙제·학습량이 너무 버거울까봐요','학습량'],
+  ['weakbase','기초가 부족한데 따라갈 수 있을까요','기초 보강'],
+ ],
+};
+
+const GOALS=[
+ ['interest','흥미·기초부터 차근히','영어와 친해지기'],
+ ['balanced','회화·읽기·쓰기 균형 있게','전반적 실력 향상'],
+ ['naesin','내신·서술형 집중 대비','학교 시험 중심'],
+ ['ipsi','수능·입시까지 장기적으로','장기 입시 준비'],
+];
+
+/* ═══ 레벨 배치 ═══ */
+function place(){
+ const n=gnum(wiz.grade);
+ if(wiz.exp==='other') return {start:null,label:'레벨 테스트 후 배치',testFirst:true,range:n<=3?'화이트 후반 ~ 옐로우':n<=6?'옐로우 ~ 그린·블루':'문법 8권 ~ 중등 커리'};
+ if(wiz.exp==='current') return {start:null,label:'현재 레벨에서 이어가기',current:true};
+ return {start:'white',label:'화이트 (파닉스) 시작'};
+}
+
+function buildRoad(startId){
+ const order=['white','yellow','pink','greenblue','redblack','middle'];
+ let idx=order.indexOf(startId); if(idx<0)idx=0;
+ let g=gnum(wiz.grade),acc=0,rows=[];
+ for(let i=idx;i<order.length;i++){
+  const L=lv(order[i]);
+  rows.push({L,when:acc===0?'지금 시작':`약 ${acc}개월 후`,grade:gname(Math.round(g+acc/12)),now:i===idx});
+  if(L.months)acc+=L.months;
+ }
+ return rows;
+}
+
+/* ═══ 위저드 상태 ═══ */
+let wiz={step:0,grade:null,exp:null,phonics:null,worry:null,goal:null};
+const STEPS=['grade','exp','phonics','worry','goal','result'];
+
+function renderWiz(){
+ const c=document.getElementById('wizCard');
+ const cur=STEPS[wiz.step];
+ if(cur==='result'){startResult();return;}
+ const prog='<div class="progress">'+STEPS.slice(0,5).map((_,i)=>`<div class="pdot ${i<=wiz.step?'on':''}"></div>`).join('')+'</div>';
+ let body='';
+
+ if(cur==='grade'){
+  body=`<div class="qtitle">자녀분의 학년이 어떻게 되나요?</div>
+   <div class="qhint">학년에 따라 적합한 커리큘럼과 시작 레벨이 달라집니다.</div>
+   <div class="opts grid">${GRADES.map(g=>`<button class="opt center ${wiz.grade===g?'sel':''}" onclick="pick('grade','${g}')">${g}</button>`).join('')}</div>`;
+ }
+ if(cur==='exp'){
+  body=`<div class="qtitle">${wiz.grade} · 지금까지 영어 학습 경험은요?</div>
+   <div class="qhint">출발선을 정확히 잡아야 아이에게 맞는 커리큘럼을 제안할 수 있어요.</div>
+   <div class="opts">
+    <button class="opt ${wiz.exp==='new'?'sel':''}" onclick="pick('exp','new')">처음이에요 / 거의 안 했어요<small>알파벳·파닉스 단계부터 시작</small></button>
+    <button class="opt ${wiz.exp==='other'?'sel':''}" onclick="pick('exp','other')">다른 학원·교습을 받은 적 있어요<small>기초가 있음 → 레벨 테스트로 배치</small></button>
+    <button class="opt ${wiz.exp==='current'?'sel':''}" onclick="pick('exp','current')">현재 뮤엠에 다니고 있어요<small>현재 레벨에서 이어가기</small></button>
+   </div>`;
+ }
+ if(cur==='phonics'){
+  if(wiz.exp!=='new'){wiz.step++;renderWiz();return;}
+  body=`<div class="qtitle">파닉스(읽기)는 어느 정도인가요?</div>
+   <div class="qhint">정확한 시작 레벨을 잡기 위한 질문이에요.</div>
+   <div class="opts">
+    <button class="opt ${wiz.phonics==='none'?'sel':''}" onclick="pick('phonics','none')">거의 몰라요 (알파벳도 익히는 중)</button>
+    <button class="opt ${wiz.phonics==='alpha'?'sel':''}" onclick="pick('phonics','alpha')">알파벳·소릿값은 조금 알아요</button>
+    <button class="opt ${wiz.phonics==='some'?'sel':''}" onclick="pick('phonics','some')">간단한 단어는 읽을 수 있어요</button>
+   </div>`;
+ }
+ if(cur==='worry'){
+  const ws=WORRIES[band(wiz.grade)];
+  body=`<div class="qtitle">가장 걱정되시는 부분이 어떤 건가요?</div>
+   <div class="qhint">이 고민을 중심으로 맞춤 답변을 드릴게요.</div>
+   <div class="opts">${ws.map(w=>`<button class="opt ${wiz.worry===w[0]?'sel':''}" onclick="pick('worry','${w[0]}')">${w[1]}<small>${w[2]}</small></button>`).join('')}</div>`;
+ }
+ if(cur==='goal'){
+  body=`<div class="qtitle">어떤 목표를 바라고 계신가요?</div>
+   <div class="qhint">목표에 맞춰 로드맵 방향을 안내해 드릴게요.</div>
+   <div class="opts">${GOALS.map(g=>`<button class="opt ${wiz.goal===g[0]?'sel':''}" onclick="pick('goal','${g[0]}')">${g[1]}<small>${g[2]}</small></button>`).join('')}</div>`;
+ }
+
+ const canNext=wiz[cur]!=null;
+ c.innerHTML=`<div class="wrapPad">${prog}${body}<div class="wizNav">
+  <button class="btn ghost" onclick="wizBack()" ${wiz.step===0?'disabled':''}>← 이전</button>
+  <button class="btn primary" onclick="wizNext()" ${canNext?'':'disabled'}>${wiz.step===4?'답변 받기 →':'다음 →'}</button>
+ </div></div>`;
+ updateHeroSteps();
+}
+
+function pick(k,v){wiz[k]=v;renderWiz();}
+function wizNext(){if(wiz.step<5){wiz.step++;renderWiz();}}
+function wizBack(){if(wiz.step>0){wiz.step--;if(STEPS[wiz.step]==='phonics'&&wiz.exp!=='new')wiz.step--;renderWiz();}}
+function wizReset(){wiz={step:0,grade:null,exp:null,phonics:null,worry:null,goal:null};renderWiz();}
+
+function updateHeroSteps(){
+ [0,1,2].forEach(i=>document.getElementById('hs'+i)?.classList.remove('cur'));
+ const s=wiz.step;
+ if(s<=2) document.getElementById('hs0')?.classList.add('cur');
+ else if(s<=4) document.getElementById('hs1')?.classList.add('cur');
+ else document.getElementById('hs2')?.classList.add('cur');
+}
+
+/* ═══ AI 결과 생성 ═══ */
+async function startResult(){
+ updateHeroSteps();
+ const c=document.getElementById('wizCard');
+ c.innerHTML=`<div class="wrapPad"><div class="aiLoader">
+  <div class="aiDots"><span></span><span></span><span></span></div>
+  <div class="aiLoadMsg" id="loadMsg">아이 상황에 맞는 답변을 준비하고 있어요…</div>
+ </div></div>`;
+
+ const msgs=['아이 상황에 맞는 답변을 준비하고 있어요…','커리큘럼 로드맵을 구성하고 있어요…','맞춤 안내를 마무리하고 있어요…'];
+ let mi=0; const iv=setInterval(()=>{mi=(mi+1)%msgs.length;const el=document.getElementById('loadMsg');if(el)el.textContent=msgs[mi];},1800);
+
+ try{
+  const aiText=await callAI();
+  clearInterval(iv);
+  renderResult(aiText);
+ }catch(e){
+  clearInterval(iv);
+  renderResult(null);
+ }
+}
+
+async function callAI(){
+ const worryItem=WORRIES[band(wiz.grade)].find(w=>w[0]===wiz.worry);
+ const goalItem=GOALS.find(g=>g[0]===wiz.goal);
+ const p=place();
+ const n=gnum(wiz.grade);
+
+ // 스크립트 컨텍스트 (원장용 멘트를 AI 참고 자료로)
+ const SCRIPT_REF={
+  fun:'화이트 수업은 파닉스를 음가만 외우지 않고, 듣기 버튼·소리 고르기·그림 매칭으로 게임처럼 진행합니다. "공부"로 느끼기 전에 영어가 익숙해지도록 설계됐어요.',
+  phonics_time:'화이트는 파닉스 6권에 그래마·커뮤니케이션을 엮어 약 1년에 걸쳐 읽기·문법·말하기로 확장합니다. 빨리 끝내는 게 목표가 아니라 다음 레벨에서 흔들리지 않는 기초를 만드는 전략이에요.',
+  exposure:'주 4회·매일 같은 리듬으로 학원 안에서 규칙적으로 영어 노출이 쌓입니다. 듣기 기반 수업이라 가정 노출량에 덜 의존해요.',
+  late:'초4~5가 저희가 가장 추천하는 시작 시점입니다. 이해력이 받쳐줘서 화이트~옐로우를 더 빠르게 흡수해요.',
+  toolate:'초4~5가 저희 추천 시작 시점입니다. 이해력이 뒷받침돼 진도가 빠르고, 중등 내신 타이밍에 맞아떨어집니다.',
+  exam_prep:'색깔 레벨 후 문법 8권으로 문장을 쌓고, 초5부터 중등 내신 커리로 이어집니다. 구글클래스 6파트 개념 + 1:1 직강 구조예요.',
+  reading:'화이트부터 리딩 시리즈를 함께 가고, 옐로우에서 2,000+ 프레이즈·청크를 쌓습니다. 덩어리로 익혀 읽기 속도와 어휘가 동시에 올라가요.',
+  speaking:'핑크 단계가 전학년 교과 내용을 영어 스피킹으로 풀어내는 과정입니다. 배운 내용을 말로 출력하는 구조라 회화가 실력과 함께 늘어요.',
+  naesin:'구글클래스 6파트 개념 → 1:1 직강 → 문제집 2권 교차로 학교 시험 유형에 적응시킵니다. 모의고사도 문법 수업을 바탕으로 제작됩니다.',
+  seosul:'모든 모의고사가 서술형으로 제작됩니다. 한 달에 한 번 치르며 서술형 약점을 매달 데이터로 잡아요.',
+  suneung:'레드·블랙 디베이트 라이팅 + 문법 8권 + 중등 커리로 어법·독해를 쌓고, 중3은 교과+백백영단어로 수능까지 이어집니다.',
+  homework:'오자마자 타이머 단어 → 구글클래스 개념 영상 → 1:1 직강으로 어려운 부분을 그 자리에서 해결합니다. 집에서 혼자 끙끙대는 양을 학원이 가져가는 구조예요.',
+  weakbase:'레벨 테스트로 빈 곳부터 정확히 진단합니다. 파닉스가 비면 화이트부터, 문법이 비면 문법 8권부터 맞춤으로 시작하고 1:1 직강으로 개별 보강이 가능합니다.',
+ };
+
+ const prompt=`학부모 진단 정보:
+- 자녀 학년: ${wiz.grade}
+- 영어 경험: ${wiz.exp==='new'?'처음 시작 (파닉스 수준: '+wiz.phonics+')':wiz.exp==='other'?'다른 학원 경험 있음':'현재 재원생'}
+- 주된 걱정: ${worryItem?worryItem[1]:''}
+- 목표: ${goalItem?goalItem[1]:''}
+- 권장 시작: ${p.label}
+
+뮤엠 시스템 참고 정보:
+${SCRIPT_REF[wiz.worry]||''}
+
+위 학부모님께 따뜻하고 전문적인 상담 답변을 작성해주세요.
+형식 지침:
+- 첫 줄: 아이 상황에 공감하는 한 문장
+- 이어서: 이 걱정에 대해 뮤엠이 어떻게 해결하는지 구체적으로 (2~3문장)
+- 다음: 권장 시작 레벨과 그 이유 (1~2문장)
+- 마지막: 함께 시작하자는 따뜻한 마무리 (1문장)
+- 전체 250~350자
+- 마크다운 없이 자연스러운 문단
+- "학부모님"으로 시작, 경어체 유지`;
+
+ const res=await fetch('https://api.anthropic.com/v1/messages',{
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({
+   model:'claude-sonnet-4-6',
+   max_tokens:1000,
+   system:`당신은 ${ACADEMY.name}의 원장입니다. ${ACADEMY.intro} 학부모의 고민을 따뜻하게 공감하면서, 뮤엠 영어 시스템(화이트→옐로우→핑크→그린블루→레드블랙→중등커리, 문법8권)이 어떻게 해결책이 되는지 구체적으로 설명합니다. 항상 한국어로, 진심 어린 어조로 답변합니다.`,
+   messages:[{role:'user',content:prompt}]
+  })
+ });
+ const data=await res.json();
+ return data.content?.find(c=>c.type==='text')?.text||'';
+}
+
+/* ═══ 결과 렌더 ═══ */
+function renderResult(aiText){
+ const c=document.getElementById('wizCard');
+ const p=place();
+ const worryItem=WORRIES[band(wiz.grade)].find(w=>w[0]===wiz.worry);
+ const goalItem=GOALS.find(g=>g[0]===wiz.goal);
+
+ // 로드맵
+ let roadHtml='';
+ if(p.start){
+  const rows=buildRoad(p.start);
+  roadHtml=`<div class="road">${rows.map(r=>`<div class="stage ${r.now?'now':''}">
+   <div class="nm"><span class="swatch" style="background:${r.L.color}"></span>${r.L.full}</div>
+   <div class="meta">${r.when}${r.L.months?' · '+r.L.months+'개월':''} · 예상 ${r.grade}</div>
+  </div>`).join('')}</div>
+  <div class="note">기간은 평균 진도 기준이에요. 시작 시점·집중도에 따라 달라집니다. <b>정확한 배치는 레벨 테스트로 확정</b>합니다.</div>`;
+ }else if(p.testFirst){
+  roadHtml=`<div style="background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:.93rem">
+   <b>레벨 테스트</b>로 정확한 출발선을 먼저 잡을게요.<br>현재 학년 기준 예상 배치 범위: <b>${p.range}</b></div>`;
+ }
+
+ // AI 답변 또는 폴백
+ const answerHtml=aiText
+  ?`<div class="aiAnswer">${aiText.replace(/\*\*(.*?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>')}</div>`
+  :`<div class="aiAnswer">학부모님, 고민을 나눠주셔서 감사해요. <b>${worryItem?worryItem[1]:''}</b>에 대한 걱정, 충분히 공감됩니다.<br><br>뮤엠 영어는 ${wiz.grade} 자녀분께 <b>${p.label}</b>을 추천드립니다. 직접 방문 상담을 통해 더 자세한 안내를 드릴게요.</div>`;
+
+ c.innerHTML=`
+  <div class="resHero">
+   <div class="resKicker">${wiz.grade} 맞춤 진단 결과</div>
+   <div class="resTitle">${p.label}</div>
+   <div class="resTagrow">
+    ${worryItem?`<span class="restag">${worryItem[2]}</span>`:''}
+    ${goalItem?`<span class="restag">${goalItem[1]}</span>`:''}
+   </div>
+  </div>
+  <div class="resBody">
+   <div class="sechead"><span class="dot"></span>원장 맞춤 답변</div>
+   ${answerHtml}
+
+   <div class="sechead"><span class="dot"></span>예상 학습 로드맵</div>
+   ${roadHtml}
+
+   <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:22px">
+    <button class="btn primary" onclick="scrollToForm()">📞 상담 신청하기</button>
+    <button class="btn" onclick="goTab('demo')">🎯 수업 맛보기</button>
+    <button class="btn ghost" onclick="wizReset()">↩ 다시 진단하기</button>
+   </div>
+  </div>
+  ${inquiryFormHtml()}`;
+}
+
+/* ═══ 상담 신청 폼 ═══ */
+function inquiryFormHtml(){
+ return `<div class="formCard" id="inquiryForm">
+  <div class="formTitle">📞 상담 신청</div>
+  <div class="formSub">입력하신 진단 결과와 함께 학원에 전달됩니다. 최대한 빠르게 연락드릴게요.</div>
+  <div class="grid2">
+   <div class="field"><label>학부모 성함</label><input id="fName" placeholder="예: 김○○ 어머니"></div>
+   <div class="field"><label>연락처</label><input id="fPhone" type="tel" placeholder="010-0000-0000"></div>
+  </div>
+  <div class="grid2">
+   <div class="field"><label>자녀 이름</label><input id="fChild" placeholder="예: 김민준"></div>
+   <div class="field"><label>원하는 상담 방법</label>
+    <select id="fMethod"><option value="전화">전화 상담</option><option value="방문">방문 상담</option><option value="카카오">카카오톡</option></select>
+   </div>
+  </div>
+  <div class="field"><label>원하시는 시간대 (선택)</label><input id="fTime" placeholder="예: 평일 오후 3시 이후, 토요일 오전"></div>
+  <div class="field"><label>추가 문의 사항 (선택)</label><textarea id="fNote" placeholder="더 알고 싶은 점이나 특이 사항을 적어주세요"></textarea></div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+   <button class="btn primary big" onclick="submitInquiry()" id="emailBtn">📧 이메일로 신청받기 (Formspree)</button>
+   <button class="btn big" id="kakaoBtn" onclick="sendViaKakao()" style="background:#FEE500;border-color:#e8d400;color:#3A1D1D;font-weight:800;font-size:1rem">💬 카카오톡으로 신청하기</button>
+   <div id="kakaoCopyBox" style="display:none;background:#FEF9C3;border:1.5px solid #FEE500;border-radius:12px;padding:13px 15px">
+    <div style="font-weight:800;margin-bottom:6px;color:#3A1D1D">📋 내용이 복사됐어요!</div>
+    <div style="font-size:.88rem;color:#5C4A00;line-height:1.7">카카오 채팅창이 열렸어요.<br>채팅창에서 <b>붙여넣기</b>만 하시면 바로 전달됩니다.</div>
+    <button class="btn small" style="margin-top:9px;background:#FEE500;border-color:#e8d400;font-weight:800;color:#3A1D1D" onclick="openKakaoLink()">💬 카카오 다시 열기</button>
+   </div>
+  </div>
+ </div>`;
+}
+
+
+/* ═══ 카카오 전송 ═══ */
+function buildKakaoText(){
+ const name   = (document.getElementById('fName')?.value||'').trim();
+ const phone  = (document.getElementById('fPhone')?.value||'').trim();
+ const child  = (document.getElementById('fChild')?.value||'').trim();
+ const method = document.getElementById('fMethod')?.value||'';
+ const time   = (document.getElementById('fTime')?.value||'').trim();
+ const note   = (document.getElementById('fNote')?.value||'').trim();
+ const worryItem = WORRIES[band(wiz.grade)].find(w=>w[0]===wiz.worry);
+ const goalItem  = GOALS.find(g=>g[0]===wiz.goal);
+ const p = place();
+ return `[${ACADEMY.name} 상담 신청]
+
+📋 진단 결과
+・자녀 학년: ${wiz.grade||'미입력'}
+・주요 걱정: ${worryItem?worryItem[1]:''}
+・목표: ${goalItem?goalItem[1]:''}
+・추천 시작: ${p.label}
+
+👤 신청 정보
+・학부모: ${name||'미입력'}
+・연락처: ${phone||'미입력'}
+・자녀: ${child||'미입력'}
+・상담 방법: ${method}
+${time?'・원하는 시간: '+time:''}
+${note?'・문의: '+note:''}`.trim();
+}
+
+function openKakaoLink(){
+ if(ACADEMY.kakaoUrl) window.open(ACADEMY.kakaoUrl,'_blank');
+}
+
+async function sendViaKakao(){
+ const name  = (document.getElementById('fName')?.value||'').trim();
+ const phone = (document.getElementById('fPhone')?.value||'').trim();
+ if(!name||!phone){toast('성함과 연락처는 필수예요');return;}
+ if(!ACADEMY.kakaoUrl){
+  toast('⚠️ 코드 상단 ACADEMY.kakaoUrl에 카카오 링크를 설정해 주세요');
+  return;
+ }
+ const text = buildKakaoText();
+ try{ await navigator.clipboard.writeText(text); }
+ catch(e){ /* 클립보드 실패 시 무시 */ }
+ // 오픈채팅 열기
+ window.open(ACADEMY.kakaoUrl,'_blank');
+ // 안내 박스 표시
+ document.getElementById('kakaoCopyBox').style.display='block';
+ document.getElementById('emailBtn').style.display='none';
+ document.getElementById('kakaoBtn').style.display='none';
+}
+
+function scrollToForm(){
+ const el=document.getElementById('inquiryForm');
+ if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+async function submitInquiry(){
+ const name    = (document.getElementById('fName')?.value||'').trim();
+ const phone   = (document.getElementById('fPhone')?.value||'').trim();
+ const child   = (document.getElementById('fChild')?.value||'').trim();
+ const method  = document.getElementById('fMethod')?.value||'';
+ const time    = (document.getElementById('fTime')?.value||'').trim();
+ const note    = (document.getElementById('fNote')?.value||'').trim();
+ if(!name||!phone){toast('성함과 연락처는 필수예요');return;}
+
+ // Formspree ID 확인
+ if(!ACADEMY.formspreeId||ACADEMY.formspreeId==='YOUR_FORM_ID'){
+  toast('⚠️ formspreeId를 설정해야 전송됩니다. 코드 상단 ACADEMY.formspreeId를 확인해 주세요.');
+  return;
+ }
+
+ const worryItem = WORRIES[band(wiz.grade)].find(w=>w[0]===wiz.worry);
+ const goalItem  = GOALS.find(g=>g[0]===wiz.goal);
+ const p = place();
+
+ // 제출 버튼 비활성화
+ const btn = document.querySelector('#inquiryForm .btn.primary.big');
+ if(btn){btn.disabled=true;btn.textContent='전송 중…';}
+
+ try{
+  const res = await fetch('https://formspree.io/f/'+ACADEMY.formspreeId, {
+   method:'POST',
+   headers:{'Content-Type':'application/json','Accept':'application/json'},
+   body: JSON.stringify({
+    '학부모 성함':  name,
+    '연락처':        phone,
+    '자녀 이름':    child||'(미입력)',
+    '상담 방법':    method,
+    '원하는 시간':  time||'(미입력)',
+    '추가 문의':    note||'(없음)',
+    '─── 진단 결과 ───': '─',
+    '자녀 학년':    wiz.grade,
+    '영어 경험':    wiz.exp==='new'?'처음 시작':wiz.exp==='other'?'타 학원 경험':'재원생',
+    '주요 걱정':    worryItem?worryItem[1]:'',
+    '목표':          goalItem?goalItem[1]:'',
+    '추천 시작':    p.label,
+   })
+  });
+
+  if(res.ok){
+   document.getElementById('inquiryForm').innerHTML=`
+    <div class="submitted">
+     <div class="big-emoji">✅</div>
+     <h3>상담 신청이 완료됐어요!</h3>
+     <p>${name}님, 신청해 주셔서 감사합니다.<br>
+     <b>${ACADEMY.name}</b>에서 빠른 시일 내에 연락드릴게요.<br><br>
+     ${ACADEMY.phone?`📞 <b>${ACADEMY.phone}</b><br>`:''}
+     ${ACADEMY.address?`📍 ${ACADEMY.address}`:''}
+     </p>
+    </div>`;
+  }else{
+   const data=await res.json().catch(()=>({}));
+   throw new Error(data.error||'서버 오류');
+  }
+ }catch(e){
+  if(btn){btn.disabled=false;btn.textContent='상담 신청 완료';}
+  toast('전송 실패: '+e.message+' | 직접 연락: '+ACADEMY.phone);
+ }
+}
+
+/* ═══ 수업 맛보기 (원장용과 동일 데이터) ═══ */
+const DEMO_DATA={
+ yellow:{title:'옐로우 · 청크·프레이즈',sw:'#E8B91F',intro:'단어를 낱개가 아니라 "덩어리(청크)"로 익혀요.',q:[
+  {q:'"나는 버스로 학교에 가" — 빈칸에 알맞은 청크는?<br><code>I ___ school by bus.</code>',c:[['go to',1],['go',0],['going',0]],e:'<b>go to</b>. "go to school"을 통째로 익히는 게 청크 학습이에요.'},
+  {q:'"좀 도와줄래?" — 자연스러운 표현은?<br><code>Can you ___ me a hand?</code>',c:[['give',1],['make',0],['take',0]],e:'<b>give a hand</b>(돕다)는 통으로 외우는 관용 청크예요.'},
+  {q:'배고플 때 원어민다운 표현은?',c:[["I'm starving!",1],['I have hungry',0],['I hungry so much',0]],e:'<b>I\'m starving</b>처럼 상황별 청크를 쌓으면 회화가 빨라져요.'},
+ ]},
+ pink:{title:'핑크 · 교과 내용 스피킹',sw:'#E27FA6',intro:'학교에서 배우는 내용을 영어로 말하는 연습이에요.',q:[
+  {q:'과학 "물의 순환"을 영어로?',c:[['water cycle',1],['water circle',0],['water spin',0]],e:'<b>water cycle</b>. 교과 개념을 영어로 말하는 훈련이에요.'},
+  {q:'발표를 시작하는 자연스러운 표현은?',c:[["Today I'll talk about...",1],['I talk now',0],['Listen me',0]],e:'<b>Today I\'ll talk about...</b> 발표 표현도 함께 익혀요.'},
+ ]},
+ greenblue:{title:'그린·블루 · 에세이 라이팅',sw:'#3FA15C',intro:'주제문·뒷받침·결론으로 한 편의 글을 써요.',q:[
+  {q:'"My favorite season is fall." 다음에 올 뒷받침 문장은?',c:[['The weather is cool and the leaves are beautiful.',1],['I have a dog.',0],['Pizza is good.',0]],e:'주제와 이어지는 <b>뒷받침 문장</b>을 고르는 훈련이에요.'},
+  {q:'에세이 구조로 맞는 것은?',c:[['도입 → 본론 → 결론',1],['결론 → 도입 → 본론',0],['본론 → 도입 → 결론',0]],e:'글의 <b>구조</b>를 잡는 것이 라이팅의 핵심이에요.'},
+ ]},
+ middle:{title:'중등 내신 · 서술형 문항 샘플',sw:'#2C5E8C',intro:'구글클래스 개념 → 1:1 직강 → 서술형 모의고사 흐름이에요.',q:[
+  {q:'[서술형] "나는 축구하는 것을 좋아한다" — 빈칸은?<br><code>I like ___ soccer.</code>',c:[['playing',1],['play',0],['to playing',0]],e:'<b>playing</b>. 동명사 조건 영작 서술형이에요.'},
+  {q:'[어법] 어색한 부분은?',c:[['She have finished her homework.',1],['He has a dog.',0],['They are happy.',0]],e:'<b>have → has</b>. 어법 오류 찾기 내신형 문항이에요.'},
+ ]},
+};
+const PH_A=[
+ {word:'rain',c:[['rain',1],['ran',0],['run',0]],e:'장모음 <b>ai</b> 소리 = "rain"'},
+ {word:'cheese',c:[['cheese',1],['chess',0],['choose',0]],e:'이중자음 <b>ch</b> + 장모음 <b>ee</b> = "cheese"'},
+];
+
+function speak(t){
+ if(!('speechSynthesis'in window)){toast('이 브라우저는 음성 재생을 지원하지 않아요');return;}
+ window.speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.82;
+ const vs=window.speechSynthesis.getVoices();
+ const en=vs.find(v=>/en-US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang));
+ if(en)u.voice=en; window.speechSynthesis.speak(u);
+}
+
+function renderDemoHome(){
+ const order=[
+  {id:'white',nm:'화이트',color:'#9aa0a6',desc:'파닉스·듣기 기반 수업',demo:'phonics'},
+  {id:'yellow',nm:'옐로우',color:'#E8B91F',desc:'청크·프레이즈',demo:'yellow'},
+  {id:'pink',nm:'핑크',color:'#E27FA6',desc:'교과 내용 스피킹',demo:'pink'},
+  {id:'greenblue',nm:'그린·블루',color:'#3FA15C',desc:'에세이 라이팅',demo:'greenblue'},
+  {id:'middle',nm:'중등 커리',color:'#2C5E8C',desc:'내신 서술형 모의',demo:'middle'},
+ ];
+ document.getElementById('demoHome').innerHTML=`
+  <p style="font-size:.9rem;color:var(--soft);margin-bottom:12px">각 레벨의 수업 문항을 직접 풀어보실 수 있어요.</p>
+  <div class="demoGrid">${order.map(o=>`<div class="card demoCardBtn" onclick="openDemo('${o.demo}')">
+   <div class="lv"><span class="swatch" style="background:${o.color}"></span>${o.nm}</div>
+   <div class="ds">${o.desc}</div>
+  </div>`).join('')}</div>`;
+}
+
+function openDemo(kind){
+ document.getElementById('demoHome').style.display='none';
+ const d=document.getElementById('demoDetail');d.style.display='block';
+ d.innerHTML=kind==='phonics'?renderPhonicsDemo():renderQuizDemo(kind);
+ d.scrollIntoView({behavior:'smooth',block:'start'});
+ if('speechSynthesis'in window)window.speechSynthesis.getVoices();
+}
+function backDemo(){
+ document.getElementById('demoDetail').style.display='none';
+ document.getElementById('demoHome').style.display='block';
+}
+
+function renderQuizDemo(kind){
+ const D=DEMO_DATA[kind];if(!D)return'';
+ const qs=D.q.map((it,i)=>{
+  const ch=it.c.map(c=>`<button class="choice" onclick="ans(this,${c[1]},'fb-${kind}-${i}')">${c[0]}</button>`).join('');
+  return `<div class="card qcard"><div class="qn"><span class="idx">${i+1}</span>${it.q}</div><div class="choices">${ch}</div><div class="fb" id="fb-${kind}-${i}">${it.e}</div></div>`;
+ }).join('');
+ return `<button class="btn ghost" style="margin-bottom:12px" onclick="backDemo()">← 목록으로</button>
+  <div style="font-weight:900;font-family:'Gothic A1',sans-serif;font-size:1.1rem;margin-bottom:10px"><span class="swatch" style="background:${D.sw}"></span>${D.title}</div>
+  <p style="font-size:.85rem;color:var(--soft);margin-bottom:14px">${D.intro}</p>
+  ${qs}<button class="btn ghost" style="margin-top:8px" onclick="backDemo()">← 다른 레벨 보기</button>`;
+}
+
+function renderPhonicsDemo(){
+ const qs=PH_A.map((it,i)=>{
+  const ch=it.c.map(c=>`<button class="choice" onclick="ans(this,${c[1]},'fph-${i}')">${c[0]}</button>`).join('');
+  return `<div class="card qcard"><div class="qn"><span class="idx">${i+1}</span>듣고 알맞은 단어를 고르세요</div>
+   <button class="listen" onclick="speak('${it.word}')">🔊 듣기</button>
+   <div class="choices">${ch}</div><div class="fb" id="fph-${i}">${it.e}</div></div>`;
+ }).join('');
+ return `<button class="btn ghost" style="margin-bottom:12px" onclick="backDemo()">← 목록으로</button>
+  <div style="font-weight:900;font-family:'Gothic A1',sans-serif;font-size:1.1rem;margin-bottom:10px">화이트 · 파닉스 수업 체험</div>
+  <p style="font-size:.85rem;color:var(--soft);margin-bottom:14px">🔊 듣기 버튼을 눌러 소리를 들어보세요.</p>
+  ${qs}<button class="btn ghost" style="margin-top:8px" onclick="backDemo()">← 다른 레벨 보기</button>`;
+}
+
+function ans(btn,correct,fbId){
+ const box=btn.parentElement;
+ [...box.children].forEach(b=>b.style.pointerEvents='none');
+ if(correct){btn.classList.add('right');}
+ else{btn.classList.add('wrong');[...box.children].forEach(b=>{if(b.onclick&&/,1,/.test(b.getAttribute('onclick')))b.classList.add('right');});}
+ const fb=document.getElementById(fbId);fb.classList.add('show');fb.classList.add(correct?'ok':'no');
+}
+
+/* ═══ FAQ ═══ */
+const FAQ=[
+ {band:'자주 묻는 질문',items:[
+  {q:'파닉스를 왜 1년씩 하나요?',a:`뮤엠 화이트는 파닉스만 가르치는 게 아니에요. <b>파닉스 + 그래마 + 커뮤니케이션 + 리딩 시리즈</b>를 함께 가져가면서 읽기·문법·말하기로 확장합니다. 빨리 끝내고 다음 레벨에서 무너지는 게 아니라, 끝까지 흔들리지 않는 기초를 만드는 전략이에요.`},
+  {q:'레벨이 어떻게 오르나요?',a:`모든 레벨은 <b>체크업 3~4회차에 iBT(컴퓨터) 시험</b>으로 점검합니다. 중등 커리에서는 여기에 더해 <b>월 1회 서술형 모의고사</b>로 매달 실력을 진단해요.`},
+  {q:'지금 시작이 너무 늦은 건 아닌가요?',a:`초4~5가 오히려 저희가 <b>가장 추천하는 시작 시점</b>이에요. 이해력이 뒷받침돼 화이트~옐로우를 훨씬 빠르게 흡수하고, 그대로 가면 중등 내신 타이밍에 딱 맞아떨어집니다.`},
+  {q:'집에서 영어 노출이 거의 없어도 괜찮나요?',a:`<b>주 4회·매일 같은 리듬</b>으로 학원 안에서 규칙적으로 노출이 쌓입니다. 듣기 기반 수업이라 가정 환경에 덜 의존해요.`},
+  {q:'내신·서술형도 준비가 되나요?',a:`초5부터 제가 직접 설계한 <b>중등 내신 커리</b>로 들어갑니다. 구글클래스 6파트 개념 → 1:1 직강 → 문제집 2권 교차 → <b>월 1회 서술형 모의고사</b>까지, 내신을 정조준하는 구조예요.`},
+  {q:'수능까지 연결이 되나요?',a:`레드·블랙 디베이트 라이팅으로 논리적 쓰기를 기르고, 문법 8권과 중등 커리로 어법·독해를 쌓습니다. <b>중3은 교과+백백영단어</b>로 어휘를 확장해 수능 독해·어법으로 자연스럽게 이어져요.`},
+  {q:'숙제가 너무 많지 않을까요?',a:`혼자 집에서 끙끙대는 양을 학원 시간 안에 해결하는 구조예요. <b>오자마자 타이머 단어</b> → 구글클래스 개념 영상 → 어려운 부분은 1:1 직강으로 그 자리에서 해결합니다.`},
+ ]},
+];
+
+function renderFaq(){
+ document.getElementById('faqBox').innerHTML=FAQ.map(g=>`
+  <div class="bandlabel">${g.band}</div>
+  ${g.items.map((it,i)=>`<div class="card faq" id="f${i}">
+   <div class="faqQ" onclick="document.getElementById('f${i}').classList.toggle('open')"><span>${it.q}</span><span>＋</span></div>
+   <div class="faqA">${it.a}</div>
+  </div>`).join('')}`).join('');
+}
+
+/* ═══ 수업 안내 ═══ */
+function renderOps(){
+ document.getElementById('opsBox').innerHTML=`<div class="opsgrid">
+  <div class="card opsCard"><div class="t">수업 운영</div><ul>
+   <li>주 <b>4회</b>, 회당 <b>1시간</b></li>
+   <li>저학년 한 반 최대 <b>7~8명</b></li>
+   <li>체크업 <b>3~4회차에 iBT 시험</b>으로 레벨 확인</li>
+   <li>중등 월 <b>1회 서술형 모의고사</b></li>
+  </ul></div>
+  <div class="card opsCard"><div class="t">초2 시간대</div><ul>
+   <li>초2 <b>3시부 · 4시부</b> 가능</li>
+   <li><b>2시부</b> 모집 중 — <b>3명 이상</b> 개강</li>
+  </ul></div>
+  <div class="card opsCard"><div class="t">결석 · 보강</div><ul>
+   <li>보강은 <b>아플 때만</b> 차감 형태</li>
+   <li>여행·개인 일정은 <b>보강 불가</b></li>
+   <li>진단서·약봉지 제시 시 <b>교재비 제외</b> 차감</li>
+  </ul></div>
+  <div class="card opsCard"><div class="t">학습 루틴</div><ul>
+   <li>오자마자 <b>타이머 단어</b> (중1·2 통합교과)</li>
+   <li>중3 <b>교과 + 백백영단어</b></li>
+   <li>구글클래스 개념 + <b>1:1 직강</b></li>
+   <li>문제집 <b>2권 교차</b> 풀이</li>
+  </ul></div>
+ </div>
+ <div style="text-align:center;margin-top:20px">
+  <button class="btn primary" onclick="goTab('diag')">📋 지금 바로 진단하기</button>
+ </div>`;
+}
+
+/* ═══ 탭 ═══ */
+function goTab(v){
+ document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.v===v));
+ document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active',s.id==='v-'+v));
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+let tt; function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2000);}
+
+/* ═══ 학원명 표시 ═══ */
+document.getElementById('acNameHero').textContent=ACADEMY.name;
+document.title=ACADEMY.name+' — 우리 아이 영어 진단';
+
+/* ═══ 초기화 ═══ */
+(async function init(){
+ try{ const nm=await window.storage.get('academyName',false); if(nm&&nm.value){ACADEMY.name=nm.value;document.getElementById('acNameHero').textContent=nm.value;document.title=nm.value+' — 우리 아이 영어 진단';} }catch(e){}
+ renderWiz(); renderDemoHome(); renderFaq(); renderOps();
+ if('speechSynthesis'in window){window.speechSynthesis.onvoiceschanged=()=>{};window.speechSynthesis.getVoices();}
+})();
 </script>
 </body>
 </html>
