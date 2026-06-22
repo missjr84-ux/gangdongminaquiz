@@ -217,7 +217,7 @@ const ACADEMY = {
   // 카카오 오픈채팅 링크 또는 카카오 채널 채팅 링크
   // 예1) 오픈채팅: 'https://open.kakao.com/o/xxxxxxx'
   // 예2) 카카오 채널: 'http://pf.kakao.com/_xxxxx/chat'
-  kakaoUrl: '',                   // ← ✏️ 카카오 링크 붙여넣기
+  kakaoUrl: 'http://pf.kakao.com/_fBRtG',                   // ← ✏️ 카카오 링크 붙여넣기
 };
 
 /* ═══ 공통 데이터 (원장용 콘솔과 동일) ═══ */
@@ -496,10 +496,24 @@ function inquiryFormHtml(){
   <div class="grid2">
    <div class="field"><label>자녀 이름</label><input id="fChild" placeholder="예: 김민준"></div>
    <div class="field"><label>원하는 상담 방법</label>
-    <select id="fMethod"><option value="전화">전화 상담</option><option value="방문">방문 상담</option><option value="카카오">카카오톡</option></select>
+    <select id="fMethod" onchange="toggleTimeGuide(this.value)"><option value="방문상담">방문 상담 (원장 대면)</option><option value="레벨테스트">아이 레벨테스트만</option></select>
    </div>
   </div>
-  <div class="field"><label>원하시는 시간대 (선택)</label><input id="fTime" placeholder="예: 평일 오후 3시 이후, 토요일 오전"></div>
+  <div class="field"><label>원하시는 시간대</label>
+   <input id="fTime" placeholder="예: 월요일 오후 1시">
+   <div id="timeGuide" style="margin-top:9px;border-radius:11px;padding:12px 14px;font-size:.86rem;line-height:1.75;background:var(--accent2);border:1px solid var(--line)">
+    <b style="color:var(--accent)">📅 방문 상담 가능 시간 (월~목)</b><br>
+    · 오후 1:00 ~ 2:30<br>
+    · 오후 8:00 ~ 9:00<br>
+    <span style="color:var(--soft);font-size:.82rem">※ 금·토·일은 방문 상담이 어렵습니다</span>
+   </div>
+   <div id="levelGuide" style="display:none;margin-top:9px;border-radius:11px;padding:12px 14px;font-size:.86rem;line-height:1.75;background:var(--accent2);border:1px solid var(--line)">
+    <b style="color:var(--accent)">✅ 레벨테스트 안내</b><br>
+    · 시간대 제한 없이 <b>수업 시간 중 언제든</b> 가능해요<br>
+    · 아이만 보내셔도 되고, 테스트 후 결과에 따라 등록하실 수 있어요<br>
+    · 원하시는 날짜/시간을 알려주시면 조율해 드립니다
+   </div>
+  </div>
   <div class="field"><label>추가 문의 사항 (선택)</label><textarea id="fNote" placeholder="더 알고 싶은 점이나 특이 사항을 적어주세요"></textarea></div>
   <div style="display:flex;flex-direction:column;gap:10px">
    <button class="btn primary big" onclick="submitInquiry()" id="emailBtn">📧 이메일로 신청받기 (Formspree)</button>
@@ -565,6 +579,11 @@ async function sendViaKakao(){
  document.getElementById('kakaoBtn').style.display='none';
 }
 
+function toggleTimeGuide(v){
+ document.getElementById('timeGuide').style.display  = v==='방문상담'?'block':'none';
+ document.getElementById('levelGuide').style.display = v==='레벨테스트'?'block':'none';
+ document.getElementById('fTime').placeholder = v==='방문상담'?'예: 화요일 오후 1시':'예: 이번 주 수요일 오후 5시';
+}
 function scrollToForm(){
  const el=document.getElementById('inquiryForm');
  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
@@ -732,13 +751,15 @@ function ans(btn,correct,fbId){
 /* ═══ FAQ ═══ */
 const FAQ=[
  {band:'자주 묻는 질문',items:[
+  {q:'방문 상담은 언제 가능한가요?',a:`방문 상담은 <b>월~목 오후 1시~2시 30분</b>, <b>오후 8시~9시</b>에 가능해요. 아이 <b>레벨테스트는 시간 제한 없이</b> 수업 중 언제든 가능하고, 아이만 보내셔서 테스트 후 결과 보고 등록하셔도 됩니다.`},
   {q:'파닉스를 왜 1년씩 하나요?',a:`뮤엠 화이트는 파닉스만 가르치는 게 아니에요. <b>파닉스 + 그래마 + 커뮤니케이션 + 리딩 시리즈</b>를 함께 가져가면서 읽기·문법·말하기로 확장합니다. 빨리 끝내고 다음 레벨에서 무너지는 게 아니라, 끝까지 흔들리지 않는 기초를 만드는 전략이에요.`},
   {q:'레벨이 어떻게 오르나요?',a:`모든 레벨은 <b>체크업 3~4회차에 iBT(컴퓨터) 시험</b>으로 점검합니다. 중등 커리에서는 여기에 더해 <b>월 1회 서술형 모의고사</b>로 매달 실력을 진단해요.`},
   {q:'지금 시작이 너무 늦은 건 아닌가요?',a:`초4~5가 오히려 저희가 <b>가장 추천하는 시작 시점</b>이에요. 이해력이 뒷받침돼 화이트~옐로우를 훨씬 빠르게 흡수하고, 그대로 가면 중등 내신 타이밍에 딱 맞아떨어집니다.`},
   {q:'집에서 영어 노출이 거의 없어도 괜찮나요?',a:`<b>주 4회·매일 같은 리듬</b>으로 학원 안에서 규칙적으로 노출이 쌓입니다. 듣기 기반 수업이라 가정 환경에 덜 의존해요.`},
   {q:'내신·서술형도 준비가 되나요?',a:`초5부터 제가 직접 설계한 <b>중등 내신 커리</b>로 들어갑니다. 구글클래스 6파트 개념 → 1:1 직강 → 문제집 2권 교차 → <b>월 1회 서술형 모의고사</b>까지, 내신을 정조준하는 구조예요.`},
   {q:'수능까지 연결이 되나요?',a:`레드·블랙 디베이트 라이팅으로 논리적 쓰기를 기르고, 문법 8권과 중등 커리로 어법·독해를 쌓습니다. <b>중3은 교과+백백영단어</b>로 어휘를 확장해 수능 독해·어법으로 자연스럽게 이어져요.`},
-  {q:'숙제가 너무 많지 않을까요?',a:`혼자 집에서 끙끙대는 양을 학원 시간 안에 해결하는 구조예요. <b>오자마자 타이머 단어</b> → 구글클래스 개념 영상 → 어려운 부분은 1:1 직강으로 그 자리에서 해결합니다.`},
+  {q:'중등 수업은 며칠이나 있나요?',a:`중1~중3은 <b>주 3회(월·수·토) 2시간</b>씩 수업합니다. 중2는 여기에 <b>화·목</b>이 추가돼요. 시험 3주 전부터는 <b>토요일마다 시험 대비 보강 수업</b>이 별도로 진행되고, 비내신 기간에는 <b>클리닉 수업</b>으로 못 다 한 숙제나 부족한 진도를 특강 선생님이 1:1로 채워줍니다.`},
+  {q:'숙제가 너무 많지 않을까요?',a:`중등은 <b>주 3회(월·수·토) 2시간</b> 수업으로 학원 안에서 대부분 해결합니다. 오자마자 타이머 단어 → 구글클래스 개념 → 1:1 직강으로 그 자리에서 약점을 잡아요. 못 다 한 숙제나 진도는 <b>비내신 기간 클리닉 수업</b>에서 특강 선생님이 따로 봐주셔서 혼자 끙끙대는 일이 없어요.`},
  ]},
 ];
 
@@ -753,27 +774,49 @@ function renderFaq(){
 
 /* ═══ 수업 안내 ═══ */
 function renderOps(){
- document.getElementById('opsBox').innerHTML=`<div class="opsgrid">
-  <div class="card opsCard"><div class="t">수업 운영</div><ul>
-   <li>주 <b>4회</b>, 회당 <b>1시간</b></li>
-   <li>저학년 한 반 최대 <b>7~8명</b></li>
-   <li>체크업 <b>3~4회차에 iBT 시험</b>으로 레벨 확인</li>
-   <li>중등 월 <b>1회 서술형 모의고사</b></li>
-  </ul></div>
-  <div class="card opsCard"><div class="t">초2 시간대</div><ul>
-   <li>초2 <b>3시부 · 4시부</b> 가능</li>
-   <li><b>2시부</b> 모집 중 — <b>3명 이상</b> 개강</li>
-  </ul></div>
-  <div class="card opsCard"><div class="t">결석 · 보강</div><ul>
-   <li>보강은 <b>아플 때만</b> 차감 형태</li>
-   <li>여행·개인 일정은 <b>보강 불가</b></li>
-   <li>진단서·약봉지 제시 시 <b>교재비 제외</b> 차감</li>
-  </ul></div>
-  <div class="card opsCard"><div class="t">학습 루틴</div><ul>
-   <li>오자마자 <b>타이머 단어</b> (중1·2 통합교과)</li>
-   <li>중3 <b>교과 + 백백영단어</b></li>
-   <li>구글클래스 개념 + <b>1:1 직강</b></li>
-   <li>문제집 <b>2권 교차</b> 풀이</li>
+ document.getElementById('opsBox').innerHTML=`<div style="margin-bottom:14px">
+  <div class="bandlabel" style="margin-top:0">초등 과정</div>
+  <div class="opsgrid">
+   <div class="card opsCard"><div class="t">수업 운영</div><ul>
+    <li>주 <b>4회</b>, 회당 <b>1시간</b></li>
+    <li>한 반 최대 <b>7~8명</b></li>
+    <li>체크업 <b>3~4회차에 iBT 시험</b></li>
+   </ul></div>
+   <div class="card opsCard"><div class="t">초2 시간대</div><ul>
+    <li>초2 <b>3시부 · 4시부</b> 가능</li>
+    <li><b>2시부</b> 모집 중 — <b>3명 이상</b> 개강</li>
+   </ul></div>
+  </div>
+  <div class="bandlabel">중등 과정</div>
+  <div class="opsgrid">
+   <div class="card opsCard"><div class="t">수업 일정</div><ul>
+    <li>중1·중3 <b>월·수·토</b> — 주 3회, 회당 <b>2시간</b></li>
+    <li>중2 <b>월·수·토 + 화·목</b> 추가</li>
+    <li>시험 <b>3주 전</b>부터 토요일 <b>시험 대비 보강</b></li>
+    <li>월 1회 <b>서술형 모의고사</b></li>
+   </ul></div>
+   <div class="card opsCard"><div class="t">클리닉 수업</div><ul>
+    <li><b>비내신 기간</b> 운영</li>
+    <li>못 다 한 숙제·진도 <b>특강 선생님</b>이 1:1로</li>
+    <li>반 진도와 별개로 <b>개별 약점 보강</b></li>
+   </ul></div>
+   <div class="card opsCard"><div class="t">학습 루틴</div><ul>
+    <li>오자마자 <b>타이머 단어</b></li>
+    <li>중1·2 <b>통합교과 단어</b></li>
+    <li>중3 <b>교과 + 백백영단어</b></li>
+    <li>구글클래스 개념 + <b>1:1 직강</b></li>
+   </ul></div>
+   <div class="card opsCard"><div class="t">결석 · 보강</div><ul>
+    <li>보강은 <b>아플 때만</b> 차감 형태</li>
+    <li>여행·개인 일정은 <b>보강 불가</b></li>
+    <li>진단서·약봉지 제시 시 <b>교재비 제외</b> 차감</li>
+   </ul></div>
+  </div>
+ </div>
+ <div class="card opsCard" style="margin-top:14px;grid-column:1/-1"><div class="t">📞 상담 방법 안내</div><ul>
+   <li><b>방문 상담</b> (원장 대면) — 월~목 <b>오후 1:00~2:30</b> / <b>오후 8:00~9:00</b></li>
+   <li><b>레벨테스트</b> — 시간 제한 없이 수업 중 언제든 가능 · 아이만 보내셔도 돼요</li>
+   <li>테스트 후 결과 확인 후 등록 가능합니다</li>
   </ul></div>
  </div>
  <div style="text-align:center;margin-top:20px">
