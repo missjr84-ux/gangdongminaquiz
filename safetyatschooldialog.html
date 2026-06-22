@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>대화문 학습 · 중1 능률 4과</title>
+<style>
+:root{
+  --navy:#1a2744; --navy2:#27375c; --pink:#e8607a; --pink-d:#c93a5a;
+  --l2:#2f8f6b; --ink:#22262f; --sub:#6b7280; --line:#e3e6ec; --bg:#f4f6f9;
+  --ok:#2e7d32; --ok-bg:#e8f5e9; --no:#c62828; --no-bg:#fdecea;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',-apple-system,sans-serif;}
+.eng{font-family:'Georgia',serif;}
+.wrap{max-width:760px;margin:0 auto;padding:16px 14px 60px;}
+.head{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;border-radius:16px;padding:20px 18px;margin-bottom:14px;}
+.head .kick{font-size:13px;color:#ffc2cf;font-weight:700;letter-spacing:1px;}
+.head h1{font-size:23px;margin:6px 0 0;}
+.head .sub{font-size:14px;color:#cfd6e6;margin-top:4px;}
+.prog{height:10px;background:#e0e4ea;border-radius:6px;overflow:hidden;margin:12px 0;}
+.prog > i{display:block;height:100%;background:linear-gradient(90deg,var(--l2),#3fa34d);width:0;transition:width .3s;}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.tab{flex:1;min-width:90px;padding:13px 8px;border:2px solid var(--line);background:#fff;border-radius:12px;font-size:15px;font-weight:700;color:var(--sub);cursor:pointer;text-align:center;}
+.tab.on{background:var(--navy);color:#fff;border-color:var(--navy);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:14px 20px;border:none;border-radius:12px;font-size:17px;font-weight:700;cursor:pointer;background:var(--navy);color:#fff;}
+.btn:active{transform:scale(.97);}
+.btn.lg{width:100%;padding:17px;font-size:18px;margin-top:10px;}
+.btn.ghost{background:#fff;color:var(--navy);border:2px solid var(--navy);}
+.btn.sound{background:var(--l2);padding:9px 13px;font-size:15px;}
+.btn.slow{background:#5a7a9a;padding:9px 13px;font-size:15px;}
+.btn.sm{padding:9px 14px;font-size:15px;}
+.card{background:#fff;border-radius:16px;padding:20px 16px;box-shadow:0 2px 10px rgba(0,0,0,.05);margin-bottom:14px;}
+.center{text-align:center;}
+.hidden{display:none;}
+
+/* 대화 선택 */
+.dlg-select{display:flex;flex-direction:column;gap:9px;}
+.dlg-pick{padding:15px 16px;border:2px solid var(--line);background:#fff;border-radius:12px;font-size:16px;font-weight:700;color:var(--navy);cursor:pointer;text-align:left;}
+.dlg-pick:active{transform:scale(.99);}
+.dlg-pick small{display:block;font-weight:400;color:var(--sub);font-size:13px;margin-top:3px;}
+
+/* 핵심표현 */
+.keybox{background:#fff8e1;border:1.5px solid #e2a33b;border-radius:12px;padding:13px 15px;margin-bottom:14px;}
+.keybox .lbl{font-size:13px;font-weight:700;color:#b8860b;margin-bottom:4px;}
+.keybox .ex{font-size:16px;color:var(--ink);}
+
+/* 읽기 라인 */
+.line{padding:12px 0;border-bottom:1px solid var(--line);}
+.line:last-child{border-bottom:none;}
+.line .who{display:inline-block;min-width:26px;height:26px;line-height:26px;text-align:center;border-radius:50%;background:var(--navy);color:#fff;font-size:13px;font-weight:700;margin-right:8px;}
+.line .who.g{background:var(--pink-d);}
+.line-body{display:inline-block;vertical-align:top;width:calc(100% - 40px);}
+.line .en{font-size:18px;color:var(--navy2);cursor:pointer;}
+.line .ko{font-size:14px;color:var(--sub);margin-top:3px;}
+.line .ko.off{display:none;}
+.toolbar{display:flex;gap:8px;justify-content:center;margin:6px 0 14px;flex-wrap:wrap;}
+
+/* 순서맞추기 */
+.scramble-area{display:flex;flex-direction:column;gap:9px;margin:10px 0;}
+.sc-item{padding:13px 14px;border:2px solid var(--line);background:#fff;border-radius:11px;font-size:16px;cursor:grab;display:flex;align-items:center;gap:8px;}
+.sc-item .num{min-width:24px;height:24px;line-height:24px;text-align:center;border-radius:50%;background:#eef0f3;color:var(--sub);font-size:13px;font-weight:700;}
+.sc-item.dragging{opacity:.5;}
+.sc-item.ok{background:var(--ok-bg);border-color:var(--ok);}
+.sc-item.no{background:var(--no-bg);border-color:var(--no);}
+.sc-en{flex:1;}
+
+/* 영작 */
+.write-ko{font-size:17px;color:var(--ink);margin-bottom:6px;font-weight:700;}
+.write-input{width:100%;min-height:70px;padding:13px;border:2px solid var(--line);border-radius:12px;font-size:17px;font-family:'Georgia',serif;resize:vertical;}
+.write-input:focus{outline:none;border-color:var(--navy);}
+.write-result{margin-top:12px;font-size:16px;line-height:1.7;}
+.tok-ok{color:var(--ok);font-weight:700;}
+.tok-no{color:var(--no);font-weight:700;text-decoration:line-through;}
+.write-answer{margin-top:10px;padding:11px 13px;background:#f7f8fa;border-radius:10px;font-size:16px;}
+.counter{font-size:14px;color:var(--sub);text-align:center;margin-top:10px;}
+.result{text-align:center;padding:28px 16px;}
+.result .big{font-size:44px;font-weight:800;color:var(--navy);}
+.result .msg{font-size:17px;color:var(--sub);margin:12px 0;}
+.back-link{font-size:14px;color:var(--navy);text-decoration:underline;cursor:pointer;display:inline-block;margin-top:4px;}
+.tag-line{font-size:13px;color:var(--sub);text-align:center;margin-top:6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="kick">중1 능률(김기택) · 4과 Stay Safe at School</div>
+    <h1>대화문 학습</h1>
+    <div class="sub">9개 대화 · 순서맞추기 · 서술형 영작</div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab on" data-mode="read" onclick="switchMode('read')">📖 읽기·듣기</div>
+    <div class="tab" data-mode="order" onclick="switchMode('order')">🔀 순서맞추기</div>
+    <div class="tab" data-mode="write" onclick="switchMode('write')">✍️ 영작</div>
+  </div>
+  <div class="prog"><i id="progBar"></i></div>
+
+  <!-- 읽기 모드 -->
+  <div id="readPane">
+    <div id="readSelect" class="card">
+      <div style="font-size:16px;font-weight:700;margin-bottom:12px;">대화를 선택하세요</div>
+      <div class="dlg-select" id="readList"></div>
+    </div>
+    <div id="readDetail" class="hidden">
+      <div class="keybox">
+        <div class="lbl">⭐ 핵심표현</div>
+        <div class="ex" id="rKey"></div>
+      </div>
+      <div class="card">
+        <div class="toolbar">
+          <button class="btn sound" onclick="playAll()">▶ 전체 듣기</button>
+          <button class="btn slow sm" onclick="toggleKo()">🇰🇷 해석 토글</button>
+        </div>
+        <div id="rLines"></div>
+      </div>
+      <span class="back-link" onclick="backToReadList()">← 대화 목록으로</span>
+    </div>
+  </div>
+
+  <!-- 순서맞추기 -->
+  <div id="orderPane" class="hidden">
+    <div class="card">
+      <div style="font-size:15px;color:var(--sub);margin-bottom:6px;" id="oTitle"></div>
+      <div style="font-size:15px;margin-bottom:10px;">대화 순서에 맞게 위아래로 드래그하세요</div>
+      <div class="scramble-area" id="oArea"></div>
+      <button class="btn lg" onclick="checkOrder()">채점하기</button>
+      <div class="counter" id="oCount"></div>
+    </div>
+  </div>
+
+  <!-- 영작 -->
+  <div id="writePane" class="hidden">
+    <div class="card">
+      <div class="write-ko" id="wKo"></div>
+      <div class="toolbar" style="justify-content:flex-start;">
+        <button class="btn sound sm" onclick="speakWriteAnswer()">🔊 정답 듣기</button>
+      </div>
+      <textarea class="write-input eng" id="wInput" placeholder="영어로 작성하세요" autocapitalize="off" spellcheck="false"></textarea>
+      <button class="btn lg" onclick="checkWrite()">채점하기</button>
+      <div class="write-result" id="wResult"></div>
+      <div class="write-answer hidden" id="wAnswer"></div>
+      <button class="btn ghost lg hidden" id="wNext" onclick="nextWrite()">다음 →</button>
+      <div class="counter" id="wCount"></div>
+    </div>
+  </div>
+
+  <!-- 결과 -->
+  <div id="resultPane" class="hidden">
+    <div class="card result">
+      <div class="big" id="rScore"></div>
+      <div class="msg" id="rMsg"></div>
+      <button class="btn lg" onclick="restartCurrent()">다시 하기</button>
+    </div>
+  </div>
+  <div class="tag-line">강동미나 영어학원 · 자체 제작 학습 콘텐츠</div>
+</div>
+
+<script>// 중1 능률(김기택) 4과 - 대화문 9개
+// 각 대화: title, lines[{who, en, ko}], keys[핵심표현]
+const DIALOGUES = [
+  {
+    title:"Listen & Talk A-1",
+    keyExpr:"You should walk carefully. (조심히 걸어야 해)",
+    lines:[
+      {who:"B", en:"Be careful, Minji.", ko:"조심해, 민지야."},
+      {who:"G", en:"Why?", ko:"왜?"},
+      {who:"B", en:"The sidewalk is slippery. There's water on it. You should walk carefully.", ko:"인도가 미끄러워. 그 위에 물이 있어. 너는 조심히 걸어야 해."},
+      {who:"G", en:"Okay, I will.", ko:"알았어, 그럴게."}
+    ]
+  },
+  {
+    title:"Listen & Talk A-2",
+    keyExpr:"You should not use your smartphone when you walk. (걸을 때 스마트폰을 사용하면 안 돼)",
+    lines:[
+      {who:"G", en:"David, be careful! It's a red light.", ko:"David, 조심해! 빨간 불이야."},
+      {who:"B", en:"Oh, is it? Thanks for telling me.", ko:"오, 그러니? 말해 줘서 고마워."},
+      {who:"G", en:"You should not use your smartphone when you walk. It's dangerous.", ko:"너는 걸을 때 스마트폰을 사용해서는 안 돼. 그건 위험해."},
+      {who:"B", en:"Okay, I won't.", ko:"알았어, 안 그럴게."}
+    ]
+  },
+  {
+    title:"Listen & Talk A-3",
+    keyExpr:"You should slow down. (속도를 줄여야 해)",
+    lines:[
+      {who:"W", en:"Jim, be careful!", ko:"Jim, 조심해요!"},
+      {who:"M", en:"What's the matter?", ko:"무슨 일이에요?"},
+      {who:"W", en:"You are driving too fast. We are in a school zone. You should slow down.", ko:"당신은 너무 빨리 운전하고 있어요. 우리는 어린이 보호 구역에 있어요. 당신은 속도를 줄여야 해요."},
+      {who:"M", en:"Oh, you are right. There are many children around here. Thank you.", ko:"오, 당신 말이 맞아요. 여기 주변에는 어린이들이 많죠. 고마워요."}
+    ]
+  },
+  {
+    title:"Listen & Talk B",
+    keyExpr:"You should wait for the green light. (초록 불을 기다려야 해)",
+    lines:[
+      {who:"A", en:"Be careful! It's a red light.", ko:"조심해! 빨간 불이야."},
+      {who:"B", en:"Oh, thank you.", ko:"오, 고마워."},
+      {who:"A", en:"You should wait for the green light.", ko:"너는 초록 불을 기다려야 해."},
+      {who:"B", en:"Okay, I will.", ko:"알았어, 그럴게."}
+    ]
+  },
+  {
+    title:"Listen & Talk C",
+    keyExpr:"You should watch out for cars. (차들을 조심해야 해)",
+    lines:[
+      {who:"G", en:"Hi, Lucas.", ko:"안녕, Lucas."},
+      {who:"B", en:"Hi, Amy. Are you ready to go?", ko:"안녕, Amy. 너는 갈 준비 됐니?"},
+      {who:"G", en:"Sure! But you should put on a helmet first.", ko:"물론이지! 그런데 너는 먼저 헬멧을 써야 해."},
+      {who:"B", en:"Okay, I will.", ko:"알았어, 그럴게."},
+      {who:"G", en:"And be careful. A car is coming. You should watch out for cars.", ko:"그리고 조심해. 차가 오고 있어. 너는 차들을 조심해야 해."},
+      {who:"B", en:"Thank you. Oh, look at that sign. There is a bike lane over there.", ko:"고마워. 오, 저 표지판을 봐. 저쪽에 자전거 전용 도로가 있어."},
+      {who:"G", en:"Yes, I see it. We should ride our bikes in the bike lane.", ko:"응, 보여. 우리는 자전거 전용 도로에서 자전거를 타야 해."},
+      {who:"B", en:"Okay. Let's go.", ko:"알겠어. 가자."}
+    ]
+  },
+  {
+    title:"Listen & Talk D",
+    keyExpr:"You should watch your head. (머리를 조심해야 해)",
+    lines:[
+      {who:"A", en:"Hey, Yuri. Be careful.", ko:"얘, 유리야. 조심해."},
+      {who:"B", en:"What's the matter, Kihoon?", ko:"무슨 일이니, 기훈아?"},
+      {who:"A", en:"Look at this safety sign. You should watch your head.", ko:"이 안전 표지판을 봐. 너는 머리를 조심해야 해."},
+      {who:"B", en:"Okay, I will.", ko:"알았어, 그럴게."}
+    ]
+  },
+  {
+    title:"Real-Life Communication 1 (화재 안전)",
+    keyExpr:"You should cover your nose and mouth with a wet cloth. (젖은 천으로 코와 입을 감싸야 해)",
+    lines:[
+      {who:"B", en:"I learned about fire safety today.", ko:"나는 오늘 화재 안전에 대해 배웠어."},
+      {who:"G", en:"Oh! Please tell me about it.", ko:"오! 나에게 그것에 대해 말해 줘."},
+      {who:"B", en:"Sure. When you see a fire, you should call 119 and shout \u201Cfire\u201D loudly.", ko:"물론이지. 네가 화재를 볼 때, 너는 119에 전화하고 큰 소리로 \u201C불이야\u201D라고 외쳐야 해."},
+      {who:"G", en:"Okay. What should I do next?", ko:"알겠어. 그다음엔 내가 무엇을 해야 하니?"},
+      {who:"B", en:"You should cover your nose and mouth with a wet cloth. Then you should get outside quickly.", ko:"너는 젖은 천으로 코와 입을 감싸야 해. 그런 다음 너는 빨리 밖으로 나가야 해."},
+      {who:"G", en:"I understand.", ko:"이해했어."},
+      {who:"B", en:"Also, you should use the stairs.", ko:"또한, 너는 계단을 이용해야 해."},
+      {who:"G", en:"Okay. I'll remember those tips and be careful during a fire.", ko:"알겠어. 나는 그 수칙들을 기억해서 화재 중에 조심할게."}
+    ]
+  },
+  {
+    title:"Real-Life Communication 2 (지진 안전)",
+    keyExpr:"You should drop to the ground. (땅에 엎드려야 해)",
+    lines:[
+      {who:"A", en:"We will make a poster about earthquake safety.", ko:"우리는 지진 안전에 관한 포스터를 만들 거야."},
+      {who:"B", en:"Yes. What are some earthquake safety tips?", ko:"그래. 지진 안전 수칙들에는 무엇이 있니?"},
+      {who:"A", en:"You should drop to the ground. Then you should cover your head.", ko:"너는 땅에 엎드려야 해. 그런 다음 너는 머리를 감싸야 해."},
+      {who:"B", en:"Exactly. Also, you should hold on to something.", ko:"맞아. 또한, 너는 무언가를 붙잡아야 해."},
+      {who:"A", en:"Great. Let's remember those tips.", ko:"좋아. 그 수칙들을 기억하자."}
+    ]
+  },
+  {
+    title:"Lesson Review (수영장 안전)",
+    keyExpr:"You should warm up before swimming. (수영하기 전에 준비 운동을 해야 해)",
+    lines:[
+      {who:"B", en:"Let's go swimming in the pool!", ko:"수영장에 수영하러 가자!"},
+      {who:"G", en:"That's a good idea. But before we go, we should talk about swimming safety tips.", ko:"그거 좋은 생각이야. 하지만 우리는 가기 전에, 수영 안전 수칙들에 대해 이야기해야 해."},
+      {who:"B", en:"Sure. What are some safety tips for swimming pools?", ko:"물론이지. 수영장 안전 수칙들에는 무엇이 있니?"},
+      {who:"G", en:"First, you should warm up before swimming.", ko:"먼저, 너는 수영하기 전에 준비 운동을 해야 해."},
+      {who:"B", en:"That's important. What else should I remember?", ko:"그거 중요하지. 그밖에 내가 무엇을 기억해야 하니?"},
+      {who:"G", en:"You should not run near the pool. It's slippery.", ko:"너는 수영장 근처에서 뛰면 안 돼. 미끄럽거든."},
+      {who:"B", en:"Okay, I won't.", ko:"알았어, 안 그럴게."},
+      {who:"G", en:"Great! We should always be careful around swimming pools.", ko:"좋아! 우리는 수영장 주변에서 항상 조심해야 해."}
+    ]
+  }
+];
+
+// 서술형(통문장 영작) 대상 문장 - 한글 보고 영작
+const DIALOGUE_WRITE = [
+  {ko:"인도가 미끄러워. 너는 조심히 걸어야 해.", en:"The sidewalk is slippery. You should walk carefully."},
+  {ko:"너는 걸을 때 스마트폰을 사용해서는 안 돼.", en:"You should not use your smartphone when you walk."},
+  {ko:"당신은 너무 빨리 운전하고 있어요. 당신은 속도를 줄여야 해요.", en:"You are driving too fast. You should slow down."},
+  {ko:"너는 초록 불을 기다려야 해.", en:"You should wait for the green light."},
+  {ko:"너는 차들을 조심해야 해.", en:"You should watch out for cars."},
+  {ko:"너는 머리를 조심해야 해.", en:"You should watch your head."},
+  {ko:"너는 젖은 천으로 코와 입을 감싸야 해.", en:"You should cover your nose and mouth with a wet cloth."},
+  {ko:"너는 땅에 엎드려야 해. 그런 다음 너는 머리를 감싸야 해.", en:"You should drop to the ground. Then you should cover your head."},
+  {ko:"먼저, 너는 수영하기 전에 준비 운동을 해야 해.", en:"First, you should warm up before swimming."}
+];
+</script>
+<script>
+/* ===== TTS ===== */
+let voices=[],chosenVoice=null,ttsUnlocked=false;
+function pickVoice(){
+  voices=speechSynthesis.getVoices();
+  const prefer=['Google US English','Google UK English Female','Samantha','Microsoft Aria','Microsoft Jenny','Microsoft Zira','Karen','Daniel','Alex'];
+  for(const n of prefer){const v=voices.find(v=>v.name===n);if(v){chosenVoice=v;return;}}
+  chosenVoice=voices.find(v=>v.lang==='en-US')||voices.find(v=>v.lang&&v.lang.startsWith('en'))||null;
+}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function unlockTTS(){if(ttsUnlocked||!('speechSynthesis'in window))return;const u=new SpeechSynthesisUtterance('');u.volume=0;speechSynthesis.speak(u);ttsUnlocked=true;}
+document.body.addEventListener('touchstart',unlockTTS,{once:true});
+document.body.addEventListener('click',unlockTTS,{once:true});
+function speak(text,slow,cb){
+  if(!('speechSynthesis'in window))return;
+  unlockTTS();speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  if(chosenVoice)u.voice=chosenVoice;
+  u.lang='en-US';u.rate=slow?0.55:0.92;u.pitch=1.0;
+  if(cb)u.onend=cb;
+  speechSynthesis.speak(u);
+}
+
+/* ===== 상태 ===== */
+let curDlg=0, showKo=true;
+let orderList=[], orderPos=0, orderScore=0;
+let writePos=0, writeScore=0, writeAnswered=false;
+
+/* ===== 읽기 모드 ===== */
+function renderReadList(){
+  const box=document.getElementById('readList');box.innerHTML='';
+  DIALOGUES.forEach((d,i)=>{
+    const b=document.createElement('button');
+    b.className='dlg-pick';
+    b.innerHTML=d.title+'<small>'+d.lines.length+'개 문장</small>';
+    b.onclick=()=>openRead(i);
+    box.appendChild(b);
+  });
+}
+function openRead(i){
+  curDlg=i;
+  document.getElementById('readSelect').classList.add('hidden');
+  document.getElementById('readDetail').classList.remove('hidden');
+  document.getElementById('rKey').textContent=DIALOGUES[i].keyExpr;
+  const box=document.getElementById('rLines');box.innerHTML='';
+  DIALOGUES[i].lines.forEach(l=>{
+    const isG = l.who==='G'||l.who==='W';
+    const div=document.createElement('div');
+    div.className='line';
+    div.innerHTML='<span class="who'+(isG?' g':'')+'">'+l.who+'</span>'+
+      '<span class="line-body"><div class="en" onclick="speak(this.textContent.trim())">'+l.en+'</div>'+
+      '<div class="ko'+(showKo?'':' off')+'">'+l.ko+'</div></span>';
+    box.appendChild(div);
+  });
+}
+function backToReadList(){
+  document.getElementById('readDetail').classList.add('hidden');
+  document.getElementById('readSelect').classList.remove('hidden');
+}
+function toggleKo(){
+  showKo=!showKo;
+  document.querySelectorAll('#rLines .ko').forEach(k=>k.classList.toggle('off',!showKo));
+}
+function playAll(){
+  const lines=DIALOGUES[curDlg].lines; let i=0;
+  function next(){ if(i>=lines.length)return; speak(lines[i].en,false,()=>{i++;setTimeout(next,250);}); }
+  next();
+}
+
+/* ===== 순서맞추기 ===== */
+function startOrder(){
+  // 라인이 4개 이상인 대화 중 랜덤. 여기선 순차로 모든 대화 진행
+  orderList = DIALOGUES.map((_,i)=>i).filter(i=>DIALOGUES[i].lines.length<=8);
+  orderPos=0; orderScore=0;
+  document.getElementById('resultPane').classList.add('hidden');
+  document.getElementById('orderPane').classList.remove('hidden');
+  renderOrder();
+}
+function renderOrder(){
+  if(orderPos>=orderList.length) return finishOrder();
+  const d=DIALOGUES[orderList[orderPos]];
+  document.getElementById('oTitle').textContent=d.title;
+  document.getElementById('oCount').textContent='대화 '+(orderPos+1)+' / '+orderList.length;
+  // 섞기
+  let order=d.lines.map((_,i)=>i);
+  do{ shuffle(order); }while(order.every((v,i)=>v===i)); // 원본과 동일하면 다시
+  const area=document.getElementById('oArea'); area.innerHTML='';
+  order.forEach(origIdx=>{
+    const l=d.lines[origIdx];
+    const item=document.createElement('div');
+    item.className='sc-item'; item.draggable=true; item.dataset.orig=origIdx;
+    item.innerHTML='<span class="num">≡</span><span class="sc-en eng">'+l.en+'</span>';
+    addDrag(item,area);
+    area.appendChild(item);
+  });
+}
+function addDrag(item,area){
+  item.addEventListener('dragstart',()=>item.classList.add('dragging'));
+  item.addEventListener('dragend',()=>item.classList.remove('dragging'));
+  area.addEventListener('dragover',e=>{
+    e.preventDefault();
+    const dragging=area.querySelector('.dragging');if(!dragging)return;
+    const after=getAfter(area,e.clientY);
+    if(after==null)area.appendChild(dragging);else area.insertBefore(dragging,after);
+  });
+  // 터치 지원: 위/아래 버튼 대체 - 길게 누르면 위로 이동
+  item.addEventListener('click',e=>{
+    if(e.detail===2){ // 더블탭 = 맨 위로
+      area.insertBefore(item,area.firstChild);
+    }
+  });
+}
+function getAfter(area,y){
+  const els=[...area.querySelectorAll('.sc-item:not(.dragging)')];
+  return els.reduce((closest,child)=>{
+    const box=child.getBoundingClientRect();
+    const offset=y-box.top-box.height/2;
+    if(offset<0&&offset>closest.offset)return{offset,element:child};
+    return closest;
+  },{offset:-Infinity}).element;
+}
+function checkOrder(){
+  const items=[...document.querySelectorAll('#oArea .sc-item')];
+  let allOk=true;
+  items.forEach((it,pos)=>{
+    const ok=parseInt(it.dataset.orig)===pos;
+    it.classList.add(ok?'ok':'no');
+    it.querySelector('.num').textContent=pos+1;
+    if(!ok)allOk=false;
+  });
+  if(allOk)orderScore++;
+  setTimeout(()=>{orderPos++;renderOrder();},1400);
+}
+function finishOrder(){
+  document.getElementById('orderPane').classList.add('hidden');
+  showResult(orderScore,orderList.length,'순서맞추기');
+}
+
+/* ===== 영작 ===== */
+function startWrite(){
+  writePos=0;writeScore=0;writeAnswered=false;
+  document.getElementById('resultPane').classList.add('hidden');
+  document.getElementById('writePane').classList.remove('hidden');
+  renderWrite();
+}
+function renderWrite(){
+  if(writePos>=DIALOGUE_WRITE.length)return finishWrite();
+  writeAnswered=false;
+  const w=DIALOGUE_WRITE[writePos];
+  document.getElementById('wKo').textContent=w.ko;
+  document.getElementById('wInput').value='';
+  document.getElementById('wResult').innerHTML='';
+  document.getElementById('wAnswer').classList.add('hidden');
+  document.getElementById('wNext').classList.add('hidden');
+  document.getElementById('wCount').textContent='문항 '+(writePos+1)+' / '+DIALOGUE_WRITE.length;
+  setProg((writePos)/DIALOGUE_WRITE.length);
+}
+function norm(s){return s.toLowerCase().replace(/[.,!?"\u201C\u201D]/g,'').replace(/\s+/g,' ').trim();}
+function checkWrite(){
+  if(writeAnswered){return;}
+  const w=DIALOGUE_WRITE[writePos];
+  const ans=norm(document.getElementById('wInput').value);
+  const cor=norm(w.en);
+  const aw=ans.split(' '), cw=cor.split(' ');
+  let html=''; let okCount=0;
+  cw.forEach((c,i)=>{
+    if(aw[i]===c){html+='<span class="tok-ok">'+c+'</span> ';okCount++;}
+    else html+='<span class="tok-no">'+(aw[i]||'___')+'</span> ';
+  });
+  document.getElementById('wResult').innerHTML=html;
+  const perfect = ans===cor;
+  if(perfect)writeScore++;
+  document.getElementById('wAnswer').classList.remove('hidden');
+  document.getElementById('wAnswer').innerHTML=(perfect?'✅ 정답!':'정답: ')+'<b class="eng">'+w.en+'</b>';
+  document.getElementById('wNext').classList.remove('hidden');
+  writeAnswered=true;
+}
+function speakWriteAnswer(){ speak(DIALOGUE_WRITE[writePos].en); }
+function nextWrite(){ writePos++; renderWrite(); }
+function finishWrite(){
+  document.getElementById('writePane').classList.add('hidden');
+  showResult(writeScore,DIALOGUE_WRITE.length,'영작');
+}
+
+/* ===== 공통 ===== */
+let curMode='read';
+function switchMode(m){
+  curMode=m;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.mode===m));
+  ['readPane','orderPane','writePane','resultPane'].forEach(p=>document.getElementById(p).classList.add('hidden'));
+  if(m==='read'){document.getElementById('readPane').classList.remove('hidden');document.getElementById('readSelect').classList.remove('hidden');document.getElementById('readDetail').classList.add('hidden');setProg(0);}
+  else if(m==='order'){startOrder();}
+  else if(m==='write'){startWrite();}
+}
+function restartCurrent(){ if(curMode==='order')startOrder(); else if(curMode==='write')startWrite(); }
+function showResult(score,total,label){
+  const pane=document.getElementById('resultPane');pane.classList.remove('hidden');
+  document.getElementById('rScore').textContent=score+' / '+total;
+  const pct=Math.round(score/total*100);
+  document.getElementById('rMsg').innerHTML=label+' 완료! '+(pct>=80?'잘했어요 🎉':pct>=50?'좋아요, 한 번 더!':'복습해봐요');
+  setProg(1);
+}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
+function setProg(r){document.getElementById('progBar').style.width=Math.round(r*100)+'%';}
+
+renderReadList();
+</script>
+</body>
+</html>
