@@ -203,7 +203,7 @@ body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--bg);color:var(--
    ═══════════════════════════════════════════════════════ */
 const ACADEMY = {
   name:    '뮤엠 영어',           // ← 학원명
-  phone:   '010-0000-0000',       // ← 연락처
+  phone:   '010-4090-1505',       // ← 연락처
   address: '서울 강동구',          // ← 주소
   intro:   '영어를 오래 잘하는 아이로 키우는 뮤엠 영어입니다.',
 
@@ -515,14 +515,9 @@ function inquiryFormHtml(){
    </div>
   </div>
   <div class="field"><label>추가 문의 사항 (선택)</label><textarea id="fNote" placeholder="더 알고 싶은 점이나 특이 사항을 적어주세요"></textarea></div>
-  <div style="display:flex;flex-direction:column;gap:10px">
-   <button class="btn primary big" onclick="submitInquiry()" id="emailBtn">📧 이메일로 신청받기 (Formspree)</button>
-   <button class="btn big" id="kakaoBtn" onclick="sendViaKakao()" style="background:#FEE500;border-color:#e8d400;color:#3A1D1D;font-weight:800;font-size:1rem">💬 카카오톡으로 신청하기</button>
-   <div id="kakaoCopyBox" style="display:none;background:#FEF9C3;border:1.5px solid #FEE500;border-radius:12px;padding:13px 15px">
-    <div style="font-weight:800;margin-bottom:6px;color:#3A1D1D">📋 내용이 복사됐어요!</div>
-    <div style="font-size:.88rem;color:#5C4A00;line-height:1.7">카카오 채팅창이 열렸어요.<br>채팅창에서 <b>붙여넣기</b>만 하시면 바로 전달됩니다.</div>
-    <button class="btn small" style="margin-top:9px;background:#FEE500;border-color:#e8d400;font-weight:800;color:#3A1D1D" onclick="openKakaoLink()">💬 카카오 다시 열기</button>
-   </div>
+  <button class="btn primary big" onclick="submitInquiry()">상담 신청하기</button>
+  <div style="margin-top:14px;text-align:center;font-size:.88rem;color:var(--soft)">
+   또는 전화로 문의하세요 &nbsp;📞 <a href="tel:01040901505" style="color:var(--accent);font-weight:800;text-decoration:none">010-4090-1505</a>
   </div>
  </div>`;
 }
