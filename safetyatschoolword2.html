@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 4 Stay Safe at School — 어휘 심화 학습</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:#f0efea;color:#1a1a1a;font-size:14px;line-height:1.6;-webkit-text-size-adjust:100%;}
+.page{max-width:920px;margin:0 auto;padding:20px 14px 60px;}
+.doc-header{background:#fff;border-radius:14px;padding:24px 26px 18px;margin-bottom:18px;border:0.5px solid #ddd;}
+.doc-header h1{font-size:21px;font-weight:900;margin-bottom:4px;}
+.doc-header .sub{font-size:12px;color:#999;}
+.meta-row{display:flex;gap:20px;margin-top:14px;flex-wrap:wrap;}
+.meta-item{display:flex;align-items:center;gap:8px;font-size:13px;color:#888;}
+.meta-box{border-bottom:1px solid #aaa;width:120px;height:20px;}
+.toc{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px;}
+.toc a{font-size:12px;padding:5px 11px;border-radius:20px;background:#f0eeff;color:#4a3db5;text-decoration:none;font-weight:500;}
+.section{background:#fff;border-radius:14px;padding:22px 24px;margin-bottom:18px;border:0.5px solid #ddd;scroll-margin-top:12px;}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;padding-bottom:11px;border-bottom:1.5px solid #1a1a1a;margin-bottom:16px;flex-wrap:wrap;}
+.sec-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;color:#fff;flex:none;}
+.b-purple{background:#6c5ce7;}.b-orange{background:#e17055;}.b-blue{background:#0984e3;}
+.b-pink{background:#fd79a8;}.b-green{background:#00b894;}.b-teal{background:#0fa3a3;}.b-red{background:#d63031;}
+.sec-desc{font-size:12px;color:#999;margin:-8px 0 14px;}
+/* 듣기/정답 버튼 */
+.snd-btn{display:inline-flex;align-items:center;gap:4px;background:none;border:0.5px solid #ccc;border-radius:20px;padding:4px 11px 4px 9px;font-size:12px;color:#555;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;min-height:30px;}
+.snd-btn:hover,.snd-btn.playing{background:#f0eeff;border-color:#6c5ce7;color:#6c5ce7;}
+.snd-icon{font-size:14px;}
+.ans-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:0.5px solid #ccc;border-radius:20px;padding:4px 12px;font-size:12px;color:#888;cursor:pointer;font-family:inherit;transition:all .15s;min-height:30px;}
+.ans-btn:hover{background:#f0fef7;border-color:#00b894;color:#00b894;}
+.ans-reveal{display:none;margin-top:8px;padding:8px 12px;background:#f0fef7;border-radius:8px;border:0.5px solid #b2e8d0;font-size:13px;color:#056b47;line-height:1.7;}
+.ans-reveal.open{display:block;}
+/* 단어 리스트 */
+.cat-label{font-size:12px;font-weight:700;padding:4px 11px;border-radius:6px;display:inline-block;margin:16px 0 8px;}
+.cl-1{background:#f0eeff;color:#4a3db5;}.cl-2{background:#fff4e0;color:#8a4f00;}.cl-3{background:#e6f9f1;color:#056b47;}
+.cl-4{background:#e6f1ff;color:#0a3d91;}.cl-5{background:#fde8f0;color:#99355a;}
+.vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;}
+@media(max-width:640px){.vocab-grid{grid-template-columns:1fr;}}
+.vocab-row{display:flex;align-items:center;gap:8px;padding:7px 6px;border-bottom:0.5px solid #f0f0f0;}
+.vocab-en{font-weight:500;font-size:14px;min-width:108px;}
+.vocab-pos{font-size:11px;color:#fff;background:#bbb;border-radius:4px;padding:1px 6px;flex:none;}
+.vocab-kr{font-size:13px;color:#555;flex:1;}
+/* 매칭/select */
+.match-q{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 0;border-bottom:0.5px solid #f0f0f0;}
+.match-q.hide{display:none;}
+.match-num{font-size:11px;font-weight:700;color:#aaa;min-width:22px;}
+.match-en{font-weight:500;min-width:104px;font-size:14px;}
+.match-sel{padding:7px 10px;border:0.5px solid #ccc;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;color:#1a1a1a;min-width:150px;min-height:36px;}
+.match-result{font-size:13px;font-weight:700;padding:2px 8px;border-radius:6px;display:none;}
+.mr-ok{background:#e6f9f1;color:#056b47;}.mr-no{background:#fce8e8;color:#a32d2d;}
+/* 입력형 */
+.q-item{margin-bottom:13px;padding-bottom:13px;border-bottom:0.5px solid #f0f0f0;}
+.q-item:last-child{border-bottom:none;}
+.q-item.hide{display:none;}
+.q-num{font-size:11px;font-weight:700;color:#0984e3;margin-bottom:4px;}
+.q-prompt{font-size:14px;line-height:1.8;margin-bottom:6px;}
+.q-input{border:none;border-bottom:1.5px solid #333;padding:4px 6px;font-size:14px;font-family:inherit;background:transparent;color:#1a1a1a;outline:none;min-width:120px;}
+.q-input:focus{border-bottom-color:#0984e3;}
+.q-input.correct{border-bottom-color:#00b894;background:#f0fef7;color:#056b47;}
+.q-input.wrong{border-bottom-color:#e17055;background:#fff5f0;color:#c0392b;}
+.q-btns{display:flex;gap:7px;margin-top:7px;flex-wrap:wrap;align-items:center;}
+.mini-btn{padding:6px 13px;border:0.5px solid #ccc;border-radius:20px;font-size:12px;cursor:pointer;font-family:inherit;background:#fff;color:#555;min-height:32px;}
+.mini-btn:hover{background:#eef;border-color:#6c5ce7;color:#6c5ce7;}
+.word-bank{background:#e6f1ff;border-radius:8px;padding:10px 14px;font-size:12.5px;color:#0a3d91;margin-bottom:16px;line-height:2;}
+.word-bank strong{font-weight:700;}
+/* 점수바 + 점검 */
+.score-bar{background:#f8f8f5;border-radius:10px;padding:11px 15px;display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+.score-num{font-size:19px;font-weight:900;}
+.check-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:16px;padding-top:14px;border-top:1px dashed #ddd;}
+.check-btn{padding:9px 16px;border:none;border-radius:22px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.check-btn.grade{background:#0984e3;color:#fff;}
+.check-btn.grade:hover{background:#0a6fc0;}
+.check-btn.retry{background:#fff;border:1.5px solid #e17055;color:#e17055;}
+.check-btn.retry:hover{background:#fff5f0;}
+.check-btn.retry:disabled{opacity:.4;cursor:not-allowed;}
+.check-btn.reset{background:#fff;border:1.5px solid #aaa;color:#777;}
+.result-pill{font-size:13px;font-weight:700;padding:6px 14px;border-radius:20px;}
+.result-pill.good{background:#e6f9f1;color:#056b47;}
+.result-pill.bad{background:#fff4e0;color:#8a4f00;}
+.ex-sentence{color:#333;}
+@media(max-width:520px){.page{padding:14px 10px 50px;}.section{padding:18px 16px;}.doc-header{padding:20px 18px 16px;}.match-sel{min-width:130px;}}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="doc-header">
+  <h1>Lesson 4 &nbsp;Stay Safe at School</h1>
+  <div class="sub">중1 능률(김기택) · 어휘 심화 학습 — 단어 50 / 매칭 / 영↔한 / 유의어·반의어 / 영영풀이 / 다의어·접미사 / 예문</div>
+  <div class="meta-row">
+    <div class="meta-item">이름 <span class="meta-box"></span></div>
+    <div class="meta-item">날짜 <span class="meta-box"></span></div>
+    <div class="meta-item">점수 <span class="meta-box" style="width:74px"></span></div>
+  </div>
+  <div class="toc">
+    <a href="#s1">① 단어 목록</a><a href="#s2">② 단어 매칭</a><a href="#s3">③ 영→한</a>
+    <a href="#s4">④ 한→영</a><a href="#s5">⑤ 유의어·반의어</a><a href="#s6">⑥ 영영풀이</a>
+    <a href="#s7">⑦ 다의어·접미사</a><a href="#s8">⑧ 예문 빈칸</a>
+  </div>
+</div>
+
+<div class="section" id="s1">
+  <div class="sec-title"><span class="sec-badge b-purple">①</span>단어 목록 — 듣기 버튼으로 발음 확인</div>
+  <div id="vocabList"></div>
+</div>
+<div class="section" id="s2">
+  <div class="sec-title"><span class="sec-badge b-orange">②</span>단어 매칭 — 영어 단어에 맞는 뜻을 고르세요</div>
+  <div class="score-bar"><span style="font-size:13px;color:#888;">맞힌 개수</span><span class="score-num" id="matchScore">0 / 0</span></div>
+  <div id="matchList"></div>
+  <div class="check-bar" id="matchCheck"></div>
+</div>
+<div class="section" id="s3">
+  <div class="sec-title"><span class="sec-badge b-blue">③</span>영어 → 한글 뜻 쓰기</div>
+  <div id="e2kList"></div>
+  <div class="check-bar" id="e2kCheck"></div>
+</div>
+<div class="section" id="s4">
+  <div class="sec-title"><span class="sec-badge b-green">④</span>한글 → 영어 단어 쓰기</div>
+  <div id="k2eList"></div>
+  <div class="check-bar" id="k2eCheck"></div>
+</div>
+<div class="section" id="s5">
+  <div class="sec-title"><span class="sec-badge b-pink">⑤</span>유의어 · 반의어 시험</div>
+  <div id="synAntList"></div>
+  <div class="check-bar" id="synAntCheck"></div>
+</div>
+<div class="section" id="s6">
+  <div class="sec-title"><span class="sec-badge b-teal">⑥</span>영영 풀이 매칭 — 영어 정의에 맞는 단어를 고르세요</div>
+  <div class="score-bar"><span style="font-size:13px;color:#888;">맞힌 개수</span><span class="score-num" id="defScore">0 / 0</span></div>
+  <div id="defList"></div>
+  <div class="check-bar" id="defCheck"></div>
+</div>
+<div class="section" id="s7">
+  <div class="sec-title"><span class="sec-badge b-purple">⑦</span>다의어 · 접미사 심화</div>
+  <div class="sec-desc">한 단어의 여러 품사·뜻 구분 + 접미사 파생 규칙 (-ful, -ly, 명사화)</div>
+  <div id="multiList"></div>
+</div>
+<div class="section" id="s8">
+  <div class="sec-title"><span class="sec-badge b-orange">⑧</span>예문 빈칸 채우기 — 문맥에 맞는 단어를 넣으세요</div>
+  <div class="word-bank" id="exBank"></div>
+  <div id="exList"></div>
+  <div class="check-bar" id="exCheck"></div>
+</div>
+</div>
+<script>
+/* ===================== 데이터 ===================== */
+/* ============ 중1 능률(김기택) 4과 Stay Safe at School · 단어 50 ============ */
+/* en: 표제어 | ko: 뜻 | ex: 예문 | syn: 유의어 | ant: 반의어 | def: 영영풀이(있을 때만) */
+const VOCAB=[
+ {en:"slip",ko:"미끄러지다",ex:"She ran down the stairs and slipped!",syn:["slide"],ant:[],def:"to slide a short distance by accident"},
+ {en:"break",ko:"깨(지)다; (약속을) 어기다; 쉬는 시간",ex:"Many accidents happen during break.",syn:["rest","pause"],ant:["keep","fix"],def:"a short period of time when you stop an activity to rest"},
+ {en:"bump",ko:"부딪치다",ex:"He bumped into the wall.",syn:["hit","crash"],ant:[],def:"to hit against something"},
+ {en:"hallway",ko:"복도",ex:"Homin walked down the hallway.",syn:["corridor"],ant:[],def:""},
+ {en:"happen",ko:"발생하다, 일어나다",ex:"Dangerous accidents happen.",syn:["occur","take place"],ant:[],def:"to take place without being planned"},
+ {en:"common",ko:"흔한",ex:"We need to know about common accidents.",syn:["usual","frequent"],ant:["rare","uncommon"],def:"happening often and to many people or in many places"},
+ {en:"earthquake",ko:"지진",ex:"We will make a poster about earthquake safety.",syn:["quake","tremor"],ant:[],def:""},
+ {en:"spill",ko:"쏟다, 흘리다",ex:"Sora spilled the hot soup on her arm.",syn:["pour out"],ant:[],def:"to let something flow over the edge of a container by accident"},
+ {en:"injure",ko:"상처를 입히다, 다치게 하다",ex:"He injured his ankle!",syn:["hurt","harm","wound"],ant:["heal","cure"],def:"to harm or damage someone or something"},
+ {en:"safety",ko:"안전",ex:"I learned about fire safety today.",syn:["security"],ant:["danger"],def:"the state of being safe from danger or harm"},
+ {en:"way",ko:"법, 방식; 길",ex:"He landed the wrong way.",syn:["method","manner","road"],ant:[],def:""},
+ {en:"hold on to ~",ko:"~을 붙잡다",ex:"You should hold on to something.",syn:["grab","grip"],ant:["let go of"],def:""},
+ {en:"carefully",ko:"조심스럽게, 주의 깊게",ex:"You should walk carefully.",syn:["cautiously"],ant:["carelessly"],def:""},
+ {en:"a bowl of ~",ko:"~ 한 그릇",ex:"Sora picked up a bowl of hot soup.",syn:[],ant:[],def:""},
+ {en:"keep",ko:"보유하다; 계속하다; (약속을) 지키다",ex:"You should keep them!",syn:["hold","maintain"],ant:["break","lose"],def:""},
+ {en:"make a fire",ko:"불을 피우다",ex:"I should not make a fire in the tent.",syn:[],ant:[],def:""},
+ {en:"warm up",ko:"준비 운동을 하다",ex:"I will warm up before I play sports.",syn:["stretch"],ant:["cool down"],def:""},
+ {en:"during",ko:"~동안",ex:"Accidents happen during break.",syn:["throughout"],ant:[],def:""},
+ {en:"below",ko:"아래에; ~의 아래에",ex:"Now write the safety promises below.",syn:["under","beneath"],ant:["above","over"],def:""},
+ {en:"end",ko:"끝나다; 끝",ex:"The school day ended.",syn:["finish","stop"],ant:["start","begin"],def:""},
+ {en:"promise",ko:"약속; 약속하다",ex:"Now write the safety promises below.",syn:["vow","pledge"],ant:[],def:"the act of saying that you will certainly do something"},
+ {en:"land",ko:"땅, 육지; 착지하다, 떨어지다",ex:"He jumped but landed the wrong way.",syn:["touch down","ground"],ant:["take off","sea"],def:"to come down somewhere after jumping or falling"},
+ {en:"watch out for ~",ko:"~을 조심하다",ex:"You should watch out for cars.",syn:["beware of","look out for"],ant:[],def:""},
+ {en:"finger",ko:"손가락",ex:"Students injure their fingers.",syn:[],ant:[],def:""},
+ {en:"drop to the ground",ko:"땅에 엎드리다",ex:"You should drop to the ground.",syn:[],ant:[],def:""},
+ {en:"accident",ko:"사고",ex:"Dangerous accidents happen at school.",syn:["crash","mishap"],ant:[],def:"a sudden event that causes damage or injury"},
+ {en:"slippery",ko:"미끄러운",ex:"The sidewalk is slippery.",syn:["slick"],ant:["rough"],def:""},
+ {en:"bump into ~",ko:"~에 부딪치다",ex:"She bumped into Jaemin!",syn:["run into","crash into"],ant:[],def:""},
+ {en:"careful",ko:"조심하는, 주의하는",ex:"Be careful, Minji.",syn:["cautious"],ant:["careless"],def:"giving a lot of attention to avoid an accident or problem"},
+ {en:"sidewalk",ko:"인도, 보도",ex:"The sidewalk is slippery.",syn:["pavement"],ant:[],def:""},
+ {en:"play sports",ko:"운동을 하다",ex:"I will warm up before I play sports.",syn:[],ant:[],def:""},
+ {en:"be careful of ~",ko:"~을 조심[주의]하다",ex:"I should be careful of wild animals.",syn:["watch out for"],ant:[],def:""},
+ {en:"look around",ko:"주변을 둘러보다",ex:"I will look around carefully.",syn:[],ant:[],def:""},
+ {en:"walk",ko:"걷다",ex:"You should walk carefully.",syn:["go on foot","stroll"],ant:["run"],def:""},
+ {en:"sometimes",ko:"가끔, 때때로",ex:"But sometimes, dangerous accidents happen.",syn:["occasionally"],ant:["always","never"],def:""},
+ {en:"hold",ko:"잡다, 들다",ex:"I am holding hot soup.",syn:["grasp","carry"],ant:["drop","release"],def:"to have something in your hand or arms"},
+ {en:"slow down",ko:"(속도를) 줄이다",ex:"You should slow down.",syn:["decelerate","brake"],ant:["speed up"],def:""},
+ {en:"remember",ko:"기억하다",ex:"I'll remember those tips.",syn:["recall","memorize"],ant:["forget"],def:""},
+ {en:"cause",ko:"원인; 야기하다, 초래하다",ex:"What is the cause of the accident?",syn:["reason","trigger"],ant:["result","effect"],def:"a thing or event that makes something happen"},
+ {en:"loudly",ko:"크게, 큰 소리로",ex:"Shout \u201cfire\u201d loudly.",syn:["noisily"],ant:["quietly","softly"],def:""},
+ {en:"land the wrong way",ko:"잘못 착지하다",ex:"He jumped but landed the wrong way.",syn:[],ant:[],def:""},
+ {en:"injury",ko:"부상, 상처",ex:"Students get injuries when they play soccer.",syn:["wound","harm"],ant:[],def:""},
+ {en:"watch",ko:"보다; 조심하다",ex:"You should watch your head.",syn:["look at","mind"],ant:[],def:""},
+ {en:"cover",ko:"가리다, 씌우다; 덮개",ex:"You should cover your head.",syn:["protect","wrap"],ant:["uncover","expose"],def:""},
+ {en:"cross",ko:"건너다, 가로지르다",ex:"Look both ways before you cross the road.",syn:["go across"],ant:[],def:""},
+ {en:"example",ko:"예, 사례",ex:"We looked at some examples of accidents.",syn:["instance","case"],ant:[],def:"something that shows, explains or supports what you say"},
+ {en:"learn",ko:"배우다, 알다",ex:"Let's learn!",syn:["study","find out"],ant:["teach"],def:""},
+ {en:"crosswalk",ko:"횡단보도",ex:"There is a crosswalk near the school.",syn:["pedestrian crossing"],ant:[],def:""},
+ {en:"stair",ko:"(하나의) 계단",ex:"I will not run on the stairs.",syn:["step"],ant:[],def:""},
+ {en:"follow",ko:"따라가다; (규칙을) 따르다",ex:"I should follow these three tips.",syn:["obey","go after"],ant:["lead","break"],def:""},
+];
+
+/* 추가: PDF 영영풀이에 등장하나 50단어 표제어 밖인 것 → ankle, stay 보강 */
+const EXTRA_DEF=[
+ {en:"ankle",ko:"발목",def:"the part connecting the foot with the leg"},
+ {en:"stay",ko:"(특정 상태로) 머무르다, 유지하다",def:"to continue to be in a particular state"},
+];
+/* ====== 학습지 엔진용 추가 메타 (vocab_data.js의 VOCAB 재사용) ======
+   GROUPS: 단어목록 섹션 (카테고리 + 품사)  *en은 VOCAB의 표제어와 일치* */
+const GROUPS=[
+ {cat:'사고와 부상 (Accident & Injury)',cls:'cl-5',words:[
+   ['accident','명','사고'],['injure','동','상처를 입히다, 다치게 하다'],['injury','명','부상, 상처'],
+   ['bump','동','부딪치다'],['bump into ~','표현','~에 부딪치다'],['slip','동','미끄러지다'],
+   ['slippery','형','미끄러운'],['spill','동','쏟다, 흘리다'],['finger','명','손가락'],['earthquake','명','지진'],
+ ]},
+ {cat:'안전과 주의 (Safety & Caution)',cls:'cl-1',words:[
+   ['safety','명','안전'],['careful','형','조심하는, 주의하는'],['carefully','부','조심스럽게, 주의 깊게'],
+   ['be careful of ~','표현','~을 조심[주의]하다'],['watch','동','보다; 조심하다'],['watch out for ~','표현','~을 조심하다'],
+   ['look around','표현','주변을 둘러보다'],['slow down','표현','(속도를) 줄이다'],['hold on to ~','표현','~을 붙잡다'],
+   ['cover','동','가리다, 씌우다; 덮개'],['warm up','표현','준비 운동을 하다'],['hold','동','잡다, 들다'],
+ ]},
+ {cat:'장소와 이동 (Place & Movement)',cls:'cl-4',words:[
+   ['hallway','명','복도'],['sidewalk','명','인도, 보도'],['crosswalk','명','횡단보도'],['stair','명','(하나의) 계단'],
+   ['cross','동','건너다, 가로지르다'],['walk','동','걷다'],['land','명/동','땅, 육지; 착지하다'],
+   ['land the wrong way','표현','잘못 착지하다'],
+ ]},
+ {cat:'행동과 표현 (Action & Expression)',cls:'cl-3',words:[
+   ['break','동/명','깨(지)다·(약속을)어기다; 쉬는 시간'],
+   ['happen','동','발생하다, 일어나다'],['common','형','흔한'],['keep','동','보유·계속·(약속을)지키다'],
+   ['remember','동','기억하다'],['follow','동','따라가다; (규칙을) 따르다'],['learn','동','배우다, 알다'],
+   ['example','명','예, 사례'],['cause','명/동','원인; 야기하다'],['end','동/명','끝나다; 끝'],
+   ['promise','명/동','약속; 약속하다'],['during','전','~동안'],['below','전/부','아래에'],
+   ['loudly','부','크게, 큰 소리로'],['sometimes','부','가끔, 때때로'],['way','명','법, 방식; 길'],
+   ['a bowl of ~','표현','~ 한 그릇'],['make a fire','표현','불을 피우다'],['play sports','표현','운동을 하다'],
+   ['drop to the ground','표현','땅에 엎드리다'],
+ ]},
+];
+
+/* ⑦ 다의어 · 접미사 */
+const MULTI=[
+ {q:'break — 명사 뜻과 동사 뜻을 각각 쓰세요.',a:'명사: 쉬는 시간, 휴식 / 동사: 깨(지)다, (약속을) 어기다'},
+ {q:'land — 명사 뜻과 동사 뜻을 각각 쓰세요.',a:'명사: 땅, 육지 / 동사: 착지하다, 떨어지다'},
+ {q:'watch — 두 가지 동사 뜻을 쓰세요.',a:'① 보다, 지켜보다 ② 조심하다, 주의하다'},
+ {q:'cover — 동사 뜻과 명사 뜻을 각각 쓰세요.',a:'동사: 가리다, 씌우다, 감싸다 / 명사: 덮개'},
+ {q:'cause — 명사 뜻과 동사 뜻을 각각 쓰세요.',a:'명사: 원인 / 동사: 야기하다, 초래하다'},
+ {q:'keep 의 세 가지 뜻을 쓰세요.',a:'① 보유하다 ② 계속하다 ③ (약속·비밀을) 지키다'},
+ {q:'접미사 -ful 을 붙여 형용사를 만드세요: care → ___ / help → ___ / use → ___',a:'careful / helpful / useful'},
+ {q:'접미사 -ly 를 붙여 부사를 만드세요: careful → ___ / loud → ___ / safe → ___',a:'carefully / loudly / safely'},
+ {q:'명사로 바꾸세요: injure → ___ / safe → ___',a:'injury / safety'},
+ {q:'slip 에서 형용사를 만드세요: slip → ___ (미끄러운)',a:'slippery'},
+];
+
+/* ⑧ 예문 빈칸 (4과 문장 기반) */
+const EX=[
+ {s:'The sidewalk is _______. There is water on it.',a:'slippery',kr:'인도가 미끄러워. 그 위에 물이 있어.'},
+ {s:'You should _______ out for cars.',a:'watch',kr:'너는 차들을 조심해야 해.'},
+ {s:'He jumped but _______ the wrong way.',a:'landed',kr:'그는 점프했지만 잘못 착지했다.'},
+ {s:'He _______ his ankle!',a:'injured',kr:'그는 자신의 발목을 다쳤다!'},
+ {s:'You should drop to the _______.',a:'ground',kr:'너는 땅에 엎드려야 해.'},
+ {s:'We need to know about _______ accidents.',a:'common',kr:'우리는 흔한 사고들에 대해 알 필요가 있다.'},
+ {s:'Sora _______ the hot soup on her arm.',a:'spilled',kr:'소라는 자신의 팔에 뜨거운 국을 쏟았다.'},
+ {s:'Also, you should _______ on to something.',a:'hold',kr:'또한, 너는 무언가를 붙잡아야 해.'},
+ {s:'I will _______ up before I play sports.',a:'warm',kr:'나는 운동을 하기 전에 준비 운동을 할 것이다.'},
+ {s:'You should cover your nose with a wet _______.',a:'cloth',kr:'너는 젖은 천으로 코를 감싸야 해.'},
+];
+
+/* ② 매칭용 (단일 단어 위주, 짧은 뜻) */
+const MATCH=[
+ ['accident','사고'],['injure','다치게 하다'],['injury','부상, 상처'],['bump','부딪치다'],
+ ['slip','미끄러지다'],['slippery','미끄러운'],['spill','쏟다, 흘리다'],['safety','안전'],
+ ['careful','조심하는'],['carefully','조심스럽게'],['watch','보다; 조심하다'],['cover','가리다, 씌우다'],
+ ['hold','잡다, 들다'],['hallway','복도'],['sidewalk','인도, 보도'],['crosswalk','횡단보도'],
+ ['stair','계단'],['cross','건너다'],['walk','걷다'],['happen','발생하다'],
+ ['common','흔한'],['remember','기억하다'],['cause','원인; 야기하다'],['example','예, 사례'],
+ ['learn','배우다'],['follow','따르다'],['loudly','크게'],['earthquake','지진'],
+];
+/* ③ 영→한 */
+const E2K=[['injure','다치게 하다'],['common','흔한'],['accident','사고'],['slippery','미끄러운'],
+ ['carefully','조심스럽게'],['remember','기억하다'],['cause','원인; 야기하다'],['follow','따라가다; 따르다'],
+ ['cover','가리다, 씌우다'],['cross','건너다, 가로지르다'],['spill','쏟다, 흘리다'],['happen','발생하다']];
+/* ④ 한→영 */
+const K2E=[['안전','safety'],['복도','hallway'],['손가락','finger'],['지진','earthquake'],
+ ['계단','stair'],['횡단보도','crosswalk'],['인도, 보도','sidewalk'],['부상, 상처','injury'],
+ ['예, 사례','example'],['흔한','common'],['미끄러운','slippery'],['기억하다','remember']];
+/* ⑤ 유의어·반의어 */
+const SYNANT=[
+ {q:'injure 의 유의어 2개는? (= ___, ___)',a:'hurt, harm',type:'syn'},
+ {q:'happen 의 유의어는? (= ___)',a:'occur',type:'syn'},
+ {q:'common 의 유의어 2개는? (= ___, ___)',a:'usual, frequent',type:'syn'},
+ {q:'accident 의 유의어는? (= ___)',a:'crash',type:'syn'},
+ {q:'remember 의 유의어 2개는? (= ___, ___)',a:'recall, memorize',type:'syn'},
+ {q:'hold on to 의 유의어 2개는? (= ___, ___)',a:'grab, grip',type:'syn'},
+ {q:'slow down 의 유의어는? (= ___)',a:'decelerate',type:'syn'},
+ {q:'safety 의 반의어는? (↔ ___)',a:'danger',type:'ant'},
+ {q:'careful 의 반의어는? (↔ ___)',a:'careless',type:'ant'},
+ {q:'common 의 반의어 2개는? (↔ ___, ___)',a:'rare, uncommon',type:'ant'},
+ {q:'remember 의 반의어는? (↔ ___)',a:'forget',type:'ant'},
+ {q:'slow down 의 반의어는? (↔ speed ___)',a:'up',type:'ant'},
+];
+
+/* 영영풀이 풀 */
+const DEF=[...VOCAB.filter(v=>v.def).map(v=>[v.def,v.en]), ...EXTRA_DEF.map(d=>[d.def,d.en])];
+
+/* ===================== TTS ===================== */
+let voices=[], engVoice=null, ttsReady=false;
+function loadVoices(){if(!window.speechSynthesis)return;voices=speechSynthesis.getVoices();
+  engVoice=voices.find(v=>v.lang==='en-US'&&/google us|female|samantha|aria|zira|jenny/i.test(v.name))
+    ||voices.find(v=>v.lang==='en-US')||voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith('en'))||null;}
+if(window.speechSynthesis){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;}
+function unlockTTS(){if(ttsReady||!window.speechSynthesis)return;try{const u=new SpeechSynthesisUtterance('');u.volume=0;speechSynthesis.speak(u);ttsReady=true;}catch(e){}}
+document.addEventListener('touchstart',unlockTTS,{once:true});document.addEventListener('click',unlockTTS,{once:true});
+function speak(text,btn){
+  if(!window.speechSynthesis)return;
+  speechSynthesis.cancel();
+  document.querySelectorAll('.snd-btn.playing').forEach(b=>{b.classList.remove('playing');const ic=b.querySelector('.snd-icon');if(ic)ic.textContent='🔊';});
+  const u=new SpeechSynthesisUtterance(String(text).replace(/~|\bA\b|\bB\b/g,'').replace(/\s+/g,' ').trim());
+  u.lang='en-US';u.rate=0.9;if(engVoice)u.voice=engVoice;
+  if(btn){const ic=btn.querySelector('.snd-icon');btn.classList.add('playing');if(ic)ic.textContent='⏹';
+    u.onend=u.onerror=()=>{btn.classList.remove('playing');if(ic)ic.textContent='🔊';};}
+  speechSynthesis.speak(u);
+}
+function sndBtn(text){const b=document.createElement('button');b.className='snd-btn';b.type='button';b.innerHTML='<span class="snd-icon">🔊</span>';b.title='듣기';b.onclick=()=>speak(text,b);return b;}
+function ansBtn(targetEl,onReveal){const b=document.createElement('button');b.className='ans-btn';b.type='button';b.textContent='정답 보기';
+  b.onclick=()=>{const open=targetEl.classList.toggle('open');b.textContent=open?'정답 숨기기':'정답 보기';if(open&&onReveal)onReveal();};return b;}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function normEn(s){return String(s).toLowerCase().replace(/[.,!?;:"'’]/g,'').replace(/\s+/g,' ').trim();}
+function normKr(s){return String(s).replace(/[\s,;()]+/g,'').trim();}
+function normSet(s){return String(s).toLowerCase().replace(/[^a-z, ]/g,'').split(/[, ]+/).filter(Boolean).sort().join(',');}
+
+/* ===================== ① 단어 목록 ===================== */
+function buildVocab(){
+  const wrap=document.getElementById('vocabList');
+  GROUPS.forEach(group=>{
+    const lab=document.createElement('div');lab.className='cat-label '+group.cls;lab.textContent=group.cat;wrap.appendChild(lab);
+    const grid=document.createElement('div');grid.className='vocab-grid';
+    group.words.forEach(([en,pos,kr])=>{
+      const row=document.createElement('div');row.className='vocab-row';
+      const e=document.createElement('span');e.className='vocab-en';e.textContent=en;
+      const p=document.createElement('span');p.className='vocab-pos';p.textContent=pos;
+      const k=document.createElement('span');k.className='vocab-kr';k.textContent=kr;
+      row.append(sndBtn(en),e,p,k);
+      grid.appendChild(row);
+    });
+    wrap.appendChild(grid);
+  });
+}
+/* ===================== 공통: 점검바 (전체채점 + 틀린것만다시) ===================== */
+function btn(txt,cls){const b=document.createElement('button');b.className=cls;b.type='button';b.textContent=txt;return b;}
+/* items: [{row, grade()->bool, reset()}] · grade는 시각표시까지 하고 정/오 반환 */
+function attachCheckBar(barId, items, scoreId){
+  const bar=document.getElementById(barId);bar.innerHTML='';
+  const pill=document.createElement('span');pill.className='result-pill';pill.style.display='none';
+  const gradeBtn=btn('전체 채점','check-btn grade');
+  const retryBtn=btn('❌ 틀린 것만 다시','check-btn retry');retryBtn.disabled=true;
+  const showAllBtn=btn('전체 보기','check-btn reset');showAllBtn.style.display='none';
+  function refreshScore(){
+    const ok=items.filter(it=>it._ok).length;const all=items.length;
+    pill.style.display='inline-block';pill.className='result-pill '+(ok===all?'good':'bad');
+    pill.textContent=`${ok} / ${all} 정답`;
+    retryBtn.disabled=(ok===all);
+    if(scoreId)document.getElementById(scoreId).textContent=`${ok} / ${all}`;
+  }
+  gradeBtn.onclick=()=>{items.forEach(it=>{if(!it.row.classList.contains('hide'))it._ok=it.grade();});refreshScore();};
+  retryBtn.onclick=()=>{
+    items.forEach(it=>{if(it._ok){it.row.classList.add('hide');}else{it.row.classList.remove('hide');it.reset();}});
+    showAllBtn.style.display='inline-block';pill.style.display='none';
+    const left=items.filter(it=>!it._ok).length;
+    pill.style.display='inline-block';pill.className='result-pill bad';pill.textContent=`틀린 ${left}문제만 다시 풀어요`;
+  };
+  showAllBtn.onclick=()=>{items.forEach(it=>it.row.classList.remove('hide'));pill.style.display='none';};
+  bar.append(gradeBtn,retryBtn,showAllBtn,pill);
+  bar._refreshScore=refreshScore; // 개별 확인 시 호출용
+  return {refreshScore};
+}
+
+/* ===================== ②⑥ 매칭형 (select) ===================== */
+function buildMatchSection(data, listId, barId, scoreId){
+  const list=document.getElementById(listId);list.innerHTML='';
+  const opts=shuffle(data.map(d=>d[1]));
+  document.getElementById(scoreId).textContent='0 / '+data.length;
+  const items=[];
+  data.forEach((d,i)=>{
+    const row=document.createElement('div');row.className='match-q';
+    const num=document.createElement('span');num.className='match-num';num.textContent=(i+1);
+    const en=document.createElement('span');en.className='match-en';en.textContent=d[0];
+    const sel=document.createElement('select');sel.className='match-sel';
+    sel.innerHTML='<option value="">— 선택 —</option>'+opts.map(o=>`<option>${o}</option>`).join('');
+    const res=document.createElement('span');res.className='match-result';
+    const chk=btn('확인','mini-btn');
+    const item={row,_ok:false,
+      grade(){const ok=sel.value===d[1];res.style.display='inline-block';
+        if(ok){res.textContent='○ 정답';res.className='match-result mr-ok';}
+        else{res.textContent='✕ '+d[1];res.className='match-result mr-no';}
+        return ok;},
+      reset(){sel.value='';res.style.display='none';}};
+    chk.onclick=()=>{item._ok=item.grade();const ok=items.filter(x=>x._ok).length;document.getElementById(scoreId).textContent=`${ok} / ${data.length}`;};
+    row.append(num,sndBtn(d[0]),en,sel,chk,res);list.appendChild(row);
+    items.push(item);
+  });
+  attachCheckBar(barId, items, scoreId);
+}
+/* ===================== ③④⑤⑧ 입력형 ===================== */
+/* mode: 'e2k'(영→한) | 'k2e'(한→영) | 'syn' | 'ex' */
+function gradeInput(mode,val,ans){
+  val=val.trim();if(!val)return false;
+  if(mode==='e2k'){const a=normKr(ans),v=normKr(val);
+    if(v===a)return true;
+    if(ans.split(/[;,]/).some(p=>normKr(p)===v&&v.length>0))return true;
+    return v.length>=2&&a.includes(v);}
+  if(mode==='syn')return normSet(val)===normSet(ans);
+  return normEn(val)===normEn(ans); // k2e, ex
+}
+function buildFill(data, listId, barId, mode){
+  const list=document.getElementById(listId);list.innerHTML='';
+  const items=[];
+  data.forEach((d,i)=>{
+    const isSyn=mode==='syn', isEx=mode==='ex';
+    const q=isSyn?d.q:(isEx?d.s:d[0]);
+    const a=isSyn?d.a:(isEx?d.a:d[1]);
+    const row=document.createElement('div');row.className='q-item';
+    const num=document.createElement('div');num.className='q-num';
+    num.innerHTML=isSyn?(d.type==='syn'?'<span style="color:#0fa3a3">유의어</span> ':'<span style="color:#e17055">반의어</span> ')+(i+1):(i+1);
+    if(isEx){const krd=document.createElement('div');krd.style.cssText='font-size:12px;color:#aaa;margin-bottom:4px';krd.textContent=d.kr;row.appendChild(num);row.appendChild(krd);}
+    else row.appendChild(num);
+    const prompt=document.createElement('div');prompt.className='q-prompt';
+    const inp=document.createElement('input');inp.className='q-input';inp.type='text';inp.autocomplete='off';inp.spellcheck=false;
+    if(isEx){const parts=d.s.split('_______');inp.style.minWidth='110px';inp.placeholder='___';
+      prompt.append(document.createTextNode(parts[0]));prompt.appendChild(inp);prompt.append(document.createTextNode(parts[1]||''));}
+    else if(isSyn){inp.style.minWidth='220px';inp.placeholder='답 입력';prompt.textContent=d.q;}
+    else{inp.placeholder=mode==='e2k'?'한글 뜻':'영어 단어';inp.style.minWidth='150px';
+      prompt.append(document.createTextNode(q+'  →  '));prompt.appendChild(inp);}
+    const btns=document.createElement('div');btns.className='q-btns';
+    const chk=btn('채점','mini-btn');
+    const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent='정답: '+a;
+    const item={row,_ok:false,
+      grade(){const ok=gradeInput(mode,inp.value,a);inp.classList.remove('correct','wrong');inp.classList.add(ok?'correct':'wrong');return ok;},
+      reset(){inp.value='';inp.classList.remove('correct','wrong');}};
+    chk.onclick=()=>{item._ok=item.grade();};
+    const ab=ansBtn(reveal,()=>{inp.value=a;inp.classList.add('correct');item._ok=true;});
+    // 듣기: e2k는 영어(q), k2e/ex는 정답(영어)
+    const sb=isEx?sndBtn(d.s.replace('_______',a)):(mode==='e2k'?sndBtn(q):(mode==='k2e'?sndBtn(a):null));
+    if(isSyn)btns.append(inp); // syn은 prompt에 input이 없으므로 버튼줄에 추가
+    btns.append(chk);if(sb)btns.append(sb);btns.append(ab);
+    if(isSyn){row.appendChild(prompt);row.appendChild(btns);}
+    else if(isEx){row.appendChild(prompt);row.appendChild(btns);}
+    else{row.appendChild(prompt);row.appendChild(btns);}
+    row.appendChild(reveal);
+    list.appendChild(row);items.push(item);
+  });
+  attachCheckBar(barId, items);
+}
+
+/* ===================== ⑦ 다의어·접미사 (정답 토글) ===================== */
+function buildMulti(){
+  const list=document.getElementById('multiList');
+  MULTI.forEach((d,i)=>{
+    const div=document.createElement('div');div.className='q-item';
+    const num=document.createElement('div');num.className='q-num';num.textContent=(i+1);
+    const prompt=document.createElement('div');prompt.className='q-prompt';prompt.textContent=d.q;
+    const inp=document.createElement('input');inp.className='q-input';inp.type='text';inp.style.minWidth='260px';inp.placeholder='답을 적어보세요';inp.autocomplete='off';
+    const btns=document.createElement('div');btns.className='q-btns';
+    const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent='정답: '+d.a;
+    btns.append(inp,ansBtn(reveal));
+    div.append(num,prompt,btns,reveal);list.appendChild(div);
+  });
+}
+
+/* ===================== ⑧ 예문 word bank ===================== */
+function buildExBank(){
+  document.getElementById('exBank').innerHTML='<strong>Word Bank</strong> &nbsp;|&nbsp; '+shuffle(EX.map(e=>e.a)).join(' &nbsp;·&nbsp; ');
+}
+
+/* ===================== 초기화 ===================== */
+buildVocab();
+buildMatchSection(MATCH,'matchList','matchCheck','matchScore');
+buildFill(E2K,'e2kList','e2kCheck','e2k');
+buildFill(K2E,'k2eList','k2eCheck','k2e');
+buildFill(SYNANT,'synAntList','synAntCheck','syn');
+buildMatchSection(DEF,'defList','defCheck','defScore');
+buildMulti();
+buildExBank();
+buildFill(EX,'exList','exCheck','ex');
+</script>
+</body>
+</html>
