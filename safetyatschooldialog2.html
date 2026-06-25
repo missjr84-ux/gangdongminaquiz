@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stay Safe at School · 대화문</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F7F8;--card:#FFFFFF;--ink:#16323B;--sub:#5E7178;--line:#DCE6E7;
+  --root:#0E6E8C;--root-bg:#E2F0F4;--b:#B8860B;--b-bg:#FEF8E1;--c:#1E7A6B;--c-bg:#E1F0EC;
+  --d:#C84F2F;--d-bg:#FBE8E0;--e:#4F73B3;--e-bg:#E7EEF8;
+  --hl:#9FE7DC;--ok:#1E7A6B;--bad:#C0392B;--r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:'IBM Plex Sans KR',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;
+  background-image:radial-gradient(#dde9ea 1px,transparent 1px);background-size:26px 26px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px 90px}
+header{padding:30px 0 8px;text-align:center}
+.eyebrow{display:inline-block;font-size:.76rem;font-weight:700;letter-spacing:.04em;color:var(--root);border:1.5px solid var(--root);border-radius:999px;padding:3px 14px;margin-bottom:12px;background:#fff}
+h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(1.55rem,5vw,2.2rem);line-height:1.25;font-weight:400}
+h1 .mark{background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 5px}
+.tagline{color:var(--sub);margin-top:9px;font-size:.92rem}
+
+/* phase 탭 */
+.phasebar{position:sticky;top:0;z-index:60;background:rgba(243,247,248,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin:18px -16px 0;padding:10px 6px}
+.phases{display:flex;justify-content:center;gap:6px;max-width:780px;margin:0 auto}
+.phase{flex:1;max-width:230px;border:none;background:#fff;cursor:pointer;font-family:inherit;border:2px solid var(--line);border-radius:12px;padding:9px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;transition:.2s}
+.phase .pi{font-size:1.15rem}
+.phase .pt{font-size:.72rem;font-weight:700;color:var(--sub);white-space:nowrap}
+.phase .pn{font-size:.62rem;color:var(--sub)}
+.phase.cur{border-color:var(--root);background:var(--root-bg)}
+.phase.cur .pt{color:var(--root)}
+.phase.done{border-color:var(--c)}
+.phase.done .pi::after{content:' ✓';color:var(--c)}
+.phasewrap{display:none;animation:fadeUp .4s ease}.phasewrap.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+h2.stitle{font-family:'Black Han Sans',sans-serif;font-weight:400;font-size:1.4rem;margin:22px 0 4px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.ssub{color:var(--sub);font-size:.92rem;margin-bottom:14px}
+.secprog{font-size:.82rem;font-weight:700;color:var(--root);background:var(--root-bg);border-radius:999px;padding:4px 13px;display:inline-block;margin-bottom:14px}
+
+/* 대화 스텝퍼 (9세트) */
+.stepper{position:sticky;top:64px;z-index:50;background:rgba(243,247,248,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin:0 -16px 0;padding:9px 6px}
+.steps{display:flex;justify-content:center;gap:3px;max-width:780px;margin:0 auto;flex-wrap:wrap}
+.step{flex:0 1 auto;border:none;background:transparent;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 4px;border-radius:10px;min-width:44px}
+.step .dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;background:#fff;border:2px solid var(--line);transition:.25s}
+.step .lb{font-size:.56rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.step.cur .dot{border-color:var(--ink);box-shadow:0 0 0 3px rgba(22,50,59,.12)}
+.step.done .dot{background:var(--c);border-color:var(--c);color:#fff}
+.step.locked{opacity:.4;cursor:not-allowed}
+.stage{display:none;animation:fadeUp .4s ease}.stage.show{display:block}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:17px 19px;margin:13px 0;box-shadow:0 1px 3px rgba(20,40,45,.05)}
+.dlghead{display:flex;align-items:center;gap:9px;margin:6px 0 12px}
+.dlghead .ic{font-size:1.4rem}
+.dlghead .tt{font-family:'Black Han Sans';font-weight:400;font-size:1.15rem}
+.dlghead .dt{font-size:.72rem;font-weight:700;color:#fff;background:var(--e);border-radius:999px;padding:2px 10px}
+
+/* 말풍선 */
+.bubble{max-width:86%;margin:7px 0;padding:11px 15px;border-radius:16px;font-size:1rem;line-height:1.5;position:relative;clear:both}
+.bubble .sp{font-size:.7rem;font-weight:800;letter-spacing:.03em;opacity:.7;display:block;margin-bottom:2px}
+.bubble.left{background:#fff;border:1.5px solid var(--line);border-bottom-left-radius:4px;float:left}
+.bubble.right{background:var(--root-bg);border:1.5px solid var(--root);border-bottom-right-radius:4px;float:right;text-align:left}
+.bubble .en{font-family:'Lora',serif;font-weight:500}
+.bubble .ko{font-size:.84rem;color:var(--sub);margin-top:4px}
+.bubble .spk{margin-top:6px}
+.clearfix::after{content:'';display:block;clear:both}
+
+/* 순서맞추기 */
+.orderpool{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.oitem{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:11px 14px;font-family:inherit;cursor:pointer;text-align:left;transition:.15s;display:flex;align-items:center;gap:10px}
+.oitem:hover{border-color:var(--root);background:var(--root-bg)}
+.oitem .osp{font-size:.68rem;font-weight:800;color:#fff;background:var(--sub);border-radius:6px;padding:2px 7px;flex:none}
+.oitem .oen{font-family:'Lora',serif;font-size:.98rem;font-weight:500}
+.oitem.placed{opacity:.35;pointer-events:none;border-style:dashed}
+.oitem.shake{animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.orderslot{display:flex;flex-direction:column;gap:7px;margin:10px 0;min-height:10px}
+.oslot{border:1.5px solid var(--c);background:var(--c-bg);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;animation:fadeUp .25s}
+.oslot .onum{font-family:'IBM Plex Mono';font-weight:700;font-size:.72rem;color:#fff;background:var(--c);border-radius:6px;padding:2px 8px;flex:none}
+.oslot .oen{font-family:'Lora',serif;font-size:.96rem;color:var(--ok)}
+.oslot .oko{font-size:.78rem;color:var(--sub);width:100%;margin-top:2px}
+
+/* 빈칸 cloze */
+.clozeline{margin:9px 0;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:12px}
+.clozeline .ko{font-size:.92rem;color:var(--sub);margin-bottom:6px}
+.clozeline .en{font-family:'Lora',serif;font-size:1.05rem;line-height:1.7;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.cblank{display:inline-block;min-width:84px;border-bottom:2px solid var(--root);font-family:'Lora',serif;font-size:1rem;padding:1px 6px;background:transparent;text-align:center}
+.cblank:focus{outline:none;background:var(--root-bg)}
+.cblank.ok{border-color:var(--c);color:var(--ok);background:var(--c-bg)}
+.cblank.no{border-color:var(--bad);color:var(--bad);background:#FBE5E1}
+.cloze-fb{display:none;margin-top:8px;font-size:.86rem;padding:8px 12px;border-radius:9px}
+.cloze-fb.show{display:block}
+.cloze-fb.good{background:var(--c-bg);color:var(--ok)}
+.cloze-fb.bad{background:#FBE5E1;color:var(--bad)}
+
+/* 영작 (라이팅 엔진) */
+.cn{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap}
+.cn .num{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:.74rem;color:#fff;background:var(--root);border-radius:6px;padding:2px 9px}
+.cn .gtag{font-size:.7rem;font-weight:700;color:var(--e);background:var(--e-bg);border-radius:999px;padding:2px 9px}
+.cn .star{margin-left:auto;font-size:.95rem}
+.ko-w{font-size:1.1rem;font-weight:600;line-height:1.6;margin-bottom:10px}
+.hintrow{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:9px}
+.hbtn{border:1.5px solid var(--line);background:#fff;color:var(--sub);border-radius:8px;padding:5px 11px;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer}
+.hbtn:hover{border-color:var(--root);color:var(--root)}
+.hbtn.on{background:var(--root);border-color:var(--root);color:#fff}
+.wc{font-size:.78rem;color:var(--sub);font-family:'IBM Plex Mono',monospace}
+.hintbox{display:none;margin:0 0 9px;padding:9px 12px;background:#F4F8F9;border-radius:9px;font-size:.86rem}
+.hintbox.show{display:block}
+.hintbox .firstletters{font-family:'Lora',serif;font-size:1.05rem;letter-spacing:.04em;color:var(--root)}
+.hintbox .kw{display:inline-block;margin:2px 8px 2px 0}
+.hintbox .kw b{font-family:'Lora',serif;color:var(--ink)}
+.inrow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap}
+.einput{flex:1;min-width:200px;font-family:'Lora',serif;font-size:1.05rem;padding:10px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+.einput:focus{outline:none;border-color:var(--root)}
+.gradeb{border:none;background:var(--ink);color:#fff;border-radius:10px;padding:10px 20px;font-family:inherit;font-weight:700;font-size:.92rem;cursor:pointer;white-space:nowrap}
+.gradeb:hover{background:#0c252c}
+.result{display:none;margin-top:11px}.result.show{display:block}
+.tokens{font-family:'Lora',serif;font-size:1.06rem;line-height:1.95;margin-bottom:6px}
+.tok{padding:1px 5px;border-radius:5px;margin:0 1px}
+.tok.ok{background:var(--c-bg);color:var(--ok)}
+.tok.no{background:#FBE5E1;color:var(--bad);text-decoration:line-through}
+.tok.miss{background:#FBE5E1;color:var(--bad);opacity:.6}
+.scoreline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0}
+.scorepct{font-family:'Black Han Sans',sans-serif;font-size:1.3rem}
+.spk{border:1.5px solid var(--line);background:#fff;border-radius:999px;width:34px;height:34px;cursor:pointer;font-size:.95rem;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.spk:hover{border-color:var(--ink)}.spk.playing{background:var(--hl);border-color:var(--ink);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.12)}}
+.model{font-family:'Lora',serif;font-size:1.02rem;background:#F4F8F9;border-left:3px solid var(--c);padding:7px 12px;border-radius:0 8px 8px 0;margin:6px 0}
+.gnote{font-size:.84rem;color:#444;background:var(--b-bg);border-radius:8px;padding:8px 12px;margin-top:6px}
+.gnote b{color:#8a6608}
+
+.btn{font-family:inherit;font-weight:700;font-size:.93rem;border:none;border-radius:11px;padding:11px 22px;cursor:pointer;transition:.2s}
+.btn.primary{background:var(--root);color:#fff;box-shadow:3px 3px 0 rgba(14,110,140,.3)}
+.btn.primary:hover{transform:translate(-1px,-1px)}
+.btn.primary:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:#fff;border:1.5px solid var(--ink);color:var(--ink)}
+.unlock{display:none;align-items:center;gap:10px;margin-top:14px;background:var(--c-bg);border:1.5px solid var(--c);border-radius:12px;padding:12px 16px;font-weight:600}
+.unlock.show{display:flex}
+.bigcta{display:flex;justify-content:center;gap:10px;margin:20px 0;flex-wrap:wrap}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:20px 0 8px;gap:10px}
+.sumcard{background:var(--card);border:2px solid var(--root);border-radius:var(--r);padding:22px;margin:14px 0}
+.sumtotal{text-align:center;margin-bottom:10px}
+.sumtotal .big{font-family:'Black Han Sans';font-size:2.6rem;line-height:1}
+.sumtotal .g{font-weight:700;margin-top:4px;font-size:1.05rem}
+.bars{margin-top:10px}
+.barrow{margin:8px 0}
+.barrow .bl{display:flex;justify-content:space-between;font-size:.83rem;font-weight:700;margin-bottom:3px}
+.barrow .tk{height:12px;background:#E7EFEF;border-radius:99px;overflow:hidden}
+.barrow .fl{height:100%;border-radius:99px;width:0;transition:width .8s ease;background:var(--c)}
+.review-box{background:#FFF7E8;border:2px solid var(--b);border-radius:14px;padding:18px 20px;margin:16px 0}
+.review-box .rh{display:flex;align-items:center;gap:8px;font-weight:800;color:#8a6608;margin-bottom:6px}
+.review-box .rh .pb{background:var(--b);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:999px}
+.empty-review{background:var(--c-bg);border:2px solid var(--c);border-radius:14px;padding:20px;text-align:center;font-weight:700;color:var(--ok)}
+footer{text-align:center;color:var(--sub);font-size:.78rem;margin-top:36px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:11px;font-size:.88rem;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:80}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:520px){.card{padding:14px 14px}.bubble{max-width:92%}.ko-w{font-size:1.05rem}.phase .pn{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">중1 능률(김기택) · Lesson 4 · 대화문</div>
+  <h1>Stay Safe at <span class="mark">School</span></h1>
+  <p class="tagline">① 순서 맞추기 → ② 핵심 표현 → ③ 통문장 영작. 9개 대화를 3단계로 완성.</p>
+</header>
+<nav class="phasebar"><div class="phases" id="phases"></div></nav>
+
+<div class="phasewrap show" id="phase0">
+  <h2 class="stitle">🔀 대화 순서 맞추기</h2>
+  <p class="ssub">뒤섞인 대화를 올바른 순서로 탭하세요. 흐름이 자연스러운지 생각하며!</p>
+  <nav class="stepper"><div class="steps" id="ordSteps"></div></nav>
+  <main id="ordMain"></main>
+</div>
+
+<div class="phasewrap" id="phase1">
+  <h2 class="stitle">🔑 핵심 표현 빈칸</h2>
+  <p class="ssub">해석을 보고 빈칸에 알맞은 영어 표현을 채우세요. (Enter 또는 채점 버튼)</p>
+  <nav class="stepper"><div class="steps" id="clzSteps"></div></nav>
+  <main id="clzMain"></main>
+</div>
+
+<div class="phasewrap" id="phase2">
+  <h2 class="stitle">✍️ 통문장 영작</h2>
+  <p class="ssub">각 대화의 핵심 문장을 한글 보고 영어로. 단어별 채점 · 힌트 · 듣기 · 오답 복습.</p>
+  <nav class="stepper"><div class="steps" id="wrSteps"></div></nav>
+  <main id="wrMain"></main>
+</div>
+
+<footer>Stay Safe at School · 대화문 차세대 · 9개 대화 · 순서/핵심표현/영작</footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ===================== 데이터 ===================== */
+/* ====== 중1 능률(김기택) 4과 · 대화문 9세트 ======
+ 각 line: sp 화자 | en 영어 | ko 해석
+   cloze?: {blank, ans}  → 핵심표현 빈칸 대상
+   write?: {kw, g}       → 통문장 영작 대상 (kw 키워드힌트, g 문법포인트) */
+const DIALOGUES=[
+ {id:'a1',icon:'🚸',title:'Listen & Talk A-1',sub:'미끄러운 인도',
+  lines:[
+   {sp:'B',en:"Be careful, Minji.",ko:"조심해, 민지야."},
+   {sp:'G',en:"Why?",ko:"왜?"},
+   {sp:'B',en:"The sidewalk is slippery.",ko:"인도가 미끄러워.",
+     cloze:{blank:"The sidewalk is ____.",ans:"slippery"},
+     write:{kw:[["sidewalk","인도, 보도"],["slippery","미끄러운"]],g:"be동사 + 형용사. slippery = 미끄러운."}},
+   {sp:'B',en:"There's water on it. You should walk carefully.",ko:"그 위에 물이 있어. 너는 조심히 걸어야 해.",
+     cloze:{blank:"You should walk ____.",ans:"carefully"},
+     write:{kw:[["should","~해야 한다"],["carefully","조심스럽게"]],g:"should + 동사원형. carefully = 부사(조심히)."}},
+   {sp:'G',en:"Okay, I will.",ko:"알았어, 그럴게."},
+  ]},
+ {id:'a2',icon:'🚦',title:'Listen & Talk A-2',sub:'빨간불과 스마트폰',
+  lines:[
+   {sp:'G',en:"David, be careful! It's a red light.",ko:"David, 조심해! 빨간 불이야.",
+     cloze:{blank:"David, ____ ____! It's a red light.",ans:"be careful"}},
+   {sp:'B',en:"Oh, is it? Thanks for telling me.",ko:"오, 그러니? 말해 줘서 고마워."},
+   {sp:'G',en:"You should not use your smartphone when you walk.",ko:"너는 걸을 때 스마트폰을 사용해서는 안 돼.",
+     cloze:{blank:"You ____ ____ use your smartphone when you walk.",ans:"should not"},
+     write:{kw:[["should not","~하면 안 된다"],["when","~할 때"]],g:"should not + 동사원형(금지). when = ~할 때(시간 접속사)."}},
+   {sp:'G',en:"It's dangerous.",ko:"그건 위험해.",
+     cloze:{blank:"It's ____.",ans:"dangerous"}},
+   {sp:'B',en:"Okay, I won't.",ko:"알았어, 안 그럴게.",
+     cloze:{blank:"Okay, I ____.",ans:"won't"}},
+  ]},
+ {id:'a3',icon:'🚗',title:'Listen & Talk A-3',sub:'어린이 보호 구역 과속',
+  lines:[
+   {sp:'W',en:"Jim, be careful!",ko:"Jim, 조심해요!"},
+   {sp:'M',en:"What's the matter?",ko:"무슨 일이에요?",
+     cloze:{blank:"What's the ____?",ans:"matter"}},
+   {sp:'W',en:"You are driving too fast. We are in a school zone.",ko:"당신은 너무 빨리 운전하고 있어요. 우리는 어린이 보호 구역에 있어요.",
+     cloze:{blank:"You are driving too ____. We are in a school ____.",ans:"fast zone"}},
+   {sp:'W',en:"You should slow down.",ko:"당신은 속도를 줄여야 해요.",
+     write:{kw:[["should","~해야 한다"],["slow down","속도를 줄이다"]],g:"should + slow down(구동사: 속도를 줄이다)."}},
+   {sp:'M',en:"Oh, you are right. There are many children around here. Thank you.",ko:"오, 당신 말이 맞아요. 여기 주변에는 어린이들이 많죠. 고마워요."},
+  ]},
+ {id:'b',icon:'🟢',title:'Listen & Talk B',sub:'초록불 기다리기',
+  lines:[
+   {sp:'A',en:"Be careful! It's a red light.",ko:"조심해! 빨간 불이야."},
+   {sp:'B',en:"Oh, thank you.",ko:"오, 고마워."},
+   {sp:'A',en:"You should wait for the green light.",ko:"너는 초록 불을 기다려야 해.",
+     cloze:{blank:"You should ____ ____ the green light.",ans:"wait for"},
+     write:{kw:[["should","~해야 한다"],["wait for","~을 기다리다"]],g:"should + wait for(~을 기다리다)."}},
+   {sp:'B',en:"Okay, I will.",ko:"알았어, 그럴게."},
+  ]},
+ {id:'c',icon:'🚲',title:'Listen & Talk C',sub:'헬멧과 자전거 도로',
+  lines:[
+   {sp:'G',en:"Hi, Lucas.",ko:"안녕, Lucas."},
+   {sp:'B',en:"Hi, Amy. Are you ready to go?",ko:"안녕, Amy. 너는 갈 준비 됐니?",
+     cloze:{blank:"Hi, Amy. Are you ____ to go?",ans:"ready"}},
+   {sp:'G',en:"Sure! But you should put on a helmet first.",ko:"물론이지! 그런데 너는 먼저 헬멧을 써야 해.",
+     cloze:{blank:"But you should ____ ____ a helmet first.",ans:"put on"},
+     write:{kw:[["should","~해야 한다"],["put on","~을 착용하다"],["first","먼저"]],g:"should + put on(~을 착용하다). first = 먼저."}},
+   {sp:'B',en:"Okay, I will.",ko:"알았어, 그럴게."},
+   {sp:'G',en:"And be careful. A car is coming. You should watch out for cars.",ko:"그리고 조심해. 차가 오고 있어. 너는 차들을 조심해야 해.",
+     cloze:{blank:"You should ____ ____ ____ cars.",ans:"watch out for"},
+     write:{kw:[["should","~해야 한다"],["watch out for","~을 조심하다"]],g:"watch out for ~ = ~을 조심하다."}},
+   {sp:'B',en:"Thank you. Oh, look at that sign. There is a bike lane over there.",ko:"고마워. 오, 저 표지판을 봐. 저쪽에 자전거 전용 도로가 있어.",
+     cloze:{blank:"Oh, look at that ____. There is a bike lane over there.",ans:"sign"}},
+   {sp:'G',en:"Yes, I see it. We should ride our bikes in the bike lane.",ko:"응, 보여. 우리는 자전거 전용 도로에서 자전거를 타야 해."},
+   {sp:'B',en:"Okay. Let's go.",ko:"알겠어. 가자."},
+  ]},
+ {id:'d',icon:'⚠️',title:'Listen & Talk D',sub:'안전 표지판',
+  lines:[
+   {sp:'A',en:"Hey, Yuri. Be careful.",ko:"얘, 유리야. 조심해."},
+   {sp:'B',en:"What's the matter, Kihoon?",ko:"무슨 일이니, 기훈아?",
+     cloze:{blank:"What's the ____, Kihoon?",ans:"matter"}},
+   {sp:'A',en:"Look at this safety sign. You should watch your head.",ko:"이 안전 표지판을 봐. 너는 머리를 조심해야 해.",
+     cloze:{blank:"Look at this safety ____. You should watch your ____.",ans:"sign head"},
+     write:{kw:[["safety sign","안전 표지판"],["watch","조심하다"]],g:"watch your head = 머리를 조심하다(watch: 조심하다)."}},
+   {sp:'B',en:"Okay, I will.",ko:"알았어, 그럴게."},
+  ]},
+ {id:'r1',icon:'🔥',title:'Real-Life Communication 1',sub:'화재 안전',
+  lines:[
+   {sp:'B',en:"I learned about fire safety today.",ko:"나는 오늘 화재 안전에 대해 배웠어.",
+     cloze:{blank:"I ____ about fire safety today.",ans:"learned"}},
+   {sp:'G',en:"Oh! Please tell me about it.",ko:"오! 나에게 그것에 대해 말해 줘."},
+   {sp:'B',en:'Sure. When you see a fire, you should call 119 and shout "fire" loudly.',ko:'물론이지. 네가 화재를 볼 때, 너는 119에 전화하고 큰 소리로 "불이야"라고 외쳐야 해.',
+     cloze:{blank:'you should call 119 and ____ "fire" ____.',ans:"shout loudly"},
+     write:{kw:[["should","~해야 한다"],["shout","소리치다"],["loudly","큰 소리로"]],g:"should call ~ and shout ~ : 동사원형 병렬. loudly = 부사."}},
+   {sp:'G',en:"Okay. What should I do next?",ko:"알겠어. 그다음엔 내가 무엇을 해야 하니?"},
+   {sp:'B',en:"You should cover your nose and mouth with a wet cloth. Then you should get outside quickly.",ko:"너는 젖은 천으로 코와 입을 감싸야 해. 그런 다음 너는 빨리 밖으로 나가야 해.",
+     cloze:{blank:"cover your nose and mouth with a ____ ____.",ans:"wet cloth"},
+     write:{kw:[["should","~해야 한다"],["cover","감싸다, 가리다"],["wet cloth","젖은 천"]],g:"cover A with B = B로 A를 감싸다."}},
+   {sp:'G',en:"I understand.",ko:"이해했어.",
+     cloze:{blank:"I ____.",ans:"understand"}},
+   {sp:'B',en:"Also, you should use the stairs.",ko:"또한, 너는 계단을 이용해야 해.",
+     cloze:{blank:"Also, you should use the ____.",ans:"stairs"}},
+   {sp:'G',en:"Okay. I'll remember those tips and be careful during a fire.",ko:"알겠어. 나는 그 수칙들을 기억해서 화재 중에 조심할게."},
+  ]},
+ {id:'r2',icon:'🌍',title:'Real-Life Communication 2',sub:'지진 안전',
+  lines:[
+   {sp:'A',en:"We will make a poster about earthquake safety.",ko:"우리는 지진 안전에 관한 포스터를 만들 거야.",
+     cloze:{blank:"We will make a poster about ____ safety.",ans:"earthquake"}},
+   {sp:'B',en:"Yes. What are some earthquake safety tips?",ko:"그래. 지진 안전 수칙들에는 무엇이 있니?"},
+   {sp:'A',en:"You should drop to the ground. Then you should cover your head.",ko:"너는 땅에 엎드려야 해. 그런 다음 너는 머리를 감싸야 해.",
+     cloze:{blank:"You should ____ ____ ____ ____. Then cover your head.",ans:"drop to the ground"},
+     write:{kw:[["should","~해야 한다"],["drop to the ground","땅에 엎드리다"]],g:"drop to the ground = 땅에 엎드리다."}},
+   {sp:'B',en:"Exactly. Also, you should hold on to something.",ko:"맞아. 또한, 너는 무언가를 붙잡아야 해.",
+     cloze:{blank:"Also, you should ____ ____ ____ something.",ans:"hold on to"},
+     write:{kw:[["should","~해야 한다"],["hold on to","~을 붙잡다"]],g:"hold on to ~ = ~을 붙잡다."}},
+   {sp:'A',en:"Great. Let's remember those tips.",ko:"좋아. 그 수칙들을 기억하자."},
+  ]},
+ {id:'rev',icon:'🏊',title:'Lesson Review',sub:'수영장 안전',
+  lines:[
+   {sp:'B',en:"Let's go swimming in the pool!",ko:"수영장에 수영하러 가자!"},
+   {sp:'G',en:"That's a good idea. But before we go, we should talk about swimming safety tips.",ko:"그거 좋은 생각이야. 하지만 우리는 가기 전에, 수영 안전 수칙들에 대해 이야기해야 해."},
+   {sp:'B',en:"Sure. What are some safety tips for swimming pools?",ko:"물론이지. 수영장 안전 수칙들에는 무엇이 있니?"},
+   {sp:'G',en:"First, you should warm up before swimming.",ko:"먼저, 너는 수영하기 전에 준비 운동을 해야 해.",
+     cloze:{blank:"First, you should ____ ____ before swimming.",ans:"warm up"},
+     write:{kw:[["should","~해야 한다"],["warm up","준비 운동을 하다"],["before","~하기 전에"]],g:"warm up = 준비 운동을 하다. before + 동명사."}},
+   {sp:'B',en:"That's important. What else should I remember?",ko:"그거 중요하지. 그밖에 내가 무엇을 기억해야 하니?",
+     cloze:{blank:"That's ____. What else should I ____?",ans:"important remember"}},
+   {sp:'G',en:"You should not run near the pool. It's slippery.",ko:"너는 수영장 근처에서 뛰면 안 돼. 미끄럽거든.",
+     cloze:{blank:"You should not run near the pool. It's ____.",ans:"slippery"},
+     write:{kw:[["should not","~하면 안 된다"],["near","~ 근처에서"]],g:"should not run = 뛰면 안 된다. near = ~ 근처에."}},
+   {sp:'B',en:"Okay, I won't.",ko:"알았어, 안 그럴게."},
+   {sp:'G',en:"Great! We should always be careful around swimming pools.",ko:"좋아! 우리는 수영장 주변에서 항상 조심해야 해.",
+     write:{kw:[["should","~해야 한다"],["always","항상"],["around","~ 주변에서"]],g:"빈도부사 always는 조동사 뒤. be careful around ~ = ~ 주변에서 조심하다."}},
+  ]},
+];
+
+const NDLG=DIALOGUES.length;
+/* 화자→좌우 배정 (대화별 첫 등장=왼쪽) */
+DIALOGUES.forEach(d=>{const seen={};let n=0;d.sideOf={};
+  d.lines.forEach(l=>{if(!(l.sp in seen)){seen[l.sp]=n%2===0?'left':'right';n++;}d.sideOf[l.sp]=seen[l.sp];});});
+
+/* ===================== 공통 유틸 ===================== */
+let voice=null, ttsReady=false;
+function pickVoice(){if(!('speechSynthesis'in window))return;const vs=speechSynthesis.getVoices();
+  voice=vs.find(v=>v.lang==='en-US'&&/google us|female|samantha|aria|zira|jenny/i.test(v.name))
+    ||vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang&&v.lang.toLowerCase().startsWith('en'))||null;}
+if('speechSynthesis'in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function unlockTTS(){if(ttsReady||!('speechSynthesis'in window))return;try{const u=new SpeechSynthesisUtterance('');u.volume=0;speechSynthesis.speak(u);ttsReady=true;}catch(e){}}
+document.addEventListener('touchstart',unlockTTS,{once:true});document.addEventListener('click',unlockTTS,{once:true});
+function speak(text,btn){if(!('speechSynthesis'in window)){alert('Chrome 브라우저를 권장합니다.');return;}
+  speechSynthesis.cancel();document.querySelectorAll('.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(String(text).replace(/\s+/g,' ').trim());u.lang='en-US';if(voice)u.voice=voice;u.rate=0.9;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);}
+function esc(s){return String(s).replace(/"/g,'&quot;').replace(/'/g,"\\'");}
+function normW(s){return String(s).toLowerCase().replace(/[.,!?;:"'’“”]/g,'').replace(/\s+/g,' ').trim();}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function firstLetters(s){return s.split(/\s+/).map(w=>{let o='';for(let i=0;i<w.length;i++){const ch=w[i];o+=i===0?ch:(/[A-Za-z0-9]/.test(ch)?'_':ch);}return o;}).join(' ');}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),1900);}
+
+/* ===================== phase 시스템 ===================== */
+let phase=0;
+const phaseMeta=[['🔀','순서 맞추기','STEP 1'],['🔑','핵심 표현','STEP 2'],['✍️','통문장 영작','STEP 3']];
+function renderPhases(){
+  document.getElementById('phases').innerHTML=phaseMeta.map((p,i)=>{
+    const done=(i===0&&ordAllDone())||(i===1&&clzAllDone())||(i===2&&wrAllMastered());
+    return `<button class="phase ${i===phase?'cur':''} ${done?'done':''}" onclick="goPhase(${i})">
+      <span class="pi">${p[0]}</span><span class="pt">${p[1]}</span><span class="pn">${p[2]}</span></button>`;}).join('');
+}
+function goPhase(i){
+  phase=i;speechSynthesis&&speechSynthesis.cancel();
+  document.querySelectorAll('.phasewrap').forEach((w,k)=>w.classList.toggle('show',k===i));
+  renderPhases();window.scrollTo({top:0,behavior:'smooth'});
+}
+/* ===================== PHASE 1 : 순서 맞추기 ===================== */
+let ordCur=0, ordMaxUnlocked=0;
+const ordState=DIALOGUES.map(d=>({placed:0,done:false,shuffled:null}));
+function ordAllDone(){return ordState.every(s=>s.done);}
+function renderOrdSteps(){
+  document.getElementById('ordSteps').innerHTML=DIALOGUES.map((d,i)=>{
+    const lock=i>ordMaxUnlocked;
+    return `<button class="step ${i===ordCur?'cur':''} ${ordState[i].done?'done':''} ${lock?'locked':''}" onclick="ordGo(${i})">
+      <span class="dot">${lock?'🔒':ordState[i].done?'✓':d.icon}</span><span class="lb">${i+1}</span></button>`;}).join('');
+}
+function ordGo(i){
+  if(i>ordMaxUnlocked){toast('🔒 이전 대화를 완성하면 열려요!');return;}
+  ordCur=i;speechSynthesis&&speechSynthesis.cancel();renderOrdSteps();renderOrd();
+}
+function renderOrd(){
+  const d=DIALOGUES[ordCur];const st=ordState[ordCur];
+  if(!st.shuffled){ // 섞기(원본 순서 인덱스 보존)
+    let s;do{s=shuffle(d.lines.map((l,i)=>i));}while(d.lines.length>1&&s.every((v,i)=>v===i));
+    st.shuffled=s;st.placed=0;
+  }
+  const main=document.getElementById('ordMain');
+  const poolHTML=st.shuffled.map((origIdx,pos)=>{
+    const l=d.lines[origIdx];const placed=pos<0; // pos는 셔플 위치, placed 여부는 별도
+    return `<button class="oitem" id="oitem-${ordCur}-${origIdx}" data-orig="${origIdx}" onclick="ordPick(${origIdx})">
+      <span class="osp">${l.sp}</span><span class="oen">${l.en}</span></button>`;
+  }).join('');
+  main.innerHTML=`<div class="card">
+    <div class="dlghead"><span class="ic">${d.icon}</span><span class="tt">${d.title}</span><span class="dt">${d.sub}</span></div>
+    <p style="font-size:.84rem;color:var(--sub);margin-bottom:6px">👇 <b>맨 처음 올 말</b>부터 순서대로 탭하세요. (${ordCur+1}/${NDLG})</p>
+    <div class="orderslot" id="oslot-${ordCur}"></div>
+    <div style="border-top:1px dashed var(--line);margin:10px 0"></div>
+    <div class="orderpool" id="opool-${ordCur}">${poolHTML}</div>
+    <div class="unlock" id="ounlock-${ordCur}"></div>
+    <div class="navrow">${ordCur>0?`<button class="btn ghost" onclick="ordGo(${ordCur-1})">← 이전</button>`:'<span></span>'}
+      <button class="btn ghost" onclick="ordReset()">↺ 다시 섞기</button></div>
+  </div>`;
+  // 이미 일부 배치돼있던 상태 복원 안함(리셋 단순화)
+}
+function ordReset(){ordState[ordCur].shuffled=null;ordState[ordCur].placed=0;ordState[ordCur].done=false;renderOrd();renderOrdSteps();renderPhases();}
+function ordPick(origIdx){
+  const d=DIALOGUES[ordCur];const st=ordState[ordCur];
+  const expected=st.placed; // 다음에 와야 할 원본 인덱스
+  const btn=document.getElementById(`oitem-${ordCur}-${origIdx}`);
+  if(origIdx===expected){
+    btn.classList.add('placed');
+    const l=d.lines[origIdx];
+    const slot=document.getElementById(`oslot-${ordCur}`);
+    const div=document.createElement('div');div.className='oslot';
+    div.innerHTML=`<span class="onum">${st.placed+1}</span><span class="oen">${l.sp}: ${l.en}</span>
+      <button class="spk" style="width:28px;height:28px" onclick="speak('${esc(l.en)}',this)">🔊</button>
+      <span class="oko">${l.ko}</span>`;
+    slot.appendChild(div);
+    st.placed++;
+    if(st.placed===d.lines.length){
+      st.done=true;
+      const ub=document.getElementById(`ounlock-${ordCur}`);ub.classList.add('show');
+      if(ordCur<NDLG-1){
+        if(ordCur+1>ordMaxUnlocked)ordMaxUnlocked=ordCur+1;
+        ub.innerHTML=`✅ 순서 완성! <button class="btn primary" style="padding:8px 16px" onclick="ordGo(${ordCur+1})">다음 대화 →</button>`;
+      }else{
+        ub.innerHTML=`🎉 9개 대화 순서 완성! <button class="btn primary" style="padding:8px 16px" onclick="goPhase(1)">핵심 표현으로 →</button>`;
+      }
+      renderOrdSteps();renderPhases();
+    }
+  }else{
+    btn.classList.add('shake');setTimeout(()=>btn.classList.remove('shake'),350);
+    toast('순서가 달라요. 흐름을 다시 생각해 보세요!');
+  }
+}
+/* ===================== PHASE 2 : 핵심 표현 빈칸 ===================== */
+let clzCur=0;
+/* 각 대화의 cloze 줄 인덱스 목록 */
+const clzLines=DIALOGUES.map(d=>d.lines.map((l,i)=>l.cloze?i:-1).filter(i=>i>=0));
+const clzState=DIALOGUES.map((d,di)=>({done:false}));
+function clzAllDone(){return clzState.every(s=>s.done);}
+function renderClzSteps(){
+  document.getElementById('clzSteps').innerHTML=DIALOGUES.map((d,i)=>
+    `<button class="step ${i===clzCur?'cur':''} ${clzState[i].done?'done':''}" onclick="clzGo(${i})">
+      <span class="dot">${clzState[i].done?'✓':d.icon}</span><span class="lb">${i+1}</span></button>`).join('');
+}
+function clzGo(i){clzCur=i;speechSynthesis&&speechSynthesis.cancel();renderClzSteps();renderClz();}
+function blankToInputs(di,lineIdx,blank,ans){
+  const parts=blank.split('____');const answers=ans.split(/\s+/);
+  let html='';let bi=0;
+  parts.forEach((seg,k)=>{
+    html+=seg.replace(/</g,'&lt;');
+    if(k<parts.length-1){
+      html+=`<input class="cblank" id="clz-${di}-${lineIdx}-${bi}" data-ans="${esc(answers[bi]||'')}" autocomplete="off" spellcheck="false"
+        size="${Math.max((answers[bi]||'').length,5)}">`;
+      bi++;
+    }
+  });
+  return html;
+}
+function renderClz(){
+  const d=DIALOGUES[clzCur];const idxs=clzLines[clzCur];
+  const rows=idxs.map(li=>{const l=d.lines[li];
+    return `<div class="clozeline">
+      <div class="ko">${l.sp}: ${l.ko}</div>
+      <div class="en">${blankToInputs(clzCur,li,l.cloze.blank,l.cloze.ans)}
+        <button class="spk" style="width:30px;height:30px" onclick="speak('${esc(l.en)}',this)">🔊</button></div>
+    </div>`;}).join('');
+  document.getElementById('clzMain').innerHTML=`<div class="card">
+    <div class="dlghead"><span class="ic">${d.icon}</span><span class="tt">${d.title}</span><span class="dt">${d.sub}</span></div>
+    <span class="secprog">핵심 표현 ${idxs.length}곳</span>
+    ${rows}
+    <div class="cloze-fb" id="clzfb-${clzCur}"></div>
+    <div class="bigcta"><button class="btn primary" onclick="gradeClz()">채점하기</button></div>
+    <div class="unlock" id="clzunlock-${clzCur}"></div>
+    <div class="navrow">${clzCur>0?`<button class="btn ghost" onclick="clzGo(${clzCur-1})">← 이전</button>`:'<span></span>'}
+      <span style="font-size:.78rem;color:var(--sub)">${clzCur+1} / ${NDLG} 대화</span></div>
+  </div>`;
+}
+function gradeClz(){
+  const d=DIALOGUES[clzCur];const idxs=clzLines[clzCur];
+  let total=0,correct=0,blank=false;
+  idxs.forEach(li=>{
+    const ans=d.lines[li].cloze.ans.split(/\s+/);
+    ans.forEach((a,bi)=>{
+      const el=document.getElementById(`clz-${clzCur}-${li}-${bi}`);if(!el)return;
+      total++;const val=(el.value||'').trim();
+      if(!val)blank=true;
+      el.classList.remove('ok','no');
+      if(normW(val)===normW(a)){el.classList.add('ok');correct++;}
+      else{el.classList.add('no');el.value=val;}
+    });
+  });
+  const fb=document.getElementById(`clzfb-${clzCur}`);
+  const allOk=correct===total;
+  fb.className='cloze-fb show '+(allOk?'good':'bad');
+  fb.innerHTML=allOk?`🎉 ${total}곳 모두 정답!`:`${correct} / ${total} 정답. 빨간 칸을 확인하고 다시 채워보세요.`;
+  if(blank&&!allOk)toast('빈칸을 모두 채워 주세요!');
+  if(allOk){
+    clzState[clzCur].done=true;
+    const ub=document.getElementById(`clzunlock-${clzCur}`);ub.classList.add('show');
+    if(clzCur<NDLG-1)ub.innerHTML=`✅ 완성! <button class="btn primary" style="padding:8px 16px" onclick="clzGo(${clzCur+1})">다음 대화 →</button>`;
+    else ub.innerHTML=`🎉 핵심 표현 완료! <button class="btn primary" style="padding:8px 16px" onclick="goPhase(2)">통문장 영작으로 →</button>`;
+    renderClzSteps();renderPhases();
+  }
+}
+/* ===================== PHASE 3 : 통문장 영작 (라이팅 엔진) ===================== */
+const wrLines=DIALOGUES.map(d=>d.lines.map((l,i)=>l.write?i:-1).filter(i=>i>=0));
+const WST=DIALOGUES.map((d,di)=>wrLines[di].map(()=>({best:0,graded:false,mastered:false})));
+let wrCur=0, wrMaxUnlocked=0;
+function wrAllMastered(){return WST.flat().every(x=>x.mastered);}
+function renderWrSteps(){
+  const total=NDLG;
+  let html=DIALOGUES.map((d,i)=>{
+    const lock=i>wrMaxUnlocked;
+    const done=WST[i].every(x=>x.mastered);
+    return `<button class="step ${i===wrCur?'cur':''} ${done?'done':''} ${lock?'locked':''}" onclick="wrGo(${i})">
+      <span class="dot">${lock?'🔒':done?'✓':d.icon}</span><span class="lb">${i+1}</span></button>`;}).join('');
+  const sumLock=wrCur!==total; const sumDone=wrAllMastered();
+  html+=`<button class="step ${wrCur===total?'cur':''} ${sumDone?'done':''} ${total>wrMaxUnlocked?'locked':''}" onclick="wrGo(${total})">
+    <span class="dot">${total>wrMaxUnlocked?'🔒':sumDone?'✓':'🏁'}</span><span class="lb">종합</span></button>`;
+  document.getElementById('wrSteps').innerHTML=html;
+}
+function wrGo(i){
+  if(i>wrMaxUnlocked){toast('🔒 이전 대화를 모두 영작하면 열려요!');return;}
+  wrCur=i;speechSynthesis&&speechSynthesis.cancel();renderWrSteps();
+  document.querySelectorAll('#wrMain .stage').forEach((s,k)=>s.classList.toggle('show',k===i));
+  if(i===NDLG)renderWrSummary();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function wrCard(di,wi){
+  const li=wrLines[di][wi];const l=DIALOGUES[di].lines[li];const st=WST[di][wi];
+  const star=st.mastered?'⭐':(st.graded?`${st.best}%`:'');
+  return `<div class="card ${st.mastered?'mastered':''}" id="wcard-${di}-${wi}">
+    <div class="cn"><span class="num">${l.sp}</span><span class="gtag">${l.write.g.split('.')[0]}</span>
+      <span class="star" id="wstar-${di}-${wi}">${star}</span></div>
+    <div class="ko-w">${l.ko}</div>
+    <div class="hintrow">
+      <span class="wc">단어 ${l.en.split(/\s+/).length}개</span>
+      <button class="hbtn" onclick="toggleHint('wfl-${di}-${wi}',this)">🔤 첫 글자</button>
+      <button class="hbtn" onclick="toggleHint('wkw-${di}-${wi}',this)">💡 핵심 단어</button>
+    </div>
+    <div class="hintbox" id="wfl-${di}-${wi}"><span class="firstletters">${firstLetters(l.en)}</span></div>
+    <div class="hintbox" id="wkw-${di}-${wi}">${l.write.kw.map(k=>`<span class="kw"><b>${k[0]}</b> ${k[1]}</span>`).join('')}</div>
+    <div class="inrow">
+      <input class="einput" id="win-${di}-${wi}" type="text" placeholder="영어 문장을 쓰세요..." autocomplete="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')gradeWr(${di},${wi})">
+      <button class="gradeb" onclick="gradeWr(${di},${wi})">채점</button>
+    </div>
+    <div class="result" id="wres-${di}-${wi}"></div>
+  </div>`;
+}
+function toggleHint(id,btn){const el=document.getElementById(id);btn.classList.toggle('on',el.classList.toggle('show'));}
+function gradeWr(di,wi){
+  const li=wrLines[di][wi];const l=DIALOGUES[di].lines[li];
+  const val=(document.getElementById(`win-${di}-${wi}`).value||'').trim();
+  if(!val){toast('문장을 입력해 주세요!');return;}
+  const ans=l.en.split(/\s+/),got=val.split(/\s+/);let correct=0;const toks=[];
+  ans.forEach((aw,k)=>{const gw=got[k]||'';const ok=gw&&normW(gw)===normW(aw);if(ok)correct++;
+    toks.push(`<span class="tok ${ok?'ok':(gw?'no':'miss')}">${gw||aw}</span>`);});
+  const pct=Math.round(correct/ans.length*100);
+  const st=WST[di][wi];st.graded=true;st.best=Math.max(st.best,pct);if(pct===100)st.mastered=true;
+  const res=document.getElementById(`wres-${di}-${wi}`);res.className='result show';
+  res.innerHTML=`<div class="tokens">${toks.join(' ')}</div>
+    <div class="scoreline"><span class="scorepct" style="color:${pct===100?'var(--ok)':pct>=60?'var(--b)':'var(--bad)'}">${pct===100?'🎉 100%':pct+'%'}</span>
+      <span style="font-size:.85rem;color:var(--sub)">${correct}/${ans.length} 단어</span>
+      <button class="spk" onclick="speak('${esc(l.en)}',this)">🔊</button></div>
+    <div class="model">정답: ${l.en}</div>
+    <div class="gnote"><b>문법 포인트</b> · ${l.write.g}</div>`;
+  document.getElementById(`wstar-${di}-${wi}`).textContent=st.mastered?'⭐':`${st.best}%`;
+  document.getElementById(`wcard-${di}-${wi}`).classList.toggle('mastered',st.mastered);
+  updateWrProgress(di);
+}
+function updateWrProgress(di){
+  const items=WST[di];const gradedAll=items.every(x=>x.graded);const masteredN=items.filter(x=>x.mastered).length;
+  const pe=document.getElementById(`wprog-${di}`);if(pe)pe.textContent=`완성 ${masteredN} / ${items.length} 문장 ⭐`;
+  if(gradedAll&&di+1>wrMaxUnlocked&&di<NDLG){
+    wrMaxUnlocked=di+1;
+    const ub=document.getElementById(`wunlock-${di}`);if(ub){ub.classList.add('show');
+      if(di<NDLG-1)ub.innerHTML=`다음 대화가 열렸어요! <button class="btn primary" style="padding:8px 16px" onclick="wrGo(${di+1})">${DIALOGUES[di+1].title} →</button>`;
+      else ub.innerHTML=`모든 대화 완료! <button class="btn primary" style="padding:8px 16px" onclick="wrGo(${NDLG})">🏁 종합 결과 →</button>`;}
+  }
+  renderWrSteps();renderPhases();
+}
+/* 종합 + 적응형 복습 */
+let wrq=[];
+function renderWrSummary(){
+  const host=document.getElementById('wrSumBody');const flat=WST.flat();
+  const gradedN=flat.filter(x=>x.graded).length;const totalN=flat.length;
+  if(gradedN<totalN){host.innerHTML=`<div class="empty-review" style="background:#FFF7E8;border-color:var(--b);color:#8a6608">아직 영작하지 않은 문장이 있어요. ${totalN}문장을 모두 채점하면 종합 분석이 완성됩니다. (현재 ${gradedN}/${totalN})</div>`;return;}
+  const masteredN=flat.filter(x=>x.mastered).length;const avg=Math.round(flat.reduce((a,x)=>a+x.best,0)/totalN);
+  const grade=masteredN===totalN?['🥇 완벽! 전체 마스터','모든 문장을 100%로 완성했어요!']
+    :avg>=90?['🥈 훌륭해요','거의 다 왔어요. 남은 문장만 복습!']
+    :avg>=75?['🥉 잘하고 있어요','오답을 복습하면 완성됩니다.']:['🌱 한 번 더!','문법 포인트를 보며 다시 도전해요.'];
+  const bars=DIALOGUES.map((d,i)=>{const m=WST[i].filter(x=>x.mastered).length;const p=Math.round(m/WST[i].length*100);
+    return `<div class="barrow"><div class="bl"><span>${d.icon} ${d.title}</span><span>${m}/${WST[i].length} ⭐ · ${p}%</span></div>
+      <div class="tk"><div class="fl" data-w="${p}%"></div></div></div>`;}).join('');
+  host.innerHTML=`<div class="sumcard"><div class="sumtotal"><div class="big">${masteredN} / ${totalN}</div><div class="g">${grade[0]}</div>
+    <p style="font-size:.9rem;color:var(--sub);margin-top:4px">평균 정확도 ${avg}% · ${grade[1]}</p></div>
+    <div class="bars">${bars}</div></div><div id="wrReviewArea"></div>`;
+  renderWrReview();
+  requestAnimationFrame(()=>setTimeout(()=>host.querySelectorAll('.fl').forEach(f=>f.style.width=f.dataset.w),60));
+}
+function renderWrReview(){
+  const area=document.getElementById('wrReviewArea');if(!area)return;
+  wrq=[];WST.forEach((sec,di)=>sec.forEach((x,wi)=>{if(!x.mastered)wrq.push([di,wi]);}));
+  if(wrq.length===0){area.innerHTML=`<div class="empty-review">🎉 모든 문장을 100% 마스터했어요! 더 복습할 게 없습니다.</div>`;return;}
+  area.innerHTML=`<div class="review-box"><div class="rh"><span class="pb">🔁 ADAPTIVE</span>오답 집중 복습 — 아직 완성 못한 ${wrq.length}문장</div>
+    <p style="font-size:.85rem;color:var(--sub);margin-bottom:8px">100%가 안 된 문장만 모았어요. 100%로 맞히면 빠지고, 틀리면 큐 뒤로.</p>
+    <div id="wrslot"></div></div>`;
+  showWrReview();
+}
+function showWrReview(){
+  const slot=document.getElementById('wrslot');if(!slot)return;
+  if(wrq.length===0){slot.innerHTML=`<div class="empty-review">✅ 복습 완료! 모든 문장을 마스터했어요. 👏</div>`;renderWrSteps();renderPhases();return;}
+  const [di,wi]=wrq[0];const li=wrLines[di][wi];const l=DIALOGUES[di].lines[li];
+  slot.innerHTML=`<div style="font-size:.8rem;color:var(--sub);font-weight:700;margin-bottom:4px">남은 복습 ${wrq.length}문장 · ${DIALOGUES[di].title}</div>
+    <div class="ko-w">${l.ko}</div>
+    <div class="hintrow"><span class="wc">단어 ${l.en.split(/\s+/).length}개</span>
+      <button class="hbtn" onclick="toggleHint('wrfl',this)">🔤 첫 글자</button></div>
+    <div class="hintbox" id="wrfl"><span class="firstletters">${firstLetters(l.en)}</span></div>
+    <div class="inrow"><input class="einput" id="wrin" type="text" placeholder="다시 영작해 보세요..." autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')gradeWrReview()">
+      <button class="gradeb" onclick="gradeWrReview()">채점</button></div>
+    <div class="result" id="wrres"></div>`;
+}
+function gradeWrReview(){
+  const [di,wi]=wrq[0];const li=wrLines[di][wi];const l=DIALOGUES[di].lines[li];
+  const val=(document.getElementById('wrin').value||'').trim();if(!val){toast('문장을 입력해 주세요!');return;}
+  const ans=l.en.split(/\s+/),got=val.split(/\s+/);let correct=0;const toks=[];
+  ans.forEach((aw,k)=>{const gw=got[k]||'';const ok=gw&&normW(gw)===normW(aw);if(ok)correct++;toks.push(`<span class="tok ${ok?'ok':(gw?'no':'miss')}">${gw||aw}</span>`);});
+  const pct=Math.round(correct/ans.length*100);const st=WST[di][wi];st.best=Math.max(st.best,pct);
+  const done=pct===100;if(done)st.mastered=true;
+  const res=document.getElementById('wrres');res.className='result show';
+  res.innerHTML=`<div class="tokens">${toks.join(' ')}</div>
+    <div class="scoreline"><span class="scorepct" style="color:${done?'var(--ok)':'var(--bad)'}">${done?'🎉 100%':pct+'%'}</span>
+      <button class="spk" onclick="speak('${esc(l.en)}',this)">🔊</button></div>
+    <div class="model">정답: ${l.en}</div><div class="gnote"><b>문법 포인트</b> · ${l.write.g}</div>
+    <button class="btn ${done?'primary':'ghost'}" style="margin-top:10px;padding:8px 18px" onclick="wrReviewNext(${done})">${done?'다음 →':'큐 뒤로 보내고 계속 →'}</button>`;
+}
+function wrReviewNext(done){const item=wrq.shift();if(!done)wrq.push(item);showWrReview();if(wrq.length===0)renderWrSummary();renderPhases();}
+function buildWrite(){
+  let html='';
+  DIALOGUES.forEach((d,di)=>{
+    const cards=wrLines[di].map((li,wi)=>wrCard(di,wi)).join('');
+    html+=`<section class="stage ${di===wrCur?'show':''}" id="wst${di}">
+      <div class="dlghead"><span class="ic">${d.icon}</span><span class="tt">${d.title}</span><span class="dt">${d.sub}</span></div>
+      <span class="secprog" id="wprog-${di}">완성 0 / ${wrLines[di].length} 문장 ⭐</span>
+      ${cards}
+      <div class="unlock" id="wunlock-${di}"></div>
+      <div class="navrow">${di>0?`<button class="btn ghost" onclick="wrGo(${di-1})">← 이전</button>`:'<span></span>'}
+        <span style="font-size:.78rem;color:var(--sub)">${di+1} / ${NDLG} 대화</span></div>
+    </section>`;
+  });
+  html+=`<section class="stage ${wrCur===NDLG?'show':''}" id="wst${NDLG}">
+    <h2 class="stitle">🏁 종합 결과</h2>
+    <p class="ssub">전체 핵심 문장을 얼마나 영작했는지 확인하고, 못 맞힌 문장만 복습하세요.</p>
+    <div id="wrSumBody"></div></section>`;
+  document.getElementById('wrMain').innerHTML=html;
+  renderWrSteps();
+}
+
+/* ===================== 초기화 ===================== */
+renderPhases();renderOrdSteps();renderOrd();renderClzSteps();renderClz();buildWrite();
+</script>
+</body>
+</html>
