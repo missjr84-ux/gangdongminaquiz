@@ -1,765 +1,1124 @@
-cat > /mnt/user-data/outputs/4과_Opening_a_Window_학습지.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>4과 Opening a Window to the World — 학습지</title>
+<title>4과 Opening a Window to the World — 독해 심화</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Noto Sans KR',sans-serif;background:#f0efea;color:#1a1a1a;font-size:14px;line-height:1.6;}
-.page{max-width:900px;margin:0 auto;padding:24px 16px;}
-
-/* ── 헤더 ── */
-.doc-header{background:#fff;border-radius:14px;padding:26px 30px 20px;margin-bottom:20px;border:0.5px solid #ddd;}
-.doc-header h1{font-size:21px;font-weight:700;margin-bottom:4px;}
-.doc-header .sub{font-size:12px;color:#999;}
-.meta-row{display:flex;gap:24px;margin-top:14px;flex-wrap:wrap;}
-.meta-item{display:flex;align-items:center;gap:8px;font-size:13px;color:#888;}
-.meta-box{border-bottom:1px solid #aaa;width:130px;height:20px;}
-
-/* ── 섹션 ── */
-.section{background:#fff;border-radius:14px;padding:24px 28px;margin-bottom:20px;border:0.5px solid #ddd;}
-.sec-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;
-  padding-bottom:11px;border-bottom:1.5px solid #1a1a1a;margin-bottom:18px;}
-.sec-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;color:#fff;}
-.b-purple{background:#6c5ce7;}.b-orange{background:#e17055;}.b-blue{background:#0984e3;}
-.b-pink{background:#fd79a8;}.b-green{background:#00b894;}
-
-/* ── 소리 버튼 ── */
-.snd-btn{
-  display:inline-flex;align-items:center;gap:5px;
-  background:none;border:0.5px solid #ccc;border-radius:20px;
-  padding:3px 10px 3px 8px;font-size:12px;color:#555;
-  cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap;
+:root{
+  --bg:#FAFAF7;--card:#FFFFFF;--border:#C4BAF5;--border-lt:#EAE7F8;
+  --ink:#2D2860;--ink2:#4A4299;--sub:#6B6789;--muted:#9B97D3;
+  --purple:#7B6FD4;--purple-lt:#F0EEFF;--purple-bg:#EAE7F8;
+  --ok:#2E7A45;--ok-bg:#E8F4EB;--no:#A03060;--no-bg:#F9E8EE;
+  --amber:#8A5200;--amber-bg:#FFF3DC;
+  --shadow:0 2px 8px rgba(123,111,212,.10),0 0 0 1px #C4BAF5;
+  --r:14px;
 }
-.snd-btn:hover{background:#f0eeff;border-color:#6c5ce7;color:#6c5ce7;}
-.snd-btn.playing{background:#f0eeff;border-color:#6c5ce7;color:#6c5ce7;}
-.snd-icon{font-size:14px;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+.page{max-width:760px;margin:0 auto;padding:18px 16px 80px;}
 
-/* ── 답 보기 버튼 ── */
-.ans-btn{
-  display:inline-flex;align-items:center;gap:5px;
-  background:none;border:0.5px solid #ccc;border-radius:20px;
-  padding:3px 12px;font-size:12px;color:#888;
-  cursor:pointer;font-family:inherit;transition:all .15s;
-}
-.ans-btn:hover{background:#f0fef7;border-color:#00b894;color:#00b894;}
-.ans-reveal{
-  display:none;margin-top:8px;padding:8px 12px;
-  background:#f0fef7;border-radius:8px;border:0.5px solid #b2e8d0;
-  font-size:13px;color:#056b47;line-height:1.7;
-}
+/* 헤더 */
+.doc-head{background:var(--card);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px 22px 16px;margin-bottom:10px;}
+.doc-head h1{font-size:18px;font-weight:900;color:var(--ink);margin-bottom:2px;}
+.doc-head .sub{font-size:12px;color:var(--sub);}
+.meta-row{display:flex;gap:18px;margin-top:12px;flex-wrap:wrap;}
+.meta-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--sub);}
+.meta-line{border-bottom:1.5px solid var(--ink2);width:100px;height:18px;}
+
+/* 단계 진행바 */
+.step-rail{display:flex;gap:0;margin:14px 0 0;border-radius:10px;overflow:hidden;border:1px solid var(--border-lt);}
+.step-pip{flex:1;padding:7px 4px;text-align:center;font-size:11px;font-weight:700;color:var(--muted);background:var(--bg);border-right:1px solid var(--border-lt);cursor:default;transition:.2s;line-height:1.3;}
+.step-pip:last-child{border-right:none;}
+.step-pip.unlocked{cursor:pointer;color:var(--ink2);}
+.step-pip.unlocked:hover{background:var(--purple-lt);}
+.step-pip.active{background:var(--purple);color:#fff;}
+.step-pip.done{background:var(--ok-bg);color:var(--ok);}
+.step-lv{font-size:9px;display:block;opacity:.8;margin-top:2px;}
+
+/* 섹션 */
+.sec{background:var(--card);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px 22px;margin-bottom:10px;}
+.sec-head{display:flex;align-items:center;gap:9px;padding-bottom:11px;border-bottom:1.5px solid var(--border-lt);margin-bottom:14px;flex-wrap:wrap;}
+.sec-badge{font-size:11px;font-weight:700;padding:3px 11px;border-radius:99px;color:#fff;flex-shrink:0;}
+.b1{background:#7B6FD4;}.b2{background:#5B9E72;}.b3{background:#4A4299;}
+.b4{background:#8A5200;}.b4{background:#8A5200;}.b5{background:#A03060;}.b5r{background:#1A6A9A;}.b6{background:#2D7A6F;}
+.sec-title{font-size:14px;font-weight:700;color:var(--ink);}
+.sec-desc{font-size:12px;color:var(--muted);margin:-8px 0 12px;}
+.level-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;margin-left:auto;flex-shrink:0;}
+.lv-kr{background:#EAE7F8;color:var(--purple);}
+.lv-en{background:#E8F4EB;color:var(--ok);}
+.lv-write{background:#FFF3DC;color:var(--amber);}.lv-inf{background:#E8F4FB;color:#1A6A9A;}
+
+/* 잠금 카드 */
+.lock-card{background:var(--card);border-radius:var(--r);border:1px solid var(--border-lt);padding:28px 22px;text-align:center;color:var(--muted);margin-bottom:10px;}
+.lock-card .lock-icon{font-size:26px;margin-bottom:7px;}
+.lock-card .lock-msg{font-weight:700;color:var(--sub);margin-bottom:3px;}
+
+/* 단락 그룹 */
+.para-group{margin-bottom:20px;}
+.para-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:3px 12px;border-radius:6px;margin-bottom:10px;}
+.pt-intro{background:#EAE7F8;color:var(--purple);}
+.pt-turkey{background:#FFF3DC;color:var(--amber);}
+.pt-thai{background:#E8F4EB;color:var(--ok);}
+.pt-nl{background:#E8F4FB;color:#1A6A9A;}
+
+/* 흐름 정리 테이블 */
+.flow-tbl{width:100%;border-collapse:collapse;margin-bottom:6px;}
+.flow-tbl td{padding:6px 8px;border-bottom:1px solid var(--border-lt);vertical-align:top;font-size:13px;}
+.flow-tbl tr:last-child td{border-bottom:none;}
+.flow-tbl .fnum{width:28px;font-weight:700;color:var(--muted);text-align:center;font-family:'Lora',serif;}
+.flow-tbl .fkr{line-height:1.65;}
+.flow-summary{background:var(--purple-lt);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--ink2);margin-top:6px;border:1px solid var(--border-lt);}
+.flow-summary b{color:var(--purple);}
+
+/* 소리 버튼 */
+.snd{display:inline-flex;align-items:center;background:none;border:1px solid var(--border-lt);border-radius:99px;padding:3px 9px;font-size:11px;color:var(--sub);cursor:pointer;font-family:inherit;transition:.12s;gap:3px;white-space:nowrap;flex-shrink:0;}
+.snd:hover,.snd.playing{background:var(--purple-lt);border-color:var(--border);color:var(--purple);}
+
+/* 정답 reveal */
+.ans-reveal{display:none;margin-top:7px;padding:7px 11px;background:var(--ok-bg);border-radius:8px;border:1px solid #b2e8d0;font-size:12px;color:var(--ok);line-height:1.65;}
 .ans-reveal.open{display:block;}
 
-/* ── ① 흐름 정리 ── */
-.flow-group{margin-bottom:18px;}
-.flow-tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 11px;border-radius:6px;margin-bottom:8px;}
-.tag-intro{background:#f0eeff;color:#4a3db5;}
-.tag-turkey{background:#fff4e0;color:#8a4f00;}
-.tag-thai{background:#e6f9f1;color:#056b47;}
-.tag-nl{background:#e6f1ff;color:#0a3d91;}
-.flow-table{width:100%;border-collapse:collapse;}
-.flow-table td{padding:6px 8px;border-bottom:0.5px solid #f0f0f0;vertical-align:top;font-size:13.5px;}
-.flow-table td:first-child{width:32px;font-weight:700;color:#aaa;text-align:center;}
-.flow-table td .row-inner{display:flex;align-items:center;justify-content:space-between;gap:8px;}
-.flow-table td .row-inner span{flex:1;}
-.flow-table tr:last-child td{border-bottom:none;}
-.flow-summary{background:#f8f8f5;font-size:12px;color:#555;padding:7px 12px;border-radius:6px;margin-top:6px;}
+/* 연결어/주제문 분석 */
+.analysis-item{margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border-lt);}
+.analysis-item:last-child{border-bottom:none;margin-bottom:0;}
+.a-label{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;display:inline-block;margin-bottom:6px;}
+.a-conn{background:#FFF3DC;color:var(--amber);}
+.a-topic{background:var(--purple-lt);color:var(--purple);}
+.a-intent{background:#E8F4EB;color:var(--ok);}
+.a-q{font-size:13px;color:var(--ink);margin-bottom:7px;line-height:1.65;}
+.a-q b{color:var(--purple);}
 
-/* ── ② 위치 찾기 ── */
-.quiz-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-@media(max-width:600px){.quiz-grid{grid-template-columns:1fr;}}
-.quiz-card{border:0.5px solid #e8e8e8;border-radius:10px;padding:13px 15px;}
-.quiz-qnum{font-size:11px;font-weight:700;color:#aaa;margin-bottom:5px;}
-.quiz-kr{font-size:13.5px;line-height:1.65;margin-bottom:10px;}
-.quiz-bottom{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.quiz-input-label{font-size:12px;color:#aaa;}
-.quiz-input{
-  width:52px;padding:4px 8px;
-  border:0.5px solid #ccc;border-radius:6px;
-  font-size:13px;text-align:center;font-family:inherit;
-  color:#1a1a1a;background:#fff;
-}
-.quiz-check{
-  padding:4px 12px;border:0.5px solid #ccc;border-radius:20px;
-  font-size:12px;cursor:pointer;font-family:inherit;background:#fff;color:#555;
-}
-.quiz-check:hover{background:#fff4e0;border-color:#e17055;color:#e17055;}
-.quiz-result{font-size:12px;font-weight:700;padding:3px 9px;border-radius:6px;display:none;}
-.quiz-result.ok{background:#e6f9f1;color:#056b47;}
-.quiz-result.no{background:#fce8e8;color:#a32d2d;}
-.quiz-hint-reveal{display:none;font-size:11.5px;color:#aaa;margin-top:6px;}
-.score-bar{background:#f8f8f5;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:14px;margin-bottom:16px;}
-.score-num{font-size:22px;font-weight:700;}
+/* 선택형 */
+.choice-opts{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px;}
+.choice-opt{font-size:12px;font-weight:700;padding:5px 13px;border-radius:99px;border:1.5px solid var(--border-lt);background:var(--bg);color:var(--sub);cursor:pointer;transition:.12s;}
+.choice-opt:hover{border-color:var(--border);color:var(--purple);}
+.choice-opt.ch-ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);}
+.choice-opt.ch-no{background:var(--no-bg);border-color:var(--no);color:var(--no);}
+.choice-opt.ch-reveal{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);opacity:.55;}
+.choice-opt:disabled{cursor:default;}
+.choice-fb{font-size:12px;margin-top:5px;display:none;}
+.choice-fb.show{display:block;}
+.choice-fb.ok{color:var(--ok);}
+.choice-fb.no{color:var(--no);}
 
-/* ── ③ 빈칸 ── */
-.word-bank{background:#e6f1ff;border-radius:8px;padding:10px 14px;font-size:12.5px;color:#0a3d91;margin-bottom:16px;line-height:1.8;}
-.word-bank strong{font-weight:700;}
-.blank-item{margin-bottom:14px;padding-bottom:14px;border-bottom:0.5px solid #f0f0f0;}
+/* 입력형 */
+.q-input{border:none;border-bottom:1.5px solid var(--ink2);padding:3px 5px;font-size:13px;font-family:inherit;background:transparent;color:var(--ink);outline:none;min-width:200px;width:100%;max-width:480px;}
+.q-input:focus{border-bottom-color:var(--purple);}
+.q-input.correct{border-bottom-color:var(--ok);color:var(--ok);}
+.q-input.wrong{border-bottom-color:var(--no);color:var(--no);}
+.q-btns{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap;align-items:center;}
+.mini-btn{padding:5px 12px;border:1px solid var(--border-lt);border-radius:99px;font-size:12px;cursor:pointer;font-family:inherit;background:var(--card);color:var(--sub);}
+.mini-btn:hover{background:var(--purple-lt);border-color:var(--border);color:var(--purple);}
+
+/* 빈칸 채우기 */
+.blank-sent{font-family:'Lora',serif;font-size:14px;line-height:2.1;color:var(--ink);margin-bottom:5px;}
+.blank-sent .b-inp{border:none;border-bottom:1.5px solid var(--ink2);padding:0 4px;font-size:13px;font-family:'Lora',serif;background:transparent;color:var(--ink);outline:none;vertical-align:bottom;}
+.blank-sent .b-inp:focus{border-bottom-color:var(--purple);}
+.blank-sent .b-inp.ok{border-bottom-color:var(--ok);color:var(--ok);}
+.blank-sent .b-inp.no{border-bottom-color:var(--no);color:var(--no);}
+.blank-num{font-size:11px;font-weight:700;color:var(--purple);margin-bottom:4px;}
+.blank-kr{font-size:12px;color:var(--muted);margin-bottom:5px;}
+.blank-item{margin-bottom:13px;padding-bottom:13px;border-bottom:1px solid var(--border-lt);}
 .blank-item:last-child{border-bottom:none;margin-bottom:0;}
-.blank-num{font-size:11px;font-weight:700;color:#0984e3;margin-bottom:3px;}
-.blank-kr{font-size:12px;color:#aaa;margin-bottom:5px;}
-.blank-en{font-size:14px;line-height:1.9;}
-.blank-en input{
-  border:none;border-bottom:1.5px solid #333;
-  width:90px;padding:0 4px;font-size:13px;font-family:inherit;
-  background:transparent;color:#1a1a1a;outline:none;
-  vertical-align:bottom;
-}
-.blank-en input:focus{border-bottom-color:#0984e3;}
-.blank-en input.correct{border-bottom-color:#00b894;background:#f0fef7;color:#056b47;}
-.blank-en input.wrong{border-bottom-color:#e17055;background:#fff5f0;color:#c0392b;}
-.blank-btns{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;}
-.blank-check-btn{padding:4px 12px;border:0.5px solid #ccc;border-radius:20px;font-size:12px;cursor:pointer;font-family:inherit;background:#fff;color:#555;}
-.blank-check-btn:hover{background:#e6f1ff;border-color:#0984e3;color:#0984e3;}
-.blank-ans-btn{padding:4px 12px;border:0.5px solid #ccc;border-radius:20px;font-size:12px;cursor:pointer;font-family:inherit;background:#fff;color:#888;}
-.blank-ans-btn:hover{background:#f0fef7;border-color:#00b894;color:#00b894;}
 
-/* ── ④ 문법 체크 ── */
-.gram-card{margin-bottom:14px;padding-bottom:14px;border-bottom:0.5px solid #f0f0f0;}
-.gram-card:last-child{border-bottom:none;margin-bottom:0;}
-.gram-tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;margin-bottom:7px;}
-.gt-agree{background:#fff4e0;color:#8a4f00;}
-.gt-tense{background:#e6f9f1;color:#056b47;}
-.gt-pron{background:#f0eeff;color:#4a3db5;}
-.gram-sent{font-size:14px;line-height:1.75;margin-bottom:6px;}
-.gram-sent .opt{font-weight:700;text-decoration:underline;text-underline-offset:3px;}
-.gram-q{font-size:12.5px;color:#555;margin-top:6px;display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap;}
-.gram-input{
-  border:none;border-bottom:1.5px solid #bbb;
-  padding:0 4px;font-size:13px;font-family:inherit;
-  background:transparent;color:#1a1a1a;outline:none;
-  min-width:160px;
-}
-.gram-input:focus{border-bottom-color:#fd79a8;}
+/* 문장 순서 맞추기 */
+.sort-area{display:flex;flex-direction:column;gap:6px;margin:10px 0;}
+.sort-item{display:flex;align-items:flex-start;gap:8px;padding:9px 12px;border:1.5px solid var(--border-lt);border-radius:10px;background:var(--bg);cursor:grab;user-select:none;transition:.12s;}
+.sort-item:hover{border-color:var(--border);background:var(--purple-lt);}
+.sort-item.dragging{opacity:.4;}
+.sort-item.drag-over{border-color:var(--purple);background:var(--purple-lt);}
+.sort-handle{color:var(--muted);font-size:14px;flex-shrink:0;margin-top:1px;}
+.sort-text{font-family:'Lora',serif;font-size:13px;line-height:1.65;flex:1;}
+.sort-num{font-size:11px;font-weight:700;color:var(--purple);flex-shrink:0;min-width:22px;}
+.sort-result{font-size:12px;margin-top:5px;padding:6px 10px;border-radius:7px;display:none;}
+.sort-result.show{display:block;}
+.sort-result.ok{background:var(--ok-bg);color:var(--ok);}
+.sort-result.no{background:var(--no-bg);color:var(--no);}
 
-/* ── ⑤ 영작 ── */
-.eng-card{margin-bottom:18px;padding-bottom:18px;border-bottom:0.5px solid #f0f0f0;}
-.eng-card:last-child{border-bottom:none;margin-bottom:0;}
-.eng-num{font-size:11px;font-weight:700;color:#00b894;margin-bottom:4px;}
-.eng-kr{font-size:15px;font-weight:700;line-height:1.7;margin-bottom:8px;}
-.hint-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
-.chip{font-size:11.5px;padding:3px 10px;border-radius:20px;background:#f0eeff;color:#4a3db5;font-weight:700;}
-.eng-textarea{
-  width:100%;min-height:48px;padding:8px 12px;
-  border:0.5px solid #ddd;border-radius:8px;
-  font-size:14px;font-family:inherit;line-height:1.6;
-  resize:none;color:#1a1a1a;background:#fff;
-}
-.eng-textarea:focus{outline:none;border-color:#00b894;box-shadow:0 0 0 2px rgba(0,184,148,.1);}
-.eng-bottom{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center;}
+/* 영작 */
+.eng-item{margin-bottom:13px;padding-bottom:13px;border-bottom:1px solid var(--border-lt);}
+.eng-item:last-child{border-bottom:none;margin-bottom:0;}
+.eng-num{font-size:11px;font-weight:700;color:var(--purple);margin-bottom:4px;}
+.eng-kr{font-size:14px;font-weight:700;line-height:1.7;margin-bottom:7px;color:var(--ink);}
+.hint-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
+.hint-chip{font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--purple-lt);color:var(--purple);border:1px solid var(--border-lt);}
+.eng-ta{width:100%;min-height:44px;padding:8px 12px;border:1.5px solid var(--border-lt);border-radius:10px;font-size:13px;font-family:'Lora',serif;line-height:1.65;resize:none;color:var(--ink);background:var(--bg);outline:none;}
+.eng-ta:focus{border-color:var(--purple);background:#fff;}
 
-/* ── 정답 박스 전체 ── */
-.all-ans-box{background:#f0fef7;border:0.5px solid #b2e8d0;border-radius:10px;padding:14px 18px;margin-top:18px;}
-.all-ans-title{font-size:12px;font-weight:700;color:#056b47;margin-bottom:10px;}
-.all-ans-list{font-size:12.5px;color:#333;line-height:2.1;}
+/* 점검바 */
+.check-bar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:14px;padding-top:11px;border-top:1px dashed var(--border-lt);}
+.check-btn{padding:8px 16px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:none;}
+.cb-grade{background:var(--purple);color:#fff;}
+.cb-grade:hover{background:var(--ink2);}
+.cb-retry{background:var(--card);border:1.5px solid var(--no);color:var(--no);}
+.cb-retry:disabled{opacity:.35;cursor:not-allowed;}
+.cb-reset{background:var(--card);border:1.5px solid var(--border-lt);color:var(--sub);}
+.cb-next{background:var(--ok);color:#fff;}
+.cb-next:hover{background:#245e36;}
+.result-pill{font-size:12px;font-weight:700;padding:5px 13px;border-radius:99px;display:none;}
+.pill-ok{background:var(--ok-bg);color:var(--ok);}
+.pill-bad{background:var(--amber-bg);color:var(--amber);}
+
+.tag-line{font-size:11px;color:var(--muted);text-align:center;margin-top:20px;}
+@media(max-width:480px){.choice-opts{gap:5px;}.sort-text{font-size:12px;}}
 </style>
 </head>
 <body>
 <div class="page">
 
-<!-- ── 헤더 ── -->
-<div class="doc-header">
-  <h1>4과 &nbsp;Opening a Window to the World</h1>
-  <div class="sub">천재 이재영 고등영어 &nbsp;·&nbsp; Must-Visit Markets Around the World</div>
+<div class="doc-head">
+  <h1>4과 · Opening a Window to the World</h1>
+  <div class="sub">천재 이재영 고등영어 · Must-Visit Markets Around the World · 독해 심화</div>
   <div class="meta-row">
-    <div class="meta-item">이름 <span class="meta-box"></span></div>
-    <div class="meta-item">날짜 <span class="meta-box"></span></div>
-    <div class="meta-item">점수 <span class="meta-box" style="width:80px"></span></div>
+    <div class="meta-item">이름 <span class="meta-line"></span></div>
+    <div class="meta-item">날짜 <span class="meta-line"></span></div>
+    <div class="meta-item">점수 <span class="meta-line" style="width:60px;"></span></div>
   </div>
+  <div class="step-rail" id="stepRail"></div>
 </div>
 
-<!-- ════ ① 한글 흐름 정리 ════ -->
-<div class="section">
-  <div class="sec-title"><span class="sec-badge b-purple">①</span>한글 흐름 정리 — 단락별 순서와 요지</div>
+<div id="stageWrap"></div>
 
-  <div id="flow-content"></div>
+<div class="tag-line">준티 잉글리쉬 · 자체 제작 학습 콘텐츠 · 고등 독해 심화</div>
 </div>
-
-<!-- ════ ② 위치 찾기 ════ -->
-<div class="section">
-  <div class="sec-title"><span class="sec-badge b-orange">②</span>위치 찾기 연습 — 한글 의미를 읽고 본문 문장 번호를 쓰세요</div>
-  <div class="score-bar">
-    <span style="font-size:13px;color:#888;">점수</span>
-    <span class="score-num" id="scoreDisplay">0 / 10</span>
-    <span style="font-size:12px;color:#bbb;">문장 번호(01~35)를 입력 후 확인을 누르세요</span>
-  </div>
-  <div class="quiz-grid" id="quizGrid"></div>
-</div>
-
-<!-- ════ ③ 빈칸 채우기 ════ -->
-<div class="section">
-  <div class="sec-title"><span class="sec-badge b-blue">③</span>빈칸 채우기 — 문맥에 맞는 단어를 쓰세요</div>
-  <div class="word-bank">
-    <strong>Word Bank</strong> &nbsp;|&nbsp;
-    have been writing &nbsp;·&nbsp; where &nbsp;·&nbsp; largest &nbsp;·&nbsp; tradition &nbsp;·&nbsp;
-    disappeared &nbsp;·&nbsp; crowded &nbsp;·&nbsp; surprise &nbsp;·&nbsp; traded &nbsp;·&nbsp;
-    directly &nbsp;·&nbsp; alive &nbsp;·&nbsp; suggests &nbsp;·&nbsp; built &nbsp;·&nbsp;
-    attracts &nbsp;·&nbsp; make sure
-  </div>
-  <div id="blankList"></div>
-</div>
-
-<!-- ════ ④ 문법 체크 ════ -->
-<div class="section">
-  <div class="sec-title"><span class="sec-badge b-pink">④</span>문법 체크 — 수일치 · 시제 · 대명사</div>
-  <div id="gramList"></div>
-</div>
-
-<!-- ════ ⑤ 거꾸로 영작 ════ -->
-<div class="section">
-  <div class="sec-title"><span class="sec-badge b-green">⑤</span>거꾸로 영작 — 한글을 보고 영어 문장을 완성하세요</div>
-  <div id="engList"></div>
-</div>
-
-</div><!-- /page -->
 
 <script>
-/* ═══════════════════════════════════
-   TTS 유틸
-═══════════════════════════════════ */
-let currentUtter = null;
-function speak(text, btn) {
-  if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  if (btn.classList.contains('playing')) {
-    btn.classList.remove('playing');
-    btn.querySelector('.snd-icon').textContent = '🔊';
-    currentUtter = null;
-    return;
-  }
-  document.querySelectorAll('.snd-btn.playing').forEach(b => {
-    b.classList.remove('playing');
-    b.querySelector('.snd-icon').textContent = '🔊';
-  });
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'en-US';
-  u.rate = 0.88;
-  u.onend = () => {
-    btn.classList.remove('playing');
-    btn.querySelector('.snd-icon').textContent = '🔊';
-  };
-  btn.classList.add('playing');
-  btn.querySelector('.snd-icon').textContent = '⏹';
-  currentUtter = u;
-  window.speechSynthesis.speak(u);
-}
+/* ══════════════════════════════════════
+   데이터
+══════════════════════════════════════ */
 
-function sndBtn(text) {
-  const b = document.createElement('button');
-  b.className = 'snd-btn';
-  b.innerHTML = '<span class="snd-icon">🔊</span> 듣기';
-  b.onclick = () => speak(text, b);
-  return b;
-}
-
-function ansBtn(ansText, targetEl) {
-  const b = document.createElement('button');
-  b.className = 'ans-btn';
-  b.textContent = '정답 보기';
-  b.onclick = () => {
-    targetEl.classList.toggle('open');
-    b.textContent = targetEl.classList.contains('open') ? '정답 숨기기' : '정답 보기';
-  };
-  return b;
-}
-
-/* ═══════════════════════════════════
-   ① 흐름 정리 데이터
-═══════════════════════════════════ */
-const flowData = [
-  {
-    tag:'도입 · Leah\'s Travel Story (01~05)', cls:'tag-intro',
-    rows:[
-      ['01','나는 Leah. 18살 이후로 여행 블로그를 써왔다.','I am Leah. I have been writing a travel blog since I was 18.'],
-      ['02','여기저기 다니며 독자들과 경험을 공유한다.','I go places and share my experiences with my readers.'],
-      ['03','시장 방문은 한 나라의 문화를 배우는 좋은 방법이다.','Visiting markets is a good way to learn about the culture of a country.'],
-      ['04','시장은 사람·역사·음식을 한 번에 경험할 수 있는 공간이다.','Markets are places where you can meet people, learn history, and taste local food.'],
-      ['05','다른 문화를 발견하는 더 좋은 방법이 있는지 모르겠다.','I wonder whether there is any better way to discover another culture.'],
-    ],
-    summary:'요지: 시장은 문화를 체험하는 최고의 창(窓)이다.'
-  },
-  {
-    tag:'1부 · 터키 그랜드 바자르 (06~15)', cls:'tag-turkey',
-    rows:[
-      ['06','터키는 동서양이 만나는 나라 → 오랜 교역 전통 보유','Turkey is a country where East meets West, so it has a long tradition of trade.'],
-      ['07','그랜드 바자르 같은 대형 시장이 생긴 것은 자연스러운 일','It is a natural place for large markets like the Grand Bazaar.'],
-      ['08','1455년 이스탄불에 건립','The market was built in 1455 in Istanbul.'],
-      ['09','당시엔 큰 건물 2개, 직물·금 같은 물건 거래','Back then, the market had two big buildings, and people traded goods like cloth and gold there.'],
-      ['10','오늘날 세계 최대 지붕 덮인 시장으로 성장','Today the Grand Bazaar is much bigger, and it is the largest covered market in the world.'],
-      ['11','64개 거리, 4,000개 이상 상점이 한 지붕 아래','It has 64 streets and more than 4,000 shops under one roof.'],
-      ['12','매일 25만 명 이상 방문','The market attracts over 250,000 visitors every day.'],
-      ['13','상상할 수 있는 거의 모든 물건 판매','You can buy almost any imaginable item there.'],
-      ['14','Tip: 행운의 터키 상징 나자르 본주 찾아보기','Ask shop owners if they carry nazar boncugu, a traditional Turkish symbol for good luck.'],
-      ['15','Tip: 터키 전통 사탕 로쿰(lokum) 꼭 먹어보기','Also, if you want a nice snack, make sure to try lokum, a traditional Turkish candy.'],
-    ],
-    summary:'요지: 역사 깊은 그랜드 바자르는 규모·다양성 세계 최고, 특색 있는 먹거리·기념품도 풍성.'
-  },
-  {
-    tag:'2부 · 태국 담넌 사두억 수상 시장 (16~25)', cls:'tag-thai',
-    rows:[
-      ['16','과거 태국인들은 강에서 물건을 거래했다.','In the past, Thai people traded goods on rivers.'],
-      ['17','그것이 태국 수상 시장의 시작이었다.','This was the beginning of floating markets in Thailand.'],
-      ['18','도로 교통 발달로 많은 수상 시장이 사라졌다.','With better road transportation, many floating markets disappeared.'],
-      ['19','1960년대 후반부터 일부가 다시 살아나 전통을 이어가고 있다.','Since the late 1960s, however, some of them have come back and kept the tradition alive.'],
-      ['20','오늘날 가장 인기 있는 수상 시장 중 하나가 담넌 사두억이다.','Today, one of the most popular floating markets is Damnoen Saduak Floating Market.'],
-      ['21','전 세계 관광객들로 항상 붐빈다.','It is always crowded with tourists from all over the world.'],
-      ['22','배에서 직접 현지 음식과 전통 선물을 살 수 있다.','You can buy local foods and traditional gift items directly from boats.'],
-      ['23','Tip: 물 위에서 식사해 본 적 있는지 궁금하다.','I wonder if you have ever had a meal on water.'],
-      ['24','없다면, 팟타이 같은 국수 요리를 드셔보라.','If not, try noodles like pad thai.'],
-      ['25','상인들이 배에서 요리해 긴 낚싯대로 건네준다.','The sellers will cook them on their boats and pass them to you with a long fishing pole.'],
-    ],
-    summary:'요지: 사라질 뻔한 수상 시장이 관광 명소로 부활, 배 위 음식 경험이 매력이다.'
-  },
-  {
-    tag:'3부 · 네덜란드 알스메이르 꽃 시장 (26~35)', cls:'tag-nl',
-    rows:[
-      ['26','네덜란드(Netherlands)는 저지대라는 뜻이다.','The Netherlands means "low lands."'],
-      ['27','이름에서 알 수 있듯, 국토의 약 1/3이 해수면보다 낮다.','As the name suggests, about a third of the country sits below sea level.'],
-      ['28','그래서 땅을 지어 올렸고, 꽃 재배·판매가 효과적인 방법이었다.','Thus, the Dutch built up the land, and one effective way to use it was to grow flowers and sell them.'],
-      ['29','따라서 세계 최대 꽃 시장 알스메이르가 있는 것은 놀랍지 않다.','It is, therefore, no surprise that the country has the largest flower market in the world: the Aalsmeer Flower Market.'],
-      ['30','시장 건물은 축구장 120개보다 크다.','The building where the market is housed is bigger than 120 soccer fields.'],
-      ['31','꽃으로 가득 찬 수천 개의 수레로 항상 분주하다.','The market is busy with thousands of flower-filled carts.'],
-      ['32','수레는 대부분 전동 트럭으로 움직인다.','They are moved mostly by electric-powered trucks.'],
-      ['33','매일 약 2천만 송이의 꽃이 거래되어 세계 각지로 운송된다.','Every day, around 20 million flowers are traded and shipped to all corners of the world.'],
-      ['34','Tip: 시장에서 꽃을 조금 살 수 있는지 궁금할 것이다.','You may wonder whether you can buy just a few flowers at the market.'],
-      ['35','안타깝게도 안 되지만, 도매 꽃 거래 현장을 직접 볼 수 있다.','Sadly, you cannot, but you can see how wholesale flower trading works.'],
-    ],
-    summary:'요지: 지리적 한계를 극복해 꽃 산업을 키운 알스메이르는 규모·물량 면에서 압도적이다.'
-  },
-];
-
-function buildFlow() {
-  const wrap = document.getElementById('flow-content');
-  flowData.forEach(group => {
-    const div = document.createElement('div');
-    div.className = 'flow-group';
-    div.innerHTML = `<span class="flow-tag ${group.cls}">${group.tag}</span>`;
-    const tbl = document.createElement('table');
-    tbl.className = 'flow-table';
-    group.rows.forEach(([num, kr, en]) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${num}</td><td></td>`;
-      const inner = document.createElement('div');
-      inner.className = 'row-inner';
-      const span = document.createElement('span');
-      span.textContent = kr;
-      const reveal = document.createElement('div');
-      reveal.className = 'ans-reveal';
-      reveal.textContent = en;
-      inner.appendChild(span);
-      inner.appendChild(sndBtn(en));
-      inner.appendChild(ansBtn(en, reveal));
-      tr.cells[1].appendChild(inner);
-      tr.cells[1].appendChild(reveal);
-      tbl.appendChild(tr);
-    });
-    div.appendChild(tbl);
-    const sum = document.createElement('div');
-    sum.className = 'flow-summary';
-    sum.textContent = group.summary;
-    div.appendChild(sum);
-    wrap.appendChild(div);
-  });
-}
-
-/* ═══════════════════════════════════
-   ② 위치 찾기
-═══════════════════════════════════ */
-const quizData = [
-  {kr:'나는 18살 이후로 여행 블로그를 써왔다.', ans:'01', hint:'현재완료진행 + since',
-   en:'I have been writing a travel blog since I was 18.'},
-  {kr:'시장 방문은 한 나라의 문화에 대해 배울 수 있는 좋은 방법이다.', ans:'03', hint:'동명사 주어 + to부정사',
-   en:'Visiting markets is a good way to learn about the culture of a country.'},
-  {kr:'터키는 동양과 서양이 만나는 나라이고, 오랜 교역 전통을 갖고 있다.', ans:'06', hint:'관계부사 where + so',
-   en:'Turkey is a country where East meets West, so it has a long tradition of trade.'},
-  {kr:'그 시장은 매일 25만 명 이상의 방문객을 불러 모은다.', ans:'12', hint:'attracts + over',
-   en:'The market attracts over 250,000 visitors every day.'},
-  {kr:'또한, 간식을 원한다면 터키 전통 사탕인 로쿰을 꼭 드셔보세요.', ans:'15', hint:'Also, if + make sure to',
-   en:'Also, if you want a nice snack, make sure to try lokum, a traditional Turkish candy.'},
-  {kr:'1960년대 후반부터 일부가 다시 생겨나 전통을 이어가고 있다.', ans:'19', hint:'Since + 현재완료',
-   en:'Since the late 1960s, however, some of them have come back and kept the tradition alive.'},
-  {kr:'여러분은 배에서 직접 현지 음식과 전통 선물을 살 수 있다.', ans:'22', hint:'directly from boats',
-   en:'You can buy local foods and traditional gift items directly from boats.'},
-  {kr:'상인들이 배에서 요리해서 긴 낚싯대로 여러분에게 건네줄 것이다.', ans:'25', hint:'cook + pass + fishing pole',
-   en:'The sellers will cook them on their boats and pass them to you with a long fishing pole.'},
-  {kr:'그 시장이 들어선 건물은 축구장 120개보다 크다.', ans:'30', hint:'관계부사절 + is housed',
-   en:'The building where the market is housed is bigger than 120 soccer fields.'},
-  {kr:'매일 약 2천만 송이의 꽃이 거래되어 세계 각지로 운송된다.', ans:'33', hint:'수동태 + all corners',
-   en:'Every day, around 20 million flowers are traded and shipped to all corners of the world.'},
-];
-
-let scores = {};
-function updateScore() {
-  document.getElementById('scoreDisplay').textContent = Object.keys(scores).length + ' / 10';
-}
-
-function buildQuiz() {
-  const grid = document.getElementById('quizGrid');
-  quizData.forEach((q, i) => {
-    const card = document.createElement('div');
-    card.className = 'quiz-card';
-
-    const qnum = document.createElement('div');
-    qnum.className = 'quiz-qnum';
-    qnum.textContent = 'Q' + (i+1);
-
-    const kr = document.createElement('div');
-    kr.className = 'quiz-kr';
-    kr.textContent = q.kr;
-
-    const reveal = document.createElement('div');
-    reveal.className = 'ans-reveal';
-    reveal.textContent = '정답: ' + q.ans + '번 — ' + q.en;
-
-    const hintReveal = document.createElement('div');
-    hintReveal.className = 'quiz-hint-reveal';
-    hintReveal.textContent = '힌트: ' + q.hint;
-
-    const bottom = document.createElement('div');
-    bottom.className = 'quiz-bottom';
-
-    const label = document.createElement('span');
-    label.className = 'quiz-input-label';
-    label.textContent = '번호';
-
-    const inp = document.createElement('input');
-    inp.className = 'quiz-input';
-    inp.type = 'text';
-    inp.maxLength = 2;
-    inp.placeholder = '예) 06';
-
-    const result = document.createElement('span');
-    result.className = 'quiz-result';
-
-    const checkBtn = document.createElement('button');
-    checkBtn.className = 'quiz-check';
-    checkBtn.textContent = '확인';
-    checkBtn.onclick = () => {
-      const val = inp.value.trim().replace(/^0+/,'') || '0';
-      const correct = q.ans.replace(/^0+/,'');
-      result.style.display = 'inline-block';
-      hintReveal.style.display = 'block';
-      reveal.classList.add('open');
-      if (val === correct) {
-        result.textContent = '정답!';
-        result.className = 'quiz-result ok';
-        if (!scores[i]) { scores[i] = true; updateScore(); }
-      } else {
-        result.textContent = '다시!';
-        result.className = 'quiz-result no';
-      }
-    };
-    inp.addEventListener('keydown', e => { if(e.key==='Enter') checkBtn.click(); });
-
-    bottom.append(label, inp, checkBtn, sndBtn(q.en), result);
-    card.append(qnum, kr, bottom, hintReveal, reveal);
-    grid.appendChild(card);
-  });
-}
-
-/* ═══════════════════════════════════
-   ③ 빈칸 채우기
-═══════════════════════════════════ */
-const blankData = [
-  {num:'01', kr:'나는 18살 이후로 여행 블로그를 써왔다.',
-   parts:['I ',[90,'have been writing'],' a travel blog since I was 18.'],
-   en:'I have been writing a travel blog since I was 18.'},
-  {num:'04', kr:'시장은 사람들을 만나고, 역사를 배우고, 현지 음식을 맛볼 수 있는 장소이다.',
-   parts:['Markets are places ',[60,'where'],' you can meet people, learn history, and taste local food.'],
-   en:'Markets are places where you can meet people, learn history, and taste local food.'},
-  {num:'06', kr:'터키는 오랜 교역 전통을 갖고 있다.',
-   parts:['Turkey has a long ',[80,'tradition'],' of trade.'],
-   en:'Turkey has a long tradition of trade.'},
-  {num:'08', kr:'그 시장은 1455년 이스탄불에 지어졌다.',
-   parts:['The market was ',[60,'built'],' in 1455 in Istanbul.'],
-   en:'The market was built in 1455 in Istanbul.'},
-  {num:'10', kr:'오늘날 그랜드 바자르는 세계에서 가장 큰 지붕이 덮인 시장이다.',
-   parts:['It is the ',[70,'largest'],' covered market in the world.'],
-   en:'It is the largest covered market in the world.'},
-  {num:'12', kr:'그 시장은 매일 25만 명 이상의 방문객을 불러 모은다.',
-   parts:['The market ',[70,'attracts'],' over 250,000 visitors every day.'],
-   en:'The market attracts over 250,000 visitors every day.'},
-  {num:'15', kr:'맛있는 간식을 원한다면, 로쿰을 꼭 드셔보세요.',
-   parts:['If you want a nice snack, ',[90,'make sure'],' to try lokum.'],
-   en:'If you want a nice snack, make sure to try lokum.'},
-  {num:'18', kr:'도로 교통이 개선되면서, 많은 수상 시장이 사라졌다.',
-   parts:['With better road transportation, many floating markets ',[100,'disappeared'],'.'],
-   en:'With better road transportation, many floating markets disappeared.'},
-  {num:'19', kr:'1960년대 후반부터 일부가 다시 생겨나 전통을 이어가고 있다.',
-   parts:['Since the late 1960s, some of them have come back and kept the tradition ',[60,'alive'],'.'],
-   en:'Since the late 1960s, some of them have come back and kept the tradition alive.'},
-  {num:'21', kr:'그곳은 전 세계에서 온 관광객들로 항상 붐빈다.',
-   parts:['It is always ',[75,'crowded'],' with tourists from all over the world.'],
-   en:'It is always crowded with tourists from all over the world.'},
-  {num:'22', kr:'여러분은 배에서 직접 현지 음식과 전통 선물을 살 수 있다.',
-   parts:['You can buy local foods and traditional gift items ',[75,'directly'],' from boats.'],
-   en:'You can buy local foods and traditional gift items directly from boats.'},
-  {num:'27', kr:'이름이 말해주듯, 이 나라의 약 1/3이 해수면보다 낮다.',
-   parts:['As the name ',[75,'suggests'],', about a third of the country sits below sea level.'],
-   en:'As the name suggests, about a third of the country sits below sea level.'},
-  {num:'29', kr:'따라서 그 나라에 세계 최대 꽃 시장이 있다는 것은 놀라운 일이 아니다.',
-   parts:['It is, therefore, no ',[75,'surprise'],' that the country has the largest flower market in the world.'],
-   en:'It is, therefore, no surprise that the country has the largest flower market in the world.'},
-  {num:'33', kr:'매일 약 2천만 송이의 꽃이 거래되어 세계 각지로 운송된다.',
-   parts:['Every day, around 20 million flowers are ',[65,'traded'],' and shipped to all corners of the world.'],
-   en:'Every day, around 20 million flowers are traded and shipped to all corners of the world.'},
-];
-
-function buildBlanks() {
-  const list = document.getElementById('blankList');
-  blankData.forEach((item, idx) => {
-    const div = document.createElement('div');
-    div.className = 'blank-item';
-
-    const num = document.createElement('div');
-    num.className = 'blank-num';
-    num.textContent = '문장 ' + item.num;
-
-    const kr = document.createElement('div');
-    kr.className = 'blank-kr';
-    kr.textContent = item.kr;
-
-    const enDiv = document.createElement('div');
-    enDiv.className = 'blank-en';
-
-    const inputs = [];
-    const answers = [];
-    item.parts.forEach(p => {
-      if (typeof p === 'string') {
-        enDiv.appendChild(document.createTextNode(p));
-      } else {
-        const [w, ans] = p;
-        const inp = document.createElement('input');
-        inp.type = 'text';
-        inp.style.width = w + 'px';
-        inp.placeholder = '___';
-        inputs.push(inp);
-        answers.push(ans.toLowerCase());
-        enDiv.appendChild(inp);
-      }
-    });
-
-    const btns = document.createElement('div');
-    btns.className = 'blank-btns';
-
-    const checkB = document.createElement('button');
-    checkB.className = 'blank-check-btn';
-    checkB.textContent = '채점';
-    checkB.onclick = () => {
-      inputs.forEach((inp, i) => {
-        const val = inp.value.trim().toLowerCase();
-        if (val === answers[i]) {
-          inp.classList.remove('wrong'); inp.classList.add('correct');
-        } else {
-          inp.classList.remove('correct'); inp.classList.add('wrong');
-        }
-      });
-    };
-
-    const ansDiv = document.createElement('div');
-    ansDiv.className = 'ans-reveal';
-    ansDiv.textContent = item.en;
-
-    const ansB = ansBtn(item.en, ansDiv);
-    ansB.addEventListener('click', () => {
-      inputs.forEach((inp, i) => { inp.value = answers[i]; inp.classList.add('correct'); });
-    });
-
-    btns.append(checkB, sndBtn(item.en), ansB);
-    div.append(num, kr, enDiv, btns, ansDiv);
-    list.appendChild(div);
-  });
-}
-
-/* ═══════════════════════════════════
-   ④ 문법 체크
-═══════════════════════════════════ */
-const gramData = [
-  {type:'수일치', cls:'gt-agree',
-   sent:'Visiting markets <span class="opt">( is / are )</span> a good way to learn about the culture of a country.',
+/* 35문장 전체 */
+const SENTENCES = [
+  {n:'01',kr:'나는 Leah입니다. 나는 18살 이후로 여행 블로그를 써왔습니다.',
+   en:'I am Leah. I have been writing a travel blog since I was 18.',
+   blank:[['have been writing',120]],para:0},
+  {n:'02',kr:'나는 여기저기 다니며 독자들과 내 경험을 공유합니다.',
+   en:'I go places and share my experiences with my readers.',
+   blank:[],para:0},
+  {n:'03',kr:'시장 방문은 한 나라의 문화에 대해 배울 수 있는 좋은 방법입니다.',
    en:'Visiting markets is a good way to learn about the culture of a country.',
-   q:'→ 올바른 형태:',
-   ans:'is',
-   reason:'동명사구(Visiting markets)가 주어 → 단수 취급 → is'},
-  {type:'수일치', cls:'gt-agree',
-   sent:'Today, one of the most popular floating markets <span class="opt">( is / are )</span> Damnoen Saduak Floating Market.',
-   en:'Today, one of the most popular floating markets is Damnoen Saduak Floating Market.',
-   q:'→ 올바른 형태:',
-   ans:'is',
-   reason:'one of + 복수명사: 주어는 one(단수) → is'},
-  {type:'시제', cls:'gt-tense',
-   sent:'I <span class="opt">( write / have been writing )</span> a travel blog since I was 18.',
-   en:'I have been writing a travel blog since I was 18.',
-   q:'→ 올바른 형태:',
-   ans:'have been writing',
-   reason:'since + 과거시점 → 현재완료진행형(have been -ing)'},
-  {type:'시제', cls:'gt-tense',
-   sent:'In the past, Thai people <span class="opt">( trade / traded )</span> goods on rivers.',
+   blank:[['Visiting',70]],para:0},
+  {n:'04',kr:'시장은 사람들을 만나고, 역사를 배우고, 현지 음식을 맛볼 수 있는 장소입니다.',
+   en:'Markets are places where you can meet people, learn history, and taste local food.',
+   blank:[['where',50]],para:0},
+  {n:'05',kr:'나는 다른 문화를 발견하는 더 좋은 방법이 있는지 모르겠습니다.',
+   en:'I wonder whether there is any better way to discover another culture.',
+   blank:[['whether',55]],para:0},
+  {n:'06',kr:'터키는 동양과 서양이 만나는 나라이고, 그래서 오랜 교역 전통을 갖고 있습니다.',
+   en:'Turkey is a country where East meets West, so it has a long tradition of trade.',
+   blank:[['tradition',70]],para:1},
+  {n:'07',kr:'그랜드 바자르 같은 큰 시장들이 생긴 것은 자연스러운 일입니다.',
+   en:'It is a natural place for large markets like the Grand Bazaar.',
+   blank:[],para:1},
+  {n:'08',kr:'그 시장은 1455년 이스탄불에 지어졌습니다.',
+   en:'The market was built in 1455 in Istanbul.',
+   blank:[['built',45]],para:1},
+  {n:'09',kr:'당시에는 큰 건물이 두 개 있었고, 사람들은 그곳에서 천과 금 같은 물건들을 거래했습니다.',
+   en:'Back then, the market had two big buildings, and people traded goods like cloth and gold there.',
+   blank:[['traded',55]],para:1},
+  {n:'10',kr:'오늘날 그랜드 바자르는 훨씬 더 크고, 세계에서 가장 큰 지붕이 덮인 시장입니다.',
+   en:'Today the Grand Bazaar is much bigger, and it is the largest covered market in the world.',
+   blank:[['largest',55]],para:1},
+  {n:'11',kr:'그것은 한 지붕 아래 64개의 거리와 4,000개 이상의 상점을 갖고 있습니다.',
+   en:'It has 64 streets and more than 4,000 shops under one roof.',
+   blank:[],para:1},
+  {n:'12',kr:'그 시장은 매일 25만 명 이상의 방문객을 불러 모읍니다.',
+   en:'The market attracts over 250,000 visitors every day.',
+   blank:[['attracts',60]],para:1},
+  {n:'13',kr:'여러분은 그곳에서 상상할 수 있는 거의 모든 물건을 살 수 있습니다.',
+   en:'You can buy almost any imaginable item there.',
+   blank:[],para:1},
+  {n:'14',kr:'상점 주인들에게 행운을 위한 터키 전통 상징인 나자르 본주를 갖고 있는지 물어보세요.',
+   en:'Ask shop owners if they carry nazar boncugu, a traditional Turkish symbol for good luck.',
+   blank:[['if',30]],para:1},
+  {n:'15',kr:'또한, 맛있는 간식을 원한다면, 터키 전통 사탕인 로쿰을 꼭 드셔보세요.',
+   en:'Also, if you want a nice snack, make sure to try lokum, a traditional Turkish candy.',
+   blank:[['make sure',75]],para:1},
+  {n:'16',kr:'과거에 태국 사람들은 강에서 물건을 거래했습니다.',
    en:'In the past, Thai people traded goods on rivers.',
-   q:'→ 올바른 형태:',
-   ans:'traded',
-   reason:'in the past → 과거 사실 → 단순과거(traded)'},
-  {type:'시제', cls:'gt-tense',
-   sent:'Since the late 1960s, some of them <span class="opt">( came back / have come back )</span> and kept the tradition alive.',
-   en:'Since the late 1960s, some of them have come back and kept the tradition alive.',
-   q:'→ 올바른 형태:',
-   ans:'have come back',
-   reason:'since + 과거시점 → 현재완료(have come back)'},
-  {type:'대명사', cls:'gt-pron',
-   sent:'<b>This</b> was the beginning of floating markets in Thailand. (문장 17)',
+   blank:[['traded',55]],para:2},
+  {n:'17',kr:'이것이 태국에서 수상 시장의 시작이었습니다.',
    en:'This was the beginning of floating markets in Thailand.',
-   q:'→ This가 가리키는 것:',
-   ans:'태국인들이 과거에 강에서 물건을 거래한 것 (In the past, Thai people traded goods on rivers.)',
-   reason:'문장 16의 내용(태국인들이 강에서 거래)을 This가 받음'},
-  {type:'대명사', cls:'gt-pron',
-   sent:'Since the late 1960s, some of <b>them</b> have come back.',
-   en:'Since the late 1960s, some of them have come back.',
-   q:'→ them이 가리키는 것:',
-   ans:'사라진 수상 시장들 (floating markets that disappeared)',
-   reason:'문장 18의 many floating markets를 them이 받음'},
-  {type:'대명사', cls:'gt-pron',
-   sent:'The sellers will cook <b>them</b> on their boats and pass <b>them</b> to you with a long fishing pole.',
+   blank:[],para:2},
+  {n:'18',kr:'도로 교통이 개선되면서 많은 수상 시장이 사라졌습니다.',
+   en:'With better road transportation, many floating markets disappeared.',
+   blank:[['disappeared',85]],para:2},
+  {n:'19',kr:'1960년대 후반부터, 그러나 그것들 중 일부는 다시 생겨나 전통을 이어가고 있습니다.',
+   en:'Since the late 1960s, however, some of them have come back and kept the tradition alive.',
+   blank:[['alive',40]],para:2},
+  {n:'20',kr:'오늘날, 가장 인기 있는 수상 시장 중 하나는 담넌 사두억 수상 시장입니다.',
+   en:'Today, one of the most popular floating markets is Damnoen Saduak Floating Market.',
+   blank:[],para:2},
+  {n:'21',kr:'그곳은 전 세계에서 온 관광객들로 항상 붐빕니다.',
+   en:'It is always crowded with tourists from all over the world.',
+   blank:[['crowded',60]],para:2},
+  {n:'22',kr:'여러분은 배에서 직접 현지 음식과 전통 선물을 살 수 있습니다.',
+   en:'You can buy local foods and traditional gift items directly from boats.',
+   blank:[['directly',60]],para:2},
+  {n:'23',kr:'저는 여러분이 물 위에서 식사를 해본 적이 있는지 궁금합니다.',
+   en:'I wonder if you have ever had a meal on water.',
+   blank:[['if',30]],para:2},
+  {n:'24',kr:'만약 그렇지 않다면, 팟타이 같은 국수를 드셔보세요.',
+   en:'If not, try noodles like pad thai.',
+   blank:[],para:2},
+  {n:'25',kr:'상인들이 배에서 요리하여 긴 낚싯대로 여러분에게 건네줄 것입니다.',
    en:'The sellers will cook them on their boats and pass them to you with a long fishing pole.',
-   q:'→ 앞 them / 뒤 them:',
-   ans:'앞 them = noodles (pad thai 등) / 뒤 them = cooked noodles (요리된 국수)',
-   reason:'문장 24의 noodles를 앞 them이, 요리된 noodles를 뒤 them이 받음'},
+   blank:[['pass',40]],para:2},
+  {n:'26',kr:'"네덜란드(Netherlands)"는 "저지대"를 의미합니다.',
+   en:'The Netherlands means "low lands."',
+   blank:[],para:3},
+  {n:'27',kr:'이름이 말해주듯, 이 나라의 약 3분의 1이 해수면보다 낮습니다.',
+   en:'As the name suggests, about a third of the country sits below sea level.',
+   blank:[['suggests',65]],para:3},
+  {n:'28',kr:'따라서, 네덜란드인들은 땅을 높였고, 그것을 활용하는 한 가지 효과적인 방법은 꽃을 재배하고 파는 것이었습니다.',
+   en:'Thus, the Dutch built up the land, and one effective way to use it was to grow flowers and sell them.',
+   blank:[['built up',60]],para:3},
+  {n:'29',kr:'따라서, 그 나라에 세계에서 가장 큰 꽃 시장인 알스메이르 꽃 시장이 있다는 것은 놀라운 일이 아닙니다.',
+   en:'It is, therefore, no surprise that the country has the largest flower market in the world: the Aalsmeer Flower Market.',
+   blank:[['surprise',60]],para:3},
+  {n:'30',kr:'그 시장이 들어선 건물은 축구장 120개보다 큽니다.',
+   en:'The building where the market is housed is bigger than 120 soccer fields.',
+   blank:[['where',45]],para:3},
+  {n:'31',kr:'그 시장은 꽃으로 가득 찬 수천 개의 수레로 항상 분주합니다.',
+   en:'The market is busy with thousands of flower-filled carts.',
+   blank:[],para:3},
+  {n:'32',kr:'수레들은 대부분 전동 트럭에 의해 움직입니다.',
+   en:'They are moved mostly by electric-powered trucks.',
+   blank:[],para:3},
+  {n:'33',kr:'매일, 약 2천만 송이의 꽃이 거래되어 세계 각지로 운송됩니다.',
+   en:'Every day, around 20 million flowers are traded and shipped to all corners of the world.',
+   blank:[['traded',55]],para:3},
+  {n:'34',kr:'여러분은 그 시장에서 꽃을 조금 살 수 있는지 궁금해할 수도 있습니다.',
+   en:'You may wonder whether you can buy just a few flowers at the market.',
+   blank:[['whether',55]],para:3},
+  {n:'35',kr:'슬프게도, 여러분은 그럴 수 없지만, 도매 꽃 거래가 어떻게 이루어지는지 볼 수 있습니다.',
+   en:'Sadly, you cannot, but you can see how wholesale flower trading works.',
+   blank:[],para:3},
 ];
 
-function buildGram() {
-  const list = document.getElementById('gramList');
-  gramData.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'gram-card';
+const PARAS = [
+  {tag:'도입 · Leah\'s Story (01~05)',cls:'pt-intro',range:[0,4],
+   summary:'요지: <b>시장은 다른 문화를 발견하는 최고의 창(窓)</b>이다. Leah는 블로그를 통해 시장 방문 경험을 공유한다.',
+   conn:[
+     {q:'문장 04의 <b>where</b>는 어떤 역할을 하나요?',type:'choice',
+      opts:['관계대명사 — 앞 명사 수식','관계부사 — 장소 선행사 수식','접속사 — 두 문장 연결','의문사 — 간접의문문'],
+      ans:1,fb:'places를 수식하는 관계부사 where. "사람들이 ~할 수 있는 장소"'},
+     {q:'문장 05의 <b>whether</b>의 기능은?',type:'choice',
+      opts:['조건 접속사','명사절 접속사 (wonder의 목적어)','양보 접속사','관계사'],
+      ans:1,fb:'I wonder whether ~ : "~인지 모르겠다" — whether가 명사절을 이끎'},
+   ],
+   topic:{q:'이 단락의 주제문(핵심 주장)을 한국어로 쓰세요.',
+    a:'시장 방문은 다른 나라의 문화를 발견하는 최고의 방법이다.',
+    hint:'문장 03~05'},
+   intent:{q:'Leah가 이 글을 쓴 의도로 가장 적절한 것은?',type:'choice',
+    opts:['시장의 경제적 가치 분석','세계 시장을 통해 문화 다양성을 독자와 공유','여행 블로그 운영 방법 소개','터키·태국·네덜란드 관광 홍보'],
+    ans:1,fb:'Leah는 시장을 통해 다른 문화를 경험하고 독자들과 나누는 것이 목적'},
+  },
+  {tag:'1부 · 터키 그랜드 바자르 (06~15)',cls:'pt-turkey',range:[5,14],
+   summary:'요지: <b>1455년 건립된 세계 최대 지붕 덮인 시장</b>. 역사·규모·다양성 모두 압도적이며 나자르 본주·로쿰이 명물.',
+   conn:[
+     {q:'문장 06의 <b>so</b>의 기능은?',type:'choice',
+      opts:['결과를 나타내는 등위접속사','대조','양보','이유'],
+      ans:0,fb:'Turkey has a long tradition of trade. → 이유: East meets West / 결과: so it has a long tradition'},
+     {q:'문장 09 → 10에서 <b>시제가 바뀌는 이유</b>는?',type:'choice',
+      opts:['Back then(과거) → Today(현재) 시점 변화','주어가 복수로 바뀌어서','수동태로 바뀌어서','조건절이 생겨서'],
+      ans:0,fb:'"Back then" 과거 → "Today" 현재: 시장의 역사적 변화를 대비시킴'},
+     {q:'문장 15의 <b>make sure to</b>와 바꿔 쓸 수 있는 표현은?',type:'choice',
+      opts:['try not to','be sure to','used to','happen to'],
+      ans:1,fb:'make sure to = be sure to = 반드시 ~하다'},
+   ],
+   topic:{q:'이 단락의 주제문을 한국어로 쓰세요.',
+    a:'그랜드 바자르는 세계에서 가장 크고 역사 깊은 시장으로, 다양한 물건과 문화를 경험할 수 있다.',
+    hint:'문장 10~13'},
+   intent:{q:'필자가 14~15번 문장(Tip)을 넣은 의도는?',type:'choice',
+    opts:['그랜드 바자르의 역사 설명','독자에게 실용적인 여행 정보 제공','터키 경제 홍보','시장의 규모 강조'],
+    ans:1,fb:'Tip 문장들은 독자가 직접 방문했을 때 활용할 수 있는 실용 정보'},
+  },
+  {tag:'2부 · 태국 담넌 사두억 수상 시장 (16~25)',cls:'pt-thai',range:[15,24],
+   summary:'요지: <b>사라질 뻔한 수상 시장이 관광 명소로 부활</b>. 배 위에서 음식을 사 먹는 독특한 경험이 매력.',
+   conn:[
+     {q:'문장 17의 <b>This</b>가 가리키는 내용은?',type:'choice',
+      opts:['수상 시장이 사라진 것','태국인들이 강에서 물건을 거래한 것','도로 교통이 발달한 것','담넌 사두억이 생긴 것'],
+      ans:1,fb:'문장 16(Thai people traded goods on rivers)의 내용을 This가 받음'},
+     {q:'문장 18 → 19에서 <b>however</b>가 나타내는 관계는?',type:'choice',
+      opts:['인과관계','역접 — 반전','추가정보','예시'],
+      ans:1,fb:'disappeared(사라짐) → However, some have come back(돌아옴): 역전'},
+     {q:'문장 25에서 <b>them(앞) / them(뒤)</b>이 각각 가리키는 것은?',type:'choice',
+      opts:['둘 다 noodles','앞=noodles, 뒤=cooked noodles','앞=sellers, 뒤=boats','둘 다 floating markets'],
+      ans:1,fb:'앞 them = noodles(문장 24), 뒤 them = cook한 noodles'},
+   ],
+   topic:{q:'이 단락의 주제문을 한국어로 쓰세요.',
+    a:'한때 사라졌던 태국의 수상 시장은 전통을 이어가며 관광 명소로 다시 살아났다.',
+    hint:'문장 19~20'},
+   intent:{q:'23~25번 문장에서 필자가 독자에게 말을 거는(you) 이유는?',type:'choice',
+    opts:['글의 격식을 높이기 위해','독자가 직접 경험하도록 유도하여 흥미 유발','수상 시장의 역사 설명','시장의 규모 강조'],
+    ans:1,fb:'"I wonder if you have ever…" → 독자를 글 속으로 끌어들이는 서술 전략'},
+  },
+  {tag:'3부 · 네덜란드 알스메이르 꽃 시장 (26~35)',cls:'pt-nl',range:[25,34],
+   summary:'요지: <b>지리적 한계를 꽃 산업으로 극복한 알스메이르</b>. 하루 2천만 송이 거래, 세계 최대 꽃 시장.',
+   conn:[
+     {q:'문장 27의 <b>As the name suggests</b>의 기능은?',type:'choice',
+      opts:['결과 제시','이름에서 유추되는 사실을 이끄는 부사절','조건절','역접'],
+      ans:1,fb:'"이름이 말해주듯" — Netherlands=저지대 → 국토의 1/3이 해수면 아래'},
+     {q:'문장 28의 <b>Thus</b>가 나타내는 논리 관계는?',type:'choice',
+      opts:['역접','예시 추가','앞 내용의 결과','시간 순서'],
+      ans:2,fb:'저지대라서 땅을 높임(Thus=따라서) → 결과: 꽃 재배·판매'},
+     {q:'문장 29의 <b>therefore</b>와 같은 기능의 접속부사는?',type:'choice',
+      opts:['however','thus','nevertheless','in contrast'],
+      ans:1,fb:'therefore = thus = 따라서 (결과/결론을 나타내는 접속부사)'},
+   ],
+   topic:{q:'이 단락의 주제문을 한국어로 쓰세요.',
+    a:'네덜란드는 지리적 특성을 활용해 꽃 산업을 발전시켰고, 그 결과 세계 최대 꽃 시장 알스메이르를 갖게 되었다.',
+    hint:'문장 28~29'},
+   intent:{q:'34~35번 문장(You may wonder…)에서 필자의 전략은?',type:'choice',
+    opts:['시장의 단점을 솔직하게 인정','독자의 궁금증을 먼저 제기하고 답하는 방식으로 내용 전달','알스메이르 비판','꽃 시장 광고'],
+    ans:1,fb:'독자가 가질 법한 질문을 먼저 던지고 답하는 수사적 질문 기법'},
+  },
+];
 
-    div.innerHTML = `
-      <span class="gram-tag ${item.cls}">${item.type}</span>
-      <div class="gram-sent">${item.sent}</div>
-    `;
-
-    const qrow = document.createElement('div');
-    qrow.className = 'gram-q';
-    qrow.appendChild(document.createTextNode(item.q + ' '));
-
-    const inp = document.createElement('input');
-    inp.className = 'gram-input';
-    inp.type = 'text';
-    inp.placeholder = '답을 입력하세요';
-    qrow.appendChild(inp);
-
-    const reveal = document.createElement('div');
-    reveal.className = 'ans-reveal';
-    reveal.innerHTML = `<strong>${item.ans}</strong><br><span style="font-size:12px;color:#555;">${item.reason}</span>`;
-
-    const brow = document.createElement('div');
-    brow.style.cssText = 'display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;';
-
-    const ansB = ansBtn(item.ans, reveal);
-    ansB.addEventListener('click', () => { inp.value = item.ans; });
-
-    brow.append(sndBtn(item.en), ansB);
-    div.append(qrow, brow, reveal);
-    list.appendChild(div);
-  });
-}
-
-/* ═══════════════════════════════════
-   ⑤ 거꾸로 영작
-═══════════════════════════════════ */
-const engData = [
-  {num:'01', kr:'나는 Leah입니다. 나는 18살 이후로 여행 블로그를 써왔습니다.',
+/* 영작 핵심 10문장 */
+const ENG_DATA = [
+  {n:'01',kr:'나는 18살 이후로 여행 블로그를 써왔습니다.',
    hints:['have been writing','since I was 18'],
-   ans:'I am Leah. I have been writing a travel blog since I was 18.'},
-  {num:'04', kr:'시장은 사람들을 만나고, 역사를 배우고, 현지 음식을 맛볼 수 있는 장소입니다.',
+   ans:'I have been writing a travel blog since I was 18.'},
+  {n:'04',kr:'시장은 사람들을 만나고, 역사를 배우고, 현지 음식을 맛볼 수 있는 장소입니다.',
    hints:['places where you can','meet, learn, taste'],
    ans:'Markets are places where you can meet people, learn history, and taste local food.'},
-  {num:'06', kr:'터키는 동양과 서양이 만나는 나라이고, 그래서 오랜 교역 전통을 갖고 있습니다.',
-   hints:['where East meets West','a long tradition of trade'],
+  {n:'06',kr:'터키는 동양과 서양이 만나는 나라이고, 그래서 오랜 교역 전통을 갖고 있습니다.',
+   hints:['where East meets West','so it has','a long tradition of trade'],
    ans:'Turkey is a country where East meets West, so it has a long tradition of trade.'},
-  {num:'10', kr:'오늘날 그랜드 바자르는 훨씬 더 크고, 세계에서 가장 큰 지붕이 덮인 시장입니다.',
+  {n:'10',kr:'오늘날 그랜드 바자르는 훨씬 더 크고, 세계에서 가장 큰 지붕이 덮인 시장입니다.',
    hints:['much bigger','the largest covered market'],
    ans:'Today the Grand Bazaar is much bigger, and it is the largest covered market in the world.'},
-  {num:'15', kr:'또한, 맛있는 간식을 원한다면, 터키 전통 사탕인 로쿰을 꼭 드셔보세요.',
-   hints:['Also, if you want','make sure to try','a traditional Turkish candy'],
-   ans:'Also, if you want a nice snack, make sure to try lokum, a traditional Turkish candy.'},
-  {num:'19', kr:'1960년대 후반부터, 그러나 그것들 중 일부는 다시 생겨나 전통을 이어가고 있습니다.',
+  {n:'15',kr:'맛있는 간식을 원한다면, 터키 전통 사탕인 로쿰을 꼭 드셔보세요.',
+   hints:['if you want','make sure to try','a traditional Turkish candy'],
+   ans:'If you want a nice snack, make sure to try lokum, a traditional Turkish candy.'},
+  {n:'19',kr:'1960년대 후반부터, 그것들 중 일부는 다시 생겨나 전통을 이어가고 있습니다.',
    hints:['Since the late 1960s','have come back','kept the tradition alive'],
-   ans:'Since the late 1960s, however, some of them have come back and kept the tradition alive.'},
-  {num:'22', kr:'여러분은 배에서 직접 현지 음식과 전통 선물을 살 수 있습니다.',
+   ans:'Since the late 1960s, some of them have come back and kept the tradition alive.'},
+  {n:'22',kr:'여러분은 배에서 직접 현지 음식과 전통 선물을 살 수 있습니다.',
    hints:['local foods','traditional gift items','directly from boats'],
    ans:'You can buy local foods and traditional gift items directly from boats.'},
-  {num:'25', kr:'상인들이 배에서 요리하여 긴 낚싯대로 여러분에게 건네줄 것입니다.',
+  {n:'25',kr:'상인들이 배에서 요리하여 긴 낚싯대로 여러분에게 건네줄 것입니다.',
    hints:['cook them on their boats','pass them to you','a long fishing pole'],
    ans:'The sellers will cook them on their boats and pass them to you with a long fishing pole.'},
-  {num:'29', kr:'따라서, 그 나라에 세계에서 가장 큰 꽃 시장인 알스메이르 꽃 시장이 있다는 것은 놀라운 일이 아닙니다.',
-   hints:['It is no surprise that','the largest flower market','Aalsmeer Flower Market'],
+  {n:'29',kr:'따라서, 그 나라에 세계에서 가장 큰 꽃 시장이 있다는 것은 놀라운 일이 아닙니다.',
+   hints:['It is no surprise that','the largest flower market in the world','Aalsmeer Flower Market'],
    ans:'It is, therefore, no surprise that the country has the largest flower market in the world: the Aalsmeer Flower Market.'},
-  {num:'33', kr:'매일, 약 2천만 송이의 꽃이 거래되어 세계 각지로 운송됩니다.',
+  {n:'33',kr:'매일, 약 2천만 송이의 꽃이 거래되어 세계 각지로 운송됩니다.',
    hints:['around 20 million flowers','are traded and shipped','all corners of the world'],
    ans:'Every day, around 20 million flowers are traded and shipped to all corners of the world.'},
 ];
 
-function buildEng() {
-  const list = document.getElementById('engList');
-  engData.forEach((item, i) => {
-    const div = document.createElement('div');
-    div.className = 'eng-card';
-
-    const num = document.createElement('div');
-    num.className = 'eng-num';
-    num.textContent = '문장 ' + item.num;
-
-    const kr = document.createElement('div');
-    kr.className = 'eng-kr';
-    kr.textContent = item.kr;
-
-    const hrow = document.createElement('div');
-    hrow.className = 'hint-row';
-    item.hints.forEach(h => {
-      const chip = document.createElement('span');
-      chip.className = 'chip';
-      chip.textContent = h;
-      hrow.appendChild(chip);
-    });
-
-    const ta = document.createElement('textarea');
-    ta.className = 'eng-textarea';
-    ta.placeholder = '영어로 써보세요...';
-    ta.rows = 2;
-
-    const reveal = document.createElement('div');
-    reveal.className = 'ans-reveal';
-    reveal.textContent = item.ans;
-
-    const brow = document.createElement('div');
-    brow.className = 'eng-bottom';
-
-    const ab = ansBtn(item.ans, reveal);
-    ab.addEventListener('click', () => { if(reveal.classList.contains('open')) ta.value = item.ans; });
-
-    brow.append(sndBtn(item.ans), ab);
-    div.append(num, kr, hrow, ta, brow, reveal);
-    list.appendChild(div);
-  });
-
-  // 모범 답안 전체 박스
-  const box = document.createElement('div');
-  box.className = 'all-ans-box';
-  box.innerHTML = '<div class="all-ans-title">📌 영작 모범 답안 전체</div><div class="all-ans-list">' +
-    engData.map((d,i) => `<strong>${i+1}.</strong> ${d.ans}`).join('<br>') + '</div>';
-  list.appendChild(box);
+/* ══════════════════════════════════════
+   TTS (표준 블록)
+══════════════════════════════════════ */
+let voice=null,ttsOk=false;
+function loadVoices(){
+  const vs=speechSynthesis.getVoices();
+  const prefer=['Google US English','Google UK English Female','Samantha','Microsoft Aria','Microsoft Jenny','Microsoft Zira','Karen','Alex'];
+  for(const n of prefer){const v=vs.find(x=>x.name===n);if(v){voice=v;return;}}
+  voice=vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang&&v.lang.startsWith('en'))||null;
+}
+if('speechSynthesis' in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;}
+function unlockTTS(){if(ttsOk||!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance('');u.volume=0;speechSynthesis.speak(u);ttsOk=true;}
+document.addEventListener('touchstart',unlockTTS,{once:true});
+document.addEventListener('click',unlockTTS,{once:true});
+function speak(text,btn,slow){
+  if(!('speechSynthesis' in window))return;
+  unlockTTS();speechSynthesis.cancel();
+  document.querySelectorAll('.snd.playing').forEach(b=>b.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(String(text).trim());
+  if(voice)u.voice=voice;u.lang='en-US';u.rate=slow?.55:.92;u.pitch=1.0;
+  if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}
+  speechSynthesis.speak(u);
+}
+function sndBtn(text){
+  const b=document.createElement('button');b.className='snd';b.innerHTML='🔊';b.title='듣기';
+  b.onclick=()=>speak(text,b,false);return b;
 }
 
-/* ── 빌드 ── */
-buildFlow();
-buildQuiz();
-buildBlanks();
-buildGram();
-buildEng();
+/* ══════════════════════════════════════
+   유틸
+══════════════════════════════════════ */
+function normKr(s){return String(s).replace(/[\s,;()~→↔?.!]/g,'').trim();}
+function mk(txt,cls){const b=document.createElement('button');b.className=cls;b.type='button';b.textContent=txt;return b;}
+function ansBtn(targetEl){
+  const b=mk('정답 보기','mini-btn');
+  b.onclick=()=>{const o=targetEl.classList.toggle('open');b.textContent=o?'정답 숨기기':'정답 보기';};
+  return b;
+}
+
+/* ══════════════════════════════════════
+   단계 관리
+══════════════════════════════════════ */
+const STAGE_META=[
+  {label:'① 한글 분석',lv:'국어'},
+  {label:'② 영어 빈칸',lv:'적용'},
+  {label:'③ 문장 순서',lv:'심화'},
+  {label:'④ 오류 수정',lv:'문법'},
+  {label:'⑤ 빈칸 추론',lv:'수능형'},
+  {label:'⑥ 핵심 영작',lv:'추론'},
+];
+let curStage=0;
+const unlocked=new Set([0]);
+
+function renderRail(){
+  const rail=document.getElementById('stepRail');rail.innerHTML='';
+  STAGE_META.forEach((s,i)=>{
+    const pip=document.createElement('div');
+    const st=i===curStage?'active':unlocked.has(i)&&i<curStage?'done':!unlocked.has(i)?'locked':'unlocked';
+    pip.className='step-pip '+st;
+    pip.innerHTML=s.label+'<span class="step-lv">'+s.lv+'</span>';
+    if(unlocked.has(i))pip.onclick=()=>goStage(i);
+    rail.appendChild(pip);
+  });
+}
+function goStage(i){
+  if(!unlocked.has(i))return;
+  curStage=i;renderRail();renderCurrentStage();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function unlockNext(){if(curStage+1<STAGE_META.length){unlocked.add(curStage+1);renderRail();}}
+
+function renderCurrentStage(){
+  const wrap=document.getElementById('stageWrap');wrap.innerHTML='';
+  const builders=[buildKorean,buildBlanks,buildSort,buildError,buildInfer,buildEng];
+  builders[curStage](wrap);
+  // 다음 단계 잠금 미리보기
+  if(curStage+1<STAGE_META.length){
+    const lc=document.createElement('div');lc.className='lock-card';
+    lc.innerHTML=`<div class="lock-icon">🔒</div>
+      <div class="lock-msg">${STAGE_META[curStage+1].label}</div>
+      <div style="font-size:12px;">이전 단계를 완료하면 열려요</div>`;
+    wrap.appendChild(lc);
+  }
+}
+
+/* 점검바 */
+function attachBar(container,items,onComplete){
+  const bar=document.createElement('div');bar.className='check-bar';
+  const pill=document.createElement('span');pill.className='result-pill';pill.style.display='none';
+  const gb=mk('전체 채점','check-btn cb-grade');
+  const rb=mk('❌ 틀린 것만 다시','check-btn cb-retry');rb.disabled=true;
+  const sb=mk('전체 보기','check-btn cb-reset');sb.style.display='none';
+  const nb=mk('다음 단계로 →','check-btn cb-next');nb.style.display='none';
+  function refresh(){
+    const ok=items.filter(x=>x._ok).length;
+    pill.style.display='inline-block';
+    pill.className='result-pill '+(ok===items.length?'pill-ok':'pill-bad');
+    pill.textContent=`${ok} / ${items.length} 정답`;
+    rb.disabled=(ok===items.length);
+    nb.style.display='inline-block';
+    unlockNext();
+    if(onComplete)onComplete(ok,items.length);
+  }
+  gb.onclick=()=>{items.forEach(it=>{if(!it.row.classList.contains('hide'))it._ok=it.grade();});refresh();};
+  rb.onclick=()=>{
+    items.forEach(it=>{it._ok?it.row.classList.add('hide'):(it.row.classList.remove('hide'),it.reset());});
+    sb.style.display='inline-block';
+    const left=items.filter(x=>!x._ok).length;
+    pill.style.display='inline-block';pill.className='result-pill pill-bad';pill.textContent=`틀린 ${left}문제만 다시`;
+  };
+  sb.onclick=()=>{items.forEach(it=>it.row.classList.remove('hide'));pill.style.display='none';};
+  nb.onclick=()=>{if(curStage+1<STAGE_META.length)goStage(curStage+1);else showFinish();};
+  bar.append(gb,rb,sb,nb,pill);
+  container.appendChild(bar);
+}
+
+function showFinish(){
+  const wrap=document.getElementById('stageWrap');wrap.innerHTML='';
+  const sec=document.createElement('div');sec.className='sec';
+  sec.innerHTML=`<div style="text-align:center;padding:28px 16px;">
+    <div style="font-size:40px;margin-bottom:10px;">🎉</div>
+    <div style="font-size:20px;font-weight:900;color:var(--ink);margin-bottom:8px;">모든 단계 완료!</div>
+    <div style="font-size:13px;color:var(--sub);margin-bottom:20px;line-height:1.7;">한글 분석 → 빈칸 → 순서 → 영작까지<br>35문장을 완전히 학습했어요.</div>
+    <button class="check-btn cb-grade" style="padding:12px 28px;font-size:14px;" onclick="resetAll()">처음부터 다시</button>
+  </div>`;
+  wrap.appendChild(sec);renderRail();
+}
+function resetAll(){unlocked.clear();unlocked.add(0);curStage=0;renderRail();renderCurrentStage();window.scrollTo({top:0});}
+
+/* ══════════════════════════════════════
+   ① 한글 분석
+══════════════════════════════════════ */
+function buildKorean(wrap){
+  const sec=document.createElement('div');sec.className='sec';
+  const head=document.createElement('div');head.className='sec-head';
+  head.innerHTML='<span class="sec-badge b1">①</span><span class="sec-title">한글 분석 — 흐름·연결어·주제문·작가 의도</span><span class="level-tag lv-kr">국어</span>';
+  const desc=document.createElement('div');desc.className='sec-desc';desc.textContent='단락별 요지를 파악하고 연결어·핵심문장·작가 의도를 분석하세요';
+  sec.append(head,desc);
+
+  const allChoiceItems=[]; // 선택형 전체 수집
+
+  PARAS.forEach(para=>{
+    const pg=document.createElement('div');pg.className='para-group';
+
+    // 단락 태그
+    const ptag=document.createElement('div');ptag.className='para-tag '+para.cls;ptag.innerHTML='📌 '+para.tag;
+    pg.appendChild(ptag);
+
+    // 흐름 테이블
+    const tbl=document.createElement('table');tbl.className='flow-tbl';
+    const sents=SENTENCES.filter(s=>s.para===PARAS.indexOf(para));
+    sents.forEach(s=>{
+      const tr=document.createElement('tr');
+      const tdN=document.createElement('td');tdN.className='fnum';tdN.textContent=s.n;
+      const tdK=document.createElement('td');tdK.className='fkr';
+      const inner=document.createElement('div');inner.style.cssText='display:flex;align-items:flex-start;justify-content:space-between;gap:8px;';
+      const span=document.createElement('span');span.style.flex='1';span.textContent=s.kr;
+      const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent=s.en;
+      inner.append(span,sndBtn(s.en),ansBtn(reveal));
+      tdK.append(inner,reveal);
+      tr.append(tdN,tdK);tbl.appendChild(tr);
+    });
+    pg.appendChild(tbl);
+
+    // 요지
+    const sum=document.createElement('div');sum.className='flow-summary';sum.innerHTML=para.summary;
+    pg.appendChild(sum);
+
+    // 연결어 분석
+    const divConn=document.createElement('div');divConn.style.marginTop='12px';
+    const connTitle=document.createElement('div');connTitle.style.cssText='font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;';connTitle.textContent='▸ 연결어·문법 분석';
+    divConn.appendChild(connTitle);
+
+    para.conn.forEach((c,ci)=>{
+      const item=document.createElement('div');item.className='analysis-item';
+      const lbl=document.createElement('span');lbl.className='a-label a-conn';lbl.textContent='연결어';
+      const q=document.createElement('div');q.className='a-q';q.innerHTML=c.q;
+      item.append(lbl,q);
+      if(c.type==='choice'){
+        const opts=document.createElement('div');opts.className='choice-opts';
+        const fb=document.createElement('div');fb.className='choice-fb';
+        let done=false;
+        const choiceItem={_ok:false};
+        c.opts.forEach((o,oi)=>{
+          const b=document.createElement('button');b.className='choice-opt';b.textContent=o;
+          b.onclick=()=>{
+            if(done)return;done=true;
+            const ok=oi===c.ans;choiceItem._ok=ok;
+            b.classList.add(ok?'ch-ok':'ch-no');
+            [...opts.children].forEach((x,xi)=>{if(xi===c.ans&&!ok)x.classList.add('ch-reveal');x.disabled=true;});
+            fb.className='choice-fb show '+(ok?'ok':'no');
+            fb.textContent=(ok?'✅ ':'❌ ')+c.fb;
+          };
+          opts.appendChild(b);
+        });
+        allChoiceItems.push(choiceItem);
+        item.append(opts,fb);
+      }
+      divConn.appendChild(item);
+    });
+    pg.appendChild(divConn);
+
+    // 주제문
+    const divTopic=document.createElement('div');divTopic.className='analysis-item';divTopic.style.marginTop='8px';
+    const lbl2=document.createElement('span');lbl2.className='a-label a-topic';lbl2.textContent='주제문';
+    const q2=document.createElement('div');q2.className='a-q';q2.innerHTML=para.topic.q+' <span style="font-size:11px;color:var(--muted);">(힌트: '+para.topic.hint+')</span>';
+    const inp=document.createElement('input');inp.className='q-input';inp.type='text';inp.autocomplete='off';inp.placeholder='한국어로 쓰세요';
+    const reveal2=document.createElement('div');reveal2.className='ans-reveal';reveal2.textContent='정답 예시: '+para.topic.a;
+    const chk=mk('확인','mini-btn');
+    const topicItem={_ok:false,
+      grade(){const ok=inp.value.trim().length>10;inp.classList.remove('correct','wrong');inp.classList.add(ok?'correct':'wrong');return ok;},
+      reset(){inp.value='';inp.classList.remove('correct','wrong');}};
+    chk.onclick=()=>{reveal2.classList.add('open');topicItem._ok=true;};
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter'){reveal2.classList.add('open');topicItem._ok=true;}});
+    const btns2=document.createElement('div');btns2.className='q-btns';btns2.append(chk,ansBtn(reveal2));
+    divTopic.append(lbl2,q2,inp,btns2,reveal2);
+    pg.appendChild(divTopic);
+
+    // 작가 의도
+    const divIntent=document.createElement('div');divIntent.className='analysis-item';divIntent.style.marginTop='4px';
+    const lbl3=document.createElement('span');lbl3.className='a-label a-intent';lbl3.textContent='작가 의도';
+    const q3=document.createElement('div');q3.className='a-q';q3.textContent=para.intent.q;
+    divIntent.append(lbl3,q3);
+    if(para.intent.type==='choice'){
+      const opts3=document.createElement('div');opts3.className='choice-opts';
+      const fb3=document.createElement('div');fb3.className='choice-fb';
+      let done3=false;
+      const intentItem={_ok:false};
+      para.intent.opts.forEach((o,oi)=>{
+        const b=document.createElement('button');b.className='choice-opt';b.textContent=o;
+        b.onclick=()=>{
+          if(done3)return;done3=true;
+          const ok=oi===para.intent.ans;intentItem._ok=ok;
+          b.classList.add(ok?'ch-ok':'ch-no');
+          [...opts3.children].forEach((x,xi)=>{if(xi===para.intent.ans&&!ok)x.classList.add('ch-reveal');x.disabled=true;});
+          fb3.className='choice-fb show '+(ok?'ok':'no');
+          fb3.textContent=(ok?'✅ ':'❌ ')+para.intent.fb;
+        };
+        opts3.appendChild(b);
+      });
+      allChoiceItems.push(intentItem);
+      divIntent.append(opts3,fb3);
+    }
+    pg.appendChild(divIntent);
+
+    sec.appendChild(pg);
+  });
+
+  // 한글 분석 완료 버튼
+  const bar=document.createElement('div');bar.className='check-bar';
+  const nb=mk('분석 완료 · 영어 빈칸으로 →','check-btn cb-next');nb.style.display='inline-block';
+  nb.onclick=()=>{unlockNext();goStage(1);};
+  bar.appendChild(nb);sec.appendChild(bar);
+  wrap.appendChild(sec);
+}
+
+/* ══════════════════════════════════════
+   ③ 문장 순서 맞추기 (단락별)
+══════════════════════════════════════ */
+function buildSort(wrap){
+  const sec=document.createElement('div');sec.className='sec';
+  const head=document.createElement('div');head.className='sec-head';
+  head.innerHTML='<span class="sec-badge b3">③</span><span class="sec-title">문장 순서 맞추기 — 단락별 35문장</span><span class="level-tag lv-en">심화</span>';
+  const desc=document.createElement('div');desc.className='sec-desc';desc.textContent='섞인 문장들을 드래그해서 올바른 순서로 배열하세요';
+  sec.append(head,desc);
+
+  let allDone=0;
+
+  PARAS.forEach((para,pi)=>{
+    const pg=document.createElement('div');pg.className='para-group';
+    const ptag=document.createElement('div');ptag.className='para-tag '+para.cls;ptag.innerHTML='📌 '+para.tag;
+    pg.appendChild(ptag);
+
+    const sents=SENTENCES.filter(s=>s.para===pi);
+    const shuffled=[...sents].sort(()=>Math.random()-.5);
+    const correctOrder=sents.map(s=>s.n);
+
+    const area=document.createElement('div');area.className='sort-area';
+    let dragSrc=null;
+
+    shuffled.forEach((s,i)=>{
+      const item=document.createElement('div');item.className='sort-item';item.draggable=true;
+      item.dataset.n=s.n;
+      item.innerHTML=`<span class="sort-handle">⠿</span><span class="sort-text">${s.en}</span>`;
+      item.addEventListener('dragstart',e=>{dragSrc=item;item.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
+      item.addEventListener('dragend',()=>{item.classList.remove('dragging');document.querySelectorAll('.drag-over').forEach(x=>x.classList.remove('drag-over'));});
+      item.addEventListener('dragover',e=>{e.preventDefault();item.classList.add('drag-over');});
+      item.addEventListener('dragleave',()=>item.classList.remove('drag-over'));
+      item.addEventListener('drop',e=>{e.preventDefault();item.classList.remove('drag-over');if(dragSrc&&dragSrc!==item){const items=[...area.children];const si=items.indexOf(dragSrc),di=items.indexOf(item);if(si<di)area.insertBefore(dragSrc,item.nextSibling);else area.insertBefore(dragSrc,item);}});
+      area.appendChild(item);
+    });
+
+    const fb=document.createElement('div');fb.className='sort-result';
+    const chk=mk('순서 확인','check-btn cb-grade');
+    chk.style.marginTop='10px';
+    chk.onclick=()=>{
+      const cur=[...area.children].map(x=>x.dataset.n);
+      const ok=JSON.stringify(cur)===JSON.stringify(correctOrder);
+      fb.className='sort-result show '+(ok?'ok':'no');
+      if(ok){
+        fb.textContent='✅ 완벽한 순서예요!';
+        allDone++;if(allDone===PARAS.length)unlockNext();
+      } else {
+        // 틀린 위치 표시
+        cur.forEach((n,i)=>{
+          const el=[...area.children][i];
+          el.style.background=n===correctOrder[i]?'var(--ok-bg)':'var(--no-bg)';
+          el.style.borderColor=n===correctOrder[i]?'var(--ok)':'var(--no)';
+        });
+        fb.innerHTML='❌ 다시 해보세요. <button class="mini-btn" onclick="this.closest(\'.para-group\').querySelector(\'.sort-result\').className=\'sort-result\';[...this.closest(\'.para-group\').querySelector(\'.sort-area\').children].forEach(x=>{x.style.background=\'\';x.style.borderColor=\'\';});">초기화</button>';
+      }
+    };
+    const revBtn=mk('정답 순서 보기','mini-btn');revBtn.style.marginTop='6px';
+    const revDiv=document.createElement('div');revDiv.className='ans-reveal';
+    revDiv.innerHTML=sents.map((s,i)=>`<b>${i+1}.</b> [${s.n}] ${s.en}`).join('<br>');
+    revBtn.onclick=()=>{revDiv.classList.toggle('open');revBtn.textContent=revDiv.classList.contains('open')?'정답 숨기기':'정답 순서 보기';unlockNext();};
+
+    pg.append(area,chk,fb,revBtn,revDiv);
+    sec.appendChild(pg);
+  });
+
+  // 다음 단계 버튼
+  const bar=document.createElement('div');bar.className='check-bar';
+  const nb=mk('다음 단계로 →','check-btn cb-next');nb.style.display='inline-block';
+  nb.onclick=()=>{unlockNext();if(curStage+1<STAGE_META.length)goStage(curStage+1);else showFinish();};
+  bar.appendChild(nb);sec.appendChild(bar);
+  wrap.appendChild(sec);
+}
+
+
+function buildBlanks(wrap){
+  const sec=document.createElement('div');sec.className='sec';
+  const head=document.createElement('div');head.className='sec-head';
+  head.innerHTML='<span class="sec-badge b2">②</span><span class="sec-title">영어 빈칸 채우기 — 35문장 전체</span><span class="level-tag lv-en">적용</span>';
+  const desc=document.createElement('div');desc.className='sec-desc';desc.textContent='빈칸에 알맞은 단어를 넣으세요 · Enter로 즉각 채점';
+  sec.append(head,desc);
+  const gradable=[];
+
+  PARAS.forEach((para,pi)=>{
+    const pg=document.createElement('div');pg.className='para-group';
+    const ptag=document.createElement('div');ptag.className='para-tag '+para.cls;ptag.innerHTML='📌 '+para.tag;
+    pg.appendChild(ptag);
+    const sents=SENTENCES.filter(s=>s.para===pi);
+    sents.forEach(s=>{
+      const row=document.createElement('div');row.className='blank-item';
+      const num=document.createElement('div');num.className='blank-num';num.textContent='문장 '+s.n;
+      const kr=document.createElement('div');kr.className='blank-kr';kr.textContent=s.kr;
+      const sentDiv=document.createElement('div');sentDiv.className='blank-sent';
+      row.append(num,kr);
+      if(s.blank.length===0){
+        sentDiv.style.cssText="font-family:'Lora',serif;font-size:13px;color:var(--sub);";
+        sentDiv.textContent=s.en;
+        const sb=sndBtn(s.en);
+        row.append(sentDiv,sb);
+      } else {
+        const inputs=[],answers=[];
+        let remaining=s.en;
+        s.blank.forEach(([ans,w])=>{
+          const idx=remaining.indexOf(ans);
+          if(idx>0)sentDiv.appendChild(document.createTextNode(remaining.slice(0,idx)));
+          const inp=document.createElement('input');
+          inp.className='b-inp';inp.type='text';inp.autocomplete='off';inp.spellcheck=false;
+          inp.style.width=w+'px';inp.placeholder='___';
+          inputs.push(inp);answers.push(ans.toLowerCase());
+          sentDiv.appendChild(inp);
+          remaining=remaining.slice(idx+ans.length);
+        });
+        if(remaining)sentDiv.appendChild(document.createTextNode(remaining));
+        const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent=s.en;
+        const chk=mk('채점','mini-btn');
+        const item={row,_ok:false,
+          grade(){let a=true;inputs.forEach((inp,i)=>{const ok=inp.value.trim().toLowerCase()===answers[i];inp.classList.remove('ok','no');inp.classList.add(ok?'ok':'no');if(!ok)a=false;});return a;},
+          reset(){inputs.forEach(inp=>{inp.value='';inp.classList.remove('ok','no');});}};
+        chk.onclick=()=>{item._ok=item.grade();};
+        inputs.forEach(inp=>inp.addEventListener('keydown',e=>{if(e.key==='Enter')item._ok=item.grade();}));
+        const btns=document.createElement('div');btns.className='q-btns';
+        btns.append(chk,sndBtn(s.en),ansBtn(reveal));
+        row.append(sentDiv,btns,reveal);
+        gradable.push(item);
+      }
+      pg.appendChild(row);
+    });
+    sec.appendChild(pg);
+  });
+  attachBar(sec,gradable,null);
+  wrap.appendChild(sec);
+}
+
+
+/* ══════════════════════════════════════
+   오류 수정 데이터
+══════════════════════════════════════ */
+const ERROR_DATA=[
+  {n:'03',
+   wrong:'Visiting markets <u>are</u> a good way to learn about the culture of a country.',
+   error:'are',correct:'is',
+   reason:'동명사구(Visiting markets)가 주어 → 단수 취급 → is',
+   en:'Visiting markets is a good way to learn about the culture of a country.'},
+  {n:'01',
+   wrong:'I <u>write</u> a travel blog since I was 18.',
+   error:'write',correct:'have been writing',
+   reason:'since + 과거 시점 → 현재완료진행형(have been -ing) 필요',
+   en:'I have been writing a travel blog since I was 18.'},
+  {n:'06',
+   wrong:'Turkey is a country <u>which</u> East meets West.',
+   error:'which',correct:'where',
+   reason:'선행사 a country는 장소 → 관계부사 where 사용',
+   en:'Turkey is a country where East meets West, so it has a long tradition of trade.'},
+  {n:'08',
+   wrong:'The market was <u>build</u> in 1455 in Istanbul.',
+   error:'build',correct:'built',
+   reason:'수동태 was + p.p. → build의 과거분사는 built',
+   en:'The market was built in 1455 in Istanbul.'},
+  {n:'10',
+   wrong:'It is the <u>large</u> covered market in the world.',
+   error:'large',correct:'largest',
+   reason:'"세계에서 가장 큰" → 최상급 largest + the 필요',
+   en:'It is the largest covered market in the world.'},
+  {n:'19',
+   wrong:'Since the late 1960s, some of them <u>came</u> back and kept the tradition alive.',
+   error:'came',correct:'have come',
+   reason:'Since + 과거시점 → 현재완료(have come back) 필요',
+   en:'Since the late 1960s, some of them have come back and kept the tradition alive.'},
+  {n:'20',
+   wrong:'Today, one of the most popular floating markets <u>are</u> Damnoen Saduak.',
+   error:'are',correct:'is',
+   reason:'one of + 복수명사: 주어는 one(단수) → is',
+   en:'Today, one of the most popular floating markets is Damnoen Saduak Floating Market.'},
+  {n:'27',
+   wrong:'As the name suggests, about a third of the country <u>sit</u> below sea level.',
+   error:'sit',correct:'sits',
+   reason:'a third of the country → 단수 취급 → sits',
+   en:'As the name suggests, about a third of the country sits below sea level.'},
+  {n:'30',
+   wrong:'The building <u>which</u> the market is housed is bigger than 120 soccer fields.',
+   error:'which',correct:'where',
+   reason:'선행사 The building은 장소 → 관계부사 where',
+   en:'The building where the market is housed is bigger than 120 soccer fields.'},
+  {n:'33',
+   wrong:'Every day, around 20 million flowers are <u>trade</u> and shipped to all corners of the world.',
+   error:'trade',correct:'traded',
+   reason:'수동태 are + p.p. → trade의 과거분사는 traded',
+   en:'Every day, around 20 million flowers are traded and shipped to all corners of the world.'},
+];
+
+/* ══════════════════════════════════════
+   빈칸 추론 데이터 (수능형)
+══════════════════════════════════════ */
+const INFER_DATA=[
+  {q:'시장 방문은 한 나라의 문화를 ______ 좋은 방법이다.',
+   context:'Markets are places where you can meet people, learn history, and taste local food. I wonder whether there is any better way to discover another culture.',
+   blank:'learn about',
+   opts:['learn about','forget about','create for','escape from'],
+   ans:0,
+   explain:'글 전체 주제: 시장은 문화를 배우는 곳 → learn about the culture'},
+  {q:'그랜드 바자르는 세계에서 가장 큰 ______ 시장이다.',
+   context:'It has 64 streets and more than 4,000 shops under one roof.',
+   blank:'covered',
+   opts:['open-air','covered','floating','flower'],
+   ans:1,
+   explain:'지붕이 덮인(covered) 시장 — 64개 거리, 4,000개 상점이 한 지붕 아래'},
+  {q:'도로 교통 발달로 많은 수상 시장이 ______.',
+   context:'In the past, Thai people traded goods on rivers. This was the beginning of floating markets.',
+   blank:'disappeared',
+   opts:['disappeared','expanded','appeared','improved'],
+   ans:0,
+   explain:'문장 18: With better road transportation → 수상 시장이 사라짐(disappeared)'},
+  {q:'1960년대 후반부터 일부 수상 시장이 다시 생겨나 전통을 ______ 이어가고 있다.',
+   context:'Since the late 1960s, however, some of them have come back and kept the tradition ______.',
+   blank:'alive',
+   opts:['alive','alone','apart','away'],
+   ans:0,
+   explain:'keep ~ alive: 전통을 살아있게 유지하다 → alive'},
+  {q:'네덜란드라는 이름이 ______ 국토의 약 1/3이 해수면보다 낮다.',
+   context:'The Netherlands means "low lands." As the name ______, about a third of the country sits below sea level.',
+   blank:'suggests',
+   opts:['suggests','contradicts','ignores','changes'],
+   ans:0,
+   explain:'As the name suggests: 이름이 말해주듯 → suggests(암시하다, 말해주다)'},
+  {q:'알스메이르 꽃 시장 건물은 축구장 120개보다 ______.',
+   context:'The market is busy with thousands of flower-filled carts. Every day, around 20 million flowers are traded.',
+   blank:'bigger',
+   opts:['smaller','busier','bigger','older'],
+   ans:2,
+   explain:'문장 30: bigger than 120 soccer fields → 규모 강조'},
+  {q:'매일 약 2천만 송이의 꽃이 거래되어 세계 ______ 운송된다.',
+   context:'The building where the market is housed is bigger than 120 soccer fields.',
+   blank:'all corners of the world',
+   opts:['all corners of the world','some parts of Europe','local markets only','nearby countries'],
+   ans:0,
+   explain:'문장 33: shipped to all corners of the world → 세계 각지'},
+  {q:'안타깝게도 꽃을 살 수는 없지만, ______ 꽃 거래 현장을 직접 볼 수 있다.',
+   context:'You may wonder whether you can buy just a few flowers at the market. Sadly, you cannot.',
+   blank:'wholesale',
+   opts:['wholesale','retail','illegal','small-scale'],
+   ans:0,
+   explain:'문장 35: wholesale flower trading → 도매 꽃 거래'},
+];
+
+/* ══════════════════════════════════════
+   ④ 오류 수정
+══════════════════════════════════════ */
+function buildError(wrap){
+  const sec=document.createElement('div');sec.className='sec';
+  const head=document.createElement('div');head.className='sec-head';
+  head.innerHTML='<span class="sec-badge b4">④</span><span class="sec-title">오류 수정 — 어법상 틀린 부분 찾기</span><span class="level-tag lv-en">문법</span>';
+  const desc=document.createElement('div');desc.className='sec-desc';desc.textContent='밑줄 친 부분이 어법상 맞으면 ○, 틀리면 올바른 형태를 입력하세요';
+  sec.append(head,desc);
+
+  const items=[];
+  ERROR_DATA.forEach((d,i)=>{
+    const row=document.createElement('div');row.className='blank-item';
+    const num=document.createElement('div');num.className='blank-num';num.textContent='문장 '+d.n;
+
+    // 오류 문장 표시
+    const sentDiv=document.createElement('div');
+    sentDiv.style.cssText="font-family:'Lora',serif;font-size:14px;line-height:1.9;margin-bottom:8px;";
+    sentDiv.innerHTML=d.wrong;
+
+    // 입력
+    const inpWrap=document.createElement('div');
+    inpWrap.style.cssText='display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;';
+    const inpLabel=document.createElement('span');inpLabel.style.cssText='font-size:12px;color:var(--muted);';
+    inpLabel.textContent='올바른 형태:';
+    const inp=document.createElement('input');inp.className='q-input';inp.type='text';
+    inp.autocomplete='off';inp.spellcheck=false;inp.style.minWidth='160px';inp.placeholder='수정된 표현 입력';
+    inpWrap.append(inpLabel,inp);
+
+    const reveal=document.createElement('div');reveal.className='ans-reveal';
+    reveal.innerHTML=`<b>${d.error}</b> → <b style="color:var(--ok)">${d.correct}</b><br><span style="font-size:12px;color:var(--sub);">${d.reason}</span>`;
+
+    const item={row,_ok:false,
+      grade(){
+        const val=inp.value.trim().toLowerCase();
+        const ok=val===d.correct.toLowerCase();
+        inp.classList.remove('correct','wrong');inp.classList.add(ok?'correct':'wrong');
+        return ok;
+      },
+      reset(){inp.value='';inp.classList.remove('correct','wrong');}};
+
+    const chk=mk('채점','mini-btn');chk.onclick=()=>{item._ok=item.grade();};
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')item._ok=item.grade();});
+    const btns=document.createElement('div');btns.className='q-btns';
+    btns.append(chk,sndBtn(d.en),ansBtn(reveal));
+    row.append(num,sentDiv,inpWrap,btns,reveal);
+    sec.appendChild(row);items.push(item);
+  });
+  attachBar(sec,items,null);
+  wrap.appendChild(sec);
+}
+
+/* ══════════════════════════════════════
+   ⑤ 빈칸 추론 (수능형)
+══════════════════════════════════════ */
+function buildInfer(wrap){
+  const sec=document.createElement('div');sec.className='sec';
+  const head=document.createElement('div');head.className='sec-head';
+  head.innerHTML='<span class="sec-badge b5r">⑤</span><span class="sec-title">빈칸 추론 — 문맥으로 단어 찾기</span><span class="level-tag lv-inf">수능형</span>';
+  const desc=document.createElement('div');desc.className='sec-desc';desc.textContent='앞뒤 문맥을 읽고 빈칸에 가장 알맞은 표현을 고르세요';
+  sec.append(head,desc);
+
+  const nums=['①','②','③','④'];
+  let doneCount=0;
+
+  INFER_DATA.forEach((d,i)=>{
+    const row=document.createElement('div');row.className='blank-item';
+    const num=document.createElement('div');num.className='blank-num';num.textContent='Q'+(i+1);
+
+    // 문맥 박스
+    const ctx=document.createElement('div');
+    ctx.style.cssText="font-family:'Lora',serif;font-style:italic;font-size:13px;background:#F7F5FF;border-radius:9px;padding:10px 14px;border-left:3px solid var(--border);margin-bottom:8px;color:var(--sub);line-height:1.75;";
+    ctx.textContent='📖 '+d.context;
+
+    // 질문
+    const q=document.createElement('div');
+    q.style.cssText='font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px;line-height:1.65;';
+    q.innerHTML=d.q.replace('______','<span style="color:var(--purple);border-bottom:2px solid var(--purple);padding:0 4px;">______</span>');
+
+    // 보기
+    const og=document.createElement('div');og.className='choice-opts';og.style.flexDirection='column';og.style.gap='6px';
+    const fb=document.createElement('div');fb.className='choice-fb';
+    let done=false;
+
+    d.opts.forEach((o,oi)=>{
+      const b=document.createElement('button');
+      b.style.cssText='padding:10px 14px;border:1.5px solid var(--border-lt);background:var(--bg);border-radius:10px;font-size:13px;font-family:inherit;cursor:pointer;text-align:left;color:var(--ink);transition:.13s;display:flex;align-items:center;gap:8px;';
+      b.innerHTML=`<span style="font-weight:700;color:var(--muted);min-width:20px;">${nums[oi]}</span>${o}`;
+      b.onmouseover=()=>{if(!done)b.style.background='var(--purple-lt)';};
+      b.onmouseout=()=>{if(!done&&!b.classList.contains('ch-ok')&&!b.classList.contains('ch-no'))b.style.background='var(--bg)';};
+      b.onclick=()=>{
+        if(done)return;done=true;
+        const ok=oi===d.ans;
+        b.style.background=ok?'var(--ok-bg)':'var(--no-bg)';
+        b.style.borderColor=ok?'var(--ok)':'var(--no)';
+        b.style.color=ok?'var(--ok)':'var(--no)';
+        if(!ok){
+          const correct=[...og.children][d.ans];
+          correct.style.background='var(--ok-bg)';correct.style.borderColor='var(--ok)';correct.style.color='var(--ok)';
+        }
+        [...og.children].forEach(x=>{x.style.cursor='default';});
+        fb.className='choice-fb show '+(ok?'ok':'no');
+        fb.textContent=(ok?'✅ ':'❌ ')+d.explain;
+        doneCount++;
+        if(doneCount===INFER_DATA.length)unlockNext();
+      };
+      og.appendChild(b);
+    });
+
+    row.append(num,ctx,q,og,fb);
+    sec.appendChild(row);
+  });
+
+  const bar=document.createElement('div');bar.className='check-bar';
+  const nb=mk('다음 단계로 →','check-btn cb-next');nb.style.display='inline-block';
+  nb.onclick=()=>{unlockNext();if(curStage+1<STAGE_META.length)goStage(curStage+1);else showFinish();};
+  bar.appendChild(nb);sec.appendChild(bar);
+  wrap.appendChild(sec);
+}
+
+/* ══════════════════════════════════════
+   ⑥ 핵심 영작 (힌트 단계 조절)
+══════════════════════════════════════ */
+function buildEng(wrap){
+  const sec=document.createElement('div');sec.className='sec';
+  const head=document.createElement('div');head.className='sec-head';
+  head.innerHTML='<span class="sec-badge b6">⑥</span><span class="sec-title">핵심 문장 영작 — 10문장</span><span class="level-tag lv-write">추론</span>';
+  const desc=document.createElement('div');desc.className='sec-desc';desc.textContent='한글을 보고 영어 문장을 써보세요 · 힌트는 막혔을 때만 사용하세요';
+  sec.append(head,desc);
+
+  const items=[];
+
+  ENG_DATA.forEach((d,i)=>{
+    const row=document.createElement('div');row.className='eng-item';
+    const num=document.createElement('div');num.className='eng-num';num.textContent='문장 '+d.n;
+    const kr=document.createElement('div');kr.className='eng-kr';kr.textContent=d.kr;
+
+    // 힌트 칩 (기본 숨김)
+    const hrow=document.createElement('div');hrow.className='hint-row';hrow.style.display='none';
+    d.hints.forEach(h=>{const c=document.createElement('span');c.className='hint-chip';c.textContent=h;hrow.appendChild(c);});
+
+    // 입력
+    const ta=document.createElement('textarea');ta.className='eng-ta';ta.rows=2;
+    ta.placeholder='영어로 써보세요...';
+
+    // 채점 결과
+    const fb=document.createElement('div');
+    fb.style.cssText='font-size:12px;margin-top:6px;padding:7px 11px;border-radius:8px;display:none;';
+
+    // 정답 reveal
+    const reveal=document.createElement('div');reveal.className='ans-reveal';reveal.textContent=d.ans;
+
+    let attempts=0;
+
+    function gradeEng(){
+      const val=ta.value.trim().toLowerCase().replace(/[.,!?]/g,'');
+      const ans=d.ans.toLowerCase().replace(/[.,!?]/g,'');
+      const ok=val===ans;
+      attempts++;
+      fb.style.display='block';
+      if(ok){
+        fb.style.background='var(--ok-bg)';fb.style.color='var(--ok)';
+        fb.textContent='✅ 정확해요!';
+        reveal.classList.add('open');
+        return true;
+      } else {
+        fb.style.background='var(--no-bg)';fb.style.color='var(--no)';
+        if(attempts===1){
+          // 1회 오답 → 힌트 공개
+          hrow.style.display='flex';
+          fb.textContent='❌ 힌트를 보고 다시 도전해보세요!';
+          hintBtn.style.display='none';
+        } else {
+          // 2회 이상 오답 → 정답 공개
+          reveal.classList.add('open');
+          fb.textContent='❌ 정답을 확인하고 다시 써보세요.';
+        }
+        return false;
+      }
+    }
+
+    const chk=mk('채점','mini-btn');
+    const hintBtn=mk('힌트 보기','mini-btn');
+    const item={row,_ok:false,
+      grade(){const ok=gradeEng();this._ok=ok;return ok;},
+      reset(){ta.value='';fb.style.display='none';reveal.classList.remove('open');hrow.style.display='none';hintBtn.style.display='inline-block';attempts=0;this._ok=false;}};
+
+    chk.onclick=()=>{item._ok=item.grade();};
+    ta.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();item._ok=item.grade();}});
+    hintBtn.onclick=()=>{hrow.style.display='flex';hintBtn.style.display='none';};
+
+    const btns=document.createElement('div');btns.className='q-btns';
+    btns.append(chk,hintBtn,sndBtn(d.ans),ansBtn(reveal));
+    row.append(num,kr,hrow,ta,fb,btns,reveal);
+    sec.appendChild(row);items.push(item);
+  });
+
+  attachBar(sec,items,null);
+  wrap.appendChild(sec);
+}
+
+/* ══════════════════════════════════════
+   초기화
+══════════════════════════════════════ */
+renderRail();
+renderCurrentStage();
 </script>
 </body>
 </html>
-HTMLEOF
-echo "HTML done"
