@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+<title>Lesson 2+4 · 단어 & 대화문</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f2;--card:#fff;--card2:#f0eee7;
+  --primary:#1a5c38;--primary-lt:#e8f4ed;--primary-dk:#0f3d25;
+  --accent:#e8a020;--accent-lt:#fef3dc;
+  --text:#1a1a1a;--muted:#6b6b6b;--border:#e0ddd5;
+  --ok:#1a7a3c;--ok-bg:#e8f5ec;--no:#c0392b;--no-bg:#fdecea;
+  --info:#1a5c9e;--info-bg:#e8f0fb;--r:12px;--shadow:0 2px 10px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.7;padding-bottom:80px;}
+.header{background:linear-gradient(135deg,var(--primary-dk),var(--primary));color:#fff;padding:16px 20px 0;position:sticky;top:0;z-index:30;box-shadow:0 2px 12px rgba(0,0,0,.2);}
+.header-top{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+.header h1{font-size:16px;font-weight:900;flex:1;}
+.timer{background:rgba(255,255,255,.18);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:700;white-space:nowrap;}
+.header-sub{font-size:11px;opacity:.75;margin-bottom:8px;}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:0;}
+.tab{flex:1;min-width:64px;background:rgba(255,255,255,.12);border:none;color:rgba(255,255,255,.75);font-family:inherit;font-size:10px;font-weight:700;padding:10px 4px 12px;cursor:pointer;border-radius:10px 10px 0 0;text-align:center;white-space:nowrap;position:relative;}
+.tab .sn{display:block;font-size:8px;opacity:.7;margin-bottom:2px;}
+.tab.on{background:#fff;color:var(--primary);}
+.tab .dot{position:absolute;top:6px;right:5px;width:7px;height:7px;background:var(--accent);border-radius:50%;display:none;}
+.tab.done .dot{display:block;}
+.wrap{max-width:760px;margin:0 auto;padding:16px;}
+.page-enter{animation:pgIn .25s ease;}
+@keyframes pgIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+.desc{background:var(--primary-lt);border-left:3px solid var(--primary);border-radius:0 var(--r) var(--r) 0;padding:11px 14px;font-size:13px;color:var(--primary);line-height:1.6;margin-bottom:14px;}
+.desc b{color:var(--text);}
+.prog-wrap{margin-bottom:14px;}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:700;}
+.prog-track{height:7px;background:var(--card2);border-radius:5px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--primary),#2d9e5f);border-radius:5px;transition:width .4s;}
+.glabel{font-size:11px;font-weight:900;color:var(--muted);letter-spacing:.05em;margin:18px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.l2b{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:#e8f0fb;color:var(--info);margin-right:5px;}
+.l4b{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--accent-lt);color:var(--accent);margin-right:5px;}
+/* 단어 카드 */
+.vocab-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:9px;box-shadow:var(--shadow);}
+.vc-top{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap;}
+.vc-num{font-size:10px;font-weight:700;color:var(--muted);}
+.vc-blank{font-family:'Lora',serif;font-size:18px;font-weight:700;color:var(--primary);letter-spacing:2px;}
+.vc-kr{font-size:13px;color:var(--muted);}
+.mt0{font-size:9px;font-weight:700;padding:1px 6px;border-radius:4px;background:#e8f0fb;color:var(--info);}
+.mt1{font-size:9px;font-weight:700;padding:1px 6px;border-radius:4px;background:var(--accent-lt);color:var(--accent);}
+.mt2{font-size:9px;font-weight:700;padding:1px 6px;border-radius:4px;background:#f0eee7;color:var(--muted);}
+/* 다의어 박스 */
+.poly-box{background:var(--info-bg);border:1.5px solid #b0c8f0;border-radius:9px;padding:9px 13px;margin-bottom:8px;}
+.poly-title{font-size:11px;font-weight:900;color:var(--info);margin-bottom:5px;}
+.poly-row{font-size:12px;margin:2px 0;display:flex;gap:6px;}
+.poly-num{font-weight:700;color:var(--info);flex-shrink:0;}
+.poly-ex{font-family:'Lora',serif;font-size:12px;color:var(--text);}
+.poly-note{font-size:11px;color:var(--no);font-weight:700;margin-top:4px;padding:4px 8px;background:var(--no-bg);border-radius:6px;}
+/* 예외 경고 박스 */
+.warn-box{background:#fff8dc;border:1.5px solid #f0c040;border-radius:9px;padding:8px 12px;margin-bottom:8px;font-size:12px;}
+.warn-box .wt{font-weight:900;color:#8a5200;margin-bottom:3px;}
+.warn-box .wr{font-family:'Lora',serif;}
+.warn-box .wbad{color:var(--no);text-decoration:line-through;}
+.warn-box .wgood{color:var(--ok);font-weight:700;}
+/* 본문 문장 빈칸 */
+.sent-box{background:var(--card2);border-radius:8px;padding:8px 12px;margin-bottom:8px;font-family:'Lora',serif;font-size:14px;line-height:2;}
+.sent-box .sk{font-size:11px;color:var(--muted);font-family:'Noto Sans KR',sans-serif;display:block;margin-top:2px;}
+.vc-inp{flex:1;padding:7px 11px;border:1.5px solid var(--border);border-radius:8px;font-family:'Lora',serif;font-size:14px;background:var(--card2);color:var(--text);outline:none;}
+.vc-inp:focus{border-color:var(--primary);background:#fff;}
+.vc-inp.ok{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);}
+.vc-inp.no{border-color:var(--no);background:var(--no-bg);}
+.vc-inp-row{display:flex;gap:7px;align-items:center;margin-top:6px;}
+.vc-fb{font-size:11px;margin-top:5px;padding:4px 9px;border-radius:6px;display:none;}
+.vc-fb.ok{display:block;background:var(--ok-bg);color:var(--ok);}
+.vc-fb.no{display:block;background:var(--no-bg);color:var(--no);}
+/* 대화문 */
+.dlg-sec{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px;box-shadow:var(--shadow);}
+.dlg-title{font-size:13px;font-weight:900;color:var(--primary);margin-bottom:10px;}
+.key-box{background:var(--primary-lt);border:1.5px solid var(--ok);border-radius:10px;padding:11px 14px;margin-bottom:12px;}
+.key-main{font-family:'Lora',serif;font-size:16px;font-weight:700;color:var(--primary);margin-bottom:4px;}
+.key-meaning{font-size:13px;font-weight:700;margin-bottom:3px;}
+.key-usage{font-size:12px;color:var(--muted);}
+.key-similar{margin-top:8px;padding-top:8px;border-top:1px solid #b2d8c2;}
+.key-similar .ks-title{font-size:11px;font-weight:700;color:var(--ok);margin-bottom:5px;}
+.key-similar .ks-item{font-family:'Lora',serif;font-size:13px;padding:3px 0;border-bottom:1px dashed var(--border);}
+.key-similar .ks-item:last-child{border-bottom:none;}
+.key-similar .ks-kr{font-size:11px;color:var(--muted);}
+.dlg-lines{margin-bottom:12px;}
+.dlg-line{display:flex;gap:8px;margin-bottom:5px;align-items:flex-start;}
+.sp{font-size:11px;font-weight:700;color:#fff;border-radius:5px;padding:2px 7px;flex-shrink:0;margin-top:2px;white-space:nowrap;}
+.spW{background:var(--primary);}.spB{background:var(--info);}.spG{background:#8e44ad;}
+.spAlex{background:#e67e22;}.spKate{background:var(--no);}.spMinji{background:var(--ok);}
+.spMsKim{background:#7f8c8d;}.spA{background:var(--primary);}
+.dl-text{font-family:'Lora',serif;font-size:13px;line-height:1.7;}
+/* 문제 */
+.q-card{background:var(--card2);border-radius:10px;padding:13px;margin-bottom:10px;border:1px solid var(--border);}
+.q-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--info-bg);color:var(--info);margin-bottom:6px;display:inline-block;}
+.q-tag.warn{background:#fff8dc;color:#8a5200;}
+.q-text{font-size:13px;font-weight:700;margin-bottom:9px;line-height:1.6;}
+.mc-opts{display:flex;flex-direction:column;gap:7px;}
+.mc-opt{padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;background:var(--card);font-size:13px;cursor:pointer;font-family:'Lora',serif;display:flex;gap:8px;align-items:flex-start;transition:.13s;line-height:1.6;}
+.mc-opt:hover{border-color:var(--accent);}
+.mc-opt .on{font-weight:900;color:var(--muted);min-width:18px;flex-shrink:0;}
+.mc-opt.ok{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);font-weight:700;}
+.mc-opt.no{border-color:var(--no);background:var(--no-bg);color:var(--no);}
+.mc-opt.rv{border-color:var(--ok);background:var(--ok-bg);opacity:.5;}
+.q-fb{font-size:12px;margin-top:7px;padding:6px 10px;border-radius:7px;display:none;}
+.q-fb.show.ok{display:block;background:var(--ok-bg);color:var(--ok);}
+.q-fb.show.no{display:block;background:var(--no-bg);color:var(--no);}
+/* 빈칸 인라인 */
+.inline-inp{border:none;border-bottom:2px solid var(--accent);padding:0 4px;font-size:13px;font-family:'Lora',serif;background:transparent;color:var(--text);outline:none;vertical-align:bottom;min-width:80px;}
+.inline-inp:focus{border-bottom-color:var(--primary);}
+.inline-inp.ok{border-bottom-color:var(--ok);color:var(--ok);}
+.inline-inp.no{border-bottom-color:var(--no);color:var(--no);}
+/* 순서 맞추기 */
+.chip-pool{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.ord-chip{padding:5px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;cursor:pointer;background:var(--card);font-family:'Lora',serif;transition:.13s;line-height:1.4;}
+.ord-chip:hover{border-color:var(--accent);}
+.ord-chip.used{opacity:.3;pointer-events:none;}
+.ord-slots{display:flex;gap:5px;flex-wrap:wrap;min-height:36px;border:1.5px dashed var(--border);border-radius:9px;padding:5px 8px;background:var(--card);align-items:center;margin-bottom:7px;}
+.ord-slot{padding:4px 10px;border:1.5px solid var(--primary);border-radius:6px;font-size:12px;background:var(--primary-lt);color:var(--primary);cursor:pointer;font-family:'Lora',serif;}
+/* 삽입 위치 */
+.ins-box{background:var(--accent-lt);border:1.5px solid var(--accent);border-radius:9px;padding:9px 13px;margin-bottom:10px;}
+.ins-box .ilab{font-size:10px;font-weight:700;color:var(--accent);margin-bottom:3px;}
+.ins-box .itext{font-family:'Lora',serif;font-size:13px;}
+.ins-slot{display:flex;align-items:center;gap:7px;padding:3px 6px;border-radius:7px;cursor:pointer;margin-bottom:3px;transition:.13s;}
+.ins-slot:hover{background:var(--accent-lt);}
+.ins-slot.sel{background:var(--accent-lt);border:1.5px solid var(--accent);border-radius:7px;}
+.ins-slot .arr{font-size:14px;color:var(--accent);opacity:.4;}
+.ins-slot:hover .arr{opacity:1;}
+.ins-slot .ilab2{font-size:11px;color:var(--muted);}
+/* 버튼 */
+.b{padding:8px 18px;border:none;border-radius:20px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;}
+.b1{background:var(--primary);color:#fff;}
+.b2{background:var(--card2);color:var(--muted);border:1px solid var(--border);}
+.mini-btn{padding:4px 11px;border:1px solid var(--border);border-radius:99px;font-size:11px;cursor:pointer;font-family:inherit;background:var(--card);color:var(--muted);}
+.btn-row{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap;align-items:center;}
+.ans-r{display:none;margin-top:6px;padding:6px 10px;background:var(--ok-bg);border-radius:7px;font-size:12px;color:var(--ok);font-family:'Lora',serif;}
+.ans-r.open{display:block;}
+.check-bar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:14px;padding-top:10px;border-top:1px dashed var(--border);}
+.cb{padding:7px 15px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:none;}
+.cb-g{background:var(--primary);color:#fff;}
+.cb-r{background:var(--card);border:1.5px solid var(--no);color:var(--no);}
+.cb-r:disabled{opacity:.35;cursor:not-allowed;}
+.cb-s{background:var(--card);border:1.5px solid var(--border);color:var(--muted);}
+.result-pill{font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;display:none;}
+.pill-ok{background:var(--ok-bg);color:var(--ok);}
+.pill-bad{background:var(--accent-lt);color:var(--accent);}
+.snd{display:inline-flex;align-items:center;background:none;border:1px solid var(--border);border-radius:99px;padding:3px 9px;font-size:11px;color:var(--muted);cursor:pointer;font-family:inherit;}
+.snd:hover,.snd.playing{background:var(--primary-lt);border-color:var(--primary);color:var(--primary);}
+.tag-line{font-size:11px;color:var(--muted);text-align:center;margin-top:20px;}
+@media(max-width:480px){.mc-opt{font-size:12px;}.dlg-sec{padding:13px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-top">
+    <h1>📚 Lesson 2+4 · 단어 &amp; 대화문</h1>
+    <div class="timer">⏱ <span id="td">00:00</span></div>
+  </div>
+  <div class="header-sub">천재(이상기) 중2 · 준티 잉글리쉬</div>
+  <div class="tabs">
+    <button class="tab on" id="t0" onclick="go(0)"><span class="sn">단어</span>📝 부분빈칸<div class="dot"></div></button>
+    <button class="tab"   id="t1" onclick="go(1)"><span class="sn">단어</span>📖 본문빈칸<div class="dot"></div></button>
+    <button class="tab"   id="t2" onclick="go(2)"><span class="sn">L2</span>💬 대화문<div class="dot"></div></button>
+    <button class="tab"   id="t3" onclick="go(3)"><span class="sn">L4</span>💬 대화문<div class="dot"></div></button>
+  </div>
+</div>
+<div class="wrap" id="app"></div>
+<div class="tag-line">준티 잉글리쉬 · 자체 제작 학습 콘텐츠</div>
+<script>
+/* ══ Audio/TTS/Timer ══ */
+const _ac=new(window.AudioContext||window.webkitAudioContext)();
+function playPageTurn(){try{if(_ac.state==='suspended')_ac.resume();const now=_ac.currentTime;const mk=(len,vol,delay,hp)=>{const buf=_ac.createBuffer(1,Math.floor(_ac.sampleRate*len),_ac.sampleRate);const d=buf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length);const src=_ac.createBufferSource();src.buffer=buf;const f=_ac.createBiquadFilter();f.type='highpass';f.frequency.value=hp;const g=_ac.createGain();g.gain.setValueAtTime(0,now+delay);g.gain.linearRampToValueAtTime(vol,now+delay+0.02);g.gain.exponentialRampToValueAtTime(0.001,now+delay+len);src.connect(f);f.connect(g);g.connect(_ac.destination);src.start(now+delay);src.stop(now+delay+len);};mk(0.16,0.32,0,1800);mk(0.07,0.14,0.09,3200);}catch(e){}}
+let voice=null,ttsOk=false;
+function lv(){const vs=speechSynthesis.getVoices();const p=['Google US English','Samantha','Microsoft Aria','Karen'];for(const n of p){const v=vs.find(x=>x.name===n);if(v){voice=v;return;}}voice=vs.find(v=>v.lang==='en-US')||null;}
+if('speechSynthesis' in window){lv();speechSynthesis.onvoiceschanged=lv;}
+function unlockTTS(){if(ttsOk||!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance('');u.volume=0;speechSynthesis.speak(u);ttsOk=true;}
+document.addEventListener('touchstart',unlockTTS,{once:true});document.addEventListener('click',unlockTTS,{once:true});
+function speak(t,b){if(!('speechSynthesis' in window))return;unlockTTS();speechSynthesis.cancel();document.querySelectorAll('.snd.playing').forEach(x=>x.classList.remove('playing'));const u=new SpeechSynthesisUtterance(t);if(voice)u.voice=voice;u.lang='en-US';u.rate=.9;if(b){b.classList.add('playing');u.onend=()=>b.classList.remove('playing');}speechSynthesis.speak(u);}
+function mkSnd(t){const b=document.createElement('button');b.className='snd';b.innerHTML='🔊';b.onclick=()=>speak(t,b);return b;}
+let tSec=0,tInt=null;
+function startT(){if(tInt)return;tInt=setInterval(()=>{tSec++;const m=String(Math.floor(tSec/60)).padStart(2,'0'),s=String(tSec%60).padStart(2,'0');document.getElementById('td').textContent=m+':'+s;},1000);}
+document.addEventListener('click',startT,{once:true});
+function norm(s){return(s||'').toLowerCase().replace(/[^a-z]/gi,'').trim();}
+const completed=new Set();
+function toggleAns(id){const el=document.getElementById(id);if(el)el.classList.toggle('open');}
+function go(v){
+  playPageTurn();
+  for(let i=0;i<4;i++){const t=document.getElementById('t'+i);if(t){t.classList.toggle('on',i===v);if(completed.has(i))t.classList.add('done');else t.classList.remove('done');}}
+  const app=document.getElementById('app');app.innerHTML='';
+  setTimeout(()=>{app.classList.add('page-enter');[buildBlank,buildSent,buildL2,buildL4][v]();setTimeout(()=>app.classList.remove('page-enter'),250);},80);
+}
+
+/* ══════════════════════════════════════
+   VOCAB 데이터 (106개 — 누락 4개 추가)
+══════════════════════════════════════ */
+const VOCAB=[
+/* L2 */
+{en:"advice",kr:"조언, 충고",lesson:"L2",blank:"adv_ce",mode:0,
+ sent:"I need your [advice] about my smartphone habit.",
+ sentKr:"나는 스마트폰 습관에 대한 당신의 조언이 필요해요."},
+{en:"affect",kr:"영향을 미치다",lesson:"L2",blank:"af____",mode:1,
+ poly:{title:"affect vs effect",rows:[
+   {n:"affect",m:"동사: 영향을 미치다",ex:"Digital devices affect your eyesight."},
+   {n:"effect",m:"명사: 영향, 결과",ex:"The effect of loud sounds on hearing is serious."},
+ ],note:"⚠️ affect=동사 / effect=명사 — 시험 단골 혼동!"},
+ sent:"Loud music can [affect] your hearing.",
+ sentKr:"시끄러운 음악은 당신의 청력에 영향을 미칠 수 있어요."},
+{en:"below",kr:"~이하로, ~보다 낮게",lesson:"L2",blank:"b___w",mode:2,
+ sent:"Keep the volume [below] 60 percent of the maximum.",
+ sentKr:"음량을 최대치의 60퍼센트 아래로 유지하세요."},
+{en:"brain",kr:"뇌",lesson:"L2",blank:"br__n",mode:0,
+ sent:"Use your [brain] to remember what to do.",
+ sentKr:"무엇을 할지 기억하기 위해 두뇌를 사용하세요."},
+{en:"break",kr:"깨다; 휴식",lesson:"L2",blank:"b____",mode:1,
+ poly:{title:"break 다의어",rows:[
+   {n:"①",m:"동사: 깨다",ex:"break a promise 약속을 깨다 (broke-broken)"},
+   {n:"②",m:"명사: 휴식",ex:"give your eyes a break 눈에 휴식을 주다"},
+ ],note:"⚠️ 'give ~ a break'에서 break는 휴식(명사) — 깨다 아님!"},
+ sent:"Please give your eyes a [break]!",
+ sentKr:"제발 네 눈에 휴식을 줘!"},
+{en:"chat",kr:"잡담하다, 수다 떨다",lesson:"L2",blank:"c__t",mode:2,
+ sent:"Instead of using your phone, [chat] with your friends.",
+ sentKr:"폰을 쓰는 대신 친구들과 수다를 떨어요."},
+{en:"clearly",kr:"또렷하게, 명확하게",lesson:"L2",blank:"cl__rly",mode:0,
+ poly:{title:"clearly / clear",rows:[
+   {n:"형용사",m:"clear",ex:"a clear explanation 명확한 설명"},
+   {n:"부사",m:"clearly",ex:"speak clearly 명확하게 말하다"},
+ ],note:"⚠️ speak clear (X) → speak clearly (O)"},
+ sent:"Just make sure you stand up straight and speak [clearly].",
+ sentKr:"똑바로 서서 명확하게 말해."},
+{en:"device",kr:"장치, 기기",lesson:"L2",blank:"dev___",mode:1,
+ sent:"Many teens have memory problems because they use digital [devices] too much.",
+ sentKr:"많은 십대들이 디지털 기기를 너무 많이 써서 기억력 문제를 겪어."},
+{en:"digital",kr:"디지털의",lesson:"L2",blank:"d_____l",mode:2,
+ sent:"Many teens have memory problems because they use [digital] devices too much.",
+ sentKr:"많은 십대들이 디지털 기기를 너무 많이 써서 기억력 문제를 겪어."},
+{en:"effect",kr:"영향; 결과; 효과",lesson:"L2",blank:"_ff_ct",mode:0,
+ poly:{title:"effect vs affect",rows:[
+   {n:"명사",m:"영향, 결과, 효과",ex:"the effect of loud sounds 큰 소리의 영향"},
+   {n:"동사",m:"affect: 영향을 미치다",ex:"Digital devices affect memory. (동사는 affect!)"},
+ ],note:"⚠️ effect=명사 / affect=동사 — 혼동 주의!"},
+ sent:"The 60-60 rule reduces the [effect] of loud sounds on your hearing.",
+ sentKr:"60-60 규칙은 큰 소리가 청력에 미치는 영향을 줄여줘요."},
+{en:"enough",kr:"충분한; 충분히",lesson:"L2",blank:"en____",mode:1,
+ sent:"You are smart [enough] without your smartphone!",
+ sentKr:"너는 스마트폰 없이도 충분히 똑똑해!"},
+{en:"experience",kr:"경험하다; 경험",lesson:"L2",blank:"ex_______ce",mode:2,
+ sent:"Many teens [experience] memory problems because of digital devices.",
+ sentKr:"많은 십대들이 디지털 기기 때문에 기억력 문제를 경험해."},
+{en:"eyesight",kr:"시력",lesson:"L2",blank:"_y_s_ght",mode:0,
+ sent:"Using your phone too much can hurt your [eyesight].",
+ sentKr:"폰을 너무 많이 사용하면 시력을 해칠 수 있어."},
+{en:"forgetful",kr:"잘 잊어버리는",lesson:"L2",blank:"for______",mode:1,
+ sent:"You are [forgetful] these days.",
+ sentKr:"너 요즘 잘 잊어버려."},
+{en:"harm",kr:"해치다, 손상시키다",lesson:"L2",blank:"h__m",mode:2,
+ sent:"Those loud sounds will [harm] your hearing.",
+ sentKr:"그 시끄러운 소리는 네 청력을 해칠 거야."},
+{en:"healthy",kr:"건강한; 건강에 좋은",lesson:"L2",blank:"h__lthy",mode:0,
+ sent:"Follow the rules to stay [healthy].",
+ sentKr:"건강을 유지하기 위해 규칙을 따르세요."},
+{en:"hearing",kr:"청력, 청각",lesson:"L2",blank:"he_____",mode:1,
+ sent:"Those loud sounds will harm your [hearing].",
+ sentKr:"그 시끄러운 소리는 네 청력을 해칠 거야."},
+{en:"hold",kr:"들다, 잡다",lesson:"L2",blank:"h__d",mode:2,
+ poly:{title:"hold 불규칙 변화",rows:[
+   {n:"원형",m:"hold",ex:"Hold your phone at eye level."},
+   {n:"과거",m:"held",ex:"She held her phone at eye level."},
+   {n:"과거분사",m:"held",ex:"The phone was held at eye level."},
+ ],note:"⚠️ hold-held-held 불규칙! holded (X)"},
+ sent:"When you use your phone, you should [hold] it at eye level.",
+ sentKr:"폰을 사용할 때 눈높이로 들어야 해요."},
+{en:"increase",kr:"늘리다, 증가시키다",lesson:"L2",blank:"_ncr__se",mode:0,
+ poly:{title:"increase ↔ decrease / reduce",rows:[
+   {n:"increase",m:"늘리다, 증가시키다 (↔ decrease)",ex:"It will increase stress on your necks."},
+   {n:"reduce",m:"줄이다, 감소시키다 (= decrease)",ex:"Cut down on screen time to reduce harm."},
+ ],note:"⚠️ increase(늘다) ↔ reduce/decrease(줄다) 반의어 쌍"},
+ sent:"Looking down at your phone will [increase] stress on your necks.",
+ sentKr:"폰을 내려다보면 목에 스트레스가 증가할 거야."},
+{en:"leash",kr:"목줄, 줄",lesson:"L2",blank:"lea___",mode:1,
+ sent:"After school that day, I brought her my [leash] and did a cute dance.",
+ sentKr:"그날 방과 후에 나는 그녀에게 목줄을 가져다주고 귀여운 춤을 췄어."},
+{en:"loud",kr:"(소리가) 큰, 시끄러운",lesson:"L2",blank:"l__d",mode:2,
+ poly:{title:"loud / loudly",rows:[
+   {n:"형용사",m:"loud — 큰 (소리가)",ex:"loud sounds 큰 소리"},
+   {n:"부사",m:"loud / loudly 둘 다 가능",ex:"speak loud / speak loudly"},
+ ]},
+ sent:"Those [loud] sounds will harm your hearing.",
+ sentKr:"그 시끄러운 소리는 네 청력을 해칠 거야."},
+{en:"maximum",kr:"최대, 최고",lesson:"L2",blank:"m_x_m_m",mode:0,
+ sent:"Make sure the volume is below 60 percent of the [maximum].",
+ sentKr:"음량이 최대치의 60퍼센트 아래인지 반드시 확인하세요."},
+{en:"memory",kr:"기억, 기억력",lesson:"L2",blank:"mem___",mode:1,
+ sent:"Many teens experience [memory] problems because they use digital devices too much.",
+ sentKr:"많은 십대들이 디지털 기기를 너무 많이 써서 기억력 문제를 겪어."},
+{en:"minute",kr:"(시간 단위) 분",lesson:"L2",blank:"m____e",mode:2,
+ sent:"Rest your eyes for 20 seconds after 20 [minutes] of screen time.",
+ sentKr:"20분의 스크린 타임 후에 20초 동안 눈을 쉬게 하세요."},
+{en:"monster",kr:"괴물",lesson:"L2",blank:"m_nst_r",mode:0,
+ sent:"Are some singing [monsters] living there?",
+ sentKr:"노래하는 괴물들이 거기 살고 있는 거야?"},
+{en:"mostly",kr:"주로",lesson:"L2",blank:"mos___",mode:1,
+ poly:{title:"mostly = mainly = usually",rows:[
+   {n:"mostly",m:"주로",ex:"I mostly use my phone for music."},
+   {n:"mainly",m:"주로 (= mostly)",ex:"She mainly studies at night."},
+ ]},
+ sent:"Teens are [mostly] worried about their grades.",
+ sentKr:"십대들은 주로 성적에 대해 걱정해요."},
+{en:"negatively",kr:"부정적으로",lesson:"L2",blank:"n_______ly",mode:2,
+ poly:{title:"negatively ↔ positively",rows:[
+   {n:"negatively",m:"부정적으로",ex:"Screen time affects teens negatively."},
+   {n:"positively",m:"긍정적으로 (↔ negatively)",ex:"Exercise affects mood positively."},
+ ],note:"⚠️ negatively ↔ positively 반의어!"},
+ sent:"Too much screen time affects your eyes [negatively].",
+ sentKr:"너무 많은 스크린 타임은 눈에 부정적으로 영향을 미쳐요."},
+{en:"nervous",kr:"긴장한, 초조한",lesson:"L2",blank:"n_rv__s",mode:0,
+ sent:"It is this afternoon. I feel so [nervous].",
+ sentKr:"오늘 오후야. 너무 긴장돼."},
+{en:"pain",kr:"아픔, 통증",lesson:"L2",blank:"pa__",mode:1,
+ sent:"I have [pain] in my leg.",
+ sentKr:"다리에 통증이 있어요."},
+{en:"presentation",kr:"발표",lesson:"L2",blank:"p__________n",mode:2,
+ sent:"I am worried about my [presentation].",
+ sentKr:"나는 발표가 걱정돼."},
+{en:"promise",kr:"약속하다; 약속",lesson:"L2",blank:"pr_m_se",mode:0,
+ sent:"Can you [promise] me?",
+ sentKr:"나에게 약속해 줄 수 있어?"},
+{en:"reduce",kr:"줄이다, 감소시키다",lesson:"L2",blank:"red___",mode:1,
+ sent:"You need to [reduce] your screen time.",
+ sentKr:"스크린 타임을 줄일 필요가 있어요."},
+{en:"rest",kr:"쉬다, 휴식을 취하다",lesson:"L2",blank:"r__t",mode:2,
+ sent:"Make sure you get some [rest].",
+ sentKr:"반드시 좀 쉬어."},
+{en:"rub",kr:"문지르다, 비비다",lesson:"L2",blank:"r_b",mode:0,
+ sent:"Your eyes look pink, and you keep [rubbing] them.",
+ sentKr:"네 눈이 빨개 보이고, 너는 계속 그것들을 비벼."},
+{en:"rule",kr:"규칙",lesson:"L2",blank:"rul_",mode:1,
+ sent:"Follow the 60-60 [rule] to protect your hearing.",
+ sentKr:"청력을 보호하기 위해 60-60 규칙을 따르세요."},
+{en:"second",kr:"(시간 단위) 초; 두 번째의",lesson:"L2",blank:"s____d",mode:2,
+ poly:{title:"second 다의어",rows:[
+   {n:"①",m:"명사: 초 (시간단위)",ex:"Rest your eyes for 20 seconds."},
+   {n:"②",m:"형용사: 두 번째의",ex:"the second highest mountain"},
+ ],note:"⚠️ 60 seconds (초) — minutes(분)와 혼동 주의!"},
+ sent:"Rest your eyes for 20 [seconds] after 20 minutes of screen time.",
+ sentKr:"20분의 스크린 타임 후에 20초 동안 눈을 쉬게 하세요."},
+{en:"snack",kr:"간식",lesson:"L2",blank:"sn_ck",mode:0,
+ sent:"Close your eyes and think about your favorite [snacks].",
+ sentKr:"눈을 감고 네가 좋아하는 간식을 생각해 봐."},
+{en:"soft drink",kr:"탄산음료",lesson:"L2",blank:"s_ft dr_nk",mode:1,
+ sent:"Cut down on [soft drinks] to stay healthy.",
+ sentKr:"건강을 유지하기 위해 탄산음료를 줄이세요."},
+{en:"still",kr:"여전히, 아직도",lesson:"L2",blank:"sti__",mode:2,
+ sent:"It is late, but you are [still] busy with your phone.",
+ sentKr:"늦었는데도, 너는 여전히 폰으로 바빠."},
+{en:"straight",kr:"똑바로",lesson:"L2",blank:"str__ght",mode:0,
+ poly:{title:"straight — 형용사/부사 모두 straight",rows:[
+   {n:"형용사",m:"곧은, 똑바른",ex:"a straight line 직선"},
+   {n:"부사",m:"똑바로",ex:"stand up straight 똑바로 서다"},
+ ],note:"⚠️ straightly (X) — 부사도 straight 그대로 씀!"},
+ sent:"Make sure you stand up [straight] and speak clearly.",
+ sentKr:"똑바로 서서 명확하게 말해."},
+{en:"stretch",kr:"늘이다, 뻗다",lesson:"L2",blank:"str_tch",mode:1,
+ sent:"Make sure you do some neck [stretching] exercises.",
+ sentKr:"반드시 목 스트레칭 운동을 해야 해."},
+{en:"survey",kr:"(설문) 조사",lesson:"L2",blank:"s_rv_y",mode:2,
+ sent:"According to a [survey], many teens use their phones for over 5 hours a day.",
+ sentKr:"한 설문 조사에 따르면 많은 십대들이 하루에 5시간 이상 폰을 사용해요."},
+{en:"tail",kr:"꼬리",lesson:"L2",blank:"t__l",mode:0,
+ poly:{title:"tail vs tale (동음이의어 주의!)",rows:[
+   {n:"tail",m:"꼬리",ex:"I have a tail for you. (꼬리)"},
+   {n:"tale",m:"이야기",ex:"Oops, I mean a tale! (이야기)"},
+ ],note:"⚠️ tail(꼬리) / tale(이야기) — 발음 같지만 뜻 다름!"},
+ sent:"I have a [tail] for you.",
+ sentKr:"너에게 줄 꼬리가 있어."},
+{en:"tale",kr:"이야기",lesson:"L2",blank:"t_le",mode:1,
+ sent:"Oops, I mean a [tale]!",
+ sentKr:"아이쿠, 이야기 말이야!"},
+{en:"teen",kr:"십 대",lesson:"L2",blank:"t__n",mode:2,
+ sent:"Many [teens] experience memory problems because of digital devices.",
+ sentKr:"많은 십대들이 디지털 기기 때문에 기억력 문제를 경험해."},
+{en:"terrible",kr:"끔찍한; 심한, 지독한",lesson:"L2",blank:"t_rr_ble",mode:0,
+ sent:"I heard the yellow dust is [terrible] today.",
+ sentKr:"오늘 황사가 심하다고 들었어."},
+{en:"text neck",kr:"거북목 증후군",lesson:"L2",blank:"t_xt n_ck",mode:1,
+ sent:"Looking down at your smartphone can give you [text neck].",
+ sentKr:"스마트폰을 내려다보면 거북목 증후군이 생길 수 있어요."},
+{en:"thundering",kr:"천둥 같은, 매우 큰",lesson:"L2",blank:"th_nd_r_ng",mode:2,
+ sent:"I can hear the [thundering] sounds from them.",
+ sentKr:"나는 거기서 천둥 같은 소리를 들을 수 있어."},
+{en:"unlock",kr:"(잠긴 것을) 열다",lesson:"L2",blank:"_nl_ck",mode:0,
+ poly:{title:"unlock ↔ lock",rows:[
+   {n:"unlock",m:"(잠긴 것을) 열다 (↔ lock)",ex:"unlock your phone 폰 잠금을 해제하다"},
+   {n:"lock",m:"잠그다",ex:"lock the door 문을 잠그다"},
+ ]},
+ sent:"[Unlock] your phone and show me the photo.",
+ sentKr:"폰 잠금을 해제하고 사진을 보여줘."},
+{en:"volume",kr:"부피, 용량; 음량",lesson:"L2",blank:"vol___",mode:1,
+ sent:"Make sure the [volume] is below 60 percent of the maximum.",
+ sentKr:"음량이 최대치의 60퍼센트 아래인지 반드시 확인하세요."},
+{en:"work",kr:"일하다; 작동하다; 효과가 있다",lesson:"L2",blank:"w__k",mode:2,
+ poly:{title:"work 다의어 (3가지!)",rows:[
+   {n:"①",m:"일하다",ex:"I work at a grocery store."},
+   {n:"②",m:"작동하다",ex:"The car engine works perfectly."},
+   {n:"③",m:"효과가 있다",ex:"My plan worked! (My plan = 효과가 있었다)"},
+ ],note:"⚠️ 'My plan worked!'에서 work = 효과가 있다 (일하다 아님!)"},
+ sent:"My plan [worked]!",
+ sentKr:"내 계획이 효과가 있었어!"},
+{en:"yellow dust",kr:"황사",lesson:"L2",blank:"y_ll_w d_st",mode:0,
+ sent:"I heard the [yellow dust] is terrible today.",
+ sentKr:"오늘 황사가 심하다고 들었어."},
+/* L4 */
+{en:"activity",kr:"활동",lesson:"L4",blank:"_ct_v_ty",mode:0,
+ sent:"Human [activities] are the greatest danger to whales.",
+ sentKr:"인간의 활동이 고래에게 가장 큰 위험이에요."},
+{en:"amazing",kr:"놀라운, 대단한",lesson:"L4",blank:"ama____",mode:1,
+ sent:"I think humpback whales are the most [amazing] animals in the ocean.",
+ sentKr:"나는 혹등고래가 바다에서 가장 놀라운 동물이라고 생각해."},
+{en:"appearance",kr:"외모, 겉모습",lesson:"L4",blank:"a________ce",mode:2,
+ sent:"Giraffes have a unique [appearance] with their long necks.",
+ sentKr:"기린은 긴 목으로 독특한 외모를 가지고 있어요."},
+{en:"bamboo",kr:"대나무",lesson:"L4",blank:"b_mb_o",mode:0,
+ sent:"Giant pandas eat [bamboo] all day long.",
+ sentKr:"자이언트 판다는 하루 종일 대나무를 먹어요."},
+{en:"close",kr:"가까운",lesson:"L4",blank:"clo__",mode:1,
+ poly:{title:"close 다의어",rows:[
+   {n:"형용사",m:"가까운",ex:"close to the coast 해안에 가까운"},
+   {n:"부사",m:"가까이",ex:"come close and look 가까이 와서 봐"},
+   {n:"동사",m:"닫다 (발음: 클로우즈)",ex:"close the door 문을 닫다"},
+ ],note:"⚠️ close(형/부: 클로스) vs close(동: 클로우즈) — 발음 다름!"},
+ sent:"The whale came [close] to the boat.",
+ sentKr:"고래가 배에 가까이 다가왔어요."},
+{en:"coast",kr:"해안",lesson:"L4",blank:"c__st",mode:2,
+ sent:"A dead humpback whale was found on the [coast].",
+ sentKr:"죽은 혹등고래 한 마리가 해안에서 발견되었어요."},
+{en:"complex",kr:"복잡한",lesson:"L4",blank:"c_mpl_x",mode:0,
+ sent:"Humpback whale songs are very [complex].",
+ sentKr:"혹등고래의 노래는 매우 복잡해요."},
+{en:"curious",kr:"궁금한, 호기심이 많은",lesson:"L4",blank:"cur____",mode:1,
+ sent:"I am particularly [curious] about humpback whale songs.",
+ sentKr:"나는 특히 혹등고래의 노래가 궁금해요."},
+{en:"danger",kr:"위험",lesson:"L4",blank:"d____r",mode:2,
+ sent:"Human activities are the greatest [danger] to whales.",
+ sentKr:"인간의 활동이 고래에게 가장 큰 위험이에요."},
+{en:"dead",kr:"죽은",lesson:"L4",blank:"d__d",mode:0,
+ sent:"A [dead] humpback whale was found on the coast.",
+ sentKr:"죽은 혹등고래 한 마리가 해안에서 발견되었어요."},
+{en:"drone",kr:"드론, 무인 비행기",lesson:"L4",blank:"dro__",mode:1,
+ sent:"I tagged some humpback whales using a [drone].",
+ sentKr:"나는 드론을 사용해서 혹등고래에 꼬리표를 달았어요."},
+{en:"expect",kr:"예상하다, 기대하다",lesson:"L4",blank:"e____ct",mode:2,
+ sent:"I never [expected] them to save my life.",
+ sentKr:"나는 그들이 내 생명을 구해줄 것이라고 전혀 예상하지 못했어요."},
+{en:"fact",kr:"사실",lesson:"L4",blank:"f_ct",mode:0,
+ sent:"I read an interesting [fact] about horses in a magazine.",
+ sentKr:"나는 잡지에서 말에 관한 흥미로운 사실을 읽었어."},
+{en:"film",kr:"촬영하다; 영화",lesson:"L4",blank:"fil_",mode:1,
+ poly:{title:"film 다의어",rows:[
+   {n:"동사",m:"촬영하다",ex:"I filmed the whale jumping out of the water."},
+   {n:"명사",m:"영화",ex:"Did you watch the film about dolphins?"},
+ ],note:"⚠️ film a documentary = 다큐 촬영 (영화 아님!)"},
+ sent:"I [filmed] the humpback whale jumping out of the water.",
+ sentKr:"나는 혹등고래가 물 밖으로 뛰어오르는 것을 촬영했어요."},
+{en:"finally",kr:"마침내, 드디어",lesson:"L4",blank:"f_n___ly",mode:2,
+ sent:"[Finally], the whale pushed me out of the water.",
+ sentKr:"마침내, 고래가 나를 물 밖으로 밀어냈어요."},
+{en:"fur",kr:"(동물의) 털",lesson:"L4",blank:"f_r",mode:0,
+ sent:"The animal's [fur] keeps it warm in cold water.",
+ sentKr:"동물의 털은 차가운 물속에서 따뜻하게 해줘요."},
+{en:"giant",kr:"거인; 거대한",lesson:"L4",blank:"gia__",mode:1,
+ sent:"Humpback whales are [giant] sea animals.",
+ sentKr:"혹등고래는 거대한 바다 동물이에요."},
+{en:"giraffe",kr:"기린",lesson:"L4",blank:"g____fe",mode:2,
+ sent:"[Giraffes] are the tallest land animals in the world.",
+ sentKr:"기린은 세계에서 가장 키가 큰 육지 동물이에요."},
+{en:"guess",kr:"추측하다, 알아맞히다",lesson:"L4",blank:"g__ss",mode:0,
+ sent:"Can you [guess] how long a giraffe's tongue is?",
+ sentKr:"기린의 혀가 얼마나 긴지 추측할 수 있어요?"},
+{en:"hard",kr:"어려운; 열심히; 세게",lesson:"L4",blank:"har_",mode:1,
+ poly:{title:"hard 다의어 (3가지!)",rows:[
+   {n:"①",m:"형용사: 어려운",ex:"This problem is too hard to solve."},
+   {n:"②",m:"부사: 열심히",ex:"I study hard to pass the exam."},
+   {n:"③",m:"부사: 세게, 강하게",ex:"He pushed the cart hard."},
+ ],note:"⚠️ hard는 부사도 hard! hardly(거의~않다)와 전혀 다른 뜻!"},
+ sent:"Researchers work [hard] to protect humpback whales.",
+ sentKr:"연구자들은 혹등고래를 보호하기 위해 열심히 일해요."},
+{en:"harmony",kr:"조화",lesson:"L4",blank:"h_____ny",mode:2,
+ sent:"I want humans and sea animals to live in [harmony].",
+ sentKr:"나는 인간과 바다 동물들이 조화롭게 살기를 원해요."},
+{en:"height",kr:"높이, 키",lesson:"L4",blank:"h__ght",mode:0,
+ sent:"The [height] of a giraffe can reach about 6 meters.",
+ sentKr:"기린의 키는 약 6미터에 달할 수 있어요."},
+{en:"huge",kr:"거대한, 매우 큰",lesson:"L4",blank:"hug_",mode:1,
+ sent:"Humpback whales are [huge] — they can weigh 30 tons.",
+ sentKr:"혹등고래는 거대해요 — 30톤까지 나갈 수 있어요."},
+{en:"human",kr:"인간; 인간의",lesson:"L4",blank:"h___n",mode:2,
+ sent:"[Human] activities are the greatest danger to whales.",
+ sentKr:"인간의 활동이 고래에게 가장 큰 위험이에요."},
+{en:"ladder",kr:"사다리",lesson:"L4",blank:"l_dd_r",mode:0,
+ sent:"The giraffe's long neck works like a [ladder] to reach high leaves.",
+ sentKr:"기린의 긴 목은 높은 나뭇잎에 닿기 위한 사다리처럼 작동해요."},
+{en:"last",kr:"마지막의; 지난; 계속되다",lesson:"L4",blank:"las_",mode:1,
+ poly:{title:"last 다의어 (3가지!)",rows:[
+   {n:"①",m:"형용사: 마지막의",ex:"The last train leaves at midnight."},
+   {n:"②",m:"형용사: 지난",ex:"I visited my grandmother last weekend."},
+   {n:"③",m:"동사: 계속되다, 지속되다",ex:"This event will last until next week."},
+ ],note:"⚠️ last가 동사로 쓰일 때 '계속되다' — 혼동 주의!"},
+ sent:"The humpback whale's song can [last] up to 30 minutes.",
+ sentKr:"혹등고래의 노래는 최대 30분까지 계속될 수 있어요."},
+{en:"length",kr:"길이",lesson:"L4",blank:"l____h",mode:2,
+ sent:"The [length] of a humpback whale can reach 16 meters.",
+ sentKr:"혹등고래의 길이는 16미터에 달할 수 있어요."},
+{en:"magazine",kr:"잡지",lesson:"L4",blank:"m_g_z_ne",mode:0,
+ sent:"I read an interesting fact about horses in a [magazine].",
+ sentKr:"나는 잡지에서 말에 관한 흥미로운 사실을 읽었어."},
+{en:"net",kr:"그물, 망",lesson:"L4",blank:"ne_",mode:1,
+ sent:"Its stomach was full of plastic bags and fishing [nets].",
+ sentKr:"그것의 위는 플라스틱 봉지와 낚시 그물로 가득 차 있었어요."},
+{en:"ocean",kr:"바다, 대양",lesson:"L4",blank:"o___n",mode:2,
+ sent:"We must work together to protect our [ocean].",
+ sentKr:"우리는 바다를 보호하기 위해 함께 노력해야 해요."},
+{en:"octopus",kr:"문어",lesson:"L4",blank:"_ct_p_s",mode:0,
+ sent:"Did you know that [octopuses] have nine brains?",
+ sentKr:"문어는 아홉 개의 뇌를 가지고 있다는 것을 알고 있었나요?"},
+{en:"particularly",kr:"특히",lesson:"L4",blank:"par_________",mode:1,
+ sent:"I am [particularly] interested in humpback whale songs.",
+ sentKr:"나는 특히 혹등고래의 노래에 관심이 있어요."},
+{en:"pattern",kr:"무늬, 문양",lesson:"L4",blank:"p____rn",mode:2,
+ sent:"All tigers have different stripe [patterns].",
+ sentKr:"모든 호랑이는 서로 다른 줄무늬 패턴을 가지고 있어요."},
+{en:"push",kr:"밀다",lesson:"L4",blank:"p_sh",mode:0,
+ sent:"Suddenly, a humpback whale [pushed] me out of the water.",
+ sentKr:"갑자기, 혹등고래 한 마리가 나를 물 밖으로 밀어냈어요."},
+{en:"realize",kr:"깨닫다; 실현하다",lesson:"L4",blank:"rea____",mode:1,
+ sent:"I [realized] that the whale had saved my life.",
+ sentKr:"나는 그 고래가 내 생명을 구해줬다는 것을 깨달았어요."},
+{en:"record",kr:"기록하다; 기록",lesson:"L4",blank:"r____rd",mode:2,
+ poly:{title:"record 다의어 + 발음 주의",rows:[
+   {n:"동사 (ri'cord)",m:"기록하다, 촬영하다",ex:"I recorded the whale jumping."},
+   {n:"명사 ('record)",m:"기록, 음반",ex:"I have kept a diary — a record of my life."},
+ ],note:"⚠️ 동사: ri'CORD / 명사: 'REcord — 강세 위치 다름!"},
+ sent:"I [recorded] the movements of humpback whales using a drone.",
+ sentKr:"나는 드론을 사용해서 혹등고래의 움직임을 기록했어요."},
+{en:"research",kr:"연구",lesson:"L4",blank:"r_s__rch",mode:0,
+ sent:"I work at a whale [research] center in the Cook Islands.",
+ sentKr:"나는 쿡 아일랜드의 고래 연구 센터에서 일해요."},
+{en:"return",kr:"돌아오다; 돌려주다",lesson:"L4",blank:"ret___",mode:1,
+ poly:{title:"return 다의어",rows:[
+   {n:"①",m:"돌아오다, 돌아가다",ex:"The whale returned to the ocean."},
+   {n:"②",m:"돌려주다",ex:"Please return the book to the library."},
+ ]},
+ sent:"The whales [return] to warmer waters every year.",
+ sentKr:"고래들은 매년 따뜻한 바다로 돌아와요."},
+{en:"save",kr:"구하다; 모으다, 저축하다",lesson:"L4",blank:"s__e",mode:2,
+ poly:{title:"save 다의어",rows:[
+   {n:"①",m:"구하다",ex:"I think the whale saved my life."},
+   {n:"②",m:"모으다, 저축하다",ex:"save money for a trip 여행을 위해 돈을 저축하다"},
+ ]},
+ sent:"I think the whale [saved] my life.",
+ sentKr:"나는 그 고래가 내 생명을 구해줬다고 생각해요."},
+{en:"several",kr:"몇몇의, 여러 개의",lesson:"L4",blank:"s_v_r_l",mode:0,
+ sent:"Humpback whales have [several] interesting features.",
+ sentKr:"혹등고래는 여러 가지 흥미로운 특징을 가지고 있어요."},
+{en:"shark",kr:"상어",lesson:"L4",blank:"sha__",mode:1,
+ sent:"One day, a tiger [shark] appeared near me.",
+ sentKr:"어느 날, 타이거 상어가 내 근처에 나타났어요."},
+{en:"shout",kr:"소리치다, 외치다",lesson:"L4",blank:"sh__t",mode:2,
+ sent:"I [shouted] for help when the shark appeared.",
+ sentKr:"상어가 나타났을 때 나는 도움을 요청하며 소리쳤어요."},
+{en:"splash",kr:"(물) 튀기다; 첨벙하는 소리",lesson:"L4",blank:"spl_sh",mode:0,
+ sent:"The whale made a huge [splash] when it jumped out of the water.",
+ sentKr:"고래가 물 밖으로 뛰어오를 때 큰 첨벙 소리가 났어요."},
+{en:"stomach",kr:"위, 복부",lesson:"L4",blank:"sto____",mode:1,
+ sent:"Its [stomach] was full of plastic bags and fishing nets.",
+ sentKr:"그것의 위는 플라스틱 봉지와 낚시 그물로 가득 차 있었어요."},
+{en:"stripe",kr:"줄무늬",lesson:"L4",blank:"s____pe",mode:2,
+ sent:"All tigers have different [stripes].",
+ sentKr:"모든 호랑이는 서로 다른 줄무늬를 가지고 있어요."},
+{en:"suddenly",kr:"갑자기",lesson:"L4",blank:"s_dd_nly",mode:0,
+ poly:{title:"suddenly = all of a sudden",rows:[
+   {n:"suddenly",m:"갑자기",ex:"Suddenly, a shark appeared."},
+   {n:"all of a sudden",m:"갑자기 (= suddenly)",ex:"All of a sudden, the whale jumped."},
+ ]},
+ sent:"[Suddenly], a humpback whale pushed me out of the water.",
+ sentKr:"갑자기, 혹등고래 한 마리가 나를 물 밖으로 밀어냈어요."},
+{en:"tag",kr:"꼬리표를 붙이다; 꼬리표",lesson:"L4",blank:"ta_",mode:1,
+ sent:"I [tagged] some humpback whales using a drone.",
+ sentKr:"나는 드론을 사용해서 혹등고래에 꼬리표를 달았어요."},
+{en:"thought",kr:"생각",lesson:"L4",blank:"t____ht",mode:2,
+ sent:"The [thought] of living in harmony with nature inspires me.",
+ sentKr:"자연과 조화롭게 사는 생각이 나에게 영감을 줘요."},
+{en:"tongue",kr:"혀",lesson:"L4",blank:"t_ng_e",mode:0,
+ sent:"Giraffes can reach the highest leaves with their [tongues].",
+ sentKr:"기린은 혀로 가장 높은 나뭇잎에 닿을 수 있어요."},
+{en:"underwater",kr:"물속에서; 수중의",lesson:"L4",blank:"und_____er",mode:1,
+ sent:"Humpback whale songs can travel thousands of kilometers [underwater].",
+ sentKr:"혹등고래의 노래는 수중에서 수천 킬로미터를 이동할 수 있어요."},
+{en:"weigh",kr:"무게가 ~이다",lesson:"L4",blank:"w___h",mode:2,
+ poly:{title:"weigh vs weight",rows:[
+   {n:"weigh",m:"동사: 무게가 ~이다",ex:"The whale weighs 30 tons."},
+   {n:"weight",m:"명사: 무게, 체중",ex:"The weight of a blue whale is 150 tons."},
+ ],note:"⚠️ weigh(동사) vs weight(명사) — 철자 혼동 주의!"},
+ sent:"A humpback whale can [weigh] up to 30 tons.",
+ sentKr:"혹등고래는 최대 30톤까지 나갈 수 있어요."},
+{en:"weight",kr:"무게, 체중",lesson:"L4",blank:"w__ght",mode:0,
+ sent:"The [weight] of a humpback whale can reach 30 tons.",
+ sentKr:"혹등고래의 무게는 30톤에 달할 수 있어요."},
+{en:"whale",kr:"고래",lesson:"L4",blank:"wha__",mode:1,
+ sent:"I think humpback [whales] are the most amazing animals in the ocean.",
+ sentKr:"나는 혹등고래가 바다에서 가장 놀라운 동물이라고 생각해요."},
+{en:"wonder",kr:"궁금하다; 경이로운 것",lesson:"L4",blank:"w____r",mode:2,
+ poly:{title:"wonder 다의어",rows:[
+   {n:"동사",m:"궁금하다",ex:"I wonder if whales can understand us."},
+   {n:"명사",m:"경이로운 것, 놀라운 것",ex:"The ocean is a wonder of nature."},
+ ]},
+ sent:"I [wonder] how far humpback whale songs can travel.",
+ sentKr:"혹등고래의 노래가 얼마나 멀리 이동할 수 있는지 궁금해요."},
+];
+
+/* ══ 대화문 데이터 ══ */
+const L2_DLG=[
+  {title:"대화 1 — 걱정 표현하기",
+   keyExpr:"I'm worried about ~",keyMeaning:"나는 ~이 걱정돼",
+   keyUsage:"about 뒤에 걱정되는 내용을 명사(구)나 동명사 형태로 씀",
+   similar:[
+     {en:"I'm worried about you.",kr:"나는 네가 걱정돼."},
+     {en:"I'm anxious about my father's health.",kr:"나는 아버지의 건강이 걱정돼."},
+     {en:"I'm concerned about air pollution.",kr:"나는 대기 오염이 걱정돼."},
+     {en:"I'm worried that I might make a mistake.",kr:"나는 실수를 할까봐 걱정돼."},
+   ],
+   wrong:{en:"I'm worried for the exam.",kr:"나는 시험이 걱정돼.",exp:"about이 맞아요. for는 목적(~을 위해)으로 쓰여요."},
+   qs:[
+     {type:"mc-wrong",q:"걱정 표현 중 <b>문법이 틀린 것</b>을 고르세요.",tag:"⚠️ 예외"},
+     {type:"mc-match",q:"I'm [  ] about my broken arm.의 빈칸에 알맞은 것은?",opts:["worried","worry","worrying","worries"],ans:0,fb:"be worried about — worried는 형용사!"},
+     {type:"fill",q:"'~에 대해 걱정하다' 표현을 완성하세요.",sent:"I'm ________ about the exam.",ans:"worried",fb:"I'm worried about ~"},
+     {type:"mc-similar",q:"걱정 표현으로 바꿔 쓸 수 <b>없는</b> 것은?",opts:["I'm anxious about it.","I'm concerned about it.","I'm worry about it.","I'm worried about it."],ans:2,fb:"worry는 동사. I'm worried about ~처럼 형용사 형태로 써야 해요."},
+     {type:"fill",q:"나는 아버지 건강이 걱정돼. (anxious 사용)",sent:"I'm ________ about my father's health.",ans:"anxious",fb:"I'm anxious about ~"},
+     {type:"mc-match",q:"'걱정되는'의 영어 표현이 <b>아닌</b> 것은?",opts:["worried","anxious","concerned","nervous"],ans:3,fb:"nervous는 긴장한, 초조한. worried/anxious/concerned가 걱정 표현이에요."},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요."},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",ins:"I'm worried that she might be very sick.",pos:2,exp:"걱정을 더 구체적으로 표현하는 문장이므로 걱정 표현 바로 다음이 자연스러워요."},
+     {type:"mc-match",q:"What's wrong? / What's the matter? / Is something wrong?의 공통 의미는?",opts:["무슨 일이야?","어떻게 지내?","괜찮아?","뭐 도와줄까?"],ans:0,fb:"세 표현 모두 '무슨 일이야? / 뭐가 문제야?'를 나타내요."},
+     {type:"fill",q:"나는 실수를 할까봐 걱정돼. (that절 사용)",sent:"I'm worried ________ I might make a mistake.",ans:"that",fb:"I'm worried that + 주어 + 동사"},
+   ],
+   lines:[
+     {sp:"W",text:"You don't look well. What's wrong?"},
+     {sp:"B",text:"I feel cold, and I have a fever."},
+     {sp:"W",text:"Oh, no! I'm worried about you. You should go to the nurse's office."},
+     {sp:"B",text:"Okay, I will."},
+     {sp:"W",text:"Make sure you get some rest."},
+   ]},
+  {title:"대화 2 — 당부하기 (Make sure)",
+   keyExpr:"Make sure (that) ~",keyMeaning:"반드시 ~해라",
+   keyUsage:"Make sure 뒤 that절 또는 동사원형. 조동사 will 불필요. 대답: Okay, I will.",
+   similar:[
+     {en:"Make sure you bring your umbrella.",kr:"반드시 우산을 가져가."},
+     {en:"Be sure to wear a life jacket.",kr:"반드시 구명조끼를 입어."},
+     {en:"Don't forget to take some medicine.",kr:"약 먹는 것을 잊지 마."},
+     {en:"Remember to turn off your computer.",kr:"컴퓨터 끄는 것을 기억해."},
+   ],
+   wrong:{en:"Make sure that you will get enough sleep.",kr:"반드시 충분히 자.",exp:"Make sure 뒤에는 현재형! will은 불필요해요."},
+   qs:[
+     {type:"mc-wrong",q:"당부 표현 중 <b>문법이 틀린 것</b>을 고르세요.",tag:"⚠️ 예외"},
+     {type:"mc-match",q:"Make sure you ________ enough sleep.의 빈칸은?",opts:["get","will get","got","getting"],ans:0,fb:"Make sure 뒤 that절에서는 현재형 동사! will 불필요."},
+     {type:"fill",q:"'반드시 ~해라' 표현을 완성하세요.",sent:"________ sure you wash your hands.",ans:"Make",fb:"Make sure ~ 당부 표현"},
+     {type:"mc-similar",q:"Make sure와 바꿔 쓸 수 <b>없는</b> 것은?",opts:["Be sure to ~","Don't forget to ~","Remember to ~","Make certain to ~"],ans:3,fb:"Make certain은 일반적으로 쓰지 않아요. Be sure to / Don't forget to / Remember to가 대체 표현이에요."},
+     {type:"fill",q:"반드시 손을 씻어. (Be sure to 사용)",sent:"________ sure to wash your hands.",ans:"Be",fb:"Be sure to + 동사원형"},
+     {type:"mc-match",q:"'Okay, I will.'은 어떤 표현에 대한 대답인가요?",opts:["걱정 표현","당부 표현","궁금증 표현","놀람 표현"],ans:1,fb:"Make sure ~ 당부에 대한 대답이 Okay, I will.이에요."},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요."},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",ins:"Be sure to take some medicine, too.",pos:1,exp:"Okay I will 바로 다음에 추가 당부를 이어가는 것이 자연스러워요."},
+     {type:"mc-match",q:"당부 표현에서 'Don't forget to ~'의 의미는?",opts:["~하는 것을 잊지 마","~하지 마","~를 기억해줘","반드시 ~해라"],ans:0,fb:"Don't forget to + 동사원형 = ~하는 것을 잊지 마"},
+     {type:"fill",q:"약 먹는 것 잊지 마. (Don't forget 사용)",sent:"Don't forget to take some ________.",ans:"medicine",fb:"Don't forget to take some medicine."},
+   ],
+   lines:[
+     {sp:"A",text:"Make sure you get enough sleep."},
+     {sp:"B",text:"Okay, I will. Thanks."},
+     {sp:"A",text:"I have a toothache."},
+     {sp:"B",text:"Make sure you go to the dentist."},
+   ]},
+  {title:"대화 3 — 황사 / look down at / keep + -ing",
+   keyExpr:"look down at ~ / keep + -ing",keyMeaning:"~을 내려다보다 / 계속 ~하다",
+   keyUsage:"look down at(at 전치사) vs look down on(무시하다). keep + 동명사(-ing)",
+   similar:[
+     {en:"You are looking down at the smartphone.",kr:"너는 스마트폰을 내려다보고 있어."},
+     {en:"She keeps rubbing her eyes.",kr:"그녀는 계속 눈을 비벼."},
+     {en:"Stop looking down at your screen.",kr:"화면을 내려다보는 것을 멈춰."},
+     {en:"He keeps checking his phone.",kr:"그는 계속 폰을 확인해."},
+   ],
+   wrong:{en:"You are looking down on the smartphone.",kr:"너는 스마트폰을 내려다보고 있어.",exp:"look down at(내려다보다) vs look down on(무시하다) — 전치사 at/on이 의미를 바꿔요!"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>의미가 틀린 것</b>을 고르세요.",tag:"⚠️ at vs on"},
+     {type:"mc-match",q:"look down at과 look down on의 차이는?",opts:["at=내려다보다 / on=무시하다","at=무시하다 / on=내려다보다","둘 다 내려다보다","둘 다 무시하다"],ans:0,fb:"look down at: 물리적으로 내려다보다 / look down on: 무시하다, 업신여기다"},
+     {type:"fill",q:"계속 ~하다 → keep + ?",sent:"You keep ________ your eyes.",ans:"rubbing",fb:"keep + 동명사(-ing) — keep to rub (X)"},
+     {type:"mc-similar",q:"'계속 ~하다'의 표현으로 알맞은 것은?",opts:["keep + 동사원형","keep + to부정사","keep + 동명사(-ing)","keep + 과거형"],ans:2,fb:"keep + 동명사(-ing) — keep + to부정사 (X)!"},
+     {type:"fill",q:"나는 계속 핸드폰을 확인해.",sent:"I keep ________ my phone.",ans:"checking",fb:"keep + checking (동명사)"},
+     {type:"mc-match",q:"should not play의 올바른 형태는?",opts:["should not play","should not to play","should not playing","should not played"],ans:0,fb:"should + 동사원형. should not to play (X) — to 불필요!"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요."},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",ins:"And make sure to check out the air quality app.",pos:3,exp:"B가 손 씻기를 당부한 다음, 추가 당부를 이어가는 것이 자연스러워요."},
+     {type:"mc-match",q:"'make sure you wash your hands more often'에서 more often의 의미는?",opts:["더 자주","더 오래","더 깨끗하게","더 빨리"],ans:0,fb:"often = 자주, more often = 더 자주"},
+     {type:"fill",q:"오늘 밖에서 놀면 안 돼. (should not 사용)",sent:"We ________ not play outside today.",ans:"should",fb:"We should not + 동사원형"},
+   ],
+   lines:[
+     {sp:"G",text:"I heard the yellow dust is terrible today."},
+     {sp:"B",text:"Really? I'm worried about it."},
+     {sp:"G",text:"Me, too. We should not play outside today."},
+     {sp:"B",text:"You're right. And make sure you wash your hands more often."},
+     {sp:"G",text:"Good idea. I'll do that."},
+   ]},
+  {title:"대화 4 — 발표 / stand up straight / speak clearly",
+   keyExpr:"stand up straight / speak clearly",keyMeaning:"똑바로 서다 / 명확하게 말하다",
+   keyUsage:"straight는 형용사/부사 모두 straight (straightly X). clearly = clear의 부사형",
+   similar:[
+     {en:"Just make sure you stand up straight and speak clearly.",kr:"반드시 똑바로 서서 명확하게 말해."},
+     {en:"Be sure to make eye contact with your audience.",kr:"청중과 눈을 맞추도록 해."},
+     {en:"Don't forget to speak slowly and clearly.",kr:"천천히 명확하게 말하는 것을 잊지 마."},
+     {en:"Make sure you speak loudly enough.",kr:"반드시 충분히 크게 말해."},
+   ],
+   wrong:{en:"Make sure you stand up straightly and speak clear.",kr:"반드시 똑바로 서서 명확하게 말해.",exp:"straight는 부사도 그대로 straight! straightly(X). 부사는 clearly(O), clear(X)"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>문법이 틀린 것</b>을 고르세요.",tag:"⚠️ 부사형 주의"},
+     {type:"mc-match",q:"'똑바로'의 올바른 부사 표현은?",opts:["straight","straightly","straightly","in a straight way"],ans:0,fb:"straight는 형용사(곧은)이자 부사(똑바로) 그대로! straightly는 잘못된 표현이에요."},
+     {type:"fill",q:"명확하게 말해. (clearly 사용)",sent:"Make sure you speak ________.",ans:"clearly",fb:"clearly = clear의 부사형. speak clear (X) → speak clearly (O)"},
+     {type:"mc-similar",q:"발표 당부 표현으로 알맞지 않은 것은?",opts:["stand up straightly","speak clearly","make eye contact","speak loudly"],ans:0,fb:"straightly(X) — 부사도 straight 그대로!"},
+     {type:"fill",q:"You look down의 'look down' 의미는? (한국어로)",sent:"You look ________.  →  우울해/기운이 없어 보여.",ans:"down",fb:"look down = 우울해 보이다 / look down at = 내려다보다 (구별!)"},
+     {type:"mc-match",q:"Thanks for your advice.의 의미와 같은 것은?",opts:["Thank you for your advice.","Thank you for advise.","Thanks to your advice.","Thankful for advice."],ans:0,fb:"Thanks for ~ = Thank you for ~ (동일 표현). for 뒤에는 명사/동명사!"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요."},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",ins:"Take a deep breath before you start.",pos:4,exp:"B의 조언 직후, G가 감사하기 전에 추가 조언이 자연스러워요."},
+     {type:"mc-match",q:"I feel so nervous.에서 nervous의 의미는?",opts:["긴장한, 초조한","걱정되는","피곤한","우울한"],ans:0,fb:"nervous = 긴장한, 초조한. worried = 걱정되는. 둘은 비슷하지만 다르게 써요."},
+     {type:"fill",q:"발표를 잘 해낼 거야. (do fine 사용)",sent:"You'll do ________.",ans:"fine",fb:"You'll do fine. = 잘 해낼 거야."},
+   ],
+   lines:[
+     {sp:"B",text:"You look down. What's wrong?"},
+     {sp:"G",text:"I'm worried about my presentation."},
+     {sp:"B",text:"When do you do your presentation?"},
+     {sp:"G",text:"It's this afternoon. I feel so nervous."},
+     {sp:"B",text:"Don't worry. You'll do fine. Just make sure you stand up straight and speak clearly."},
+     {sp:"G",text:"I'll try. Thanks for your advice."},
+   ]},
+  {title:"대화 5 — 거북목 / at eye level / text neck",
+   keyExpr:"hold ~ at eye level",keyMeaning:"~을 눈높이로 들다",
+   keyUsage:"at eye level (in eye level X). look down at(내려다보다). text neck(거북목)",
+   similar:[
+     {en:"You should hold your phone at eye level.",kr:"폰을 눈높이로 들어야 해."},
+     {en:"Hold the book at eye level to protect your neck.",kr:"목을 보호하기 위해 책을 눈높이로 들어."},
+     {en:"Make sure you keep your screen at eye level.",kr:"화면을 눈높이로 유지해."},
+     {en:"Looking down at your phone can cause text neck.",kr:"폰을 내려다보면 거북목이 생길 수 있어."},
+   ],
+   wrong:{en:"You should hold your phone in eye level.",kr:"폰을 눈높이로 들어야 해.",exp:"at eye level이 올바른 표현. in eye level (X)"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>전치사가 틀린 것</b>을 고르세요.",tag:"⚠️ at vs in"},
+     {type:"mc-match",q:"'눈높이로'의 올바른 표현은?",opts:["at eye level","in eye level","on eye level","by eye level"],ans:0,fb:"at eye level — 전치사 at. in eye level (X)"},
+     {type:"fill",q:"폰을 눈높이로 들어야 해.",sent:"You should hold your phone ________ eye level.",ans:"at",fb:"at eye level — 전치사 at 필수!"},
+     {type:"mc-similar",q:"text neck의 의미는?",opts:["거북목 증후군","목 통증","눈 피로","어깨 결림"],ans:0,fb:"text neck = 스마트폰을 내려다볼 때 목에 스트레스가 쌓여 생기는 거북목 증후군"},
+     {type:"fill",q:"스마트폰을 내려다보면 거북목이 생길 수 있어.",sent:"Looking down at the smartphone can give you ________ ________.",ans:"text neck",fb:"text neck = 거북목 증후군"},
+     {type:"mc-match",q:"'스마트폰을 내려다보다'의 올바른 표현은?",opts:["look down at the smartphone","look down on the smartphone","look down for the smartphone","look down in the smartphone"],ans:0,fb:"look down at(내려다보다) vs look down on(무시하다) — 전치사 구별!"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요."},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",ins:"Also, take breaks every 20 minutes.",pos:8,exp:"Ms. Kim이 스트레칭 당부 후, Alex 감사 전에 추가 조언이 자연스러워요."},
+     {type:"mc-match",q:"We'll do that, too. 의 의미는?",opts:["우리도 그렇게 할게요.","우리도 그것을 알아요.","우리도 그것을 원해요.","우리도 그게 좋아요."],ans:0,fb:"We'll do that = 우리도 그렇게 할게요. (당부에 대한 수락)"},
+     {type:"fill",q:"목 스트레칭 운동을 해야 해.",sent:"Make sure you do some neck ________ exercises.",ans:"stretching",fb:"neck stretching exercises = 목 스트레칭 운동"},
+   ],
+   lines:[
+     {sp:"MsKim",text:"Minji, Alex, what are you doing?"},
+     {sp:"Alex",text:"Hi, Ms. Kim. We're watching some videos for the science project."},
+     {sp:"MsKim",text:"That's good, but I'm worried about your necks."},
+     {sp:"Minji",text:"Why? Is there something wrong with our necks?"},
+     {sp:"MsKim",text:"Yes, you're looking down at the smartphone. It'll increase stress on your necks, and you can get text neck."},
+     {sp:"Minji",text:"Oh, really? I didn't know that. What should we do?"},
+     {sp:"MsKim",text:"When you use your phone, you should hold it at eye level."},
+     {sp:"Minji",text:"Okay, we'll start doing that."},
+     {sp:"MsKim",text:"Great. And make sure you do some neck stretching exercises."},
+     {sp:"Alex",text:"We'll do that, too. Thank you, Ms. Kim."},
+   ]},
+];
+
+const L4_DLG=[
+  {title:"대화 1 — 궁금증 표현하기",
+   keyExpr:"I'm so curious about ~",keyMeaning:"나는 ~이 무척 궁금해",
+   keyUsage:"about 뒤에 바로 명사. 'curious about of'처럼 전치사 중복 절대 금지!",
+   similar:[
+     {en:"I'm so curious about it.",kr:"나는 그것이 무척 궁금해."},
+     {en:"I'd like to know more about the new movie.",kr:"나는 새 영화에 대해 더 알고 싶어."},
+     {en:"I wonder where I can fix my computer.",kr:"나는 어디서 컴퓨터를 고칠 수 있는지 궁금해."},
+     {en:"Can you tell me about the recipe?",kr:"그 요리법에 대해 말해줄 수 있어?"},
+   ],
+   wrong:{en:"I'm so curious about of horses.",kr:"나는 말에 대해 무척 궁금해.",exp:"about 뒤에 바로 명사. 'about of'처럼 전치사를 중복 사용하면 절대 안 됩니다!"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>문법이 틀린 것</b>을 고르세요.",tag:"⚠️ 전치사 중복"},
+     {type:"mc-match",q:"I'm so curious ________ it.의 빈칸은?",opts:["about","of","for","about of"],ans:0,fb:"curious about ~ — about 뒤에 바로 명사. about of (X)!"},
+     {type:"fill",q:"나는 그것이 궁금해.",sent:"I'm so curious ________ it.",ans:"about",fb:"be curious about ~ — 전치사 about"},
+     {type:"mc-similar",q:"'궁금하다'를 표현할 때 쓸 수 없는 것은?",opts:["I'm so curious about it.","I'd like to know more about it.","I wonder about it.","I'm so wonder about it."],ans:3,fb:"wonder는 동사. I wonder if ~ / I'm curious about ~ 형태로 써요."},
+     {type:"fill",q:"나는 어디서 컴퓨터를 고칠 수 있는지 궁금해.",sent:"I ________ where I can fix my computer.",ans:"wonder",fb:"I wonder where/if/what ~ = 궁금하다"},
+     {type:"mc-match",q:"on one's feet의 의미는?",opts:["서서, 서 있는 상태로","발로","발에","발을 딛고"],ans:0,fb:"on one's feet = 서서, 서 있는 상태로. Horses can sleep on their feet."},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요."},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",ins:"Can I ask what else you learned?",pos:1,exp:"B가 궁금하다고 한 직후, G가 답하기 전에 추가 질문이 자연스러워요."},
+     {type:"mc-match",q:"Take a look.의 의미는?",opts:["한번 봐봐.","잠깐 가봐.","가져가봐.","찾아봐."],ans:0,fb:"Take a look = (한번) 봐봐 (= have a look)"},
+     {type:"fill",q:"말은 서서 잘 수 있어. (on their feet 사용)",sent:"Horses can sleep on their ________.",ans:"feet",fb:"on one's feet — foot의 복수형이 feet!"},
+   ],
+   lines:[
+     {sp:"G",text:"I read an interesting fact about horses in a magazine."},
+     {sp:"B",text:"What is it? I'm so curious about it."},
+     {sp:"G",text:"Horses can sleep on their feet."},
+     {sp:"B",text:"That's surprising!"},
+     {sp:"G",text:"You can read more about other animals in this magazine. Take a look."},
+   ]},
+  {title:"대화 2 — 놀람 표현하기",
+   keyExpr:"That's surprising!",keyMeaning:"그거 놀랍구나!",
+   keyUsage:"사물/상황이 주어 → surprising. 사람이 주어 → surprised. That's surprised (X)!",
+   similar:[
+     {en:"That's surprising!",kr:"그거 놀랍구나!"},
+     {en:"I'm really surprised!",kr:"나 정말 놀랐어!"},
+     {en:"What a surprise!",kr:"정말 놀랍구나!"},
+     {en:"Unbelievable!",kr:"믿을 수 없어!"},
+   ],
+   wrong:{en:"That's surprised!",kr:"그거 놀랍구나!",exp:"사물/상황이 주어일 때는 -ing형(surprising). 사람이 주어일 때 -ed형(surprised). That's surprised (X)!"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>문법이 틀린 것</b>을 고르세요.",tag:"⚠️ -ing vs -ed"},
+     {type:"mc-match",q:"'그 소식이 놀랍다'를 올바르게 표현하면?",opts:["The news is surprising.","The news is surprised.","The news surprises.","The news surprised."],ans:0,fb:"사물(The news)이 주어 → surprising. surprised는 사람 주어일 때!"},
+     {type:"fill",q:"나는 정말 놀랐어. (사람 주어)",sent:"I'm really ________!",ans:"surprised",fb:"사람(I)이 주어 → surprised"},
+     {type:"mc-similar",q:"놀람을 표현할 수 없는 것은?",opts:["That's surprising!","Unbelievable!","You're kidding.","That's interested!"],ans:3,fb:"That's interesting(흥미롭다) / That's surprised(X). 사물 주어엔 -ing형!"},
+     {type:"fill",q:"모든 호랑이는 서로 다른 줄무늬를 가지고 있어.",sent:"They all have ________ stripes.",ans:"different",fb:"different stripes = 다른 줄무늬"},
+     {type:"mc-match",q:"the same 앞에 the가 필요한 이유는?",opts:["same은 항상 정관사 the와 함께","same은 형용사라서","same은 비교급이라서","관습적 표현이라서"],ans:0,fb:"same은 항상 the same. 'same stripes(X)' → 'the same stripes(O)'"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요."},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",ins:"Each tiger has a unique pattern, just like human fingerprints.",pos:2,exp:"G가 모두 다르다고 한 직후, B가 놀라기 전에 추가 설명이 자연스러워요."},
+     {type:"mc-match",q:"'Right.'의 대화에서의 기능은?",opts:["동의/맞장구","반박","질문","감사"],ans:0,fb:"Right. = 맞아, 그렇지. 상대방의 말에 동의할 때 쓰는 표현"},
+     {type:"fill",q:"정말이야? 믿을 수 없어!",sent:"________!",ans:"Unbelievable",fb:"Unbelievable! = 믿을 수 없어!"},
+   ],
+   lines:[
+     {sp:"G",text:"I think tigers' stripes are cool."},
+     {sp:"B",text:"Right. Do all tigers have the same stripes? I'm so curious about it."},
+     {sp:"G",text:"No, they don't. They all have different stripes."},
+     {sp:"B",text:"Oh, that's surprising!"},
+   ]},
+  {title:"대화 3 — 문어 / Did you know that ~?",
+   keyExpr:"Did you know that ~?",keyMeaning:"~라는 것을 알고 있었나요?",
+   keyUsage:"Did + 동사원형(know). 'Did you knew' (X) — 이중과거 절대 안 됩니다!",
+   similar:[
+     {en:"Did you know that octopuses have many brains?",kr:"문어가 뇌를 많이 가지고 있다는 것을 알고 있었어?"},
+     {en:"Did you know that horses can sleep standing up?",kr:"말이 서서 잘 수 있다는 것을 알고 있었어?"},
+     {en:"I didn't know that. How many brains do they have?",kr:"몰랐어. 뇌가 몇 개야?"},
+     {en:"You know what? They also have three hearts!",kr:"있잖아? 심장도 세 개야!"},
+   ],
+   wrong:{en:"Did you knew that octopuses have many brains?",kr:"문어가 뇌를 많이 가지고 있다는 것을 알고 있었어?",exp:"Did + 동사원형! knew는 과거형. 'Did you knew'는 이중과거로 절대 틀려요!"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>문법이 틀린 것</b>을 고르세요.",tag:"⚠️ 이중과거"},
+     {type:"mc-match",q:"Did you ________ that horses can sleep standing up?",opts:["know","knew","known","knowing"],ans:0,fb:"Did + 동사원형(know). knew는 이미 과거 → Did knew (X) 이중과거!"},
+     {type:"fill",q:"문어가 많은 뇌를 가지고 있다는 것을 알고 있었어?",sent:"Did you know that octopuses have many ________?",ans:"brains",fb:"brains = 뇌들 (복수). 문어는 9개의 뇌를 가져요!"},
+     {type:"mc-similar",q:"흥미로운 사실을 전달할 때 쓰는 표현이 아닌 것은?",opts:["Did you know that ~?","You know what?","I didn't know that.","You know that, right?"],ans:3,fb:"'You know that, right?'는 확인하는 표현. 사실 전달엔 Did you know ~? / You know what?"},
+     {type:"fill",q:"너 그거 알아? (you know what 사용)",sent:"You know ________?",ans:"what",fb:"You know what? = 있잖아? (흥미로운 사실 전달 전에)"},
+     {type:"mc-match",q:"'I didn't know that.'의 의미는?",opts:["몰랐어.","그게 아니야.","나는 그것에 동의해.","나도 알아."],ans:0,fb:"I didn't know that. = 몰랐어. (새로운 사실을 들었을 때)"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요."},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",ins:"That's incredible! I want to learn more about octopuses.",pos:3,exp:"G가 놀라움을 표현한 직후 추가 감탄이 자연스러워요."},
+     {type:"mc-match",q:"No, I didn't.는 어떤 질문의 대답인가요?",opts:["Did you ~? 과거 질문","Do you ~? 현재 질문","Are you ~? 현재 질문","Will you ~? 미래 질문"],ans:0,fb:"Did you ~?의 부정 대답은 No, I didn't. (did의 부정)"},
+     {type:"fill",q:"그것도 심장이 세 개야!",sent:"They also have three ________!",ans:"hearts",fb:"hearts = 심장들 (복수). 문어는 심장도 3개예요!"},
+   ],
+   lines:[
+     {sp:"B",text:"Did you know that octopuses have many brains?"},
+     {sp:"G",text:"No, I didn't. I'm so curious about it. How many brains do they have?"},
+     {sp:"B",text:"They have nine brains. And you know what? They also have three hearts!"},
+     {sp:"G",text:"Wow, that's surprising."},
+   ]},
+  {title:"대화 4 — 해파리 / Here is ~ / Here are ~",
+   keyExpr:"Here is + 단수/불가산 / Here are + 복수",keyMeaning:"여기 ~이 있다",
+   keyUsage:"information은 불가산명사 → Here is some information. (Here are some information X!)",
+   similar:[
+     {en:"Here is some information about jellyfish.",kr:"여기 해파리에 관한 정보가 있어."},
+     {en:"Here are some facts about whales.",kr:"여기 고래에 관한 사실들이 있어."},
+     {en:"Here is a surprising fact about dolphins.",kr:"여기 돌고래에 관한 놀라운 사실이 있어."},
+     {en:"Here are some interesting things about sharks.",kr:"여기 상어에 관한 흥미로운 것들이 있어."},
+   ],
+   wrong:{en:"Here are some information about jellyfish.",kr:"여기 해파리에 관한 정보가 있어.",exp:"information은 불가산명사 → Here is some information (단수 동사). Here are (X)!"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>문법이 틀린 것</b>을 고르세요.",tag:"⚠️ 불가산명사"},
+     {type:"mc-match",q:"Here ________ some information about jellyfish.의 빈칸은?",opts:["is","are","was","were"],ans:0,fb:"information은 불가산명사 → Here is (단수 동사). Here are (X)!"},
+     {type:"fill",q:"여기 고래에 관한 사실들이 있어. (복수 facts)",sent:"Here ________ some facts about whales.",ans:"are",fb:"facts는 복수명사 → Here are"},
+     {type:"mc-similar",q:"'Here is ~'를 쓸 수 없는 경우는?",opts:["Here is some information.","Here is a fact.","Here is some advice.","Here is some books."],ans:3,fb:"books는 복수명사 → Here are some books (O). Here is some books (X)"},
+     {type:"fill",q:"해파리에게는 심장이나 뇌가 없어.",sent:"They don't have hearts or ________.",ans:"brains",fb:"brains = 뇌들. 해파리는 심장도 뇌도 없어요!"},
+     {type:"mc-match",q:"What does it say?의 의미는?",opts:["거기 뭐라고 나와?","그게 뭐라고 해?","어떻게 말해?","뭐라고 썼어?"],ans:0,fb:"What does it say? = 거기 뭐라고 나와? (책/기사 등의 내용을 물을 때)"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요."},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",ins:"How can they survive without a brain?",pos:2,exp:"해파리가 심장과 뇌가 없다는 사실 직후, B가 놀라기 전에 추가 질문이 자연스러워요."},
+     {type:"mc-match",q:"'That's surprising!'과 바꿔 쓸 수 있는 것은?",opts:["I'm really surprised!","That's surprised!","It's surprising me!","I surprise!"],ans:0,fb:"I'm really surprised! = 사람 주어 → -ed형. That's surprising! = 사물 주어 → -ing형"},
+     {type:"fill",q:"그것은 심장이나 뇌가 없다고 해.",sent:"It ________ they don't have hearts or brains.",ans:"says",fb:"It says (that) ~ = ~라고 한다 (책/기사의 내용)"},
+   ],
+   lines:[
+     {sp:"A",text:"Here is some information about jellyfish in this magazine."},
+     {sp:"B",text:"What does it say? I'm so curious about it."},
+     {sp:"A",text:"It says they don't have hearts or brains."},
+     {sp:"B",text:"That's surprising!"},
+   ]},
+  {title:"대화 5 — 기린 / the + 최상급",
+   keyExpr:"the + 최상급 + 명사",keyMeaning:"가장 ~한 명사",
+   keyUsage:"최상급 앞에 반드시 the! 'Giraffes are tallest (X)' → 'are the tallest (O)'",
+   similar:[
+     {en:"Giraffes are the tallest land animals in the world.",kr:"기린은 세계에서 가장 키가 큰 육지 동물이야."},
+     {en:"They can reach the highest leaves with their tongues.",kr:"혀로 가장 높은 나뭇잎에 닿을 수 있어."},
+     {en:"Cheetahs are the fastest land animals.",kr:"치타는 가장 빠른 육지 동물이야."},
+     {en:"The blue whale is the largest animal on Earth.",kr:"대왕고래는 지구에서 가장 큰 동물이야."},
+   ],
+   wrong:{en:"Giraffes are tallest land animals in the world.",kr:"기린은 세계에서 가장 키가 큰 육지 동물이야.",exp:"최상급 앞에는 반드시 the! 'are tallest (X)' → 'are the tallest (O)'"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>문법이 틀린 것</b>을 고르세요.",tag:"⚠️ the + 최상급"},
+     {type:"mc-match",q:"기린은 세계에서 가장 키가 큰 육지 동물이야.의 올바른 표현은?",opts:["Giraffes are the tallest land animals.","Giraffes are tallest land animals.","Giraffes are most tall land animals.","Giraffes are a tallest land animal."],ans:0,fb:"최상급 앞에는 반드시 the! the tallest (O)"},
+     {type:"fill",q:"기린은 세계에서 가장 키 큰 육지 동물이야.",sent:"Giraffes are the ________ land animals in the world.",ans:"tallest",fb:"the + tallest(최상급) + 복수명사"},
+     {type:"mc-similar",q:"'가장 ~한'을 표현할 때 틀린 것은?",opts:["the tallest","the fastest","the most amazing","most large"],ans:3,fb:"most large(X) → the largest(O). 1음절은 -est, 2음절 이상은 most + 원급"},
+     {type:"fill",q:"치타는 가장 빠른 육지 동물이야.",sent:"Cheetahs are the ________ land animals.",ans:"fastest",fb:"fast → fastest (1음절 → -est)"},
+     {type:"mc-match",q:"'up to 110 km an hour'의 의미는?",opts:["시속 최대 110km","시속 정확히 110km","시속 최소 110km","시속 약 110km"],ans:0,fb:"up to ~ = ~까지, 최대 ~. up to 110 km = 최대 시속 110km"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요."},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",ins:"I want to see a giraffe in person someday.",pos:9,exp:"Minji가 혀 색상을 말한 직후, Kate가 감탄하기 전에 소망 표현이 자연스러워요."},
+     {type:"mc-match",q:"'land animal'의 반대는?",opts:["sea animal","air animal","water animal","sky animal"],ans:0,fb:"land animal(육지 동물) ↔ sea animal(바다 동물)"},
+     {type:"fill",q:"기린의 혀는 약 50cm야.",sent:"Their tongues are about 50 ________!",ans:"cm",fb:"약 50cm — 기린의 혀 길이!"},
+   ],
+   lines:[
+     {sp:"Minji",text:"Kate, Alex! Did you watch the documentary about giraffes yesterday?"},
+     {sp:"Alex",text:"Yes, I did. It was interesting."},
+     {sp:"Kate",text:"Oh, I didn't. What did you learn about them?"},
+     {sp:"Minji",text:"You know, giraffes are the tallest land animals in the world."},
+     {sp:"Alex",text:"Right. Their necks and legs are so long."},
+     {sp:"Minji",text:"Did you know that their tongues are very unique?"},
+     {sp:"Kate",text:"What do you mean? I'm curious about it."},
+     {sp:"Alex",text:"They're really long. They're about 50 cm! Giraffes can reach the highest leaves with their tongues."},
+     {sp:"Kate",text:"That's surprising!"},
+     {sp:"Minji",text:"Also, I learned that their tongues are black."},
+     {sp:"Kate",text:"Wow, giraffes are so interesting!"},
+   ]},
+];
+
+/* ══ 상태 ══ */
+const vSt=VOCAB.map(()=>({val:'',graded:false,ok:false}));
+const sentSt=VOCAB.map(()=>({val:'',graded:false,ok:false}));
+const dlgSt={L2:L2_DLG.map(d=>({qSt:d.qs.map(()=>({done:false,ok:false,sel:null,val:''})),ordSel:[],insSel:null})),
+             L4:L4_DLG.map(d=>({qSt:d.qs.map(()=>({done:false,ok:false,sel:null,val:''})),ordSel:[],insSel:null}))};
+
+/* ══ 탭 전환 ══ */
+
+
+/* ══ 1단계: 부분빈칸 ══ */
+function buildBlank(){
+  const done=vSt.filter(s=>s.ok).length;
+  const app=document.getElementById('app');
+  let h=`<div class="desc"><b>단어 부분빈칸 (L2+L4 · ${VOCAB.length}개)</b><br>빈칸을 채워 단어를 완성하세요. 다의어·예외는 카드에서 확인하세요.</div>
+  <div class="prog-wrap"><div class="prog-label"><span id="vp">완료 ${done}/${VOCAB.length}</span><span>L2: ${vSt.slice(0,52).filter(s=>s.ok).length}/52 · L4: ${vSt.slice(52).filter(s=>s.ok).length}/54</span></div>
+  <div class="prog-track"><div class="prog-fill" id="vpb" style="width:${Math.round(done/VOCAB.length*100)}%"></div></div></div>
+  <div class="glabel">Lesson 2 단어 (52개)</div>`;
+  VOCAB.forEach((v,i)=>{
+    if(i===52)h+=`<div class="glabel">Lesson 4 단어 (54개)</div>`;
+    const st=vSt[i];
+    const mt=['mt0','mt1','mt2'][v.mode];
+    const mtLabel=['모음숨김','뒷부분','가운데'][v.mode];
+    h+=`<div class="vocab-card" id="vc_${i}">
+      <div class="vc-top">
+        <span class="vc-num">${i+1}</span>
+        <span class="${v.lesson==='L2'?'l2b':'l4b'}">${v.lesson}</span>
+        <span class="vc-blank">${v.blank}</span>
+        <span class="vc-kr">${v.kr}</span>
+        <span class="${mt}">${mtLabel}</span>
+      </div>`;
+    if(v.poly){
+      h+=`<div class="poly-box"><div class="poly-title">📌 ${v.poly.title}</div>`;
+      v.poly.rows.forEach(r=>{h+=`<div class="poly-row"><span class="poly-num">${r.n}</span><span class="poly-ex">${r.m} — ${r.ex}</span></div>`;});
+      if(v.poly.note)h+=`<div class="poly-note">${v.poly.note}</div>`;
+      h+=`</div>`;
+    }
+    h+=`<div class="vc-inp-row">
+      <input class="vc-inp${st.graded?(st.ok?' ok':' no'):''}" data-vi="${i}" type="text"
+        placeholder="단어 전체 입력" value="${st.val}" autocomplete="off" spellcheck="false"
+        oninput="vSt[${i}].val=this.value"
+        onkeydown="if(event.key==='Enter')gradeV(${i})">
+      <button class="b b1" style="padding:6px 13px;font-size:12px;" onclick="gradeV(${i})">확인</button>
+    </div>
+    <div class="vc-fb${st.graded?(st.ok?' ok':' no'):''}" id="vfb_${i}">${st.graded?(st.ok?'✅ '+v.en:'❌ 정답: '+v.en+' ('+v.kr+')'):''}
+    </div></div>`;
+  });
+  h+=`<div class="check-bar">
+    <button class="cb cb-g" onclick="gradeVAll()">전체 채점</button>
+    <button class="cb cb-r" id="vRetry" onclick="retryWrong()" disabled>❌ 틀린 것 다시</button>
+    <span class="result-pill" id="vPill"></span>
+  </div>`;
+  app.innerHTML=h;
+}
+function gradeV(i){
+  const v=VOCAB[i];const st=vSt[i];const inp=document.querySelector(`[data-vi="${i}"]`);if(!inp)return;
+  st.val=inp.value;const ok=norm(inp.value)===norm(v.en);st.graded=true;st.ok=ok;
+  inp.className='vc-inp '+(ok?'ok':'no');
+  const fb=document.getElementById('vfb_'+i);if(fb){fb.className='vc-fb '+(ok?'ok':'no');fb.textContent=ok?'✅ '+v.en:'❌ 정답: '+v.en+' ('+v.kr+')';}
+  updateVP();
+}
+function gradeVAll(){
+  VOCAB.forEach((_,i)=>{const inp=document.querySelector(`[data-vi="${i}"]`);if(inp){vSt[i].val=inp.value;const ok=norm(inp.value)===norm(VOCAB[i].en);vSt[i].graded=true;vSt[i].ok=ok;inp.className='vc-inp '+(ok?'ok':'no');const fb=document.getElementById('vfb_'+i);if(fb){fb.className='vc-fb '+(ok?'ok':'no');fb.textContent=ok?'✅ '+VOCAB[i].en:'❌ 정답: '+VOCAB[i].en+' ('+VOCAB[i].kr+')';}}});
+  updateVP();
+}
+function retryWrong(){VOCAB.forEach((_,i)=>{if(vSt[i].graded&&!vSt[i].ok){vSt[i].val='';vSt[i].graded=false;const inp=document.querySelector(`[data-vi="${i}"]`);if(inp){inp.value='';inp.className='vc-inp';}const fb=document.getElementById('vfb_'+i);if(fb){fb.className='vc-fb';fb.textContent='';}}}); updateVP();}
+function updateVP(){
+  const done=vSt.filter(s=>s.ok).length;const p=document.getElementById('vp');if(p)p.textContent=`완료 ${done}/${VOCAB.length}`;const pb=document.getElementById('vpb');if(pb)pb.style.width=Math.round(done/VOCAB.length*100)+'%';
+  const pill=document.getElementById('vPill');const retry=document.getElementById('vRetry');
+  if(vSt.every(s=>s.graded)){if(pill){pill.style.display='inline-block';pill.className='result-pill '+(done===VOCAB.length?'pill-ok':'pill-bad');pill.textContent=done+' / '+VOCAB.length+' 정답';}if(retry)retry.disabled=done===VOCAB.length;}
+  if(done===VOCAB.length)completed.add(0);
+}
+
+/* ══ 2단계: 본문 빈칸 ══ */
+function buildSent(){
+  const done=sentSt.filter(s=>s.ok).length;
+  const app=document.getElementById('app');
+  let h=`<div class="desc"><b>본문 문장 빈칸 (${VOCAB.length}개)</b><br>본문 문장을 읽고 해당 단어 자리를 채우세요.</div>
+  <div class="prog-wrap"><div class="prog-label"><span id="sp2">완료 ${done}/${VOCAB.length}</span></div>
+  <div class="prog-track"><div class="prog-fill" id="spb2" style="width:${Math.round(done/VOCAB.length*100)}%"></div></div></div>
+  <div class="glabel">Lesson 2 본문 문장 (52개)</div>`;
+  VOCAB.forEach((v,i)=>{
+    if(i===52)h+=`<div class="glabel">Lesson 4 본문 문장 (54개)</div>`;
+    const st=sentSt[i];
+    const displayed=v.sent.replace(`[${v.en}]`,`<input class="inline-inp${st.graded?(st.ok?' ok':' no'):''}" id="si_${i}" type="text" placeholder="___" value="${st.val}" autocomplete="off" spellcheck="false" oninput="sentSt[${i}].val=this.value" onkeydown="if(event.key==='Enter')gradeS(${i})" style="min-width:${Math.max(60,v.en.length*9)}px;">`);
+    h+=`<div class="vocab-card" id="sc_${i}">
+      <div class="vc-top"><span class="vc-num">${i+1}</span><span class="${v.lesson==='L2'?'l2b':'l4b'}">${v.lesson}</span><span class="vc-kr">${v.kr}</span></div>
+      <div class="sent-box">${displayed}<span class="sk">${v.sentKr}</span></div>
+      <div class="btn-row">
+        <button class="b b1" style="padding:5px 13px;font-size:12px;" onclick="gradeS(${i})">확인</button>
+        <button class="mini-btn" onclick="toggleAns('sr_'+this.dataset.idx)" data-idx="${i}">정답 보기</button>
+      </div>
+      <div class="ans-r" id="sr_${i}">정답: ${v.en} (${v.kr})</div>
+      <div class="vc-fb${st.graded?(st.ok?' ok':' no'):''}" id="sfb_${i}">${st.graded?(st.ok?'✅ '+v.en:'❌ 정답: '+v.en):''}
+      </div></div>`;
+  });
+  h+=`<div class="check-bar">
+    <button class="cb cb-g" onclick="gradeSAll()">전체 채점</button>
+    <button class="cb cb-r" id="sRetry" onclick="retrySWrong()" disabled>❌ 틀린 것 다시</button>
+    <span class="result-pill" id="sPill"></span>
+  </div>`;
+  app.innerHTML=h;
+}
+function gradeS(i){
+  const v=VOCAB[i];const st=sentSt[i];const inp=document.getElementById('si_'+i);if(!inp)return;
+  st.val=inp.value;const ok=norm(inp.value)===norm(v.en);st.graded=true;st.ok=ok;
+  inp.className='inline-inp '+(ok?'ok':'no');
+  const fb=document.getElementById('sfb_'+i);if(fb){fb.className='vc-fb '+(ok?'ok':'no');fb.textContent=ok?'✅ '+v.en:'❌ 정답: '+v.en;}
+  updateSP();
+}
+function gradeSAll(){VOCAB.forEach((_,i)=>{const inp=document.getElementById('si_'+i);if(inp){sentSt[i].val=inp.value;const ok=norm(inp.value)===norm(VOCAB[i].en);sentSt[i].graded=true;sentSt[i].ok=ok;inp.className='inline-inp '+(ok?'ok':'no');const fb=document.getElementById('sfb_'+i);if(fb){fb.className='vc-fb '+(ok?'ok':'no');fb.textContent=ok?'✅ '+VOCAB[i].en:'❌ 정답: '+VOCAB[i].en;}}});updateSP();}
+function retrySWrong(){VOCAB.forEach((_,i)=>{if(sentSt[i].graded&&!sentSt[i].ok){sentSt[i].val='';sentSt[i].graded=false;const inp=document.getElementById('si_'+i);if(inp){inp.value='';inp.className='inline-inp';}const fb=document.getElementById('sfb_'+i);if(fb){fb.className='vc-fb';fb.textContent='';}}}); updateSP();}
+function updateSP(){
+  const done=sentSt.filter(s=>s.ok).length;const p=document.getElementById('sp2');if(p)p.textContent=`완료 ${done}/${VOCAB.length}`;const pb=document.getElementById('spb2');if(pb)pb.style.width=Math.round(done/VOCAB.length*100)+'%';
+  const pill=document.getElementById('sPill');const retry=document.getElementById('sRetry');
+  if(sentSt.every(s=>s.graded)){if(pill){pill.style.display='inline-block';pill.className='result-pill '+(done===VOCAB.length?'pill-ok':'pill-bad');pill.textContent=done+' / '+VOCAB.length+' 정답';}if(retry)retry.disabled=done===VOCAB.length;}
+  if(done===VOCAB.length)completed.add(1);
+}
+
+/* ══ 대화문 공통 렌더 ══ */
+const spCls={W:'spW',B:'spB',G:'spG',A:'spA',Alex:'spAlex',Kate:'spKate',Minji:'spMinji',MsKim:'spMsKim'};
+function dlgLine(l){return `<div class="dlg-line"><span class="sp ${spCls[l.sp]||'spW'}">${l.sp}</span><span class="dl-text">${l.text}</span></div>`;}
+
+function renderDlg(dlg,key,di){
+  const st=dlgSt[key][di];
+  let h=`<div class="dlg-sec">
+  <div class="dlg-title">${dlg.title}</div>
+  <div class="key-box">
+    <div class="key-main">${dlg.keyExpr}</div>
+    <div class="key-meaning">→ ${dlg.keyMeaning}</div>
+    <div class="key-usage">💡 ${dlg.keyUsage}</div>
+    <div class="key-similar">
+      <div class="ks-title">📌 비슷한 표현 모두 익히기</div>`;
+  dlg.similar.forEach(s=>{h+=`<div class="ks-item">${s.en} <span class="ks-kr">→ ${s.kr}</span></div>`;});
+  h+=`</div></div>
+  <div class="dlg-lines">${dlg.lines.map(dlgLine).join('')}</div>`;
+
+  dlg.qs.forEach((q,qi)=>{
+    const qSt=st.qSt[qi];
+    const qid=`${key}_${di}_q${qi}`;
+    h+=`<div class="q-card" id="${qid}">`;
+    if(q.tag)h+=`<span class="q-tag warn">${q.tag}</span> `;
+    else h+=`<span class="q-tag">Q${qi+1}</span> `;
+    h+=`<div class="q-text">Q${qi+1}. ${q.q}</div>`;
+
+    if(q.type==='mc-wrong'){
+      // 틀린 문장 고르기: similar 4개 + wrong 1개 섞기
+      const opts=[...dlg.similar.map(s=>s.en),dlg.wrong.en].sort(()=>Math.random()-.5);
+      h+=`<div class="mc-opts">`;
+      opts.forEach((opt,oi)=>{
+        let cls='mc-opt';
+        if(qSt.done){if(opt===dlg.wrong.en)cls+=' ok';else if(oi===qSt.sel&&opt!==dlg.wrong.en)cls+=' no';}
+        h+=`<div class="${cls}" data-val="${opt.replace(/"/g,'&quot;')}" onclick="ansMC('${key}',${di},${qi},${oi},'wrong','${dlg.wrong.en.replace(/'/g,"\\'")}')"><span class="on">${'①②③④⑤'[oi]}</span>${opt}</div>`;
+      });
+      h+=`</div>`;
+      if(qSt.done)h+=`<div class="q-fb show ${qSt.ok?'ok':'no'}">${qSt.ok?'✅ 정답! — '+dlg.wrong.exp:'❌ 틀린 문장: '+dlg.wrong.en+' — '+dlg.wrong.exp}</div>`;
+    }
+    else if(q.type==='mc-match'||q.type==='mc-similar'){
+      h+=`<div class="mc-opts">`;
+      q.opts.forEach((opt,oi)=>{
+        let cls='mc-opt';
+        if(qSt.done){if(oi===q.ans)cls+=' ok';else if(oi===qSt.sel)cls+=' no';}
+        h+=`<div class="${cls}" onclick="ansMC('${key}',${di},${qi},${oi},'match',${q.ans})"><span class="on">${'①②③④'[oi]}</span>${opt}</div>`;
+      });
+      h+=`</div>`;
+      if(qSt.done)h+=`<div class="q-fb show ${qSt.ok?'ok':'no'}">${qSt.ok?'✅ 정답!':'❌'} ${q.fb||''}</div>`;
+    }
+    else if(q.type==='fill'){
+      const disp=q.sent.replace('________',`<input class="inline-inp${qSt.done?(qSt.ok?' ok':' no'):''}" id="${qid}_inp" type="text" placeholder="___" value="${qSt.val||''}" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')ansFill('${key}',${di},${qi},'${q.ans.replace(/'/g,"\\'")}','${qid}')" style="min-width:${Math.max(60,(q.ans||'').length*9)}px;">`);
+      h+=`<div class="sent-box">${disp}</div>
+      <div class="btn-row"><button class="b b1" style="padding:5px 12px;font-size:12px;" onclick="ansFill('${key}',${di},${qi},'${q.ans.replace(/'/g,"\\'")}','${qid}')">확인</button>
+      <button class="mini-btn" onclick="toggleAns('${qid}_rev')">정답 보기</button></div>
+      <div class="ans-r" id="${qid}_rev">정답: ${q.ans}</div>`;
+      if(qSt.done)h+=`<div class="q-fb show ${qSt.ok?'ok':'no'}">${qSt.ok?'✅ 정답!':'❌'} ${q.fb||''}</div>`;
+    }
+    else if(q.type==='order'){
+      const shuffled=[...dlg.lines.map((l,li)=>({...l,oi:li}))].sort(()=>Math.random()-.5);
+      h+=`<div class="chip-pool" id="${qid}_pool">`;
+      shuffled.forEach(l=>{h+=`<div class="ord-chip${st.ordSel.includes(l.oi)?' used':''}" data-oi="${l.oi}" onclick="pickOrd('${key}',${di},'${qid}',this)">${l.sp}: ${l.text.substring(0,28)}${l.text.length>28?'...':''}</div>`;});
+      h+=`</div><div class="ord-slots" id="${qid}_slots">`;
+      st.ordSel.forEach(oi=>{const l=dlg.lines[oi];h+=`<div class="ord-slot" data-oi="${oi}" onclick="removeOrd('${key}',${di},'${qid}',${oi},this)">${l.sp}: ${l.text.substring(0,20)}...</div>`;});
+      h+=`</div><div class="btn-row">
+        <button class="b b1" style="padding:5px 12px;font-size:12px;" onclick="checkOrd('${key}',${di},'${qid}',${dlg.lines.length})">순서 확인</button>
+        <button class="b b2" style="padding:5px 12px;font-size:12px;" onclick="resetOrd('${key}',${di},'${qid}')">초기화</button>
+      </div>
+      <div class="q-fb" id="${qid}_fb"></div>`;
+    }
+    else if(q.type==='insert'){
+      h+=`<div class="ins-box"><div class="ilab">삽입할 문장</div><div class="itext">${q.ins}</div></div>`;
+      dlg.lines.forEach((l,li)=>{
+        h+=dlgLine(l);
+        const isSel=st.insSel===li;
+        h+=`<div class="ins-slot${isSel?' sel':''}" data-pos="${li}" onclick="pickIns('${key}',${di},${li},'${qid}')"><span class="arr">▼</span><span class="ilab2">여기에 삽입</span></div>`;
+      });
+      h+=`<div class="btn-row"><button class="b b1" style="padding:5px 12px;font-size:12px;" onclick="checkIns('${key}',${di},${q.pos},'${qid}','${q.exp.replace(/'/g,"\\'")}')">위치 확인</button></div>
+      <div class="q-fb" id="${qid}_ins_fb"></div>`;
+      if(qSt.done)h+=`<div class="ans-r open">${q.pos+1}번째 줄 다음 — ${q.exp}</div>`;
+    }
+    h+=`</div>`;
+  });
+  h+=`</div>`;
+  return h;
+}
+
+function ansMC(key,di,qi,sel,type,ans){
+  const st=dlgSt[key][di].qSt[qi];if(st.done)return;
+  st.sel=sel;st.done=true;
+  let ok=false;
+  if(type==='wrong'){
+    const dlg=(key==='L2'?L2_DLG:L4_DLG)[di];
+    const opts=[...dlg.similar.map(s=>s.en),dlg.wrong.en].sort(()=>Math.random()-.5);
+    // 실제 wrong 위치를 찾아서 비교
+    const allOpts=document.querySelectorAll(`#${key}_${di}_q${qi} .mc-opt`);
+    const selVal=allOpts[sel]?.dataset.val;
+    ok=selVal===dlg.wrong.en;
+    allOpts.forEach((el,i)=>{el.onclick=null;if(el.dataset.val===dlg.wrong.en)el.classList.add('ok');else if(i===sel&&!ok)el.classList.add('no');});
+    const fb=document.querySelector(`#${key}_${di}_q${qi} .q-fb`)||document.createElement('div');
+    fb.className='q-fb show '+(ok?'ok':'no');fb.textContent=(ok?'✅ 정답! — ':'❌ 틀린 문장: '+dlg.wrong.en+' — ')+dlg.wrong.exp;
+    if(!document.querySelector(`#${key}_${di}_q${qi} .q-fb`))document.getElementById(`${key}_${di}_q${qi}`).appendChild(fb);
+  } else {
+    const ansIdx=parseInt(ans);ok=sel===ansIdx;
+    const allOpts=document.querySelectorAll(`#${key}_${di}_q${qi} .mc-opt`);
+    allOpts.forEach((el,i)=>{el.onclick=null;if(i===ansIdx)el.classList.add('ok');else if(i===sel&&!ok)el.classList.add('no');});
+    const dlg=(key==='L2'?L2_DLG:L4_DLG)[di];const q=dlg.qs[qi];
+    const fb=document.querySelector(`#${key}_${di}_q${qi} .q-fb`)||document.createElement('div');
+    fb.className='q-fb show '+(ok?'ok':'no');fb.textContent=(ok?'✅ 정답!':'❌')+' '+(q.fb||'');
+    if(!document.querySelector(`#${key}_${di}_q${qi} .q-fb`))document.getElementById(`${key}_${di}_q${qi}`).appendChild(fb);
+  }
+  st.ok=ok;
+}
+function ansFill(key,di,qi,ans,qid){
+  const st=dlgSt[key][di].qSt[qi];const inp=document.getElementById(qid+'_inp');if(!inp)return;
+  const val=inp.value.trim();const ok=norm(val)===norm(ans);st.done=true;st.ok=ok;st.val=val;
+  inp.className='inline-inp '+(ok?'ok':'no');
+  const dlg=(key==='L2'?L2_DLG:L4_DLG)[di];const q=dlg.qs[qi];
+  let fb=document.querySelector(`#${qid} .q-fb`);if(!fb){fb=document.createElement('div');document.getElementById(qid).appendChild(fb);}
+  fb.className='q-fb show '+(ok?'ok':'no');fb.textContent=(ok?'✅ 정답!':'❌')+' '+(q.fb||'');
+}
+function pickOrd(key,di,qid,chip){if(chip.classList.contains('used'))return;chip.classList.add('used');const oi=parseInt(chip.dataset.oi);dlgSt[key][di].ordSel.push(oi);const dlg=(key==='L2'?L2_DLG:L4_DLG)[di];const l=dlg.lines[oi];const slots=document.getElementById(qid+'_slots');const sc=document.createElement('div');sc.className='ord-slot';sc.dataset.oi=oi;sc.textContent=l.sp+': '+l.text.substring(0,20)+'...';sc.onclick=()=>removeOrd(key,di,qid,oi,sc);slots.appendChild(sc);}
+function removeOrd(key,di,qid,oi,slot){slot.remove();const idx=dlgSt[key][di].ordSel.indexOf(oi);if(idx>-1)dlgSt[key][di].ordSel.splice(idx,1);const chip=document.querySelector(`#${qid}_pool [data-oi="${oi}"]`);if(chip)chip.classList.remove('used');}
+function checkOrd(key,di,qid,len){const sel=dlgSt[key][di].ordSel;const ok=sel.length===len&&sel.every((v,i)=>v===i);const fb=document.getElementById(qid+'_fb');if(fb){fb.className='q-fb show '+(ok?'ok':'no');fb.textContent=ok?'✅ 순서가 정확해요!':'❌ 순서가 맞지 않아요. 다시 시도해보세요.';}}
+function resetOrd(key,di,qid){dlgSt[key][di].ordSel=[];const slots=document.getElementById(qid+'_slots');if(slots)slots.innerHTML='';const pool=document.getElementById(qid+'_pool');if(pool)pool.querySelectorAll('.ord-chip').forEach(c=>c.classList.remove('used'));const fb=document.getElementById(qid+'_fb');if(fb)fb.className='q-fb';}
+function pickIns(key,di,pos,qid){dlgSt[key][di].insSel=pos;document.querySelectorAll(`#${qid} .ins-slot`).forEach(el=>el.classList.toggle('sel',parseInt(el.dataset.pos)===pos));}
+function checkIns(key,di,ans,qid,exp){const sel=dlgSt[key][di].insSel;if(sel===null){alert('위치를 먼저 선택해주세요.');return;}const ok=sel===ans;dlgSt[key][di].qSt[dlgSt[key][di].qSt.findIndex(q=>false)||0];const fb=document.getElementById(qid+'_ins_fb');if(fb){fb.className='q-fb show '+(ok?'ok':'no');fb.textContent=(ok?'✅ 정답! — ':'❌ 위치가 맞지 않아요 — ')+exp;}}
+
+function buildL2(){
+  const app=document.getElementById('app');
+  app.innerHTML=`<div class="desc"><b>Lesson 2 · 대화문 (5개 × 10문제)</b><br>핵심표현 확인 → 객관식 → 빈칸 → 순서 → 삽입 위치. 예외·함정 포인트 집중!</div>`+L2_DLG.map((d,i)=>renderDlg(d,'L2',i)).join('');
+}
+function buildL4(){
+  const app=document.getElementById('app');
+  app.innerHTML=`<div class="desc"><b>Lesson 4 · 대화문 (5개 × 10문제)</b><br>핵심표현 확인 → 객관식 → 빈칸 → 순서 → 삽입 위치. 예외·함정 포인트 집중!</div>`+L4_DLG.map((d,i)=>renderDlg(d,'L4',i)).join('');
+}
+
+go(0);
+</script>
+</body>
+</html>
