@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>비교급·최상급 뼈대 노트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F7F4;--card:#fff;--card2:#F2F0EB;
+  --ink:#1A1A2E;--sub:#4A4A6A;--muted:#7B7B9B;
+  --border:#DDD9F0;--border-lt:#EDEAF8;
+  --purple:#5C4FD4;--purple-lt:#EEEAFF;--purple-dk:#3D3399;
+  --green:#1a6e3c;--green-lt:#E6F4EC;
+  --amber:#8A5200;--amber-lt:#FFF3DC;
+  --red:#A0203C;--red-lt:#FDEAF0;
+  --blue:#1A4E9E;--blue-lt:#E6EEFB;
+  --ok:#1a6e3c;--ok-bg:#E6F4EC;
+  --no:#A0203C;--no-bg:#FDEAF0;
+  --shadow:0 2px 10px rgba(92,79,212,.08),0 0 0 1px #DDD9F0;
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+/* 헤더 */
+.header{background:linear-gradient(135deg,var(--purple-dk),var(--purple));color:#fff;padding:16px 20px 0;position:sticky;top:0;z-index:30;box-shadow:0 2px 12px rgba(92,79,212,.3);}
+.header-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.header h1{font-size:16px;font-weight:900;flex:1;}
+.page-info{font-size:12px;opacity:.8;white-space:nowrap;}
+.step-tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:0;}
+.stab{flex:1;min-width:52px;background:rgba(255,255,255,.12);border:none;color:rgba(255,255,255,.7);font-family:inherit;font-size:10px;font-weight:700;padding:8px 3px 10px;cursor:pointer;border-radius:8px 8px 0 0;text-align:center;line-height:1.3;transition:.2s;white-space:nowrap;}
+.stab.on{background:#fff;color:var(--purple);}
+.stab .sn{display:block;font-size:8px;opacity:.7;margin-bottom:1px;}
+
+/* 페이지 */
+.page-wrap{max-width:760px;margin:0 auto;padding:14px 16px 80px;}
+.page-enter{animation:pgIn .25s ease;}
+@keyframes pgIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+
+/* 카드 */
+.sec{background:var(--card);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:10px;}
+.sec-head{display:flex;align-items:center;gap:9px;padding-bottom:10px;border-bottom:2px solid var(--border-lt);margin-bottom:14px;flex-wrap:wrap;}
+.badge{font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px;color:#fff;}
+.bp{background:var(--purple);}.bg{background:var(--green);}
+.ba{background:var(--amber);}.br{background:var(--red);}.bb{background:var(--blue);}
+.sec-title{font-size:14px;font-weight:900;}
+
+/* 예문 */
+.ex{margin:7px 0;padding:8px 12px;border-radius:9px;background:var(--card2);}
+.ex .en{font-family:'Lora',serif;font-size:14px;line-height:1.8;color:var(--ink);}
+.ex .kr{font-size:12px;color:var(--muted);margin-top:2px;}
+.ex .hl{background:#FFD700;color:#1A1A2E;border-radius:4px;padding:0 4px;font-weight:700;}
+.ex .hlr{background:#FFB3C6;color:var(--red);border-radius:4px;padding:0 4px;font-weight:700;}
+.ex .hlg{background:#B3E8C8;color:var(--green);border-radius:4px;padding:0 4px;font-weight:700;}
+.ex .bad{color:var(--red);text-decoration:line-through;}
+.ex .good{color:var(--green);font-weight:700;}
+
+/* 공식 */
+.formula{border-radius:12px;padding:14px 18px;margin:10px 0;font-family:'Noto Sans KR',sans-serif;font-size:13px;line-height:2.1;border-left:5px solid var(--purple);background:var(--purple-lt);position:relative;}
+.formula .f-label{font-size:10px;font-weight:900;color:var(--purple);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;display:block;}
+.formula .key{font-size:15px;font-weight:900;color:var(--purple-dk);display:block;margin-bottom:4px;font-family:'Lora',serif;letter-spacing:.3px;}
+.formula .key .slot{display:inline-block;background:var(--purple);color:transparent;border-radius:6px;padding:2px 9px;font-size:14px;margin:0 2px;cursor:pointer;user-select:none;transition:color .2s,background .2s;border:2px dashed rgba(255,255,255,.5);position:relative;}
+.formula .key .slot::before{content:'?';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#fff;font-weight:900;font-size:13px;pointer-events:none;}
+.formula .key .slot.revealed{color:#fff;border-style:solid;border-color:transparent;}
+.formula .key .slot.revealed::before{display:none;}
+.formula.green .key .slot{background:var(--green);}
+.formula.amber .key .slot{background:var(--amber);}
+.formula.red .key .slot{background:var(--red);}
+.formula.blue .key .slot{background:var(--blue);}
+.formula .dim{font-size:12px;color:var(--sub);display:block;margin-top:3px;}
+.formula .dim .arr{color:var(--purple);font-weight:700;margin-right:4px;}
+.formula .eq{font-size:11px;color:var(--muted);margin-top:4px;display:block;padding-top:4px;border-top:1px dashed var(--border);}
+.formula.green{border-left-color:var(--green);background:var(--green-lt);}
+.formula.green .f-label{color:var(--green);}
+.formula.green .key{color:#0d4a27;}
+.formula.green .key .slot{background:var(--green);}
+.formula.green .dim .arr{color:var(--green);}
+.formula.amber{border-left-color:var(--amber);background:var(--amber-lt);}
+.formula.amber .f-label{color:var(--amber);}
+.formula.amber .key{color:#5a3500;}
+.formula.amber .key .slot{background:var(--amber);}
+.formula.amber .dim .arr{color:var(--amber);}
+.formula.red{border-left-color:var(--red);background:var(--red-lt);}
+.formula.red .f-label{color:var(--red);}
+.formula.red .key{color:#6e0020;}
+.formula.red .key .slot{background:var(--red);}
+.formula.red .dim .arr{color:var(--red);}
+.formula.blue{border-left-color:var(--blue);background:var(--blue-lt);}
+.formula.blue .f-label{color:var(--blue);}
+.formula.blue .key{color:#0d2f6e;}
+.formula.blue .key .slot{background:var(--blue);}
+.formula.blue .dim .arr{color:var(--blue);}
+.formula .sub-f{font-size:11px;color:var(--sub);}
+
+/* 표 */
+.tbl{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px;}
+.tbl th{background:var(--purple);color:#fff;padding:8px 10px;text-align:center;font-weight:700;}
+.tbl td{padding:7px 10px;border:1px solid var(--border-lt);text-align:center;vertical-align:middle;}
+.tbl tr:nth-child(even) td{background:var(--purple-lt);}
+
+/* 개념 박스 */
+.cbox{border-radius:11px;padding:12px 15px;margin:9px 0;border:1.5px solid;}
+.cbox-p{background:var(--purple-lt);border-color:var(--border);}
+.cbox-g{background:var(--green-lt);border-color:#b2d8c2;}
+.cbox-a{background:var(--amber-lt);border-color:#f0d090;}
+.cbox-r{background:var(--red-lt);border-color:#e8b0c0;}
+.cbox-b{background:var(--blue-lt);border-color:#b0c8f0;}
+.cbox-title{font-size:12px;font-weight:900;margin-bottom:7px;}
+.ct-p{color:var(--purple);}.ct-g{color:var(--green);}
+.ct-a{color:var(--amber);}.ct-r{color:var(--red);}.ct-b{color:var(--blue);}
+
+/* 경고 */
+.warn{background:#FFF8DC;border:1.5px solid #F0C040;border-radius:10px;padding:10px 14px;margin:9px 0;font-size:13px;}
+.danger{background:var(--red-lt);border:1.5px solid #e8b0c0;border-radius:10px;padding:10px 14px;margin:9px 0;font-size:13px;}
+.tip{background:var(--green-lt);border:1.5px solid #b2d8c2;border-radius:10px;padding:10px 14px;margin:9px 0;font-size:13px;}
+
+
+
+/* no-other 변환 카드 */
+.conv-card{border:2px solid var(--border);border-radius:12px;overflow:hidden;margin:10px 0;}
+.conv-head{background:var(--purple);color:#fff;padding:9px 14px;font-size:13px;font-weight:900;}
+.conv-row{padding:10px 14px;border-bottom:1px solid var(--border-lt);display:flex;gap:10px;align-items:flex-start;}
+.conv-row:last-child{border-bottom:none;}
+.conv-num{font-size:11px;font-weight:900;color:var(--purple);min-width:22px;padding-top:2px;}
+.conv-body{flex:1;}
+.conv-en{font-family:'Lora',serif;font-size:14px;line-height:1.8;color:var(--ink);}
+.conv-kr{font-size:12px;color:var(--muted);margin-top:2px;}
+.conv-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;margin-left:6px;}
+.tag-sup{background:var(--purple-lt);color:var(--purple);}
+.tag-comp{background:var(--green-lt);color:var(--green);}
+.tag-pos{background:var(--blue-lt);color:var(--blue);}
+
+/* 문제 */
+.q-item{margin-bottom:13px;padding-bottom:13px;border-bottom:1px solid var(--border-lt);}
+.q-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.q-item.hide{display:none;}
+.q-num{font-size:11px;font-weight:900;color:var(--purple);margin-bottom:5px;}
+.q-sent{font-family:'Lora',serif;font-size:14px;line-height:2.1;color:var(--ink);}
+.q-kr{font-size:12px;color:var(--muted);background:var(--card2);padding:5px 10px;border-radius:7px;margin:5px 0 8px;}
+.q-hint{font-size:11px;color:var(--blue);background:var(--blue-lt);border:1px solid #b0c8f0;border-radius:7px;padding:5px 10px;margin-bottom:7px;}
+.q-hint b{font-weight:900;}
+.b-inp{border:none;border-bottom:2px solid var(--purple);padding:0 5px;font-size:13px;font-family:'Lora',serif;background:transparent;color:var(--ink);outline:none;vertical-align:bottom;min-width:90px;}
+.b-inp:focus{border-bottom-color:var(--purple-dk);}
+.b-inp.ok{border-bottom-color:var(--ok);color:var(--ok);}
+.b-inp.no{border-bottom-color:var(--no);color:var(--no);}
+
+/* 칩 */
+.chip-wrap{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0;}
+.chip{padding:6px 12px;border:1.5px solid var(--border);border-radius:99px;font-size:13px;cursor:pointer;background:var(--card);color:var(--ink);font-family:'Lora',serif;transition:.12s;user-select:none;}
+.chip:hover{border-color:var(--purple);background:var(--purple-lt);}
+.chip.used{opacity:.3;pointer-events:none;}
+.answer-slots{display:flex;gap:6px;flex-wrap:wrap;min-height:40px;border:1.5px dashed var(--border);border-radius:10px;padding:6px 10px;margin:6px 0;background:var(--card2);align-items:center;}
+.slot-chip{padding:5px 11px;border:1.5px solid var(--purple);border-radius:99px;font-size:13px;background:var(--purple-lt);color:var(--purple);cursor:pointer;font-family:'Lora',serif;}
+
+/* 선택형 */
+.mc-opts{display:flex;flex-direction:column;gap:7px;margin:8px 0;}
+.mc-opt{padding:9px 14px;border:1.5px solid var(--border);border-radius:10px;background:var(--card2);font-size:13px;cursor:pointer;font-family:inherit;transition:.12s;display:flex;align-items:flex-start;gap:8px;}
+.mc-opt:hover{border-color:var(--purple);background:var(--purple-lt);}
+.mc-opt .on{font-weight:900;color:var(--muted);min-width:18px;padding-top:1px;}
+.mc-opt.ch-ok{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);font-weight:700;}
+.mc-opt.ch-no{border-color:var(--no);background:var(--no-bg);color:var(--no);}
+.mc-opt.ch-rv{border-color:var(--ok);background:var(--ok-bg);opacity:.55;}
+.q-fb{font-size:12px;margin-top:6px;padding:6px 10px;border-radius:7px;display:none;}
+.q-fb.show.ok{display:block;background:var(--ok-bg);color:var(--ok);}
+.q-fb.show.no{display:block;background:var(--no-bg);color:var(--no);}
+.ans-reveal{display:none;margin-top:7px;padding:8px 12px;background:var(--ok-bg);border-radius:8px;font-size:12px;color:var(--ok);line-height:1.7;font-family:'Lora',serif;}
+.ans-reveal.open{display:block;}
+
+/* 버튼 */
+.mini-btn{padding:5px 12px;border:1px solid var(--border);border-radius:99px;font-size:12px;cursor:pointer;font-family:inherit;background:var(--card);color:var(--sub);}
+.mini-btn:hover{background:var(--purple-lt);border-color:var(--border);color:var(--purple);}
+.q-btns{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap;align-items:center;}
+.check-bar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:14px;padding-top:11px;border-top:1px dashed var(--border-lt);}
+.cb{padding:8px 16px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:none;}
+.cb-g{background:var(--purple);color:#fff;}
+.cb-r{background:var(--card);border:1.5px solid var(--no);color:var(--no);}
+.cb-r:disabled{opacity:.35;cursor:not-allowed;}
+.cb-s{background:var(--card);border:1.5px solid var(--border-lt);color:var(--sub);}
+.result-pill{font-size:12px;font-weight:700;padding:5px 13px;border-radius:99px;display:none;}
+.pill-ok{background:var(--ok-bg);color:var(--ok);}
+.pill-bad{background:var(--amber-lt);color:var(--amber);}
+
+/* TTS */
+.snd{display:inline-flex;align-items:center;background:none;border:1px solid var(--border-lt);border-radius:99px;padding:3px 9px;font-size:11px;color:var(--muted);cursor:pointer;font-family:inherit;gap:3px;}
+.snd:hover,.snd.playing{background:var(--purple-lt);border-color:var(--border);color:var(--purple);}
+
+.divider{height:1px;background:var(--border-lt);margin:14px 0;}
+
+/* 흐름도 */
+.flow-diagram{display:flex;flex-direction:column;align-items:center;gap:0;padding:4px 0;}
+.fd-start{background:var(--ink);color:#fff;border-radius:12px;padding:11px 24px;font-size:14px;font-weight:900;text-align:center;}
+.fd-arrow-down{font-size:22px;color:var(--muted);line-height:1.2;text-align:center;margin:2px 0;}
+.fd-q{background:var(--blue-lt);border:2px solid #b0c8f0;border-radius:12px;padding:11px 20px;font-size:13px;font-weight:700;color:var(--blue);text-align:center;width:100%;max-width:420px;}
+.fd-row{display:flex;gap:10px;width:100%;margin:8px 0;justify-content:center;flex-wrap:nowrap;}
+.fd-row-wrap{flex-wrap:wrap;}
+.fd-branch{display:flex;flex-direction:column;align-items:center;gap:0;flex:1;min-width:140px;max-width:200px;}
+.fd-label{font-size:11px;font-weight:700;color:var(--muted);background:var(--card2);border-radius:6px;padding:3px 10px;text-align:center;white-space:nowrap;}
+.fd-or{display:flex;align-items:center;font-size:11px;color:var(--muted);padding-top:22px;flex-shrink:0;}
+.fd-ans{border-radius:11px;padding:10px 12px;font-size:12px;font-weight:700;text-align:center;width:100%;line-height:1.6;}
+.fd-ans.green{background:var(--green-lt);border:2px solid #b2d8c2;color:var(--green);}
+.fd-ans.purple{background:var(--purple-lt);border:2px solid var(--border);color:var(--purple);}
+.fd-ans.blue{background:var(--blue-lt);border:2px solid #b0c8f0;color:var(--blue);}
+.fd-ans.amber{background:var(--amber-lt);border:2px solid #f0d090;color:var(--amber);}
+.fd-ans.red{background:var(--red-lt);border:2px solid #e8b0c0;color:var(--red);}
+.fd-ex{display:block;font-size:11px;font-weight:400;margin-top:5px;padding-top:5px;border-top:1px dashed rgba(0,0,0,.12);font-family:'Lora',serif;font-style:italic;line-height:1.6;}
+.fd-divider{width:100%;height:1px;background:var(--border-lt);margin:12px 0;}
+.fd-tip{background:var(--amber-lt);border:1.5px solid #f0d090;border-radius:10px;padding:10px 16px;font-size:13px;color:var(--amber);text-align:center;width:100%;margin-top:8px;}
+@media(max-width:600px){.fd-row{gap:6px;}.fd-branch{min-width:100px;}.fd-ans{font-size:11px;padding:8px 8px;}.fd-or{display:none;}}
+.tag-line{font-size:11px;color:var(--muted);text-align:center;margin-top:20px;}
+@media(max-width:480px){.tbl{font-size:12px;}.formula .key{font-size:14px;}.formula .slot{font-size:13px;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <h1>📐 비교급·최상급 뼈대 노트</h1>
+    <span class="page-info" id="pageInfo">1 / 7</span>
+  </div>
+  <div class="step-tabs" id="stepTabs"></div>
+</div>
+
+<div class="page-wrap" id="app"></div>
+<div class="tag-line">준티 잉글리쉬 · 자체 제작 학습 콘텐츠 · 문법 뼈대 노트</div>
+
+<script>
+/* ══ Web Audio 책 넘기는 소리 ══ */
+const _ac=new(window.AudioContext||window.webkitAudioContext)();
+function playPageTurn(){
+  try{
+    if(_ac.state==='suspended')_ac.resume();
+    const now=_ac.currentTime;
+    const make=(len,vol,delay,hp)=>{
+      const buf=_ac.createBuffer(1,Math.floor(_ac.sampleRate*len),_ac.sampleRate);
+      const d=buf.getChannelData(0);
+      for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length);
+      const src=_ac.createBufferSource();src.buffer=buf;
+      const f=_ac.createBiquadFilter();f.type='highpass';f.frequency.value=hp;
+      const g=_ac.createGain();
+      g.gain.setValueAtTime(0,now+delay);
+      g.gain.linearRampToValueAtTime(vol,now+delay+0.02);
+      g.gain.exponentialRampToValueAtTime(0.001,now+delay+len);
+      src.connect(f);f.connect(g);g.connect(_ac.destination);
+      src.start(now+delay);src.stop(now+delay+len);
+    };
+    make(0.16,0.32,0,1800);make(0.07,0.14,0.09,3200);
+  }catch(e){}
+}
+
+/* ══ TTS ══ */
+let voice=null,ttsOk=false;
+function loadVoices(){
+  const vs=speechSynthesis.getVoices();
+  const p=['Google US English','Samantha','Microsoft Aria','Karen','Alex'];
+  for(const n of p){const v=vs.find(x=>x.name===n);if(v){voice=v;return;}}
+  voice=vs.find(v=>v.lang==='en-US')||null;
+}
+if('speechSynthesis' in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;}
+function unlockTTS(){if(ttsOk||!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance('');u.volume=0;speechSynthesis.speak(u);ttsOk=true;}
+document.addEventListener('touchstart',unlockTTS,{once:true});
+document.addEventListener('click',unlockTTS,{once:true});
+function speak(t,b){
+  if(!('speechSynthesis' in window))return;
+  unlockTTS();speechSynthesis.cancel();
+  document.querySelectorAll('.snd.playing').forEach(x=>x.classList.remove('playing'));
+  const u=new SpeechSynthesisUtterance(t);
+  if(voice)u.voice=voice;u.lang='en-US';u.rate=.9;
+  if(b){b.classList.add('playing');u.onend=()=>b.classList.remove('playing');}
+  speechSynthesis.speak(u);
+}
+function mkSnd(t){const b=document.createElement('button');b.className='snd';b.innerHTML='🔊';b.onclick=()=>speak(t,b);return b;}
+
+/* ══ 유틸 ══ */
+function mk(t,c){const b=document.createElement('button');b.className=c;b.type='button';b.textContent=t;return b;}
+function norm(s){return(s||'').toLowerCase().replace(/[^a-z0-9 ]/g,'').replace(/\s+/g,' ').trim();}
+function ansBtn(el){
+  const b=mk('정답 보기','mini-btn');
+  b.onclick=()=>{const o=el.classList.toggle('open');b.textContent=o?'정답 숨기기':'정답 보기';};
+  return b;
+}
+function attachBar(wrap,items){
+  const bar=document.createElement('div');bar.className='check-bar';
+  const pill=document.createElement('span');pill.className='result-pill';pill.style.display='none';
+  const gb=mk('전체 채점','cb cb-g');
+  const rb=mk('❌ 틀린 것만 다시','cb cb-r');rb.disabled=true;
+  const sb=mk('전체 보기','cb cb-s');sb.style.display='none';
+  function refresh(){
+    const ok=items.filter(x=>x._ok).length;
+    pill.style.display='inline-block';
+    pill.className='result-pill '+(ok===items.length?'pill-ok':'pill-bad');
+    pill.textContent=ok+' / '+items.length+' 정답';
+    rb.disabled=ok===items.length;
+  }
+  gb.onclick=()=>{items.forEach(it=>{if(!it.row.classList.contains('hide'))it._ok=it.grade();});refresh();};
+  rb.onclick=()=>{
+    items.forEach(it=>{it._ok?it.row.classList.add('hide'):(it.row.classList.remove('hide'),it.reset());});
+    sb.style.display='inline-block';
+  };
+  sb.onclick=()=>{items.forEach(it=>it.row.classList.remove('hide'));pill.style.display='none';};
+  bar.append(gb,rb,sb,pill);
+  wrap.appendChild(bar);
+}
+
+/* ══ 페이지 전환 ══ */
+const STEPS=[
+  {label:'원급이란?',sn:'개념'},
+  {label:'형태 만들기',sn:'규칙'},
+  {label:'원급 공식',sn:'as~as'},
+  {label:'비교급 공식',sn:'비교급'},
+  {label:'최상급 공식',sn:'최상급'},
+  {label:'로직 트리',sn:'판단'},
+  {label:'확인 문제',sn:'연습'},
+];
+let cur=0;
+
+function renderTabs(){
+  const tabs=document.getElementById('stepTabs');tabs.innerHTML='';
+  STEPS.forEach((s,i)=>{
+    const b=document.createElement('button');b.className='stab'+(i===cur?' on':'');
+    b.innerHTML='<span class="sn">'+s.sn+'</span>'+s.label;
+    b.onclick=()=>goPage(i);
+    tabs.appendChild(b);
+  });
+  document.getElementById('pageInfo').textContent=(cur+1)+' / '+STEPS.length;
+}
+
+function goPage(i){
+  if(i===cur)return;
+  playPageTurn();
+  cur=i;renderTabs();
+  const app=document.getElementById('app');
+  app.innerHTML='';
+  setTimeout(()=>{
+    app.classList.add('page-enter');
+    const builders=[p1,p2,p3,p4,p5,p6,p7];
+    app.innerHTML=builders[i]();
+    attachPageEvents(i);
+    attachSlots();
+    setTimeout(()=>app.classList.remove('page-enter'),250);
+  },80);
+}
+
+function attachPageEvents(i){
+  if(i===6)buildQuizEvents();
+}
+
+/* ══════════════════════════
+   P1 — 원급이란?
+══════════════════════════ */
+function p1(){
+  return `
+<div class="sec">
+  <div class="sec-head"><span class="badge bp">STEP 1</span><span class="sec-title">원급이란? — 비교의 출발점</span></div>
+
+  <div class="cbox cbox-p">
+    <div class="cbox-title ct-p">🔑 원급(原級)의 정의</div>
+    <p style="font-size:13px;line-height:1.8;">원급이란 <strong>형용사·부사의 아무것도 붙지 않은 기본형</strong>입니다.<br>
+    비교도 하지 않고, 가장도 아닌 <strong>원래 모습</strong>입니다.</p>
+  </div>
+
+  <table class="tbl" style="margin-top:12px;">
+    <tr><th>원급</th><th>비교급</th><th>최상급</th><th>뜻</th></tr>
+    <tr><td><strong>tall</strong></td><td>taller</td><td>tallest</td><td>키가 큰</td></tr>
+    <tr><td><strong>fast</strong></td><td>faster</td><td>fastest</td><td>빠른</td></tr>
+    <tr><td><strong>beautiful</strong></td><td>more beautiful</td><td>most beautiful</td><td>아름다운</td></tr>
+    <tr><td><strong>good / well</strong></td><td>better</td><td>best</td><td>좋은 / 잘</td></tr>
+    <tr><td><strong>bad / ill</strong></td><td>worse</td><td>worst</td><td>나쁜</td></tr>
+    <tr><td><strong>many / much</strong></td><td>more</td><td>most</td><td>많은</td></tr>
+    <tr><td><strong>little</strong></td><td>less</td><td>least</td><td>적은</td></tr>
+    <tr><td><strong>far</strong></td><td>farther / further</td><td>farthest / furthest</td><td>먼 / 더욱</td></tr>
+  </table>
+
+  <div class="warn" style="margin-top:10px;">⚠️ <strong>불규칙 변화는 통째로 암기!</strong><br>
+  good→better→best / bad→worse→worst / many·much→more→most / little→less→least</div>
+
+  <div class="divider"></div>
+  <p style="font-size:13px;font-weight:700;margin-bottom:10px;">📌 3가지 비교 형태 한눈에</p>
+  <table class="tbl">
+    <tr><th>구분</th><th>공식</th><th>의미</th><th>예문</th></tr>
+    <tr><td><strong>원급</strong></td><td>as + 원급 + as</td><td>~만큼 ~하다</td><td>as tall as</td></tr>
+    <tr><td><strong>비교급</strong></td><td>비교급 + than</td><td>~보다 더 ~하다</td><td>taller than</td></tr>
+    <tr><td><strong>최상급</strong></td><td>the + 최상급</td><td>가장 ~하다</td><td>the tallest</td></tr>
+  </table>
+
+  <div class="ex" style="margin-top:12px;">
+    <div class="en">Tom is <span class="hl">as tall as</span> Jim.</div>
+    <div class="kr">→ 톰은 짐만큼 키가 크다. (원급 — 같음)</div>
+  </div>
+  <div class="ex">
+    <div class="en">Tom is <span class="hl">taller than</span> Jim.</div>
+    <div class="kr">→ 톰은 짐보다 키가 크다. (비교급 — 둘 비교)</div>
+  </div>
+  <div class="ex">
+    <div class="en">Tom is <span class="hl">the tallest</span> in his class.</div>
+    <div class="kr">→ 톰은 반에서 가장 키가 크다. (최상급 — 셋 이상 중 최고)</div>
+  </div>
+</div>`;
+}
+
+/* ══════════════════════════
+   P2 — 형태 만들기
+══════════════════════════ */
+function p2(){
+  return `
+<div class="sec">
+  <div class="sec-head"><span class="badge bg">STEP 2</span><span class="sec-title">형태 만들기 — 철자 변화 완전 정리</span></div>
+
+  <div class="cbox cbox-g">
+    <div class="cbox-title ct-g">✅ -er / -est 를 붙이는 경우</div>
+    <table class="tbl">
+      <tr><th>조건</th><th>원급</th><th>비교급</th><th>최상급</th></tr>
+      <tr><td>1음절 단어</td><td>tall, old</td><td>taller, older</td><td>tallest, oldest</td></tr>
+      <tr><td>e로 끝나는 단어</td><td>large, nice</td><td>larger, nicer</td><td>largest, nicest</td></tr>
+      <tr><td>y로 끝나는 단어<br><small>y→i로 바꾸고</small></td><td>happy, easy</td><td>happier, easier</td><td>happiest, easiest</td></tr>
+      <tr><td>단모음+단자음<br><small>자음 하나 더 추가</small></td><td>big, hot, thin</td><td>bigger, hotter</td><td>biggest, hottest</td></tr>
+      <tr><td>2음절 일부<br><small>clever, simple 등</small></td><td>clever, simple</td><td>cleverer</td><td>cleverest</td></tr>
+    </table>
+  </div>
+
+  <div class="cbox cbox-b" style="margin-top:10px;">
+    <div class="cbox-title ct-b">✅ more / most 를 붙이는 경우</div>
+    <table class="tbl">
+      <tr><th>조건</th><th>원급</th><th>비교급</th><th>최상급</th></tr>
+      <tr><td>2음절 이상 대부분</td><td>beautiful</td><td>more beautiful</td><td>most beautiful</td></tr>
+      <tr><td>-ful/-less/-ous/-ive/-ing/-ed/-ly</td><td>careful, famous</td><td>more careful</td><td>most careful</td></tr>
+      <tr><td>부사 -ly형</td><td>quickly, slowly</td><td>more quickly</td><td>most quickly</td></tr>
+    </table>
+  </div>
+
+  <div class="warn">⚠️ <strong>시험 함정 1 — 자음 중복 여부</strong>
+    <div class="ex" style="margin-top:8px;background:transparent;padding:0;">
+      <div class="en"><span class="hlr">big → bigger</span> ✅ (단모음+단자음 → g 중복)</div>
+      <div class="kr">→ 빅 → 비거 (자음 g를 하나 더 씀)</div>
+      <div class="en" style="margin-top:6px;"><span class="hlg">fast → faster</span> ✅ (자음 st → 중복 안 함)</div>
+      <div class="kr">→ 패스트 → 패스터 (자음이 2개라 중복 없음)</div>
+    </div>
+  </div>
+
+  <div class="warn">⚠️ <strong>시험 함정 2 — -ly 부사 구분</strong>
+    <div class="ex" style="margin-top:8px;background:transparent;padding:0;">
+      <div class="en"><span class="hlr">early → earlier</span> ✅ (형용사/부사 -y → ier)</div>
+      <div class="kr">→ 얼리 → 얼리어 (y를 i로 바꾸고 -er)</div>
+      <div class="en" style="margin-top:6px;"><span class="hlg">quickly → more quickly</span> ✅ (-ly 부사 → more 사용)</div>
+      <div class="kr">→ 퀴클리 → 모어 퀴클리 (-ly 부사는 반드시 more)</div>
+      <div class="en" style="margin-top:6px;"><span class="bad">quicklier</span> ❌ 절대 안 됨!</div>
+    </div>
+  </div>
+</div>`;
+}
+
+/* ══════════════════════════
+   P3 — 원급 공식
+══════════════════════════ */
+function p3(){
+  return `
+<div class="sec">
+  <div class="sec-head"><span class="badge bp">STEP 3</span><span class="sec-title">원급 비교 공식 완전 정리</span></div>
+
+  <div class="formula">
+    <span class="f-label">📌 원급 비교 기본 공식</span>
+    <span class="key">A + V + <span class="slot">as</span> + 원급 + <span class="slot">as</span> + B</span>
+    <span class="dim"><span class="arr">→</span> A는 B<strong>만큼</strong> ~하다 (같음)</span>
+  </div>
+  <div class="ex"><div class="en">She is <span class="hl">as tall as</span> I am.</div><div class="kr">→ 그녀는 나만큼 키가 크다.</div></div>
+
+  <div class="formula red">
+    <span class="f-label">📌 부정 원급 비교</span>
+    <span class="key">A + V + <span class="slot">not as[so]</span> + 원급 + <span class="slot">as</span> + B</span>
+    <span class="dim"><span class="arr">→</span> A는 B만큼 ~하지 <strong>않다</strong> (= B가 A보다 더 ~하다)</span>
+  </div>
+  <div class="ex"><div class="en">She is <span class="hl">not as tall as</span> I am.</div><div class="kr">→ 그녀는 나만큼 키가 크지 않다. (내가 더 크다)</div></div>
+
+  <div class="divider"></div>
+  <p style="font-size:13px;font-weight:700;margin-bottom:10px;">📌 원급 응용 공식</p>
+
+  <div class="cbox cbox-p">
+    <div class="cbox-title ct-p">배수 표현 — twice / three times / half</div>
+    <div class="formula amber">
+      <span class="f-label">📌 배수 표현</span>
+      <span class="key"><span class="slot">twice / three times / half</span> + as + 원급 + as</span>
+      <span class="dim"><span class="arr">→</span> ~의 두 배 / 세 배 / 절반만큼 ~하다</span>
+    </div>
+    <div class="ex"><div class="en">This room is <span class="hl">twice as large as</span> that one.</div><div class="kr">→ 이 방은 저 방의 두 배만큼 크다.</div></div>
+    <div class="ex"><div class="en">She earns <span class="hl">three times as much as</span> I do.</div><div class="kr">→ 그녀는 나보다 세 배나 많이 번다.</div></div>
+  </div>
+
+  <div class="cbox cbox-g">
+    <div class="cbox-title ct-g">as many/much/few/little + 명사 + as</div>
+    <div class="formula green">
+      <span class="f-label">📌 수량 원급 비교</span>
+      <span class="key">as <span class="slot">many[few]</span> + 가산복수명사 + as</span>
+      <span class="key">as <span class="slot">much[little]</span> + 불가산명사 + as</span>
+      <span class="dim"><span class="arr">→</span> 셀 수 있으면 many/few / 셀 수 없으면 much/little</span>
+    </div>
+    <div class="ex"><div class="en">I have <span class="hl">as many books as</span> you do.</div><div class="kr">→ 나는 너만큼 많은 책을 갖고 있다.</div></div>
+    <div class="ex"><div class="en">Drink <span class="hl">as little water as</span> possible.</div><div class="kr">→ 가능한 한 적은 물을 마셔라.</div></div>
+  </div>
+
+  <div class="cbox cbox-a">
+    <div class="cbox-title ct-a">as ~ as possible = as ~ as + 주어 + can</div>
+    <div class="ex"><div class="en">Please come <span class="hl">as soon as possible</span>.</div><div class="kr">→ 가능한 한 빨리 와주세요. (= as soon as you can)</div></div>
+  </div>
+
+  <div class="cbox cbox-r">
+    <div class="cbox-title ct-r">⚠️ not so much A as B — 시험 단골!</div>
+    <div class="formula red">
+      <span class="f-label">📌 not so much A as B</span>
+      <span class="key"><span class="slot">not so much</span> A <span class="slot">as</span> B</span>
+      <span class="dim"><span class="arr">→</span> A라기보다는 <strong>B</strong>이다</span>
+      <span class="eq">= B rather than A</span>
+    </div>
+    <div class="ex"><div class="en">He is <span class="hl">not so much a teacher as</span> a friend.</div><div class="kr">→ 그는 선생님이라기보다는 친구이다.</div></div>
+  </div>
+
+  <div class="danger">
+    🚨 <strong>비교 대상 일치 — 수능 매년 출제!</strong><br>
+    비교하는 두 대상은 <strong>같은 종류</strong>여야 합니다.
+    <div class="ex" style="margin-top:8px;">
+      <div class="en"><span class="bad">The population of Korea is larger than Japan.</span> ❌</div>
+      <div class="kr">→ 인구와 나라를 비교 — 잘못됨!</div>
+      <div class="en" style="margin-top:6px;"><span class="good">The population of Korea is larger than that of Japan.</span> ✅</div>
+      <div class="kr">→ 인구와 인구를 비교 (that of = the population of)</div>
+    </div>
+    <div style="font-size:12px;margin-top:8px;color:var(--amber);">📌 단수 명사 → <strong>that of</strong> / 복수 명사 → <strong>those of</strong></div>
+  </div>
+</div>`;
+}
+
+/* ══════════════════════════
+   P4 — 비교급 공식
+══════════════════════════ */
+function p4(){
+  return `
+<div class="sec">
+  <div class="sec-head"><span class="badge bg">STEP 4</span><span class="sec-title">비교급 공식 완전 정리</span></div>
+
+  <div class="formula">
+    <span class="f-label">📌 비교급 기본 공식</span>
+    <span class="key">A + V + <span class="slot">비교급</span> + <span class="slot">than</span> + B</span>
+    <span class="dim"><span class="arr">→</span> A는 B<strong>보다 더</strong> ~하다</span>
+  </div>
+  <div class="ex"><div class="en">She is <span class="hl">taller than</span> I am.</div><div class="kr">→ 그녀는 나보다 키가 크다.</div></div>
+
+  <div class="cbox cbox-p">
+    <div class="cbox-title ct-p">비교급 강조 — much / far / even / still / a lot</div>
+    <div class="formula blue">
+      <span class="f-label">📌 비교급 강조 부사</span>
+      <span class="key"><span class="slot">much / far / even / still / a lot</span> + 비교급</span>
+      <span class="dim"><span class="arr">→</span> <strong>훨씬</strong> 더 ~한</span>
+      <span class="eq">❌ very + 비교급 불가! → ✅ much/far/even/still 사용</span>
+    </div>
+    <div class="ex"><div class="en">She is <span class="hl">much taller</span> than I am.</div><div class="kr">→ 그녀는 나보다 훨씬 더 키가 크다.</div></div>
+    <div class="warn" style="margin-top:8px;">⚠️ <strong>very는 비교급 강조 불가!</strong><br>
+    <span class="bad">very taller</span> ❌ → <span class="good">much taller / far taller</span> ✅</div>
+  </div>
+
+  <div class="cbox cbox-g">
+    <div class="cbox-title ct-g">비교급 and 비교급 — 점점 더</div>
+    <div class="formula green">
+      <span class="f-label">📌 비교급 and 비교급</span>
+      <span class="key"><span class="slot">비교급</span> + and + <span class="slot">비교급</span></span>
+      <span class="dim"><span class="arr">→</span> <strong>점점 더</strong> ~해지다</span>
+      <span class="eq">more형: more and more + 원급 (❌ more beautiful and more beautiful)</span>
+    </div>
+    <div class="ex"><div class="en">It is getting <span class="hl">hotter and hotter</span>.</div><div class="kr">→ 점점 더 더워지고 있다.</div></div>
+    <div class="ex"><div class="en">She became <span class="hl">more and more</span> beautiful.</div><div class="kr">→ 그녀는 점점 더 아름다워졌다.</div></div>
+    <div class="warn" style="margin-top:8px;">⚠️ more형 비교급은 <strong>more and more + 원급</strong>!<br>
+    <span class="bad">more beautiful and more beautiful</span> ❌<br>
+    <span class="good">more and more beautiful</span> ✅</div>
+  </div>
+
+  <div class="cbox cbox-b">
+    <div class="cbox-title ct-b">the 비교급 ~, the 비교급 ~ — ~할수록 더</div>
+    <div class="formula blue">
+      <span class="f-label">📌 the 비교급, the 비교급</span>
+      <span class="key"><span class="slot">The</span> + 비교급 + S + V, <span class="slot">the</span> + 비교급 + S + V</span>
+      <span class="dim"><span class="arr">→</span> <strong>~할수록</strong> 더 ~하다</span>
+      <span class="eq">어순 주의: The + 비교급 먼저, 그다음 주어+동사</span>
+    </div>
+    <div class="ex"><div class="en"><span class="hl">The harder</span> you study, <span class="hl">the better</span> your grades will be.</div><div class="kr">→ 더 열심히 공부할수록, 성적이 더 좋아질 것이다.</div></div>
+    <div class="ex"><div class="en"><span class="hl">The more</span> you have, <span class="hl">the more</span> you want.</div><div class="kr">→ 가질수록 더 원하게 된다.</div></div>
+    <div class="danger" style="margin-top:8px;">🚨 the 뒤 어순 주의 — 비교급 + 주어 + 동사 순서!<br>
+    <span class="bad">The you study harder</span> ❌ → <span class="good">The harder you study</span> ✅</div>
+  </div>
+
+  <div class="cbox cbox-r">
+    <div class="cbox-title ct-r">⚠️ no less than / no more than — 해석 함정!</div>
+    <table class="tbl" style="margin-top:8px;">
+      <tr><th>표현</th><th>의미</th><th>느낌</th></tr>
+      <tr><td><strong>no less than</strong></td><td>~만큼이나 (= as many as)</td><td>무려 (많음)</td></tr>
+      <tr><td><strong>no more than</strong></td><td>~밖에 안 되는 (= only)</td><td>고작 (적음)</td></tr>
+      <tr><td><strong>not less than</strong></td><td>적어도 ~ (= at least)</td><td>최솟값</td></tr>
+      <tr><td><strong>not more than</strong></td><td>많아야 ~ (= at most)</td><td>최댓값</td></tr>
+    </table>
+    <div class="ex" style="margin-top:8px;"><div class="en">He has <span class="hl">no less than</span> 1,000 books.</div><div class="kr">→ 그는 무려 1,000권이나 책을 갖고 있다. (많음 강조)</div></div>
+    <div class="ex"><div class="en">She has <span class="hl">no more than</span> 10 dollars.</div><div class="kr">→ 그녀는 고작 10달러밖에 없다. (적음 강조)</div></div>
+  </div>
+</div>`;
+}
+
+/* ══════════════════════════
+   P5 — 최상급 공식
+══════════════════════════ */
+function p5(){
+  return `
+<div class="sec">
+  <div class="sec-head"><span class="badge ba">STEP 5</span><span class="sec-title">최상급 공식 + no other 완전 정리</span></div>
+
+  <div class="formula">
+    <span class="f-label">📌 최상급 기본 공식</span>
+    <span class="key">A + V + <span class="slot">the</span> + 최상급 + 범위(<span class="slot">in</span>/<span class="slot">of</span>)</span>
+    <span class="dim"><span class="arr">→</span> A는 (범위) 중에서 <strong>가장</strong> ~하다</span>
+    <span class="eq">장소·집단 → in / 복수명사 → of</span>
+  </div>
+  <div class="ex"><div class="en">She is <span class="hl">the tallest</span> in the class.</div><div class="kr">→ 그녀는 반에서 가장 키가 크다.</div></div>
+
+  <div class="cbox cbox-p">
+    <div class="cbox-title ct-p">in vs of — 범위 표현</div>
+    <div class="ex"><div class="en">the best <span class="hl">in the class</span></div><div class="kr">→ 반에서 가장 (장소·집단 → in)</div></div>
+    <div class="ex"><div class="en">the best <span class="hl">of all the students</span></div><div class="kr">→ 모든 학생들 중에서 가장 (복수 명사 → of)</div></div>
+  </div>
+
+  <div class="cbox cbox-g">
+    <div class="cbox-title ct-g">one of the + 최상급 + 복수명사</div>
+    <div class="formula green">
+      <span class="f-label">📌 one of the + 최상급</span>
+      <span class="key"><span class="slot">one of the</span> + 최상급 + <span class="slot">복수명사</span></span>
+      <span class="dim"><span class="arr">→</span> 가장 ~한 것들 중의 <strong>하나</strong></span>
+      <span class="eq">⚠️ 뒤에 반드시 복수명사! city ❌ → cities ✅</span>
+    </div>
+    <div class="ex"><div class="en">Seoul is <span class="hl">one of the largest cities</span> in Asia.</div><div class="kr">→ 서울은 아시아에서 가장 큰 도시들 중 하나이다.</div></div>
+    <div class="danger" style="margin-top:8px;">🚨 one of the 최상급 뒤는 반드시 <strong>복수명사</strong>!<br>
+    <span class="bad">one of the largest city</span> ❌ → <span class="good">one of the largest cities</span> ✅</div>
+  </div>
+
+  <div class="cbox cbox-a">
+    <div class="cbox-title ct-a">서수 + 최상급 / by far + 최상급</div>
+    <div class="ex"><div class="en">K2 is <span class="hl">the second highest</span> mountain in the world.</div><div class="kr">→ K2는 세계에서 두 번째로 높은 산이다.</div></div>
+    <div class="ex"><div class="en">She is <span class="hl">by far the most talented</span> student.</div><div class="kr">→ 그녀는 단연코 가장 재능 있는 학생이다. (차이가 매우 클 때)</div></div>
+  </div>
+
+  <div class="divider"></div>
+  <p style="font-size:14px;font-weight:900;color:var(--red);margin-bottom:10px;">🚨 no other 규칙 — 최상급을 3가지 방법으로 표현!</p>
+
+  <div class="tip">💡 <strong>핵심 개념:</strong> 최상급은 꼭 the + 최상급으로만 쓰지 않아도 됩니다.<br>
+  비교급과 원급을 사용해도 <strong>같은 최상급 의미</strong>를 표현할 수 있어요!</div>
+
+  <div class="conv-card">
+    <div class="conv-head">🏆 "에베레스트는 세계에서 가장 높은 산이다" — 5가지 표현법</div>
+    <div class="conv-row">
+      <div class="conv-num">①</div>
+      <div class="conv-body">
+        <div class="conv-en">Mt. Everest is <span class="hl">the highest</span> mountain in the world.</div>
+        <div class="conv-kr">→ 에베레스트는 세계에서 가장 높은 산이다.</div>
+        <span class="conv-tag tag-sup">최상급</span>
+      </div>
+    </div>
+    <div class="conv-row">
+      <div class="conv-num">②</div>
+      <div class="conv-body">
+        <div class="conv-en">Mt. Everest is <span class="hl">higher than any other</span> mountain in the world.</div>
+        <div class="conv-kr">→ 에베레스트는 세계의 다른 어떤 산보다도 높다.</div>
+        <span class="conv-tag tag-comp">비교급</span>
+        <div class="danger" style="margin-top:8px;font-size:12px;">🚨 than any other 뒤 → 반드시 <strong>단수명사</strong>! <span class="bad">mountains</span> ❌ → <span class="good">mountain</span> ✅</div>
+      </div>
+    </div>
+    <div class="conv-row">
+      <div class="conv-num">③</div>
+      <div class="conv-body">
+        <div class="conv-en">Mt. Everest is <span class="hl">higher than all the other</span> mountains in the world.</div>
+        <div class="conv-kr">→ 에베레스트는 세계의 다른 모든 산들보다 높다.</div>
+        <span class="conv-tag tag-comp">비교급</span>
+        <div class="tip" style="margin-top:8px;font-size:12px;">💡 than all the other 뒤 → 반드시 <strong>복수명사</strong>! <span class="good">mountains</span> ✅</div>
+      </div>
+    </div>
+    <div class="conv-row">
+      <div class="conv-num">④</div>
+      <div class="conv-body">
+        <div class="conv-en"><span class="hl">No other</span> mountain in the world is <span class="hl">higher than</span> Mt. Everest.</div>
+        <div class="conv-kr">→ 세계에서 에베레스트보다 더 높은 산은 없다.</div>
+        <span class="conv-tag tag-comp">비교급</span>
+        <div class="tip" style="margin-top:8px;font-size:12px;">💡 No other + <strong>단수명사</strong> + 비교급 + than = 최상급 의미</div>
+      </div>
+    </div>
+    <div class="conv-row">
+      <div class="conv-num">⑤</div>
+      <div class="conv-body">
+        <div class="conv-en"><span class="hl">No other</span> mountain in the world is <span class="hl">as high as</span> Mt. Everest.</div>
+        <div class="conv-kr">→ 세계에서 에베레스트만큼 높은 산은 없다.</div>
+        <span class="conv-tag tag-pos">원급</span>
+        <div class="tip" style="margin-top:8px;font-size:12px;">💡 No other + <strong>단수명사</strong> + as + 원급 + as = 최상급 의미</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cbox cbox-r" style="margin-top:10px;">
+    <div class="cbox-title ct-r">⚠️ 단수·복수 구별 핵심 정리</div>
+    <table class="tbl">
+      <tr><th>표현</th><th>뒤에 오는 명사</th></tr>
+      <tr><td>than any other ___</td><td><strong>단수명사</strong></td></tr>
+      <tr><td>than all the other ___</td><td><strong>복수명사</strong></td></tr>
+      <tr><td>No other ___</td><td><strong>단수명사</strong></td></tr>
+      <tr><td>one of the 최상급 ___</td><td><strong>복수명사</strong></td></tr>
+    </table>
+  </div>
+</div>`;
+}
+
+/* ══════════════════════════
+   P6 — 로직 트리 (시각적)
+══════════════════════════ */
+function p6(){
+  return `
+<div class="sec">
+  <div class="sec-head"><span class="badge br">STEP 6</span><span class="sec-title">판단 흐름도 — 어떤 형태를 쓸까?</span></div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">왼쪽에서 시작해 화살표를 따라가면 어떤 형태를 써야 할지 알 수 있어요.</p>
+
+  <div class="flow-diagram">
+
+    <!-- START -->
+    <div class="fd-start">🔤 비교 표현을 써야 한다</div>
+    <div class="fd-arrow-down">↓</div>
+
+    <!-- Q1 -->
+    <div class="fd-q">❓ 몇 개를 비교하나요?</div>
+    <div class="fd-row">
+      <div class="fd-branch">
+        <div class="fd-label">둘을 비교</div>
+        <div class="fd-arrow-down">↓</div>
+        <div class="fd-ans green">비교급 + <strong>than</strong><br><span class="fd-ex">She is taller than I am.<br>그녀는 나보다 키가 크다.</span></div>
+      </div>
+      <div class="fd-or">또는</div>
+      <div class="fd-branch">
+        <div class="fd-label">셋 이상 중 최고</div>
+        <div class="fd-arrow-down">↓</div>
+        <div class="fd-ans purple"><strong>the</strong> + 최상급<br><span class="fd-ex">She is the tallest in class.<br>그녀는 반에서 가장 키가 크다.</span></div>
+      </div>
+      <div class="fd-or">또는</div>
+      <div class="fd-branch">
+        <div class="fd-label">같음을 표현</div>
+        <div class="fd-arrow-down">↓</div>
+        <div class="fd-ans blue"><strong>as</strong> + 원급 + <strong>as</strong><br><span class="fd-ex">She is as tall as I am.<br>그녀는 나만큼 키가 크다.</span></div>
+      </div>
+    </div>
+
+    <div class="fd-divider"></div>
+
+    <!-- Q2 -->
+    <div class="fd-q">❓ 강조·특수 표현이 필요한가요?</div>
+    <div class="fd-row fd-row-wrap">
+      <div class="fd-branch">
+        <div class="fd-label">비교급을 강조</div>
+        <div class="fd-arrow-down">↓</div>
+        <div class="fd-ans green"><strong>much/far/even</strong> + 비교급<br><span class="fd-ex">much taller<br>훨씬 더 키가 크다</span></div>
+      </div>
+      <div class="fd-branch">
+        <div class="fd-label">점점 더</div>
+        <div class="fd-arrow-down">↓</div>
+        <div class="fd-ans blue">비교급 + <strong>and</strong> + 비교급<br><span class="fd-ex">hotter and hotter<br>점점 더 더워지는</span></div>
+      </div>
+      <div class="fd-branch">
+        <div class="fd-label">~할수록 더</div>
+        <div class="fd-arrow-down">↓</div>
+        <div class="fd-ans purple"><strong>The</strong> 비교급, <strong>the</strong> 비교급<br><span class="fd-ex">The harder, the better<br>할수록 더 좋아진다</span></div>
+      </div>
+      <div class="fd-branch">
+        <div class="fd-label">최상급을 강조</div>
+        <div class="fd-arrow-down">↓</div>
+        <div class="fd-ans amber"><strong>by far</strong> + the + 최상급<br><span class="fd-ex">by far the best<br>단연코 가장 좋은</span></div>
+      </div>
+    </div>
+
+    <div class="fd-divider"></div>
+
+    <!-- Q3 -->
+    <div class="fd-q">❓ 최상급을 다른 방법으로 표현?</div>
+    <div class="fd-row fd-row-wrap">
+      <div class="fd-branch">
+        <div class="fd-label">비교급으로</div>
+        <div class="fd-arrow-down">↓</div>
+        <div class="fd-ans green">비교급 + than <strong>any other</strong> + <span style="color:var(--red);font-weight:900;">단수</span>명사<br><span class="fd-ex">higher than any other mountain<br>다른 어떤 산보다 높다</span></div>
+      </div>
+      <div class="fd-branch">
+        <div class="fd-label">No other + 비교급</div>
+        <div class="fd-arrow-down">↓</div>
+        <div class="fd-ans red"><strong>No other</strong> + <span style="color:var(--red);font-weight:900;">단수</span>명사 + 비교급 + than<br><span class="fd-ex">No other mountain is higher than ~<br>~보다 높은 산은 없다</span></div>
+      </div>
+      <div class="fd-branch">
+        <div class="fd-label">No other + 원급</div>
+        <div class="fd-arrow-down">↓</div>
+        <div class="fd-ans amber"><strong>No other</strong> + <span style="color:var(--red);font-weight:900;">단수</span>명사 + as + 원급 + as<br><span class="fd-ex">No other mountain is as high as ~<br>~만큼 높은 산은 없다</span></div>
+      </div>
+    </div>
+
+    <div class="fd-tip">💡 ②③④는 모두 최상급(①)과 <strong>같은 뜻</strong>이에요 — 형태만 다를 뿐!</div>
+
+  </div>
+</div>`;
+}
+
+/* ══════════════════════════
+   P7 — 확인 문제
+══════════════════════════ */
+const BLANK_Q=[
+  {kr:"그녀는 나만큼 키가 크다.",
+   hint:"구조: She is ___ ___ I am. (as로 시작)",
+   parts:["She is ","as tall as"," I am."],b:"as tall as",
+   en:"She is as tall as I am."},
+  {kr:"이 방은 저 방의 두 배만큼 크다.",
+   hint:"구조: This room is ___ ___ ___ ___ that one. (twice로 시작)",
+   parts:["This room is ","twice as large as"," that one."],b:"twice as large as",
+   en:"This room is twice as large as that one."},
+  {kr:"그는 나보다 훨씬 더 빠르다.",
+   hint:"구조: He runs ___ ___ ___ I do. (비교급 강조 — very 불가!)",
+   parts:["He runs ","much faster than"," I do."],b:"much faster than",
+   en:"He runs much faster than I do."},
+  {kr:"점점 더 더워지고 있다.",
+   hint:"구조: It is getting ___ ___ ___. (비교급 and 비교급)",
+   parts:["It is getting ","hotter and hotter","."],b:"hotter and hotter",
+   en:"It is getting hotter and hotter."},
+  {kr:"더 열심히 공부할수록 성적이 더 좋아진다.",
+   hint:"구조: ___ ___ you study, ___ ___ your grades become. (the + 비교급)",
+   parts:["","The harder"," you study, ","the better"," your grades become."],b:"The harder",
+   en:"The harder you study, the better your grades become."},
+  {kr:"서울은 아시아에서 가장 큰 도시들 중 하나이다.",
+   hint:"구조: Seoul is ___ ___ ___ largest ___ in Asia. (복수명사!)",
+   parts:["Seoul is ","one of the largest cities"," in Asia."],b:"one of the largest cities",
+   en:"Seoul is one of the largest cities in Asia."},
+  {kr:"에베레스트는 세계 어느 산보다도 높다.",
+   hint:"구조: Mt. Everest is ___ ___ ___ other ___ in the world. (단수명사!)",
+   parts:["Mt. Everest is ","higher than any"," other mountain in the world."],b:"higher than any",
+   en:"Mt. Everest is higher than any other mountain in the world."},
+  {kr:"한국의 인구는 일본의 인구보다 많다.",
+   hint:"구조: The population of Korea is larger than ___ ___ Japan. (단수명사 대명사)",
+   parts:["The population of Korea is larger than ","that of"," Japan."],b:"that of",
+   en:"The population of Korea is larger than that of Japan."},
+  {kr:"세계에서 에베레스트보다 더 높은 산은 없다. (no other 비교급)",
+   hint:"구조: ___ ___ mountain in the world is ___ than Mt. Everest.",
+   parts:["No other"," mountain in the world is higher than Mt. Everest."],b:"No other",
+   en:"No other mountain in the world is higher than Mt. Everest."},
+  {kr:"세계에서 에베레스트만큼 높은 산은 없다. (no other 원급)",
+   hint:"구조: No other mountain in the world is ___ ___ ___ Mt. Everest.",
+   parts:["No other mountain in the world is ","as high as"," Mt. Everest."],b:"as high as",
+   en:"No other mountain in the world is as high as Mt. Everest."},
+  {kr:"그는 무려 1,000권이나 책을 갖고 있다.",
+   hint:"구조: He has ___ ___ ___ 1,000 books. (많음 강조)",
+   parts:["He has ","no less than"," 1,000 books."],b:"no less than",
+   en:"He has no less than 1,000 books."},
+  {kr:"그녀는 고작 10달러밖에 없다.",
+   hint:"구조: She has ___ ___ ___ 10 dollars. (적음 강조)",
+   parts:["She has ","no more than"," 10 dollars."],b:"no more than",
+   en:"She has no more than 10 dollars."},
+];
+
+const MC_Q=[
+  {q:"She is ___ than any other student in the class.",
+   kr:"그녀는 반에서 다른 어떤 학생보다도 더 영리하다.",
+   hint:"than이 있으면 비교급! any other 뒤는 단수명사",
+   opts:["more clever","cleverer","the cleverest","most clever"],ans:1,
+   fb:"2음절 clever는 -er 가능 → cleverer. than 뒤는 비교급 사용"},
+  {q:"The population of China is larger than ___ of India.",
+   kr:"중국의 인구는 인도의 인구보다 더 많다.",
+   hint:"단수명사(population)를 대신하는 단수 대명사는?",
+   opts:["it","those","that","ones"],ans:2,
+   fb:"단수명사(population)를 받을 때 → that of (those = 복수용)"},
+  {q:"___ you practice, ___ you will become.",
+   kr:"연습할수록 더 잘하게 될 것이다.",
+   hint:"~할수록 더 ~하다 구문 — the + 비교급으로 시작!",
+   opts:["The more / the better","More / better","The much / the good","Much more / much better"],ans:0,
+   fb:"the 비교급 ~, the 비교급 ~ 구문. the + 비교급 어순 필수"},
+  {q:"He has ___ 500 books in his room. (무려 — 많음 강조)",
+   kr:"그는 방에 무려 500권이나 책이 있다.",
+   hint:"no less than = 무려(많음) / no more than = 고작(적음)",
+   opts:["no more than","not more than","no less than","not less than"],ans:2,
+   fb:"no less than = 무려 ~만큼이나 (많음 강조)"},
+  {q:"Seoul is one of the ___ cities in Asia.",
+   kr:"서울은 아시아에서 가장 큰 도시들 중 하나이다.",
+   hint:"one of the 최상급 뒤 → 반드시 복수명사!",
+   opts:["largest city","larger cities","largest cities","most large city"],ans:2,
+   fb:"one of the + 최상급 + 복수명사. city → cities (복수 필수!)"},
+  {q:"This problem is ___ difficult than I thought.",
+   kr:"이 문제는 내가 생각했던 것보다 훨씬 더 어렵다.",
+   hint:"비교급(more difficult) 앞에 강조 부사는? very는 불가!",
+   opts:["very more","much more","more very","very much more"],ans:1,
+   fb:"비교급 강조 → much/far/even/still. very는 비교급 강조 불가!"},
+  {q:"No other student in the class is ___ than she is.",
+   kr:"반에서 그녀보다 더 키 큰 학생은 없다. (→ 그녀가 가장 키가 크다)",
+   hint:"No other + 단수명사 + ? + than = 최상급 의미",
+   opts:["tallest","as tall","taller","the tallest"],ans:2,
+   fb:"No other + 단수명사 + 비교급 + than = 최상급 표현. taller 사용"},
+  {q:"No other mountain in the world is ___ Mt. Everest.",
+   kr:"세계에서 에베레스트만큼 높은 산은 없다. (원급으로 최상급 표현)",
+   hint:"No other + 단수명사 + ? + 원급 + ? = 최상급 표현",
+   opts:["higher than","as high than","as high as","more high as"],ans:2,
+   fb:"No other + 단수명사 + as + 원급 + as = 최상급 의미 (원급 비교)"},
+  {q:"___ he gets, ___ he becomes.",
+   kr:"나이 들수록 더 현명해진다.",
+   hint:"~할수록 더 ~하다 → the + 비교급, the + 비교급",
+   opts:["Older / wiser","The older / the wiser","More old / more wise","The old / the wise"],ans:1,
+   fb:"the 비교급, the 비교급 구문. 비교급 형태 older/wiser 사용"},
+  {q:"Mt. Everest is higher than ___ other mountain in the world.",
+   kr:"에베레스트는 세계의 다른 어떤 산보다도 높다.",
+   hint:"than any other 뒤 → 단수 vs 복수?",
+   opts:["any / mountains","any / mountain","all the / mountain","all the / mountains"],ans:1,
+   fb:"than any other + 단수명사! (all the other + 복수명사와 구별)"},
+];
+
+const CHIP_Q=[
+  {kr:"그녀는 반에서 가장 키가 큰 학생이다.",
+   hint:"the + 최상급 + 명사 + in + 장소",
+   words:["She","is","the","tallest","student","in","the","class","."],
+   ans:"She is the tallest student in the class."},
+  {kr:"에베레스트는 세계의 다른 어떤 산보다 높다.",
+   hint:"주어 + 비교급 + than any other + 단수명사",
+   words:["Mt.","Everest","is","higher","than","any","other","mountain","in","the","world","."],
+   ans:"Mt. Everest is higher than any other mountain in the world."},
+  {kr:"세계에서 에베레스트보다 더 높은 산은 없다.",
+   hint:"No other + 단수명사 + 비교급 + than",
+   words:["No","other","mountain","in","the","world","is","higher","than","Mt.","Everest","."],
+   ans:"No other mountain in the world is higher than Mt. Everest."},
+  {kr:"더 많이 읽을수록 더 많이 알게 된다.",
+   hint:"The + 비교급 + S + V, the + 비교급 + S + V",
+   words:["The","more","you","read",",","the","more","you","know","."],
+   ans:"The more you read, the more you know."},
+];
+
+let blankItems=[], mcItems=[], chipItems=[];
+
+function buildQuizEvents(){
+  buildBlanks();
+  buildMC();
+  buildChips();
+}
+
+function buildBlanks(){
+  const wrap=document.getElementById('blankQ');
+  if(!wrap)return;
+  BLANK_Q.forEach((d,i)=>{
+    const row=document.createElement('div');row.className='q-item';
+    const num=document.createElement('div');num.className='q-num';num.textContent='Q'+(i+1);
+    const kr=document.createElement('div');kr.className='q-kr';kr.textContent=d.kr;
+    const hint=document.createElement('div');hint.className='q-hint';
+    hint.innerHTML='<b>💡 어순 힌트</b> '+d.hint;
+    const sentDiv=document.createElement('div');sentDiv.className='q-sent';
+    const inp=document.createElement('input');inp.className='b-inp';inp.type='text';
+    inp.autocomplete='off';inp.spellcheck=false;inp.placeholder='___';
+    inp.style.minWidth='140px';
+    if(d.parts.length===2){
+      sentDiv.appendChild(document.createTextNode(d.parts[0]));
+      sentDiv.appendChild(inp);
+    } else {
+      sentDiv.appendChild(document.createTextNode(d.parts[0]));
+      sentDiv.appendChild(inp);
+      sentDiv.appendChild(document.createTextNode(d.parts[2]||''));
+    }
+    const reveal=document.createElement('div');reveal.className='ans-reveal';
+    reveal.innerHTML='정답: <strong>'+d.b+'</strong><br>'+d.en+'<br><span style="font-size:11px;color:var(--muted);">해석: '+d.kr+'</span>';
+    const sndB=mkSnd(d.en);
+    const chk=document.createElement('button');chk.className='mini-btn';chk.textContent='채점';
+    const fb=document.createElement('div');fb.className='q-fb';
+    const item={row,_ok:false,
+      grade(){
+        const ok=norm(inp.value)===norm(d.b);
+        inp.classList.remove('ok','no');inp.classList.add(ok?'ok':'no');
+        fb.className='q-fb show '+(ok?'ok':'no');
+        fb.textContent=ok?'✅ 정답!':'❌ 다시 확인해보세요.';
+        return ok;
+      },
+      reset(){inp.value='';inp.classList.remove('ok','no');fb.className='q-fb';}};
+    chk.onclick=()=>{item._ok=item.grade();};
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')item._ok=item.grade();});
+    const btns=document.createElement('div');btns.className='q-btns';
+    btns.append(chk,sndB,ansBtn(reveal));
+    row.append(num,kr,hint,sentDiv,fb,btns,reveal);
+    wrap.appendChild(row);blankItems.push(item);
+  });
+  attachBar(wrap,blankItems);
+}
+
+function buildMC(){
+  const wrap=document.getElementById('mcQ');
+  if(!wrap)return;
+  MC_Q.forEach((d,i)=>{
+    const row=document.createElement('div');row.className='q-item';
+    const num=document.createElement('div');num.className='q-num';num.textContent='Q'+(i+1);
+    const q=document.createElement('div');q.className='q-sent';q.textContent=d.q;
+    const kr=document.createElement('div');kr.className='q-kr';kr.textContent=d.kr;
+    const hint=document.createElement('div');hint.className='q-hint';
+    hint.innerHTML='<b>💡 힌트</b> '+d.hint;
+    const opts=document.createElement('div');opts.className='mc-opts';
+    const fb=document.createElement('div');fb.className='q-fb';
+    let done=false;
+    d.opts.forEach((o,oi)=>{
+      const b=document.createElement('div');b.className='mc-opt';
+      b.innerHTML='<span class="on">'+'①②③④'[oi]+'</span>'+o;
+      b.onclick=()=>{
+        if(done)return;done=true;
+        const ok=oi===d.ans;
+        b.classList.add(ok?'ch-ok':'ch-no');
+        [...opts.children].forEach((x,xi)=>{if(xi===d.ans&&!ok)x.classList.add('ch-rv');});
+        fb.className='q-fb show '+(ok?'ok':'no');
+        fb.textContent=(ok?'✅ ':'❌ ')+d.fb;
+      };
+      opts.appendChild(b);
+    });
+    row.append(num,q,kr,hint,opts,fb);
+    wrap.appendChild(row);
+  });
+}
+
+function buildChips(){
+  const wrap=document.getElementById('chipQ');
+  if(!wrap)return;
+  CHIP_Q.forEach((d,i)=>{
+    const row=document.createElement('div');row.className='q-item';
+    const num=document.createElement('div');num.className='q-num';num.textContent='Q'+(i+1);
+    const kr=document.createElement('div');kr.className='q-kr';kr.textContent=d.kr;
+    const hint=document.createElement('div');hint.className='q-hint';
+    hint.innerHTML='<b>💡 구조 힌트</b> '+d.hint;
+    const slots=document.createElement('div');slots.className='answer-slots';
+    const chips=document.createElement('div');chips.className='chip-wrap';
+    const used=[];
+    [...d.words].sort(()=>Math.random()-.5).forEach((w,wi)=>{
+      const orig=d.words.indexOf(w);
+      const c=document.createElement('button');c.className='chip';c.textContent=w;
+      c.dataset.wi=wi;
+      c.onclick=()=>{
+        if(c.classList.contains('used'))return;
+        c.classList.add('used');
+        const sc=document.createElement('button');sc.className='slot-chip';sc.textContent=w;
+        sc.onclick=()=>{c.classList.remove('used');sc.remove();};
+        slots.appendChild(sc);
+      };
+      chips.appendChild(c);
+    });
+    const reveal=document.createElement('div');reveal.className='ans-reveal';
+    reveal.innerHTML='정답: <strong>'+d.ans+'</strong>';
+    const chk=document.createElement('button');chk.className='mini-btn';chk.textContent='확인';
+    chk.onclick=()=>{
+      const cur=[...slots.querySelectorAll('.slot-chip')].map(s=>s.textContent).join(' ');
+      const ok=cur===d.ans;
+      if(ok){slots.style.borderColor='var(--ok)';slots.style.background='var(--ok-bg)';}
+      else{slots.style.borderColor='var(--no)';reveal.classList.add('open');}
+    };
+    const reset=document.createElement('button');reset.className='mini-btn';reset.textContent='초기화';
+    reset.onclick=()=>{
+      slots.innerHTML='';slots.style.borderColor='';slots.style.background='';
+      chips.querySelectorAll('.chip').forEach(c=>c.classList.remove('used'));
+      reveal.classList.remove('open');
+    };
+    const btns=document.createElement('div');btns.className='q-btns';
+    btns.append(chk,reset,mkSnd(d.ans),ansBtn(reveal));
+    row.append(num,kr,hint,chips,slots,btns,reveal);
+    wrap.appendChild(row);
+  });
+}
+
+/* ══ P7 HTML 골격 ══ */
+function p7(){
+  return `
+<div class="sec">
+  <div class="sec-head"><span class="badge bb">STEP 7</span><span class="sec-title">구조 확인 문제</span></div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">💡 어순 힌트를 참고해서 풀어보세요. 모르면 힌트 먼저 읽고 도전!</p>
+
+  <p style="font-size:13px;font-weight:700;margin-bottom:10px;">A. 빈칸 채우기 (${BLANK_Q.length}문제)</p>
+  <div id="blankQ"></div>
+
+  <div class="divider"></div>
+  <p style="font-size:13px;font-weight:700;margin-bottom:10px;">B. 어법 선택 (${MC_Q.length}문제)</p>
+  <div id="mcQ"></div>
+
+  <div class="divider"></div>
+  <p style="font-size:13px;font-weight:700;margin-bottom:10px;">C. 단어 배열 (${CHIP_Q.length}문제)</p>
+  <div id="chipQ"></div>
+</div>`;
+}
+
+/* slot 클릭 공개 — 페이지 전환마다 재적용 */
+function attachSlots(){
+  document.querySelectorAll('.formula .key .slot').forEach(el=>{
+    el.onclick=()=>el.classList.toggle('revealed');
+  });
+}
+
+/* 초기화 */
+renderTabs();
+document.getElementById('app').innerHTML=p1();
+setTimeout(attachSlots,100);
+</script>
+</body>
+</html>
