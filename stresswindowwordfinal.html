@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache,no-store,must-revalidate">
+<title>Lesson 3+4 · 단어 & 대화문</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f4fa;--card:#fff;--card2:#eeecf7;
+  --primary:#5b4fa8;--primary-lt:#ece9f8;--primary-dk:#3b2f8a;
+  --accent:#e8a020;--accent-lt:#fef3dc;
+  --text:#1a1a2e;--muted:#6b6880;--border:#d8d4ee;
+  --ok:#1a7a3c;--ok-bg:#e8f5ec;--no:#c0392b;--no-bg:#fdecea;
+  --info:#3a5fa8;--info-bg:#e8eef8;--r:12px;--shadow:0 2px 10px rgba(91,79,168,.1);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.7;padding-bottom:80px;}
+.header{background:linear-gradient(135deg,#3b2f8a,#7b6fd0);color:#fff;padding:16px 20px 0;position:sticky;top:0;z-index:30;box-shadow:0 2px 12px rgba(0,0,0,.2);}
+.header-top{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+.header h1{font-size:16px;font-weight:900;flex:1;}
+.timer{background:rgba(255,255,255,.18);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:700;white-space:nowrap;}
+.header-sub{font-size:11px;opacity:.75;margin-bottom:8px;}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:0;}
+.tab{flex:1;min-width:64px;background:rgba(255,255,255,.12);border:none;color:rgba(255,255,255,.75);font-family:inherit;font-size:10px;font-weight:700;padding:10px 4px 12px;cursor:pointer;border-radius:10px 10px 0 0;text-align:center;white-space:nowrap;position:relative;}
+.tab .sn{display:block;font-size:8px;opacity:.7;margin-bottom:2px;}
+.tab.on{background:#fff;color:var(--primary);}
+.tab .dot{position:absolute;top:6px;right:5px;width:7px;height:7px;background:var(--accent);border-radius:50%;display:none;}
+.tab.done .dot{display:block;}
+.wrap{max-width:760px;margin:0 auto;padding:16px;}
+.page-enter{animation:pgIn .25s ease;}
+@keyframes pgIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+.desc{background:var(--primary-lt);border-left:3px solid var(--primary);border-radius:0 var(--r) var(--r) 0;padding:11px 14px;font-size:13px;color:var(--primary);line-height:1.6;margin-bottom:14px;}
+.desc b{color:var(--text);}
+.prog-wrap{margin-bottom:14px;}
+.prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px;font-weight:700;}
+.prog-track{height:7px;background:var(--card2);border-radius:5px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--primary),#2d9e5f);border-radius:5px;transition:width .4s;}
+.glabel{font-size:11px;font-weight:900;color:var(--muted);letter-spacing:.05em;margin:18px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.l3b{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:#e8e4f8;color:#5b4fa8;margin-right:5px;}
+.l4b{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:#f3e8f8;color:#8b3fa8;margin-right:5px;}
+.vocab-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:9px;box-shadow:var(--shadow);}
+.vc-top{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap;}
+.vc-num{font-size:10px;font-weight:700;color:var(--muted);}
+.vc-blank{font-family:'Lora',serif;font-size:18px;font-weight:700;color:var(--primary);letter-spacing:2px;}
+.vc-kr{font-size:13px;color:var(--muted);}
+.mt0{font-size:9px;font-weight:700;padding:1px 6px;border-radius:4px;background:#e8f0fb;color:var(--info);}
+.mt1{font-size:9px;font-weight:700;padding:1px 6px;border-radius:4px;background:var(--accent-lt);color:var(--accent);}
+.mt2{font-size:9px;font-weight:700;padding:1px 6px;border-radius:4px;background:#f0eee7;color:var(--muted);}
+.poly-box{background:var(--primary-lt);border:1.5px solid #c4b8ee;border-radius:9px;padding:9px 13px;margin-bottom:8px;}
+.poly-title{font-size:11px;font-weight:900;color:var(--primary);margin-bottom:5px;}
+.poly-row{font-size:12px;margin:2px 0;display:flex;gap:6px;}
+.poly-num{font-weight:700;color:var(--primary);flex-shrink:0;}
+.poly-ex{font-family:'Lora',serif;font-size:12px;color:var(--text);}
+.poly-note{font-size:11px;color:var(--no);font-weight:700;margin-top:4px;padding:4px 8px;background:var(--no-bg);border-radius:6px;}
+.warn-box{background:#fff8dc;border:1.5px solid #f0c040;border-radius:9px;padding:8px 12px;margin-bottom:8px;font-size:12px;}
+.warn-box .wt{font-weight:900;color:#8a5200;margin-bottom:3px;}
+.warn-box .wr{font-family:'Lora',serif;}
+.warn-box .wbad{color:var(--no);text-decoration:line-through;}
+.warn-box .wgood{color:var(--ok);font-weight:700;}
+.sent-box{background:var(--card2);border-radius:8px;padding:8px 12px;margin-bottom:8px;font-family:'Lora',serif;font-size:14px;line-height:2;}
+.sent-box .sk{font-size:11px;color:var(--muted);font-family:'Noto Sans KR',sans-serif;display:block;margin-top:2px;}
+.vc-inp{flex:1;padding:7px 11px;border:1.5px solid var(--border);border-radius:8px;font-family:'Lora',serif;font-size:14px;background:var(--card2);color:var(--text);outline:none;}
+.vc-inp:focus{border-color:var(--primary);background:#fff;}
+.vc-inp.ok{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);}
+.vc-inp.no{border-color:var(--no);background:var(--no-bg);}
+.vc-inp-row{display:flex;gap:7px;align-items:center;margin-top:6px;}
+.vc-fb{font-size:11px;margin-top:5px;padding:4px 9px;border-radius:6px;display:none;}
+.vc-fb.ok{display:block;background:var(--ok-bg);color:var(--ok);}
+.vc-fb.no{display:block;background:var(--no-bg);color:var(--no);}
+.dlg-sec{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px;box-shadow:var(--shadow);}
+.dlg-title{font-size:13px;font-weight:900;color:var(--primary);margin-bottom:10px;}
+.key-box{background:var(--primary-lt);border:1.5px solid var(--primary);border-radius:10px;padding:11px 14px;margin-bottom:12px;}
+.key-main{font-family:'Lora',serif;font-size:16px;font-weight:700;color:var(--primary);margin-bottom:4px;}
+.key-meaning{font-size:13px;font-weight:700;margin-bottom:3px;}
+.key-usage{font-size:12px;color:var(--muted);}
+.key-similar{margin-top:8px;padding-top:8px;border-top:1px solid #b2d8c2;}
+.key-similar .ks-title{font-size:11px;font-weight:700;color:var(--primary);margin-bottom:5px;}
+.key-similar .ks-item{font-family:'Lora',serif;font-size:13px;padding:3px 0;border-bottom:1px dashed var(--border);}
+.key-similar .ks-item:last-child{border-bottom:none;}
+.key-similar .ks-kr{font-size:11px;color:var(--muted);}
+.dlg-lines{margin-bottom:12px;}
+.dlg-line{display:flex;gap:8px;margin-bottom:5px;align-items:flex-start;}
+.sp{font-size:11px;font-weight:700;color:#fff;border-radius:5px;padding:2px 7px;flex-shrink:0;margin-top:2px;white-space:nowrap;}
+.spW{background:var(--primary);}.spB{background:var(--info);}.spG{background:#8e44ad;}
+.spB1{background:#e67e22;}.spB2{background:var(--no);}.spLeah{background:var(--ok);}
+.spA{background:var(--primary);}
+.dl-text{font-family:'Lora',serif;font-size:13px;line-height:1.7;}
+.q-card{background:var(--card2);border-radius:10px;padding:13px;margin-bottom:10px;border:1px solid var(--border);}
+.q-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--primary-lt);color:var(--primary);margin-bottom:6px;display:inline-block;}
+.q-tag.warn{background:#fff8dc;color:#8a5200;}
+.q-text{font-size:13px;font-weight:700;margin-bottom:9px;line-height:1.6;}
+.mc-opts{display:flex;flex-direction:column;gap:7px;}
+.mc-opt{padding:9px 13px;border:1.5px solid var(--border);border-radius:9px;background:var(--card);font-size:13px;cursor:pointer;font-family:'Lora',serif;display:flex;gap:8px;align-items:flex-start;transition:.13s;line-height:1.6;}
+.mc-opt:hover{border-color:var(--accent);}
+.mc-opt .on{font-weight:900;color:var(--muted);min-width:18px;flex-shrink:0;}
+.mc-opt.ok{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);font-weight:700;}
+.mc-opt.no{border-color:var(--no);background:var(--no-bg);color:var(--no);}
+.mc-opt.rv{border-color:var(--ok);background:var(--ok-bg);opacity:.5;}
+.q-fb{font-size:12px;margin-top:7px;padding:6px 10px;border-radius:7px;display:none;}
+.q-fb.show.ok{display:block;background:var(--ok-bg);color:var(--ok);}
+.q-fb.show.no{display:block;background:var(--no-bg);color:var(--no);}
+.inline-inp{border:none;border-bottom:2px solid var(--accent);padding:0 4px;font-size:13px;font-family:'Lora',serif;background:transparent;color:var(--text);outline:none;vertical-align:bottom;min-width:80px;}
+.inline-inp:focus{border-bottom-color:var(--primary);}
+.inline-inp.ok{border-bottom-color:var(--ok);color:var(--ok);}
+.inline-inp.no{border-bottom-color:var(--no);color:var(--no);}
+.chip-pool{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.ord-chip{padding:5px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;cursor:pointer;background:var(--card);font-family:'Lora',serif;transition:.13s;line-height:1.4;}
+.ord-chip:hover{border-color:var(--accent);}
+.ord-chip.used{opacity:.3;pointer-events:none;}
+.ord-slots{display:flex;gap:5px;flex-wrap:wrap;min-height:36px;border:1.5px dashed var(--border);border-radius:9px;padding:5px 8px;background:var(--card);align-items:center;margin-bottom:7px;}
+.ord-slot{padding:4px 10px;border:1.5px solid var(--primary);border-radius:6px;font-size:12px;background:var(--primary-lt);color:var(--primary);cursor:pointer;font-family:'Lora',serif;}
+.ins-box{background:var(--accent-lt);border:1.5px solid var(--accent);border-radius:9px;padding:9px 13px;margin-bottom:10px;}
+.ins-box .ilab{font-size:10px;font-weight:700;color:var(--accent);margin-bottom:3px;}
+.ins-box .itext{font-family:'Lora',serif;font-size:13px;}
+.ins-slot{display:flex;align-items:center;gap:7px;padding:3px 6px;border-radius:7px;cursor:pointer;margin-bottom:3px;transition:.13s;}
+.ins-slot:hover{background:var(--accent-lt);}
+.ins-slot.sel{background:var(--accent-lt);border:1.5px solid var(--accent);border-radius:7px;}
+.ins-slot .arr{font-size:14px;color:var(--accent);opacity:.4;}
+.ins-slot:hover .arr{opacity:1;}
+.ins-slot .ilab2{font-size:11px;color:var(--muted);}
+.b{padding:8px 18px;border:none;border-radius:20px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;}
+.b1{background:var(--primary);color:#fff;}
+.b2{background:var(--card2);color:var(--muted);border:1px solid var(--border);}
+.mini-btn{padding:4px 11px;border:1px solid var(--border);border-radius:99px;font-size:11px;cursor:pointer;font-family:inherit;background:var(--card);color:var(--muted);}
+.btn-row{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap;align-items:center;}
+.ans-r{display:none;margin-top:6px;padding:6px 10px;background:var(--ok-bg);border-radius:7px;font-size:12px;color:var(--ok);font-family:'Lora',serif;}
+.ans-r.open{display:block;}
+.check-bar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:14px;padding-top:10px;border-top:1px dashed var(--border);}
+.cb{padding:7px 15px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:none;}
+.cb-g{background:var(--primary);color:#fff;}
+.cb-r{background:var(--card);border:1.5px solid var(--no);color:var(--no);}
+.cb-r:disabled{opacity:.35;cursor:not-allowed;}
+.cb-s{background:var(--card);border:1.5px solid var(--border);color:var(--muted);}
+.result-pill{font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;display:none;}
+.pill-ok{background:var(--ok-bg);color:var(--ok);}
+.pill-bad{background:var(--accent-lt);color:var(--accent);}
+.snd{display:inline-flex;align-items:center;background:none;border:1px solid var(--border);border-radius:99px;padding:3px 9px;font-size:11px;color:var(--muted);cursor:pointer;font-family:inherit;}
+.snd:hover,.snd.playing{background:var(--primary-lt);border-color:var(--primary);color:var(--primary);}
+.tag-line{font-size:11px;color:var(--muted);text-align:center;margin-top:20px;}
+@media(max-width:480px){.mc-opt{font-size:12px;}.dlg-sec{padding:13px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-top">
+    <h1>📚 Lesson 3+4 · 단어 &amp; 대화문</h1>
+    <div class="timer">⏱ <span id="td">00:00</span></div>
+  </div>
+  <div class="header-sub">천재(이재영) 중3 · 준티 잉글리쉬</div>
+  <div class="tabs">
+    <button class="tab on" id="t0" onclick="go(0)"><span class="sn">단어</span>📝 L3 부분빈칸<div class="dot"></div></button>
+    <button class="tab"   id="t1" onclick="go(1)"><span class="sn">단어</span>📖 L3 본문빈칸<div class="dot"></div></button>
+    <button class="tab"   id="t2" onclick="go(2)"><span class="sn">L3</span>💬 대화문 A<div class="dot"></div></button>
+    <button class="tab"   id="t3" onclick="go(3)"><span class="sn">L3</span>💬 대화문 B<div class="dot"></div></button>
+    <button class="tab"   id="t4" onclick="go(4)"><span class="sn">단어</span>📝 L4 부분빈칸<div class="dot"></div></button>
+    <button class="tab"   id="t5" onclick="go(5)"><span class="sn">단어</span>📖 L4 본문빈칸<div class="dot"></div></button>
+    <button class="tab"   id="t6" onclick="go(6)"><span class="sn">L4</span>💬 대화문 A<div class="dot"></div></button>
+    <button class="tab"   id="t7" onclick="go(7)"><span class="sn">L4</span>💬 대화문 B<div class="dot"></div></button>
+  </div>
+</div>
+<div class="wrap" id="app"></div>
+<div class="tag-line">준티 잉글리쉬 · 자체 제작 학습 콘텐츠</div>
+<script>
+/* ══ Audio/TTS/Timer ══ */
+const _ac=new(window.AudioContext||window.webkitAudioContext)();
+function playPageTurn(){try{if(_ac.state==='suspended')_ac.resume();const now=_ac.currentTime;const mk=(len,vol,delay,hp)=>{const buf=_ac.createBuffer(1,Math.floor(_ac.sampleRate*len),_ac.sampleRate);const d=buf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length);const src=_ac.createBufferSource();src.buffer=buf;const f=_ac.createBiquadFilter();f.type='highpass';f.frequency.value=hp;const g=_ac.createGain();g.gain.setValueAtTime(0,now+delay);g.gain.linearRampToValueAtTime(vol,now+delay+0.02);g.gain.exponentialRampToValueAtTime(0.001,now+delay+len);src.connect(f);f.connect(g);g.connect(_ac.destination);src.start(now+delay);src.stop(now+delay+len);};mk(0.16,0.32,0,1800);mk(0.07,0.14,0.09,3200);}catch(e){}}
+let voice=null,ttsOk=false;
+function lv(){const vs=speechSynthesis.getVoices();const p=['Google US English','Samantha','Microsoft Aria','Karen'];for(const n of p){const v=vs.find(x=>x.name===n);if(v){voice=v;return;}}voice=vs.find(v=>v.lang==='en-US')||null;}
+if('speechSynthesis' in window){lv();speechSynthesis.onvoiceschanged=lv;}
+function unlockTTS(){if(ttsOk||!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance('');u.volume=0;speechSynthesis.speak(u);ttsOk=true;}
+document.addEventListener('touchstart',unlockTTS,{once:true});document.addEventListener('click',unlockTTS,{once:true});
+function speak(t,b){if(!('speechSynthesis' in window))return;unlockTTS();speechSynthesis.cancel();document.querySelectorAll('.snd.playing').forEach(x=>x.classList.remove('playing'));const u=new SpeechSynthesisUtterance(t);if(voice)u.voice=voice;u.lang='en-US';u.rate=.9;if(b){b.classList.add('playing');u.onend=()=>b.classList.remove('playing');}speechSynthesis.speak(u);}
+function mkSnd(t){const b=document.createElement('button');b.className='snd';b.innerHTML='🔊';b.onclick=()=>speak(t,b);return b;}
+let tSec=0,tInt=null;
+function startT(){if(tInt)return;tInt=setInterval(()=>{tSec++;const m=String(Math.floor(tSec/60)).padStart(2,'0'),s=String(tSec%60).padStart(2,'0');document.getElementById('td').textContent=m+':'+s;},1000);}
+document.addEventListener('click',startT,{once:true});
+function norm(s){return(s||'').toLowerCase().replace(/[^a-z0-9\-\s]/gi,'').replace(/\s+/g,' ').trim();}
+const _vMap={},_sMap={};
+const completed=new Set();
+function toggleAns(id){const el=document.getElementById(id);if(el)el.classList.toggle('open');}
+function go(v){
+  playPageTurn();
+  for(let i=0;i<8;i++){const t=document.getElementById('t'+i);if(t){t.classList.toggle('on',i===v);if(completed.has(i))t.classList.add('done');else t.classList.remove('done');}}
+  window.scrollTo(0,0);const app=document.getElementById('app');app.innerHTML='';
+  setTimeout(()=>{app.classList.add('page-enter');[buildL3Blank,buildL3Sent,buildL3DlgA,buildL3DlgB,buildL4Blank,buildL4Sent,buildL4DlgA,buildL4DlgB][v]();setTimeout(()=>app.classList.remove('page-enter'),250);},80);
+}
+
+/* ══ VOCAB L3 ══ */
+const VOCAB_L3=[
+{en:"appearance",kr:"외모",lesson:"L3",blank:"app___ance",mode:2,sent:"She gets stressed because of her [appearance].",sentKr:"그녀는 외모 때문에 스트레스를 받는다."},
+{en:"argue",kr:"논쟁하다, 말다툼하다",lesson:"L3",blank:"ar__e",mode:2,
+ poly:{title:"argue 다의어",rows:[{n:"①",m:"논쟁하다",ex:"argue over small things 사소한 것들로 다투다"},{n:"②",m:"주장하다",ex:"She argued that she was right."}],note:"⚠️ argue over(~두고 다투다) vs argue about(~에 대해 논쟁하다) — 전치사 구별!"},
+ sent:"My friends give me stress by [arguing] over small things.",sentKr:"친구들이 사소한 것들로 다퉈서 스트레스를 준다."},
+{en:"besides",kr:"게다가",lesson:"L3",blank:"bes___s",mode:2,sent:"[Besides], she is kind and smart.",sentKr:"게다가, 그녀는 친절하고 똑똑하다."},
+{en:"bother",kr:"괴롭히다, 신경 쓰이게 하다",lesson:"L3",blank:"b_ther",mode:0,sent:"Don't let small things [bother] you.",sentKr:"사소한 것들이 너를 괴롭히게 두지 마."},
+{en:"bright",kr:"밝은",lesson:"L3",blank:"br___t",mode:2,sent:"Sunlight makes you feel [bright].",sentKr:"햇빛은 기분을 밝게 만든다."},
+{en:"calendar",kr:"달력",lesson:"L3",blank:"cal___ar",mode:2,sent:"She writes Me Time on her [calendar].",sentKr:"그녀는 달력에 나만의 시간을 쓴다."},
+{en:"cause",kr:"원인; 초래하다",lesson:"L3",blank:"c__se",mode:2,
+ poly:{title:"cause 명사/동사",rows:[{n:"명",m:"원인",ex:"What is the cause of stress?"},{n:"동",m:"초래하다",ex:"Stress can cause health problems."}],note:"⚠️ 명사/동사 형태 동일"},
+ sent:"Schoolwork is the most common [cause] of stress.",sentKr:"학업이 스트레스의 가장 흔한 원인이다."},
+{en:"chemical",kr:"화학 물질; 화학의",lesson:"L3",blank:"ch_m___al",mode:2,sent:"The body produces [chemicals] when you exercise.",sentKr:"운동할 때 몸이 화학 물질을 생성한다."},
+{en:"college",kr:"대학",lesson:"L3",blank:"col___e",mode:1,sent:"She will graduate from [college] soon.",sentKr:"그녀는 곧 대학을 졸업할 것이다."},
+{en:"common",kr:"흔한",lesson:"L3",blank:"c_mm_n",mode:0,sent:"Stress is [common] among teens.",sentKr:"스트레스는 십 대 사이에서 흔하다."},
+{en:"count",kr:"(수를) 세다",lesson:"L3",blank:"c__nt",mode:2,sent:"[Count] to ten slowly to calm down.",sentKr:"진정하기 위해 천천히 열까지 세어라."},
+{en:"focus",kr:"집중하다",lesson:"L3",blank:"f_c_s",mode:0,sent:"[Focus] on one thing at a time.",sentKr:"한 번에 한 가지에 집중해라."},
+{en:"gloomy",kr:"우울한",lesson:"L3",blank:"gl__my",mode:1,sent:"He feels [gloomy] when he is under stress.",sentKr:"그는 스트레스를 받을 때 우울하다."},
+{en:"grade",kr:"성적, 등급",lesson:"L3",blank:"gr__e",mode:2,sent:"My [grade] improved a lot this semester.",sentKr:"이번 학기에 내 성적이 많이 향상됐다."},
+{en:"graduate",kr:"졸업하다",lesson:"L3",blank:"gradu___",mode:1,sent:"She will [graduate] from college next year.",sentKr:"그녀는 내년에 대학을 졸업할 것이다."},
+{en:"improve",kr:"향상시키다",lesson:"L3",blank:"imp___e",mode:1,sent:"Exercise can [improve] your mood.",sentKr:"운동은 기분을 향상시킬 수 있다."},
+{en:"low",kr:"기운이 없는, 낮은",lesson:"L3",blank:"l_w",mode:0,sent:"When they feel [low], they spend time with friends.",sentKr:"기운이 없을 때 그들은 친구들과 시간을 보낸다."},
+{en:"lung",kr:"폐",lesson:"L3",blank:"l_ng",mode:0,sent:"She screamed at the top of her [lungs].",sentKr:"그녀는 목청껏 소리쳤다."},
+{en:"matter",kr:"중요하다; 문제가 되다",lesson:"L3",blank:"m___er",mode:2,
+ poly:{title:"matter 다의어",rows:[{n:"①",m:"중요하다(자동사)",ex:"It doesn't matter what you do."},{n:"②",m:"문제, 일(명사)",ex:"What is the matter with you?"}],note:"⚠️ It doesn't matter = 중요하지 않다 (to me 없어도 됨)"},
+ sent:"It doesn't [matter] what you do, as long as you like it.",sentKr:"네가 좋아하기만 하면 무엇을 하는지는 중요하지 않다."},
+{en:"memory",kr:"기억(력)",lesson:"L3",blank:"mem_ry",mode:2,sent:"She has a wonderful [memory].",sentKr:"그녀는 놀라운 기억력을 가지고 있다."},
+{en:"method",kr:"방법",lesson:"L3",blank:"m_th_d",mode:0,sent:"People suggest different [methods] to deal with stress.",sentKr:"사람들은 스트레스를 다루는 다양한 방법을 제안한다."},
+{en:"number-one",kr:"최우선의, 최고의",lesson:"L3",blank:"number-___",mode:1,sent:"Schoolwork is the [number-one] cause of stress for teens.",sentKr:"학업이 십 대들에게 최우선 스트레스 원인이다."},
+{en:"past",kr:"지난; 과거",lesson:"L3",blank:"p_st",mode:0,sent:"For the [past] several months, I have been stressed.",sentKr:"지난 몇 달 동안, 나는 스트레스를 받아왔다."},
+{en:"patient",kr:"인내심 있는",lesson:"L3",blank:"pat___t",mode:1,sent:"Be [patient] and wait calmly for results.",sentKr:"인내심을 갖고 조용히 결과를 기다려라."},
+{en:"positive",kr:"긍정적인",lesson:"L3",blank:"pos___ve",mode:1,
+ poly:{title:"positive ↔ negative",rows:[{n:"positive",m:"긍정적인",ex:"Try to be positive."},{n:"negative",m:"부정적인",ex:"Don't think negatively."}],note:"⚠️ positively(부사) / negatively(부사) — 반의어 세트로 암기!"},
+ sent:"Try to be [positive] by going fishing.",sentKr:"낚시를 하며 긍정적으로 되려고 노력해라."},
+{en:"produce",kr:"생산하다",lesson:"L3",blank:"pr_d_ce",mode:0,sent:"Your body [produces] chemicals when you exercise.",sentKr:"운동할 때 몸이 화학 물질을 생성한다."},
+{en:"promise",kr:"약속; 약속하다",lesson:"L3",blank:"pr_mise",mode:2,sent:"Don't break your [promise].",sentKr:"약속을 어기지 마라."},
+{en:"reason",kr:"이유",lesson:"L3",blank:"r__son",mode:2,sent:"There is a [reason] why people love fishing.",sentKr:"사람들이 낚시를 좋아하는 이유가 있다."},
+{en:"relax",kr:"긴장을 풀다, 진정하다",lesson:"L3",blank:"rel_x",mode:2,sent:"Take a deep breath and [relax].",sentKr:"깊게 숨을 쉬고 긴장을 풀어라."},
+{en:"relieve",kr:"덜다, 완화하다",lesson:"L3",blank:"rel___ve",mode:2,sent:"Exercise can [relieve] stress.",sentKr:"운동은 스트레스를 완화할 수 있다."},
+{en:"relieved",kr:"안도하는",lesson:"L3",blank:"rel___ed",mode:2,sent:"I felt [relieved] after the test was over.",sentKr:"시험이 끝나고 나서 나는 안도했다."},
+{en:"scene",kr:"장면",lesson:"L3",blank:"sc__e",mode:2,sent:"Thanks to scary [scenes] and sound effects, I feel better.",sentKr:"무서운 장면들과 음향 효과 덕분에 기분이 나아진다."},
+{en:"schoolwork",kr:"학업",lesson:"L3",blank:"sch___work",mode:2,sent:"Over half of the students said [schoolwork] stresses them most.",sentKr:"절반 이상의 학생들이 학업이 가장 스트레스를 준다고 했다."},
+{en:"scream",kr:"소리치다, 비명을 지르다",lesson:"L3",blank:"scr__m",mode:2,sent:"Some people [scream] at the top of their lungs to relieve stress.",sentKr:"어떤 사람들은 스트레스를 풀기 위해 목청껏 소리친다."},
+{en:"simply",kr:"그냥",lesson:"L3",blank:"sim___",mode:1,sent:"You can [simply] take a walk outside.",sentKr:"당신은 그냥 밖에서 산책을 할 수 있다."},
+{en:"situation",kr:"상황",lesson:"L3",blank:"sit___tion",mode:2,sent:"She can deal with any [situation] calmly.",sentKr:"그녀는 어떤 상황도 침착하게 다룰 수 있다."},
+{en:"sleeve",kr:"소매",lesson:"L3",blank:"sl__ve",mode:2,sent:"We need to choose a T-shirt with short [sleeves].",sentKr:"우리는 반소매 티셔츠를 골라야 한다."},
+{en:"sound effect",kr:"음향 효과",lesson:"L3",blank:"sound ef___t",mode:1,sent:"Scary scenes and [sound effects] help relieve stress.",sentKr:"무서운 장면들과 음향 효과가 스트레스 해소에 도움이 된다."},
+{en:"spend",kr:"(시간, 돈을) 쓰다",lesson:"L3",blank:"sp_nd",mode:0,sent:"Some people [spend] time with friends when they feel low.",sentKr:"어떤 사람들은 기운이 없을 때 친구들과 시간을 보낸다."},
+{en:"sports day",kr:"운동회",lesson:"L3",blank:"sports d_y",mode:0,sent:"We will wear the T-shirt on [sports day].",sentKr:"우리는 운동회에 그 티셔츠를 입을 것이다."},
+{en:"stay",kr:"유지하다",lesson:"L3",blank:"st_y",mode:0,sent:"[Stay] free from stress as long as possible.",sentKr:"가능한 한 오래 스트레스 없이 지내라."},
+{en:"stress",kr:"스트레스",lesson:"L3",blank:"str_ss",mode:0,sent:"She is under a lot of [stress] at work.",sentKr:"그녀는 직장에서 많은 스트레스를 받고 있다."},
+{en:"suggest",kr:"제안하다",lesson:"L3",blank:"sug___st",mode:2,
+ poly:{title:"suggest 다의어",rows:[{n:"①",m:"제안하다",ex:"Can you suggest another solution?"},{n:"②",m:"암시하다",ex:"As the name suggests, it is on water."}],note:"⚠️ suggest(제안) + that절에는 동사원형(가정법): suggest that she go(O)"},
+ sent:"People [suggest] different ways to deal with stress.",sentKr:"사람들은 스트레스를 다루는 다양한 방법을 제안한다."},
+{en:"sunlight",kr:"햇빛",lesson:"L3",blank:"sun___ht",mode:1,sent:"[Sunlight] makes your body produce good chemicals.",sentKr:"햇빛은 몸이 좋은 화학 물질을 생성하게 한다."},
+{en:"teen",kr:"십 대; 십 대의",lesson:"L3",blank:"t__n",mode:0,sent:"About 9,000 [teens] answered the survey question.",sentKr:"약 9,000명의 십 대가 설문 질문에 답했다."},
+{en:"thought",kr:"생각",lesson:"L3",blank:"th___ht",mode:2,sent:"She shared her [thoughts] about stress.",sentKr:"그녀는 스트레스에 대한 자신의 생각을 공유했다."},
+{en:"tidy",kr:"깔끔한, 정돈된",lesson:"L3",blank:"t_dy",mode:0,sent:"Keep your room [tidy] to feel less stressed.",sentKr:"덜 스트레스 받기 위해 방을 깔끔하게 유지해라."},
+{en:"well-known",kr:"유명한",lesson:"L3",blank:"well-kn_wn",mode:0,sent:"She is a [well-known] writer.",sentKr:"그녀는 유명한 작가이다."},
+{en:"work",kr:"효과가 있다",lesson:"L3",blank:"w_rk",mode:0,
+ poly:{title:"work 다의어 (3가지!)",rows:[{n:"①",m:"일하다",ex:"I work at a school."},{n:"②",m:"작동하다",ex:"My phone doesn't work."},{n:"③",m:"효과가 있다",ex:"This method works well."}],note:"⚠️ works well = 효과가 있다 — L3 본문 출제 핵심!"},
+ sent:"A number-one way to stay free from stress is to do what [works] for you.",sentKr:"스트레스 없이 지내는 최고의 방법은 자신에게 효과 있는 것을 하는 것이다."},
+{en:"worry",kr:"걱정",lesson:"L3",blank:"w_rry",mode:0,sent:"Leave all your [worries] behind.",sentKr:"모든 걱정을 뒤에 남겨두어라."},
+];
+
+/* ══ VOCAB L4 ══ */
+const VOCAB_L4=[
+{en:"appointment",kr:"약속",lesson:"L4",blank:"app___ment",mode:2,sent:"She made an [appointment] with him.",sentKr:"그녀는 그와 만날 약속을 잡았다."},
+{en:"architect",kr:"건축가",lesson:"L4",blank:"arch___ct",mode:2,sent:"The [architect] designed the building.",sentKr:"그 건축가가 건물을 설계했다."},
+{en:"attract",kr:"끌어당기다",lesson:"L4",blank:"att___ct",mode:2,sent:"The market [attracts] over 250,000 visitors every day.",sentKr:"그 시장은 매일 25만 명 이상을 끌어당긴다."},
+{en:"attractive",kr:"멋진, 매력적인",lesson:"L4",blank:"attr___ive",mode:2,sent:"The Grand Bazaar is very [attractive] to tourists.",sentKr:"그랜드 바자르는 관광객에게 매우 매력적이다."},
+{en:"best-before date",kr:"유통 기한",lesson:"L4",blank:"best-bef_re date",mode:0,sent:"Always check the [best-before date].",sentKr:"항상 유통 기한을 확인하세요."},
+{en:"carry",kr:"(물품을) 취급하다, 나르다",lesson:"L4",blank:"c_rry",mode:0,
+ poly:{title:"carry 다의어 (3가지!)",rows:[{n:"①",m:"(물품을) 취급하다",ex:"The store carries all kinds of goods."},{n:"②",m:"옮기다, 나르다",ex:"He carries a box of fruit."},{n:"③",m:"휴대하다",ex:"US police officers always carry guns."}],note:"⚠️ 가게가 주어일 때 carry = 취급하다 (= have/sell)"},
+ sent:"The store [carries] various lines of goods.",sentKr:"그 가게는 다양한 종류의 상품을 취급한다."},
+{en:"coming",kr:"다가오는, 다음의",lesson:"L4",blank:"com___",mode:1,sent:"The [coming] week will be very busy.",sentKr:"다음 주는 매우 바쁠 것이다."},
+{en:"covered",kr:"지붕이 덮인",lesson:"L4",blank:"cov___d",mode:1,sent:"It is the largest [covered] market in the world.",sentKr:"그것은 세계에서 가장 큰 지붕이 덮인 시장이다."},
+{en:"creative",kr:"창의적인",lesson:"L4",blank:"cre___ive",mode:2,sent:"She is a very [creative] person.",sentKr:"그녀는 매우 창의적인 사람이다."},
+{en:"culture",kr:"문화",lesson:"L4",blank:"cul___e",mode:1,sent:"Markets show the local [culture] of a country.",sentKr:"시장은 한 나라의 지역 문화를 보여준다."},
+{en:"digest",kr:"소화되다, 소화시키다",lesson:"L4",blank:"di___st",mode:2,sent:"This food is easy to [digest].",sentKr:"이 음식은 소화하기 쉽다."},
+{en:"directly",kr:"직접",lesson:"L4",blank:"dir___ly",mode:2,sent:"You can buy goods [directly] from sellers.",sentKr:"판매자에게서 물건을 직접 구입할 수 있다."},
+{en:"disappear",kr:"사라지다",lesson:"L4",blank:"dis___ear",mode:2,sent:"Many floating markets [disappeared] over time.",sentKr:"많은 수상 시장들이 시간이 지나면서 사라졌다."},
+{en:"discover",kr:"발견하다, 알아내다",lesson:"L4",blank:"dis___er",mode:2,sent:"You can [discover] another culture at a market.",sentKr:"시장에서 다른 문화를 발견할 수 있다."},
+{en:"doggie bag",kr:"남은 음식을 싸 가는 봉지",lesson:"L4",blank:"dogg__ bag",mode:1,sent:"Can I have a [doggie bag] for this?",sentKr:"이것을 싸 가는 봉지를 주실 수 있나요?"},
+{en:"effective",kr:"효과적인",lesson:"L4",blank:"eff___ive",mode:2,sent:"This is an [effective] way to trade goods.",sentKr:"이것은 물건을 거래하는 효과적인 방법이다."},
+{en:"extra",kr:"추가의",lesson:"L4",blank:"ex___a",mode:2,sent:"Here is an [extra] tip for visiting the market.",sentKr:"시장을 방문하기 위한 추가 팁이 있다."},
+{en:"filled",kr:"~로 가득한",lesson:"L4",blank:"fill__",mode:1,sent:"The market is busy with thousands of flower-[filled] carts.",sentKr:"그 시장은 꽃으로 가득한 수천 대의 수레로 분주하다."},
+{en:"fishing pole",kr:"낚싯대",lesson:"L4",blank:"fishing p__e",mode:1,sent:"The sellers pass food to you with a long [fishing pole].",sentKr:"판매자들이 긴 낚싯대로 음식을 건네준다."},
+{en:"floating",kr:"수상의, (물에) 떠 있는",lesson:"L4",blank:"flo___ng",mode:2,sent:"It is one of the most popular [floating] markets.",sentKr:"그것은 가장 인기 있는 수상 시장 중 하나이다."},
+{en:"goods",kr:"제품, 상품",lesson:"L4",blank:"g__ds",mode:0,sent:"In the past, people traded [goods] on rivers.",sentKr:"과거에 사람들은 강에서 물건을 거래했다."},
+{en:"home-made",kr:"집에서 만든",lesson:"L4",blank:"home-m__e",mode:1,sent:"She sells [home-made] food at the market.",sentKr:"그녀는 시장에서 집에서 만든 음식을 판다."},
+{en:"house",kr:"거처를 제공하다",lesson:"L4",blank:"h___se",mode:2,
+ poly:{title:"house 명사/동사",rows:[{n:"명",m:"집",ex:"She lives in a big house."},{n:"동",m:"거처를 제공하다",ex:"The building houses 4,000 shops."}],note:"⚠️ 시험 단골: The Grand Bazaar houses ~ = 수용하다 / 상태동사라 진행형 불가!"},
+ sent:"The Grand Bazaar [houses] more than 4,000 shops.",sentKr:"그랜드 바자르는 4,000개 이상의 가게를 수용한다."},
+{en:"imaginable",kr:"상상할 수 있는",lesson:"L4",blank:"imag___able",mode:2,sent:"You can buy almost any [imaginable] item there.",sentKr:"상상할 수 있는 거의 모든 물건을 거기에서 살 수 있다."},
+{en:"local",kr:"현지의, 지역의",lesson:"L4",blank:"loc_l",mode:0,sent:"Try [local] food at the market.",sentKr:"시장에서 현지 음식을 맛보아라."},
+{en:"mark",kr:"~을 표시하다",lesson:"L4",blank:"m_rk",mode:0,sent:"Blue dots [mark] the exits of the bazaar.",sentKr:"파란 점들이 바자르의 출구를 표시한다."},
+{en:"mostly",kr:"주로, 대부분",lesson:"L4",blank:"mo___ly",mode:2,sent:"Flowers are [mostly] shipped to all corners of the world.",sentKr:"꽃들은 주로 세계 곳곳으로 운송된다."},
+{en:"natural",kr:"자연스러운, 천연의",lesson:"L4",blank:"nat___al",mode:2,sent:"Turkey is a [natural] place for large markets.",sentKr:"터키는 대형 시장이 서기에 자연스러운 곳이다."},
+{en:"powered",kr:"~을 동력으로 이용하는",lesson:"L4",blank:"pow___d",mode:1,sent:"The flowers are moved by electric-[powered] trucks.",sentKr:"꽃들은 전기를 동력으로 이용하는 트럭에 의해 옮겨진다."},
+{en:"producer",kr:"생산자",lesson:"L4",blank:"pro___er",mode:2,sent:"She is a flower [producer].",sentKr:"그녀는 꽃 생산자이다."},
+{en:"recipe",kr:"조리법",lesson:"L4",blank:"rec___",mode:1,sent:"She shared her secret [recipe].",sentKr:"그녀는 비법 조리법을 공유했다."},
+{en:"sadly",kr:"애석하게도",lesson:"L4",blank:"sad___",mode:1,sent:"[Sadly], many floating markets disappeared.",sentKr:"애석하게도, 많은 수상 시장들이 사라졌다."},
+{en:"share",kr:"공유하다",lesson:"L4",blank:"sh_re",mode:0,sent:"I [share] my experiences with my readers.",sentKr:"나는 독자들과 경험을 공유한다."},
+{en:"ship",kr:"운송하다, 실어 나르다",lesson:"L4",blank:"sh_p",mode:0,
+ poly:{title:"ship 명사/동사",rows:[{n:"명",m:"배",ex:"We took a ship to the island."},{n:"동",m:"운송하다",ex:"Flowers are shipped to all corners of the world."}],note:"⚠️ ship(동사) = 배로만 아니라 운송 전체를 의미"},
+ sent:"Every day, 20 million flowers are traded and [shipped] worldwide.",sentKr:"매일 2천만 송이의 꽃이 거래되고 전 세계로 운송된다."},
+{en:"sit",kr:"(어떤 곳에) 있다, 앉다",lesson:"L4",blank:"s_t",mode:0,
+ poly:{title:"sit 다의어",rows:[{n:"①",m:"(어떤 곳에) 위치하다",ex:"The Netherlands sits below sea level."},{n:"②",m:"앉다",ex:"Please sit down."}],note:"⚠️ sit below sea level = 해수면 아래에 위치하다 (상태 동사)"},
+ sent:"About a third of the Netherlands [sits] below sea level.",sentKr:"네덜란드의 약 3분의 1이 해수면 아래에 위치한다."},
+{en:"suggest",kr:"암시하다, 제안하다",lesson:"L4",blank:"sug___st",mode:2,sent:"As the name [suggests], it is a floating market.",sentKr:"이름이 암시하듯이, 그것은 수상 시장이다."},
+{en:"surprise",kr:"놀라움, 놀라운 일",lesson:"L4",blank:"sur___ise",mode:2,sent:"It is no [surprise] that the market is popular.",sentKr:"그 시장이 인기 있는 것은 놀라운 일이 아니다."},
+{en:"symbol",kr:"상징",lesson:"L4",blank:"sym__l",mode:1,sent:"It is a traditional Turkish [symbol] for good luck.",sentKr:"그것은 행운을 비는 터키 전통 상징이다."},
+{en:"taste",kr:"맛보다",lesson:"L4",blank:"t__te",mode:0,
+ poly:{title:"taste 명사/동사",rows:[{n:"명",m:"맛",ex:"The taste of lokum is sweet."},{n:"동",m:"맛보다",ex:"You can taste local food at the market."}]},
+ sent:"Markets are places where you can [taste] local food.",sentKr:"시장은 지역 음식을 맛볼 수 있는 곳이다."},
+{en:"therefore",kr:"그러므로, 따라서",lesson:"L4",blank:"ther___ore",mode:2,sent:"It is no wonder, [therefore], that people love it.",sentKr:"그러므로, 사람들이 그것을 좋아하는 것은 놀라운 일이 아니다."},
+{en:"tip",kr:"요령, 방법",lesson:"L4",blank:"t_p",mode:0,sent:"Here is an extra [tip] for visiting the bazaar.",sentKr:"바자르를 방문하기 위한 추가 방법이 있다."},
+{en:"tourist",kr:"관광객",lesson:"L4",blank:"tour___",mode:1,sent:"The market is always crowded with [tourists].",sentKr:"그 시장은 항상 관광객들로 붐빈다."},
+{en:"trade",kr:"교역하다, 거래하다",lesson:"L4",blank:"tr__e",mode:2,
+ poly:{title:"trade 명사/동사",rows:[{n:"명",m:"교역, 거래",ex:"Turkey has a long tradition of trade."},{n:"동",m:"교역하다",ex:"People traded goods on rivers."}]},
+ sent:"In the past, Thai people [traded] goods on rivers.",sentKr:"과거에 태국 사람들은 강에서 물건을 거래했다."},
+{en:"tradition",kr:"전통",lesson:"L4",blank:"trad___on",mode:2,sent:"Turkey has a long [tradition] of trade.",sentKr:"터키는 오랜 교역의 전통이 있다."},
+{en:"traditional",kr:"전통적인",lesson:"L4",blank:"trad___onal",mode:2,sent:"Make sure to try lokum, a [traditional] Turkish candy.",sentKr:"터키 전통 사탕인 로쿰을 꼭 먹어봐라."},
+{en:"translate",kr:"번역하다",lesson:"L4",blank:"trans___e",mode:2,sent:"Can you [translate] this word for me?",sentKr:"이 단어를 번역해 줄 수 있니?"},
+{en:"transportation",kr:"교통, 운송",lesson:"L4",blank:"trans___ation",mode:2,sent:"Better road [transportation] helped markets grow.",sentKr:"더 나은 도로 교통이 시장의 성장을 도왔다."},
+{en:"wholesale",kr:"도매의",lesson:"L4",blank:"whole___e",mode:1,sent:"You can see how [wholesale] flower trading works.",sentKr:"도매 꽃 거래가 어떻게 작동하는지 볼 수 있다."},
+{en:"wonder",kr:"궁금하다",lesson:"L4",blank:"won___",mode:1,
+ poly:{title:"wonder 명사/동사",rows:[{n:"동",m:"궁금하다",ex:"I wonder if you can buy just a few flowers."},{n:"명",m:"경이로운 것",ex:"The market is a natural wonder."}],note:"⚠️ wonder if/whether = ~인지 궁금하다 — 시험 단골!"},
+ sent:"You may [wonder] whether you can buy just a few flowers there.",sentKr:"거기서 꽃 몇 송이만 살 수 있는지 궁금할 수도 있다."},
+];
+
+/* ══ L3 대화문 A (3.1 / 3.2 / 3.3) ══ */
+const L3_DLG_A=[
+  {title:"대화 1 — Listen and Answer 3.1 (십 대 스트레스 발표)",
+   keyExpr:"I'd like to talk about ~",keyMeaning:"나는 ~에 대해 이야기하고 싶다",
+   keyUsage:"상대방에게 주제를 소개할 때. about 뒤에 명사구. 'talk for(X)' → 'talk about(O)'",
+   similar:[
+     {en:"I'd like to talk to you about teen stress.",kr:"나는 여러분에게 십 대 스트레스에 대해 이야기하고 싶습니다."},
+     {en:"Let me tell you about Korean history.",kr:"한국 역사에 대해 말해 줄게."},
+     {en:"I'm going to talk about the effects of exercise.",kr:"나는 운동의 효과에 대해 이야기할 것이다."},
+     {en:"I want to tell you about air pollution.",kr:"나는 너에게 대기 오염에 대해 말하고 싶다."},
+   ],
+   wrong:{en:"I'd like to talk for teen stress.",kr:"나는 십 대 스트레스에 대해 이야기하고 싶다.",exp:"'talk about'이 맞아요. 'talk for'는 '~를 대신해서 말하다'로 전혀 다른 뜻!"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>문법이 틀린 것</b>을 고르세요.",tag:"⚠️ talk about vs talk for",
+      opts:["I'd like to talk to you about teen stress.","Let me tell you about Korean history.","I'm going to talk about the effects of exercise.","I want to tell you about air pollution.","I'd like to talk for teen stress."],wrongIdx:4,
+      fb:"'talk for'는 틀린 표현! 반드시 'talk about'을 써야 합니다."},
+     {type:"mc-match",q:"'I'd like to talk about ~'와 바꿔 쓸 수 <b>없는</b> 것은?",
+      opts:["Let me tell you about ~","I'm going to talk about ~","I want to tell you about ~","I've heard about ~"],ans:3,
+      fb:"'I've heard about ~' = ~에 대해 들었다 — 주제 소개 표현이 아니에요!"},
+     {type:"fill",q:"빈칸을 채우세요. (주제 소개 표현)",sent:"I'd like to ________ to you about teen stress.",ans:"talk",
+      fb:"'I'd like to talk to you about ~' = ~에 대해 이야기하고 싶다"},
+     {type:"mc-match",q:"발표에서 9,000명의 십 대에게 물어본 것은?",
+      opts:["스트레스 해소 방법","가장 큰 스트레스 원인","행복의 조건","공부 방법"],ans:1,
+      fb:"'What makes you feel the most stressed?' — 무엇이 가장 스트레스를 주는지"},
+     {type:"mc-match",q:"학업(schoolwork)이 스트레스라고 답한 학생 비율은?",
+      opts:["15.3%","8.2%","절반 이상","3분의 1"],ans:2,
+      fb:"'Over half of the students said schoolwork stresses them the most.'"},
+     {type:"fill",q:"친구 문제는 몇 위를 차지했나요? (영어로)",sent:"Problems with friends ________ second place with 15.3%.",ans:"took",
+      fb:"'take second place' = 2위를 차지하다 (불규칙: take-took-taken)"},
+     {type:"mc-match",q:"8.2%의 학생들이 스트레스 받는 원인은?",
+      opts:["학업","친구 문제","외모","가족 걱정"],ans:2,
+      fb:"'they get stressed because of their appearance' — 외모(appearance)"},
+     {type:"mc-match",q:"'As you can see'의 뜻은?",
+      opts:["보시다시피","보고 싶다면","볼 수 있도록","알다시피"],ans:0,
+      fb:"'As you can see' = 보시다시피 / 아시다시피 (자료를 가리키며 쓰는 표현)"},
+     {type:"order",q:"스트레스 원인을 높은 순서대로 배열하세요.",
+      chips:["appearance","problems with friends","family & future","schoolwork"],
+      ans:[3,1,2,0],fb:"학업(1위) → 친구(15.3%, 2위) → 가족&미래(3위) → 외모(8.2%, 4위)"},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+      ins:"Next came family and worries about the future.",
+      lines:["Schoolwork was the most common cause of stress.","Problems with friends took second place with 15.3%.","8.2% of students got stressed because of their appearance."],
+      pos:1,exp:"친구(2위) 다음, 외모 앞에 가족&미래(3위)가 와야 해요."},
+   ],
+   lines:[
+     {sp:"W",text:"Today, I'd like to talk to you about teen stress. What makes you feel the most stressed?"},
+     {sp:"W",text:"About 9,000 teens answered this question. As you can see, schoolwork was the most common cause of stress."},
+     {sp:"W",text:"Over half of the students said schoolwork stresses them the most. Problems with friends took second place with 15.3%."},
+     {sp:"W",text:"Next came family and worries about the future. 8.2% of the students said they get stressed because of their appearance."},
+   ]},
+  {title:"대화 2 — Listen and Answer 3.2 (Oliver의 스트레스)",
+   keyExpr:"What makes you say that?",keyMeaning:"왜 그렇게 말하는 거야? (이유 묻기)",
+   keyUsage:"사역동사 make 사용: What makes you + 동사원형? = Why do you say that?",
+   similar:[
+     {en:"What makes you say that?",kr:"왜 그렇게 말하는 거니?"},
+     {en:"Why do you say that?",kr:"왜 그렇게 말하니?"},
+     {en:"Why is that?",kr:"왜 그런 거야?"},
+     {en:"Can you tell me the reason why?",kr:"이유를 말해 줄 수 있니?"},
+   ],
+   wrong:{en:"What do you make say that?",kr:"왜 그렇게 말하는 거야?",exp:"make가 사역동사: 'What makes you say that?(O)' / 'What do you make say?(X)' — 어순 주의!"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>어법이 틀린 것</b>을 고르세요.",tag:"⚠️ 사역동사 어순",
+      opts:["What makes you say that?","Why do you say that?","Why is that?","Can you tell me the reason why?","What do you make say that?"],wrongIdx:4,
+      fb:"'What do you make say that?'는 틀린 표현. 'What makes you say that?'이 맞아요."},
+     {type:"mc-match",q:"Oliver가 스트레스받는 직접적인 원인은?",
+      opts:["친구와의 다툼","수학 시험 공부, 성적 걱정","외모에 대한 고민","운동 부족"],ans:1,
+      fb:"'I'm studying for the math test, Mom. Grades stress me out.'"},
+     {type:"fill",q:"스트레스를 받다.",sent:"Grades ________ me out.",ans:"stress",
+      fb:"'stress ~ out' = ~를 스트레스받게 하다"},
+     {type:"mc-match",q:"'I used to feel that way, too.'에서 used to의 뜻은?",
+      opts:["~하곤 했다 (과거 습관)","~할 것이다","~해야 한다","~하는 데 익숙하다"],ans:0,
+      fb:"'used to + 동사원형' = ~하곤 했다 (과거 습관, 지금은 아님)"},
+     {type:"mc-match",q:"W(엄마)가 스트레스 해소법으로 제안한 것은?",
+      opts:["음악 듣기","친구 만나기","낚시 가기","산책하기"],ans:2,
+      fb:"'try to be positive by going fishing' — 낚시를 하며 긍정적으로 생각하기"},
+     {type:"fill",q:"~에 집중하다.",sent:"It made me ________ on one thing.",ans:"focus",
+      fb:"'focus on' = ~에 집중하다"},
+     {type:"mc-match",q:"스트레스가 B(Oliver)에게 도움이 된 점은?",
+      opts:["친구를 더 사귀었다","더 열심히 공부하게 됐다","집중력이 생겼다","성적이 올랐다"],ans:2,
+      fb:"'it made me focus and try harder... at the same time it helped improve my memory'"},
+     {type:"mc-match",q:"'A little stress was helpful for me.'에서 알 수 있는 것은?",tag:"⚠️ 추론",
+      opts:["스트레스는 항상 나쁘다","적당한 스트레스는 도움이 될 수 있다","스트레스를 없애야 한다","스트레스는 건강에 해롭다"],ans:1,
+      fb:"'a little stress was helpful' — 적당한 스트레스는 긍정적 효과도 있음"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+      chips:["Yes, it helped improve my memory.","I'm studying for the math test. Grades stress me out.","What makes you say that?","Yeah, but a little stress was helpful for me."],
+      ans:[1,3,2,0],fb:"스트레스 고백 → 스트레스가 도움됐다 → 이유 묻기 → 기억력 향상 설명 순서"},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+      ins:"Did stress help you in other ways?",
+      lines:["W: I understand. I used to feel that way, too.","B: Yeah, but a little stress was helpful for me.","W: Yes, it helped improve my memory."],
+      pos:1,exp:"'helpful for me'라는 말 다음에 '다른 방면으로도 도움이 됐냐'는 질문이 자연스러워요."},
+   ],
+   lines:[
+     {sp:"W",text:"What are you doing, Oliver?"},
+     {sp:"B",text:"I'm studying for the math test, Mom. Grades stress me out."},
+     {sp:"W",text:"I understand. I used to feel that way, too."},
+     {sp:"B",text:"Really? I didn't know that."},
+     {sp:"W",text:"What makes you say that?"},
+     {sp:"B",text:"Yeah, but a little stress was helpful for me. I got stressed when I had an exam, but it made me focus and try harder."},
+     {sp:"W",text:"Did stress help you in other ways?"},
+     {sp:"B",text:"Yes, it helped improve my memory."},
+   ]},
+  {title:"대화 3 — Listen More 3.3 (반 티셔츠 고르기)",
+   keyExpr:"What makes you say that? / That makes sense.",keyMeaning:"왜 그렇게 말하는 거야? / 말이 되네.",
+   keyUsage:"이유 묻기 → Because 답하기 → That makes sense. 동의 흐름. make sure to + 동사원형(to -ing X)",
+   similar:[
+     {en:"That makes sense.",kr:"그 말이 맞아. / 말이 되네."},
+     {en:"What about this green one?",kr:"이 초록색 것은 어때? (= How about this green one?)"},
+     {en:"We have to decide on the design.",kr:"우리는 디자인을 결정해야 해."},
+     {en:"It's not expensive.",kr:"비싸지 않아. (cheap과 뉘앙스 다름!)"},
+   ],
+   wrong:{en:"Make sure to trying the T-shirt on.",kr:"그 티셔츠를 꼭 입어봐라.",exp:"make sure to + 동사원형! 'to trying(X)' → 'to try(O)'"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>어법이 틀린 것</b>을 고르세요.",tag:"⚠️ make sure to",
+      opts:["What makes you say that?","That makes sense.","What about this green one?","We have to decide on the design.","Make sure to trying the T-shirt on."],wrongIdx:4,
+      fb:"make sure to + 동사원형! 'to trying'은 틀려요 → 'to try'가 맞습니다."},
+     {type:"mc-match",q:"'That makes sense.'와 바꿔 쓸 수 <b>없는</b> 것은?",tag:"⚠️ 유사표현",
+      opts:["You're right.","That's a good point.","I agree with you.","That doesn't matter."],ans:3,
+      fb:"'That doesn't matter.' = 그건 중요하지 않아. 동의 표현이 아니에요!"},
+     {type:"mc-match",q:"'What about ~?'와 같은 기능의 표현은?",tag:"⚠️ 제안 표현",
+      opts:["How about ~?","What is ~?","Why not ~?","What do you think?"],ans:0,
+      fb:"'What about ~?' = 'How about ~?' — 둘 다 제안·권유 표현"},
+     {type:"fill",q:"이유를 묻는 B1의 말을 완성하세요.",sent:"What ________ you say that?",ans:"makes",
+      fb:"'What makes you say that?' — make는 사역동사, 주어 What(단수)라서 makes!"},
+     {type:"mc-match",q:"B2가 short sleeves를 선택한 진짜 이유는?",tag:"⚠️ 추론",
+      opts:["반소매가 더 예뻐서","6월 운동회 → 여름 → 더우니까","선생님이 추천해서","반소매가 더 저렴해서"],ans:1,
+      fb:"직접 '더워서'라고 안 했지만, 'Sports Day in June(6월 운동회)'에서 여름이라 더움을 추론해야 해요."},
+     {type:"mc-match",q:"'it's not expensive'를 바꿀 때 <b>어색한</b> 것은?",tag:"⚠️ 뉘앙스",
+      opts:["it's affordable","it's reasonably priced","it's cheap","it's not costly"],ans:2,
+      fb:"'cheap'은 문법상 맞지만 '싸구려' 뉘앙스. 교과서는 'not expensive'로 중립적 표현 사용."},
+     {type:"fill",q:"디자인을 결정하다.",sent:"We have to ________ on the design.",ans:"decide",
+      fb:"'decide on ~' = ~를 결정하다. 전치사 on 필수! 'decide about(X)'"},
+     {type:"mc-match",q:"'What about this green one?'에서 one이 가리키는 것은?",
+      opts:["디자인 번호 1","초록색 티셔츠","반소매","벌 그림"],ans:1,
+      fb:"one = T-shirt (앞 명사 반복 피하는 부정대명사 one)"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+      chips:["That makes sense. What about this green one?","We have to choose a T-shirt with short sleeves.","What makes you say that?","Because we'll wear it on Sports Day. It's in June."],
+      ans:[1,2,3,0],fb:"의견 → 이유 묻기 → 이유 답하기 → 동의+새 제안 순서"},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+      ins:"And it's not expensive.",
+      lines:["G: What about this green one?","B2: I like it. The bee on the T-shirt is so cute.","B1: Yes. I think it's the best one."],
+      pos:1,exp:"귀엽다(장점1) → 비싸지 않다(장점2) → 최고 결론. 장점 2개가 쌓인 후 결론이 나와야 해요."},
+   ],
+   lines:[
+     {sp:"B1",text:"Today, let's talk about the class T-shirt. We have to decide on the design."},
+     {sp:"G",text:"Let me show you some designs on the screen."},
+     {sp:"B2",text:"We have to choose a T-shirt with short sleeves."},
+     {sp:"B1",text:"What makes you say that?"},
+     {sp:"B2",text:"Because we'll wear the T-shirt on Sports Day. It's in June."},
+     {sp:"G",text:"That makes sense. What about this green one?"},
+     {sp:"B2",text:"I like it. The bee on the T-shirt is so cute."},
+     {sp:"G",text:"And it's not expensive."},
+     {sp:"B1",text:"Yes. I think it's the best one."},
+   ]},
+];
+
+/* ══ L3 대화문 B (3.5 닥터브로콜리 / 3.6 스포츠클럽) ══ */
+const L3_DLG_B=[
+  {title:"대화 4 — Wrap Up 3.5 (Dr. Broccoli의 건강한 식습관)",
+   keyExpr:"I'd like to talk about ~ / It's important to ~",keyMeaning:"~에 대해 이야기하고 싶다 / ~하는 것이 중요하다",
+   keyUsage:"be good for = ~에 좋다. It's important to + 동사원형. try to + 동사원형 = ~하려고 노력하다",
+   similar:[
+     {en:"Different foods are good for your health.",kr:"다양한 음식들이 건강에 좋아요."},
+     {en:"It's important to stop eating when you're full.",kr:"배가 부를 때 먹는 것을 멈추는 것이 중요해요."},
+     {en:"Try to eat slowly.",kr:"천천히 먹으려고 노력하세요."},
+     {en:"I'd like to talk about healthy eating habits.",kr:"건강한 식습관에 대해 이야기하고 싶어요."},
+   ],
+   wrong:{en:"It's important stop eating when you're full.",kr:"배가 부를 때 먹는 것을 멈추는 것이 중요해요.",exp:"'It's important to + 동사원형' — to 빠지면 틀려요!"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>어법이 틀린 것</b>을 고르세요.",tag:"⚠️ It's important to",
+      opts:["It's important to stop eating when you're full.","Different foods are good for your health.","Try to eat slowly.","I'd like to talk about healthy eating habits.","It's important stop eating when you're full."],wrongIdx:4,
+      fb:"'It's important to + 동사원형' — to 없으면 틀려요!"},
+     {type:"mc-match",q:"Dr. Broccoli가 지난 시간에 이야기한 내용은?",
+      opts:["건강한 식습관","운동의 효과","스트레스 해소","숙면의 중요성"],ans:0,
+      fb:"'Last time, I talked about different foods that are good for your health.'"},
+     {type:"fill",q:"건강한 식습관에 대해 이야기하다.",sent:"I'd like to talk about healthy ________ habits.",ans:"eating",
+      fb:"'healthy eating habits' = 건강한 식습관"},
+     {type:"mc-match",q:"Dr. Broccoli가 오늘 이야기하고 싶은 주제는?",
+      opts:["운동 방법","건강에 좋은 음식 종류","건강한 식습관","스트레스 관리"],ans:2,
+      fb:"'Today, I'd like to talk about healthy eating habits.'"},
+     {type:"fill",q:"다음 빈칸에 들어갈 순서 표현을 쓰세요. (첫 번째 조언)",sent:"________, try to eat slowly.",ans:"First",
+      fb:"'First, try to eat slowly.' — 첫 번째 조언. Second, Third 순서로 이어짐"},
+     {type:"mc-match",q:"'It's important to stop eating when you're full.'의 뜻은?",
+      opts:["음식을 남기지 않는 것이 중요하다","배가 부를 때 먹기를 멈추는 것이 중요하다","천천히 먹는 것이 중요하다","규칙적으로 먹는 것이 중요하다"],ans:1,
+      fb:"stop eating when you're full = 배가 부를 때 먹기를 멈추다"},
+     {type:"mc-match",q:"'be good for'의 반대 표현은?",tag:"⚠️ 반의어",
+      opts:["be bad for","be wrong for","be poor for","be negative for"],ans:0,
+      fb:"'be good for ~' = ~에 좋다 ↔ 'be bad for ~' = ~에 나쁘다"},
+     {type:"fill",q:"~에 좋다.",sent:"Different foods ________ good for your health.",ans:"are",
+      fb:"'be good for ~' 구조 — 주어가 복수(foods)라서 are"},
+     {type:"order",q:"Dr. Broccoli의 조언을 순서대로 배열하세요.",
+      chips:["It's important to stop eating when you're full.","I'd like to talk about healthy eating habits.","Try to eat slowly. Second, ...","Hello, teens. I'm Dr. Broccoli."],
+      ans:[3,1,2,0],fb:"인사 → 주제 소개 → 첫째 조언(천천히 먹기) → 둘째 조언(배부를 때 멈추기) 순서"},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+      ins:"Second, try to eat slowly.",
+      lines:["Hello, teens. I'm Dr. Broccoli.","Today, I'd like to talk about healthy eating habits.","First, try to eat slowly.","It's important to stop eating when you're full."],
+      pos:2,exp:"First → Second 순서로 조언이 이어져야 해요."},
+   ],
+   lines:[
+     {sp:"W",text:"Hello, teens. I'm Dr. Broccoli. Last time, I talked about different foods that are good for your health."},
+     {sp:"W",text:"Today, I'd like to talk about healthy eating habits. First, try to eat slowly."},
+     {sp:"W",text:"Second, it's important to stop eating when you're full."},
+   ]},
+  {title:"대화 5 — Wrap Up 3.6 (스포츠 클럽 만들기)",
+   keyExpr:"Why don't we ~?",keyMeaning:"우리 ~하는 게 어때? (제안)",
+   keyUsage:"Why don't we + 동사원형 = Let's ~ / How about -ing? / Shall we ~? 와 같은 제안 표현",
+   similar:[
+     {en:"Why don't we make a sport club?",kr:"우리 스포츠 클럽을 만드는 게 어때?"},
+     {en:"Sounds good. Let's make a baseball club.",kr:"좋아. 야구 클럽을 만들자."},
+     {en:"How about making a basketball club?",kr:"농구 클럽을 만드는 건 어때?"},
+     {en:"I think a basketball club is a better idea.",kr:"나는 농구 클럽이 더 좋은 생각인 것 같아."},
+   ],
+   wrong:{en:"Why don't we to make a sport club?",kr:"우리 스포츠 클럽을 만드는 게 어때?",exp:"'Why don't we + 동사원형' — to 넣으면 틀려요! 'Why don't we make(O)'"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>어법이 틀린 것</b>을 고르세요.",tag:"⚠️ Why don't we",
+      opts:["Why don't we make a sport club?","Sounds good. Let's make a baseball club.","How about making a basketball club?","I think a basketball club is a better idea.","Why don't we to make a sport club?"],wrongIdx:4,
+      fb:"'Why don't we + 동사원형' — to 없이 바로 동사원형! 'to make(X)' → 'make(O)'"},
+     {type:"mc-match",q:"'Why don't we ~?'와 바꿔 쓸 수 <b>없는</b> 것은?",tag:"⚠️ 제안 표현",
+      opts:["Let's ~","How about -ing ~?","Shall we ~?","Why don't you ~?"],ans:3,
+      fb:"'Why don't you ~?' = 너(상대방만)에게 권유. 'Why don't we ~?'는 함께하자는 제안. 대상이 달라요!"},
+     {type:"fill",q:"우리 스포츠 클럽 만드는 게 어때?",sent:"Why don't we ________ a sport club?",ans:"make",
+      fb:"'Why don't we + 동사원형' — 동사원형 make"},
+     {type:"mc-match",q:"G가 처음에 제안한 것과 B의 반응은?",
+      opts:["야구 클럽 제안 → B 반대","스포츠 클럽 제안 → B 동의","농구 클럽 제안 → B 반대","스포츠 클럽 제안 → B 반대"],ans:1,
+      fb:"'Why don't we make a sport club?' → 'Sounds good.'"},
+     {type:"fill",q:"좋은 생각이야! (동의 표현)",sent:"________ good.",ans:"Sounds",
+      fb:"'Sounds good.' = 좋아! / 좋은 생각이야! (= That sounds good.)"},
+     {type:"mc-match",q:"B가 농구 클럽을 제안한 이유는?",
+      opts:["야구공이 없어서","농구공이 필요하지 않아서","야구는 공만 있으면 되지만 농구는 공만 있으면 되므로","야구에는 공 외에 더 많은 것이 필요하지만 농구는 공만 있으면 되므로"],ans:3,
+      fb:"'All we need is a ball to play basketball.' — 농구는 공만 있으면 되니까"},
+     {type:"mc-match",q:"'I think a basketball club is a better idea.'에서 비교 대상은?",
+      opts:["농구 vs 축구","농구 클럽 vs 야구 클럽","농구 클럽 vs 스포츠 클럽 전체","농구 vs 배구"],ans:1,
+      fb:"G가 야구 클럽을 제안했고 B가 농구 클럽이 더 낫다고 반박하는 상황"},
+     {type:"fill",q:"우리에게 필요한 것은 농구공 하나야.",sent:"All we need ________ a ball to play basketball.",ans:"is",
+      fb:"'All we need is ~' = 우리에게 필요한 것은 ~뿐이야. All이 단수 취급 → is"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+      chips:["All we need is a ball to play basketball.","Why don't we make a sport club?","I think a basketball club is a better idea.","Sounds good. Let's make a baseball club."],
+      ans:[1,3,2,0],fb:"제안 → 동의+야구제안 → 농구가 낫다는 반박 → 이유 순서"},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+      ins:"What makes you say that?",
+      lines:["G: Why don't we make a sport club?","B: Sounds good. Let's make a baseball club.","B: I think a basketball club is a better idea.","B: All we need is a ball to play basketball."],
+      pos:2,exp:"'basketball club is a better idea'라는 말을 듣고 이유를 묻는 게 자연스러워요."},
+   ],
+   lines:[
+     {sp:"G",text:"Why don't we make a sport club?"},
+     {sp:"B",text:"Sounds good. Let's make a baseball club."},
+     {sp:"G",text:"What makes you say that?"},
+     {sp:"B",text:"Well, I think a basketball club is a better idea."},
+     {sp:"G",text:"What makes you say that?"},
+     {sp:"B",text:"All we need is a ball to play basketball."},
+   ]},
+];
+
+/* ══ L4 대화문 A (4.1 / 4.2 / 4.3) ══ */
+const L4_DLG_A=[
+  {title:"대화 1 — Listen and Answer 4.1 (관광안내소 / 정선시장)",
+   keyExpr:"I wonder if ~ / I'd like to ~",keyMeaning:"나는 ~인지 궁금하다 / 나는 ~하고 싶다",
+   keyUsage:"I wonder if/whether + 주어+동사 = ~인지 궁금하다. 'every + 기수 + 복수명사' = 매 ~마다",
+   similar:[
+     {en:"I wonder if there's a tourist map of the town.",kr:"이 마을의 관광 지도가 있는지 궁금해요."},
+     {en:"I wonder if I can get a refund on this bag.",kr:"이 가방을 환불받을 수 있는지 궁금해요."},
+     {en:"I'd like to try some local food.",kr:"지역 음식을 먹어보고 싶어요."},
+     {en:"It opens every five days.",kr:"시장은 5일마다 열려요."},
+   ],
+   wrong:{en:"I wonder if there's a tourist map. I wonder whether there's one.",kr:"관광 지도가 있는지 궁금해요.",exp:"둘 다 맞아요! wonder if = wonder whether. 단, 'I'm wonder if(X)' — wonder는 동사라서 be동사 필요 없어요."},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>어법이 틀린 것</b>을 고르세요.",tag:"⚠️ I wonder if",
+      opts:["I wonder if there's a tourist map.","I wonder whether I can try local food.","I'd like to try some local food.","It opens every five days.","I'm wonder if there's a bank."],wrongIdx:4,
+      fb:"wonder는 동사 — 'I'm wonder if(X)' → 'I wonder if(O)'. be동사 필요 없어요!"},
+     {type:"mc-match",q:"'How may I help you?'와 바꿔 쓸 수 있는 것은?",
+      opts:["What can I do for you?","Do you want me to help?","How do you do?","Let me help you."],ans:0,
+      fb:"'How may I help you?' = 'What can I do for you?' = 무엇을 도와드릴까요?"},
+     {type:"fill",q:"이 마을의 관광 지도가 있는지 궁금해요.",sent:"I wonder ________ there's a tourist map of the town.",ans:"if",
+      fb:"'I wonder if/whether + 주어+동사' — if와 whether 둘 다 가능"},
+     {type:"mc-match",q:"정선시장이 열리는 주기는?",
+      opts:["매일","5일마다","일주일마다","한 달에 한 번"],ans:1,
+      fb:"'It opens every five days.' — every + 기수 + 복수명사 = 매 ~마다"},
+     {type:"fill",q:"지역 음식을 먹어보고 싶어요.",sent:"I'd like to try some ________ food.",ans:"local",
+      fb:"'local food' = 지역 음식. 'try local food' = 지역 음식을 먹어보다"},
+     {type:"mc-match",q:"'It takes about 10 minutes.'에서 비인칭 주어 It의 역할은?",
+      opts:["시간을 나타내는 비인칭 주어","앞 명사를 받는 대명사","날씨를 나타내는 비인칭 주어","거리를 나타내는 비인칭 주어"],ans:0,
+      fb:"비인칭 주어 It: 시간/날씨/거리/명암을 나타낼 때 사용. 해석 안 함."},
+     {type:"fill",q:"지도에 길을 표시해 주세요.",sent:"Will you ________ the way on the map, please?",ans:"mark",
+      fb:"'mark the way on the map' = 지도에 길을 표시하다"},
+     {type:"mc-match",q:"M이 W에게 마지막으로 한 말은?",
+      opts:["지도를 드릴게요","거기 가면 곤드레밥을 드셔 보세요","10분 정도 걸려요","버스를 타세요"],ans:1,
+      fb:"'Try gondrebap when you get there.' — 곤드레밥을 먹어봐요"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+      chips:["Try gondrebap when you get there.","I wonder if there's a tourist map of the town.","Then go to Jeongseon Market.","I'd like to try some local food."],
+      ans:[1,3,2,0],fb:"궁금증 → 음식 먹고 싶다 → 시장 안내 → 곤드레밥 추천 순서"},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+      ins:"How can I get there?",
+      lines:["W: Yes, I'd like to try some local food.","M: Then go to Jeongseon Market. It opens every five days, and it's open today.","M: You can walk there. It takes about 10 minutes.","W: Great. Will you mark the way on the map, please?"],
+      pos:1,exp:"시장 위치를 알려준 후, W가 '어떻게 가냐'고 묻는 게 자연스러워요."},
+   ],
+   lines:[
+     {sp:"M",text:"Welcome to the Tourist Information Office! How may I help you?"},
+     {sp:"W",text:"Hi, I wonder if there's a tourist map of the town."},
+     {sp:"M",text:"Sure. Is there a special place you're looking for?"},
+     {sp:"W",text:"Yes, I'd like to try some local food."},
+     {sp:"M",text:"Then go to Jeongseon Market. It opens every five days, and it's open today."},
+     {sp:"W",text:"I'm so lucky. How can I get there?"},
+     {sp:"M",text:"You can walk there. It takes about 10 minutes."},
+     {sp:"W",text:"Great. Will you mark the way on the map, please?"},
+     {sp:"M",text:"Sure. Try gondrebap when you get there."},
+   ]},
+  {title:"대화 2 — Listen and Answer 4.2 (곤드레밥 식당)",
+   keyExpr:"Do you want me to ~? / That'd be great.",keyMeaning:"내가 ~해 드릴까요? / 그러면 좋겠어요.",
+   keyUsage:"'Do you want me to + 동사원형?' = 상대방에게 도움을 제안. 수락: That'd be great. / 거절: No, thanks. I'm fine.",
+   similar:[
+     {en:"Do you want me to give you the recipe for gondrebap?",kr:"곤드레밥 조리법을 드릴까요?"},
+     {en:"Do you want me to come along with you?",kr:"내가 함께 가줄까요?"},
+     {en:"Do you want me to get you some water?",kr:"물을 좀 가져다 드릴까요?"},
+     {en:"That'd be great. Thank you.",kr:"그러면 좋겠어요. 감사합니다."},
+   ],
+   wrong:{en:"Do you want me giving you the recipe?",kr:"조리법을 드릴까요?",exp:"'Do you want me to + 동사원형(give)' — 'me giving(X)' → 'me to give(O)'"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>어법이 틀린 것</b>을 고르세요.",tag:"⚠️ want me to",
+      opts:["Do you want me to give you the recipe?","Do you want me to come along with you?","Do you want me to get you some water?","That'd be great. Thank you.","Do you want me giving you the recipe?"],wrongIdx:4,
+      fb:"'want + 목적어 + to부정사' — 'want me to give(O)' / 'want me giving(X)'"},
+     {type:"mc-match",q:"'That'd be great.'와 바꿔 쓸 수 없는 것은?",tag:"⚠️ 수락 표현",
+      opts:["That would be great.","That sounds great.","No, thanks. I'm fine.","How kind of you!"],ans:2,
+      fb:"'No, thanks. I'm fine.' = 거절 표현! 나머지는 모두 제안 수락 표현이에요."},
+     {type:"fill",q:"곤드레밥 조리법을 드릴까요?",sent:"Do you want me to give you the recipe for ________?",ans:"gondrebap",
+      fb:"'give you the recipe for gondrebap' = 곤드레밥 조리법을 드리다"},
+     {type:"mc-match",q:"'Gondre is rich in vitamins A and C.'에서 rich in의 뜻은?",
+      opts:["~이 부유한","~이 풍부한","~이 비싼","~이 유명한"],ans:1,
+      fb:"'rich in ~' = ~이 풍부한. 'Gondre is rich in vitamins' = 곤드레는 비타민이 풍부하다"},
+     {type:"fill",q:"나는 ~인지 궁금하다.",sent:"I wonder ________ I could buy some gondre here.",ans:"if",
+      fb:"'I wonder if + 주어+동사' = ~인지 궁금하다"},
+     {type:"mc-match",q:"'It's also good for your health.'에서 also의 기능은?",
+      opts:["강조","추가 정보 제시","대조","이유 설명"],ans:1,
+      fb:"also = 또한, 게다가 — 앞 내용(맛있다)에 추가 정보(건강에도 좋다)를 더하는 역할"},
+     {type:"mc-match",q:"W가 M에게 마지막으로 한 요청은?",
+      opts:["계산서를 다시 가져다 달라","곤드레밥 조리법을 달라","곤드레 나물을 달라","식당을 추천해 달라"],ans:1,
+      fb:"'Do you want me to give you the recipe for gondrebap?' → 'Yes, that'd be great.'"},
+     {type:"fill",q:"그러면 좋겠어요.",sent:"Yes, ________'d be great.",ans:"that",
+      fb:"'That'd be great.' = 'That would be great.' (그러면 정말 좋겠어요)"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+      chips:["Yes, that'd be great.","I wonder if I could buy some gondre here.","Gondre is rich in vitamins A and C. It also digests well.","Do you want me to give you the recipe for gondrebap?"],
+      ans:[1,2,3,0],fb:"궁금증 → 곤드레 정보 → 조리법 제안 → 수락 순서"},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+      ins:"It's also good for your health.",
+      lines:["W: I liked the gondrebap very much.","M: Thanks.","M: Yes. Gondre is rich in vitamins A and C. It also digests well.","W: Good. I wonder if I could buy some gondre here."],
+      pos:1,exp:"맛있다는 말 다음에 건강에도 좋다는 추가 정보가 오는 게 자연스러워요."},
+   ],
+   lines:[
+     {sp:"W",text:"Can I have the bill, please?"},
+     {sp:"M",text:"Here you are. Did you enjoy the meal?"},
+     {sp:"W",text:"It was great. I liked the gondrebap very much."},
+     {sp:"M",text:"Thanks. It's also good for your health."},
+     {sp:"W",text:"Oh, really?"},
+     {sp:"M",text:"Yes. Gondre is rich in vitamins A and C. It also digests well."},
+     {sp:"W",text:"Good. I wonder if I could buy some gondre here."},
+     {sp:"M",text:"Sure. Do you want me to give you the recipe for gondrebap?"},
+     {sp:"W",text:"Yes, that'd be great."},
+   ]},
+  {title:"대화 3 — Listen More 4.3 (우유 유통기한)",
+   keyExpr:"I wonder if ~ / good until ~ / best-before date",keyMeaning:"~인지 궁금하다 / ~까지 유효한 / 유통 기한",
+   keyUsage:"best-before date(품질 유지 기한) vs use-by date(섭취 기한). good until = ~까지 먹을 수 있는. by = ~까지(완료)",
+   similar:[
+     {en:"I wonder if there's one that lasts longer.",kr:"더 오래 가는 것이 있는지 궁금해요."},
+     {en:"You should drink it by June 7.",kr:"6월 7일까지 마셔야 해요."},
+     {en:"This one is good until June 11.",kr:"이것은 6월 11일까지 유효해요."},
+     {en:"Can you help me with this milk?",kr:"이 우유 좀 도와주실 수 있나요?"},
+   ],
+   wrong:{en:"This milk is good by June 11.",kr:"이 우유는 6월 11일까지 유효해요.",exp:"'good until June 11(O)' — until은 상태 지속. 'by'는 행위 완료 기한. 'drink it by(O)' / 'good until(O)'"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>전치사가 틀린 것</b>을 고르세요.",tag:"⚠️ by vs until",
+      opts:["You should drink it by June 7.","This one is good until June 11.","I wonder if there's one that lasts longer.","Can you help me with this milk?","This milk is good by June 11."],wrongIdx:4,
+      fb:"'good until(O)' — until은 상태 지속. 'good by(X)'. 마시는 행위의 기한은 'drink by(O)'"},
+     {type:"mc-match",q:"'best-before date'와 가장 비슷한 표현은?",tag:"⚠️ 유사표현",
+      opts:["use-by date","expiration date","sell-by date","manufacture date"],ans:1,
+      fb:"'expiration date' = 만료일 (가장 유사). 'use-by date'는 섭취 기한(더 엄격), 'sell-by date'는 판매 기한"},
+     {type:"fill",q:"유통 기한을 읽어주세요.",sent:"Read me the ________, please.",ans:"date",
+      fb:"'Read me the date' = 날짜를 읽어주세요 (best-before date의 날짜)"},
+     {type:"mc-match",q:"W가 안경을 안 가져온 이유에서 알 수 있는 것은?",tag:"⚠️ 추론",
+      opts:["W는 시력이 나쁘다","W는 영어를 못 읽는다","B가 친절하다","날짜가 작게 써있다"],ans:0,
+      fb:"'I forgot my glasses.' — 글자를 읽으려면 안경이 필요 → 시력이 나쁨을 추론"},
+     {type:"fill",q:"더 오래 가는 것이 있는지 궁금해요.",sent:"I wonder if there's one that ________ longer.",ans:"lasts",
+      fb:"'last' = 지속되다. 'one that lasts longer' = 더 오래 지속되는 것"},
+     {type:"mc-match",q:"처음 우유의 유통기한은?",
+      opts:["6월 7일","6월 11일","6월 1일","6월 17일"],ans:0,
+      fb:"'You should drink it by June 7.' — 첫 번째 우유는 6월 7일까지"},
+     {type:"mc-match",q:"'I'll take that one.'에서 take의 뜻은?",
+      opts:["가져가다","데려가다","사다","선택하다"],ans:2,
+      fb:"'I'll take that one.' = 그걸로 살게요. 여기서 take = buy(사다)"},
+     {type:"fill",q:"그걸 살게요.",sent:"I'll ________ that one.",ans:"take",
+      fb:"'I'll take that one.' = 그걸로 살게요 (= I'll buy that one.)"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+      chips:["I'll take that one. Thank you very much.","Excuse me. Can you help me with this milk?","This one is good until June 11.","That's too soon. I wonder if there's one that lasts longer."],
+      ans:[1,3,2,0],fb:"도움 요청 → 유통기한 너무 짧음 → 더 오래가는 것 → 구매 결정 순서"},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+      ins:"Oh, do you want me to tell you the best-before date?",
+      lines:["W: Excuse me. Can you help me with this milk?","B: Sure. What is it?","W: Read me the date, please.","B: Let me see. You should drink it by June 7."],
+      pos:1,exp:"W가 도움을 요청한 뒤, B가 어떤 도움인지 파악하려 '유통기한을 읽어드릴까요?'라고 묻는 게 자연스러워요."},
+   ],
+   lines:[
+     {sp:"W",text:"Excuse me. Can you help me with this milk?"},
+     {sp:"B",text:"Sure. What is it?"},
+     {sp:"W",text:"Read me the date, please."},
+     {sp:"B",text:"Oh, do you want me to tell you the best-before date?"},
+     {sp:"W",text:"Yes, I forgot my glasses."},
+     {sp:"B",text:"Let me see. You should drink it by June 7."},
+     {sp:"W",text:"That's too soon. I wonder if there's one that lasts longer."},
+     {sp:"B",text:"Wait. (Pause) I found one. This one is good until June 11."},
+     {sp:"W",text:"Oh, I'll take that one. Thank you very much."},
+     {sp:"B",text:"You're welcome."},
+   ]},
+];
+
+/* ══ L4 대화문 B (4.6 / 4.7) ══ */
+const L4_DLG_B=[
+  {title:"대화 4 — Wrap Up 4.6 (라면 / How nice!)",
+   keyExpr:"Do you want me to ~? / How nice! / That'd be great.",keyMeaning:"내가 ~해줄까? / 정말 좋겠다! / 그러면 좋겠어.",
+   keyUsage:"'How + 형용사/부사 + (주어+동사)!' = 감탄문. How nice! = How nice you are!에서 주어+동사 생략",
+   similar:[
+     {en:"I'll make ramyeon for you.",kr:"내가 라면 만들어 줄게."},
+     {en:"How nice!",kr:"정말 좋겠다! / 정말 친절하구나!"},
+     {en:"Do you want me to add an egg?",kr:"달걀을 넣어드릴까요?"},
+     {en:"That'd be great.",kr:"그러면 좋겠어요."},
+   ],
+   wrong:{en:"How nice you!",kr:"정말 친절하구나!",exp:"'How nice you are!(O)' — 감탄문에서 주어+be동사 생략 가능하지만, 동사 없이 'How nice you(X)'는 틀려요!"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>어법이 틀린 것</b>을 고르세요.",tag:"⚠️ How 감탄문",
+      opts:["How nice!","How nice you are!","That'd be great.","Do you want me to add an egg?","How nice you!"],wrongIdx:4,
+      fb:"'How nice you!(X)' — 주어만 남기고 be동사를 뺄 수 없어요. 'How nice!(O)' 또는 'How nice you are!(O)'"},
+     {type:"mc-match",q:"'How nice!'와 같은 감탄 표현은?",tag:"⚠️ 감탄문 비교",
+      opts:["What a nice!","How nice you are!","What nice!","How a nice!"],ans:1,
+      fb:"'How + 형용사 + 주어+동사!' 구조. 'What + (a/an) + 형용사 + 명사 + 주어+동사!'와 구별!"},
+     {type:"fill",q:"G가 배고프다고 말한 표현.",sent:"I ________ hungry.",ans:"feel",
+      fb:"'feel + 형용사' = ~하게 느끼다. 'I feel hungry.' = 배가 고파."},
+     {type:"mc-match",q:"B가 G에게 제안한 것은?",
+      opts:["피자 만들어 주기","라면 만들어 주기","달걀 볶음 만들어 주기","국 끓여 주기"],ans:1,
+      fb:"'I'll make ramyeon for you.' — 라면을 만들어 주겠다"},
+     {type:"fill",q:"달걀을 넣어드릴까요?",sent:"Do you want me to ________ an egg?",ans:"add",
+      fb:"'add an egg' = 달걀을 넣다. 'Do you want me to + 동사원형'"},
+     {type:"mc-match",q:"'That'd be great.'에서 'd는 무엇의 축약인가요?",
+      opts:["did","would","had","could"],ans:1,
+      fb:"'That'd = That would' — 'That would be great.' = 그러면 정말 좋겠어요."},
+     {type:"mc-match",q:"'make A for B'의 뜻은?",
+      opts:["A를 B에게 팔다","B를 위해 A를 만들다","A와 B를 섞다","B에게 A를 가져다주다"],ans:1,
+      fb:"'make ramyeon for you' = 너를 위해 라면을 만들다 (make A for B = B를 위해 A를 만들다)"},
+     {type:"fill",q:"그러면 좋겠어.",sent:"________'d be great.",ans:"That",
+      fb:"'That'd be great.' = That would be great. (그러면 정말 좋겠어요)"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+      chips:["That'd be great.","I feel hungry.","How nice!","I'll make ramyeon for you."],
+      ans:[1,3,2,0],fb:"배고프다 → 라면 제안 → How nice! 감탄 → 달걀 제안 수락 순서"},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+      ins:"Do you want me to add an egg?",
+      lines:["G: I feel hungry.","B: I'll make ramyeon for you.","G: How nice!","G: That'd be great."],
+      pos:2,exp:"라면 만들어 준다고 하고 → 감탄 반응 다음에 → 달걀을 넣어드릴까요? 추가 제안이 자연스러워요."},
+   ],
+   lines:[
+     {sp:"G",text:"I feel hungry."},
+     {sp:"B",text:"I'll make ramyeon for you."},
+     {sp:"G",text:"How nice!"},
+     {sp:"B",text:"Do you want me to add an egg?"},
+     {sp:"G",text:"That'd be great."},
+   ]},
+  {title:"대화 5 — Wrap Up 4.7 (가방 구경 / Why don't we ~?)",
+   keyExpr:"Why don't we ~? / I wonder how much ~",keyMeaning:"우리 ~하는 게 어때? / 얼마인지 궁금하다",
+   keyUsage:"'Why don't we ~?' = 함께 하자는 제안. 'I wonder + 의문사 + 주어 + 동사' = ~인지 궁금하다",
+   similar:[
+     {en:"Why don't we go in and check?",kr:"우리 들어가서 확인해 보는 게 어때?"},
+     {en:"I wonder how much it is.",kr:"얼마인지 궁금해."},
+     {en:"Look at that cute bag.",kr:"저 귀여운 가방 좀 봐."},
+     {en:"I didn't say I will buy it for you.",kr:"내가 사준다고 하지 않았어."},
+   ],
+   wrong:{en:"I wonder how much is it.",kr:"얼마인지 궁금해.",exp:"간접의문문은 의문사 + 주어 + 동사 순서! 'how much it is(O)' / 'how much is it(X)'"},
+   qs:[
+     {type:"mc-wrong",q:"다음 중 <b>어법이 틀린 것</b>을 고르세요.",tag:"⚠️ 간접의문문 어순",
+      opts:["Why don't we go in and check?","I wonder how much it is.","Look at that cute bag.","I didn't say I will buy it for you.","I wonder how much is it."],wrongIdx:4,
+      fb:"간접의문문: 의문사 + 주어 + 동사 순서! 'how much it is(O)' / 'how much is it(X)'"},
+     {type:"mc-match",q:"'Why don't we go in and check?'와 바꿔 쓸 수 없는 것은?",tag:"⚠️ 제안 표현",
+      opts:["Shall we go in and check?","How about going in and checking?","Let's go in and check.","Why don't you go in and check?"],ans:3,
+      fb:"'Why don't you ~?' = 너(상대방)에게 권유. 'Why don't we ~?'는 함께하자는 제안 — 대상이 달라요!"},
+     {type:"fill",q:"저 귀여운 가방 좀 봐.",sent:"________ at that cute bag.",ans:"Look",
+      fb:"'Look at ~' = ~을 보다 (명령문)"},
+     {type:"fill",q:"얼마인지 궁금해. (간접의문문)",sent:"I wonder how much ________ is.",ans:"it",
+      fb:"간접의문문: how much + 주어(it) + 동사(is) — 어순 주의!"},
+     {type:"mc-match",q:"M(아빠)이 진짜로 한 말의 의미는?",tag:"⚠️ 추론",
+      opts:["가방을 사주겠다","가방을 사주지 않겠다","가격만 물어보겠다","가방이 마음에 안 든다"],ans:2,
+      fb:"'I didn't say I will buy it for you. We're just asking the price.' — 가격만 확인하겠다는 뜻"},
+     {type:"mc-match",q:"'buy A for B'의 뜻은?",
+      opts:["A를 B에게 사다 주다","B에게서 A를 사다","A와 B를 함께 사다","A 대신 B를 사다"],ans:0,
+      fb:"'buy it for you' = 너에게(너를 위해) 그것을 사다 주다 (buy A for B = B를 위해 A를 사다)"},
+     {type:"fill",q:"우리 들어가서 확인해 보는 게 어때?",sent:"Why don't we go in and ________?",ans:"check",
+      fb:"'Why don't we + 동사원형?' — go in and check"},
+     {type:"mc-match",q:"G가 'Really? Thanks, Dad.'라고 한 이유는?",tag:"⚠️ 대화 맥락",
+      opts:["아빠가 가방을 사준다고 해서","아빠가 들어가서 확인해 보자고 해서","가방이 예뻐서","가격이 저렴해서"],ans:1,
+      fb:"'Why don't we go in and check?' → G가 아빠 제안에 감사한 것. 사준다고 한 게 아님!"},
+     {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+      chips:["I wonder how much it is.","Why don't we go in and check?","Look at that cute bag.","I didn't say I will buy it for you."],
+      ans:[2,0,1,3],fb:"가방 발견 → 가격 궁금 → 들어가 보자 제안 → 사준다는 게 아님 설명 순서"},
+     {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+      ins:"Really? Thanks, Dad.",
+      lines:["G: Dad, look at that cute bag. I wonder how much it is.","M: Why don't we go in and check?","M: I didn't say I will buy it for you. We're just asking the price.","G: Of course."],
+      pos:1,exp:"아빠가 들어가서 확인하자고 제안한 직후, G가 감사 표현하는 게 자연스러워요."},
+   ],
+   lines:[
+     {sp:"G",text:"Dad, look at that cute bag. I wonder how much it is."},
+     {sp:"M",text:"Why don't we go in and check?"},
+     {sp:"G",text:"Really? Thanks, Dad."},
+     {sp:"M",text:"I didn't say I will buy it for you. We're just asking the price."},
+     {sp:"G",text:"Of course."},
+   ]},
+];
+
+/* ══ BUILD FUNCTIONS ══ */
+function buildVocabBlank(vocab,lessonLabel){
+  const app=document.getElementById('app');
+  let h=`<div class="desc">💡 <b>${lessonLabel} 부분빈칸</b> — 힌트를 보고 영어 단어를 입력하세요. Enter로 채점, 정답 보기 버튼으로 확인!</div>`;
+  const byLesson=[...new Set(vocab.map(v=>v.lesson))];
+  byLesson.forEach(les=>{
+    h+=`<div class="glabel">${les}</div>`;
+    vocab.filter(v=>v.lesson===les).forEach((v,i)=>{
+      const idx=vocab.indexOf(v);
+      const mtClass=['mt0','mt1','mt2'][v.mode];
+      const mtLabel=['모음숨김','뒷부분','가운데'][v.mode];
+      let polyHtml='';
+      if(v.poly){
+        polyHtml=`<div class="poly-box"><div class="poly-title">${v.poly.title}</div>`;
+        v.poly.rows.forEach(r=>{polyHtml+=`<div class="poly-row"><span class="poly-num">${r.n}</span><span>${r.m} — </span><span class="poly-ex">${r.ex}</span></div>`;});
+        if(v.poly.note)polyHtml+=`<div class="poly-note">${v.poly.note}</div>`;
+        polyHtml+=`</div>`;
+      }
+      _vMap[idx]=v.en;
+      h+=`<div class="vocab-card" id="vc${idx}">
+        ${polyHtml}
+        <div class="vc-top">
+          <span class="vc-num">${idx+1}</span>
+          <span class="${les==='L3'?'l3b':'l4b'}">${les}</span>
+          <span class="vc-blank">${v.blank}</span>
+          <span class="vc-kr">${v.kr}</span>
+          <span class="${mtClass}">${mtLabel}</span>
+        </div>
+        <div class="vc-inp-row">
+          <input class="vc-inp" id="vi${idx}" placeholder="영어 단어 입력..." onkeydown="if(event.key==='Enter')checkVI(${idx})">
+          <button class="mini-btn" onclick="checkVI(${idx})">확인</button>
+        </div>
+        <div class="vc-fb" id="vf${idx}"></div>
+        <div class="btn-row">
+          <button class="mini-btn" onclick="speak('${v.en.replace(/'/g,"\\'")}')">🔊 듣기</button>
+          <button class="mini-btn" onclick="toggleAns('va${idx}')">정답 보기</button>
+        </div>
+        <div class="ans-r" id="va${idx}">${v.en} — ${v.kr}</div>
+      </div>`;
+    });
+  });
+  const wrongIds=[];
+  h+=`<div class="check-bar">
+    <button class="cb cb-g" onclick="checkAllVI()">✅ 전체 채점</button>
+    <button class="cb cb-r" id="cbRetry" disabled onclick="retryWrongVI()">🔄 틀린 것만</button>
+    <button class="cb cb-s" onclick="resetVI()">초기화</button>
+    <span class="result-pill" id="rpill"></span>
+  </div>`;
+  app.innerHTML=h;
+}
+function buildL3Blank(){buildVocabBlank(VOCAB_L3,'L3');}
+function buildL4Blank(){buildVocabBlank(VOCAB_L4,'L4');}
+
+function checkVI(idx){
+  const ans=_vMap[idx];if(!ans)return;
+  const inp=document.getElementById('vi'+idx);
+  const fb=document.getElementById('vf'+idx);
+  if(!inp||!fb)return;
+  const ok=norm(inp.value)===norm(ans);
+  inp.className='vc-inp '+(ok?'ok':'no');
+  fb.className='vc-fb '+(ok?'ok':'no');
+  fb.textContent=ok?'✅ 정답!':'❌ 오답 — 정답: '+ans;
+}
+let _wrongVI=[];
+function checkAllVI(){
+  _wrongVI=[];
+  Object.keys(_vMap).forEach(idxStr=>{
+    const idx=parseInt(idxStr);
+    const ans=_vMap[idx];
+    const inp=document.getElementById('vi'+idx);
+    const fb=document.getElementById('vf'+idx);
+    if(!inp)return;
+    const ok=norm(inp.value)===norm(ans);
+    inp.className='vc-inp '+(ok?'ok':(inp.value.trim()?'no':''));
+    fb.className='vc-fb '+(ok?'ok':(inp.value.trim()?'no':''));
+    if(ok){fb.textContent='✅ 정답!';}
+    else if(inp.value.trim()){fb.textContent='❌ 정답: '+ans;_wrongVI.push(idx);}
+  });
+  const pill=document.getElementById('rpill');
+  const total=Object.keys(_vMap).length;
+  const done=Object.keys(_vMap).filter(i=>{const el=document.getElementById('vi'+i);return el&&el.value.trim();}).length;
+  const okCnt=done-_wrongVI.length;
+  pill.textContent=`${okCnt}/${done} 정답`;
+  pill.className='result-pill '+(_wrongVI.length===0&&done>0?'pill-ok':'pill-bad');
+  pill.style.display='inline-block';
+  const rb=document.getElementById('cbRetry');
+  if(rb)rb.disabled=_wrongVI.length===0;
+}
+function retryWrongVI(){
+  _wrongVI.forEach(idx=>{
+    const inp=document.getElementById('vi'+idx);
+    const fb=document.getElementById('vf'+idx);
+    if(inp){inp.value='';inp.className='vc-inp';}
+    if(fb){fb.className='vc-fb';fb.textContent='';}
+  });
+  _wrongVI=[];
+  const rb=document.getElementById('cbRetry');if(rb)rb.disabled=true;
+}
+function resetVI(){
+  Object.keys(_vMap).forEach(i=>{
+    const inp=document.getElementById('vi'+i);const fb=document.getElementById('vf'+i);
+    if(inp){inp.value='';inp.className='vc-inp';}
+    if(fb){fb.className='vc-fb';fb.textContent='';}
+  });
+  const pill=document.getElementById('rpill');if(pill)pill.style.display='none';
+  const rb=document.getElementById('cbRetry');if(rb)rb.disabled=true;
+}
+
+/* ══ SENT BLANK ══ */
+function buildSentBlank(vocab,lessonLabel){
+  const app=document.getElementById('app');
+  let h=`<div class="desc">💡 <b>${lessonLabel} 본문빈칸</b> — 한국어 뜻을 보고 문장 속 빈칸을 채우세요.</div>`;
+  vocab.forEach((v,idx)=>{
+    _sMap[idx]=v.sent.match(/\[(.+?)\]/)?.[1]||'';
+    const sentDisplay=v.sent.replace(/\[(.+?)\]/,`<input class="inline-inp" id="si${idx}" placeholder="?" onkeydown="if(event.key==='Enter')checkSI(${idx})">`);
+    h+=`<div class="vocab-card">
+      <div class="sent-box">${sentDisplay}<span class="sk">${v.sentKr}</span></div>
+      <div class="btn-row">
+        <button class="mini-btn" onclick="checkSI(${idx})">확인</button>
+        <button class="mini-btn" onclick="toggleAns('sa${idx}')">정답 보기</button>
+        <button class="mini-btn" onclick="speak('${v.sent.replace(/\[|\]/g,'').replace(/'/g,"\\'")}')">🔊 듣기</button>
+      </div>
+      <div class="vc-fb" id="sf${idx}"></div>
+      <div class="ans-r" id="sa${idx}">${v.sent.match(/\[(.+?)\]/)?.[1]||''}</div>
+    </div>`;
+  });
+  const answers=vocab.map(v=>v.sent.match(/\[(.+?)\]/)?.[1]||'');
+  h+=`<div class="check-bar">
+    <button class="cb cb-g" onclick="checkAllSI()">✅ 전체 채점</button>
+    <button class="cb cb-r" id="sbRetry" disabled onclick="retryWrongSI()">🔄 틀린 것만</button>
+    <button class="cb cb-s" onclick="resetSI()">초기화</button>
+    <span class="result-pill" id="spill"></span>
+  </div>`;
+  app.innerHTML=h;
+}
+function buildL3Sent(){buildSentBlank(VOCAB_L3,'L3');}
+function buildL4Sent(){buildSentBlank(VOCAB_L4,'L4');}
+
+function checkSI(idx){
+  const ans=_sMap[idx];if(ans===undefined)return;
+  const inp=document.getElementById('si'+idx);const fb=document.getElementById('sf'+idx);
+  if(!inp||!fb)return;
+  const ok=norm(inp.value)===norm(ans);
+  inp.className='inline-inp '+(ok?'ok':'no');
+  fb.className='vc-fb '+(ok?'ok':'no');
+  fb.textContent=ok?'✅ 정답!':'❌ 정답: '+ans;
+}
+let _wrongSI=[];
+function checkAllSI(){
+  _wrongSI=[];
+  Object.keys(_sMap).forEach(idxStr=>{
+    const idx=parseInt(idxStr);
+    const ans=_sMap[idx];
+    const inp=document.getElementById('si'+idx);const fb=document.getElementById('sf'+idx);
+    if(!inp)return;
+    const ok=norm(inp.value)===norm(ans);
+    inp.className='inline-inp '+(ok?'ok':(inp.value.trim()?'no':''));
+    fb.className='vc-fb '+(ok?'ok':(inp.value.trim()?'no':''));
+    if(ok){fb.textContent='✅ 정답!';}
+    else if(inp.value.trim()){fb.textContent='❌ 정답: '+ans;_wrongSI.push(idx);}
+  });
+  const done=Object.keys(_sMap).filter(i=>{const el=document.getElementById('si'+i);return el&&el.value.trim();}).length;
+  const okCnt=done-_wrongSI.length;
+  const pill=document.getElementById('spill');
+  pill.textContent=`${okCnt}/${done} 정답`;pill.className='result-pill '+(_wrongSI.length===0&&done>0?'pill-ok':'pill-bad');pill.style.display='inline-block';
+  const rb=document.getElementById('sbRetry');if(rb)rb.disabled=_wrongSI.length===0;
+}
+function retryWrongSI(){
+  _wrongSI.forEach(idx=>{const inp=document.getElementById('si'+idx);const fb=document.getElementById('sf'+idx);if(inp){inp.value='';inp.className='inline-inp';}if(fb){fb.className='vc-fb';fb.textContent='';}});
+  _wrongSI=[];const rb=document.getElementById('sbRetry');if(rb)rb.disabled=true;
+}
+function resetSI(){
+  Object.keys(_sMap).forEach(i=>{const inp=document.getElementById('si'+i);const fb=document.getElementById('sf'+i);if(inp){inp.value='';inp.className='inline-inp';}if(fb){fb.className='vc-fb';fb.textContent='';}});
+  const pill=document.getElementById('spill');if(pill)pill.style.display='none';
+  const rb=document.getElementById('sbRetry');if(rb)rb.disabled=true;
+}
+
+/* ══ DIALOGUE ══ */
+const _qMap={};  // qid -> q 객체 저장소
+
+function buildDlg(dlgData,lessonLabel){
+  const app=document.getElementById('app');
+  let h=`<div class="desc">💡 <b>${lessonLabel} 대화문</b> — 핵심 표현을 읽고 문제를 풀어보세요. 모든 정답은 클릭 후 확인!</div>`;
+  dlgData.forEach((dlg,di)=>{
+    const spClass={W:'spW',B:'spB',G:'spG',B1:'spB1',B2:'spB2',A:'spA',Leah:'spLeah'};
+    let linesH=dlg.lines.map(l=>`
+      <div class="dlg-line">
+        <span class="sp ${spClass[l.sp]||'spA'}">${l.sp}</span>
+        <span class="dl-text">${l.text}</span>
+      </div>`).join('');
+    linesH+=`<div class="btn-row"><button class="mini-btn" onclick="speakAll(${di},'${lessonLabel}')">🔊 전체 듣기</button></div>`;
+
+    let simH=dlg.similar.map(s=>`<div class="ks-item"><span class="poly-ex">${s.en}</span><div class="ks-kr">${s.kr}</div></div>`).join('');
+
+    let qH='';
+    dlg.qs.forEach((q,qi)=>{
+      const qid=`${lessonLabel}_${di}_${qi}`;
+      _qMap[qid]=q;  // 저장
+      qH+=`<div class="q-card">`;
+      if(q.tag)qH+=`<span class="q-tag warn">${q.tag}</span>`;
+      else qH+=`<span class="q-tag">Q${qi+1}</span>`;
+      qH+=`<div class="q-text">${q.q}</div>`;
+
+      if(q.type==='mc-wrong'||q.type==='mc-match'||q.type==='mc-similar'){
+        const opts=q.opts||[];
+        qH+=`<div class="mc-opts">`;
+        opts.forEach((opt,oi)=>{
+          const safeOpt=opt.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          qH+=`<div class="mc-opt" id="mo_${qid}_${oi}" onclick="ansMC('${qid}',${oi})"><span class="on">${'①②③④⑤'[oi]}</span>${safeOpt}</div>`;
+        });
+        qH+=`</div>`;
+        qH+=`<div class="q-fb" id="qf_${qid}"></div>`;
+        qH+=`<div class="btn-row"><button class="mini-btn" onclick="toggleAns('qa_${qid}')">정답 보기</button></div>`;
+        const correctAns=q.type==='mc-wrong'?(q.opts&&q.wrongIdx!==undefined?q.opts[q.wrongIdx]:''):( q.opts?q.opts[q.ans]:'');
+        qH+=`<div class="ans-r" id="qa_${qid}">정답: ${correctAns}<br>${q.fb}</div>`;
+      }
+      else if(q.type==='fill'){
+        const safeAns=(q.ans||'').replace(/'/g,'&#39;');
+        qH+=`<div class="sent-box" style="margin-bottom:7px">${q.sent.replace('________',`<input class="inline-inp" id="fi_${qid}" placeholder="?" onkeydown="if(event.key==='Enter')checkFill('${qid}')" style="min-width:100px">`)}</div>`;
+        qH+=`<div class="btn-row"><button class="mini-btn" onclick="checkFill('${qid}')">확인</button><button class="mini-btn" onclick="toggleAns('qa_${qid}')">정답 보기</button></div>`;
+        qH+=`<div class="vc-fb" id="qf_${qid}"></div>`;
+        qH+=`<div class="ans-r" id="qa_${qid}">정답: ${q.ans}<br>${q.fb}</div>`;
+      }
+      else if(q.type==='order'){
+        const chips=q.chips;
+        qH+=`<div class="chip-pool" id="cp_${qid}">`;
+        chips.forEach((c,ci)=>{
+          const safeC=c.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          qH+=`<div class="ord-chip" id="oc_${qid}_${ci}" onclick="addOrdChip('${qid}',${ci})">${safeC}</div>`;
+        });
+        qH+=`</div>`;
+        qH+=`<div class="ord-slots" id="os_${qid}"><span style="color:var(--muted);font-size:12px">여기에 순서대로 클릭하세요</span></div>`;
+        qH+=`<div class="btn-row"><button class="mini-btn" onclick="checkOrder('${qid}')">확인</button><button class="mini-btn" onclick="resetOrder('${qid}',${chips.length})">초기화</button><button class="mini-btn" onclick="toggleAns('qa_${qid}')">정답 보기</button></div>`;
+        qH+=`<div class="q-fb" id="qf_${qid}"></div>`;
+        qH+=`<div class="ans-r" id="qa_${qid}">정답 순서: ${q.ans.map(i=>chips[i]).join(' → ')}<br>${q.fb}</div>`;
+      }
+      else if(q.type==='insert'){
+        qH+=`<div class="ins-box"><div class="ilab">삽입할 문장</div><div class="itext">${q.ins}</div></div>`;
+        // q.lines에서 {INSERT} 제외하고 번호 표시
+        const realLines=q.lines.filter(l=>l!=='{INSERT}');
+        realLines.forEach((l,li)=>{
+          qH+=`<div style="font-size:13px;padding:3px 0;font-family:'Lora',serif">${li+1}. ${l}</div>`;
+        });
+        qH+=`<div style="margin-top:8px;font-size:12px;color:var(--muted);font-weight:700">삽입 위치 선택 (몇 번 뒤):</div>`;
+        qH+=`<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:5px">`;
+        // 0번 앞 포함, 각 줄 뒤마다 버튼
+        for(let p=0;p<=realLines.length;p++){
+          const label=p===0?'맨 앞':`${p}번 뒤`;
+          qH+=`<button class="mini-btn" id="ib_${qid}_${p}" onclick="checkInsert('${qid}',${p})">${label}</button>`;
+        }
+        qH+=`</div>`;
+        qH+=`<div class="q-fb" id="qf_${qid}"></div>`;
+        qH+=`<div class="btn-row"><button class="mini-btn" onclick="toggleAns('qa_${qid}')">정답 보기</button></div>`;
+        qH+=`<div class="ans-r" id="qa_${qid}">정답: ${q.pos===0?'맨 앞':q.pos+'번 뒤'}<br>${q.exp}</div>`;
+      }
+      qH+=`</div>`;
+    });
+
+    h+=`<div class="dlg-sec">
+      <div class="dlg-title">📝 ${dlg.title}</div>
+      <div class="key-box">
+        <div class="key-main">${dlg.keyExpr}</div>
+        <div class="key-meaning">${dlg.keyMeaning}</div>
+        <div class="key-usage">${dlg.keyUsage}</div>
+        <div class="key-similar">
+          <div class="ks-title">바꿔 쓸 수 있는 표현</div>
+          ${simH}
+        </div>
+      </div>
+      <div class="warn-box">
+        <div class="wt">⚠️ 함정 (틀린 표현)</div>
+        <div class="wr"><span class="wbad">${dlg.wrong.en}</span> → <span class="wgood">${dlg.wrong.exp}</span></div>
+      </div>
+      <div class="dlg-lines">${linesH}</div>
+      ${qH}
+    </div>`;
+  });
+  app.innerHTML=h;
+}
+function buildL3DlgA(){buildDlg(L3_DLG_A,'L3A');}
+function buildL3DlgB(){buildDlg(L3_DLG_B,'L3B');}
+function buildL4DlgA(){buildDlg(L4_DLG_A,'L4A');}
+function buildL4DlgB(){buildDlg(L4_DLG_B,'L4B');}
+
+/* ══ MC ══ */
+function ansMC(qid,sel){
+  const q=_qMap[qid];if(!q)return;
+  let ok=false;
+  if(q.type==='mc-wrong'){
+    ok=(sel===q.wrongIdx);
+  } else {
+    ok=(sel===q.ans);
+  }
+  const allOpts=document.querySelectorAll(`[id^="mo_${qid}_"]`);
+  allOpts.forEach((el,i)=>{
+    el.classList.remove('ok','no','rv');
+    if(i===sel)el.classList.add(ok?'ok':'no');
+    if(!ok){
+      const ci=q.type==='mc-wrong'?q.wrongIdx:q.ans;
+      if(i===ci)el.classList.add('rv');
+    }
+  });
+  const fb=document.getElementById('qf_'+qid);
+  if(fb){fb.className='q-fb show '+(ok?'ok':'no');fb.textContent=(ok?'✅ ':'❌ ')+q.fb;}
+}
+
+/* ══ FILL ══ */
+function checkFill(qid){
+  const q=_qMap[qid];if(!q)return;
+  const inp=document.getElementById('fi_'+qid);const fb=document.getElementById('qf_'+qid);
+  if(!inp||!fb)return;
+  const ok=norm(inp.value)===norm(q.ans);
+  inp.className='inline-inp '+(ok?'ok':'no');
+  fb.className='vc-fb '+(ok?'ok':'no');
+  fb.textContent=ok?'✅ 정답!':'❌ 정답: '+q.ans;
+}
+
+/* ══ ORDER ══ */
+const ordPlaced={};
+function addOrdChip(qid,ci){
+  const chip=document.getElementById('oc_'+qid+'_'+ci);
+  if(!chip||chip.classList.contains('used'))return;
+  chip.classList.add('used');
+  if(!ordPlaced[qid])ordPlaced[qid]=[];
+  ordPlaced[qid].push(ci);
+  const slots=document.getElementById('os_'+qid);
+  if(!slots)return;
+  const hint=slots.querySelector('span');
+  if(hint)hint.remove();
+  const s=document.createElement('div');
+  s.className='ord-slot';
+  s.textContent=chip.textContent;
+  s.onclick=function(){
+    const idx=ordPlaced[qid].indexOf(ci);
+    if(idx>-1)ordPlaced[qid].splice(idx,1);
+    s.remove();
+    chip.classList.remove('used');
+    if(slots.children.length===0)slots.innerHTML='<span style="color:var(--muted);font-size:12px">여기에 순서대로 클릭하세요</span>';
+  };
+  slots.appendChild(s);
+}
+function checkOrder(qid){
+  const q=_qMap[qid];if(!q)return;
+  const placed=ordPlaced[qid]||[];
+  const ok=placed.length===q.ans.length&&placed.every((v,i)=>v===q.ans[i]);
+  const fb=document.getElementById('qf_'+qid);
+  if(fb){fb.className='q-fb show '+(ok?'ok':'no');fb.textContent=ok?'✅ 정답! — '+q.fb:'❌ 순서를 다시 확인해 보세요. — '+q.fb;}
+}
+function resetOrder(qid,len){
+  ordPlaced[qid]=[];
+  const slots=document.getElementById('os_'+qid);
+  if(slots)slots.innerHTML='<span style="color:var(--muted);font-size:12px">여기에 순서대로 클릭하세요</span>';
+  for(let i=0;i<len;i++){const c=document.getElementById(`oc_${qid}_${i}`);if(c)c.classList.remove('used');}
+  const fb=document.getElementById('qf_'+qid);if(fb){fb.className='q-fb';fb.textContent='';}
+}
+
+/* ══ INSERT ══ */
+function checkInsert(qid,sel){
+  const q=_qMap[qid];if(!q)return;
+  const ok=(sel===q.pos);
+  const fb=document.getElementById('qf_'+qid);
+  if(fb){fb.className='q-fb show '+(ok?'ok':'no');fb.textContent=(ok?'✅ 정답! — ':'❌ 오답 — ')+q.exp;}
+  document.querySelectorAll(`[id^="ib_${qid}_"]`).forEach(b=>{b.className='mini-btn';});
+  const btn=document.getElementById(`ib_${qid}_${sel}`);if(btn)btn.className='mini-btn '+(ok?'ok':'no');
+}
+
+/* ══ SPEAK ALL ══ */
+function speakAll(di,les){
+  const dlgArr=les==='L3A'?L3_DLG_A:les==='L3B'?L3_DLG_B:les==='L4A'?L4_DLG_A:L4_DLG_B;
+  const lines=dlgArr[di].lines;
+  let i=0;
+  function next(){if(i>=lines.length)return;const u=new SpeechSynthesisUtterance(lines[i].text);if(voice)u.voice=voice;u.lang='en-US';u.rate=.9;u.onend=()=>{i++;setTimeout(next,400);};speechSynthesis.cancel();speechSynthesis.speak(u);}
+  unlockTTS();next();
+}
+
+go(0);
+</script>
+</body>
+</html>
