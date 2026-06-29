@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>현재완료 뼈대노트 · 준티 잉글리쉬</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f4fa;--card:#fff;--card2:#eeecf7;--card3:#f8f7fd;
+  --purple:#5b4fa8;--purple-lt:#ece9f8;--purple-dk:#3b2f8a;
+  --green:#1a7a3c;--green-lt:#e8f5ec;
+  --amber:#e8a020;--amber-lt:#fef3dc;
+  --blue:#1a5c9e;--blue-lt:#e8f0fb;
+  --red:#c0392b;--red-lt:#fdecea;
+  --text:#1a1a2e;--muted:#6b6880;--border:#d8d4ee;
+  --ok:#1a7a3c;--ok-bg:#e8f5ec;--no:#c0392b;--no-bg:#fdecea;
+  --r:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:0 0 60px}
+.site-header{width:100%;max-width:740px;display:flex;justify-content:space-between;align-items:center;padding:12px 20px 10px;border-bottom:2px solid var(--border);margin-bottom:8px}
+.brand{font-size:13px;font-weight:900;color:var(--purple);display:flex;align-items:center;gap:8px}
+.music-btn{background:var(--purple-lt);border:2px solid var(--border);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:all .2s;flex-shrink:0;user-select:none}
+.music-btn:hover{background:var(--purple);transform:scale(1.1)}
+.music-btn.playing{background:var(--purple);animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.file-tag{font-size:11px;color:var(--muted);background:var(--card2);border-radius:6px;padding:3px 9px;font-family:monospace}
+.progress-wrap{width:100%;max-width:740px;padding:0 20px;margin-bottom:6px}
+.progress-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--purple),#9b8fdb);border-radius:3px;transition:width .4s}
+.nav-dots{display:flex;gap:7px;justify-content:center;margin-bottom:14px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .2s}
+.dot.active{background:var(--purple);transform:scale(1.3)}
+.page{display:none;width:100%;max-width:740px;padding:0 16px}
+.page.active{display:block;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--card);border-radius:var(--r);padding:22px 20px;margin-bottom:14px;border:1.5px solid var(--border);box-shadow:0 2px 8px rgba(91,79,168,.06)}
+.page-label{font-size:10px;font-weight:900;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.page-title{font-size:20px;font-weight:900;color:var(--purple-dk);margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.formula{border-radius:12px;padding:14px 18px;margin:10px 0;font-size:13px;line-height:2.1;border-left:5px solid var(--purple);background:var(--purple-lt)}
+.formula.green{border-left-color:var(--green);background:var(--green-lt)}
+.formula.amber{border-left-color:var(--amber);background:var(--amber-lt)}
+.formula.red{border-left-color:var(--red);background:var(--red-lt)}
+.formula.blue{border-left-color:var(--blue);background:var(--blue-lt)}
+.formula .f-label{font-size:10px;font-weight:900;color:var(--purple);display:block;margin-bottom:6px}
+.formula.green .f-label{color:var(--green)}.formula.amber .f-label{color:var(--amber)}.formula.red .f-label{color:var(--red)}.formula.blue .f-label{color:var(--blue)}
+.formula .key{font-size:15px;font-weight:900;color:var(--purple-dk);display:block;font-family:'Lora',serif}
+.formula .dim{font-size:12px;color:var(--muted);display:block;margin-top:3px}
+.formula .eq{font-size:11px;color:var(--muted);margin-top:4px;display:block;padding-top:4px;border-top:1px dashed var(--border)}
+.slot{display:inline-block;background:var(--purple);color:transparent;border-radius:6px;padding:2px 12px;font-size:14px;margin:0 2px;cursor:pointer;border:2px dashed rgba(255,255,255,.5);position:relative;transition:color .2s;min-width:50px;text-align:center;vertical-align:middle}
+.slot::before{content:'?';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#fff;font-weight:900;pointer-events:none}
+.slot.revealed{color:#fff;border-style:solid;border-color:transparent}
+.slot.revealed::before{display:none}
+.btn{display:inline-block;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:'Noto Sans KR',sans-serif;transition:all .15s}
+.btn-purple{background:var(--purple);color:#fff}.btn-purple:hover{background:var(--purple-dk)}
+.btn-green{background:var(--green);color:#fff}
+.btn-outline{background:transparent;color:var(--purple);border:2px solid var(--purple)}.btn-outline:hover{background:var(--purple-lt)}
+.btn-amber{background:var(--amber);color:#fff}
+.btn-sm{padding:6px 14px;font-size:12px}
+.page-nav{display:flex;justify-content:space-between;align-items:center;max-width:740px;width:100%;padding:12px 16px}
+.page-counter{font-size:12px;color:var(--muted);font-weight:700}
+
+/* TIMELINE */
+.tl-outer{position:relative;padding:30px 0;margin:16px 0}
+.tl-line{position:absolute;top:50%;left:0;right:0;height:3px;background:var(--border);border-radius:2px;transform:translateY(-50%)}
+.tl-fill{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--blue),var(--green),var(--amber),var(--purple));border-radius:2px;width:0;transition:width 1.4s ease}
+.tl-nodes{position:relative;display:flex;justify-content:space-between;z-index:2}
+.tl-node{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:90px}
+.tl-dot{width:26px;height:26px;border-radius:50%;background:var(--border);border:3px solid var(--card);transition:all .4s;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:900;flex-shrink:0}
+.tl-dot.lit-blue{background:var(--blue);box-shadow:0 0 0 5px rgba(26,92,158,.18)}
+.tl-dot.lit-green{background:var(--green);box-shadow:0 0 0 5px rgba(26,122,60,.18)}
+.tl-dot.lit-amber{background:var(--amber);box-shadow:0 0 0 5px rgba(232,160,32,.18)}
+.tl-dot.lit-now{background:var(--purple);box-shadow:0 0 0 7px rgba(91,79,168,.15);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 5px rgba(91,79,168,.15)}50%{box-shadow:0 0 0 10px rgba(91,79,168,.05)}}
+.tl-label{font-size:10px;color:var(--muted);text-align:center;line-height:1.4}
+.tl-label.em{color:var(--purple);font-weight:700}
+.tl-badge{font-size:9px;font-weight:900;padding:2px 7px;border-radius:10px;text-align:center;white-space:nowrap}
+.tl-badge.blue{background:var(--blue-lt);color:var(--blue)}
+.tl-badge.green{background:var(--green-lt);color:var(--green)}
+.tl-badge.amber{background:var(--amber-lt);color:var(--amber)}
+.tl-badge.purple{background:var(--purple-lt);color:var(--purple)}
+
+/* CHAR CARDS */
+.char-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+@media(max-width:500px){.char-row{grid-template-columns:1fr}}
+.char-card{border-radius:14px;padding:13px 10px;border:2.5px solid var(--border);text-align:center;transition:transform .2s}
+.char-card:hover{transform:translateY(-2px)}
+.char-card .cc-emoji{font-size:26px;margin-bottom:5px;display:block}
+.char-card .cc-name{font-size:13px;font-weight:900;margin-bottom:4px}
+.char-card .cc-words{font-size:11px;font-family:'Lora',serif;font-style:italic;color:var(--muted);line-height:1.6}
+.char-card .cc-badge{font-size:9px;font-weight:900;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:7px}
+.char-jay{border-color:#b0c8f0;background:var(--blue-lt)}.char-jay .cc-name{color:var(--blue)}.char-jay .cc-badge{background:var(--blue-lt);color:var(--blue);border:1.5px solid #b0c8f0}
+.char-neob{border-color:#b2d8c2;background:var(--green-lt)}.char-neob .cc-name{color:var(--green)}.char-neob .cc-badge{background:var(--green-lt);color:var(--green);border:1.5px solid #b2d8c2}
+.char-sfh{border-color:#f0d090;background:var(--amber-lt)}.char-sfh .cc-name{color:var(--amber);font-size:12px}.char-sfh .cc-badge{background:var(--amber-lt);color:var(--amber);border:1.5px solid #f0d090}
+.cc-sound{font-size:20px;cursor:pointer;display:inline-block;transition:transform .15s;user-select:none;line-height:1;margin-bottom:4px}
+.cc-sound:hover{transform:scale(1.35)}
+.cc-sound.playing{animation:soundPulse .35s ease infinite alternate}
+@keyframes soundPulse{from{transform:scale(1)}to{transform:scale(1.4)}}
+
+/* P2 STORY */
+.story-box{background:#f0f4ff;border:2px solid #c8d8f8;border-radius:16px;padding:20px;margin:14px 0}
+.story-line{font-size:15px;font-family:'Lora',serif;line-height:2.4;margin-bottom:4px;color:var(--text)}
+.story-kr{font-size:12px;color:var(--muted);margin-bottom:12px;padding-left:4px;line-height:1.6}
+.story-divider{height:1.5px;background:var(--border);margin:14px 0}
+.blank-btn{display:inline-block;background:var(--purple);color:transparent;border-radius:6px;padding:3px 14px;font-size:15px;font-family:'Lora',serif;font-style:italic;font-weight:700;margin:0 2px;cursor:pointer;border:2px dashed rgba(255,255,255,.5);position:relative;min-width:55px;text-align:center;vertical-align:middle;transition:all .2s}
+.blank-btn::before{content:'?';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#fff;font-weight:900;pointer-events:none;font-style:normal;font-size:14px}
+.blank-btn.open{color:#fff;border-style:solid;border-color:transparent;padding:3px 14px}
+.blank-btn.open::before{display:none}
+.usage-badge{display:inline-block;font-size:10px;font-weight:900;padding:2px 8px;border-radius:10px;margin-left:4px;vertical-align:middle;opacity:0;transition:opacity .3s}
+.usage-badge.show{opacity:1}
+.usage-badge.완료{background:var(--blue-lt);color:var(--blue)}
+.usage-badge.경험{background:var(--green-lt);color:var(--green)}
+.usage-badge.계속{background:var(--amber-lt);color:var(--amber)}
+.usage-badge.결과{background:var(--red-lt);color:var(--red)}
+.story-section-title{font-size:11px;font-weight:900;letter-spacing:.5px;margin-bottom:10px;display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px}
+.story-section-title.blue{background:var(--blue-lt);color:var(--blue)}
+.story-section-title.green{background:var(--green-lt);color:var(--green)}
+.story-section-title.amber{background:var(--amber-lt);color:var(--amber)}
+.story-section-title.red{background:var(--red-lt);color:var(--red)}
+.music-inline{display:inline-flex;align-items:center;gap:6px;background:var(--purple-lt);border:1.5px solid var(--border);border-radius:20px;padding:5px 12px;cursor:pointer;font-size:12px;font-weight:700;color:var(--purple);user-select:none;transition:all .2s;margin-bottom:14px}
+.music-inline:hover{background:var(--purple);color:#fff}
+.music-inline.on{background:var(--purple);color:#fff}
+
+/* USAGE CARDS */
+.usage-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+@media(max-width:500px){.usage-grid{grid-template-columns:1fr}}
+.usage-card{border-radius:12px;padding:14px;border:2px solid var(--border);background:var(--card3);cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.usage-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(91,79,168,.12)}
+.usage-card .uc-num{font-size:28px;font-weight:900;opacity:.1;position:absolute;right:10px;top:4px;font-family:'Lora',serif}
+.usage-card .uc-badge{font-size:10px;font-weight:900;padding:3px 9px;border-radius:20px;display:inline-block;margin-bottom:8px}
+.uc-exp .uc-badge{background:var(--green-lt);color:var(--green);border:1.5px solid #b2d8c2}
+.uc-cont .uc-badge{background:var(--amber-lt);color:var(--amber);border:1.5px solid #f0d090}
+.uc-comp .uc-badge{background:var(--blue-lt);color:var(--blue);border:1.5px solid #b0c8f0}
+.uc-res .uc-badge{background:var(--red-lt);color:var(--red);border:1.5px solid #e8b0c0}
+.usage-card .uc-title{font-size:15px;font-weight:900;margin-bottom:5px;color:var(--purple-dk)}
+.usage-card .uc-who{font-size:11px;font-weight:700;margin-bottom:6px}
+.uc-exp .uc-who{color:var(--green)}.uc-cont .uc-who{color:var(--amber)}.uc-comp .uc-who{color:var(--blue)}.uc-res .uc-who{color:var(--red)}
+.usage-card .uc-sent{font-size:13px;font-family:'Lora',serif;font-style:italic;line-height:1.7;background:var(--card);border-radius:8px;padding:8px 10px;margin-bottom:6px}
+.usage-card .uc-trans{font-size:12px;color:var(--muted);display:none;margin-top:4px;line-height:1.6}
+.usage-card.flipped .uc-trans{display:block}
+.uc-hint{font-size:10px;color:var(--muted);text-align:right;margin-top:4px}
+
+/* SIGNAL CARDS */
+.signal-section{margin-bottom:18px}
+.sig-sec-title{font-size:12px;font-weight:900;letter-spacing:.5px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sig-sec-title .stag{padding:3px 10px;border-radius:6px;font-size:11px}
+.sig-sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.signal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.sig-card{border-radius:10px;padding:12px;border:2px solid var(--border);background:var(--card);cursor:pointer;transition:all .25s;text-align:center}
+.sig-card:hover{transform:scale(1.04)}
+.sig-card .sig-word{font-size:18px;font-weight:900;font-family:'Lora',serif;margin-bottom:4px}
+.sig-card .sig-back{display:none;animation:flipIn .2s}
+@keyframes flipIn{from{opacity:0}to{opacity:1}}
+.sig-card.open .sig-back{display:block}
+.sig-card.open .sig-word{display:none}
+.sig-back .sig-kr{font-size:13px;font-weight:700;margin-bottom:4px}
+.sig-back .sig-usage{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:5px}
+.sig-back .sig-ex{font-size:11px;font-family:'Lora',serif;font-style:italic;border-radius:6px;padding:4px 7px}
+.sg-jay{border-color:#b0c8f0}.sg-jay .sig-word{color:var(--blue)}.sg-jay .sig-back .sig-ex{background:var(--blue-lt);color:var(--blue)}
+.sg-neob{border-color:#b2d8c2}.sg-neob .sig-word{color:var(--green)}.sg-neob .sig-back .sig-ex{background:var(--green-lt);color:var(--green)}
+.sg-sfh{border-color:#f0d090}.sg-sfh .sig-word{color:var(--amber)}.sg-sfh .sig-back .sig-ex{background:var(--amber-lt);color:var(--amber)}
+
+/* IRREG TABLE */
+.irreg-table{width:100%;border-collapse:collapse;font-size:13px}
+.irreg-table th{background:var(--purple-lt);color:var(--purple-dk);font-weight:900;padding:8px 10px;text-align:left;border:1px solid var(--border)}
+.irreg-table td{padding:8px 10px;border:1px solid var(--border);vertical-align:middle}
+.irreg-table tr:nth-child(even) td{background:var(--card3)}
+.pp-slot{display:inline-block;background:var(--purple);color:transparent;border-radius:5px;padding:2px 14px;cursor:pointer;font-size:13px;font-family:'Lora',serif;font-style:italic;position:relative;min-width:70px;text-align:center;border:2px dashed rgba(255,255,255,.5)}
+.pp-slot::before{content:'?';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#fff;font-weight:900;pointer-events:none}
+.pp-slot.revealed{color:#fff;border-style:solid;border-color:transparent}
+.pp-slot.revealed::before{display:none}
+
+/* P4 MC quiz */
+.usage-mc{background:var(--card3);border:1.5px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px}
+.usage-mc .umc-q{font-size:13px;font-weight:700;margin-bottom:4px;color:var(--purple-dk)}
+.usage-mc .umc-sent{font-size:14px;font-family:'Lora',serif;font-style:italic;margin-bottom:10px;line-height:1.7;background:var(--card);border-radius:8px;padding:8px 10px}
+.umc-opts{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:6px}
+.umc-opt{padding:6px 14px;border:2px solid var(--border);border-radius:8px;font-size:13px;cursor:pointer;background:var(--card);transition:all .15s;font-family:'Noto Sans KR',sans-serif;font-weight:700}
+.umc-opt:hover:not(:disabled){border-color:var(--purple);background:var(--purple-lt)}
+.umc-opt.correct{border-color:var(--ok);background:var(--ok-bg);color:var(--ok)}
+.umc-opt.wrong{border-color:var(--no);background:var(--no-bg);color:var(--no)}
+.umc-opt:disabled{cursor:default}
+.umc-fb{font-size:12px;font-weight:700;min-height:18px;margin-top:4px}
+.umc-fb.ok{color:var(--ok)}.umc-fb.no{color:var(--no)}
+
+/* P4 first-time 강조 */
+.first-time-box{background:linear-gradient(135deg,var(--amber-lt),#fff8e0);border:3px solid var(--amber);border-radius:14px;padding:18px;margin:14px 0;text-align:center}
+.first-time-box .ft-title{font-size:18px;font-weight:900;color:var(--amber);margin-bottom:6px}
+.first-time-box .ft-rule{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px}
+.first-time-box .ft-sent{font-size:15px;font-family:'Lora',serif;font-style:italic;color:var(--purple-dk);background:var(--card);border-radius:8px;padding:10px 14px;margin:8px 0;line-height:1.8}
+.first-time-box .ft-note{font-size:12px;color:var(--amber);font-weight:700}
+
+/* P5 과거 강제 신호어 */
+.past-force-grid{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.pf-chip{border:2px dashed var(--red);border-radius:8px;padding:6px 14px;font-size:14px;font-family:'Lora',serif;font-style:italic;color:var(--red);cursor:pointer;transition:all .3s;font-weight:700;background:var(--card)}
+.pf-chip.pop{font-size:20px;border-style:solid;background:var(--red-lt);box-shadow:0 0 0 4px rgba(192,57,43,.12);transform:scale(1.12)}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+@media(max-width:500px){.compare-grid{grid-template-columns:1fr}}
+.cmp-box{border-radius:10px;padding:14px;border:2px solid var(--border)}
+.cmp-box.past{border-color:#f0d090;background:var(--amber-lt)}.cmp-box.pp{border-color:#b2d8c2;background:var(--green-lt)}
+.cmp-box .cmp-title{font-size:12px;font-weight:900;margin-bottom:10px}
+.cmp-box.past .cmp-title{color:var(--amber)}.cmp-box.pp .cmp-title{color:var(--green)}
+.cmp-sent{font-size:13px;font-family:'Lora',serif;font-style:italic;line-height:1.7;margin-bottom:4px}
+.hi-past{color:var(--amber);font-weight:700;font-style:normal;background:rgba(232,160,32,.15);border-radius:3px;padding:0 2px}
+.hi-pp{color:var(--green);font-weight:700;font-style:normal;background:rgba(26,122,60,.1);border-radius:3px;padding:0 2px}
+.cmp-note{font-size:11px;color:var(--muted)}
+.warn-box{background:var(--red-lt);border:2px solid #e8b0c0;border-radius:10px;padding:12px 16px;margin:12px 0}
+.warn-box .w-title{font-size:12px;font-weight:900;color:var(--red);margin-bottom:8px}
+.warn-row{font-size:12px;line-height:1.9}
+.wx{color:var(--red);font-weight:700}.wo{color:var(--green);font-weight:700}
+
+/* FLOW DIAGRAM */
+.flow-diagram{display:flex;flex-direction:column;align-items:center;gap:0;padding:4px 0}
+.fd-start{background:var(--text);color:#fff;border-radius:12px;padding:11px 24px;font-size:14px;font-weight:900}
+.fd-arrow{font-size:20px;color:var(--muted);margin:3px 0}
+.fd-q{background:var(--blue-lt);border:2px solid #b0c8f0;border-radius:12px;padding:11px 20px;font-size:13px;font-weight:700;color:var(--blue);width:100%;max-width:440px}
+.fd-row{display:flex;gap:10px;width:100%;margin:6px 0;justify-content:center;flex-wrap:wrap}
+.fd-branch{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;min-width:115px;max-width:180px}
+.fd-label{font-size:11px;font-weight:700;color:var(--muted);background:var(--card2);border-radius:6px;padding:3px 10px;text-align:center}
+.fd-ans{border-radius:10px;padding:10px 12px;font-size:12px;font-weight:700;text-align:center;width:100%;line-height:1.7}
+.fd-ans.green{background:var(--green-lt);border:2px solid #b2d8c2;color:var(--green)}
+.fd-ans.amber{background:var(--amber-lt);border:2px solid #f0d090;color:var(--amber)}
+.fd-ans.blue{background:var(--blue-lt);border:2px solid #b0c8f0;color:var(--blue)}
+.fd-ans.red{background:var(--red-lt);border:2px solid #e8b0c0;color:var(--red)}
+.fd-ans.purple{background:var(--purple-lt);border:2px solid var(--border);color:var(--purple)}
+.fd-ex{display:block;font-size:10px;font-weight:400;margin-top:4px;font-family:'Lora',serif;font-style:italic;border-top:1px dashed rgba(0,0,0,.1);padding-top:4px}
+.fd-tip{background:var(--red-lt);border:1.5px solid #e8b0c0;border-radius:10px;padding:10px 16px;font-size:12px;color:var(--red);text-align:center;width:100%;margin-top:10px;font-weight:700}
+
+/* MATCH */
+.match-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+.match-col-title{font-size:11px;font-weight:900;color:var(--purple);margin-bottom:8px;letter-spacing:.5px}
+.match-item{border:2px solid var(--border);border-radius:9px;padding:10px 12px;margin-bottom:8px;cursor:pointer;transition:all .2s;font-size:13px;background:var(--card);user-select:none}
+.match-item:hover:not(.matched-ok){border-color:var(--purple);background:var(--purple-lt)}
+.match-item.selected{border-color:var(--purple);background:var(--purple);color:#fff}
+.match-item.matched-ok{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);cursor:default;pointer-events:none}
+.match-item.matched-no{border-color:var(--no);background:var(--no-bg);color:var(--no)}
+.match-word{font-family:'Lora',serif;font-style:italic;font-weight:700}
+
+/* QUIZ */
+.q-item{border-radius:10px;border:1.5px solid var(--border);padding:14px;margin-bottom:10px;background:var(--card)}
+.q-num{font-size:10px;font-weight:900;color:var(--purple);margin-bottom:6px}
+.q-sent{font-size:14px;font-family:'Lora',serif;font-style:italic;line-height:1.9;margin-bottom:8px}
+.q-input{border:2px solid var(--border);border-radius:8px;padding:7px 12px;font-size:13px;font-family:'Noto Sans KR',sans-serif;outline:none;transition:border .2s;color:var(--text);background:#fff}
+.q-input:focus{border-color:var(--purple)}
+.q-input.correct{border-color:var(--ok);background:var(--ok-bg)}
+.q-input.wrong{border-color:var(--no);background:var(--no-bg)}
+.q-fb{font-size:12px;margin-top:6px;font-weight:700;min-height:18px}
+.q-fb.ok{color:var(--ok)}.q-fb.no{color:var(--no)}
+.mc-opts{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.mc-btn{border:2px solid var(--border);border-radius:8px;padding:9px 13px;font-size:13px;font-family:'Noto Sans KR',sans-serif;background:var(--card);cursor:pointer;text-align:left;transition:all .15s}
+.mc-btn:hover:not(:disabled){border-color:var(--purple);background:var(--purple-lt)}
+.mc-btn.correct{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);font-weight:700}
+.mc-btn.wrong{border-color:var(--no);background:var(--no-bg);color:var(--no);font-weight:700}
+.mc-btn:disabled{cursor:default}
+.mc-exp{font-size:12px;color:var(--muted);margin-top:6px;padding:7px 10px;background:var(--card3);border-radius:7px;display:none;line-height:1.6}
+.mc-exp.show{display:block}
+.order-wrap{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;min-height:40px;border:2px dashed var(--border);border-radius:8px;padding:8px}
+.order-area{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;min-height:40px;border:2px solid #b0c8f0;border-radius:8px;padding:8px;background:var(--blue-lt)}
+.word-chip{background:var(--purple);color:#fff;border-radius:6px;padding:6px 11px;font-size:13px;cursor:pointer;font-family:'Lora',serif;transition:transform .1s;user-select:none}
+.word-chip:hover{transform:scale(1.06)}
+.word-chip.used{opacity:.3;pointer-events:none}
+.order-ans{background:var(--purple-lt);color:var(--purple-dk);border-radius:6px;padding:6px 11px;font-size:13px;cursor:pointer;font-family:'Lora',serif;border:1.5px solid var(--border)}
+.order-ans:hover{background:var(--red-lt);color:var(--red)}
+.check-bar{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 8px}
+.score-box{font-size:13px;font-weight:700;color:var(--purple-dk);padding:8px 14px;background:var(--purple-lt);border-radius:8px;border:1.5px solid var(--border)}
+.sec-hd{font-size:13px;font-weight:900;color:var(--purple-dk);margin:18px 0 10px;display:flex;align-items:center;gap:8px}
+.sec-hd::after{content:'';flex:1;height:1.5px;background:var(--border)}
+
+/* P9 retry */
+.retry-item{border-radius:10px;border:2px solid var(--amber);padding:14px;margin-bottom:12px;background:#fffdf5}
+.retry-label{font-size:10px;font-weight:900;color:var(--amber);margin-bottom:6px}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand">
+    <div class="music-btn" id="musicBtn" onclick="toggleMusic()" title="팝 멜로디 재생">🎵</div>
+    📘 준티 잉글리쉬
+  </div>
+  <span class="file-tag">grammar-base-present-perfect.html</span>
+</header>
+<div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progFill" style="width:11%"></div></div></div>
+<div class="nav-dots" id="navDots"></div>
+
+<!-- ══ P1 본질 + 캐릭터 ══ -->
+<div class="page active" id="p1">
+<div class="card">
+  <div class="page-label">Page 1 · 현재완료의 본질</div>
+  <div class="page-title">과거와 현재를 잇는 시제</div>
+  <div class="page-sub">세 캐릭터로 완벽하게 이해하자!</div>
+
+  <div class="char-row">
+    <div class="char-card char-jay">
+      <span class="cc-sound" onclick="playCharSound('jay',this)" title="Jay야! 멜로디">🎀</span>
+      <span class="cc-badge">완료 용법</span>
+      <div class="cc-name">Jay야!</div>
+      <div class="cc-words">just · already · yet</div>
+    </div>
+    <div class="char-card char-neob">
+      <span class="cc-sound" onclick="playCharSound('neob',this)" title="니오빠 멜로디">🎬</span>
+      <span class="cc-badge">경험 용법</span>
+      <div class="cc-name">니오빠</div>
+      <div class="cc-words">never · ever · once · before</div>
+    </div>
+    <div class="char-card char-sfh">
+      <span class="cc-sound" onclick="playCharSound('sfh',this)" title="H한 SF 멜로디">🚀</span>
+      <span class="cc-badge">계속 용법</span>
+      <div class="cc-name">H한 SF 영화 팬이야?</div>
+      <div class="cc-words">since · for · how long</div>
+    </div>
+  </div>
+
+  <div style="background:var(--red-lt);border:2px solid #e8b0c0;border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:12px;line-height:1.9">
+    <span style="font-weight:900;color:var(--red)">💔 결과 용법 — gone · lost · broken</span><br>
+    니오빠가 SF 영화만 보더니... 여친이 <b>gone</b> 가버렸어, 사랑은 <b>lost</b> 사라졌어, 관계는 완전히 <b>broken</b>!
+  </div>
+
+  <!-- 타임라인 -->
+  <div class="tl-outer">
+    <div class="tl-line"><div class="tl-fill" id="tlFill"></div></div>
+    <div class="tl-nodes">
+      <div class="tl-node">
+        <div class="tl-badge blue">완료 😍</div>
+        <div class="tl-dot" id="dn0"></div>
+        <div class="tl-label"><b style="color:var(--blue)">Jay야!</b><br>DM 보냄<br>✅완료됨</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-badge green">경험 🎬</div>
+        <div class="tl-dot" id="dn1"></div>
+        <div class="tl-label"><b style="color:var(--green)">니오빠</b><br>SF 한 편도<br>안 놓침!</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-badge amber">계속 🚀</div>
+        <div class="tl-dot" id="dn2"></div>
+        <div class="tl-label"><b style="color:var(--amber)">얼마나?</b><br>아마도<br>영원히!</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-badge purple">NOW</div>
+        <div class="tl-dot" id="dn3"></div>
+        <div class="tl-label em">지금도<br>계속!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="formula">
+    <span class="f-label">📌 현재완료 = 과거의 일이 지금과 연결</span>
+    <span class="key">주어 + <span class="slot" onclick="this.classList.toggle('revealed')">have / has</span> + <span class="slot" onclick="this.classList.toggle('revealed')">과거분사(p.p.)</span></span>
+    <span class="dim">• have: I / You / We / They &nbsp;|&nbsp; has: He / She / It (3인칭 단수)</span>
+    <span class="eq">Neob has watched SF movies since he was young. → 어릴 때부터 지금도 계속!</span>
+  </div>
+  <div class="formula amber">
+    <span class="f-label">⚡ 단순 과거와 핵심 차이</span>
+    <span class="key">Neob <span class="slot" onclick="this.classList.toggle('revealed')">watched</span> an SF movie yesterday.</span>
+    <span class="dim">→ 어제 봤어 (끝난 일, 지금과 무관)</span>
+    <span class="eq">Neob <b>has watched</b> SF movies for 10 years. → 10년째 지금도 보고 있어!</span>
+  </div>
+
+  <div style="background:var(--card3);border-radius:10px;padding:14px;border:1.5px solid var(--border);margin-top:12px">
+    <div style="font-size:12px;font-weight:900;color:var(--purple-dk);margin-bottom:10px">🎯 4가지 용법 미리보기</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
+      <div style="background:var(--blue-lt);border-radius:8px;padding:8px 10px;border:1.5px solid #b0c8f0"><span style="font-weight:900;color:var(--blue)">① 완료 — Jay야!</span><br>막/이미 ~했다<br><span style="color:var(--muted);font-family:'Lora',serif;font-style:italic">just · already · yet</span></div>
+      <div style="background:var(--green-lt);border-radius:8px;padding:8px 10px;border:1.5px solid #b2d8c2"><span style="font-weight:900;color:var(--green)">② 경험 — 니오빠</span><br>~한 적 있다<br><span style="color:var(--muted);font-family:'Lora',serif;font-style:italic">never · ever · once · before</span></div>
+      <div style="background:var(--amber-lt);border-radius:8px;padding:8px 10px;border:1.5px solid #f0d090"><span style="font-weight:900;color:var(--amber)">③ 계속 — H한 SF!</span><br>계속 ~해오고 있다<br><span style="color:var(--muted);font-family:'Lora',serif;font-style:italic">since · for · how long</span></div>
+      <div style="background:var(--red-lt);border-radius:8px;padding:8px 10px;border:1.5px solid #e8b0c0"><span style="font-weight:900;color:var(--red)">④ 결과</span><br>~해서 지금 …한 상태<br><span style="color:var(--muted);font-family:'Lora',serif;font-style:italic">gone · lost · broken</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ P2 스토리 + 용법 ══ -->
+<div class="page" id="p2">
+<div class="card">
+  <div class="page-label">Page 2 · 4가지 용법 스토리</div>
+  <div class="page-title">빈칸 클릭 → 전치사 + 용법 확인!</div>
+  <div class="page-sub">Jay야! · 니오빠 · H한 SF 영화 팬이야? 스토리로 이해하자</div>
+
+  <div class="music-inline" id="musicInline" onclick="toggleMusic()">
+    <span id="musicIcon">🎵</span> <span id="musicTxt">팝 멜로디 재생</span>
+  </div>
+
+  <!-- JAY 완료 -->
+  <div class="story-box">
+    <div class="story-section-title blue">😍 Jay야! — 완료 용법</div>
+    <div class="story-line">
+      Jay has <span class="blank-btn" data-word="just" data-usage="완료" onclick="openBlank(this)">just</span><span class="usage-badge 완료" id="ub0">완료</span> found Neob online!
+    </div>
+    <div class="story-kr">→ Jay야! 막 니오빠를 온라인에서 발견했어!</div>
+    <div class="story-line">
+      She has <span class="blank-btn" data-word="already" data-usage="완료" onclick="openBlank(this)">already</span><span class="usage-badge 완료" id="ub1">완료</span> sent him a DM.
+    </div>
+    <div class="story-kr">→ 이미 DM도 보냈어.</div>
+    <div class="story-line">
+      She hasn't got a reply <span class="blank-btn" data-word="yet" data-usage="완료" onclick="openBlank(this)">yet</span><span class="usage-badge 완료" id="ub2">완료</span>.
+    </div>
+    <div class="story-kr">→ 근데 아직 답장을 못 받았어. (yet은 문장 맨 끝!)</div>
+  </div>
+
+  <!-- NEOB 경험 -->
+  <div class="story-box" style="background:#f0fff4;border-color:#b2d8c2">
+    <div class="story-section-title green">🎬 니오빠 — 경험 용법</div>
+    <div class="story-line">
+      Neob has <span class="blank-btn" data-word="never" data-usage="경험" onclick="openBlank(this)">never</span><span class="usage-badge 경험" id="ub3">경험</span> missed an SF movie.
+    </div>
+    <div class="story-kr">→ 니오빠는 한 번도 SF 영화를 놓친 적 없어!</div>
+    <div class="story-line">
+      Has he <span class="blank-btn" data-word="ever" data-usage="경험" onclick="openBlank(this)">ever</span><span class="usage-badge 경험" id="ub4">경험</span> watched a non-SF film?
+    </div>
+    <div class="story-kr">→ 그가 SF 아닌 영화를 본 적 있기나 해?</div>
+    <div class="story-line">
+      He has seen every premiere <span class="blank-btn" data-word="once" data-usage="경험" onclick="openBlank(this)">once</span><span class="usage-badge 경험" id="ub5">경험</span> — <span class="blank-btn" data-word="before" data-usage="경험" onclick="openBlank(this)">before</span><span class="usage-badge 경험" id="ub6">경험</span> anyone else!
+    </div>
+    <div class="story-kr">→ 모든 시사회를 한 번씩 — 다른 누구보다 먼저 봤어!</div>
+  </div>
+
+  <!-- SFH 계속 -->
+  <div class="story-box" style="background:#fffdf0;border-color:#f0d090">
+    <div class="story-section-title amber">🚀 H한 SF 영화 팬이야? — 계속 용법</div>
+    <div class="story-line">
+      He has loved SF movies <span class="blank-btn" data-word="since" data-usage="계속" onclick="openBlank(this)">since</span><span class="usage-badge 계속" id="ub7">계속</span> he was young.
+    </div>
+    <div class="story-kr">→ 어릴 때부터 SF 영화를 사랑해왔어. (since = 시점!)</div>
+    <div class="story-line">
+      He has been a fan <span class="blank-btn" data-word="for" data-usage="계속" onclick="openBlank(this)">for</span><span class="usage-badge 계속" id="ub8">계속</span> 10 years.
+    </div>
+    <div class="story-kr">→ 10년 동안 팬이어 왔어. (for = 기간!)</div>
+    <div class="story-line">
+      <span class="blank-btn" data-word="How long" data-usage="계속" onclick="openBlank(this)">How long</span><span class="usage-badge 계속" id="ub9">계속</span> has he been a fan? — Forever!
+    </div>
+    <div class="story-kr">→ 얼마나 오래 팬이었냐고? — 영원히!</div>
+  </div>
+
+  <!-- 결과 -->
+  <div class="story-box" style="background:#fff5f5;border-color:#e8b0c0">
+    <div class="story-section-title red">💔 결과 용법 — gone · lost · broken</div>
+    <div class="story-line">
+      But his girlfriend has <span class="blank-btn" data-word="gone" data-usage="결과" onclick="openBlank(this)">gone</span><span class="usage-badge 결과" id="ub10">결과</span>.
+    </div>
+    <div class="story-kr">→ 근데 여친은 가버렸어. (지금 없음!)</div>
+    <div class="story-line">
+      Their love has been <span class="blank-btn" data-word="lost" data-usage="결과" onclick="openBlank(this)">lost</span><span class="usage-badge 결과" id="ub11">결과</span>.
+    </div>
+    <div class="story-kr">→ 사랑이 사라져버렸어.</div>
+    <div class="story-line">
+      Their relationship? Totally <span class="blank-btn" data-word="broken" data-usage="결과" onclick="openBlank(this)">broken</span><span class="usage-badge 결과" id="ub12">결과</span>. Because of SF. 🎬
+    </div>
+    <div class="story-kr">→ 관계는? 완전히 부서졌어. SF 영화 때문에. ㅋㅋ</div>
+  </div>
+
+  <!-- 부정문 의문문 -->
+  <div class="formula green" style="margin-top:14px">
+    <span class="f-label">✅ 부정문</span>
+    <span class="key">주어 + <span class="slot" onclick="this.classList.toggle('revealed')">haven't / hasn't</span> + p.p.</span>
+    <span class="dim">→ Jay <b>hasn't</b> got a reply yet. <span style="color:var(--green)">아직 답장을 못 받았어.</span></span>
+    <span class="eq">= Jay has not got a reply yet.</span>
+  </div>
+  <div class="formula blue" style="margin-top:6px">
+    <span class="f-label">✅ 의문문</span>
+    <span class="key"><span class="slot" onclick="this.classList.toggle('revealed')">Have / Has</span> + 주어 + p.p. ~?</span>
+    <span class="dim">→ <b>Has</b> Neob ever missed an SF movie? <span style="color:var(--blue)">니오빠가 SF 영화를 놓친 적 있어?</span></span>
+    <span class="eq">대답: Yes, he has. / No, he hasn't.</span>
+  </div>
+</div>
+</div>
+
+<!-- ══ P3 신호어 카드 ══ -->
+<div class="page" id="p3">
+<div class="card">
+  <div class="page-label">Page 3 · 신호어 카드</div>
+  <div class="page-title">탭해서 뒤집어봐!</div>
+  <div class="page-sub">이 단어가 보이면 → 현재완료!</div>
+  <div class="signal-section">
+    <div class="sig-sec-title"><span class="stag" style="background:var(--blue-lt);color:var(--blue)">😍 Jay야! — 완료</span></div>
+    <div class="signal-grid">
+      <div class="sig-card sg-jay" onclick="this.classList.toggle('open')"><div class="sig-word">just</div><div class="sig-back"><div class="sig-kr">막, 방금</div><div class="sig-usage">have와 p.p. 사이<br>완료 용법</div><div class="sig-ex">has just sent a DM</div></div></div>
+      <div class="sig-card sg-jay" onclick="this.classList.toggle('open')"><div class="sig-word">already</div><div class="sig-back"><div class="sig-kr">이미, 벌써</div><div class="sig-usage">have와 p.p. 사이<br>긍정문 전용</div><div class="sig-ex">has already followed</div></div></div>
+      <div class="sig-card sg-jay" onclick="this.classList.toggle('open')"><div class="sig-word">yet</div><div class="sig-back"><div class="sig-kr">아직(부정)<br>벌써?(의문)</div><div class="sig-usage">⚠️ 문장 맨 끝!<br>부정·의문 전용</div><div class="sig-ex">hasn't replied yet</div></div></div>
+    </div>
+  </div>
+  <div class="signal-section">
+    <div class="sig-sec-title"><span class="stag" style="background:var(--green-lt);color:var(--green)">🎬 니오빠 — 경험</span></div>
+    <div class="signal-grid">
+      <div class="sig-card sg-neob" onclick="this.classList.toggle('open')"><div class="sig-word">never</div><div class="sig-back"><div class="sig-kr">한 번도 ~없다</div><div class="sig-usage">경험 부정<br>have와 p.p. 사이</div><div class="sig-ex">has never missed</div></div></div>
+      <div class="sig-card sg-neob" onclick="this.classList.toggle('open')"><div class="sig-word">ever</div><div class="sig-back"><div class="sig-kr">~한 적 있니?</div><div class="sig-usage">의문문 전용<br>have와 p.p. 사이</div><div class="sig-ex">Have you ever seen?</div></div></div>
+      <div class="sig-card sg-neob" onclick="this.classList.toggle('open')"><div class="sig-word">once</div><div class="sig-back"><div class="sig-kr">한 번</div><div class="sig-usage">경험 횟수<br>문장 끝 위치</div><div class="sig-ex">has seen it once</div></div></div>
+      <div class="sig-card sg-neob" onclick="this.classList.toggle('open')"><div class="sig-word">before</div><div class="sig-back"><div class="sig-kr">전에, 이전에</div><div class="sig-usage">경험 표현<br>문장 끝 위치</div><div class="sig-ex">has watched before</div></div></div>
+    </div>
+  </div>
+  <div class="signal-section">
+    <div class="sig-sec-title"><span class="stag" style="background:var(--amber-lt);color:var(--amber)">🚀 H한 SF! — 계속</span></div>
+    <div class="signal-grid">
+      <div class="sig-card sg-sfh" onclick="this.classList.toggle('open')"><div class="sig-word">since</div><div class="sig-back"><div class="sig-kr">~ 이후로</div><div class="sig-usage">뒤에 <b>시점</b><br>since 2021</div><div class="sig-ex">since he was young ✅</div></div></div>
+      <div class="sig-card sg-sfh" onclick="this.classList.toggle('open')"><div class="sig-word">for</div><div class="sig-back"><div class="sig-kr">~ 동안</div><div class="sig-usage">뒤에 <b>기간</b><br>for 10 years</div><div class="sig-ex">for 10 years ✅</div></div></div>
+      <div class="sig-card sg-sfh" onclick="this.classList.toggle('open')"><div class="sig-word">How long</div><div class="sig-back"><div class="sig-kr">얼마나 오래?</div><div class="sig-usage">계속 용법 의문문<br>현재완료와 함께</div><div class="sig-ex">How long has he been a fan?</div></div></div>
+    </div>
+    <div class="warn-box" style="margin-top:10px">
+      <div class="w-title">⚠️ for vs since — 시험 단골!</div>
+      <div class="warn-row"><span class="wx">❌</span> since 10 years &nbsp;→&nbsp; <span class="wo">✅</span> <b>for</b> 10 years (기간!)</div>
+      <div class="warn-row"><span class="wx">❌</span> for 2021 &nbsp;→&nbsp; <span class="wo">✅</span> <b>since</b> 2021 (시점!)</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ P4 have p.p. 형태 ══ -->
+<div class="page" id="p4">
+<div class="card">
+  <div class="page-label">Page 4 · have p.p. 형태 + 시험 필수</div>
+  <div class="page-title">p.p. 클릭 공개 + 용법 맞추기!</div>
+
+  <div class="formula green">
+    <span class="f-label">✅ 규칙 동사</span>
+    <span class="key">watch → watched → <span class="slot" onclick="this.classList.toggle('revealed')">watched</span></span>
+    <span class="dim">Neob has <b>watched</b> every SF movie ever made.</span>
+  </div>
+  <div style="margin:12px 0 8px;font-size:12px;font-weight:900;color:var(--purple-dk)">⚡ 불규칙 동사 p.p. — 클릭해서 확인!</div>
+  <table class="irreg-table"><thead><tr><th>원형</th><th>과거</th><th>p.p.</th><th>뜻</th></tr></thead><tbody id="irregBody"></tbody></table>
+
+  <!-- been to / gone to / been in MC -->
+  <div style="margin:18px 0 10px;font-size:13px;font-weight:900;color:var(--purple-dk)">🔥 시험 필수 — 용법 맞추기!</div>
+  <div id="usageMcSection"></div>
+
+  <!-- first time 강조 -->
+  <div class="first-time-box">
+    <div class="ft-title">🌟 first time → 반드시 현재완료!</div>
+    <div class="ft-rule">This is the first time + that + <b style="color:var(--amber)">현재완료</b></div>
+    <div class="ft-sent">This is the first time (that) I <b>have seen</b> this SF movie.</div>
+    <div class="ft-sent">This is the best movie I <b>have ever watched</b>.</div>
+    <div class="ft-note">⚠️ first time / best / only 뒤 → 현재완료 필수! 과거시제 쓰면 틀림!</div>
+  </div>
+</div>
+</div>
+
+<!-- ══ P5 과거 vs 현재완료 ══ -->
+<div class="page" id="p5">
+<div class="card">
+  <div class="page-label">Page 5 · 과거 vs 현재완료</div>
+  <div class="page-title">가장 많이 틀리는 포인트!</div>
+  <div class="page-sub">과거 강제 신호어 — 클릭하면 강조!</div>
+
+  <div style="font-size:13px;font-weight:900;color:var(--red);margin-bottom:8px">⚠️ 이 단어들이 보이면 → 무조건 과거시제! 클릭해봐!</div>
+  <div class="past-force-grid" id="pfGrid">
+    <span class="pf-chip" onclick="popChip(this)">yesterday</span>
+    <span class="pf-chip" onclick="popChip(this)">ago</span>
+    <span class="pf-chip" onclick="popChip(this)">when</span>
+    <span class="pf-chip" onclick="popChip(this)">last year</span>
+    <span class="pf-chip" onclick="popChip(this)">last night</span>
+    <span class="pf-chip" onclick="popChip(this)">in 2021</span>
+    <span class="pf-chip" onclick="popChip(this)">just now</span>
+  </div>
+  <div style="font-size:11px;color:var(--red);font-weight:700;margin-bottom:14px">📌 위 단어 + 현재완료 = 무조건 틀림! 과거시제로 바꿔야 해!</div>
+
+  <div class="compare-grid">
+    <div class="cmp-box past">
+      <div class="cmp-title">⏰ 단순 과거</div>
+      <div class="cmp-sent">Neob <span class="hi-past">saw</span> an SF film <span class="hi-past">yesterday</span>.</div>
+      <div class="cmp-note">→ 어제 봤어 (끝난 일)</div>
+      <div style="height:8px"></div>
+      <div class="cmp-sent">Jay <span class="hi-past">sent</span> a DM <span class="hi-past">2 hours ago</span>.</div>
+      <div class="cmp-note">→ 2시간 전에 보냈어</div>
+      <div style="height:8px"></div>
+      <div class="cmp-sent">He <span class="hi-past">became</span> a fan <span class="hi-past">in 2015</span>.</div>
+      <div class="cmp-note">→ 2015년에 팬이 됐어</div>
+    </div>
+    <div class="cmp-box pp">
+      <div class="cmp-title">✨ 현재완료</div>
+      <div class="cmp-sent">Neob <span class="hi-pp">has seen</span> hundreds of SF films.</div>
+      <div class="cmp-note">→ 수백 편을 봐왔어 (경험)</div>
+      <div style="height:8px"></div>
+      <div class="cmp-sent">Jay <span class="hi-pp">has just</span> sent a DM!</div>
+      <div class="cmp-note">→ 막 DM을 보냈어 (완료)</div>
+      <div style="height:8px"></div>
+      <div class="cmp-sent">He <span class="hi-pp">has been</span> a fan <span class="hi-pp">since 2015</span>.</div>
+      <div class="cmp-note">→ 2015년부터 지금도 팬 (계속)</div>
+    </div>
+  </div>
+  <div class="warn-box">
+    <div class="w-title">⚠️ 과거 강제 신호어 — 현재완료랑 절대 함께 못 씀!</div>
+    <div class="warn-row"><span class="wx">❌</span> I have seen it <b>yesterday</b>. → <span class="wo">✅</span> I <b>saw</b> it yesterday.</div>
+    <div class="warn-row"><span class="wx">❌</span> She has bought it <b>2 days ago</b>. → <span class="wo">✅</span> She <b>bought</b> it 2 days ago.</div>
+    <div class="warn-row"><span class="wx">❌</span> He has left <b>when</b> I called. → <span class="wo">✅</span> He <b>left</b> when I called.</div>
+  </div>
+  <div class="formula" style="margin-top:10px">
+    <span class="f-label">⚠️ 예외 깃발 — DEEP 파일에서 집중 훈련!</span>
+    <span class="key">시험에서 이걸 노린다!</span>
+    <span class="dim">🚩 been to vs gone to vs been in<br>🚩 How long ~? = It has been ~ since 변환<br>🚩 first time / best / only + 현재완료<br>🚩 already 위치 (have와 p.p. 사이만!)<br>🚩 yet 위치 (문장 맨 끝만!)</span>
+  </div>
+</div>
+</div>
+
+<!-- ══ P6 판단 흐름도 ══ -->
+<div class="page" id="p6">
+<div class="card">
+  <div class="page-label">Page 6 · 판단 흐름도</div>
+  <div class="page-title">과거? 현재완료? 빠르게 판단!</div>
+  <div class="flow-diagram">
+    <div class="fd-start">이 문장, 시제 뭐로 써?</div>
+    <div class="fd-arrow">▼</div>
+    <div class="fd-q">yesterday / ago / when / last year 같은 <b>과거 강제 신호어</b>가 있어?</div>
+    <div class="fd-row">
+      <div class="fd-branch"><div class="fd-label">YES</div><div class="fd-arrow" style="font-size:16px">▼</div><div class="fd-ans amber">단순 과거!<br>have ❌ → 동사 과거형<br><span class="fd-ex">saw / sent / became</span></div></div>
+      <div class="fd-branch"><div class="fd-label">NO</div><div class="fd-arrow" style="font-size:16px">▼</div><div class="fd-q" style="font-size:12px;max-width:180px">과거 경험·결과가<br>지금과 연결돼?</div></div>
+    </div>
+    <div class="fd-arrow">▼</div>
+    <div class="fd-q">신호어로 용법 구별!</div>
+    <div class="fd-row">
+      <div class="fd-branch" style="min-width:110px"><div class="fd-label">😍 Jay야! 완료</div><div class="fd-ans blue" style="font-size:11px">just / already / yet<br><span class="fd-ex">has just sent<br>hasn't ~ yet (끝!)</span></div></div>
+      <div class="fd-branch" style="min-width:110px"><div class="fd-label">🎬 니오빠 경험</div><div class="fd-ans green" style="font-size:11px">never / ever<br>once / before<br><span class="fd-ex">has never missed</span></div></div>
+      <div class="fd-branch" style="min-width:110px"><div class="fd-label">🚀 H한SF 계속</div><div class="fd-ans amber" style="font-size:11px">since / for<br>how long<br><span class="fd-ex">for 10 years</span></div></div>
+      <div class="fd-branch" style="min-width:110px"><div class="fd-label">💔 결과</div><div class="fd-ans red" style="font-size:11px">gone / lost<br>broken<br><span class="fd-ex">has gone (없음)</span></div></div>
+    </div>
+    <div class="fd-tip">⚠️ first time · best · only 뒤 = 현재완료 필수!<br><span style="font-weight:400;font-size:11px">been to(경험) vs gone to(결과) vs been in(계속) → DEEP에서 집중!</span></div>
+  </div>
+</div>
+</div>
+
+<!-- ══ P7 매칭 ══ -->
+<div class="page" id="p7">
+<div class="card">
+  <div class="page-label">Page 7 · 매칭 문제</div>
+  <div class="page-title">신호어 그룹 ↔ 용법 연결!</div>
+  <div class="page-sub">왼쪽 → 오른쪽 순서로 탭해서 연결하세요</div>
+  <div id="matchArea"></div>
+  <div class="check-bar" style="margin-top:12px">
+    <button class="btn btn-purple btn-sm" onclick="checkMatch()">매칭 채점</button>
+    <button class="btn btn-outline btn-sm" onclick="resetMatch()">초기화</button>
+    <div style="font-size:12px;font-weight:700;min-height:18px;margin-top:4px;width:100%" id="matchFb"></div>
+  </div>
+</div>
+</div>
+
+<!-- ══ P8 확인 문제 ══ -->
+<div class="page" id="p8">
+<div class="card">
+  <div class="page-label">Page 8 · 확인 문제</div>
+  <div class="page-title">배운 내용 확인!</div>
+  <div class="page-sub">빈칸 12 · 선택형 10 · 어순 배열 4</div>
+  <div class="sec-hd">📝 빈칸 채우기 (12문제)</div>
+  <div id="fillSection"></div>
+  <div class="sec-hd">🎯 선택형 (10문제)</div>
+  <div id="mcSection"></div>
+  <div class="sec-hd">🔀 어순 배열 (4문제)</div>
+  <div id="orderSection"></div>
+  <div class="check-bar">
+    <button class="btn btn-purple" onclick="gradeAll()">전체 채점</button>
+    <button class="btn btn-amber" onclick="retryWrong()">틀린 것만 다시</button>
+    <button class="btn btn-outline" onclick="showAll()">전체 정답 보기</button>
+    <div class="score-box" id="scoreBox" style="display:none"></div>
+  </div>
+  <div style="margin-top:8px"><button class="btn btn-green btn-sm" onclick="goRetryPage()" id="retryPageBtn" style="display:none">📋 오답 재시험 보러가기 →</button></div>
+</div>
+</div>
+
+<!-- ══ P9 오답 재시험 ══ -->
+<div class="page" id="p9">
+<div class="card">
+  <div class="page-label">Page 9 · 오답 재시험</div>
+  <div class="page-title">틀린 문제만 변형해서 다시!</div>
+  <div class="page-sub">조금 다르게 나와요 — 진짜 실력 확인!</div>
+  <div id="retrySection"></div>
+  <div class="check-bar" id="retryCheckBar" style="display:none">
+    <button class="btn btn-purple" onclick="gradeRetry()">재시험 채점</button>
+    <div class="score-box" id="retryScoreBox" style="display:none"></div>
+  </div>
+  <div id="retryEmpty" style="display:none;text-align:center;padding:30px;color:var(--green);font-weight:700;font-size:15px">🎉 오답이 없어요! 완벽해!</div>
+</div>
+</div>
+
+<div class="page-nav">
+  <button class="btn btn-outline btn-sm" id="prevBtn" onclick="go(cur-1)">← 이전</button>
+  <span class="page-counter" id="pageCnt">1 / 9</span>
+  <button class="btn btn-purple btn-sm" id="nextBtn" onclick="go(cur+1)">다음 →</button>
+</div>
+
+<script>
+const TOTAL=9;
+let cur=0;
+
+/* ── 불규칙 동사 ── */
+const IRREG=[
+  {v:"be",p:"was/were",pp:"been",m:"~이다/있다"},{v:"go",p:"went",pp:"gone",m:"가다"},
+  {v:"see",p:"saw",pp:"seen",m:"보다"},{v:"meet",p:"met",pp:"met",m:"만나다"},
+  {v:"have",p:"had",pp:"had",m:"가지다"},{v:"buy",p:"bought",pp:"bought",m:"사다"},
+  {v:"know",p:"knew",pp:"known",m:"알다"},{v:"write",p:"wrote",pp:"written",m:"쓰다"},
+  {v:"give",p:"gave",pp:"given",m:"주다"},{v:"take",p:"took",pp:"taken",m:"가지고 가다"},
+  {v:"make",p:"made",pp:"made",m:"만들다"},{v:"come",p:"came",pp:"come",m:"오다"},
+  {v:"become",p:"became",pp:"become",m:"~이 되다"},{v:"lose",p:"lost",pp:"lost",m:"잃다"},
+  {v:"break",p:"broke",pp:"broken",m:"부수다"},{v:"send",p:"sent",pp:"sent",m:"보내다"},
+  {v:"leave",p:"left",pp:"left",m:"떠나다"},{v:"win",p:"won",pp:"won",m:"이기다"},
+];
+
+/* ── P4 용법 MC ── */
+const USAGE_MC=[
+  {q:"'니오빠는 일본 영화제에 가버렸어 (지금 없어).'",sent:"Neob has ___ to Japan for a film festival.",opts:["been","gone","been in"],ans:1,exp:"gone to = 가버렸다(지금 없음) → 결과 용법!",usage:"결과"},
+  {q:"'니오빠는 일본 영화제에 가본 적 있어 (돌아왔어).'",sent:"Neob has ___ to Japan before.",opts:["gone","been in","been"],ans:2,exp:"been to = 가본 적 있다(돌아온 경험) → 경험 용법!",usage:"경험"},
+  {q:"'니오빠는 3년 동안 일본에 있어왔어 (계속 거기).'",sent:"Neob has ___ Japan for 3 years.",opts:["gone to","been to","been in"],ans:2,exp:"been in = 계속 ~에 있어왔다 → 계속 용법!",usage:"계속"},
+  {q:"'Jay야! 막 DM을 보냈어.'",sent:"Jay has ___ sent a DM.",opts:["never","just","already"],ans:1,exp:"just = 막/방금 → 완료 용법!",usage:"완료"},
+  {q:"'Jay야! 이미 그를 팔로우했어.'",sent:"Jay has ___ followed him.",opts:["yet","never","already"],ans:2,exp:"already = 이미/벌써 → 완료 용법!",usage:"완료"},
+];
+
+/* ── 매칭 데이터 (그룹으로) ── */
+const MATCH_DATA=[
+  {group:"😍 just · already · yet",usage:"완료 용법 — Jay야!",char:"완료"},
+  {group:"🎬 never · ever · once · before",usage:"경험 용법 — 니오빠",char:"경험"},
+  {group:"🚀 since · for · how long",usage:"계속 용법 — H한 SF!",char:"계속"},
+  {group:"💔 gone · lost · broken",usage:"결과 용법 — 여친은 사라졌어",char:"결과"},
+];
+
+/* ── 빈칸 문제 ── */
+const FILL_QS=[
+  {sent:"Jay [has] [just] sent a DM to Neob!",blanks:["has","just"],hint:"😍 완료 — 막 보냈어"},
+  {sent:"Jay [has] [already] followed Neob online.",blanks:["has","already"],hint:"😍 완료 — 이미 팔로우"},
+  {sent:"Jay [hasn't] got a reply [yet].",blanks:["hasn't","yet"],hint:"😍 완료 부정 — yet 위치는?"},
+  {sent:"Neob [has] [never] missed an SF movie.",blanks:["has","never"],hint:"🎬 경험 — 한 번도 없다"},
+  {sent:"[Has] Neob [ever] watched a non-SF film?",blanks:["Has","ever"],hint:"🎬 경험 의문문"},
+  {sent:"He has seen every premiere [once] [before].",blanks:["once","before"],hint:"🎬 경험 — 한 번, 전에"},
+  {sent:"Neob has loved SF movies [since] he was young.",blanks:["since"],hint:"🚀 계속 — 시점!"},
+  {sent:"He has been a fan [for] 10 years.",blanks:["for"],hint:"🚀 계속 — 기간!"},
+  {sent:"[How long] has Neob been a fan?",blanks:["How long"],hint:"🚀 계속 — 얼마나 오래?"},
+  {sent:"His girlfriend [has] [gone].",blanks:["has","gone"],hint:"💔 결과 — 가버렸어"},
+  {sent:"Their love [has] [been] lost.",blanks:["has","been"],hint:"💔 결과 — 사라졌어"},
+  {sent:"This is the first time I [have] [seen] this SF film.",blanks:["have","seen"],hint:"⚠️ first time → 현재완료 필수!"},
+];
+
+/* ── MC 문제 ── */
+const MC_QS=[
+  {q:"'Jay야! 막 DM을 보냈어.'를 영어로?",opts:["Jay just sent a DM.","Jay has just sent a DM.","Jay have just sent a DM.","Jay has just send a DM."],ans:1,exp:"3인칭 → has + just + p.p.(sent)"},
+  {q:"빈칸: She has been a fan _____ 2015.",opts:["for","since","ago","before"],ans:1,exp:"2015는 시점 → since!"},
+  {q:"빈칸: He has loved SF _____ 10 years.",opts:["since","for","ago","in"],ans:1,exp:"10 years는 기간 → for!"},
+  {q:"어법상 틀린 문장은?",opts:["Neob has never missed an SF movie.","Jay has already sent a DM.","She has bought the ticket yesterday.","He has been a fan since 2015."],ans:2,exp:"yesterday → 과거! has bought X → bought로"},
+  {q:"'니오빠는 일본에 가버렸어 (지금 없어).'",opts:["has been to Japan","has gone to Japan","has been in Japan","went to Japan"],ans:1,exp:"gone to = 가버렸다(결과), 지금 없음!"},
+  {q:"'니오빠는 일본에 가본 적 있어 (돌아왔어).'",opts:["has gone to Japan","has been in Japan","has been to Japan","went to Japan"],ans:2,exp:"been to = 가본 적 있다(경험), 돌아왔음!"},
+  {q:"yet의 올바른 위치는?",opts:["Jay yet hasn't replied.","Jay hasn't yet replied.","Jay hasn't replied yet.","Yet Jay hasn't replied."],ans:2,exp:"yet은 항상 문장 맨 끝!"},
+  {q:"already의 올바른 위치는?",opts:["Jay already has followed him.","Jay has already followed him.","Jay has followed already him.","Already Jay has followed him."],ans:1,exp:"already = have와 p.p. 사이!"},
+  {q:"'Have you ever seen this film?' 대답은?",opts:["Yes, I saw.","Yes, I had.","Yes, I have.","Yes, I did."],ans:2,exp:"Have you로 물으면 → Yes, I have."},
+  {q:"This is the first time I ___ this movie.",opts:["saw","see","have seen","had seen"],ans:2,exp:"first time 뒤 = 현재완료 필수! have seen ✅"},
+];
+
+/* ── 어순 문제 ── */
+const ORDER_QS=[
+  {words:["Jay","has","just","sent","a","DM","to","Neob"],ans:"Jay has just sent a DM to Neob.",hint:"😍 just 위치 = have와 p.p. 사이"},
+  {words:["Neob","has","never","missed","an","SF","movie"],ans:"Neob has never missed an SF movie.",hint:"🎬 never 위치 = have와 p.p. 사이"},
+  {words:["How","long","has","Neob","been","a","fan"],ans:"How long has Neob been a fan?",hint:"🚀 How long + has + 주어 + p.p."},
+  {words:["His","girlfriend","has","gone","and","their","love","has","been","lost"],ans:"His girlfriend has gone and their love has been lost.",hint:"💔 결과 — gone / lost"},
+];
+
+/* ── 오답 재시험 데이터 ── */
+const RETRY_VARIANTS={
+  fill:[
+    {sent:"Jay [has] [just] bought the new SF movie ticket!",blanks:["has","just"],hint:"😍 완료 — 막 샀어"},
+    {sent:"Jay [has] [already] liked all of Neob's posts.",blanks:["has","already"],hint:"😍 완료 — 이미 좋아요"},
+    {sent:"Jay [hasn't] received a reply [yet].",blanks:["hasn't","yet"],hint:"😍 완료 부정"},
+    {sent:"Neob [has] [never] skipped an SF premiere.",blanks:["has","never"],hint:"🎬 경험 — 한 번도 없다"},
+    {sent:"[Has] Neob [ever] watched a romantic film?",blanks:["Has","ever"],hint:"🎬 경험 의문문"},
+    {sent:"He has watched every sequel [twice] [before].",blanks:["twice","before"],hint:"🎬 경험 — 두 번, 전에"},
+    {sent:"Neob has collected SF posters [since] 2015.",blanks:["since"],hint:"🚀 계속 — 시점!"},
+    {sent:"He has been obsessed [for] 10 years.",blanks:["for"],hint:"🚀 계속 — 기간!"},
+    {sent:"[How long] has Neob collected SF posters?",blanks:["How long"],hint:"🚀 계속 의문문"},
+    {sent:"His social life [has] [gone].",blanks:["has","gone"],hint:"💔 결과"},
+    {sent:"His free time [has] [been] lost.",blanks:["has","been"],hint:"💔 결과"},
+    {sent:"This is the best SF film I [have] [ever] seen.",blanks:["have","ever"],hint:"⚠️ best → 현재완료 필수!"},
+  ],
+  mc:[
+    {q:"'Jay야! 막 티켓을 샀어.'를 영어로?",opts:["Jay just bought a ticket.","Jay has just bought a ticket.","Jay have just bought a ticket.","Jay has just buy a ticket."],ans:1,exp:"has + just + p.p.(bought)"},
+    {q:"빈칸: He has been a fan _____ 2010.",opts:["for","since","ago","before"],ans:1,exp:"2010은 시점 → since!"},
+    {q:"빈칸: She has watched SF films _____ 5 years.",opts:["since","for","ago","in"],ans:1,exp:"5 years는 기간 → for!"},
+    {q:"어법상 틀린 문장은?",opts:["He has never skipped a premiere.","Jay has already sent a message.","She has met him last year.","Neob has been a fan since 2010."],ans:2,exp:"last year → 과거! met로 바꿔야!"},
+    {q:"'니오빠는 부산에 가버렸어 (지금 없어).'",opts:["has been to Busan","has gone to Busan","has been in Busan","went to Busan"],ans:1,exp:"gone to = 가버렸다(결과)!"},
+    {q:"'니오빠는 부산에 가본 적 있어 (돌아왔어).'",opts:["has gone to Busan","has been in Busan","has been to Busan","went to Busan"],ans:2,exp:"been to = 가본 적 있다(경험)!"},
+    {q:"yet의 올바른 위치는?",opts:["Neob yet hasn't replied.","Neob hasn't yet replied.","Neob hasn't replied yet.","Yet Neob hasn't replied."],ans:2,exp:"yet = 항상 문장 맨 끝!"},
+    {q:"already의 올바른 위치는?",opts:["Neob already has seen it.","Neob has already seen it.","Neob has seen already it.","Already Neob has seen it."],ans:1,exp:"already = have와 p.p. 사이!"},
+    {q:"'Has she ever tried SF food?' 대답은?",opts:["Yes, she tried.","Yes, she had.","Yes, she has.","Yes, she did."],ans:2,exp:"Has she로 물으면 → Yes, she has."},
+    {q:"This is the best film she ___ ever watched.",opts:["watched","watches","has","has ever"],ans:3,exp:"best + 현재완료 필수! has ever watched ✅"},
+  ],
+};
+
+/* ── STATE ── */
+let mcState={},orderState={},retryMcState={},retryFillState={};
+let wrongFillIdx=[],wrongMcIdx=[];
+let matchSelected=null;
+
+/* ── AUDIO ── */
+let audioCtx=null,isPlaying=false;
+function unlockAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();}
+function playFlip(){
+  if(!audioCtx)return;
+  const buf=audioCtx.createBuffer(1,audioCtx.sampleRate*.1,audioCtx.sampleRate);
+  const d=buf.getChannelData(0);
+  for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.exp(-i/600)*.3;
+  const src=audioCtx.createBufferSource(),f=audioCtx.createBiquadFilter();
+  f.type='bandpass';f.frequency.value=2000;f.Q.value=.9;
+  src.buffer=buf;src.connect(f);f.connect(audioCtx.destination);src.start();
+}
+function playMelody(){
+  unlockAudio();if(!audioCtx)return;
+  const notes=[{f:523,d:.15},{f:659,d:.15},{f:784,d:.15},{f:880,d:.2},{f:784,d:.1},{f:659,d:.1},{f:784,d:.15},{f:880,d:.25},{f:1047,d:.2},{f:880,d:.15},{f:784,d:.1},{f:659,d:.1},{f:523,d:.15},{f:587,d:.15},{f:659,d:.3}];
+  let t=audioCtx.currentTime+.05;
+  notes.forEach(n=>{
+    const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+    osc.type='triangle';osc.frequency.value=n.f;
+    gain.gain.setValueAtTime(0,t);gain.gain.linearRampToValueAtTime(.18,t+.02);gain.gain.exponentialRampToValueAtTime(.001,t+n.d);
+    osc.connect(gain);gain.connect(audioCtx.destination);osc.start(t);osc.stop(t+n.d+.05);
+    t+=n.d;
+  });
+  const dur=notes.reduce((s,n)=>s+n.d,0)*1000+300;
+  document.getElementById('musicBtn').classList.add('playing');
+  document.getElementById('musicIcon').textContent='⏹';
+  document.getElementById('musicTxt').textContent='재생 중...';
+  document.getElementById('musicInline').classList.add('on');
+  setTimeout(()=>{
+    document.getElementById('musicBtn').classList.remove('playing');
+    document.getElementById('musicIcon').textContent='🎵';
+    document.getElementById('musicTxt').textContent='팝 멜로디 재생';
+    document.getElementById('musicInline').classList.remove('on');
+    isPlaying=false;
+  },dur);
+  isPlaying=true;
+}
+
+/* 캐릭터별 멜로디 */
+const CHAR_MELODIES={
+  jay:{
+    // Jay야! — 발랄하고 귀여운 팝 (높은 음, 빠른 리듬)
+    notes:[
+      {f:880,d:.1},{f:988,d:.1},{f:1047,d:.15},{f:880,d:.1},
+      {f:988,d:.1},{f:1047,d:.1},{f:1175,d:.2},
+      {f:1047,d:.1},{f:988,d:.1},{f:880,d:.1},{f:784,d:.1},
+      {f:880,d:.1},{f:988,d:.25}
+    ],
+    type:'triangle',vol:.16
+  },
+  neob:{
+    // 니오빠 — 드라마틱하고 쿨한 느낌 (중저음, 여유로운)
+    notes:[
+      {f:392,d:.2},{f:440,d:.2},{f:523,d:.25},
+      {f:494,d:.15},{f:440,d:.15},{f:392,d:.2},
+      {f:330,d:.15},{f:392,d:.15},{f:440,d:.3},
+      {f:523,d:.35}
+    ],
+    type:'sine',vol:.2
+  },
+  sfh:{
+    // H한 SF! — 우주/SF 느낌 (신비롭고 웅장한)
+    notes:[
+      {f:220,d:.2},{f:277,d:.2},{f:330,d:.15},{f:440,d:.15},
+      {f:554,d:.2},{f:659,d:.15},{f:784,d:.25},
+      {f:659,d:.1},{f:554,d:.1},{f:440,d:.1},{f:330,d:.1},
+      {f:440,d:.15},{f:523,d:.3}
+    ],
+    type:'sawtooth',vol:.1
+  }
+};
+
+let currentCharBtn=null;
+function playCharSound(char,btnEl){
+  unlockAudio();if(!audioCtx)return;
+  // 이미 재생 중이면 중단
+  if(currentCharBtn&&currentCharBtn!==btnEl){
+    currentCharBtn.classList.remove('playing');
+  }
+  const m=CHAR_MELODIES[char];if(!m)return;
+  let t=audioCtx.currentTime+.05;
+  m.notes.forEach(n=>{
+    const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+    osc.type=m.type;osc.frequency.value=n.f;
+    // SFH는 비브라토 효과 추가
+    if(char==='sfh'){
+      const lfo=audioCtx.createOscillator(),lfoGain=audioCtx.createGain();
+      lfo.frequency.value=5;lfoGain.gain.value=8;
+      lfo.connect(lfoGain);lfoGain.connect(osc.frequency);lfo.start(t);lfo.stop(t+n.d+.05);
+    }
+    gain.gain.setValueAtTime(0,t);
+    gain.gain.linearRampToValueAtTime(m.vol,t+.03);
+    gain.gain.exponentialRampToValueAtTime(.001,t+n.d);
+    osc.connect(gain);gain.connect(audioCtx.destination);
+    osc.start(t);osc.stop(t+n.d+.08);
+    t+=n.d;
+  });
+  const dur=m.notes.reduce((s,n)=>s+n.d,0)*1000+300;
+  btnEl.classList.add('playing');
+  currentCharBtn=btnEl;
+  setTimeout(()=>{btnEl.classList.remove('playing');if(currentCharBtn===btnEl)currentCharBtn=null;},dur);
+}
+function toggleMusic(){unlockAudio();if(!isPlaying)playMelody();}
+
+/* ── STORY BLANK ── */
+function openBlank(el){
+  el.classList.toggle('open');
+  const idx=el.dataset.ubidx;
+  const ub=document.getElementById('ub'+idx);
+  if(ub){ub.classList.toggle('show');}
+}
+// assign ub idx to each blank-btn after render
+function assignBlankIdx(){
+  document.querySelectorAll('.blank-btn').forEach((el,i)=>{el.dataset.ubidx=i;});
+}
+
+/* ── PAST FORCE CHIP ── */
+function popChip(el){
+  el.classList.toggle('pop');
+  if(el.classList.contains('pop')){
+    setTimeout(()=>el.classList.remove('pop'),1200);
+  }
+}
+
+/* ── NAV ── */
+function buildDots(){
+  const w=document.getElementById('navDots');w.innerHTML='';
+  for(let i=0;i<TOTAL;i++){const d=document.createElement('div');d.className='dot'+(i===cur?' active':'');d.onclick=(()=>{const n=i;return()=>go(n);})();w.appendChild(d);}
+}
+function go(n){
+  if(n<0||n>=TOTAL)return;
+  playFlip();
+  document.getElementById('p'+(cur+1)).classList.remove('active');
+  cur=n;
+  document.getElementById('p'+(cur+1)).classList.add('active');
+  document.getElementById('pageCnt').textContent=(cur+1)+' / '+TOTAL;
+  document.getElementById('progFill').style.width=((cur+1)/TOTAL*100)+'%';
+  document.getElementById('prevBtn').disabled=cur===0;
+  document.getElementById('nextBtn').disabled=cur===TOTAL-1;
+  buildDots();
+  attachSlots();
+  if(cur===0)startTimeline();
+  saveState();
+}
+function attachSlots(){document.querySelectorAll('.slot').forEach(el=>{el.onclick=function(){this.classList.toggle('revealed');};});}
+
+/* ── TIMELINE ── */
+function startTimeline(){
+  const dots=[...document.querySelectorAll('.tl-dot')];
+  const colors=['lit-blue','lit-green','lit-amber','lit-now'];
+  const fill=document.getElementById('tlFill');
+  dots.forEach(d=>{d.className='tl-dot';});fill.style.width='0';
+  let i=0;
+  function next(){if(i<dots.length){dots[i].classList.add(colors[i]);fill.style.width=(i/(dots.length-1)*100)+'%';i++;setTimeout(next,500);}}
+  setTimeout(next,400);
+}
+
+/* ── IRREG TABLE ── */
+function buildIrregTable(){
+  const tb=document.getElementById('irregBody');tb.innerHTML='';
+  IRREG.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="font-family:'Lora',serif;font-style:italic">${r.v}</td><td style="font-family:'Lora',serif;font-style:italic;color:var(--muted)">${r.p}</td><td><span class="pp-slot" id="pp${i}" onclick="document.getElementById('pp${i}').classList.toggle('revealed')">${r.pp}</span></td><td style="font-size:11px;color:var(--muted)">${r.m}</td>`;
+    tb.appendChild(tr);
+  });
+}
+
+/* ── P4 USAGE MC ── */
+function buildUsageMC(){
+  const sec=document.getElementById('usageMcSection');sec.innerHTML='';
+  USAGE_MC.forEach((q,qi)=>{
+    const div=document.createElement('div');div.className='usage-mc';div.id='umc'+qi;
+    const opts=q.opts.map((o,oi)=>`<button class="umc-opt" id="umc${qi}_${oi}" onclick="checkUsageMC(${qi},${oi})">${o}</button>`).join('');
+    div.innerHTML=`<div class="umc-q">${q.q}</div><div class="umc-sent">${q.sent.replace('___','<span style="color:var(--purple);font-weight:900">___</span>')}</div><div class="umc-opts">${opts}</div><div class="umc-fb" id="umcfb${qi}"></div>`;
+    sec.appendChild(div);
+  });
+}
+const umcState={};
+function checkUsageMC(qi,oi){
+  if(umcState[qi]!==undefined)return;
+  umcState[qi]=oi;
+  const q=USAGE_MC[qi];const ok=oi===q.ans;
+  for(let i=0;i<q.opts.length;i++){const btn=document.getElementById(`umc${qi}_${i}`);btn.disabled=true;if(i===q.ans)btn.classList.add('correct');else if(i===oi&&!ok)btn.classList.add('wrong');}
+  const fb=document.getElementById('umcfb'+qi);
+  fb.className='umc-fb '+(ok?'ok':'no');
+  fb.innerHTML=(ok?'✅ 정답! ':'❌ 오답! ')+q.exp+` <span style="padding:2px 8px;border-radius:8px;font-size:10px;background:${ok?'var(--ok-bg)':'var(--no-bg)'}">→ ${q.usage} 용법</span>`;
+}
+
+/* ── MATCH ── */
+function buildMatch(){
+  const area=document.getElementById('matchArea');
+  const shuffled=[...MATCH_DATA.map((_,i)=>i)].sort(()=>Math.random()-.5);
+  area.innerHTML=`<div class="match-cols">
+    <div><div class="match-col-title">🔑 신호어 그룹</div>${MATCH_DATA.map((d,i)=>`<div class="match-item" id="mw${i}" onclick="selectMatch('word',${i})"><span class="match-word">${d.group}</span></div>`).join('')}</div>
+    <div><div class="match-col-title">📌 용법</div>${shuffled.map(i=>`<div class="match-item" id="mu${i}" onclick="selectMatch('usage',${i})"><span style="font-size:12px">${MATCH_DATA[i].char}<br><span style="font-size:11px;color:var(--muted)">${MATCH_DATA[i].usage}</span></span></div>`).join('')}</div>
+  </div>`;
+}
+function selectMatch(side,idx){
+  const el=document.getElementById(side==='word'?'mw'+idx:'mu'+idx);
+  if(!el||el.classList.contains('matched-ok'))return;
+  if(!matchSelected){
+    document.querySelectorAll('.match-item.selected').forEach(e=>e.classList.remove('selected'));
+    el.classList.add('selected');matchSelected={side,idx};
+  } else {
+    if(matchSelected.side===side){
+      document.querySelectorAll('.match-item.selected').forEach(e=>e.classList.remove('selected'));
+      el.classList.add('selected');matchSelected={side,idx};return;
+    }
+    const wIdx=matchSelected.side==='word'?matchSelected.idx:idx;
+    const uIdx=matchSelected.side==='usage'?matchSelected.idx:idx;
+    const ok=wIdx===uIdx;
+    const wEl=document.getElementById('mw'+wIdx),uEl=document.getElementById('mu'+uIdx);
+    if(ok){wEl.classList.remove('selected');wEl.classList.add('matched-ok');uEl.classList.remove('selected');uEl.classList.add('matched-ok');}
+    else{wEl.classList.add('matched-no');uEl.classList.add('matched-no');setTimeout(()=>{wEl.classList.remove('matched-no','selected');uEl.classList.remove('matched-no','selected');},800);}
+    matchSelected=null;
+  }
+}
+function checkMatch(){
+  const matched=document.querySelectorAll('.match-item.matched-ok').length/2;
+  const fb=document.getElementById('matchFb');
+  fb.style.color=matched===MATCH_DATA.length?'var(--ok)':'var(--no)';
+  fb.textContent=matched===MATCH_DATA.length?`🎉 완벽! ${MATCH_DATA.length}/${MATCH_DATA.length} 모두 맞췄어!`:`${matched}/${MATCH_DATA.length} 완료! 남은 것 계속!`;
+}
+function resetMatch(){matchSelected=null;buildMatch();document.getElementById('matchFb').textContent='';}
+
+/* ── FILL ── */
+function normEn(s){return(s||'').toLowerCase().trim().replace(/[^\w\s']/g,'').replace(/\s+/g,' ');}
+function buildFill(){
+  const sec=document.getElementById('fillSection');sec.innerHTML='';
+  FILL_QS.forEach((q,qi)=>{
+    let sentHtml=q.sent,bIdx=0;
+    sentHtml=sentHtml.replace(/\[([^\]]+)\]/g,(m,w)=>{const ii=bIdx++;return `<input class="q-input" id="fi${qi}_${ii}" placeholder="___" data-ans="${w.toLowerCase()}" onkeyup="checkFill(${qi},${ii})" autocomplete="off" autocorrect="off" spellcheck="false" style="width:${Math.max(80,w.length*11)}px">`;});
+    const div=document.createElement('div');div.className='q-item';div.id='fill'+qi;
+    div.innerHTML=`<div class="q-num">빈칸 ${qi+1} <span style="color:var(--muted);font-weight:400;font-size:10px">${q.hint}</span></div><div class="q-sent">${sentHtml}</div><div class="q-fb" id="fb_fill${qi}"></div>`;
+    sec.appendChild(div);
+  });
+}
+function checkFill(qi,ii){
+  const inp=document.getElementById(`fi${qi}_${ii}`);if(!inp)return;
+  const ans=inp.dataset.ans,val=normEn(inp.value);
+  if(val===''){inp.className='q-input';return;}
+  const ok=val===normEn(ans);inp.className='q-input '+(ok?'correct':'wrong');
+  const allOk=FILL_QS[qi].blanks.every((_,k)=>{const el=document.getElementById(`fi${qi}_${k}`);return el&&normEn(el.value)===normEn(FILL_QS[qi].blanks[k]);});
+  const fb=document.getElementById('fb_fill'+qi);
+  if(allOk){fb.className='q-fb ok';fb.textContent='✅ 정답!';}
+  else if(!ok){fb.className='q-fb no';fb.textContent='❌ 정답: '+FILL_QS[qi].blanks.join(' / ');}
+  saveState();
+}
+
+/* ── MC ── */
+function buildMC(){
+  const sec=document.getElementById('mcSection');sec.innerHTML='';
+  MC_QS.forEach((q,qi)=>{
+    const div=document.createElement('div');div.className='q-item';div.id='mc'+qi;
+    const opts=q.opts.map((o,oi)=>`<button class="mc-btn" id="mc${qi}_${oi}" onclick="checkMC(${qi},${oi})"><span style="font-weight:900;color:var(--purple);margin-right:6px">${oi+1}</span>${o}</button>`).join('');
+    div.innerHTML=`<div class="q-num">선택 ${qi+1}</div><div class="q-sent" style="font-style:normal;font-family:'Noto Sans KR'">${q.q}</div><div class="mc-opts">${opts}</div><div class="mc-exp" id="mc_exp${qi}"></div>`;
+    sec.appendChild(div);
+  });
+}
+function checkMC(qi,oi){
+  if(mcState[qi]!==undefined)return;mcState[qi]=oi;
+  const q=MC_QS[qi],ok=oi===q.ans;
+  for(let i=0;i<q.opts.length;i++){const btn=document.getElementById(`mc${qi}_${i}`);btn.disabled=true;if(i===q.ans)btn.classList.add('correct');else if(i===oi&&!ok)btn.classList.add('wrong');}
+  const exp=document.getElementById('mc_exp'+qi);exp.classList.add('show');exp.style.color=ok?'var(--ok)':'var(--no)';exp.innerHTML=(ok?'✅ 정답! ':'❌ 오답! ')+q.exp;
+  saveState();
+}
+
+/* ── ORDER ── */
+function buildOrder(){
+  const sec=document.getElementById('orderSection');sec.innerHTML='';
+  ORDER_QS.forEach((q,qi)=>{
+    orderState[qi]=[];
+    const shuffled=[...q.words].sort(()=>Math.random()-.5);
+    const chips=shuffled.map((w,wi)=>`<span class="word-chip" id="chip${qi}_${wi}" onclick="pickWord(${qi},${wi},'${w}')">${w}</span>`).join('');
+    const div=document.createElement('div');div.className='q-item';div.id='order'+qi;
+    div.innerHTML=`<div class="q-num">어순 ${qi+1} <span style="color:var(--muted);font-weight:400;font-size:10px">${q.hint}</span></div><div class="order-wrap" id="chips${qi}">${chips}</div><div class="order-area" id="ans_area${qi}"></div><div style="display:flex;gap:8px;margin-top:6px"><button class="btn btn-green btn-sm" onclick="checkOrder(${qi})">확인</button><button class="btn btn-outline btn-sm" onclick="resetOrder(${qi})">초기화</button></div><div class="q-fb" id="fb_order${qi}"></div>`;
+    sec.appendChild(div);
+  });
+}
+function pickWord(qi,wi,w){
+  const chip=document.getElementById(`chip${qi}_${wi}`);if(chip.classList.contains('used'))return;
+  chip.classList.add('used');orderState[qi].push({wi,w});
+  const area=document.getElementById('ans_area'+qi);
+  const sp=document.createElement('span');sp.className='order-ans';sp.textContent=w;
+  sp.onclick=function(){orderState[qi]=orderState[qi].filter(x=>x.wi!==wi);document.getElementById(`chip${qi}_${wi}`).classList.remove('used');sp.remove();};
+  area.appendChild(sp);
+}
+function checkOrder(qi){
+  const q=ORDER_QS[qi],built=orderState[qi].map(x=>x.w).join(' ');
+  const ok=built.replace(/[?!.]/g,'').trim().toLowerCase()===q.ans.replace(/[?!.]/g,'').trim().toLowerCase();
+  const fb=document.getElementById('fb_order'+qi);fb.className='q-fb '+(ok?'ok':'no');fb.textContent=ok?'✅ 정답! '+q.ans:'❌ 정답: '+q.ans;
+  saveState();
+}
+function resetOrder(qi){
+  orderState[qi]=[];document.getElementById('ans_area'+qi).innerHTML='';
+  ORDER_QS[qi].words.forEach((_,wi)=>{const c=document.getElementById(`chip${qi}_${wi}`);if(c)c.classList.remove('used');});
+  document.getElementById('fb_order'+qi).textContent='';
+}
+
+/* ── GRADE ALL ── */
+function gradeAll(){
+  let tot=0,cor=0;wrongFillIdx=[];wrongMcIdx=[];
+  FILL_QS.forEach((q,qi)=>{
+    let qOk=true;
+    q.blanks.forEach((ans,ii)=>{
+      tot++;const inp=document.getElementById(`fi${qi}_${ii}`);if(!inp)return;
+      const ok=normEn(inp.value)===normEn(ans);
+      if(ok){cor++;inp.className='q-input correct';}
+      else{qOk=false;inp.className='q-input wrong';const fb=document.getElementById('fb_fill'+qi);if(fb){fb.className='q-fb no';fb.textContent='❌ 정답: '+q.blanks.join(' / ');}if(!inp.value)inp.value=ans;}
+    });
+    if(!qOk)wrongFillIdx.push(qi);
+  });
+  MC_QS.forEach((q,qi)=>{
+    tot++;
+    if(mcState[qi]===q.ans){cor++;}
+    else{wrongMcIdx.push(qi);if(mcState[qi]===undefined){const btn=document.getElementById(`mc${qi}_${q.ans}`);if(btn){btn.classList.add('correct');btn.disabled=true;}const exp=document.getElementById('mc_exp'+qi);if(exp){exp.classList.add('show');exp.style.color='var(--no)';exp.innerHTML='정답: '+q.opts[q.ans]+'<br>'+q.exp;}}}
+  });
+  ORDER_QS.forEach((q,qi)=>{
+    tot++;const built=orderState[qi].map(x=>x.w).join(' ');
+    const ok=built.replace(/[?!.]/g,'').trim().toLowerCase()===q.ans.replace(/[?!.]/g,'').trim().toLowerCase();
+    if(ok){cor++;}else{const fb=document.getElementById('fb_order'+qi);if(fb){fb.className='q-fb no';fb.textContent='❌ 정답: '+q.ans;}}
+  });
+  const sb=document.getElementById('scoreBox');sb.style.display='inline-block';sb.textContent=`점수: ${cor} / ${tot} (${Math.round(cor/tot*100)}점)`;
+  const rb=document.getElementById('retryPageBtn');
+  if(wrongFillIdx.length+wrongMcIdx.length>0){rb.style.display='inline-block';buildRetryPage();}
+  saveState();
+}
+function retryWrong(){
+  FILL_QS.forEach((q,qi)=>{q.blanks.forEach((_,ii)=>{const inp=document.getElementById(`fi${qi}_${ii}`);if(inp&&inp.className.includes('wrong')){inp.value='';inp.className='q-input';const fb=document.getElementById('fb_fill'+qi);if(fb)fb.textContent='';}});});
+  MC_QS.forEach((q,qi)=>{if(mcState[qi]!==undefined&&mcState[qi]!==q.ans){delete mcState[qi];for(let i=0;i<q.opts.length;i++){const btn=document.getElementById(`mc${qi}_${i}`);if(btn){btn.disabled=false;btn.className='mc-btn';}}const exp=document.getElementById('mc_exp'+qi);if(exp){exp.classList.remove('show');exp.style.color='';}}}); 
+  ORDER_QS.forEach((_,qi)=>{const built=orderState[qi].map(x=>x.w).join(' ');const ok=built.replace(/[?!.]/g,'').trim().toLowerCase()===ORDER_QS[qi].ans.replace(/[?!.]/g,'').trim().toLowerCase();if(!ok)resetOrder(qi);});
+}
+function showAll(){
+  FILL_QS.forEach((q,qi)=>{q.blanks.forEach((ans,ii)=>{const inp=document.getElementById(`fi${qi}_${ii}`);if(inp){inp.value=ans;inp.className='q-input correct';}});const fb=document.getElementById('fb_fill'+qi);if(fb){fb.className='q-fb ok';fb.textContent='✅ 정답: '+q.blanks.join(' / ');}});
+  MC_QS.forEach((q,qi)=>{for(let i=0;i<q.opts.length;i++){const btn=document.getElementById(`mc${qi}_${i}`);if(btn){btn.disabled=true;btn.className='mc-btn'+(i===q.ans?' correct':'');}}const exp=document.getElementById('mc_exp'+qi);if(exp){exp.classList.add('show');exp.style.color='var(--ok)';exp.innerHTML='✅ 정답: '+q.opts[q.ans]+'<br>'+q.exp;}mcState[qi]=q.ans;});
+  ORDER_QS.forEach((q,qi)=>{const fb=document.getElementById('fb_order'+qi);if(fb){fb.className='q-fb ok';fb.textContent='✅ 정답: '+q.ans;}});
+}
+
+/* ── RETRY PAGE ── */
+function buildRetryPage(){
+  const sec=document.getElementById('retrySection');sec.innerHTML='';retryMcState={};retryFillState={};
+  let count=0;
+  wrongFillIdx.forEach(qi=>{
+    const q=RETRY_VARIANTS.fill[qi]||FILL_QS[qi];
+    let sentHtml=q.sent,bIdx=0;
+    sentHtml=sentHtml.replace(/\[([^\]]+)\]/g,(m,w)=>{const ii=bIdx++;return `<input class="q-input" id="rfi${qi}_${ii}" placeholder="___" data-ans="${w.toLowerCase()}" autocomplete="off" autocorrect="off" spellcheck="false" style="width:${Math.max(80,w.length*11)}px" onkeyup="checkRetryFill(${qi},${ii})">`;});
+    const div=document.createElement('div');div.className='retry-item';count++;
+    div.innerHTML=`<div class="retry-label">오답 재시험 빈칸 ${count} <span style="font-weight:400">${q.hint}</span></div><div class="q-sent">${sentHtml}</div><div class="q-fb" id="rfb_fill${qi}"></div>`;
+    sec.appendChild(div);
+  });
+  wrongMcIdx.forEach(qi=>{
+    const q=RETRY_VARIANTS.mc[qi]||MC_QS[qi];
+    const div=document.createElement('div');div.className='retry-item';count++;
+    const opts=q.opts.map((o,oi)=>`<button class="mc-btn" id="rmc${qi}_${oi}" onclick="checkRetryMC(${qi},${oi})"><span style="font-weight:900;color:var(--purple);margin-right:6px">${oi+1}</span>${o}</button>`).join('');
+    div.innerHTML=`<div class="retry-label">오답 재시험 선택 ${count}</div><div class="q-sent" style="font-style:normal;font-family:'Noto Sans KR'">${q.q}</div><div class="mc-opts">${opts}</div><div class="mc-exp" id="rmc_exp${qi}"></div>`;
+    sec.appendChild(div);
+  });
+  if(count===0){document.getElementById('retryEmpty').style.display='block';document.getElementById('retryCheckBar').style.display='none';}
+  else{document.getElementById('retryCheckBar').style.display='flex';document.getElementById('retryEmpty').style.display='none';}
+}
+function checkRetryFill(qi,ii){
+  const q=RETRY_VARIANTS.fill[qi]||FILL_QS[qi];
+  const inp=document.getElementById(`rfi${qi}_${ii}`);if(!inp)return;
+  const ans=inp.dataset.ans,val=normEn(inp.value);
+  if(val===''){inp.className='q-input';return;}
+  const ok=val===normEn(ans);inp.className='q-input '+(ok?'correct':'wrong');
+  const allOk=q.blanks.every((_,k)=>{const el=document.getElementById(`rfi${qi}_${k}`);return el&&normEn(el.value)===normEn(q.blanks[k]);});
+  const fb=document.getElementById('rfb_fill'+qi);
+  if(allOk){fb.className='q-fb ok';fb.textContent='✅ 정답!';}else if(!ok){fb.className='q-fb no';fb.textContent='❌ 정답: '+q.blanks.join(' / ');}
+}
+function checkRetryMC(qi,oi){
+  if(retryMcState[qi]!==undefined)return;retryMcState[qi]=oi;
+  const q=RETRY_VARIANTS.mc[qi]||MC_QS[qi],ok=oi===q.ans;
+  for(let i=0;i<q.opts.length;i++){const btn=document.getElementById(`rmc${qi}_${i}`);if(btn){btn.disabled=true;if(i===q.ans)btn.classList.add('correct');else if(i===oi&&!ok)btn.classList.add('wrong');}}
+  const exp=document.getElementById('rmc_exp'+qi);if(exp){exp.classList.add('show');exp.style.color=ok?'var(--ok)':'var(--no)';exp.innerHTML=(ok?'✅ 정답! ':'❌ 오답! ')+q.exp;}
+}
+function gradeRetry(){
+  let tot=0,cor=0;
+  wrongFillIdx.forEach(qi=>{
+    const q=RETRY_VARIANTS.fill[qi]||FILL_QS[qi];
+    q.blanks.forEach((ans,ii)=>{
+      tot++;const inp=document.getElementById(`rfi${qi}_${ii}`);if(!inp)return;
+      const ok=normEn(inp.value)===normEn(ans);
+      if(ok){cor++;inp.className='q-input correct';}else{inp.className='q-input wrong';if(!inp.value)inp.value=ans;const fb=document.getElementById('rfb_fill'+qi);if(fb){fb.className='q-fb no';fb.textContent='❌ 정답: '+q.blanks.join(' / ');}}
+    });
+  });
+  wrongMcIdx.forEach(qi=>{
+    const q=RETRY_VARIANTS.mc[qi]||MC_QS[qi];tot++;
+    if(retryMcState[qi]===q.ans){cor++;}
+    else if(retryMcState[qi]===undefined){const btn=document.getElementById(`rmc${qi}_${q.ans}`);if(btn){btn.classList.add('correct');btn.disabled=true;}const exp=document.getElementById('rmc_exp'+qi);if(exp){exp.classList.add('show');exp.style.color='var(--no)';exp.innerHTML='정답: '+q.opts[q.ans]+'<br>'+q.exp;}}
+  });
+  const sb=document.getElementById('retryScoreBox');sb.style.display='inline-block';
+  sb.textContent=tot>0?`재시험 점수: ${cor} / ${tot} (${Math.round(cor/tot*100)}점)`:'문제 없음';
+}
+function goRetryPage(){go(8);}
+
+/* ── LOCAL STORAGE ── */
+const LS_KEY='junti_pp_base_v3';
+function saveState(){
+  const fillVals={};
+  FILL_QS.forEach((_,qi)=>{FILL_QS[qi].blanks.forEach((_,ii)=>{const el=document.getElementById(`fi${qi}_${ii}`);if(el)fillVals[`${qi}_${ii}`]=el.value;});});
+  try{localStorage.setItem(LS_KEY,JSON.stringify({cur,mcState,fillVals}));}catch(e){}
+}
+function loadState(){try{return JSON.parse(localStorage.getItem(LS_KEY)||'{}');}catch(e){return {};}}
+function restoreFill(s){
+  if(!s.fillVals)return;
+  Object.entries(s.fillVals).forEach(([k,v])=>{const [qi,ii]=k.split('_');const inp=document.getElementById(`fi${qi}_${ii}`);if(inp&&v){inp.value=v;checkFill(parseInt(qi),parseInt(ii));}});
+}
+function restoreMC(s){if(!s.mcState)return;Object.entries(s.mcState).forEach(([qi,oi])=>checkMC(parseInt(qi),parseInt(oi)));}
+
+/* ── INIT ── */
+(function init(){
+  document.addEventListener('click',unlockAudio,{once:true});
+  const saved=loadState();
+  if(saved.cur)cur=saved.cur;
+  if(saved.mcState)Object.assign(mcState,saved.mcState);
+  buildDots();
+  buildIrregTable();
+  buildUsageMC();
+  buildFill();
+  buildMC();
+  buildOrder();
+  buildMatch();
+  assignBlankIdx();
+  attachSlots();
+  document.getElementById('p1').classList.remove('active');
+  document.getElementById('p'+(cur+1)).classList.add('active');
+  document.getElementById('pageCnt').textContent=(cur+1)+' / '+TOTAL;
+  document.getElementById('progFill').style.width=((cur+1)/TOTAL*100)+'%';
+  document.getElementById('prevBtn').disabled=cur===0;
+  document.getElementById('nextBtn').disabled=cur===TOTAL-1;
+  buildDots();
+  if(cur===0)startTimeline();
+  restoreFill(saved);
+  restoreMC(saved);
+})();
+</script>
+</body>
+</html>
