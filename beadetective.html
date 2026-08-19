@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>준티 잉글리쉬 · 천재(이상기) 중2 L5 단어·대화문</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f4fa; --card:#fff; --card2:#eeecf7; --card3:#f8f7fd;
+  --primary:#5b4fa8; --primary-lt:#ece9f8; --primary-dk:#3b2f8a;
+  --accent:#e8a020; --accent-lt:#fef3dc;
+  --text:#1a1a2e; --muted:#6b6880; --border:#d8d4ee;
+  --ok:#1a7a3c; --ok-bg:#e8f5ec; --no:#c0392b; --no-bg:#fdecea;
+  --info:#3a5fa8; --info-bg:#e8f0fb; --r:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);padding:14px 10px 60px;}
+.wrap{max-width:740px;margin:0 auto;}
+header{background:linear-gradient(135deg,#3b2f8a,#7b6fd0);border-radius:16px;padding:20px 22px;color:#fff;margin-bottom:12px;}
+header .brand{font-size:11px;font-weight:900;letter-spacing:2px;opacity:.85;}
+header h1{font-size:20px;font-weight:900;margin-top:4px;}
+header .sub{font-size:12px;opacity:.85;margin-top:4px;}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.tab{flex:1;min-width:150px;background:var(--card);border:2px solid var(--border);border-radius:10px;padding:10px 6px;font-size:12.5px;font-weight:700;color:var(--muted);text-align:center;cursor:pointer;transition:.15s;}
+.tab.on{background:var(--primary);border-color:var(--primary);color:#fff;}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px;}
+.sec-title{font-size:15px;font-weight:900;color:var(--primary-dk);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.check-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.cb-btn{flex:1;min-width:110px;border:none;border-radius:10px;padding:11px 8px;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit;}
+.cb-btn.main{background:var(--primary);color:#fff;}
+.cb-btn.warn{background:var(--accent);color:#fff;}
+.cb-btn.ghost{background:var(--card2);color:var(--muted);}
+.score-line{font-size:14px;font-weight:900;color:var(--primary-dk);text-align:center;margin:8px 0;display:none;}
+.score-line.show{display:block;}
+/* vocab card */
+.v-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:560px){.v-grid{grid-template-columns:1fr;}}
+.vc{background:var(--card3);border:1.5px solid var(--border);border-radius:10px;padding:11px 12px;}
+.vc .vc-blank{font-family:'Lora',serif;font-size:16px;font-weight:600;letter-spacing:2px;color:var(--primary-dk);}
+.vc .vc-kr{font-size:12px;color:var(--muted);margin:3px 0 7px;}
+.vc input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 10px;font-size:14px;font-family:'Lora',serif;}
+.vc input.ok{border-color:var(--ok);background:var(--ok-bg);}
+.vc input.no{border-color:var(--no);background:var(--no-bg);}
+.vc-row{display:flex;gap:6px;margin-top:6px;}
+.vc-row button{border:none;background:var(--primary-lt);color:var(--primary);border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;}
+.vc-fb{display:none;font-size:12px;font-weight:700;margin-top:6px;}
+.vc-fb.ok{display:block;color:var(--ok);}
+.vc-fb.no{display:block;color:var(--no);}
+.poly{background:var(--accent-lt);border:1.5px solid #f0d090;border-radius:8px;padding:8px 10px;margin-top:8px;font-size:11.5px;}
+.poly .p-title{font-weight:900;color:var(--accent);margin-bottom:4px;}
+.poly .p-row{display:flex;gap:6px;line-height:1.7;}
+.poly .p-row i{font-family:'Lora',serif;color:var(--muted);}
+.poly .p-note{margin-top:4px;font-weight:700;color:var(--no);}
+/* dict */
+.dc{background:var(--card3);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.dc .dc-def{font-family:'Lora',serif;font-size:14px;line-height:1.8;}
+.dc .dc-kr{font-size:12px;color:var(--muted);margin:3px 0 7px;}
+/* dialogue */
+.dlg-head{background:var(--primary-lt);border-left:5px solid var(--primary);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.dlg-head .dh-t{font-size:14px;font-weight:900;color:var(--primary-dk);}
+.key-box{background:var(--info-bg);border:1.5px solid #b0c8f0;border-radius:10px;padding:11px 14px;margin-bottom:10px;font-size:13px;}
+.key-box .kb-e{font-family:'Lora',serif;font-weight:600;font-size:15px;color:var(--info);}
+.key-box .kb-m{font-weight:700;margin-top:2px;}
+.key-box .kb-u{font-size:12px;color:var(--muted);margin-top:4px;padding-top:4px;border-top:1px dashed var(--border);}
+.sim-list{background:var(--ok-bg);border:1.5px solid #b2d8c2;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12.5px;}
+.sim-list .sl-t{font-weight:900;color:var(--ok);margin-bottom:4px;font-size:12px;}
+.sim-list .sl-r{line-height:1.9;}
+.sim-list .sl-r i{color:var(--muted);font-style:normal;font-size:11.5px;}
+.wrong-box{background:var(--no-bg);border:1.5px solid #e8b0c0;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12.5px;}
+.wrong-box .wb-t{font-weight:900;color:var(--no);font-size:12px;margin-bottom:4px;}
+.wrong-box .wb-e{font-family:'Lora',serif;text-decoration:line-through;}
+.script-tg{width:100%;border:none;background:var(--card2);color:var(--primary-dk);border-radius:10px;padding:10px;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit;margin-bottom:8px;}
+.script{display:none;background:var(--card3);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.script.open{display:block;}
+.line{display:flex;gap:8px;margin-bottom:7px;font-size:13px;line-height:1.7;}
+.line .sp{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;}
+.line .tx{font-family:'Lora',serif;padding-top:2px;}
+/* questions */
+.q-card{background:var(--card3);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+.q-num{display:inline-block;background:var(--primary);color:#fff;border-radius:6px;font-size:11px;font-weight:900;padding:2px 8px;margin-bottom:6px;}
+.q-tag{display:inline-block;background:var(--accent-lt);color:var(--accent);border:1px solid #f0d090;border-radius:6px;font-size:11px;font-weight:700;padding:2px 8px;margin-left:4px;}
+.q-t{font-size:13.5px;font-weight:700;line-height:1.7;margin-bottom:8px;}
+.q-sent{font-family:'Lora',serif;font-size:14px;line-height:2;background:#fff;border:1px dashed var(--border);border-radius:8px;padding:8px 12px;margin-bottom:8px;}
+.mc-opt{border:1.5px solid var(--border);background:#fff;border-radius:9px;padding:9px 12px;font-size:13px;margin-bottom:6px;cursor:pointer;line-height:1.6;transition:.12s;}
+.mc-opt:hover{border-color:var(--primary);}
+.mc-opt.ok{border-color:var(--ok);background:var(--ok-bg);font-weight:700;}
+.mc-opt.no{border-color:var(--no);background:var(--no-bg);}
+.mc-opt.rv{border-color:var(--ok);background:var(--ok-bg);}
+.mc-opt.dis{pointer-events:none;opacity:.85;}
+.fill-row{display:flex;gap:6px;}
+.fill-row input{flex:1;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;font-family:'Lora',serif;}
+.fill-row input.ok{border-color:var(--ok);background:var(--ok-bg);}
+.fill-row input.no{border-color:var(--no);background:var(--no-bg);}
+.fill-row button{border:none;background:var(--primary);color:#fff;border-radius:8px;padding:0 16px;font-size:13px;font-weight:900;cursor:pointer;font-family:inherit;}
+.q-fb{display:none;font-size:12.5px;font-weight:700;margin-top:7px;line-height:1.6;}
+.q-fb.show{display:block;}
+.q-fb.ok{color:var(--ok);}
+.q-fb.no{color:var(--no);}
+.ord-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+.ord-chip{border:1.5px solid var(--primary);color:var(--primary);background:#fff;border-radius:8px;padding:7px 11px;font-size:12.5px;font-family:'Lora',serif;cursor:pointer;}
+.ord-chip.used{opacity:.3;pointer-events:none;}
+.ord-slots{min-height:44px;border:2px dashed var(--border);border-radius:10px;padding:8px;display:flex;flex-direction:column;gap:5px;margin-bottom:8px;}
+.ord-slots>span{font-size:12px;color:var(--muted);align-self:center;margin:auto;}
+.ord-slot{background:var(--primary-lt);border:1.5px solid var(--border);border-radius:8px;padding:7px 11px;font-size:12.5px;font-family:'Lora',serif;cursor:pointer;}
+.ord-btns{display:flex;gap:6px;}
+.ord-btns button{border:none;border-radius:8px;padding:8px 14px;font-size:12.5px;font-weight:900;cursor:pointer;font-family:inherit;}
+.ord-btns .ob-c{background:var(--primary);color:#fff;}
+.ord-btns .ob-r{background:var(--card2);color:var(--muted);}
+.ins-box{background:var(--accent-lt);border:1.5px solid #f0d090;border-radius:8px;padding:9px 12px;font-family:'Lora',serif;font-size:13.5px;margin-bottom:8px;}
+.ins-lines{margin-bottom:8px;}
+.ins-line{font-family:'Lora',serif;font-size:13px;line-height:1.8;padding:5px 10px;border-left:3px solid var(--border);margin-bottom:4px;background:#fff;border-radius:0 8px 8px 0;}
+.ins-btns{display:flex;flex-wrap:wrap;gap:6px;}
+.ins-btns button{border:1.5px solid var(--border);background:#fff;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;}
+.ins-btns button.ok{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);}
+.ins-btns button.no{border-color:var(--no);background:var(--no-bg);color:var(--no);}
+.ans-r{display:none;background:var(--ok-bg);border:1.5px solid #b2d8c2;border-radius:8px;padding:8px 12px;font-size:12.5px;margin-top:7px;line-height:1.7;}
+.ans-r.open{display:block;}
+.foot{text-align:center;font-size:11px;color:var(--muted);margin-top:20px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">JUNTI ENGLISH · 준티 잉글리쉬</div>
+  <h1>천재(이상기) 중2 · Lesson 05 Be a Detective!</h1>
+  <div class="sub">단어 부분빈칸 · 영영풀이 · 대화문 핵심표현 훈련</div>
+</header>
+<div class="tabs">
+  <div class="tab on" id="t0" onclick="go(0)">📝 단어 부분빈칸</div>
+  <div class="tab" id="t1" onclick="go(1)">📖 영영풀이</div>
+  <div class="tab" id="t2" onclick="go(2)">💬 대화문 A</div>
+  <div class="tab" id="t3" onclick="go(3)">💬 대화문 B</div>
+  <div class="tab" id="t4" onclick="go(4)">🧩 워드 플러스</div>
+</div>
+<div id="app"></div>
+<div class="foot">ⓒ 준티 잉글리쉬 · 천재(이상기) 중2 Lesson 05</div>
+</div>
+<script>
+/* ===================== DATA ===================== */
+const VOCAB = [
+ {en:"actually",kr:"사실은, 실제로 (= in fact)"},
+ {en:"anytime",kr:"언제든지"},
+ {en:"character",kr:"등장인물; 성격"},
+ {en:"contact",kr:"연락하다; 연락",poly:{title:"contact — 명사·동사 동형",rows:[{n:"①",m:"연락하다 (동)",ex:"You can contact her anytime."},{n:"②",m:"연락 (명)",ex:"Keep in contact with me."}],note:"⚠️ 명사=동사 같은 형태 — 품사 구별 출제!"}},
+ {en:"court",kr:"경기장, 코트"},
+ {en:"cover",kr:"표지, 덮개; 덮다",poly:{title:"cover — 명사·동사 동형",rows:[{n:"①",m:"표지·덮개 (명)",ex:"a bear character on the cover"},{n:"②",m:"덮다 (동)",ex:"Cover the box with paper."}],note:"⚠️ 명사=동사 같은 형태!"}},
+ {en:"detail",kr:"세부 사항"},
+ {en:"handle",kr:"손잡이; 다루다",poly:{title:"handle 다의어",rows:[{n:"①",m:"손잡이 (명)",ex:"It has a brown handle."},{n:"②",m:"다루다, 처리하다 (동)",ex:"She handles problems well."}],note:"⚠️ 우산 대화에서는 '손잡이'!"}},
+ {en:"inside",kr:"~의 안에 (↔ outside)"},
+ {en:"item",kr:"물건, 항목"},
+ {en:"last",kr:"마지막으로",poly:{title:"last 다의어",rows:[{n:"①",m:"마지막으로 (부)",ex:"Where did you last see it?"},{n:"②",m:"지난 (형)",ex:"last weekend"},{n:"③",m:"지속되다 (동)",ex:"The movie lasts two hours."}],note:"⚠️ 대화문에서는 '마지막으로'(부사)!"}},
+ {en:"logically",kr:"논리적으로"},
+ {en:"neighbor",kr:"이웃"},
+ {en:"pattern",kr:"무늬, 패턴"},
+ {en:"pocket",kr:"주머니"},
+ {en:"put",kr:"놓다, 두다 (– put – put)"},
+ {en:"solve",kr:"해결하다"},
+ {en:"textbook",kr:"교과서"},
+ {en:"a few",kr:"몇몇의"},
+ {en:"be good at",kr:"~을 잘하다"},
+ {en:"look around",kr:"~을 둘러보다"},
+ {en:"look for",kr:"~을 찾다"},
+ {en:"look like",kr:"~처럼 보이다"},
+ {en:"turn off",kr:"~을 끄다"},
+ {en:"bake",kr:"(쿠키 등을) 굽다"},
+ {en:"candle",kr:"양초"},
+ {en:"crumb",kr:"부스러기, 빵가루"},
+ {en:"dessert",kr:"디저트"},
+ {en:"detective",kr:"탐정, 형사"},
+ {en:"empty",kr:"텅 빈 (↔ full)"},
+ {en:"exact",kr:"정확한 (exactly 정확히)"},
+ {en:"finally",kr:"마지막으로(= lastly), 마침내"},
+ {en:"gift",kr:"선물"},
+ {en:"hungry",kr:"배고픈 (↔ full)"},
+ {en:"lie",kr:"거짓말하다; 거짓말",poly:{title:"lie — 명사·동사 동형",rows:[{n:"①",m:"거짓말하다 (동)",ex:"Don't lie to me."},{n:"②",m:"거짓말 (명)",ex:"He told a lie."}],note:"⚠️ 명사=동사 같은 형태!"}},
+ {en:"medicine",kr:"약"},
+ {en:"secret",kr:"비밀의; 비밀"},
+ {en:"smell",kr:"냄새를 맡다; 냄새"},
+ {en:"stomachache",kr:"복통"},
+ {en:"whole",kr:"전체의, 온전한"},
+ {en:"wise",kr:"현명한"},
+ {en:"wrap",kr:"포장하다"},
+ {en:"all morning",kr:"아침 내내"},
+ {en:"big eater",kr:"대식가"},
+ {en:"come back",kr:"돌아오다"},
+ {en:"detective novel",kr:"추리 소설"},
+ {en:"find out",kr:"~을 알아내다 (= discover)"},
+ {en:"go out",kr:"나가다, 외출하다"},
+ {en:"in trouble",kr:"곤경에 처한"},
+ {en:"lose weight",kr:"체중을 줄이다"},
+ {en:"most of all",kr:"무엇보다도 (= above all)"},
+ {en:"next door",kr:"옆집에"},
+ {en:"stay in bed",kr:"침대에 누워 있다"},
+ {en:"take medicine",kr:"약을 먹다"},
+ {en:"these days",kr:"요즘 (= recently, lately)"},
+ {en:"clue",kr:"단서, 실마리 (= hint)"},
+ {en:"disappear",kr:"사라지다 (↔ appear)"},
+ {en:"earring",kr:"귀걸이"},
+ {en:"famous",kr:"유명한 (= well-known)"},
+ {en:"floor",kr:"바닥, 층"},
+ {en:"footprint",kr:"발자국"},
+ {en:"guess",kr:"추측하다; 추측"},
+ {en:"hide",kr:"숨기다 (= conceal) (– hid – hidden)"},
+ {en:"missing",kr:"없어진, 실종된"},
+ {en:"mud",kr:"진흙"},
+ {en:"museum",kr:"박물관"},
+ {en:"poet",kr:"시인"},
+ {en:"stage",kr:"무대"},
+ {en:"steal",kr:"훔치다 (– stole – stolen)"},
+ {en:"thief",kr:"도둑"},
+ {en:"run away",kr:"도망치다 (= get away)"}
+];
+const DICT = [
+ {en:"birthday",kr:"생일",def:"the day when someone was born"},
+ {en:"candle",kr:"양초",def:"a wax stick that you burn to make light"},
+ {en:"clue",kr:"단서",def:"a piece of information that helps you find an answer"},
+ {en:"contact",kr:"연락하다",def:"to communicate with someone by phone, email, or letter"},
+ {en:"crumb",kr:"부스러기",def:"a very small piece of bread, cake, or cookie"},
+ {en:"disappear",kr:"사라지다",def:"to go away so that you cannot be seen anymore"},
+ {en:"empty",kr:"텅 빈",def:"having nothing inside"},
+ {en:"exact",kr:"정확한",def:"completely correct in every detail"},
+ {en:"gift",kr:"선물",def:"something you give to someone without asking for money"},
+ {en:"hide",kr:"숨기다",def:"to put something somewhere so no one can see it"},
+ {en:"hungry",kr:"배고픈",def:"feeling a need or desire to eat"},
+ {en:"logically",kr:"논리적으로",def:"in a way that makes sense"},
+ {en:"medicine",kr:"약",def:"something you take to help you feel better when you are sick"},
+ {en:"neighbor",kr:"이웃",def:"a person who lives near you"},
+ {en:"stay",kr:"머무르다",def:"to be in one place and not leave"},
+ {en:"steal",kr:"훔치다",def:"to take something without permission"},
+ {en:"stomachache",kr:"복통",def:"a pain or an uncomfortable feeling in the belly"},
+ {en:"textbook",kr:"교과서",def:"a book used to study a particular subject, especially in school"},
+ {en:"whole",kr:"전체의",def:"all of something; complete"},
+ {en:"wrap",kr:"포장하다",def:"to cover something with paper, cloth, or another material"}
+];
+const DLG_A = [
+{title:"대화 1 — Understand Communication A-1 (잃어버린 개 찾기)",
+ keyExpr:"I'm sorry to hear that.",
+ keyMeaning:"그 말을 듣게 되어 유감이야.",
+ keyUsage:"유감·위로를 나타내는 표현. to 뒤에는 동사원형(hear)! (= That's too bad. / That's terrible!)",
+ similar:[
+  {en:"That's too bad.",kr:"그것 참 안됐다."},
+  {en:"That's terrible!",kr:"정말 안됐다!"},
+  {en:"That's a pity.",kr:"안타깝다."},
+  {en:"I feel sorry for you.",kr:"참 안됐구나."}
+ ],
+ wrong:{en:"I'm sorry to hearing that.",kr:"그 말을 듣게 되어 유감이야.",exp:"to 뒤에는 동사원형! to hear(O), to hearing(X)"},
+ qs:[
+  {type:"mc-wrong",q:"다음 중 <b>문법이 틀린 것</b>을 고르세요.",tag:"⚠️ to+동사원형",
+   opts:["That's too bad.","That's terrible!","That's a pity.","I feel sorry for you.","I'm sorry to hearing that."],
+   wrongIdx:4,fb:"to 뒤에는 동사원형이 와야 해요. I'm sorry to hear that.(O)"},
+  {type:"mc-match",q:"'I'm sorry to hear that.'과 바꿔 쓸 수 <b>없는</b> 것은?",tag:"⚠️ 유사표현",
+   opts:["That's too bad.","That's terrible!","That's a pity.","You're welcome."],
+   ans:3,fb:"You're welcome.은 '천만에요'(감사에 대한 응답)라서 위로 표현이 아니에요."},
+  {type:"fill",q:"개가 어떻게 생겼는지(외모) 묻는 표현을 완성하세요.",
+   sent:"What does he look ________?",ans:"like",fb:"What does ~ look like? = ~은 어떻게 생겼니? (외모 질문)"},
+  {type:"fill",q:"'나는 내 개를 찾고 있어.' — ~을 찾다",
+   sent:"I'm looking ________ my dog.",ans:"for",fb:"look for = ~을 찾다. look around(둘러보다), look like(~처럼 보이다)와 구별!"},
+  {type:"mc-match",q:"'What does he look like?'와 같은 의미로 쓸 수 있는 것은?",tag:"⚠️ 함정주의",
+   opts:["How does he look?","What does he like?","Where does he look?","Who does he like?"],
+   ans:0,fb:"How does he look?(O) — What does he like?는 '그는 무엇을 좋아하니?'라서 전혀 다른 뜻!"},
+  {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+   chips:["What are you doing?","I'm looking for my dog. I lost him in this park.","I'm sorry to hear that. What does he look like?","He has a long body and short legs."],
+   ans:[0,1,2,3],fb:"질문 → 개를 잃어버림 → 위로+외모 질문 → 외모 설명 순서예요."},
+  {type:"mc-match",q:"대화 내용과 <b>일치하는</b> 것은?",
+   opts:["Kevin의 개는 몸이 짧고 다리가 길다.","Kevin은 공원에서 개를 잃어버렸다.","소녀는 개 찾기를 도와주지 않기로 했다.","Kevin은 개 사진을 가지고 있지 않다."],
+   ans:1,fb:"I lost him in this park. — 개는 몸이 길고 다리가 짧아요(Q1의 함정!). 소녀는 함께 찾자고 했고, 사진도 보여줬어요."},
+  {type:"fill",q:"'여기 그의 사진이 있어.' (Here is의 축약형)",
+   sent:"________ his picture.",ans:"Here's",fb:"Here's ~ = Here is ~의 축약형. '여기 ~이 있다'"},
+  {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+   ins:"I'm sorry to hear that.",
+   lines:["G: What are you doing?","B: I'm looking for my dog. I lost him in this park.","G: What does he look like?"],
+   pos:2,exp:"개를 잃어버렸다는 말을 들은 직후, 외모를 묻기 전에 위로 표현이 와야 자연스러워요."},
+  {type:"mc-match",q:"'Let's find your dog together.'에서 Let's 뒤에 오는 동사의 형태는?",tag:"⚠️ 문법",
+   opts:["동사원형","to부정사","동명사(-ing)","과거형"],
+   ans:0,fb:"Let's + 동사원형 = '~하자'(제안·권유)"}
+ ],
+ lines:[
+  {sp:"G",text:"Hi, Kevin. What are you doing?"},
+  {sp:"B",text:"Well, I'm looking for my dog. I lost him in this park."},
+  {sp:"G",text:"I'm sorry to hear that. What does he look like?"},
+  {sp:"B",text:"He has a long body and short legs. Here's his picture."},
+  {sp:"G",text:"Okay. Let's find your dog together."}
+ ]},
+{title:"대화 2 — Understand Communication A-2 (잃어버린 배낭)",
+ keyExpr:"Where did you last see it?",
+ keyMeaning:"그것을 마지막으로 어디에서 봤니?",
+ keyUsage:"last = '마지막으로'(부사). 물건 잃어버렸을 때 위치를 확인하는 질문.",
+ similar:[
+  {en:"When did you see it last?",kr:"마지막으로 언제 봤니?"},
+  {en:"Where did you leave it?",kr:"어디에 두고 왔니?"},
+  {en:"Where did you put it?",kr:"어디에 놓았니?"},
+  {en:"When did you use it last?",kr:"마지막으로 언제 사용했니?"}
+ ],
+ wrong:{en:"Where did you saw it last?",kr:"마지막으로 어디에서 봤니?",exp:"did 뒤에는 동사원형! did you see(O), did you saw(X)"},
+ qs:[
+  {type:"mc-wrong",q:"다음 중 <b>문법이 틀린 것</b>을 고르세요.",tag:"⚠️ did+동사원형",
+   opts:["When did you see it last?","Where did you leave it?","Where did you put it?","When did you use it last?","Where did you saw it last?"],
+   wrongIdx:4,fb:"조동사 did 뒤에는 동사원형! did you see(O)"},
+  {type:"fill",q:"'농구 코트에 그것을 두고 온 것 같아.' (leave의 과거형)",
+   sent:"I think I ________ it on the basketball court.",ans:"left",fb:"leave – left – left. '두고 오다'의 과거형"},
+  {type:"mc-match",q:"소년의 배낭 묘사로 알맞은 것은?",
+   opts:["별 무늬가 있는 파란 배낭","곰 캐릭터가 있는 검은 배낭","갈색 손잡이가 있는 초록 가방","꽃무늬가 있는 노란 가방"],
+   ans:0,fb:"It's a blue backpack with a star pattern on it. — 나머지는 다른 대화의 물건들!"},
+  {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+   chips:["I lost my backpack!","Where did you last see it?","I think I left it on the basketball court.","Let's go to the basketball court and look for it."],
+   ans:[0,1,2,3],fb:"분실 → 마지막 위치 질문 → 위치 대답 → 함께 찾으러 가기 순서"},
+  {type:"fill",q:"외모·생김새를 물을 때 쓰는 의문사로 문장을 완성하세요.",
+   sent:"________ does it look like?",ans:"What",fb:"What does it look like? — How를 쓰면 like 없이 How does it look?"},
+  {type:"mc-match",q:"'I think I left it ~'에서 think 뒤에 생략된 것은?",tag:"⚠️ 문법",
+   opts:["that","what","who","which"],
+   ans:0,fb:"I think (that) 주어+동사: 접속사 that은 생략 가능"},
+  {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+   ins:"What does it look like?",
+   lines:["B: I think I left it on the basketball court.","B: It's a blue backpack with a star pattern on it.","G: Let's go to the basketball court and look for it."],
+   pos:1,exp:"생김새 설명(파란 배낭) 바로 앞에 외모 질문이 와야 해요."},
+  {type:"mc-match",q:"대화가 끝난 후 두 사람이 갈 곳은?",
+   opts:["교실","농구 코트","공원","도서관"],
+   ans:1,fb:"Let's go to the basketball court and look for it."},
+  {type:"fill",q:"'그것을 찾아보자.' — ~을 찾다",
+   sent:"Let's go and look ________ it.",ans:"for",fb:"look for = ~을 찾다"},
+  {type:"mc-match",q:"'I'm sorry to hear that.'에 담긴 말하는 사람의 의도는?",tag:"⚠️ 함정주의",
+   opts:["위로","감사","사과","거절"],
+   ans:0,fb:"sorry가 있지만 사과가 아니라 유감·위로 표현이에요!"}
+ ],
+ lines:[
+  {sp:"B",text:"Oh! I lost my backpack!"},
+  {sp:"G",text:"I'm sorry to hear that. Where did you last see it?"},
+  {sp:"B",text:"Hmm.... I think I left it on the basketball court."},
+  {sp:"G",text:"What does it look like?"},
+  {sp:"B",text:"It's a blue backpack with a star pattern on it."},
+  {sp:"G",text:"Oh, let's go to the basketball court and look for it."}
+ ]},
+{title:"대화 3 — Understand Communication A-3 (초록 우산)",
+ keyExpr:"Excuse me.",
+ keyMeaning:"실례합니다.",
+ keyUsage:"처음 말을 걸 때 쓰는 표현. cf. I'm sorry.(사과)와 구별!",
+ similar:[
+  {en:"Pardon me.",kr:"실례합니다."},
+  {en:"May I ask you something?",kr:"뭐 좀 여쭤봐도 될까요?"},
+  {en:"Can I talk to you for a second?",kr:"잠깐 이야기할 수 있을까요?"},
+  {en:"Hello, may I ask a question?",kr:"안녕하세요, 질문 하나 해도 될까요?"}
+ ],
+ wrong:{en:"Excuse you.",kr:"실례합니다.",exp:"말을 걸 때는 Excuse me. — '내가 실례한다'는 의미!"},
+ qs:[
+  {type:"mc-wrong",q:"다음 중 <b>어색한 표현</b>을 고르세요.",tag:"⚠️ 표현",
+   opts:["Pardon me.","May I ask you something?","Can I talk to you for a second?","Hello, may I ask a question?","Excuse you."],
+   wrongIdx:4,fb:"말을 걸 때는 Excuse me.가 맞아요."},
+  {type:"fill",q:"'여기에 그것을 두고 간 것 같아요.' (leave의 과거형)",
+   sent:"I think I ________ it here.",ans:"left",fb:"leave – left – left"},
+  {type:"mc-match",q:"소녀의 우산 묘사로 알맞은 것은?",
+   opts:["초록색이고 갈색 손잡이가 있다","노란색이고 꽃무늬가 있다","파란색이고 별 무늬가 있다","검은색이고 곰 캐릭터가 있다"],
+   ans:0,fb:"It's green, and it has a brown handle."},
+  {type:"fill",q:"'남자는 그것을 발견해서 우산꽂이에 두었다.' (동사 '놓다'의 과거형)",
+   sent:"I found it and ________ it in the umbrella stand.",ans:"put",fb:"put – put – put: 과거형도 put!"},
+  {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+   chips:["Did you see my umbrella?","What does it look like?","It's green, and it has a brown handle.","Oh, I found it and put it in the umbrella stand."],
+   ans:[0,1,2,3],fb:"우산 봤는지 질문 → 외모 질문 → 외모 설명 → 발견 소식 순서"},
+  {type:"mc-match",q:"대화 내용과 <b>일치하지 않는</b> 것은?",
+   opts:["소녀는 우산을 잃어버렸다.","우산은 초록색이다.","남자는 우산을 보지 못했다.","우산 손잡이는 갈색이다."],
+   ans:2,fb:"남자는 우산을 발견해서(found) 우산꽂이에 두었어요."},
+  {type:"mc-match",q:"leave의 과거형은?",tag:"⚠️ 불규칙동사",
+   opts:["leaved","left","leaven","leaving"],
+   ans:1,fb:"leave – left – left. cf. put은 put – put – put으로 세 형태가 모두 같아요!"},
+  {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+   ins:"Thanks a lot!",
+   lines:["G: It's green, and it has a brown handle.","M: Oh, I found it and put it in the umbrella stand."],
+   pos:2,exp:"우산을 찾았다는 말을 들은 후 감사 인사로 대화가 끝나요."}
+ ],
+ lines:[
+  {sp:"G",text:"Excuse me. Did you see my umbrella? I think I left it here."},
+  {sp:"M",text:"What does it look like?"},
+  {sp:"G",text:"It's green, and it has a brown handle."},
+  {sp:"M",text:"Oh, I found it and put it in the umbrella stand."},
+  {sp:"G",text:"Thanks a lot!"}
+ ]}
+];
+const DLG_B = [
+{title:"대화 4 — Understand Communication B (분실물 센터)",
+ keyExpr:"May I help you?",
+ keyMeaning:"도와드릴까요?",
+ keyUsage:"도움을 제안하는 표현 (= Can I help you?). cf. Can you help me?는 도움 '요청'!",
+ similar:[
+  {en:"Can I help you?",kr:"도와드릴까요?"},
+  {en:"Do you need any help?",kr:"도움이 필요하세요?"},
+  {en:"How can I help you?",kr:"어떻게 도와드릴까요?"},
+  {en:"Is there anything I can do for you?",kr:"제가 해드릴 수 있는 게 있을까요?"}
+ ],
+ wrong:{en:"May you help me?",kr:"도와드릴까요?",exp:"도움 제안은 May I ~? — May you(X)!"},
+ qs:[
+  {type:"mc-wrong",q:"다음 중 <b>어색한 표현</b>을 고르세요.",tag:"⚠️ 제안 표현",
+   opts:["Can I help you?","Do you need any help?","How can I help you?","Is there anything I can do for you?","May you help me?"],
+   wrongIdx:4,fb:"도움을 제안할 때는 May I help you? — May you(X)"},
+  {type:"mc-match",q:"'May I help you?'와 바꿔 쓸 수 <b>없는</b> 것은?",tag:"⚠️ 제안 vs 요청",
+   opts:["Can I help you?","Do you need help?","How can I help you?","Can you help me?"],
+   ans:3,fb:"Can you help me?는 내가 도움을 '요청'하는 표현이라 방향이 반대!"},
+  {type:"fill",q:"'또한, 그것은 꽃무늬가 있어요.' — '또한'이라는 뜻의 부사",
+   sent:"________, it has a flower pattern.",ans:"Also",fb:"also = 또한. 문장 앞에 오면 대문자+콤마!"},
+  {type:"fill",q:"'우리가 그것을 찾으면 전화드릴게요.' — '~할 때, ~하면'",
+   sent:"I'll call you ________ we find it.",ans:"when",fb:"when = ~할 때. 시간 부사절 접속사"},
+  {type:"mc-match",q:"빈칸에 알맞은 것은? — I'll call you when we ________ it.",tag:"⚠️ 시제 함정",
+   opts:["find","will find","found","finding"],
+   ans:0,fb:"when이 이끄는 시간 부사절에서는 미래의 일도 현재시제로! will find(X)"},
+  {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+   chips:["May I help you?","I lost my umbrella in this park.","What does it look like?","It's yellow. Also, it has a flower pattern."],
+   ans:[0,1,2,3],fb:"도움 제안 → 분실 설명 → 외모 질문 → 외모 설명"},
+  {type:"mc-match",q:"Speaker B의 우산에 대한 설명으로 알맞은 것은?",
+   opts:["노란색이고 무늬가 없다.","노란색이고 꽃무늬가 있다.","초록색이고 갈색 손잡이가 있다.","파란색이고 별 무늬가 있다."],
+   ans:1,fb:"It's yellow. Also, it has a flower pattern. — '무늬가 없다'는 함정!"},
+  {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+   ins:"I'm sorry to hear that.",
+   lines:["B: I lost my umbrella in this park.","A: What does it look like?"],
+   pos:1,exp:"분실 소식을 들은 직후 위로 표현이 온 다음, 외모를 물어봐요."}
+ ],
+ lines:[
+  {sp:"A",text:"Hello, may I help you?"},
+  {sp:"B",text:"I lost my umbrella in this park."},
+  {sp:"A",text:"I'm sorry to hear that. What does it look like?"},
+  {sp:"B",text:"It's yellow. Also, it has a flower pattern."},
+  {sp:"A",text:"Okay. I'll call you when we find it."}
+ ]},
+{title:"대화 5 — Understand Communication C (사라진 스마트폰)",
+ keyExpr:"Can you help me?",
+ keyMeaning:"나를 도와줄 수 있니?",
+ keyUsage:"도움을 요청하는 표현. cf. May I help you?(도움 제안)와 방향이 반대!",
+ similar:[
+  {en:"Can you give me a hand?",kr:"좀 도와줄래?"},
+  {en:"Will you help me?",kr:"도와줄래?"},
+  {en:"Please help me.",kr:"도와줘."},
+  {en:"I need your help.",kr:"네 도움이 필요해."}
+ ],
+ wrong:{en:"Can I help me?",kr:"나를 도와줄 수 있니?",exp:"도움 요청은 Can you help me? — Can I help me(X)!"},
+ qs:[
+  {type:"mc-wrong",q:"다음 중 <b>어색한 표현</b>을 고르세요.",tag:"⚠️ 요청 표현",
+   opts:["Can you give me a hand?","Will you help me?","Please help me.","I need your help.","Can I help me?"],
+   wrongIdx:4,fb:"도움 요청은 Can you help me?"},
+  {type:"fill",q:"'사실은, 내가 그것을 껐어.' — '사실은'이라는 뜻의 부사",
+   sent:"________, I turned it off.",ans:"Actually",fb:"actually = 사실은, 실제로 (= in fact)"},
+  {type:"mc-match",q:"turn off의 목적어가 대명사(it)일 때 올바른 어순은?",tag:"⚠️ 어순 필수",
+   opts:["turn off it","turn it off","off turn it","it turn off"],
+   ans:1,fb:"목적어가 대명사면 반드시 동사와 부사 사이! turn it off(O), turn off it(X)"},
+  {type:"mc-match",q:"Junho의 스마트폰 묘사로 알맞은 것은?",
+   opts:["검은색이고 커버에 갈색 곰 캐릭터가 있다","파란색이고 별 무늬가 있다","노란색이고 꽃무늬가 있다","초록색이고 갈색 손잡이가 있다"],
+   ans:0,fb:"It's black, and there's a brown bear character on the cover."},
+  {type:"fill",q:"'교실을 둘러보자.' — ~을 둘러보다",
+   sent:"Let's look ________ the classroom.",ans:"around",fb:"look around = 둘러보다. look for(찾다)와 구별!"},
+  {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+   chips:["I can't find my new smartphone.","When did you use it last?","I turned it off before class.","I found it! It was inside your textbook."],
+   ans:[0,1,2,3],fb:"분실 → 마지막 사용 시점 질문 → 대답 → 발견"},
+  {type:"mc-match",q:"Junho의 스마트폰이 발견된 곳은?",
+   opts:["사물함 안","가방 안","교과서 안","책상 서랍 안"],
+   ans:2,fb:"It was inside your textbook. — 사물함(locker)은 함정!"},
+  {type:"fill",q:"'도와줘서 고마워!' — 전치사를 쓰세요.",
+   sent:"Thank you ________ helping me!",ans:"for",fb:"Thank you for + 동명사 = ~해줘서 고마워"},
+  {type:"mc-match",q:"Thank you for 뒤에 오는 동사의 형태는?",tag:"⚠️ 문법",
+   opts:["동명사(-ing)","동사원형","to부정사","과거분사"],
+   ans:0,fb:"전치사 for 뒤에는 동명사! Thank you for helping me."},
+  {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+   ins:"(a few minutes later)",
+   lines:["Kate: Let's look around the classroom.","Kate: I found it! It was inside your textbook."],
+   pos:1,exp:"둘러보자고 한 뒤 몇 분이 지나고 나서 찾았다는 흐름이에요."}
+ ],
+ lines:[
+  {sp:"J",text:"I can't find my new smartphone. Can you help me?"},
+  {sp:"K",text:"I'm sorry to hear that. I'll call you."},
+  {sp:"J",text:"Actually, I turned it off."},
+  {sp:"A",text:"What does it look like?"},
+  {sp:"J",text:"It's black, and there's a brown bear character on the cover."},
+  {sp:"A",text:"When did you use it last?"},
+  {sp:"J",text:"I turned it off before class. Then I think I put it in my backpack."},
+  {sp:"K",text:"Let's look around the classroom."},
+  {sp:"K",text:"(a few minutes later) I found it! It was inside your textbook."},
+  {sp:"J",text:"Oh, thank you for helping me!"}
+ ]},
+{title:"대화 6 — Understand Visuals B (Ms. Jones 광고)",
+ keyExpr:"be good at",
+ keyMeaning:"~을 잘하다",
+ keyUsage:"at 뒤에는 명사 또는 동명사(-ing)! She's good at listening to details.",
+ similar:[
+  {en:"She listens to details very well.",kr:"그녀는 세부 사항을 아주 잘 듣는다."},
+  {en:"She is skilled at listening.",kr:"그녀는 듣기에 능숙하다."},
+  {en:"She is excellent at listening.",kr:"그녀는 듣기를 매우 잘한다."},
+  {en:"She does a great job of listening.",kr:"그녀는 듣기를 훌륭하게 해낸다."}
+ ],
+ wrong:{en:"She's good at listen to details.",kr:"그녀는 세부 사항 듣기를 잘한다.",exp:"전치사 at 뒤에는 동명사! good at listening(O)"},
+ qs:[
+  {type:"mc-wrong",q:"다음 중 <b>문법이 틀린 것</b>을 고르세요.",tag:"⚠️ at+동명사",
+   opts:["She listens to details very well.","She is skilled at listening.","She is excellent at listening.","She does a great job of listening.","She's good at listen to details."],
+   wrongIdx:4,fb:"전치사 at 뒤에는 동명사! good at listening(O)"},
+  {type:"fill",q:"'그녀는 많은 문제를 해결해 왔다.' (현재완료)",
+   sent:"She ________ solved a lot of problems.",ans:"has",fb:"have[has] + 과거분사 = 현재완료(경험 용법)"},
+  {type:"mc-match",q:"'a lot of problems'의 a lot of와 바꿔 쓸 수 <b>없는</b> 것은?",tag:"⚠️ 수량 표현",
+   opts:["lots of","many","plenty of","much"],
+   ans:3,fb:"problems는 셀 수 있는 명사(복수)라서 much(X)! much는 셀 수 없는 명사에만."},
+  {type:"fill",q:"'언제든지 그녀에게 연락할 수 있어요.' — '언제든지'라는 뜻의 부사",
+   sent:"You can contact her ________.",ans:"anytime",fb:"anytime = 언제든지"},
+  {type:"mc-match",q:"Ms. Jones에 대한 설명으로 알맞은 것은?",
+   opts:["세부 사항을 듣는 것을 잘한다.","문제를 하나도 해결하지 못했다.","주말에만 연락할 수 있다.","전화번호를 알려주지 않았다."],
+   ans:0,fb:"She's good at listening to details. 전화번호도 공개했고 anytime 연락 가능!"},
+  {type:"mc-match",q:"'You can contact her anytime.'에서 contact의 의미는?",tag:"⚠️ 품사",
+   opts:["연락하다 (동사)","연락 (명사)","접촉면 (명사)","계약하다 (동사)"],
+   ans:0,fb:"can 뒤 동사원형 자리이므로 '연락하다'(동사). contact는 명사·동사 동형!"},
+  {type:"order",q:"글의 흐름에 맞게 배열하세요.",
+   chips:["Did you lose your bag?","Don't worry. Just contact Ms. Jones.","She has solved a lot of problems.","You can contact her anytime."],
+   ans:[0,1,2,3],fb:"문제 제기 → 해결책 제시 → 근거(경력) → 연락 방법 순서"},
+  {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+   ins:"She's good at listening to details.",
+   lines:["B: She has solved a lot of problems.","B: Her phone number is 123-456-7890."],
+   pos:1,exp:"Ms. Jones의 능력 소개(문제 해결 → 잘 듣기) 뒤에 연락처가 나와요."}
+ ],
+ lines:[
+  {sp:"B",text:"Do you have a problem? Did you lose your bag? I'm sorry to hear that, but don't worry."},
+  {sp:"B",text:"Just contact Ms. Jones. She has solved a lot of problems."},
+  {sp:"B",text:"She's good at listening to details."},
+  {sp:"B",text:"Her phone number is 123-456-7890. You can contact her anytime. Good luck!"}
+ ]},
+{title:"대화 7 — Wrap Up 1 (사라진 고양이 Bori)",
+ keyExpr:"What does she look like?",
+ keyMeaning:"그녀(고양이)는 어떻게 생겼니?",
+ keyUsage:"외모 질문 (= Can you describe her?). cf. What is she like?는 성격 질문!",
+ similar:[
+  {en:"Can you describe her?",kr:"그녀를 묘사해 줄 수 있니?"},
+  {en:"How would you describe her?",kr:"그녀를 어떻게 묘사하겠니?"},
+  {en:"How does she look?",kr:"그녀는 어떻게 보이니?"},
+  {en:"Tell me about her appearance.",kr:"그녀의 외모에 대해 말해줘."}
+ ],
+ wrong:{en:"How does she look like?",kr:"그녀는 어떻게 생겼니?",exp:"How does she look?(O) / What does she look like?(O) — 둘을 섞으면 X!"},
+ qs:[
+  {type:"mc-wrong",q:"다음 중 <b>문법이 틀린 것</b>을 고르세요.",tag:"⚠️ How vs What",
+   opts:["Can you describe her?","How would you describe her?","How does she look?","Tell me about her appearance.","How does she look like?"],
+   wrongIdx:4,fb:"How does she look?(like 없이) 또는 What does she look like? — 섞어 쓰면 틀려요!"},
+  {type:"fill",q:"'그녀(고양이)가 없어졌어(실종됐어).' — '없어진'이라는 뜻의 형용사",
+   sent:"She is ________.",ans:"missing",fb:"missing = 없어진, 실종된"},
+  {type:"mc-match",q:"Bori에 대한 설명으로 알맞은 것은?",
+   opts:["짧고 회색인 털에 파란 눈","길고 검은 털에 초록 눈","짧고 흰 털에 갈색 눈","길고 회색인 털에 노란 눈"],
+   ans:0,fb:"She has short and gray fur. She has blue eyes."},
+  {type:"fill",q:"'네 고양이를 함께 찾아보자.' — ~을 찾다",
+   sent:"Let's look ________ your cat together.",ans:"for",fb:"look for = ~을 찾다"},
+  {type:"mc-match",q:"'my cat, Bori'에서 콤마(,)의 역할은?",tag:"⚠️ 문법",
+   opts:["동격 (my cat = Bori)","단어 나열","접속사 생략","감탄 표시"],
+   ans:0,fb:"콤마로 연결된 동격 관계: my cat = Bori"},
+  {type:"order",q:"대화를 올바른 순서로 배열하세요.",
+   chips:["I'm looking for my cat, Bori.","I'm sorry to hear that. What does she look like?","She has short and gray fur.","I'll help you. Let's look for your cat together."],
+   ans:[0,1,2,3],fb:"고양이 찾는 중 → 위로+외모 질문 → 외모 설명 → 돕겠다는 제안"},
+  {type:"mc-match",q:"fur의 뜻은?",tag:"⚠️ 어휘",
+   opts:["(동물의) 털","꼬리","발톱","수염"],
+   ans:0,fb:"fur = 털, 모피"},
+  {type:"insert",q:"다음 문장이 들어갈 알맞은 위치를 고르세요.",
+   ins:"She has blue eyes.",
+   lines:["G: She has short and gray fur.","B: I'll help you. Let's look for your cat together."],
+   pos:1,exp:"털 설명에 이어 눈 색깔까지 외모 설명이 끝난 뒤, 돕겠다는 말이 나와요."}
+ ],
+ lines:[
+  {sp:"G",text:"I'm looking for my cat, Bori. She is missing."},
+  {sp:"B",text:"Oh, I'm sorry to hear that. What does she look like?"},
+  {sp:"G",text:"She has short and gray fur. She has blue eyes."},
+  {sp:"B",text:"I'll help you. Let's look for your cat together."},
+  {sp:"G",text:"Thanks!"}
+ ]}
+];
+const WP_SYN=[
+ {w:"actually",syn:"in fact",kr:"사실은"},
+ {w:"find out",syn:"discover",kr:"알아내다"},
+ {w:"most of all",syn:"above all",kr:"무엇보다도"},
+ {w:"these days",syn:"lately",kr:"요즘"},
+ {w:"clue",syn:"hint",kr:"단서"},
+ {w:"famous",syn:"well-known",kr:"유명한"},
+ {w:"hide",syn:"conceal",kr:"숨기다"},
+ {w:"run away",syn:"get away",kr:"도망치다"},
+ {w:"finally",syn:"lastly",kr:"마지막으로"}
+];
+const WP_ANT=[
+ {w:"empty",ant:"full",kr:"텅 빈 ↔ 가득 찬"},
+ {w:"inside",ant:"outside",kr:"안에 ↔ 밖에"},
+ {w:"disappear",ant:"appear",kr:"사라지다 ↔ 나타나다"}
+];
+const WP_QS=[
+ {type:"mc",q:"actually와 바꿔 쓸 수 있는 표현은?",opts:["in fact","at last","in trouble","most of all"],ans:0,fb:"actually = in fact (사실은, 실제로)"},
+ {type:"mc",q:"find out과 바꿔 쓸 수 있는 단어는?",opts:["disappear","discover","contact","guess"],ans:1,fb:"find out = discover (~을 알아내다)"},
+ {type:"mc",q:"most of all과 바꿔 쓸 수 있는 표현은?",opts:["after all","at all","above all","all morning"],ans:2,fb:"most of all = above all (무엇보다도)"},
+ {type:"mc",q:"these days와 바꿔 쓸 수 있는 단어는?",opts:["lastly","early","anytime","lately"],ans:3,fb:"these days = lately, recently (요즘)"},
+ {type:"mc",q:"clue와 바꿔 쓸 수 있는 단어는?",opts:["hint","item","detail","pattern"],ans:0,fb:"clue = hint (단서, 실마리)"},
+ {type:"mc",q:"famous와 바꿔 쓸 수 있는 표현은?",opts:["wise","well-known","exact","whole"],ans:1,fb:"famous = well-known (유명한)"},
+ {type:"mc",q:"empty의 반의어는?",opts:["hungry","exact","full","whole"],ans:2,fb:"empty(텅 빈) ↔ full(가득 찬). hungry(배고픈)의 반의어도 full(배부른)!"},
+ {type:"mc",q:"inside의 반의어는?",opts:["beside","upside","next door","outside"],ans:3,fb:"inside(안에) ↔ outside(밖에)"},
+ {type:"mc",q:"hide와 바꿔 쓸 수 있는 단어는?",opts:["cover","conceal","disappear","steal"],ans:1,fb:"hide = conceal (숨기다). cf. disappear(사라지다) ↔ appear(나타나다)는 반의어 관계!"},
+ {type:"fill",q:"appear(나타나다)의 반대말은? (반대 의미 접두사 dis- 활용)",ans:"disappear",fb:"dis- + appear = disappear (사라지다). dis-는 반대 뜻을 만드는 접두사!"},
+ {type:"fill",q:"like(좋아하다) 앞에 dis-를 붙이면? (싫어하다)",ans:"dislike",fb:"dis- + like = dislike. dis-는 단어에 반대 의미를 더해요."},
+ {type:"fill",q:"stomach(배) 뒤에 '아픔' 접미사 -ache를 붙이면? (복통)",ans:"stomachache",fb:"stomach + -ache = stomachache. -ache는 '~의 통증'!"},
+ {type:"fill",q:"head(머리) 뒤에 -ache를 붙이면? (두통)",ans:"headache",fb:"head + -ache = headache. toothache(치통), backache(요통)도 같은 원리!"},
+ {type:"mc",q:"Keep in contact with me. — 여기서 contact의 품사는?",opts:["명사","동사","형용사","부사"],ans:0,fb:"in contact의 contact는 명사(연락). You can contact her.에서는 동사!"},
+ {type:"mc",q:"It has a brown handle. — 여기서 handle의 품사는?",opts:["동사","부사","명사","형용사"],ans:2,fb:"a brown handle = 명사(손잡이). She handles problems.에서는 동사(다루다)!"},
+ {type:"mc",q:"Don't lie to me. — 여기서 lie의 품사는?",opts:["명사","형용사","동사","부사"],ans:2,fb:"Don't 뒤 = 동사(거짓말하다). He told a lie.에서는 명사(거짓말)!"}
+];
+
+/* ===================== ENGINE ===================== */
+const _vMap={}, _dMap={}, _qMap={}, ordPlaced={};
+let audioCtx=null;
+document.addEventListener('click',function(){if(!audioCtx){try{audioCtx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}}},{once:true});
+function playPageTurn(){
+  try{
+    if(!audioCtx) return;
+    const dur=0.12, buf=audioCtx.createBuffer(1,audioCtx.sampleRate*dur,audioCtx.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*(1-i/d.length);
+    const src=audioCtx.createBufferSource(); src.buffer=buf;
+    const bp=audioCtx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=1600;
+    const g=audioCtx.createGain(); g.gain.value=0.18;
+    src.connect(bp); bp.connect(g); g.connect(audioCtx.destination); src.start();
+  }catch(e){}
+}
+function norm(s){
+  return (s||'').toLowerCase()
+    .replace(/[^a-z0-9\-\s]/gi,'')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function makeBlank(en,mode){
+  const chars=en.split('');
+  const li=[]; chars.forEach((c,i)=>{if(/[a-zA-Z]/.test(c))li.push(i);});
+  if(mode===0){
+    let out=chars.map(c=>/[aeiouAEIOU]/.test(c)?'_':c);
+    if(!out.includes('_')&&li.length>1) out[li[1]]='_';
+    return out.join('');
+  }
+  if(mode===1){
+    const keep=Math.max(1,Math.ceil(li.length*0.4));
+    const cut=new Set(li.slice(keep));
+    return chars.map((c,i)=>cut.has(i)?'_':c).join('');
+  }
+  const k=li.length<=5?1:2;
+  const keepSet=new Set(li.slice(0,k).concat(li.slice(-k)));
+  return chars.map((c,i)=>/[a-zA-Z]/.test(c)&&!keepSet.has(i)?'_':c).join('');
+}
+function go(v){
+  playPageTurn();
+  for(let i=0;i<5;i++){const t=document.getElementById('t'+i); if(t)t.classList.toggle('on',i===v);}
+  window.scrollTo(0,0);
+  const app=document.getElementById('app'); app.innerHTML='';
+  setTimeout(()=>{[buildVocabBlank,buildDict,buildDlgA,buildDlgB,buildWordPlus][v]();},80);
+}
+/* ---------- 부분빈칸 ---------- */
+function buildVocabBlank(){
+  const app=document.getElementById('app');
+  let h='<div class="card"><div class="sec-title">📝 단어 부분빈칸 — 힌트를 보고 전체 단어를 입력하세요</div>';
+  h+='<div class="check-bar"><button class="cb-btn main" onclick="checkAllVI()">전체 채점</button><button class="cb-btn warn" onclick="retryWrongVI()">틀린 것만 다시</button><button class="cb-btn ghost" onclick="resetVI()">전체 초기화</button></div>';
+  h+='<div class="score-line" id="v_score"></div><div class="v-grid">';
+  VOCAB.forEach((w,i)=>{
+    _vMap[i]=w.en;
+    const mode=i%3;
+    h+='<div class="vc"><div class="vc-blank">'+esc(makeBlank(w.en,mode))+'</div>';
+    h+='<div class="vc-kr">'+esc(w.kr)+'</div>';
+    h+='<input id="vi_'+i+'" autocomplete="off" autocapitalize="off" placeholder="전체 단어 입력" onkeydown="if(event.key===\'Enter\')checkVI('+i+')">';
+    h+='<div class="vc-row"><button onclick="checkVI('+i+')">확인</button></div>';
+    h+='<div class="vc-fb" id="vf_'+i+'"></div>';
+    if(w.poly){
+      h+='<div class="poly"><div class="p-title">'+esc(w.poly.title)+'</div>';
+      w.poly.rows.forEach(r=>{h+='<div class="p-row"><b>'+esc(r.n)+'</b><span>'+esc(r.m)+'</span><i>'+esc(r.ex)+'</i></div>';});
+      h+='<div class="p-note">'+esc(w.poly.note)+'</div></div>';
+    }
+    h+='</div>';
+  });
+  h+='</div></div>';
+  app.innerHTML=h;
+}
+function checkVI(i){
+  const inp=document.getElementById('vi_'+i), fb=document.getElementById('vf_'+i);
+  if(!inp)return false;
+  const ok=norm(inp.value)===norm(_vMap[i]);
+  inp.classList.remove('ok','no'); inp.classList.add(ok?'ok':'no');
+  fb.className='vc-fb '+(ok?'ok':'no');
+  fb.textContent=ok?'✅ 정답!':'❌ 정답: '+_vMap[i];
+  return ok;
+}
+function checkAllVI(){
+  let ok=0,total=0;
+  VOCAB.forEach((w,i)=>{total++; if(checkVI(i))ok++;});
+  const s=document.getElementById('v_score');
+  s.textContent='📊 '+ok+' / '+total+' 정답'; s.classList.add('show');
+}
+function retryWrongVI(){
+  VOCAB.forEach((w,i)=>{
+    const inp=document.getElementById('vi_'+i), fb=document.getElementById('vf_'+i);
+    if(inp&&inp.classList.contains('no')){inp.value='';inp.classList.remove('no');fb.className='vc-fb';fb.textContent='';}
+  });
+}
+function resetVI(){
+  VOCAB.forEach((w,i)=>{
+    const inp=document.getElementById('vi_'+i), fb=document.getElementById('vf_'+i);
+    if(inp){inp.value='';inp.classList.remove('ok','no');fb.className='vc-fb';fb.textContent='';}
+  });
+  const s=document.getElementById('v_score'); s.classList.remove('show');
+}
+/* ---------- 영영풀이 ---------- */
+function buildDict(){
+  const app=document.getElementById('app');
+  let h='<div class="card"><div class="sec-title">📖 영영풀이 — 영어 정의를 읽고 알맞은 단어를 입력하세요</div>';
+  h+='<div class="check-bar"><button class="cb-btn main" onclick="checkAllDI()">전체 채점</button><button class="cb-btn warn" onclick="retryWrongDI()">틀린 것만 다시</button><button class="cb-btn ghost" onclick="resetDI()">전체 초기화</button></div>';
+  h+='<div class="score-line" id="d_score"></div>';
+  DICT.forEach((w,i)=>{
+    _dMap[i]=w.en;
+    h+='<div class="dc"><div class="dc-def">'+(i+1)+'. '+esc(w.def)+'</div>';
+    h+='<div class="dc-kr">힌트: '+esc(w.kr)+' · 첫 글자 <b>'+esc(w.en[0])+'</b></div>';
+    h+='<div class="fill-row"><input id="di_'+i+'" autocomplete="off" autocapitalize="off" placeholder="단어 입력" onkeydown="if(event.key===\'Enter\')checkDI('+i+')"><button onclick="checkDI('+i+')">확인</button></div>';
+    h+='<div class="q-fb" id="df_'+i+'"></div></div>';
+  });
+  h+='</div>';
+  app.innerHTML=h;
+}
+function checkDI(i){
+  const inp=document.getElementById('di_'+i), fb=document.getElementById('df_'+i);
+  if(!inp)return false;
+  const ok=norm(inp.value)===norm(_dMap[i]);
+  inp.classList.remove('ok','no'); inp.classList.add(ok?'ok':'no');
+  fb.className='q-fb show '+(ok?'ok':'no');
+  fb.textContent=ok?'✅ 정답!':'❌ 정답: '+_dMap[i];
+  return ok;
+}
+function checkAllDI(){
+  let ok=0;
+  DICT.forEach((w,i)=>{if(checkDI(i))ok++;});
+  const s=document.getElementById('d_score');
+  s.textContent='📊 '+ok+' / '+DICT.length+' 정답'; s.classList.add('show');
+}
+function retryWrongDI(){
+  DICT.forEach((w,i)=>{
+    const inp=document.getElementById('di_'+i), fb=document.getElementById('df_'+i);
+    if(inp&&inp.classList.contains('no')){inp.value='';inp.classList.remove('no');fb.className='q-fb';fb.textContent='';}
+  });
+}
+function resetDI(){
+  DICT.forEach((w,i)=>{
+    const inp=document.getElementById('di_'+i), fb=document.getElementById('df_'+i);
+    if(inp){inp.value='';inp.classList.remove('ok','no');fb.className='q-fb';fb.textContent='';}
+  });
+  document.getElementById('d_score').classList.remove('show');
+}
+/* ---------- 대화문 ---------- */
+function buildDlgA(){buildDlg(DLG_A,'A');}
+function buildDlgB(){buildDlg(DLG_B,'B');}
+function buildDlg(arr,label){
+  const app=document.getElementById('app');
+  let h='';
+  arr.forEach((d,di)=>{
+    h+='<div class="card">';
+    h+='<div class="dlg-head"><div class="dh-t">'+esc(d.title)+'</div></div>';
+    h+='<div class="key-box"><div class="kb-e">🔑 '+esc(d.keyExpr)+'</div><div class="kb-m">'+esc(d.keyMeaning)+'</div><div class="kb-u">'+esc(d.keyUsage)+'</div></div>';
+    h+='<div class="sim-list"><div class="sl-t">✅ 바꿔 쓸 수 있는 표현</div>';
+    d.similar.forEach(s=>{h+='<div class="sl-r">· '+esc(s.en)+' <i>('+esc(s.kr)+')</i></div>';});
+    h+='</div>';
+    h+='<div class="wrong-box"><div class="wb-t">❌ 이렇게 쓰면 틀려요</div><div class="wb-e">'+esc(d.wrong.en)+'</div><div style="margin-top:3px;">→ '+esc(d.wrong.exp)+'</div></div>';
+    const sid='sc_'+label+'_'+di;
+    h+='<button class="script-tg" onclick="toggleScript(\''+sid+'\')">📜 대화 스크립트 보기 / 닫기</button>';
+    h+='<div class="script" id="'+sid+'">';
+    d.lines.forEach(l=>{h+='<div class="line"><div class="sp">'+esc(l.sp)+'</div><div class="tx">'+esc(l.text)+'</div></div>';});
+    h+='</div>';
+    d.qs.forEach((q,qi)=>{
+      const qid='L5'+label+'_'+di+'_'+qi;
+      _qMap[qid]=q;
+      h+='<div class="q-card"><span class="q-num">Q'+(qi+1)+'</span>'+(q.tag?'<span class="q-tag">'+esc(q.tag)+'</span>':'');
+      h+='<div class="q-t" style="margin-top:6px;">'+q.q+'</div>';
+      if(q.type==='mc-wrong'||q.type==='mc-match'){
+        q.opts.forEach((o,oi)=>{
+          h+='<div class="mc-opt" id="mo_'+qid+'_'+oi+'" onclick="ansMC(\''+qid+'\','+oi+')">'+String.fromCharCode(9312+oi)+' '+esc(o)+'</div>';
+        });
+        h+='<div class="q-fb" id="fb_'+qid+'"></div>';
+      }else if(q.type==='fill'){
+        h+='<div class="q-sent">'+esc(q.sent)+'</div>';
+        h+='<div class="fill-row"><input id="fi_'+qid+'" autocomplete="off" autocapitalize="off" placeholder="빈칸에 들어갈 말" onkeydown="if(event.key===\'Enter\')checkFill(\''+qid+'\')"><button onclick="checkFill(\''+qid+'\')">채점</button></div>';
+        h+='<div class="q-fb" id="fb_'+qid+'"></div>';
+      }else if(q.type==='order'){
+        ordPlaced[qid]=[];
+        h+='<div class="ord-chips">';
+        q.chips.forEach((c,ci)=>{h+='<div class="ord-chip" id="oc_'+qid+'_'+ci+'" onclick="addOrdChip(\''+qid+'\','+ci+')">'+esc(c)+'</div>';});
+        h+='</div><div class="ord-slots" id="os_'+qid+'"><span>여기에 순서대로 클릭하세요</span></div>';
+        h+='<div class="ord-btns"><button class="ob-c" onclick="checkOrder(\''+qid+'\')">채점</button><button class="ob-r" onclick="resetOrder(\''+qid+'\','+q.chips.length+')">다시</button></div>';
+        h+='<div class="q-fb" id="fb_'+qid+'"></div>';
+        h+='<div class="ans-r" id="'+qid+'_rev"></div>';
+      }else if(q.type==='insert'){
+        h+='<div class="ins-box">👉 '+esc(q.ins)+'</div><div class="ins-lines">';
+        q.lines.forEach((l,li)=>{h+='<div class="ins-line">'+(li+1)+'. '+esc(l)+'</div>';});
+        h+='</div><div class="ins-btns">';
+        for(let p=0;p<=q.lines.length;p++){
+          h+='<button id="ib_'+qid+'_'+p+'" onclick="checkInsert(\''+qid+'\','+p+')">'+(p===0?'맨 앞':p+'번 뒤')+'</button>';
+        }
+        h+='</div><div class="q-fb" id="fb_'+qid+'"></div>';
+      }
+      h+='</div>';
+    });
+    h+='</div>';
+  });
+  app.innerHTML=h;
+}
+function toggleScript(id){
+  const el=document.getElementById(id);
+  if(el) el.classList.toggle('open');
+}
+function ansMC(qid,sel){
+  const q=_qMap[qid]; if(!q)return;
+  const correct=(q.type==='mc-wrong')?q.wrongIdx:q.ans;
+  const fb=document.getElementById('fb_'+qid);
+  q.opts.forEach((o,oi)=>{
+    const el=document.getElementById('mo_'+qid+'_'+oi);
+    if(!el)return;
+    el.classList.add('dis');
+    el.classList.remove('ok','no','rv');
+    if(oi===sel) el.classList.add(oi===correct?'ok':'no');
+    else if(oi===correct) el.classList.add('rv');
+  });
+  const ok=sel===correct;
+  fb.className='q-fb show '+(ok?'ok':'no');
+  fb.innerHTML=(ok?'✅ 정답! ':'❌ 오답! 정답: '+String.fromCharCode(9312+correct)+' ')+esc(q.fb||'');
+}
+function checkFill(qid){
+  const q=_qMap[qid]; if(!q)return;
+  const inp=document.getElementById('fi_'+qid), fb=document.getElementById('fb_'+qid);
+  const ok=norm(inp.value)===norm(q.ans);
+  inp.classList.remove('ok','no'); inp.classList.add(ok?'ok':'no');
+  fb.className='q-fb show '+(ok?'ok':'no');
+  fb.textContent=(ok?'✅ 정답! ':'❌ 정답: '+q.ans+' — ')+(q.fb||'');
+}
+function addOrdChip(qid,ci){
+  const chip=document.getElementById('oc_'+qid+'_'+ci);
+  if(!chip||chip.classList.contains('used'))return;
+  chip.classList.add('used');
+  ordPlaced[qid].push(ci);
+  const slots=document.getElementById('os_'+qid);
+  const hint=slots.querySelector('span');
+  if(hint) hint.remove();
+  const s=document.createElement('div');
+  s.className='ord-slot';
+  s.textContent=chip.textContent;
+  s.onclick=function(){
+    ordPlaced[qid].splice(ordPlaced[qid].indexOf(ci),1);
+    s.remove();
+    chip.classList.remove('used');
+    if(slots.children.length===0)
+      slots.innerHTML='<span>여기에 순서대로 클릭하세요</span>';
+  };
+  slots.appendChild(s);
+}
+function checkOrder(qid){
+  const q=_qMap[qid]; if(!q)return;
+  const fb=document.getElementById('fb_'+qid);
+  const rev=document.getElementById(qid+'_rev');
+  const ok=ordPlaced[qid].length===q.ans.length&&ordPlaced[qid].every((v,i)=>v===q.ans[i]);
+  fb.className='q-fb show '+(ok?'ok':'no');
+  fb.textContent=(ok?'✅ 정답! ':'❌ 오답! ')+(q.fb||'');
+  if(!ok&&rev){
+    rev.innerHTML='<b>정답 순서:</b><br>'+q.ans.map((ci,i)=>(i+1)+'. '+esc(q.chips[ci])).join('<br>');
+    rev.classList.add('open');
+  }
+}
+function resetOrder(qid,len){
+  ordPlaced[qid]=[];
+  for(let ci=0;ci<len;ci++){
+    const chip=document.getElementById('oc_'+qid+'_'+ci);
+    if(chip)chip.classList.remove('used');
+  }
+  const slots=document.getElementById('os_'+qid);
+  slots.innerHTML='<span>여기에 순서대로 클릭하세요</span>';
+  const fb=document.getElementById('fb_'+qid); fb.className='q-fb'; fb.textContent='';
+  const rev=document.getElementById(qid+'_rev'); if(rev){rev.classList.remove('open');rev.innerHTML='';}
+}
+function checkInsert(qid,sel){
+  const q=_qMap[qid]; if(!q)return;
+  const fb=document.getElementById('fb_'+qid);
+  for(let p=0;p<=q.lines.length;p++){
+    const b=document.getElementById('ib_'+qid+'_'+p);
+    if(!b)continue;
+    b.classList.remove('ok','no');
+    if(p===sel) b.classList.add(p===q.pos?'ok':'no');
+    else if(p===q.pos&&sel!==q.pos) b.classList.add('ok');
+  }
+  const ok=sel===q.pos;
+  fb.className='q-fb show '+(ok?'ok':'no');
+  fb.textContent=(ok?'✅ 정답! ':'❌ 오답! 정답: '+(q.pos===0?'맨 앞':q.pos+'번 뒤')+' — ')+(q.exp||'');
+}
+function toggleAns(id){
+  const el=document.getElementById(id);
+  if(el) el.classList.toggle('open');
+}
+
+/* ---- 탭4 워드 플러스 ---- */
+function buildWordPlus(){
+  let h='<div class="card"><div class="sec-title">🧩 워드 플러스 — 유의어 · 반의어 · 접두사/접미사 · 품사 동형</div>';
+  h+='<div class="sim-list"><div class="sl-t">✨ 유의어 (= 같은 뜻)</div>';
+  WP_SYN.forEach(p=>{h+='<div class="sl-r"><b>'+esc(p.w)+'</b> = '+esc(p.syn)+' <i>('+esc(p.kr)+')</i></div>';});
+  h+='</div>';
+  h+='<div class="wrong-box" style="margin-top:8px;"><div class="wb-t">↔ 반의어 (반대 뜻)</div>';
+  WP_ANT.forEach(p=>{h+='<div class="wb-e" style="text-decoration:none;"><b>'+esc(p.w)+'</b> ↔ '+esc(p.ant)+' <span style="font-size:.85em;">('+esc(p.kr)+')</span></div>';});
+  h+='</div>';
+  h+='<div class="key-box" style="margin-top:8px;"><div class="kb-e">🔧 단어 만들기</div>'
+    +'<div class="kb-m">접두사 <b>dis-</b> (반대): appear → disappear · like → dislike · agree → disagree</div>'
+    +'<div class="kb-m">접미사 <b>-ache</b> (통증): stomachache · headache · toothache · backache</div>'
+    +'<div class="kb-u">명사=동사 동형: <b>contact · cover · handle · lie · smell · guess</b> — 문장 속 위치로 품사 판별!</div></div>';
+  h+='<div class="sec-title" style="margin-top:14px;">✔ 확인 문제 ('+WP_QS.length+'문항)</div>';
+  WP_QS.forEach((q,i)=>{
+    const qid='WP_'+i;
+    h+='<div class="q-card"><span class="q-num">'+(i+1)+'</span><div class="q-t" style="margin-top:6px;">'+esc(q.q)+'</div>';
+    if(q.type==='mc'){
+      _qMap[qid]={type:'mc-match',opts:q.opts,ans:q.ans,fb:q.fb};
+      q.opts.forEach((o,oi)=>{h+='<div class="mc-opt" id="mo_'+qid+'_'+oi+'" onclick="ansMC(\''+qid+'\','+oi+')">'+String.fromCharCode(9312+oi)+' '+esc(o)+'</div>';});
+    }else{
+      _qMap[qid]={type:'fill',ans:q.ans,fb:q.fb};
+      h+='<div class="fill-row"><input id="fi_'+qid+'" autocomplete="off" autocapitalize="off" placeholder="단어 입력" onkeydown="if(event.key===\'Enter\')checkFill(\''+qid+'\')"><button onclick="checkFill(\''+qid+'\')">채점</button></div>';
+    }
+    h+='<div class="q-fb" id="fb_'+qid+'"></div></div>';
+  });
+  h+='</div>';
+  document.getElementById('app').innerHTML=h;
+}
+go(0);
+</script>
+</body>
+</html>
