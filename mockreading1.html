@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>준티 잉글리쉬 · 모의고사 독해 트레이너</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAFAF7;--card:#FFFFFF;--border:#C4BAF5;--border-lt:#EAE7F8;--ink:#2D2860;--ink2:#4A4299;--sub:#6B6789;--muted:#9B97D3;--purple:#7B6FD4;--purple-lt:#F0EEFF;--purple-bg:#EAE7F8;--ok:#2E7A45;--ok-bg:#E8F4EB;--no:#A03060;--no-bg:#F9E8EE;--amber:#8A5200;--amber-bg:#FFF3DC;--shadow:0 2px 8px rgba(123,111,212,.10),0 0 0 1px #C4BAF5;--r:14px;
+--b1:#7B6FD4;--b2:#5B9E72;--b3:#8A5200;--b4:#1A6A9A;--b5:#2D7A6F}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink);font-size:19px;line-height:1.75}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 80px}
+h1{font-size:26px;margin:6px 0 4px;font-weight:900;letter-spacing:-.5px}
+.brand{font-size:13px;color:var(--muted);font-weight:700;letter-spacing:1px}
+.sub{font-size:16px;color:var(--sub);margin-bottom:14px}
+.rail{display:flex;gap:8px;position:sticky;top:0;background:rgba(250,250,247,.96);backdrop-filter:blur(6px);padding:10px 0;margin-bottom:14px;z-index:5;border-bottom:1px solid var(--border-lt);overflow-x:auto}
+.pip{flex:1;min-width:120px;border:1px solid var(--border);border-radius:12px;padding:8px 10px;background:#fff;cursor:pointer;font-size:14px;line-height:1.35;transition:all .15s}
+.pip b{display:block;font-size:15px}
+.pip.locked{opacity:.45;cursor:default}
+.pip.unlocked:hover{background:var(--purple-lt)}
+.pip.active{background:var(--purple);border-color:var(--purple);color:#fff}
+.pip.done{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.card{background:var(--card);border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow);padding:20px 22px;margin-bottom:10px}
+.card.lockprev{opacity:.55;box-shadow:none;border-style:dashed}
+.badge{display:inline-block;padding:2px 12px;font-size:13px;font-weight:700;border-radius:999px;color:#fff;margin-right:6px;vertical-align:middle}
+.b1{background:var(--b1)}.b2{background:var(--b2)}.b3{background:var(--b3)}.b4{background:var(--b4)}.b5{background:var(--b5)}
+.lv{font-size:14px;color:var(--sub)}
+.h2{font-size:21px;font-weight:900;color:var(--ink2);margin:4px 0 2px}
+.skill{border-radius:12px;padding:12px 16px;margin:10px 0;background:var(--purple-lt);border:1px solid var(--border-lt)}
+.skill h4{margin:0 0 6px;font-size:15px;color:var(--ink2)}
+.skill ol{margin:0;padding-left:22px;font-size:16px}
+.skill li{margin-bottom:3px}
+.tip{font-size:15px;padding:9px 13px;border-radius:10px;margin-top:8px;background:var(--amber-bg);color:var(--amber)}
+.tip b{margin-right:8px}
+.psg{font-family:'Lora',serif;font-size:21px;line-height:1.9;margin:12px 0;color:var(--ink)}
+.psg .s{padding:2px 2px;border-radius:5px;transition:background .3s}
+.psg .s.hl{background:#FFF0B3}
+.psg .n{font-family:'Noto Sans KR';font-size:12px;color:var(--muted);vertical-align:super;margin-right:2px}
+.snd{border:1px solid var(--border);background:#fff;border-radius:999px;font-size:15px;padding:2px 9px;cursor:pointer;vertical-align:middle;margin-left:4px;line-height:1.4}
+.snd.playing{background:var(--purple-lt);border-color:var(--purple)}
+.given{font-family:'Lora',serif;border:1.5px solid var(--purple);border-radius:10px;padding:10px 14px;font-size:20px;margin:10px 0;background:var(--purple-lt)}
+.para{font-family:'Lora',serif;margin:10px 0;font-size:20px;line-height:1.85}
+.para b{display:inline-block;width:36px;font-family:'Noto Sans KR';color:var(--purple)}
+.q{font-size:18px;font-weight:700;margin:14px 0 8px;color:var(--ink2)}
+.summary{font-family:'Lora',serif;border:1px solid var(--border-lt);border-radius:10px;padding:10px 14px;font-size:19px;margin-bottom:8px;background:var(--bg)}
+.conn{border:1px solid var(--border-lt);border-radius:12px;padding:12px 14px;margin:8px 0;background:#fff}
+.conn .cq{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.conn .co{display:grid;grid-template-columns:1fr;gap:6px}
+.conn .co button{font-family:inherit;font-size:16px;padding:9px 12px;border:1.5px solid var(--border-lt);border-radius:10px;background:#fff;cursor:pointer;text-align:left;color:var(--ink)}
+.conn .co button.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);font-weight:700}
+.conn .co button.no{background:var(--no-bg);border-color:var(--no);color:var(--no)}
+.conn .cf{font-size:15px;margin-top:8px;color:var(--sub);display:none}
+.conn .cf.show{display:block}
+.opts{display:flex;flex-direction:column;gap:9px;transition:opacity .2s}
+.opts.wait{opacity:.35;pointer-events:none}
+.opt{border:1.5px solid var(--border-lt);border-radius:12px;padding:12px 15px;font-size:18px;cursor:pointer;background:#fff;text-align:left;font-family:inherit;line-height:1.55;min-height:52px;color:var(--ink)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);font-weight:700}
+.opt.no{border-color:var(--no);background:var(--no-bg);color:var(--no)}
+.opt:disabled{cursor:default}
+.fb{margin-top:12px;padding:12px 15px;border-radius:12px;font-size:16px;display:none;background:var(--bg);border:1px solid var(--border-lt)}
+.fb.show{display:block}
+.fb h4{margin:0 0 6px;font-size:17px;color:var(--ink2)}
+.fb ul{margin:6px 0 0;padding-left:20px;color:var(--sub)}
+.hint{border-radius:10px;padding:9px 13px;font-size:15px;margin-top:8px;display:none;background:var(--amber-bg);color:var(--amber)}
+.hint.show{display:block}
+.btn{font-family:inherit;font-size:16px;font-weight:700;padding:11px 20px;border:1.5px solid var(--purple);border-radius:999px;background:#fff;color:var(--purple);cursor:pointer;margin-top:10px;margin-right:8px}
+.btn.pri{background:var(--purple);color:#fff}
+.btn:disabled{opacity:.35;cursor:default}
+.mini-btn{font-family:inherit;font-size:14px;padding:5px 12px;border:1px solid var(--border);border-radius:999px;background:#fff;color:var(--ink2);cursor:pointer}
+.timer{font-size:14px;font-weight:700;padding:4px 12px;border-radius:999px;background:var(--purple-lt);color:var(--ink2)}
+.timer.over{background:var(--no-bg);color:var(--no)}
+.row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.vgrid{display:grid;grid-template-columns:1fr;gap:10px}
+.vq{border:1px solid var(--border-lt);border-radius:12px;padding:11px 13px;background:#fff}
+.vq .w{font-family:'Lora',serif;font-size:22px;font-weight:600;margin-bottom:6px;color:var(--ink2)}
+.vq .o{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.vq .o button{font-family:inherit;font-size:15px;padding:9px;border:1.5px solid var(--border-lt);border-radius:10px;background:#fff;cursor:pointer;text-align:left;color:var(--ink)}
+.vq .o button.pick{background:var(--purple);border-color:var(--purple);color:#fff}
+.vq .o button.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.vq .o button.no{background:var(--no-bg);border-color:var(--no);color:var(--no)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid var(--border-lt)}
+.score{font-size:20px;font-weight:900;color:var(--purple);margin-left:auto}
+.small{font-size:14px;color:var(--sub)}
+.done-code{font-size:28px;font-weight:900;letter-spacing:3px;border:2px solid var(--purple);border-radius:12px;display:inline-block;padding:6px 18px;margin:8px 0;color:var(--purple);background:var(--purple-lt)}
+.hidden{display:none}
+.num{display:inline-block;width:30px;height:30px;border-radius:50%;background:var(--purple-lt);color:var(--purple);text-align:center;line-height:30px;font-weight:900;margin-right:8px;font-size:14px}
+.order div{margin-bottom:6px;font-size:17px}
+footer{text-align:center;font-size:13px;color:var(--muted);margin-top:30px}
+@media (min-width:640px){.vgrid{grid-template-columns:1fr 1fr}.conn .co{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand">준티 잉글리쉬 · 모의고사 독해</div>
+<h1>고1 모의고사 독해 트레이너</h1>
+<div class="sub">19~45번 유형을 난이도 4단계로 나누었습니다. 각 단계는 단어 시험 → 풀이 전략 → 연결어 분석 → 문제 순서로 진행되며, 이전 단계를 마쳐야 다음 단계가 열립니다.</div>
+<div class="rail" id="rail"></div>
+<div class="card" id="mapcard"><div class="h2">틀린 번호 → 들어갈 단계</div><div class="lv" style="margin-bottom:8px">기출 채점표를 보고 틀린 번호의 단계만 풀면 됩니다.</div>
+<table style="width:100%;border-collapse:collapse;font-size:15px">
+<tr style="color:var(--sub)"><td style="padding:4px 6px;border-bottom:1px solid var(--border-lt)">틀린 번호</td><td style="padding:4px 6px;border-bottom:1px solid var(--border-lt)">유형</td><td style="padding:4px 6px;border-bottom:1px solid var(--border-lt)">단계</td></tr>
+<tr><td style="padding:4px 6px">18 · 19 · 20</td><td style="padding:4px 6px">목적 · 심경 · 주장</td><td style="padding:4px 6px"><span class="badge b1">1단계</span></td></tr>
+<tr><td style="padding:4px 6px">21</td><td style="padding:4px 6px">함축 의미</td><td style="padding:4px 6px"><span class="badge b1">1단계</span><span class="badge b4">4단계 빈칸</span></td></tr>
+<tr><td style="padding:4px 6px">22 · 23 · 24 · 35</td><td style="padding:4px 6px">요지 · 주제 · 제목 · 무관 문장</td><td style="padding:4px 6px"><span class="badge b2">2단계 제목</span></td></tr>
+<tr><td style="padding:4px 6px">25~28 · 41 · 44 · 45</td><td style="padding:4px 6px">도표 · 일치 · 안내문 · 장문</td><td style="padding:4px 6px"><span class="badge b2">2단계 안내문</span></td></tr>
+<tr><td style="padding:4px 6px">40</td><td style="padding:4px 6px">요약문</td><td style="padding:4px 6px"><span class="badge b2">2단계 요약문</span></td></tr>
+<tr><td style="padding:4px 6px">29</td><td style="padding:4px 6px">어법</td><td style="padding:4px 6px"><span class="badge b3">3단계 어법</span></td></tr>
+<tr><td style="padding:4px 6px">36 · 37 · 43</td><td style="padding:4px 6px">순서</td><td style="padding:4px 6px"><span class="badge b3">3단계 순서</span></td></tr>
+<tr><td style="padding:4px 6px">38 · 39</td><td style="padding:4px 6px">삽입</td><td style="padding:4px 6px"><span class="badge b3">3단계 삽입</span></td></tr>
+<tr><td style="padding:4px 6px">30 · 42</td><td style="padding:4px 6px">어휘</td><td style="padding:4px 6px"><span class="badge b4">4단계 어휘</span></td></tr>
+<tr><td style="padding:4px 6px">31~34</td><td style="padding:4px 6px">빈칸</td><td style="padding:4px 6px"><span class="badge b4">4단계 빈칸</span></td></tr>
+</table></div>
+<div id="view"></div>
+<footer>준티 잉글리쉬 · 자체 제작 학습 콘텐츠 · 고등 모의고사 독해 트레이너</footer>
+</div>
+
+<script>
+const STAGES = [
+{ id:1, level:"하", title:"1단계 · 하 — 목적 · 심경 · 주장", intro:"18~20번 자리. 전체를 읽지 않아도 됩니다. 신호 문장 하나로 해결하는 유형입니다.", target:"문항당 60초",
+  vocab:[
+   ["concern","우려, 걱정"],["urge","촉구하다"],["replace","대체하다"],["relieved","안도한"],
+   ["desperate","절박한"],["indifferent","무관심한"],["brag","자랑하다"],["pressure","압박"]
+  ],
+  qs:[
+   { type:"글의 목적", conn:[{q:'문장 6의 <b>therefore</b>가 하는 역할은?',opts:['앞 내용의 예시를 든다','앞 내용의 결과로 요청을 꺼낸다','앞 내용과 반대되는 사실을 말한다','시간 순서를 나타낸다'],ans:1,fb:'therefore는 결론·결과 신호입니다. 목적 문장은 대개 이 연결어 바로 뒤에 나옵니다.'},{q:'문장 3의 <b>however</b> 뒤에 오는 내용은?',opts:['헬스장의 장점','문제 상황(수업 시간 변경)','감사 인사','회원 가입 절차'],ans:1,fb:'however는 배경(긍정) → 문제(부정)로 방향을 바꾸는 신호입니다. 편지의 본론이 시작되는 지점입니다.'}], time:60,
+     skill:["첫 두 문장은 배경 설명입니다. 눈으로만 훑으세요.","I am writing to / I'd like to / Please / I urge you가 있는 문장이 목적입니다.","지문 단어를 그대로 쓴 선택지부터 의심하세요."],
+     tip:"목적 문장은 대부분 후반부에 있습니다. 아래에서 위로 읽으세요.",
+     sents:["Dear Manager,","I have been a member of Riverside Gym for three years, and I have always enjoyed the friendly atmosphere there.","Recently, however, the early-morning yoga class was moved from 6:30 a.m. to 8:00 a.m.","Many members, including myself, go to work before eight and can no longer attend.","We chose this gym mainly because of that early class.","I would therefore like to ask you to bring back the 6:30 a.m. schedule.","If the instructor is unavailable, even an alternate teacher would be welcome.","Thank you for your consideration.","Sincerely,","Mina Park"],
+     q:"다음 글의 목적으로 가장 적절한 것은?",
+     opts:["요가 강사의 교체를 요구하려고","새 요가 수업 개설을 제안하려고","요가 수업 시간 원상 복구를 요청하려고","헬스장 회원 탈퇴 의사를 알리려고","아침 수업의 소음 문제를 항의하려고"],
+     ans:2, ev:[5],
+     exp:"‘I would therefore like to ask you to bring back the 6:30 a.m. schedule’ — therefore 뒤의 ask 문장이 목적입니다. 원래 시간으로 되돌려 달라는 요청입니다.",
+     wrong:{0:"instructor 언급은 '대체 강사도 괜찮다'는 양보입니다.",1:"새 수업 개설이 아니라 원래 시간 복구입니다.",3:"탈퇴 언급이 없습니다."} },
+   { type:"심경 변화", conn:[{q:'문장 7의 <b>Then</b>은 무엇을 이어 주는가?',opts:['원인과 결과','시간 순서(정적 → 박수)','대조','예시'],ans:1,fb:'Then은 시간 순서 신호입니다. 심경 변화 문제에서 \'그때\' 이후가 뒤 감정의 단서 구간입니다.'}], time:60,
+     skill:["앞 3문장에서 감정 단서 2개, 뒤 3문장에서 2개를 찾습니다.","단서는 대사, 신체 반응, 부사(nervously, finally)입니다.","앞 감정만 맞는 선택지가 함정입니다. 뒤 감정까지 확인하세요."],
+     tip:"중간 부분은 읽지 않아도 됩니다. 처음과 끝만 읽으세요.",
+     sents:["Jina stood behind the curtain, her hands shaking.","It was her first solo performance, and she could hear hundreds of people whispering in the hall.","'What if I forget the notes?' she thought, wiping her sweaty palms on her dress.","The lights dimmed, and she walked to the piano.","The first few notes came out slowly, but then her fingers began to move on their own.","When the last chord faded, the hall was silent for a moment.","Then the applause came, loud and long.","Jina bowed, and a wide smile spread across her face.","'I did it,' she whispered to herself."],
+     q:"다음 글에 드러난 Jina의 심경 변화로 가장 적절한 것은?",
+     opts:["nervous → proud","bored → excited","confident → ashamed","curious → disappointed","calm → frightened"],
+     ans:0, ev:[0,2,7,8],
+     exp:"앞: hands shaking, What if I forget, sweaty palms → nervous. 뒤: applause, wide smile, 'I did it' → proud.",
+     wrong:{4:"앞 감정 calm은 정반대입니다. 첫 문장이 shaking hands입니다.",2:"confident는 앞 단서와 맞지 않습니다."} },
+   { type:"필자의 주장", conn:[{q:'문장 2의 <b>Yet</b>이 하는 역할은?',opts:['앞 통념을 인정한다','앞 통념을 뒤집어 필자 입장을 시작한다','예시를 추가한다','결론을 요약한다'],ans:1,fb:'Yet = However. 통념(Many parents believe) 뒤의 역접은 필자 주장의 시작 신호입니다.'},{q:'문장 5의 <b>So</b> 뒤에는 무엇이 오는가?',opts:['새로운 통념','구체적 행동 지침(주장)','반대 의견','과거 사례'],ans:1,fb:'So는 결론 신호입니다. 주장 문제에서 So/Therefore 뒤 명령문이 정답 근거가 됩니다.'}], time:60,
+     skill:["should / need to / must / important to 문장을 찾습니다.","반복되는 단어 2개가 주장의 키워드입니다.","지문의 예시 하나를 확대한 선택지는 오답입니다."],
+     tip:"주장 문장은 대개 3~4번째 문장 또는 마지막 문장에 있습니다.",
+     sents:["Many parents believe that a full schedule of lessons — piano, English, math, swimming — is the best gift they can give their children.","Yet children also need time that belongs to no one but themselves.","Unstructured play is where they practice making choices, solving small conflicts, and dealing with boredom.","These skills cannot be taught in a classroom; they grow only when adults step back.","So before adding one more class, ask whether your child has had an hour this week with nothing planned.","If the answer is no, the most valuable lesson may be the one you cancel."],
+     q:"다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+     opts:["자녀의 학습 계획은 부모가 세워야 한다.","아이에게 계획 없는 자유 시간을 보장해야 한다.","다양한 예체능 교육이 창의력을 길러 준다.","아이들의 갈등은 교사가 중재해야 한다.","지루함을 느끼는 아이에게 새 활동을 제공해야 한다."],
+     ans:1, ev:[1,4,5],
+     exp:"need time that belongs to themselves / ask whether your child has had an hour with nothing planned / the lesson you cancel — 자유 시간 확보가 핵심입니다.",
+     wrong:{4:"boredom은 '겪게 두라'는 맥락입니다. 새 활동 제공은 반대 방향입니다.",2:"첫 문장은 통념 소개(Many parents believe)이고, Yet 뒤가 필자의 입장입니다."} }
+  ]},
+{ id:2, level:"중", title:"2단계 · 중 — 제목 · 안내문 · 요약문", intro:"21~28, 40번 자리. 선택지와 지문을 대조하는 유형입니다. 순서를 지키는 것이 핵심입니다.", target:"문항당 75초",
+  vocab:[
+   ["absorb","흡수하다"],["equivalent","상당하는 것"],["restore","복원하다"],["registration","등록"],
+   ["at least","최소한"],["either A or B","A 또는 B"],["unfair","불공정한"],["abandon","포기하다"]
+  ],
+  qs:[
+   { type:"글의 제목", conn:[{q:'문장 3의 <b>Unlike trees</b>는 어떤 관계를 만드는가?',opts:['나무와 켈프의 유사점','나무와 켈프의 대조(켈프의 장점 부각)','시간 순서','인과'],ans:1,fb:'Unlike는 대조 신호입니다. 비교 대상(나무)보다 켈프가 우수하다는 방향으로 글이 흐릅니다.'},{q:'문장 6의 <b>now</b>가 나타내는 흐름은?',opts:['과거 사실 회상','현재 결론·주장으로 마무리','예시 나열','조건'],ans:1,fb:'Scientists now argue ~ 는 결론 신호입니다. 제목 문제에서 마지막 문장의 now/today 뒤가 주제 재진술입니다.'}], time:75,
+     skill:["반복되는 명사 2~3개를 잡습니다 (이 글: seaweed, carbon).","제목은 주제를 은유, 의문, 명령으로 포장한 것입니다.","지문에 없는 단어(extinct, industry)가 든 선택지부터 지웁니다."],
+     tip:"첫 문장과 마지막 문장만 읽고 반복어를 확인한 뒤 선택지를 지우세요. 애매할 때만 중간을 확인합니다.",
+     sents:["Seaweed forests may be the ocean's most underrated climate tool.","A single hectare of kelp can absorb up to twenty times more carbon dioxide than the same area of land forest.","Unlike trees, kelp grows several centimeters a day and needs no fresh water or fertilizer.","When pieces of kelp break off and sink to the deep sea floor, the carbon inside them can stay locked away for centuries.","Some coastal countries have begun paying fishermen to restore kelp beds instead of harvesting them.","Scientists now argue that protecting seaweed could be as important for the climate as protecting rainforests."],
+     q:"다음 글의 제목으로 가장 적절한 것은?",
+     opts:["Why Kelp Is Disappearing from Our Coasts","Seaweed: A Hidden Giant in the Fight Against Climate Change","How Fishermen Harvest Kelp Sustainably","Rainforests vs. Oceans: Which Needs Protection More?","The Dangers of Fertilizer in Coastal Waters"],
+     ans:1, ev:[0,5],
+     exp:"underrated climate tool / as important as rainforests — 해조류의 기후 기여를 강조합니다. ②가 은유(Hidden Giant)로 포장한 주제입니다.",
+     wrong:{3:"비교는 마지막 문장의 예시일 뿐, 어느 쪽이 더 중요한지 묻는 글이 아닙니다.",2:"harvest는 '수확 대신 복원한다'는 맥락에 등장합니다. 수확 방법이 아닙니다."} },
+   { type:"안내문 일치", conn:[{q:'<b>at least 6 books</b>에서 at least의 뜻은?',opts:['정확히 6권','최대 6권','최소 6권','약 6권'],ans:2,fb:'at least = 최소한. 안내문 일치 문제의 단골 한정어입니다. at most(최대)와 구분하세요.'},{q:'<b>either a gift card or a tote bag</b>의 의미는?',opts:['둘 다 받는다','둘 중 하나를 받는다','둘 다 받지 못한다','선택할 수 없다'],ans:1,fb:'either A or B = A 또는 B 중 하나. \'모두 받는다\'로 바꾼 선택지가 오답으로 나옵니다.'}], time:60,
+     skill:["선택지 순서는 안내문 순서와 같습니다. 위에서부터 짝지어 대조하세요.","only, at least, each, either A or B 같은 한정어에 표시하세요.","숫자, 요일, 명사(우산≠가방)를 단어 단위로 대조합니다."],
+     tip:"안내문은 읽는 것이 아니라 찾는 것입니다. 선택지를 먼저 보고 해당 줄로 이동하세요.",
+     sents:["Greenhill Library Summer Reading Challenge","Who: Students in grades 4–9","When: July 1 – August 20","How to join: Register online only at www.greenhill-lib.org","Rules:","— Read at least 6 books and write a short review for each.","— Reviews must be submitted by August 25.","Prizes:","— Every participant who completes the challenge receives a certificate.","— The top 3 reviewers in each grade will receive either a bookstore gift card or a library tote bag.","※ Books can be borrowed from any Greenhill branch."],
+     q:"Greenhill Library Summer Reading Challenge에 관한 안내문의 내용과 일치하는 것은?",
+     opts:["고등학생도 참가할 수 있다.","등록은 도서관 방문으로만 가능하다.","최소 6권을 읽고 각 책의 서평을 써야 한다.","서평 제출 마감은 8월 20일이다.","학년별 상위 3명은 상품 두 가지를 모두 받는다."],
+     ans:2, ev:[5],
+     exp:"Read at least 6 books and write a short review for each — 일치합니다.",
+     wrong:{3:"챌린지 기간은 8/20, 제출 마감은 8/25입니다. 날짜 두 개가 함정입니다.",4:"either A or B는 둘 중 하나입니다.",1:"online only입니다."} },
+   { type:"요약문 완성", conn:[{q:'문장 3의 <b>but</b>이 대조하는 두 가지는?',opts:['시간과 노력','같은 조건 vs 다른 행동(전략·실수 허용)','지능과 게임','연구자와 학생'],ans:1,fb:'but 앞은 같은 조건, 뒤는 두 집단의 다른 행동입니다. 요약문 (B)의 근거가 but 뒤에 있습니다.'},{q:'문장 4의 <b>while</b>의 기능은?',opts:['시간(~하는 동안)','대조(반면에)','이유','조건'],ans:1,fb:'while이 두 집단의 반응을 나란히 놓으면 \'반면에\'입니다. 대조의 while은 요약·빈칸 문제의 핵심 신호입니다.'}], time:75,
+     skill:["요약문부터 읽고 (A)(B)에 들어갈 방향을 예측합니다.","지문의 결론 문장 2개를 찾아 바꿔 쓴 단어를 고릅니다.","한쪽만 맞는 선택지가 함정입니다. 두 칸 모두 검증하세요."],
+     tip:"지문 전체를 읽지 않습니다. 요약문 → 지문 마지막 3문장 → 선택지 순서입니다.",
+     sents:["In one study, two groups of students were given the same difficult puzzle.","The first group was told that the puzzle measured their intelligence; the second group was told it was simply a game.","Both groups worked for the same amount of time, but the 'game' group tried more strategies and were more willing to make mistakes.","Afterwards, the 'intelligence' group described the task as stressful, while the 'game' group asked whether they could try another one.","The researchers concluded that how a task is framed changes not the ability of the students but their willingness to explore."],
+     q:"다음 글의 내용을 한 문장으로 요약할 때 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+     summary:"When students see a task as a (A) rather than a test, they become more (B), even though their actual ability stays the same.",
+     opts:["(A) reward … (B) careful","(A) game … (B) exploratory","(A) challenge … (B) anxious","(A) game … (B) competitive","(A) burden … (B) creative"],
+     ans:1, ev:[2,4],
+     exp:"(A) told it was simply a game → game. (B) tried more strategies, willing to make mistakes, willingness to explore → exploratory.",
+     wrong:{3:"(A)는 맞지만 경쟁 언급이 없습니다.",2:"anxious는 intelligence 그룹의 반응입니다."} }
+  ]},
+{ id:3, level:"중상", title:"3단계 · 중상 — 어법 · 순서 · 삽입", intro:"29, 36~39번 자리. 내용이 아니라 신호를 읽는 유형입니다. 체크리스트로 풉니다.", target:"문항당 90초",
+  vocab:[
+   ["inevitably","필연적으로"],["hierarchy","위계"],["imitate","모방하다"],["tendency","경향"],
+   ["perceive","지각하다"],["vibrate","진동하다"],["in contrast","대조적으로"],["hence","따라서"]
+  ],
+  qs:[
+   { type:"어법", conn:[{q:'문장 3의 <b>then</b>은 어떤 흐름을 만드는가?',opts:['원인 → 결과의 순서','대조','예시','양보'],ans:0,fb:'신뢰하지 않음(원인) → then 불평(결과). 어법 문제에서도 흐름을 잡으면 밑줄 없는 문장은 건너뛸 수 있습니다.'}], time:90,
+     skill:["밑줄 형태별 체크: 동사→진짜 주어 / -ed·-ing→앞 명사와 관계 / which·where→뒤 절 완전성 / what·that→뒤 절 완전성 / 병렬→앞 항목 형태.","one of + 복수명사 + 긴 수식어 → 동사는 단수입니다.","which 뒤가 완전한 절이면 in which / where입니다."],
+     tip:"밑줄 5개만 봅니다. 밑줄 없는 문장은 해석하지 않아도 됩니다.",
+     sents:["One of the most common mistakes ① that new managers make is trying to solve every problem themselves.","A team ② whose members are never trusted with decisions will stop making them.","The manager then complains that nobody takes responsibility, ③ unaware that the structure created the problem.","Good leaders build systems ④ which decisions can be made at the lowest possible level.","This does not mean giving up control; it means ⑤ placing it where the information is."],
+     q:"다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+     opts:["①","②","③","④","⑤"],
+     ans:3, ev:[3],
+     exp:"④ which 뒤 'decisions can be made at the lowest possible level' 은 완전한 절이므로 관계대명사를 쓸 수 없습니다. in which / where가 맞습니다.",
+     wrong:{0:"that은 목적격 관계대명사이고 make의 목적어 자리가 비어 있으므로 정상입니다.",2:"unaware (that) ~ 는 being이 생략된 분사구문으로 정상입니다.",4:"means + 동명사는 정상입니다."} },
+   { type:"글의 순서", conn:[{q:'(C)의 <b>Such early pairings</b>에서 Such가 가리키는 것은?',opts:['질문 자체','(B)의 \'처음 들을 때 감정과 함께 저장\'','(A)의 새로운 경험','노래 가사'],ans:1,fb:'Such + 명사는 바로 앞 내용을 요약해서 받습니다. (B) 뒤에 (C)가 오는 결정적 신호입니다.'},{q:'(A)의 <b>Later in life, however</b>가 요구하는 앞 내용은?',opts:['나중의 경험','처음(early) 시점의 내용','연구 결과','결론'],ans:1,fb:'Later는 앞에 \'처음\'이 있어야 하고, however는 그와 반대 내용을 이어 줍니다. (C)의 first heard 뒤가 자리입니다.'}], time:90,
+     skill:["주어진 글의 마지막 문장 키워드를 기억합니다.","(A)(B)(C)의 첫 문장만 읽고 신호를 표시합니다: 대명사, the+명사, Such, Later, But, One/The other.","첫 단락을 확정한 뒤, 남은 둘은 끝 문장과 첫 문장의 연결로 정합니다."],
+     tip:"선택지 5개 중 첫 단락이 같은 것은 2개뿐입니다. 첫 단락을 확정하면 절반은 끝난 것입니다.",
+     given:"Have you ever wondered why the same song can sound sad to one person and hopeful to another?",
+     paras:{A:"Later in life, however, these first associations are layered over by hundreds of new experiences with the same kind of music. That is why two listeners can hear one melody and remember two entirely different worlds.",B:"The explanation lies less in the music than in memory. When we hear a piece for the first time, our brain stores it together with whatever we were feeling at that moment.",C:"Such early pairings are surprisingly strong. A tune first heard at a funeral may carry sadness for decades, even if its lyrics are cheerful."},
+     q:"주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+     opts:["(A)-(C)-(B)","(B)-(A)-(C)","(B)-(C)-(A)","(C)-(A)-(B)","(C)-(B)-(A)"],
+     ans:2, ev:[],
+     hints:["주어진 글이 질문이므로 (B) 'The explanation lies…'에서 답이 시작됩니다.","(B) 끝 'stores it with what we were feeling' → (C) 'Such early pairings' (Such = 앞 내용 지칭).","(C) 'first heard… for decades' → (A) 'Later in life, however' (시간 부사 + 역접)."],
+     exp:"질문 → 설명 시작(B) → Such로 받는 구체 예(C) → Later in life로 시간 전개 + however 반전(A) 순서입니다.",
+     wrong:{1:"(A)의 Later in life는 '처음 들었을 때'(C) 다음이어야 합니다. Such 신호를 놓친 오답입니다."} },
+   { type:"문장 삽입", conn:[{q:'주어진 문장의 <b>however</b>는 앞뒤에 무엇을 요구하는가?',opts:['앞: 장점 / 뒤: 단점','앞: 단점(느림) / 뒤: 장점','앞: 예시 / 뒤: 결론','앞: 원인 / 뒤: 결과'],ans:1,fb:'however 앞에는 부정(delay), 뒤에는 hidden advantage를 설명하는 내용이 와야 합니다.'},{q:'문장 4의 <b>by contrast</b>는 무엇을 비교하는가?',opts:['책과 학자','인쇄본과 필사본','도시와 도시','과거와 현재'],ans:1,fb:'by contrast = 대조. 인쇄본(동일 사본) vs 필사본(매번 오류). 삽입 위치 검산 때 이 대조 관계가 끊기지 않는지 확인합니다.'}], time:90,
+     skill:["주어진 문장에서 연결어, 대명사, 반복어 3개를 표시합니다.","지문에서 선행사 없는 대명사(This, they)가 갑자기 나오는 자리를 찾습니다.","넣은 뒤 앞뒤 문장을 모두 읽어 검산합니다. 앞만 맞는 자리가 함정입니다."],
+     tip:"지문을 처음부터 읽지 않고 ①~⑤ 앞뒤 문장만 봅니다.",
+     given:"This delay, however, turned out to be a hidden advantage.",
+     sents:["In the early days of the printing press, most books were still copied by hand.","( ① ) A printed book took weeks to prepare because every page had to be set letter by letter.","( ② ) Once the type was set, hundreds of identical copies could be produced in a single day.","( ③ ) Hand copyists, by contrast, produced one book at a time and introduced new errors with each copy.","( ④ ) Printed texts therefore became the first books that readers in different cities could trust to be the same.","( ⑤ ) Scholars began to cite page numbers, something that had been meaningless before."],
+     q:"글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+     opts:["①","②","③","④","⑤"],
+     ans:1, ev:[1,2],
+     hints:["This delay → 앞에 '느림'이 있어야: ① 뒤 문장 'took weeks'.","however + hidden advantage → 뒤에 '장점'이 와야: ② 뒤 'hundreds of copies in a single day'."],
+     exp:"① 뒤 문장(느림) 다음, ② 뒤 문장(장점) 앞이므로 ② 자리입니다.",
+     wrong:{0:"①에 넣으면 This delay가 받을 '지연' 내용이 앞에 없습니다.",2:"③에 넣으면 앞 문장이 이미 장점이므로 however가 어색합니다."} }
+  ]},
+{ id:4, level:"상", title:"4단계 · 상 — 빈칸 · 어휘", intro:"30~34번 자리. 가장 오래 걸리는 유형이므로 시험에서는 맨 마지막에 풉니다. 주제의 재진술을 찾습니다.", target:"문항당 120초",
+  vocab:[
+   ["original","독창적인"],["conventional","관습적인"],["overshadow","가리다"],["essence","본질"],
+   ["fruitlessly","헛되이"],["reconstruct","재구성하다"],["efficient","효율적인"],["accommodate","수용하다"]
+  ],
+  qs:[
+   { type:"어휘 적절성", conn:[{q:'문장 3의 <b>In practice, however</b>가 뒤집는 것은?',opts:['소음 문제','앞 문장의 이론(the theory went)','연구 결과','결론'],ans:1,fb:'In theory ↔ In practice 대비 + however. 어휘 문제 오답은 이 반전 구간 뒤에 숨습니다.'},{q:'문장 4의 <b>while</b>은 어떤 대조를 만드는가?',opts:['대면 상호작용 ↔ 이메일','소음 ↔ 침묵','벽 ↔ 헤드폰','회사 ↔ 직원'],ans:0,fb:'while 앞뒤가 반대 방향이어야 합니다. 이메일이 늘었으면(rose) 대면은 줄어야(decreased) 자연스럽습니다.'}], time:100,
+     skill:["첫 문장에서 글의 방향(찬성/반대)을 확정합니다.","Nevertheless / but / actually / in contrast 뒤 문장에 오답이 숨어 있습니다.","밑줄 단어에 반의어를 넣어 더 자연스러우면 그것이 답입니다."],
+     tip:"밑줄 5개 중 역접 연결어 바로 뒤에 있는 것부터 검사하세요.",
+     sents:["Open-plan offices were designed to make communication ① easier.","Without walls, the theory went, ideas would flow freely between desks.","In practice, however, many workers respond to the lack of privacy by putting on headphones and ② avoiding conversation altogether.","Studies show that face-to-face interaction actually ③ increased after companies removed walls, while email traffic rose.","Noise, not silence, became the main ④ complaint.","The lesson is that visibility and ⑤ connection are not the same thing."],
+     q:"다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+     opts:["①","②","③","④","⑤"],
+     ans:2, ev:[2,3],
+     exp:"however 뒤 '대화를 피한다' → 대면 상호작용은 감소(decreased)해야 합니다. increased는 반대 방향이며, 'while email traffic rose'와의 대조도 근거입니다.",
+     wrong:{1:"avoiding은 however 뒤 흐름(사생활 부족 → 회피)과 일치합니다.",4:"visibility ≠ connection이 이 글의 결론입니다."} },
+   { type:"빈칸 추론 (단어)", conn:[{q:'문장 3의 <b>But</b>이 나누는 두 집단은?',opts:['화가 vs 사진가','옛 예술을 흉내 낸 사진가 vs 기억되는 사진가','과거 vs 미래','도시 vs 공장'],ans:1,fb:'But 앞은 모방(praised for resembling), 뒤는 독자적 시도입니다. 빈칸은 But 뒤 집단의 특징입니다.'},{q:'문장 5의 <b>not A but B</b>에서 빈칸은 어느 자리인가?',opts:['A(부정되는 쪽)','B(긍정되는 쪽)','둘 다','어느 쪽도 아님'],ans:1,fb:'not being faithful to an older art but being ____. 빈칸은 B, 즉 긍정되는 쪽이므로 A의 반대 의미입니다.'}], time:100,
+     skill:["빈칸 문장의 주어와 동사를 먼저 봅니다. 빈칸 앞의 not / but / however를 확인하세요.","빈칸은 주제문의 재진술입니다. 주제문을 찾아 같은 뜻인지 확인합니다.","지문 단어를 그대로 쓴 선택지는 함정입니다."],
+     tip:"빈칸 뒤 문장이 빈칸을 다시 설명하는 경우가 많습니다. 앞뒤 한 문장씩만 보세요.",
+     sents:["Early photographers were often praised for how closely their pictures resembled paintings.","They posed their subjects like portrait sitters and blurred the background to imitate brush strokes.","But the photographers we remember today did something different.","They pointed the camera at the crowded street, the factory floor, the face of a stranger — subjects painters had ignored.","Their greatness lay not in being faithful to an older art but in being __________.","What they showed had simply never been shown before."],
+     q:"다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+     opts:["realistic","original","traditional","accurate","familiar"],
+     ans:1, ev:[2,3,5],
+     exp:"not A but B 구조입니다. A = 옛 예술에 충실, B = 그 반대 = 독창적. 뒤 문장 'never been shown before'가 재진술입니다.",
+     wrong:{0:"realistic은 지문 첫 부분(resembled)에서 끌어온 함정입니다. 빈칸은 not ~ but 뒤에 있습니다.",2:"traditional은 부정되는 쪽입니다."} },
+   { type:"빈칸 추론 (구)", conn:[{q:'문장 5의 <b>In other words</b>가 하는 역할은?',opts:['새로운 주제 도입','앞 내용(지도·모델 예시)을 일반화해 재진술','반대 의견 제시','시간 순서'],ans:1,fb:'In other words 뒤는 앞 예시의 공통점을 한 문장으로 정리하는 자리입니다. 빈칸 문제의 대표 신호입니다.'},{q:'문장 6의 <b>not … but</b> 구조에서 강조되는 것은?',opts:['무엇을 복사하는가','무엇을 생략하는가','누가 만드는가','언제 만드는가'],ans:1,fb:'not from what it copies but from what it omits. 빈칸 뒤 문장이 생략(단순화)을 강조하므로 빈칸도 같은 방향입니다.'}], time:120,
+     skill:["빈칸 문장이 주제문인지 예시인지 판단합니다.","예시가 뒤따르면 예시들의 공통점을 한 문장으로 만듭니다.","추상어(essence, framework)를 몰라도 예시로 풀 수 있습니다."],
+     tip:"선택지 5개를 먼저 읽고 긍정/부정 두 그룹으로 나눈 뒤 지문을 봅니다.",
+     sents:["A map is useful precisely because it leaves things out.","A subway map ignores the true distance between stations, the curves of the tunnels, and everything above ground.","If it showed all of that, no one could read it.","The same is true of scientific models: a model of the solar system that included every asteroid would be as confusing as the sky itself.","In other words, a good representation __________.","Its value comes not from what it copies but from what it chooses to omit."],
+     q:"다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+     opts:["is judged by how much detail it contains","simplifies reality in order to be understood","must be updated as the world changes","should look as much like the real thing as possible","is created by experts rather than ordinary people"],
+     ans:1, ev:[0,2,5],
+     exp:"leaves things out / no one could read it / value from what it omits — 생략과 단순화가 이해를 만듭니다. In other words는 앞 내용의 재진술입니다.",
+     wrong:{0:"detail이 많을수록 좋다는 것은 정반대입니다.",3:"as much like the real thing은 지문이 부정하는 통념입니다."} }
+  ]}
+];
+
+</script>
+<script>
+/* ── TTS (표준 블록) ── */
+let voice=null,ttsOk=false;
+function loadVoices(){const vs=speechSynthesis.getVoices();const prefer=['Google US English','Google UK English Female','Samantha','Microsoft Aria','Microsoft Jenny','Microsoft Zira','Karen','Alex'];for(const n of prefer){const v=vs.find(x=>x.name===n);if(v){voice=v;return;}}voice=vs.find(v=>v.lang==='en-US')||vs.find(v=>v.lang&&v.lang.startsWith('en'))||null;}
+if('speechSynthesis' in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;}
+function unlockTTS(){if(ttsOk||!('speechSynthesis' in window))return;const u=new SpeechSynthesisUtterance('');u.volume=0;speechSynthesis.speak(u);ttsOk=true;}
+document.addEventListener('touchstart',unlockTTS,{once:true});document.addEventListener('click',unlockTTS,{once:true});
+function speak(text,btn,slow){if(!('speechSynthesis' in window))return;unlockTTS();speechSynthesis.cancel();document.querySelectorAll('.snd.playing').forEach(b=>b.classList.remove('playing'));const u=new SpeechSynthesisUtterance(String(text).trim());if(voice)u.voice=voice;u.lang='en-US';u.rate=slow?.55:.92;u.pitch=1.0;if(btn){btn.classList.add('playing');u.onend=u.onerror=()=>btn.classList.remove('playing');}speechSynthesis.speak(u);}
+function sndBtn(text){const b=document.createElement('button');b.className='snd';b.type='button';b.innerHTML='🔊';b.title='듣기';b.onclick=()=>speak(text,b,false);return b;}
+
+(function(){
+const $=s=>document.querySelector(s);
+const C=['①','②','③','④','⑤'];
+const STAGE_META=STAGES.map((s,i)=>({label:s.level,title:s.title.split('—')[1].trim(),cls:'b'+(i+1)}));
+const state={cur:0,unlocked:new Set([0]),done:new Set(),phase:'vocab',qi:0,vocabPass:STAGES.map(()=>false),qDone:STAGES.map(s=>s.qs.map(()=>false)),wrongs:STAGES.map(s=>s.qs.map(()=>0)),timer:null,sec:0};
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function stopTimer(){if(state.timer){clearInterval(state.timer);state.timer=null;}}
+function fmt(n){return Math.floor(n/60)+':'+String(n%60).padStart(2,'0');}
+function top(){try{window.scrollTo(0,0);}catch(e){}}
+
+function renderRail(){
+  const r=$('#rail');r.innerHTML='';
+  STAGE_META.forEach((m,i)=>{
+    const d=document.createElement('div');
+    d.className='pip '+(state.done.has(i)?'done':(i===state.cur?'active':(state.unlocked.has(i)?'unlocked':'locked')));
+    d.innerHTML=`<b>${i+1}단계 · ${m.label}</b>${m.title}`;
+    if(state.unlocked.has(i))d.onclick=()=>goStage(i);
+    r.appendChild(d);
+  });
+}
+function goStage(i){stopTimer();state.cur=i;state.phase=state.vocabPass[i]?'skill':'vocab';state.qi=0;render();}
+function unlockNext(){if(state.cur+1<STAGES.length){state.unlocked.add(state.cur+1);}}
+function render(){stopTimer();top();renderRail();const mc=document.getElementById('mapcard');if(mc)mc.style.display=(state.cur===0&&state.phase==='vocab')?'':'none';const s=STAGES[state.cur];const v=$('#view');v.innerHTML='';
+  if(state.phase==='vocab')renderVocab(s,v);else if(state.phase==='skill')renderSkill(s,v);else if(state.phase==='q')renderQ(s,v);else if(state.phase==='end')renderEnd(s,v);else if(state.phase==='finish')renderFinish(v);
+  lockPreview(v);
+}
+function lockPreview(v){
+  const n=state.cur+1;if(state.phase==='finish'||n>=STAGES.length||state.unlocked.has(n))return;
+  const c=document.createElement('div');c.className='card lockprev';
+  c.innerHTML=`<span class="badge ${STAGE_META[n].cls}">${n+1}단계 · ${STAGE_META[n].label}</span><span class="lv">🔒 ${STAGE_META[n].title} — 이 단계를 마치면 열립니다</span>`;
+  v.appendChild(c);
+}
+function head(s,title,sub){const m=STAGE_META[state.cur];return `<div style="margin-bottom:8px"><span class="badge ${m.cls}">${state.cur+1}단계 · ${s.level}</span><span class="lv">${s.intro}</span></div><div class="h2">${title}</div><div class="lv" style="margin-bottom:10px">${sub||''}</div>`;}
+
+/* ① 단어 */
+function renderVocab(s,v){
+  const all=s.vocab.map(x=>x[1]);
+  const items=shuffle(s.vocab).map(x=>({w:x[0],a:x[1],o:shuffle([x[1],...shuffle(all.filter(m=>m!==x[1])).slice(0,3)])}));
+  const c=document.createElement('div');c.className='card';
+  c.innerHTML=head(s,'단어 통과 시험',`${s.vocab.length}개를 모두 맞혀야 다음으로 넘어갑니다. 틀린 단어는 빨간색으로 남으니 다시 골라 채점하세요.`)+`<div class="vgrid" id="vg"></div><div class="bar"><button class="btn pri" id="vgrade">전체 채점</button><span class="score" id="vscore"></span></div><div id="vnote" class="small"></div>`;
+  v.appendChild(c);
+  const vg=c.querySelector('#vg');
+  items.forEach(it=>{const d=document.createElement('div');d.className='vq';d.dataset.a=it.a;
+    const w=document.createElement('div');w.className='w';w.textContent=it.w;w.appendChild(sndBtn(it.w));d.appendChild(w);
+    const o=document.createElement('div');o.className='o';it.o.forEach(t=>{const b=document.createElement('button');b.type='button';b.dataset.v=t;b.textContent=t;b.onclick=()=>{if(d.dataset.locked)return;o.querySelectorAll('button').forEach(x=>x.classList.remove('pick','no'));b.classList.add('pick');d.dataset.pick=t;};o.appendChild(b);});
+    d.appendChild(o);vg.appendChild(d);});
+  c.querySelector('#vgrade').onclick=()=>{
+    let ok=0,tot=0;
+    vg.querySelectorAll('.vq').forEach(d=>{if(d.dataset.locked)return;tot++;const p=d.dataset.pick;
+      d.querySelectorAll('button').forEach(b=>{b.classList.remove('pick');if(p===d.dataset.a&&b.dataset.v===p)b.classList.add('ok');if(p!==undefined&&p!==d.dataset.a&&b.dataset.v===p)b.classList.add('no');});
+      if(p===d.dataset.a){ok++;d.dataset.locked='1';}else delete d.dataset.pick;});
+    const rem=[...vg.querySelectorAll('.vq')].filter(d=>!d.dataset.locked).length;
+    c.querySelector('#vscore').textContent=`${ok} / ${tot}`;
+    if(rem===0){state.vocabPass[state.cur]=true;c.querySelector('#vnote').innerHTML='통과했습니다. <button class="btn pri" id="toQ">풀이 전략 확인 →</button>';c.querySelector('#toQ').onclick=()=>{state.phase='skill';render();};}
+    else c.querySelector('#vnote').textContent=`틀린 단어 ${rem}개를 다시 고른 뒤 채점하세요.`;
+  };
+}
+/* ② 전략 */
+function renderSkill(s,v){
+  const c=document.createElement('div');c.className='card';
+  c.innerHTML=head(s,'이 단계 풀이 전략',`목표 ${s.target}. 문제마다 같은 전략이 다시 표시됩니다.`)+s.qs.map(q=>`<div class="skill"><h4>${q.type} · ${q.time}초</h4><ol>${q.skill.map(x=>`<li>${x}</li>`).join('')}</ol><div class="tip"><b>시간 단축</b>${q.tip}</div></div>`).join('')+`<button class="btn pri" id="go">문제 풀기 시작 →</button>`;
+  v.appendChild(c);c.querySelector('#go').onclick=()=>{state.phase='q';state.qi=0;render();};
+}
+/* ③ 문제 */
+function renderQ(s,v){
+  const qi=state.qi,q=s.qs[qi];
+  const c=document.createElement('div');c.className='card';
+  c.innerHTML=head(s,`${q.type} <span class="lv">${qi+1} / ${s.qs.length}</span>`,'')+`<div class="row" style="margin:-6px 0 6px"><span class="lv">먼저 지문을 읽고, 연결어 분석을 마치면 선택지가 열립니다.</span><span class="timer" id="timer">0:00 / ${fmt(q.time)}</span></div>
+  <div class="skill"><h4>풀이 전략</h4><ol>${q.skill.map(x=>`<li>${x}</li>`).join('')}</ol><div class="tip"><b>시간 단축</b>${q.tip}</div></div>
+  <div id="body"></div>
+  <div class="q">연결어 · 신호어 분석 <span class="lv">(${q.conn.length}문항)</span></div><div id="conns"></div>
+  <div class="q">${q.q}</div>${q.summary?`<div class="summary">${q.summary}</div>`:''}
+  <div class="opts wait" id="opts">${q.opts.map((o,i)=>`<button class="opt" type="button" data-i="${i}">${C[i]} ${o}</button>`).join('')}</div>
+  <div class="hint" id="hint"></div><div class="fb" id="fb"></div><div id="nav"></div>`;
+  v.appendChild(c);
+  const body=c.querySelector('#body');
+  if(q.given){const g=document.createElement('div');g.className='given';g.textContent=q.given;g.appendChild(sndBtn(q.given));body.appendChild(g);}
+  if(q.paras)Object.keys(q.paras).forEach(k=>{const p=document.createElement('div');p.className='para';const b=document.createElement('b');b.textContent='('+k+')';p.appendChild(b);p.appendChild(document.createTextNode(q.paras[k]));p.appendChild(sndBtn(q.paras[k]));body.appendChild(p);});
+  if(q.sents){const p=document.createElement('div');p.className='psg';q.sents.forEach((t,i)=>{const sp=document.createElement('span');sp.className='s';sp.dataset.i=i;const n=document.createElement('span');n.className='n';n.textContent=i+1;sp.appendChild(n);sp.appendChild(document.createTextNode(t));p.appendChild(sp);p.appendChild(document.createTextNode(' '));});const all=document.createElement('div');all.style.marginTop='6px';all.appendChild(sndBtn(q.sents.join(' ')));all.querySelector('.snd').innerHTML='🔊 전체 듣기';p.appendChild(all);body.appendChild(p);}
+  // 연결어
+  const cw=c.querySelector('#conns');let connDone=0;
+  q.conn.forEach(cn=>{const d=document.createElement('div');d.className='conn';d.innerHTML=`<div class="cq">${cn.q}</div><div class="co">${cn.opts.map((o,i)=>`<button type="button" data-i="${i}">${C[i]} ${o}</button>`).join('')}</div><div class="cf"></div>`;
+    let solved=false;d.querySelectorAll('.co button').forEach(b=>b.onclick=()=>{if(solved)return;const i=+b.dataset.i;if(i===cn.ans){solved=true;b.classList.add('ok');d.querySelector('.cf').textContent=cn.fb;d.querySelector('.cf').classList.add('show');connDone++;if(connDone===q.conn.length){c.querySelector('#opts').classList.remove('wait');}}else{b.classList.add('no');}});
+    cw.appendChild(d);});
+  if(q.conn.length===0)c.querySelector('#opts').classList.remove('wait');
+  // 타이머
+  state.sec=0;const t=c.querySelector('#timer');state.timer=setInterval(()=>{state.sec++;t.textContent=fmt(state.sec)+' / '+fmt(q.time);if(state.sec>q.time)t.classList.add('over');},1000);
+  // 선택지 (힌트 3단계)
+  let tries=0;const fb=c.querySelector('#fb'),hint=c.querySelector('#hint');
+  const hintText=q.hints?q.hints.map((h,i)=>(i+1)+'. '+h).join('<br>'):'풀이 전략 1번: '+q.skill[0];
+  function finish(revealed){
+    stopTimer();c.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(+x.dataset.i===q.ans)x.classList.add('ok');});
+    (q.ev||[]).forEach(k=>{const sp=c.querySelector(`.s[data-i="${k}"]`);if(sp)sp.classList.add('hl');});
+    state.qDone[state.cur][qi]=true;
+    fb.className='fb show';
+    fb.innerHTML=`<h4>${revealed?'정답 공개 '+C[q.ans]+' — 근거를 확인하고 다음 문제로 가세요':'정답 '+C[q.ans]+' · '+fmt(state.sec)+(state.sec<=q.time?' (목표 시간 안)':' (목표 시간 초과)')}</h4><div>${q.exp}</div>${q.ev&&q.ev.length?'<div class="small">노란 표시가 근거 문장입니다. 근거를 찾지 못하고 맞혔다면 틀린 것으로 간주하세요.</div>':''}${q.wrong?`<ul>${Object.keys(q.wrong).map(k=>`<li>${C[k]} ${q.wrong[k]}</li>`).join('')}</ul>`:''}`;
+    c.querySelector('#nav').innerHTML=`<button class="btn pri" id="next">${qi+1<s.qs.length?'다음 문제 →':'단계 결과 보기'}</button>`;
+    const nb=c.querySelector('#next');try{nb.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}
+    nb.onclick=()=>{if(qi+1<s.qs.length){state.qi++;state.phase='q';}else state.phase='end';render();};
+  }
+  c.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.i;
+    if(i===q.ans)return finish(false);
+    tries++;state.wrongs[state.cur][qi]++;b.classList.add('no');b.disabled=true;
+    if(tries===1){hint.innerHTML='<b>힌트</b> '+hintText;hint.classList.add('show');fb.className='fb show';fb.innerHTML=`<h4>오답</h4><div>${q.wrong&&q.wrong[i]?q.wrong[i]:'힌트를 보고 다시 도전하세요.'}</div>`;}
+    else{fb.className='fb show';fb.innerHTML=`<h4>오답 2회</h4><div>${q.wrong&&q.wrong[i]?q.wrong[i]:''}</div>`;finish(true);}
+  });
+}
+/* ④ 단계 결과 */
+function renderEnd(s,v){
+  const w=state.wrongs[state.cur];const tot=w.reduce((a,b)=>a+b,0);
+  state.done.add(state.cur);unlockNext();renderRail();
+  const c=document.createElement('div');c.className='card';
+  c.innerHTML=head(s,'단계 완료','')+`<div class="score" style="margin:0 0 8px">오답 시도 ${tot}회</div><ul style="font-size:16px;margin:0 0 8px">${s.qs.map((q,i)=>`<li>${q.type}: ${w[i]===0?'한 번에 정답':'오답 '+w[i]+'회'}</li>`).join('')}</ul><div class="small">오답이 있던 유형은 풀이 전략 1번을 소리 내어 읽은 뒤 다음 단계로 넘어가세요.</div>
+  ${state.cur+1<STAGES.length?`<button class="btn pri" id="nx">${state.cur+2}단계 (${STAGES[state.cur+1].level}) 시작 →</button>`:`<button class="btn pri" id="nx">최종 결과 보기</button>`}`;
+  v.appendChild(c);
+  c.querySelector('#nx').onclick=()=>{if(state.cur+1<STAGES.length)goStage(state.cur+1);else{state.phase='finish';render();}};
+}
+function renderFinish(v){
+  const tot=state.wrongs.flat().reduce((a,b)=>a+b,0);const code='MK'+String(1000+((tot*37+state.wrongs.flat().length*11)%9000));
+  const c=document.createElement('div');c.className='card';
+  c.innerHTML=`<div class="h2">전 단계 완료</div><div class="score" style="margin:0 0 8px">총 오답 시도 ${tot}회</div>${STAGES.map((s,i)=>`<div style="font-size:16px"><span class="badge ${STAGE_META[i].cls}">${s.level}</span>${s.qs.map((q,j)=>q.type+'('+(state.wrongs[i][j]===0?'○':'✗'+state.wrongs[i][j])+')').join(' · ')}</div>`).join('')}<div style="margin-top:12px">완료 코드 <span class="done-code">${code}</span><div class="small">클래스룸 댓글에 완료 코드를 제출하세요.</div></div>`;
+  v.appendChild(c);
+}
+renderRail();render();
+})();
+</script>
+</body>
+</html>
