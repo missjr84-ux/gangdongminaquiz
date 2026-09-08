@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>준티 잉글리쉬 · Lesson 5 단어 · 다의어 &amp; 영영풀이</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f4fa; --card:#ffffff; --card2:#eeecf7; --card3:#f8f7fd;
+  --purple:#5b4fa8; --purple-lt:#ece9f8; --purple-dk:#3b2f8a; --purple-sf:#7b6fd0;
+  --green:#1a7a3c; --green-lt:#e8f5ec;
+  --amber:#e8a020; --amber-lt:#fef3dc;
+  --blue:#1a5c9e; --blue-lt:#e8f0fb;
+  --red:#c0392b; --red-lt:#fdecea;
+  --ink:#1a1a2e; --sub:#6b6880; --border:#d8d4ee; --r:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink);
+  line-height:1.75;-webkit-font-smoothing:antialiased;padding-bottom:90px}
+.wrap{max-width:740px;margin:0 auto;padding:0 16px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+header{padding:26px 0 12px}
+.brand{font-size:.78rem;font-weight:700;color:var(--purple)}
+h1{font-family:'Lora',serif;font-size:1.5rem;line-height:1.35;margin:6px 0 4px;font-weight:600}
+.sub{font-size:.9rem;color:var(--sub)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 18px}
+.tabs button{flex:1 1 auto;min-width:110px;font-family:inherit;font-size:.82rem;font-weight:700;
+  padding:11px 8px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);
+  color:var(--sub);cursor:pointer}
+.tabs button.on{background:var(--purple);border-color:var(--purple);color:#fff}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);
+  padding:20px 18px;margin-bottom:14px}
+.card h2{font-size:1.02rem;font-weight:700;color:var(--purple-dk);margin-bottom:6px}
+.lead{font-size:.9rem;color:var(--sub);margin-bottom:14px}
+.word{font-family:'Lora',serif;font-size:1.35rem;font-weight:600;color:var(--purple-dk)}
+.mean{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
+.mean span{background:var(--purple-lt);color:var(--purple-dk);font-size:.88rem;font-weight:500;
+  padding:5px 12px;border-radius:999px}
+.ex{background:var(--card3);border-left:4px solid var(--purple-sf);border-radius:0 9px 9px 0;
+  padding:12px 14px;margin-bottom:9px}
+.ex .en{font-family:'Lora',serif;font-size:1rem;line-height:1.65}
+.ex .ko{font-size:.9rem;color:var(--sub);margin-top:4px}
+.ex .tagn{display:inline-block;font-size:.74rem;font-weight:700;color:var(--blue);
+  background:var(--blue-lt);border-radius:999px;padding:2px 9px;margin-bottom:6px}
+.def{font-family:'Lora',serif;font-size:1rem;line-height:1.7}
+.defko{font-size:.9rem;color:var(--sub);margin-top:4px}
+.q{border:1.5px solid var(--border);border-radius:11px;padding:16px;margin-bottom:12px;background:var(--card)}
+.q.ok{background:var(--green-lt);border-color:#b2d8c2}
+.qn{font-size:.76rem;font-weight:700;color:var(--sub)}
+.qs{font-family:'Lora',serif;font-size:1.02rem;line-height:1.7;margin:6px 0 6px}
+.qs u{text-decoration-thickness:2px;text-underline-offset:3px;color:var(--purple-dk);font-weight:600}
+.qk{font-size:.88rem;color:var(--sub);margin-bottom:12px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opts button{font-family:inherit;font-size:.95rem;text-align:left;padding:12px 14px;border-radius:9px;
+  border:1.5px solid var(--border);background:var(--card3);color:var(--ink);cursor:pointer}
+.opts button:disabled{cursor:default}
+.opts button.pick-ok{background:var(--green-lt);border-color:var(--green);color:var(--green);font-weight:700}
+.opts button.pick-no{background:var(--red-lt);border-color:var(--red);color:var(--red)}
+.opts button.reveal{background:var(--green-lt);border-color:#b2d8c2}
+input[type=text]{width:100%;font-family:'Lora',serif;font-size:1.02rem;padding:12px 13px;
+  border:1.5px solid var(--border);border-radius:9px;background:#fff;color:var(--ink)}
+input[type=text]:focus{outline:2px solid var(--purple-sf);outline-offset:1px}
+.btn{font-family:inherit;font-size:.95rem;font-weight:700;padding:12px 18px;border-radius:10px;
+  border:0;background:var(--purple);color:#fff;cursor:pointer}
+.btn.ghost{background:var(--card);color:var(--purple-dk);border:1.5px solid var(--border)}
+.btn.sm{font-size:.85rem;padding:9px 14px}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.sound{font-family:inherit;font-size:.84rem;padding:7px 13px;border-radius:999px;
+  border:1.5px solid var(--border);background:var(--card3);color:var(--purple-dk);cursor:pointer}
+.fb{margin-top:10px;font-size:.92rem;line-height:1.75}
+.msg{font-weight:700} .msg.ok{color:var(--green)} .msg.no{color:var(--red)}
+.ansline{font-family:'Lora',serif;font-size:1rem;background:#fff;border:1.5px dashed var(--border);
+  border-radius:9px;padding:9px 12px;margin-top:8px}
+.exp{background:var(--amber-lt);border-left:4px solid var(--amber);border-radius:0 9px 9px 0;
+  padding:11px 13px;margin-top:9px;font-size:.9rem;line-height:1.7}
+.hintline{font-family:'Lora',serif;font-size:.98rem;color:var(--sub);letter-spacing:.12em;margin-top:8px}
+.bar{position:sticky;bottom:0;background:rgba(245,244,250,.96);border-top:1.5px solid var(--border);
+  padding:12px 0;margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.score{font-size:.86rem;color:var(--sub);margin-left:auto}
+.progress{font-size:.85rem;color:var(--sub);text-align:center;margin:8px 0}
+footer{text-align:center;font-size:.78rem;color:var(--sub);padding:24px 0 10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">준티 잉글리쉬</div>
+  <h1>Lesson 5 · Street Art in London</h1>
+  <div class="sub">단어 — 다의어 3개 · 영영풀이 20개</div>
+</header>
+
+<div class="tabs" id="tabs">
+  <button onclick="go(0)">다의어 학습</button>
+  <button onclick="go(1)">다의어 문제</button>
+  <button onclick="go(2)">영영풀이 학습</button>
+  <button onclick="go(3)">영영풀이 → 단어</button>
+  <button onclick="go(4)">정의 빈칸</button>
+</div>
+<div id="stage"></div>
+</div>
+<footer>준티 잉글리쉬 · 강동미나</footer>
+
+<script>
+/* ================= 데이터 ================= */
+const POLY = [
+  { w:"take", means:["가지고 가다","(교통수단을) 타다","(시간이) 걸리다"],
+    ex:[
+      {n:1, en:"She didn't take her phone to school yesterday.", ko:"그녀는 어제 학교에 그녀의 휴대 전화를 가져가지 않았다."},
+      {n:2, en:"I usually take the bus to school.", ko:"나는 보통 버스를 타고 학교에 간다."},
+      {n:3, en:"It will take about an hour to finish this project.", ko:"이 프로젝트를 끝내는 데 약 한 시간이 걸릴 것이다."}
+    ]},
+  { w:"represent", means:["나타내다","대표하다"],
+    ex:[
+      {n:1, en:"In the painting, the blue color represents sadness.", ko:"그 그림에서 파란색은 슬픔을 나타낸다."},
+      {n:2, en:"He represents our school in the contest.", ko:"그는 그 대회에서 우리 학교를 대표한다."}
+    ]},
+  { w:"figure", means:["인물, 모습","숫자, 수치","이해하다, 알아내다 (figure out)"],
+    ex:[
+      {n:1, en:"You can see a figure in a field in the painting.", ko:"너는 그 그림에서 들판에 있는 한 인물을 볼 수 있다."},
+      {n:2, en:"This figure shows last year's sales.", ko:"이 수치는 지난해 매출을 보여 준다."},
+      {n:3, en:"Can you figure out what that means?", ko:"너는 그것이 무엇을 의미하는지 이해할 수 있니?"}
+    ]}
+];
+
+const POLYQ = [
+  { sent:"I usually <u>take</u> the bus to school.", ko:"나는 보통 버스를 타고 학교에 간다.",
+    opts:["가지고 가다","(교통수단을) 타다","(시간이) 걸리다"], ans:1,
+    exp:"뒤에 교통수단(the bus)이 오면 '타다'. 'take the subway/a taxi'도 같은 쓰임." },
+  { sent:"It will <u>take</u> about an hour to finish this project.", ko:"이 프로젝트를 끝내는 데 약 한 시간이 걸릴 것이다.",
+    opts:["가지고 가다","(교통수단을) 타다","(시간이) 걸리다"], ans:2,
+    exp:"주어가 It이고 뒤에 시간(an hour)이 나오면 '걸리다'. It takes + 시간 + to부정사." },
+  { sent:"She didn't <u>take</u> her phone to school yesterday.", ko:"그녀는 어제 학교에 그녀의 휴대 전화를 가져가지 않았다.",
+    opts:["가지고 가다","(교통수단을) 타다","(시간이) 걸리다"], ans:0,
+    exp:"물건 + to 장소 → '가지고 가다'. bring(가져오다)과 방향이 반대다." },
+  { sent:"Don't forget to <u>take</u> your umbrella with you.", ko:"우산 가지고 가는 것을 잊지 마.",
+    opts:["가지고 가다","(교통수단을) 타다","(시간이) 걸리다"], ans:0,
+    exp:"with you가 붙으면 몸에 지니고 간다는 뜻이므로 '가지고 가다'." },
+  { sent:"In the painting, the blue color <u>represents</u> sadness.", ko:"그 그림에서 파란색은 슬픔을 나타낸다.",
+    opts:["나타내다","대표하다"], ans:0,
+    exp:"색·그림·기호가 어떤 의미를 담을 때는 '나타내다'." },
+  { sent:"He <u>represents</u> our school in the contest.", ko:"그는 그 대회에서 우리 학교를 대표한다.",
+    opts:["나타내다","대표하다"], ans:1,
+    exp:"사람이 단체(school, country)를 대신해 나설 때는 '대표하다'." },
+  { sent:"According to STIK, the three figures <u>represent</u> the past, present, and future of Shoreditch.",
+    ko:"STIK에 따르면, 그 세 인물은 Shoreditch의 과거, 현재, 그리고 미래를 나타낸다.",
+    opts:["나타내다","대표하다"], ans:0,
+    exp:"본문 문장. 그림 속 인물이 시간의 흐름을 담고 있으므로 '나타내다'." },
+  { sent:"You can see a <u>figure</u> in a field in the painting.", ko:"너는 그 그림에서 들판에 있는 한 인물을 볼 수 있다.",
+    opts:["인물, 모습","숫자, 수치","이해하다, 알아내다"], ans:0,
+    exp:"그림·사진 속에 있는 사람이면 '인물, 모습'." },
+  { sent:"This <u>figure</u> shows last year's sales.", ko:"이 수치는 지난해 매출을 보여 준다.",
+    opts:["인물, 모습","숫자, 수치","이해하다, 알아내다"], ans:1,
+    exp:"매출·통계처럼 숫자를 가리키면 '수치'." },
+  { sent:"Can you <u>figure</u> out what that means?", ko:"너는 그것이 무엇을 의미하는지 이해할 수 있니?",
+    opts:["인물, 모습","숫자, 수치","이해하다, 알아내다"], ans:2,
+    exp:"out과 함께 쓰이면 동사 '이해하다, 알아내다'. 품사가 명사에서 동사로 바뀐다." },
+  { sent:"Well, look closely at the eyes of the three <u>figures</u>.", ko:"자, 그 세 인물의 눈을 자세히 보아라.",
+    opts:["인물, 모습","숫자, 수치","이해하다, 알아내다"], ans:0,
+    exp:"본문 문장. eyes를 가진 대상이므로 그림 속 '인물'." },
+  { sent:"It will <u>take</u> you ten minutes to get there.", ko:"거기 가는 데 10분이 걸릴 것이다.",
+    opts:["가지고 가다","(교통수단을) 타다","(시간이) 걸리다"], ans:2,
+    exp:"take + 사람 + 시간 + to부정사도 '걸리다'. you가 목적어로 끼어들어도 뜻은 그대로." }
+];
+
+const DEFS = [
+  { w:"artwork",  def:"something made by an artist, like a drawing, painting, or sculpture", ko:"예술가에 의해 만들어진 그림, 회화, 또는 조각 같은 것" },
+  { w:"canvas",   def:"a piece of strong, rough cloth used by artists to paint on", ko:"화가가 그림을 그리기 위해 사용하는 튼튼하고 거친 천 조각" },
+  { w:"chew",     def:"to break food into smaller, softer pieces with the teeth", ko:"이로 음식을 더 작고 부드러운 조각으로 부수다" },
+  { w:"clue",     def:"a sign or some information that helps you to find the answer to a problem", ko:"문제의 답을 찾는 데 도움이 되는 신호나 정보" },
+  { w:"dot",      def:"a very small round mark", ko:"아주 작고 둥근 표시" },
+  { w:"figure",   def:"a person or an animal in a drawing, painting, etc.", ko:"그림, 회화 등에 있는 사람이나 동물" },
+  { w:"final",    def:"being or happening at the end of a series of events, actions, etc.", ko:"일련의 사건, 행동 등의 마지막에 있거나 발생하는" },
+  { w:"hip",      def:"following the latest fashions in music and clothes", ko:"음악과 옷에서 최신 유행을 따르는" },
+  { w:"leafless", def:"having no leaves", ko:"잎이 없는" },
+  { w:"lively",   def:"full of life and energy", ko:"생기와 활력으로 가득 차 있는" },
+  { w:"modern",   def:"of the present or recent times", ko:"현재 또는 최근 시대의" },
+  { w:"opinion",  def:"a thought or belief about something or someone", ko:"무언가나 누군가에 대한 생각이나 믿음" },
+  { w:"past",     def:"the period of time before now", ko:"지금 이전의 시간" },
+  { w:"personal", def:"belonging or relating to one particular person", ko:"특정한 한 사람에게 속하거나 관련된" },
+  { w:"pleasure", def:"a state of feeling or being happy", ko:"행복한 느낌이나 상태" },
+  { w:"represent",def:"to show something or someone, especially in a picture", ko:"특히 그림에서 무언가 또는 누군가를 보여 주다" },
+  { w:"social",   def:"relating to human society and its organization", ko:"인간 사회와 그 조직과 관련된" },
+  { w:"spray",    def:"to spread a liquid in small drops over an area", ko:"액체를 어떤 영역에 작은 방울로 퍼뜨리다" },
+  { w:"sprayer",  def:"a tool that spreads liquid in small drops", ko:"액체를 작은 방울로 퍼뜨리는 도구" },
+  { w:"stick",    def:"to attach something to a surface with glue, tape, pins, etc.", ko:"풀, 테이프, 핀 등으로 무언가를 표면에 붙이다" }
+];
+
+/* 정의 속 핵심어 빈칸 — 정의를 외우게 하는 단계 */
+const DEFBLANK = [
+  { w:"chew",     pre:"to break food into smaller, softer pieces with the ", post:"", ans:"teeth", ko:"이로 음식을 더 작고 부드러운 조각으로 부수다" },
+  { w:"clue",     pre:"a sign or some information that helps you to find the ", post:" to a problem", ans:"answer", ko:"문제의 답을 찾는 데 도움이 되는 신호나 정보" },
+  { w:"dot",      pre:"a very small ", post:" mark", ans:"round", ko:"아주 작고 둥근 표시" },
+  { w:"canvas",   pre:"a piece of strong, rough ", post:" used by artists to paint on", ans:"cloth", ko:"화가가 그림을 그리기 위해 사용하는 튼튼하고 거친 천 조각" },
+  { w:"hip",      pre:"following the latest ", post:" in music and clothes", ans:"fashions", ko:"음악과 옷에서 최신 유행을 따르는" },
+  { w:"lively",   pre:"full of life and ", post:"", ans:"energy", ko:"생기와 활력으로 가득 차 있는" },
+  { w:"opinion",  pre:"a thought or ", post:" about something or someone", ans:"belief", ko:"무언가나 누군가에 대한 생각이나 믿음" },
+  { w:"past",     pre:"the period of time ", post:" now", ans:"before", ko:"지금 이전의 시간" },
+  { w:"personal", pre:"belonging or relating to one ", post:" person", ans:"particular", ko:"특정한 한 사람에게 속하거나 관련된" },
+  { w:"social",   pre:"relating to human ", post:" and its organization", ans:"society", ko:"인간 사회와 그 조직과 관련된" },
+  { w:"spray",    pre:"to spread a ", post:" in small drops over an area", ans:"liquid", ko:"액체를 어떤 영역에 작은 방울로 퍼뜨리다" },
+  { w:"stick",    pre:"to attach something to a ", post:" with glue, tape, pins, etc.", ans:"surface", ko:"풀, 테이프, 핀 등으로 무언가를 표면에 붙이다" }
+];
+
+/* ================= 상태 ================= */
+let TAB=0, retryOnly=false;
+const stPoly = POLYQ.map(()=>({picked:-1,solved:false}));
+const stWord = DEFS.map(()=>({val:'',solved:false,tried:false,hint:false,fb:''}));
+const stBlank= DEFBLANK.map(()=>({val:'',solved:false,tried:false,fb:''}));
+
+/* ================= 소리 ================= */
+let voices=[],ttsReady=false;
+function loadVoices(){ try{ voices=speechSynthesis.getVoices()||[]; }catch(e){ voices=[]; } }
+if('speechSynthesis' in window){ loadVoices(); speechSynthesis.onvoiceschanged=loadVoices; }
+function unlockTTS(){ if(ttsReady||!('speechSynthesis' in window))return;
+  try{ const u=new SpeechSynthesisUtterance(' '); u.volume=0; speechSynthesis.speak(u); ttsReady=true; }catch(e){} }
+document.addEventListener('touchstart',unlockTTS,{once:true});
+document.addEventListener('click',unlockTTS,{once:true});
+function speak(t,slow){
+  if(!('speechSynthesis' in window))return;
+  try{
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(t); u.lang='en-US'; u.rate=slow?0.65:0.9;
+    const want=['Google US English','Samantha','Microsoft Aria Online (Natural) - English (United States)','Alex'];
+    for(const w of want){ const v=voices.find(v=>v.name===w); if(v){u.voice=v;break;} }
+    if(!u.voice){ const v=voices.find(v=>/^en(-|_)US/i.test(v.lang)); if(v)u.voice=v; }
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ================= 유틸 ================= */
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function norm(s){ return String(s).toLowerCase().replace(/[\u2018\u2019]/g,"'").replace(/[^a-z0-9'\-\s]/gi,' ').replace(/\s+/g,' ').trim(); }
+function goTop(){ window.scrollTo(0,0); }
+function mask(w){ return w.length>1 ? w[0]+'_'.repeat(w.length-1) : w; }
+function plain(s){ return String(s).replace(/<[^>]+>/g,''); }
+
+/* ================= 탭 ================= */
+function go(i){ TAB=i; retryOnly=false; render(); goTop(); }
+function render(){
+  [...document.querySelectorAll('#tabs button')].forEach((b,i)=>b.className=(i===TAB?'on':''));
+  const st=document.getElementById('stage');
+  st.innerHTML=[viewPolyLearn,viewPolyQ,viewDefLearn,viewWord,viewBlank][TAB]();
+}
+
+/* --- 1. 다의어 학습 --- */
+function viewPolyLearn(){
+  let h='<div class="card"><h2>한 단어, 여러 뜻</h2>'+
+    '<div class="lead">같은 단어라도 뒤에 무엇이 오느냐에 따라 뜻이 갈린다. 예문의 밑줄 뒤 부분을 보는 습관을 들이자.</div></div>';
+  POLY.forEach((p,pi)=>{
+    h+='<div class="card"><div class="word">'+esc(p.w)+'</div>'+
+      '<div class="mean">'+p.means.map((m,i)=>'<span>'+(i+1)+'. '+esc(m)+'</span>').join('')+'</div>'+
+      p.ex.map(e=>'<div class="ex"><span class="tagn">'+e.n+'번 뜻</span>'+
+        '<div class="en">'+esc(e.en)+'</div><div class="ko">'+esc(e.ko)+'</div>'+
+        '<div class="btnrow"><button class="sound" onclick="speak(_pex('+pi+','+(e.n-1)+'),false)">🔊 듣기</button>'+
+        '<button class="sound" onclick="speak(_pex('+pi+','+(e.n-1)+'),true)">🐢 천천히</button></div></div>').join('')+
+    '</div>';
+  });
+  return h;
+}
+function _pex(pi,ei){ return POLY[pi].ex[ei].en; }
+
+/* --- 2. 다의어 문제 --- */
+function viewPolyQ(){
+  let h='<div class="card"><h2>문장 속에서 뜻 고르기</h2>'+
+    '<div class="lead">밑줄 친 단어가 이 문장에서 어떤 뜻인지 고르세요. 틀리면 정답과 판단 근거가 바로 나옵니다.</div></div>';
+  let shown=0;
+  POLYQ.forEach((q,i)=>{
+    const s=stPoly[i]; if(retryOnly && s.solved) return; shown++;
+    h+='<div class="q'+(s.solved?' ok':'')+'"><div class="qn">'+(i+1)+' / '+POLYQ.length+'</div>'+
+      '<div class="qs">'+q.sent+'</div><div class="qk">'+esc(q.ko)+'</div>'+
+      '<div class="opts">'+q.opts.map((o,oi)=>{
+        let cls='';
+        if(s.picked>=0){
+          if(oi===q.ans) cls = (s.picked===q.ans?'pick-ok':'reveal');
+          else if(oi===s.picked) cls='pick-no';
+        }
+        return '<button class="'+cls+'" '+(s.picked>=0?'disabled':'')+' onclick="pickPoly('+i+','+oi+')">'+esc(o)+'</button>';
+      }).join('')+'</div>'+
+      (s.picked>=0
+        ? '<div class="fb"><div class="msg '+(s.solved?'ok':'no')+'">'+(s.solved?'정답':'오답 · 정답은 「'+esc(q.opts[q.ans])+'」')+'</div>'+
+          '<div class="exp">'+esc(q.exp)+'</div>'+
+          '<div class="btnrow"><button class="sound" onclick="speak(_pq('+i+'),false)">🔊 문장 듣기</button>'+
+          (s.solved?'':'<button class="btn ghost sm" onclick="resetPoly('+i+')">다시 풀기</button>')+'</div></div>'
+        : '')+
+    '</div>';
+  });
+  if(!shown) h+='<div class="card lead" style="text-align:center">틀린 문제가 없습니다.</div>';
+  const done=stPoly.filter(s=>s.solved).length;
+  h+='<div class="bar"><button class="btn ghost sm" onclick="toggleRetry()">'+(retryOnly?'전체 보기':'틀린 것만 다시')+'</button>'+
+     '<span class="score">맞힌 문제 '+done+' / '+POLYQ.length+'</span></div>';
+  return h;
+}
+function _pq(i){ return plain(POLYQ[i].sent); }
+function pickPoly(i,oi){ const s=stPoly[i]; if(s.picked>=0)return; s.picked=oi; s.solved=(oi===POLYQ[i].ans); render(); }
+function resetPoly(i){ stPoly[i].picked=-1; render(); }
+
+/* --- 3. 영영풀이 학습 --- */
+function viewDefLearn(){
+  let h='<div class="card"><h2>영영풀이 20개</h2>'+
+    '<div class="lead">영어 정의를 소리 내어 읽고, 그 정의만 보고도 단어가 떠오르는지 확인하세요.</div></div>';
+  DEFS.forEach((d,i)=>{
+    h+='<div class="card"><div class="word">'+esc(d.w)+'</div>'+
+      '<div class="def" style="margin-top:8px">'+esc(d.def)+'</div>'+
+      '<div class="defko">'+esc(d.ko)+'</div>'+
+      '<div class="btnrow"><button class="sound" onclick="speak(_dw('+i+'),false)">🔊 단어</button>'+
+      '<button class="sound" onclick="speak(_dd('+i+'),false)">🔊 정의</button>'+
+      '<button class="sound" onclick="speak(_dd('+i+'),true)">🐢 천천히</button></div></div>';
+  });
+  return h;
+}
+function _dw(i){ return DEFS[i].w; }
+function _dd(i){ return DEFS[i].def; }
+
+/* --- 4. 영영풀이 → 단어 --- */
+function viewWord(){
+  let h='<div class="card"><h2>정의를 보고 단어 쓰기</h2>'+
+    '<div class="lead">영어 정의와 한글 뜻을 보고 단어를 쓰세요. 막히면 첫 글자 힌트를 누르세요.</div></div>';
+  let shown=0;
+  DEFS.forEach((d,i)=>{
+    const s=stWord[i]; if(retryOnly && s.solved) return; shown++;
+    h+='<div class="q'+(s.solved?' ok':'')+'"><div class="qn">'+(i+1)+' / '+DEFS.length+'</div>'+
+      '<div class="def">'+esc(d.def)+'</div><div class="defko" style="margin-bottom:11px">'+esc(d.ko)+'</div>'+
+      '<input type="text" id="wi'+i+'" value="'+esc(s.val)+'" '+(s.solved?'disabled ':'')+
+        'autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="단어를 쓰세요" '+
+        'onkeydown="if(event.key===\'Enter\')checkWord('+i+')">'+
+      (s.hint&&!s.solved?'<div class="hintline">'+esc(mask(d.w))+'</div>':'')+
+      '<div class="btnrow">'+
+        (s.solved?'<button class="sound" onclick="speak(_dw('+i+'),false)">🔊 듣기</button>'
+                 :'<button class="btn sm" onclick="checkWord('+i+')">채점</button>'+
+                  '<button class="btn ghost sm" onclick="hintWord('+i+')">첫 글자 힌트</button>')+
+      '</div><div class="fb">'+(s.fb||'')+'</div></div>';
+  });
+  if(!shown) h+='<div class="card lead" style="text-align:center">틀린 문제가 없습니다.</div>';
+  const done=stWord.filter(s=>s.solved).length;
+  h+='<div class="bar"><button class="btn ghost sm" onclick="checkAllWord()">전체 채점</button>'+
+     '<button class="btn ghost sm" onclick="toggleRetry()">'+(retryOnly?'전체 보기':'틀린 것만 다시')+'</button>'+
+     '<span class="score">통과 '+done+' / '+DEFS.length+'</span></div>';
+  return h;
+}
+function syncWord(){ DEFS.forEach((d,i)=>{ const el=document.getElementById('wi'+i); if(el) stWord[i].val=el.value; }); }
+function gradeWord(i){
+  const d=DEFS[i], s=stWord[i];
+  if(!norm(s.val)){ s.fb='<div class="msg no">아직 안 썼어요</div>'; return; }
+  if(norm(s.val)===norm(d.w)){ s.solved=true; s.fb='<div class="msg ok">'+(s.tried?'다시 써서 통과':'정답')+'</div><div class="ansline">'+esc(d.w)+'</div>'; }
+  else{ s.tried=true; s.fb='<div class="msg no">아직 아니에요</div><div class="ansline">'+esc(d.w)+'</div>'+
+    '<div class="exp">정답을 보고 그대로 다시 써서 통과시키세요.</div>'; }
+}
+function checkWord(i){ syncWord(); gradeWord(i); render(); }
+function hintWord(i){ syncWord(); stWord[i].hint=true; render(); }
+function checkAllWord(){ syncWord(); DEFS.forEach((d,i)=>{ if(!stWord[i].solved) gradeWord(i); }); render(); goTop(); }
+
+/* --- 5. 정의 빈칸 --- */
+function viewBlank(){
+  let h='<div class="card"><h2>정의 속 핵심어 채우기</h2>'+
+    '<div class="lead">단어는 알려 줍니다. 그 단어의 영영풀이에서 빠진 핵심어를 쓰세요.</div></div>';
+  let shown=0;
+  DEFBLANK.forEach((q,i)=>{
+    const s=stBlank[i]; if(retryOnly && s.solved) return; shown++;
+    h+='<div class="q'+(s.solved?' ok':'')+'"><div class="qn">'+(i+1)+' / '+DEFBLANK.length+'</div>'+
+      '<div class="word" style="font-size:1.1rem">'+esc(q.w)+'</div>'+
+      '<div class="def" style="margin:8px 0 2px">'+esc(q.pre)+'<b style="color:var(--purple)">______</b>'+esc(q.post)+'</div>'+
+      '<div class="defko" style="margin-bottom:11px">'+esc(q.ko)+'</div>'+
+      '<input type="text" id="bi'+i+'" value="'+esc(s.val)+'" '+(s.solved?'disabled ':'')+
+        'autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="빈칸에 들어갈 단어" '+
+        'onkeydown="if(event.key===\'Enter\')checkBlank('+i+')">'+
+      '<div class="btnrow">'+(s.solved
+        ? '<button class="sound" onclick="speak(_bf('+i+'),false)">🔊 정의 듣기</button>'
+        : '<button class="btn sm" onclick="checkBlank('+i+')">채점</button>')+
+      '</div><div class="fb">'+(s.fb||'')+'</div></div>';
+  });
+  if(!shown) h+='<div class="card lead" style="text-align:center">틀린 문제가 없습니다.</div>';
+  const done=stBlank.filter(s=>s.solved).length;
+  h+='<div class="bar"><button class="btn ghost sm" onclick="checkAllBlank()">전체 채점</button>'+
+     '<button class="btn ghost sm" onclick="toggleRetry()">'+(retryOnly?'전체 보기':'틀린 것만 다시')+'</button>'+
+     '<span class="score">통과 '+done+' / '+DEFBLANK.length+'</span></div>';
+  return h;
+}
+function _bf(i){ const q=DEFBLANK[i]; return q.pre+q.ans+q.post; }
+function syncBlank(){ DEFBLANK.forEach((q,i)=>{ const el=document.getElementById('bi'+i); if(el) stBlank[i].val=el.value; }); }
+function gradeBlank(i){
+  const q=DEFBLANK[i], s=stBlank[i];
+  if(!norm(s.val)){ s.fb='<div class="msg no">아직 안 썼어요</div>'; return; }
+  if(norm(s.val)===norm(q.ans)){ s.solved=true; s.fb='<div class="msg ok">'+(s.tried?'다시 써서 통과':'정답')+'</div><div class="ansline">'+esc(_bf(i))+'</div>'; }
+  else{ s.tried=true; s.fb='<div class="msg no">아직 아니에요</div><div class="ansline">'+esc(q.ans)+'</div>'+
+    '<div class="exp">정의 전체를 다시 읽고, 정답을 그대로 써서 통과시키세요.</div>'; }
+}
+function checkBlank(i){ syncBlank(); gradeBlank(i); render(); }
+function checkAllBlank(){ syncBlank(); DEFBLANK.forEach((q,i)=>{ if(!stBlank[i].solved) gradeBlank(i); }); render(); goTop(); }
+
+function toggleRetry(){
+  if(TAB===3) syncWord(); if(TAB===4) syncBlank();
+  retryOnly=!retryOnly; render(); goTop();
+}
+
+render();
+</script>
+</body>
+</html>
