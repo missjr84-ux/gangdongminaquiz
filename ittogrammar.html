@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>It ~ to 구문 공식 훈련</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f9ff; --card-bg:#fffdf7; --ink:#1f2937; --sub:#6b7280;
+  --line:#e5e7eb; --ok:#059669; --okbg:#ecfdf5; --no:#dc2626; --nobg:#fef2f2;
+  --hi:#fde68a; --accent:#0284c7;
+  --c1:#38bdf8; --c2:#fb7185; --c3:#34d399; --c4:#a78bfa;
+  --c5:#fbbf24; --c6:#f472b6; --c7:#2dd4bf; --c8:#818cf8;
+}
+:root:not([data-theme="light"]){color-scheme:light;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);color:var(--ink);font-family:'Noto Sans KR','Nunito',sans-serif;
+  line-height:1.7;padding:14px 12px 80px;}
+.wrap{max-width:880px;margin:0 auto;}
+h1{font-size:1.45rem;font-weight:900;text-align:center;margin-bottom:4px;letter-spacing:-.5px;}
+.sub{text-align:center;color:var(--sub);font-size:.86rem;margin-bottom:14px;}
+
+.tabs{position:sticky;top:0;z-index:50;background:var(--bg);padding:8px 0 10px;margin-bottom:6px;
+  display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex:0 0 auto;padding:8px 14px;border:2px solid var(--line);border-radius:999px;background:#fff;
+  font-weight:700;font-size:.85rem;cursor:pointer;white-space:nowrap;transition:.15s;font-family:inherit;color:var(--ink);}
+.tab.on{background:var(--accent);border-color:var(--accent);color:#fff;}
+.bar{height:6px;background:#dbeafe;border-radius:99px;overflow:hidden;margin-bottom:14px;}
+.bar>i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s;}
+
+.card{background:var(--card-bg);border:1px solid var(--line);border-radius:16px;margin-bottom:14px;
+  overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.card>h2{font-size:.95rem;font-weight:800;color:#fff;padding:10px 16px;letter-spacing:-.3px;}
+.c1>h2{background:var(--c1);} .c2>h2{background:var(--c2);} .c3>h2{background:var(--c3);}
+.c4>h2{background:var(--c4);} .c5>h2{background:var(--c5);} .c6>h2{background:var(--c6);}
+.c7>h2{background:var(--c7);} .c8>h2{background:var(--c8);}
+.body{padding:16px;}
+.page{display:none;} .page.on{display:block;}
+
+.formula{background:#fff;border:2px dashed var(--accent);border-radius:12px;padding:14px;text-align:center;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:1.02rem;margin-bottom:12px;line-height:2;}
+.formula .k{font-family:'Noto Sans KR';font-size:.8rem;color:var(--sub);font-weight:500;}
+.tag{display:inline-block;padding:2px 9px;border-radius:8px;font-size:.85rem;margin:0 2px;color:#fff;}
+.t-it{background:var(--c1);} .t-adj{background:var(--c5);} .t-for{background:var(--c3);} .t-to{background:var(--c4);}
+
+.steps{display:flex;flex-direction:column;gap:8px;}
+.step{border:1px solid var(--line);border-radius:12px;background:#fff;padding:12px 14px;opacity:.35;transition:.25s;}
+.step.on{opacity:1;border-color:var(--accent);box-shadow:0 2px 8px rgba(2,132,199,.12);}
+.step b{display:block;font-size:.8rem;color:var(--accent);margin-bottom:4px;}
+.step .sent{font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;line-height:1.9;}
+.mark{background:var(--hi);border-radius:4px;padding:1px 3px;}
+
+.blank{display:inline-block;min-width:58px;text-align:center;border-bottom:2px solid var(--accent);
+  background:#e0f2fe;border-radius:5px 5px 0 0;padding:0 7px;cursor:pointer;color:transparent;
+  font-family:'Nunito',sans-serif;font-weight:800;transition:.15s;user-select:none;}
+.blank.show{color:var(--accent);background:var(--hi);border-color:#d97706;}
+
+.acc{border:1px solid var(--line);border-radius:11px;overflow:hidden;margin-top:9px;background:#fff;}
+.acc-head{padding:8px 13px;font-weight:700;font-size:.84rem;cursor:pointer;background:#f8fafc;
+  display:flex;justify-content:space-between;align-items:center;color:var(--ink);}
+.acc-head .arw{transition:.2s;font-size:.75rem;color:var(--sub);}
+.acc.open .acc-head .arw{transform:rotate(180deg);}
+.acc-body{display:none;padding:11px 13px;font-size:.85rem;border-top:1px solid var(--line);}
+.acc.open .acc-body{display:block;}
+
+.btn{border:none;border-radius:10px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:.86rem;
+  cursor:pointer;background:var(--accent);color:#fff;transition:.15s;}
+.btn:hover{filter:brightness(1.08);}
+.btn.gray{background:#94a3b8;} .btn.sm{padding:6px 12px;font-size:.8rem;}
+.btn:disabled{opacity:.4;cursor:default;}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px;}
+.tts{border:1px solid var(--line);background:#fff;border-radius:8px;padding:3px 9px;font-size:.8rem;
+  cursor:pointer;color:var(--sub);font-family:inherit;}
+.one{border:1px solid var(--accent);background:#fff;color:var(--accent);border-radius:8px;padding:3px 11px;
+  font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;}
+.one:disabled{opacity:.35;cursor:default;}
+
+.q{border-bottom:1px solid var(--line);padding:14px 0;}
+.q:last-child{border-bottom:none;}
+.qnum{display:inline-block;background:var(--accent);color:#fff;font-weight:800;font-size:.74rem;
+  padding:1px 8px;border-radius:99px;margin-right:7px;}
+.qs{font-family:'Nunito',sans-serif;font-weight:700;font-size:1rem;}
+.qs.ko{font-family:'Noto Sans KR',sans-serif;}
+.qk{font-size:.85rem;color:var(--sub);margin-top:2px;}
+.opts{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;align-items:center;}
+.opt{border:2px solid var(--line);background:#fff;border-radius:10px;padding:7px 14px;cursor:pointer;
+  font-weight:700;font-size:.86rem;font-family:'Nunito',sans-serif;transition:.12s;color:var(--ink);}
+.opt.sel{border-color:var(--accent);background:#e0f2fe;}
+.opt.right{border-color:var(--ok);background:var(--okbg);color:var(--ok);}
+.opt.wrong{border-color:var(--no);background:var(--nobg);color:var(--no);}
+.opt:disabled{cursor:default;}
+
+.fb{margin-top:9px;padding:9px 12px;border-radius:10px;font-size:.85rem;display:none;}
+.fb.show{display:block;}
+.fb.o{background:var(--okbg);color:var(--ok);border:1px solid #a7f3d0;}
+.fb.x{background:var(--nobg);color:var(--no);border:1px solid #fecaca;}
+
+input.txt{width:100%;padding:10px 12px;border:2px solid var(--line);border-radius:10px;
+  font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:600;margin-top:9px;background:#fff;color:var(--ink);}
+input.txt:focus{outline:none;border-color:var(--accent);}
+input.txt.right{border-color:var(--ok);background:var(--okbg);}
+input.txt.wrong{border-color:var(--no);background:var(--nobg);}
+
+.slot{min-height:46px;border:2px dashed #cbd5e1;border-radius:10px;background:#fff;padding:8px;
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:9px;}
+.slot.right{border-color:var(--ok);border-style:solid;background:var(--okbg);}
+.slot.wrong{border-color:var(--no);border-style:solid;background:var(--nobg);}
+.slot:empty::after{content:'여기를 채우세요';color:#cbd5e1;font-size:.82rem;}
+.pool{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;}
+.chip{border:2px solid var(--line);background:#fff;border-radius:9px;padding:5px 11px;
+  font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:.12s;color:var(--ink);}
+.chip:hover{border-color:var(--accent);}
+.chip.used{opacity:.25;pointer-events:none;}
+.chip.inslot{border-color:var(--accent);background:#e0f2fe;}
+
+.hint{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:9px 12px;font-size:.83rem;margin-top:9px;}
+table.cmp{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:4px;}
+table.cmp th,table.cmp td{border:1px solid var(--line);padding:8px 10px;text-align:left;}
+table.cmp th{background:#f1f5f9;font-weight:800;font-size:.8rem;}
+table.cmp td.en{font-family:'Nunito',sans-serif;font-weight:700;}
+.ox{font-weight:900;} .ox.o{color:var(--ok);} .ox.x{color:var(--no);}
+
+.part{background:#e0f2fe;border-left:4px solid var(--accent);border-radius:0 9px 9px 0;
+  padding:6px 12px;font-weight:800;font-size:.84rem;margin:16px 0 2px;}
+
+.scorebox{text-align:center;padding:22px 16px;background:#fff;border-radius:14px;border:2px solid var(--accent);display:none;}
+.scorebox.show{display:block;}
+.scorebox .big{font-size:2.4rem;font-weight:900;color:var(--accent);font-family:'Nunito';}
+.code{font-family:'Nunito';font-size:1.3rem;font-weight:900;letter-spacing:3px;background:var(--hi);
+  border-radius:9px;padding:7px 16px;display:inline-block;margin-top:9px;}
+.note{font-size:.82rem;color:var(--sub);margin-top:8px;}
+table.lb{width:100%;border-collapse:collapse;font-size:.85rem;}
+table.lb th,table.lb td{border-bottom:1px solid var(--line);padding:7px 9px;text-align:left;}
+table.lb th{font-size:.78rem;color:var(--sub);font-weight:700;}
+table.lb td.sc{font-family:'Nunito';font-weight:800;color:var(--accent);text-align:right;}
+table.lb tr.me td{background:var(--okbg);}
+ul.tips{margin:6px 0 0 18px;font-size:.86rem;}
+ul.tips li{margin-bottom:5px;}
+@media(max-width:480px){body{padding:10px 8px 70px;} h1{font-size:1.2rem;} .qs{font-size:.94rem;} .body{padding:13px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>It ~ to 구문 공식 훈련</h1>
+<p class="sub">가주어 It · 진주어 to부정사 · 의미상 주어 for / of</p>
+
+<div class="tabs" id="tabs"></div>
+<div class="bar"><i id="pbar"></i></div>
+
+<section class="page on" id="p0">
+  <div class="card c1"><h2>공식 한 줄</h2><div class="body">
+    <div class="formula">
+      <span class="tag t-to">To V ~</span> + is + <span class="tag t-adj">형용사</span><br>
+      <span style="font-size:1.4rem;color:var(--accent);">↓</span><br>
+      <span class="tag t-it">It</span> + is + <span class="tag t-adj">형용사</span> + <span class="tag t-for">for 목적격</span> + <span class="tag t-to">to V ~</span>
+      <div class="k">가주어 It이 앞자리를 대신 맡고, 진짜 주어(to부정사)는 뒤로 간다</div>
+    </div>
+    <ul class="tips">
+      <li><b>왜 바꾸나?</b> 영어는 <b>주어가 길면 싫어한다</b>. 무거운 덩어리는 뒤로 보낸다.</li>
+      <li><b>의미상 주어</b>는 「<b>for + 목적격</b>」이 기본.</li>
+      <li><b>사람의 성격</b>을 평가하는 형용사면 「<b>of + 목적격</b>」 → kind, nice, careless, wise, foolish, rude, polite, silly</li>
+      <li>동작하는 사람이 <b>누구나</b>일 때는 for구를 <b>생략</b>한다.</li>
+    </ul>
+    <div class="hint" style="margin-top:12px;">
+      <b>빈칸을 눌러 확인:</b><br>
+      It is important <span class="blank">for us</span> to save water. <span style="color:var(--sub);font-size:.8rem;">(우리가 → for)</span><br>
+      It was kind <span class="blank">of you</span> to carry my bag. <span style="color:var(--sub);font-size:.8rem;">(kind = 성격 → of)</span><br>
+      It is difficult <span class="blank">for him</span> to swim. <span style="color:var(--sub);font-size:.8rem;">(difficult = 성격 아님 → for)</span>
+    </div>
+  </div></div>
+
+  <div class="card c2"><h2>4단계로 바꾸기</h2><div class="body">
+    <div class="steps" id="demo"></div>
+    <div class="row">
+      <button class="btn" id="dNext">다음 단계 ▶</button>
+      <button class="btn gray sm" id="dReset">처음부터</button>
+      <button class="tts" data-say="It is fun for us to take selfies with friends.">🔊 완성 문장</button>
+    </div>
+  </div></div>
+
+  <div class="card c3"><h2>⚠️ 함정 — to가 있다고 다 되는 게 아니다</h2><div class="body">
+    <p style="font-size:.88rem;">to부정사가 <b>주어 자리</b>에 있을 때만 It으로 바꿀 수 있다. 해석으로 판별한다.</p>
+    <table class="cmp">
+      <tr><th style="width:48%">문장</th><th>to 해석</th><th style="width:14%">전환</th></tr>
+      <tr><td class="en">To remember happy moments is important.</td><td>기억하는 <b>것은</b> (주어)</td><td class="ox o">O</td></tr>
+      <tr><td class="en">We take selfies to remember happy moments.</td><td>기억하<b>려고</b> (목적)</td><td class="ox x">X</td></tr>
+      <tr><td class="en">I want to be a doctor.</td><td>되는 <b>것을</b> (목적어)</td><td class="ox x">X</td></tr>
+      <tr><td class="en">She has many books to read.</td><td>읽<b>을</b> (명사 꾸밈)</td><td class="ox x">X</td></tr>
+      <tr><td class="en">My plan is to travel to Jeju.</td><td>여행 가는 <b>것</b> (보어)</td><td class="ox x">X</td></tr>
+    </table>
+    <div class="hint">
+      <b>판별 한 줄:</b> 「<b>~하는 것은</b>」으로 해석되면 O / 「<b>~하려고</b>」·「<b>~할</b>」·「<b>~하는 것을</b>」이면 X
+    </div>
+    <div class="acc"><div class="acc-head">왜 목적어·보어는 안 되나? <span class="arw">▼</span></div>
+      <div class="acc-body">가주어 It은 <b>주어 자리</b>를 대신 채우는 말이다. to부정사가 목적어나 보어에 있으면 주어 자리는 이미 다른 말(I, My plan…)이 차지하고 있어서 It이 들어갈 틈이 없다.<br><br>
+      참고로 <b>목적어</b> 자리에도 가목적어 it을 쓰는 구문(I found <b>it</b> hard <b>to solve</b> the problem.)이 따로 있는데, 이건 5형식 동사(find, make, think)일 때만 가능하다. → <b>④ 가목적어</b> 탭에서 다룬다.</div></div>
+  </div></div>
+</section>
+
+<section class="page" id="p1">
+  <div class="card c4"><h2>1단계 · 전환 가능? (O / X) · 8문항</h2><div class="body">
+    <p style="font-size:.86rem;color:var(--sub);">to부정사가 <b>주어</b>인지 확인하고 고르세요.</p>
+    <div id="judgeBox"></div>
+    <div class="row"><button class="btn" id="judgeGrade">전체 채점</button>
+      <button class="btn gray sm" id="judgeRetry" style="display:none;">틀린 것만 다시</button>
+      <span id="judgeScore" style="font-weight:800;font-size:.9rem;"></span></div>
+  </div></div>
+</section>
+
+<section class="page" id="p2">
+  <div class="card c5"><h2>2단계 · 조각으로 조립하기 · 14문항</h2><div class="body">
+    <p style="font-size:.86rem;color:var(--sub);">조각을 <b>순서대로 눌러</b> 문장을 만드세요. 넣은 조각을 다시 누르면 취소됩니다. <b>함정 조각이 섞여 있습니다.</b></p>
+    <div id="buildBox"></div>
+    <div class="row"><button class="btn" id="buildGrade">전체 채점</button>
+      <button class="btn gray sm" id="buildRetry" style="display:none;">틀린 것만 다시</button>
+      <span id="buildScore" style="font-weight:800;font-size:.9rem;"></span></div>
+  </div></div>
+</section>
+
+<section class="page" id="p3">
+  <div class="card c6"><h2>3단계 · 직접 전환하기 · 10문항</h2><div class="body">
+    <p style="font-size:.86rem;color:var(--sub);">It으로 시작하는 문장으로 바꿔 쓰세요. (대소문자·마침표 무관)</p>
+    <div id="convBox"></div>
+    <div class="row"><button class="btn" id="convGrade">전체 채점</button>
+      <button class="btn gray sm" id="convRetry" style="display:none;">틀린 것만 다시</button>
+      <span id="convScore" style="font-weight:800;font-size:.9rem;"></span></div>
+  </div></div>
+</section>
+
+<section class="page" id="p4">
+  <div class="card c7"><h2>4단계 · 가목적어 it — 형제 구문</h2><div class="body">
+    <div class="formula">
+      S + <span class="tag t-adj">find / make / think</span> + <span class="tag t-it">it</span> + 형용사 + <span class="tag t-for">for 목적격</span> + <span class="tag t-to">to V ~</span>
+      <div class="k">이번엔 It이 <b>목적어 자리</b>를 대신 맡는다</div>
+    </div>
+    <p style="font-size:.88rem;">목적어가 길어도 영어는 싫어한다. 그래서 <b>목적어 자리에도</b> it을 앉히고 진짜 목적어(to부정사)는 뒤로 보낸다.</p>
+    <div class="hint">
+      <b>빈칸을 눌러 확인:</b><br>
+      I found <span class="blank">it</span> hard to solve the problem. <span style="color:var(--sub);font-size:.8rem;">(found의 목적어 자리)</span><br>
+      We think <span class="blank">it</span> important to protect nature.<br>
+      She makes <span class="blank">it</span> a rule to walk every day. <span style="color:var(--sub);font-size:.8rem;">(형용사 대신 명사가 올 수도)</span>
+    </div>
+
+    <table class="cmp" style="margin-top:14px;">
+      <tr><th style="width:16%"></th><th>가주어 It</th><th>가목적어 it</th></tr>
+      <tr><td><b>자리</b></td><td>문장 맨 앞 (주어)</td><td>동사 바로 뒤 (목적어)</td></tr>
+      <tr><td><b>형태</b></td><td class="en">It is 형용사 to V ~</td><td class="en">S + V + it + 형용사 + to V ~</td></tr>
+      <tr><td><b>동사</b></td><td>be동사</td><td>find, make, think, consider, believe</td></tr>
+      <tr><td><b>예문</b></td><td class="en">It is hard to get up early.</td><td class="en">I found it hard to get up early.</td></tr>
+    </table>
+    <div class="acc"><div class="acc-head">아무 동사나 되는 게 아니다 <span class="arw">▼</span></div>
+      <div class="acc-body">가목적어 it은 <b>목적어 뒤에 보어가 오는 동사(5형식)</b>에서만 쓴다. find, make, think, consider, believe, feel 정도.<br><br>
+      like, want, enjoy 같은 3형식 동사는 목적어 하나만 받으므로 <b>it을 넣을 자리가 없다</b>. (✗ I like it to swim. → ○ I like to swim.)</div></div>
+    <div class="row"><button class="tts" data-say="I found it hard to solve the problem.">🔊 예문 듣기</button></div>
+  </div></div>
+
+  <div class="card c2"><h2>가목적어 연습 · 10문항</h2><div class="body">
+    <div id="objBox"></div>
+    <div class="row"><button class="btn" id="objGrade">전체 채점</button>
+      <button class="btn gray sm" id="objRetry" style="display:none;">틀린 것만 다시</button>
+      <span id="objScore" style="font-weight:800;font-size:.9rem;"></span></div>
+  </div></div>
+</section>
+
+<section class="page" id="p5">
+  <div class="card c8"><h2>최종 시험 · 30문항</h2><div class="body">
+    <input class="txt" id="sname" placeholder="이름을 입력하세요" style="margin-top:0;">
+    <div id="examBox" style="margin-top:6px;"></div>
+    <div class="row"><button class="btn" id="examGrade">제출하기</button></div>
+    <div class="scorebox" id="examResult" style="margin-top:14px;">
+      <div class="big" id="examBig">0 / 30</div>
+      <div id="examMsg" style="font-weight:700;font-size:.9rem;"></div>
+      <div id="examPart" style="font-size:.83rem;color:var(--sub);margin-top:6px;"></div>
+      <div class="code" id="examCode">-</div>
+      <p class="note">이 완료 코드를 구글 클래스룸 댓글로 제출하세요.</p>
+      <div class="row" style="justify-content:center;"><button class="btn gray sm" id="examAgain">다시 풀기</button></div>
+    </div>
+  </div></div>
+
+  <div class="card c7"><h2>이 태블릿 기록 (TOP 10)</h2><div class="body">
+    <div id="lbBox"></div>
+    <div class="row"><button class="btn gray sm" id="lbClear">기록 지우기</button></div>
+  </div></div>
+</section>
+</div>
+
+<script>
+"use strict";
+
+var ttsReady=false;
+function unlockTTS(){
+  if(ttsReady||!('speechSynthesis' in window))return;
+  try{var u=new SpeechSynthesisUtterance('');u.volume=0;speechSynthesis.speak(u);ttsReady=true;}catch(e){}
+}
+document.addEventListener('touchstart',unlockTTS,{once:true});
+document.addEventListener('click',unlockTTS,{once:true});
+function say(t){
+  if(!('speechSynthesis' in window))return;
+  try{speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=0.85;speechSynthesis.speak(u);}catch(e){}
+}
+document.addEventListener('click',function(e){
+  var t=e.target;
+  if(!t||!t.classList)return;
+  if(t.classList.contains('tts')&&t.dataset.say)say(t.dataset.say);
+  if(t.classList.contains('blank'))t.classList.toggle('show');
+  var h=t.closest?t.closest('.acc-head'):null;
+  if(h&&h.parentNode)h.parentNode.classList.toggle('open');
+});
+
+var TABS=['공식','① 판별','② 조립','③ 전환','④ 가목적어','시험'];
+var tabsEl=document.getElementById('tabs');
+TABS.forEach(function(name,i){
+  var b=document.createElement('button');
+  b.className='tab'+(i===0?' on':''); b.textContent=name; b.type='button';
+  b.addEventListener('click',function(){go(i);});
+  tabsEl.appendChild(b);
+});
+function go(i){
+  var ts=tabsEl.querySelectorAll('.tab');
+  for(var k=0;k<ts.length;k++)ts[k].classList.toggle('on',k===i);
+  for(var k2=0;k2<TABS.length;k2++){
+    var p=document.getElementById('p'+k2);
+    if(p)p.classList.toggle('on',k2===i);
+  }
+  document.getElementById('pbar').style.width=((i+1)/TABS.length*100)+'%';
+  try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}
+  if(i===5)drawLB();
+}
+document.getElementById('pbar').style.width=(1/TABS.length*100)+'%';
+
+var DEMO=[
+  {t:'원래 문장',h:'<span class="mark">To take selfies with friends</span> is fun.',k:'주어가 <b>To take selfies with friends</b> — 너무 길다'},
+  {t:'STEP 1 · 주어 자리에 It을 넣는다',h:'<span class="mark">It</span> is fun.',k:'긴 주어를 치우고 <b>It</b>(가주어)을 앉힌다'},
+  {t:'STEP 2 · 치운 to부정사를 문장 끝으로 보낸다',h:'It is fun <span class="mark">to take selfies with friends</span>.',k:'to부정사가 진짜 주어(진주어) — 뒤에서 대기'},
+  {t:'STEP 3 · 동작하는 사람을 for + 목적격으로 넣는다',h:'It is fun <span class="mark">for us</span> to take selfies with friends.',k:'형용사와 to 사이! 성격 형용사(kind 등)면 <b>of us</b>'},
+  {t:'완성',h:'It is fun for us to take selfies with friends.',k:'우리가 친구들과 셀카를 찍는 것은 재미있다.'}
+];
+var demoEl=document.getElementById('demo'), dStep=0;
+function drawDemo(){
+  demoEl.innerHTML='';
+  for(var i=0;i<=dStep;i++){
+    var d=DEMO[i], div=document.createElement('div');
+    div.className='step'+(i===dStep?' on':'');
+    div.innerHTML='<b>'+d.t+'</b><div class="sent">'+d.h+'</div><div style="font-size:.82rem;color:var(--sub);margin-top:3px;">'+d.k+'</div>';
+    demoEl.appendChild(div);
+  }
+  var nb=document.getElementById('dNext');
+  nb.disabled=(dStep>=DEMO.length-1);
+  nb.textContent=(dStep>=DEMO.length-1)?'완성! ✓':'다음 단계 ▶';
+}
+document.getElementById('dNext').addEventListener('click',function(){if(dStep<DEMO.length-1){dStep++;drawDemo();}});
+document.getElementById('dReset').addEventListener('click',function(){dStep=0;drawDemo();});
+drawDemo();
+
+var JUDGE=[
+ {s:'To remember happy moments is important.',k:'행복한 순간을 기억하는 것은 중요하다.',a:'O',why:'to부정사가 <b>주어</b>. → It is important to remember happy moments.'},
+ {s:'We take selfies to remember happy moments.',k:'우리는 행복한 순간을 기억하려고 셀카를 찍는다.',a:'X',why:'「기억하<b>려고</b>」 — 목적을 나타내는 부사적 용법. 주어는 We다.'},
+ {s:'To exercise every morning is healthy.',k:'매일 아침 운동하는 것은 건강에 좋다.',a:'O',why:'주어 자리. → It is healthy to exercise every morning.'},
+ {s:'She has many books to read.',k:'그녀는 읽을 책이 많다.',a:'X',why:'「읽<b>을</b>」 — 앞의 books를 꾸미는 형용사적 용법.'},
+ {s:'To ride a bike without a helmet is dangerous.',k:'헬멧 없이 자전거를 타는 것은 위험하다.',a:'O',why:'주어 자리. → It is dangerous to ride a bike without a helmet.'},
+ {s:'He studies hard to pass the exam.',k:'그는 시험에 합격하려고 열심히 공부한다.',a:'X',why:'「합격하<b>려고</b>」 — 목적. 주어는 He다.'},
+ {s:'To keep a diary in English is not easy.',k:'영어로 일기를 쓰는 것은 쉽지 않다.',a:'O',why:'주어 자리. → It is not easy to keep a diary in English.'},
+ {s:'My plan is to travel to Jeju.',k:'내 계획은 제주도로 여행 가는 것이다.',a:'X',why:'to부정사가 <b>보어</b> 자리. 주어는 My plan이다.'}
+];
+
+var BUILD=[
+ {k:'친구들과 셀카를 찍는 것은 재미있다.',ans:['It','is','fun','to take','selfies','with friends'],extra:['for us','taking'],hint:'행위자가 특정되지 않으면 for구 생략.'},
+ {k:'행복한 순간을 기억하는 것은 중요하다.',ans:['It','is','important','to remember','happy moments'],extra:['for','remember'],hint:'형용사 뒤에 바로 to부정사.'},
+ {k:'새 친구를 사귀는 것은 쉽다.',ans:['It','is','easy','to make','new friends'],extra:['making','of'],hint:'to + 동사원형.'},
+ {k:'내가 매일 영어를 공부하는 것은 쉽지 않다.',ans:['It','is','not easy','for me','to study','English','every day'],extra:['of me','I'],hint:'easy는 성격 형용사가 아니므로 for.'},
+ {k:'아이들이 이 강에서 수영하는 것은 위험하다.',ans:['It','is','dangerous','for children','to swim','in this river'],extra:['of children','swimming'],hint:'dangerous는 성격 형용사 아님 → for.'},
+ {k:'그 노인을 도와주다니 너는 친절했다.',ans:['It','was','kind','of you','to help','the old man'],extra:['for you','is'],hint:'kind는 사람의 성격 → of you. 과거 → was.'},
+ {k:'그가 휴대폰을 잃어버리다니 부주의했다.',ans:['It','was','careless','of him','to lose','his phone'],extra:['for him','losing'],hint:'careless는 사람의 성격 → of him.'},
+ {k:'우리가 겨울에 일찍 일어나는 것은 힘들다.',ans:['It','is','hard','for us','to get up','early','in winter'],extra:['of us','we'],hint:'hard → for us.'},
+ {k:'밤에 축구 경기를 보는 것은 신난다.',ans:['It','is','exciting','to watch','soccer games','at night'],extra:['of','watching'],hint:'행위자 생략형.'},
+ {k:'그들이 하루 만에 그 일을 끝내는 것은 불가능했다.',ans:['It','was','impossible','for them','to finish','the work','in one day'],extra:['of them','is'],hint:'과거이므로 was. impossible → for.'},
+ {k:'그녀가 매달 돈을 모으다니 현명하다.',ans:['It','is','wise','of her','to save','money','every month'],extra:['for her','saving'],hint:'wise는 사람의 성격 → of her.'},
+ {k:'영어로 일기를 쓰는 것은 도움이 된다.',ans:['It','is','helpful','to keep','a diary','in English'],extra:['for keep','of'],hint:'helpful → 행위자 생략 가능.'},
+ {k:'그 소년이 선생님께 소리치다니 무례했다.',ans:['It','was','rude','of the boy','to shout','at his teacher'],extra:['for the boy','shouting'],hint:'rude는 사람의 성격 → of the boy.'},
+ {k:'학생들이 자기 태블릿을 가져오는 것은 필요하다.',ans:['It','is','necessary','for students','to bring','their own tablets'],extra:['of students','bringing'],hint:'necessary → for students.'}
+];
+
+var CONV=[
+ {q:'To take selfies with friends is fun.',type:'en',a:['It is fun to take selfies with friends'],why:'주어(To take~)를 뒤로, 앞에 It.'},
+ {q:'To remember happy moments is important.',type:'en',a:['It is important to remember happy moments'],why:'가주어 It + 진주어 to remember~'},
+ {q:'To ride a bike without a helmet is dangerous.',type:'en',a:['It is dangerous to ride a bike without a helmet'],why:'가주어 It + 진주어 to ride~'},
+ {q:'For me to get up early is hard.',type:'en',a:['It is hard for me to get up early'],why:'for me는 형용사(hard)와 to 사이로.'},
+ {q:'For us to finish the work in one day was impossible.',type:'en',a:['It was impossible for us to finish the work in one day'],why:'was 그대로. impossible 뒤에 for us.'},
+ {q:'To watch movies at night is my hobby.',type:'en',a:['It is my hobby to watch movies at night'],why:'보어가 명사(my hobby)여도 공식은 같다.'},
+ {q:'For shy students to make new friends is not easy.',type:'en',a:['It is not easy for shy students to make new friends'],why:'not easy 뒤에 for shy students.'},
+ {q:'그가 휴대폰을 잃어버리다니 부주의했다. (careless / lose his phone)',type:'ko',a:['It was careless of him to lose his phone'],why:'성격 형용사 careless → of him.'},
+ {q:'우리가 하루 만에 그 프로젝트를 끝내는 것은 어렵다. (difficult / finish the project in one day)',type:'ko',a:['It is difficult for us to finish the project in one day'],why:'difficult → for us.'},
+ {q:'네가 그렇게 말해주다니 친절하구나. (nice / say so)',type:'ko',a:['It is nice of you to say so'],why:'nice는 사람의 성격 평가 → of you.'}
+];
+
+var OBJ=[
+ {t:'mc',s:'I found ___ hard to solve the problem.',opts:['it','that','this','there'],a:'it',why:'found의 목적어 자리를 가목적어 it이 대신한다.'},
+ {t:'mc',s:'She makes ___ a rule to walk every day.',opts:['this','it','that','one'],a:'it',why:'가목적어 뒤에는 형용사뿐 아니라 명사(a rule)도 올 수 있다.'},
+ {t:'mc',s:'I found it difficult ___ him to answer.',opts:['of','for','to','with'],a:'for',why:'가목적어 구문에서도 의미상 주어는 for + 목적격.'},
+ {t:'mc',s:'다음 중 어법상 옳은 것은?',opts:['We think important to protect nature.','We think it important to protect nature.','We think that important to protect nature.','We think it important protecting nature.'],a:'We think it important to protect nature.',why:'think + it + 형용사 + to부정사.'},
+ {t:'mc',s:'다음 밑줄 친 <b>It</b>의 역할은?<br>「<b>It</b> is important to save water.」',opts:['가주어','가목적어','대명사','비인칭 주어'],a:'가주어',why:'문장 맨 앞 주어 자리 → 가주어.'},
+ {t:'mc',s:'다음 밑줄 친 <b>it</b>의 역할은?<br>「He found <b>it</b> easy to ride a bike.」',opts:['가주어','가목적어','대명사','비인칭 주어'],a:'가목적어',why:'found 바로 뒤 목적어 자리 → 가목적어.'},
+ {t:'mc',s:'다음 중 어법상 <b>어색한</b> 것은?',opts:['I like it to swim.','I found it easy to swim.','I think it fun to swim.','It is easy to swim.'],a:'I like it to swim.',why:'like는 3형식 동사라 가목적어를 쓸 자리가 없다. → I like to swim.'},
+ {t:'wr',s:'I found to solve the problem hard.',k:'가목적어 it을 넣어 올바른 문장으로 고치시오.',a:['I found it hard to solve the problem']},
+ {t:'wr',s:'우리는 물을 아끼는 것이 중요하다고 생각한다.',k:'(think / important / save water)',a:['We think it important to save water']},
+ {t:'wr',s:'나는 일찍 일어나는 것이 힘들다고 생각했다.',k:'(think / hard / get up early)',a:['I thought it hard to get up early']}
+];
+
+var EXAM=[
+ {p:'A. 전환 가능 판별 (O / X)',t:'ox',s:'To keep a diary in English is helpful.',k:'It ~ to 구문으로 바꿀 수 있는가?',a:'O',why:'to부정사가 주어.'},
+ {t:'ox',s:'I go to the library to borrow books.',k:'It ~ to 구문으로 바꿀 수 있는가?',a:'X',why:'「빌리려고」 — 목적(부사적).'},
+ {t:'ox',s:'He wants to become a pilot.',k:'It ~ to 구문으로 바꿀 수 있는가?',a:'X',why:'wants의 목적어.'},
+ {t:'ox',s:'To swim in the deep sea is dangerous.',k:'It ~ to 구문으로 바꿀 수 있는가?',a:'O',why:'to부정사가 주어.'},
+ {t:'ox',s:'She has a lot of homework to do.',k:'It ~ to 구문으로 바꿀 수 있는가?',a:'X',why:'homework를 꾸미는 형용사적 용법.'},
+ {t:'ox',s:'To learn a new language is exciting.',k:'It ~ to 구문으로 바꿀 수 있는가?',a:'O',why:'to부정사가 주어.'},
+ {p:'B. 빈칸 어법',t:'mc',s:'It was wise ___ him to leave early.',opts:['for','of','to','with'],a:'of',why:'wise = 사람의 성격 → of.'},
+ {t:'mc',s:'It is hard ___ to learn Chinese.',opts:['of me','for me','I','my'],a:'for me',why:'hard는 성격 형용사가 아님 → for + 목적격.'},
+ {t:'mc',s:'It was foolish ___ her to believe the lie.',opts:['for','of','at','in'],a:'of',why:'foolish = 사람의 성격 → of.'},
+ {t:'mc',s:'It is necessary ___ students ___ wear a helmet.',opts:['of / to','for / to','for / -ing','of / -ing'],a:'for / to',why:'necessary → for, 진주어는 to부정사.'},
+ {t:'mc',s:'It ___ impossible for them to win the game yesterday.',opts:['is','was','are','were'],a:'was',why:'yesterday → 과거. 주어가 가주어 It이므로 단수.'},
+ {t:'mc',s:'It is nice ___ you to say so.',opts:['for','of','that','with'],a:'of',why:'nice = 사람의 성격 평가 → of.'},
+ {t:'mc',s:'It was ___ of him to help the old lady.',opts:['hard','difficult','kind','possible'],a:'kind',why:'of가 왔으므로 빈칸은 사람의 성격 형용사여야 한다.'},
+ {p:'C. 어법·형태 판단',t:'mc',s:'다음 중 어법상 옳은 것은?',opts:['It is fun take selfies.','It is fun to take selfies.','It is fun for take selfies.','Is fun to take selfies.'],a:'It is fun to take selfies.',why:'가주어 It + 형용사 + to부정사.'},
+ {t:'mc',s:'___ is exciting to travel alone.',opts:['That','It','This','There'],a:'It',why:'뒤에 진주어 to travel이 있으므로 가주어 It.'},
+ {t:'mc',s:'It is necessary for us ___ a helmet.',opts:['wear','wearing','to wear','wore'],a:'to wear',why:'진주어는 to부정사.'},
+ {t:'mc',s:'다음 중 어법상 <b>어색한</b> 것은?',opts:['It is kind for you to help me.','It is kind of you to help me.','It is hard for you to help me.','It is easy for you to help me.'],a:'It is kind for you to help me.',why:'kind는 성격 형용사 → of you가 맞다.'},
+ {t:'mc',s:'To finish the report in one hour was impossible for him.<br>= It ___ impossible ___ him to finish the report in one hour.',opts:['is / of','was / for','was / of','is / for'],a:'was / for',why:'원문이 was, impossible은 성격 형용사가 아님 → for.'},
+ {p:'D. 영작 (It으로 시작)',t:'wr',s:'To exercise every morning is healthy.',k:'It으로 시작하는 문장으로 바꾸시오.',a:['It is healthy to exercise every morning']},
+ {t:'wr',s:'For children to swim in this river is dangerous.',k:'It으로 시작하는 문장으로 바꾸시오.',a:['It is dangerous for children to swim in this river']},
+ {t:'wr',s:'For me to get up early is hard.',k:'It으로 시작하는 문장으로 바꾸시오.',a:['It is hard for me to get up early']},
+ {t:'wr',s:'행복한 순간을 기억하는 것은 중요하다.',k:'(important / remember happy moments)',a:['It is important to remember happy moments']},
+ {t:'wr',s:'그가 그 노인을 도와주다니 친절했다.',k:'(kind / help the old man)',a:['It was kind of him to help the old man']},
+ {t:'wr',s:'우리가 하루 만에 그 일을 끝내는 것은 불가능했다.',k:'(impossible / finish the work in one day)',a:['It was impossible for us to finish the work in one day']},
+ {t:'wr',s:'영어로 일기를 쓰는 것은 쉽지 않다.',k:'(easy / keep a diary in English)',a:['It is not easy to keep a diary in English','It is not easy to write a diary in English']},
+ {p:'E. 가목적어 it',t:'mc',s:'I found ___ hard to answer the question.',opts:['it','that','this','there'],a:'it',why:'found의 목적어 자리 → 가목적어 it.'},
+ {t:'mc',s:'We think it necessary ___ students to wear helmets.',opts:['of','for','to','with'],a:'for',why:'necessary는 성격 형용사가 아님 → for.'},
+ {t:'mc',s:'다음 중 어법상 옳은 것은?',opts:['She makes a rule to read every night.','She makes it a rule to read every night.','She makes it a rule reading every night.','She makes that a rule to read every night.'],a:'She makes it a rule to read every night.',why:'make + it + 명사 + to부정사.'},
+ {t:'wr',s:'우리는 자연을 보호하는 것이 중요하다고 생각한다.',k:'(think / important / protect nature)',a:['We think it important to protect nature']},
+ {t:'wr',s:'I found to ride a bike easy.',k:'가목적어 it을 넣어 올바른 문장으로 고치시오.',a:['I found it easy to ride a bike']}
+];
+
+function norm(s){return String(s).toLowerCase().replace(/[.!?,]/g,' ').replace(/\s+/g,' ').trim();}
+function matches(input,list){var n=norm(input);for(var i=0;i<list.length;i++){if(norm(list[i])===n)return true;}return false;}
+function shuffle(a){var arr=a.slice();for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;}return arr;}
+function esc(s){return String(s).replace(/"/g,'&quot;');}
+
+var jState=JUDGE.map(function(){return{pick:null,done:false,ok:false};});
+function renderJudge(only){
+  var box=document.getElementById('judgeBox'); box.innerHTML='';
+  JUDGE.forEach(function(d,i){
+    if(only&&only.indexOf(i)<0)return;
+    var st=jState[i], q=document.createElement('div'); q.className='q';
+    var opts=['O','X'].map(function(v){
+      var cls='opt'+(st.pick===v?' sel':'');
+      if(st.done){cls=(v===d.a)?'opt right':(st.pick===v?'opt wrong':'opt');}
+      return '<button class="'+cls+'" data-i="'+i+'" data-v="'+v+'"'+(st.done?' disabled':'')+'>'+v+'</button>';
+    }).join('');
+    q.innerHTML='<span class="qnum">'+(i+1)+'</span><span class="qs">'+d.s+'</span>'+
+      ' <button class="tts" data-say="'+esc(d.s)+'">🔊</button>'+
+      '<div class="qk">'+d.k+'</div><div class="opts">'+opts+
+      '<button class="one" data-one="'+i+'"'+(st.done?' disabled':'')+'>채점</button></div>'+
+      '<div class="fb '+(st.done?(st.ok?'o show':'x show'):'')+'">'+
+      (st.done?(st.ok?'정답! ':'정답은 <b>'+d.a+'</b>. ')+d.why:'')+'</div>';
+    box.appendChild(q);
+  });
+  box.querySelectorAll('.opt').forEach(function(b){
+    b.addEventListener('click',function(){jState[+b.dataset.i].pick=b.dataset.v;renderJudge(only);});
+  });
+  box.querySelectorAll('.one').forEach(function(b){
+    b.addEventListener('click',function(){
+      var i=+b.dataset.one, st=jState[i];
+      if(st.pick===null){alert('먼저 O 또는 X를 고르세요.');return;}
+      st.done=true; st.ok=(st.pick===JUDGE[i].a); renderJudge(only);
+    });
+  });
+}
+renderJudge(null);
+document.getElementById('judgeGrade').addEventListener('click',function(){
+  var wrong=[],n=0;
+  JUDGE.forEach(function(d,i){
+    var st=jState[i];
+    if(st.pick===null){wrong.push(i);return;}
+    st.done=true; st.ok=(st.pick===d.a);
+    if(st.ok)n++; else wrong.push(i);
+  });
+  renderJudge(null);
+  document.getElementById('judgeScore').textContent=n+' / '+JUDGE.length;
+  var rb=document.getElementById('judgeRetry');
+  rb.style.display=wrong.length?'inline-block':'none'; rb.dataset.w=JSON.stringify(wrong);
+});
+document.getElementById('judgeRetry').addEventListener('click',function(){
+  var w=JSON.parse(this.dataset.w||'[]');
+  w.forEach(function(i){jState[i]={pick:null,done:false,ok:false};});
+  renderJudge(w); this.style.display='none';
+  document.getElementById('judgeScore').textContent='';
+});
+
+var bState=BUILD.map(function(d){return{placed:[],pool:shuffle(d.ans.concat(d.extra)),done:false,ok:false};});
+function renderBuild(only){
+  var box=document.getElementById('buildBox'); box.innerHTML='';
+  BUILD.forEach(function(d,i){
+    if(only&&only.indexOf(i)<0)return;
+    var st=bState[i], q=document.createElement('div'); q.className='q';
+    var slotCls='slot'+(st.done?(st.ok?' right':' wrong'):'');
+    var slotHTML=st.placed.map(function(w,pi){
+      return '<button class="chip inslot" data-i="'+i+'" data-p="'+pi+'" data-act="out"'+(st.done?' disabled':'')+'>'+w+'</button>';
+    }).join('');
+    var used={}; st.placed.forEach(function(w){used[w]=(used[w]||0)+1;});
+    var seen={};
+    var poolHTML=st.pool.map(function(w,wi){
+      seen[w]=(seen[w]||0)+1;
+      var isUsed=(used[w]||0)>=seen[w];
+      return '<button class="chip'+(isUsed?' used':'')+'" data-i="'+i+'" data-w="'+wi+'" data-act="in"'+(st.done?' disabled':'')+'>'+w+'</button>';
+    }).join('');
+    q.innerHTML='<span class="qnum">'+(i+1)+'</span><span class="qs ko">'+d.k+'</span>'+
+      '<div class="'+slotCls+'">'+slotHTML+'</div><div class="pool">'+poolHTML+'</div>'+
+      '<div class="row" style="margin-top:8px;"><button class="one" data-one="'+i+'"'+(st.done?' disabled':'')+'>채점</button>'+
+      (st.done&&st.ok?'<button class="tts" data-say="'+esc(d.ans.join(' ')+'.')+'">🔊 들어보기</button>':'')+'</div>'+
+      '<div class="fb '+(st.done?(st.ok?'o show':'x show'):'')+'">'+
+      (st.done?(st.ok?'정답! ':'정답: <b>'+d.ans.join(' ')+'.</b> ')+d.hint:'')+'</div>';
+    box.appendChild(q);
+  });
+  box.querySelectorAll('.chip').forEach(function(b){
+    b.addEventListener('click',function(){
+      var i=+b.dataset.i, st=bState[i];
+      if(b.dataset.act==='in')st.placed.push(st.pool[+b.dataset.w]);
+      else st.placed.splice(+b.dataset.p,1);
+      renderBuild(only);
+    });
+  });
+  box.querySelectorAll('.one').forEach(function(b){
+    b.addEventListener('click',function(){
+      var i=+b.dataset.one, st=bState[i];
+      if(!st.placed.length){alert('먼저 조각을 배열하세요.');return;}
+      st.done=true; st.ok=(st.placed.join(' ')===BUILD[i].ans.join(' ')); renderBuild(only);
+    });
+  });
+}
+renderBuild(null);
+document.getElementById('buildGrade').addEventListener('click',function(){
+  var wrong=[],n=0;
+  BUILD.forEach(function(d,i){
+    var st=bState[i]; st.done=true; st.ok=(st.placed.join(' ')===d.ans.join(' '));
+    if(st.ok)n++; else wrong.push(i);
+  });
+  renderBuild(null);
+  document.getElementById('buildScore').textContent=n+' / '+BUILD.length;
+  var rb=document.getElementById('buildRetry');
+  rb.style.display=wrong.length?'inline-block':'none'; rb.dataset.w=JSON.stringify(wrong);
+});
+document.getElementById('buildRetry').addEventListener('click',function(){
+  var w=JSON.parse(this.dataset.w||'[]');
+  w.forEach(function(i){bState[i]={placed:[],pool:shuffle(BUILD[i].ans.concat(BUILD[i].extra)),done:false,ok:false};});
+  renderBuild(w); this.style.display='none';
+  document.getElementById('buildScore').textContent='';
+});
+
+var cState=CONV.map(function(){return{val:'',done:false,ok:false};});
+function renderConv(only){
+  var box=document.getElementById('convBox'); box.innerHTML='';
+  CONV.forEach(function(d,i){
+    if(only&&only.indexOf(i)<0)return;
+    var st=cState[i], q=document.createElement('div'); q.className='q';
+    var cls='txt'+(st.done?(st.ok?' right':' wrong'):'');
+    q.innerHTML='<span class="qnum">'+(i+1)+'</span><span class="qs'+(d.type==='ko'?' ko':'')+'">'+d.q+'</span>'+
+      '<input class="'+cls+'" data-i="'+i+'" value="'+esc(st.val)+'" placeholder="It ..."'+(st.done?' disabled':'')+'>'+
+      '<div class="row" style="margin-top:8px;"><button class="one" data-one="'+i+'"'+(st.done?' disabled':'')+'>채점</button>'+
+      (st.done&&st.ok?'<button class="tts" data-say="'+esc(d.a[0]+'.')+'">🔊</button>':'')+'</div>'+
+      '<div class="fb '+(st.done?(st.ok?'o show':'x show'):'')+'">'+
+      (st.done?(st.ok?'정답! ':'정답: <b>'+d.a[0]+'.</b> ')+d.why:'')+'</div>';
+    box.appendChild(q);
+  });
+  box.querySelectorAll('input.txt').forEach(function(el){
+    el.addEventListener('input',function(){cState[+el.dataset.i].val=el.value;});
+  });
+  box.querySelectorAll('.one').forEach(function(b){
+    b.addEventListener('click',function(){
+      var i=+b.dataset.one, st=cState[i];
+      if(!st.val.trim()){alert('답을 먼저 입력하세요.');return;}
+      st.done=true; st.ok=matches(st.val,CONV[i].a); renderConv(only);
+    });
+  });
+}
+renderConv(null);
+document.getElementById('convGrade').addEventListener('click',function(){
+  var wrong=[],n=0;
+  CONV.forEach(function(d,i){
+    var st=cState[i]; st.done=true; st.ok=matches(st.val,d.a);
+    if(st.ok)n++; else wrong.push(i);
+  });
+  renderConv(null);
+  document.getElementById('convScore').textContent=n+' / '+CONV.length;
+  var rb=document.getElementById('convRetry');
+  rb.style.display=wrong.length?'inline-block':'none'; rb.dataset.w=JSON.stringify(wrong);
+});
+document.getElementById('convRetry').addEventListener('click',function(){
+  var w=JSON.parse(this.dataset.w||'[]');
+  w.forEach(function(i){cState[i]={val:'',done:false,ok:false};});
+  renderConv(w); this.style.display='none';
+  document.getElementById('convScore').textContent='';
+});
+
+var oState=OBJ.map(function(){return{val:null,done:false,ok:false};});
+function renderObj(only){
+  var box=document.getElementById('objBox'); box.innerHTML='';
+  OBJ.forEach(function(d,i){
+    if(only&&only.indexOf(i)<0)return;
+    var st=oState[i], q=document.createElement('div'); q.className='q';
+    var isKo=(d.t==='wr'&&/[가-힣]/.test(d.s));
+    var head='<span class="qnum">'+(i+1)+'</span><span class="qs'+(isKo?' ko':'')+'">'+d.s+'</span>'+(d.k?'<div class="qk">'+d.k+'</div>':'');
+    var bodyHTML;
+    if(d.t==='mc'){
+      bodyHTML='<div class="opts">'+d.opts.map(function(v){
+        var cls='opt'+(st.val===v?' sel':'');
+        if(st.done){cls=(v===d.a)?'opt right':(st.val===v?'opt wrong':'opt');}
+        return '<button class="'+cls+'" data-i="'+i+'" data-v="'+esc(v)+'"'+(st.done?' disabled':'')+'>'+v+'</button>';
+      }).join('')+'</div>';
+    }else{
+      var cls2='txt'+(st.done?(st.ok?' right':' wrong'):'');
+      bodyHTML='<input class="'+cls2+'" data-i="'+i+'" value="'+esc(st.val||'')+'"'+(st.done?' disabled':'')+'>';
+    }
+    var ansTxt=(d.t==='wr')?d.a[0]:d.a;
+    var fb='<div class="fb '+(st.done?(st.ok?'o show':'x show'):'')+'">'+
+      (st.done?(st.ok?'정답! '+(d.why||''):'정답: <b>'+ansTxt+'</b>'+(d.why?' — '+d.why:'')):'')+'</div>';
+    q.innerHTML=head+bodyHTML+
+      '<div class="row" style="margin-top:8px;"><button class="one" data-one="'+i+'"'+(st.done?' disabled':'')+'>채점</button>'+
+      (st.done&&st.ok&&d.t==='wr'?'<button class="tts" data-say="'+esc(d.a[0]+'.')+'">🔊</button>':'')+'</div>'+fb;
+    box.appendChild(q);
+  });
+  box.querySelectorAll('.opt').forEach(function(b){
+    b.addEventListener('click',function(){oState[+b.dataset.i].val=b.dataset.v;renderObj(only);});
+  });
+  box.querySelectorAll('input.txt').forEach(function(el){
+    el.addEventListener('input',function(){oState[+el.dataset.i].val=el.value;});
+  });
+  box.querySelectorAll('.one').forEach(function(b){
+    b.addEventListener('click',function(){
+      var i=+b.dataset.one, st=oState[i], d=OBJ[i];
+      if(st.val===null||String(st.val).trim()===''){alert(d.t==='mc'?'먼저 보기를 고르세요.':'답을 먼저 입력하세요.');return;}
+      st.done=true; st.ok=(d.t==='wr')?matches(st.val,d.a):(st.val===d.a); renderObj(only);
+    });
+  });
+}
+renderObj(null);
+document.getElementById('objGrade').addEventListener('click',function(){
+  var wrong=[],n=0;
+  OBJ.forEach(function(d,i){
+    var st=oState[i]; st.done=true;
+    st.ok=(d.t==='wr')?matches(st.val||'',d.a):(st.val===d.a);
+    if(st.ok)n++; else wrong.push(i);
+  });
+  renderObj(null);
+  document.getElementById('objScore').textContent=n+' / '+OBJ.length;
+  var rb=document.getElementById('objRetry');
+  rb.style.display=wrong.length?'inline-block':'none'; rb.dataset.w=JSON.stringify(wrong);
+});
+document.getElementById('objRetry').addEventListener('click',function(){
+  var w=JSON.parse(this.dataset.w||'[]');
+  w.forEach(function(i){oState[i]={val:null,done:false,ok:false};});
+  renderObj(w); this.style.display='none';
+  document.getElementById('objScore').textContent='';
+});
+
+var eState=EXAM.map(function(){return{val:null,done:false,ok:false};});
+function renderExam(){
+  var box=document.getElementById('examBox'); box.innerHTML='';
+  EXAM.forEach(function(d,i){
+    var st=eState[i];
+    if(d.p){var ph=document.createElement('div'); ph.className='part'; ph.textContent=d.p; box.appendChild(ph);}
+    var q=document.createElement('div'); q.className='q';
+    var isKo=(d.t==='wr'&&/[가-힣]/.test(d.s));
+    var head='<span class="qnum">'+(i+1)+'</span><span class="qs'+(isKo?' ko':'')+'">'+d.s+'</span>'+(d.k?'<div class="qk">'+d.k+'</div>':'');
+    var bodyHTML='';
+    if(d.t==='ox'||d.t==='mc'){
+      var list=(d.t==='ox')?['O','X']:d.opts;
+      bodyHTML='<div class="opts">'+list.map(function(v){
+        var cls='opt'+(st.val===v?' sel':'');
+        if(st.done){cls=(v===d.a)?'opt right':(st.val===v?'opt wrong':'opt');}
+        return '<button class="'+cls+'" data-i="'+i+'" data-v="'+esc(v)+'"'+(st.done?' disabled':'')+'>'+v+'</button>';
+      }).join('')+'</div>';
+    }else{
+      var cls2='txt'+(st.done?(st.ok?' right':' wrong'):'');
+      bodyHTML='<input class="'+cls2+'" data-i="'+i+'" value="'+esc(st.val||'')+'" placeholder="It ..."'+(st.done?' disabled':'')+'>';
+    }
+    var fb='';
+    if(st.done){
+      var ansTxt=(d.t==='wr')?d.a[0]:d.a;
+      fb=st.ok?'<div class="fb o show">정답!'+(d.why?' '+d.why:'')+'</div>'
+              :'<div class="fb x show">정답: <b>'+ansTxt+'</b>'+(d.why?' — '+d.why:'')+'</div>';
+    }
+    q.innerHTML=head+bodyHTML+fb;
+    box.appendChild(q);
+  });
+  box.querySelectorAll('.opt').forEach(function(b){
+    b.addEventListener('click',function(){eState[+b.dataset.i].val=b.dataset.v;renderExam();});
+  });
+  box.querySelectorAll('input.txt').forEach(function(el){
+    el.addEventListener('input',function(){eState[+el.dataset.i].val=el.value;});
+  });
+}
+renderExam();
+function makeCode(name,score){
+  var s=name+'|'+score, h=0;
+  for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;
+  var A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789', out='';
+  for(var k=0;k<5;k++){out+=A[h%A.length];h=Math.floor(h/A.length)+7;}
+  return 'IT'+score+'-'+out;
+}
+var LBKEY='itto_lb_v2', lbMem=null;
+function loadLB(){
+  try{
+    var raw=localStorage.getItem(LBKEY);
+    if(raw!==null)return JSON.parse(raw);
+  }catch(e){}
+  return lbMem?lbMem.slice():[];
+}
+function saveLB(a){
+  lbMem=a.slice();
+  try{localStorage.setItem(LBKEY,JSON.stringify(a));}catch(e){}
+}
+function drawLB(hiName){
+  var arr=loadLB().slice().sort(function(a,b){return b.s-a.s;}).slice(0,10);
+  var box=document.getElementById('lbBox');
+  if(!arr.length){box.innerHTML='<p style="font-size:.85rem;color:var(--sub);">아직 기록이 없습니다.</p>';return;}
+  box.innerHTML='<table class="lb"><tr><th>순위</th><th>이름</th><th style="text-align:right;">점수</th><th>날짜</th></tr>'+
+    arr.map(function(r,i){
+      return '<tr class="'+(hiName&&r.n===hiName?'me':'')+'"><td>'+(i+1)+'</td><td>'+r.n+'</td><td class="sc">'+r.s+'</td><td style="font-size:.78rem;color:var(--sub);">'+r.d+'</td></tr>';
+    }).join('')+'</table>';
+}
+drawLB();
+document.getElementById('lbClear').addEventListener('click',function(){
+  if(!confirm('이 태블릿의 기록을 모두 지울까요?'))return;
+  saveLB([]); drawLB();
+});
+document.getElementById('examGrade').addEventListener('click',function(){
+  var name=document.getElementById('sname').value.trim();
+  if(!name){alert('이름을 먼저 입력하세요.');document.getElementById('sname').focus();return;}
+  var n=0, part={A:0,B:0,C:0,D:0,E:0}, tot={A:6,B:7,C:5,D:7,E:5};
+  EXAM.forEach(function(d,i){
+    var st=eState[i]; st.done=true;
+    st.ok=(d.t==='wr')?matches(st.val||'',d.a):(st.val===d.a);
+    if(st.ok){n++; var g=(i<6)?'A':(i<13)?'B':(i<18)?'C':(i<25)?'D':'E'; part[g]++;}
+  });
+  renderExam();
+  document.getElementById('examBig').textContent=n+' / '+EXAM.length;
+  document.getElementById('examMsg').textContent=
+    n>=28?'완벽해! 공식이 몸에 붙었다.':n>=22?'좋아. 틀린 것만 다시 확인하자.':n>=16?'공식은 알지만 for/of가 흔들린다.':'②·③단계로 돌아가서 다시 연습하자.';
+  document.getElementById('examPart').textContent=
+    '판별 '+part.A+'/'+tot.A+' · 어법 '+part.B+'/'+tot.B+' · 형태 '+part.C+'/'+tot.C+' · 영작 '+part.D+'/'+tot.D+' · 가목적어 '+part.E+'/'+tot.E;
+  document.getElementById('examCode').textContent=makeCode(name,n);
+  document.getElementById('examResult').classList.add('show');
+  var arr=loadLB(), found=false;
+  for(var i=0;i<arr.length;i++){if(arr[i].n===name){found=true; if(arr[i].s<n){arr[i].s=n; arr[i].d=new Date().toLocaleDateString('ko-KR');} break;}}
+  if(!found)arr.push({n:name,s:n,d:new Date().toLocaleDateString('ko-KR')});
+  saveLB(arr); drawLB(name);
+  try{document.getElementById('examResult').scrollIntoView({behavior:'smooth'});}catch(e){}
+});
+document.getElementById('examAgain').addEventListener('click',function(){
+  eState=EXAM.map(function(){return{val:null,done:false,ok:false};});
+  document.getElementById('examResult').classList.remove('show');
+  renderExam();
+  try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}
+});
+</script>
+</body>
+</html>
