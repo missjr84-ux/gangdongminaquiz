@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Be a Detective! 거꾸로 영작</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5fc; --paper:#ffffff; --ink:#2a2440; --sub:#6f6790;
+  --lav:#6a57cc; --lav2:#a597e6; --soft:#efebfb; --line:#ddd6f3;
+  --ok:#1d8a5c; --okbg:#e7f6ee; --bad:#c7364a; --badbg:#fdeef0; --miss:#a19cb2;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito','Noto Sans KR',system-ui,sans-serif;font-size:17px;line-height:1.65;padding-bottom:120px}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--lav2);outline-offset:2px}
+
+/* header: 글자 위주, 색 채움 없음 */
+.hd{padding:30px 0 6px}
+.brand{font-size:14px;font-weight:800;color:var(--lav);letter-spacing:.02em}
+.hd h1{margin:4px 0 2px;font-size:28px;line-height:1.25;font-weight:900}
+.hd p{margin:0;color:var(--sub);font-size:15px}
+
+/* 스토리 레일 */
+.rail{display:flex;flex-wrap:wrap;gap:8px;padding:16px 0 6px}
+.pill{border:1.5px solid var(--line);background:var(--paper);color:var(--sub);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:800;cursor:pointer;min-height:38px}
+.pill.cur{border-color:var(--lav);color:var(--lav)}
+.pill.done{color:var(--ok);border-color:#bfe3cf}
+.pill:disabled{opacity:.4;cursor:default}
+
+/* 단계 탭 */
+.tabs{display:flex;gap:4px;border-bottom:1.5px solid var(--line);margin:14px 0 18px}
+.tab{flex:1;background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-1.5px;padding:12px 4px;font-size:15.5px;font-weight:800;color:var(--sub);cursor:pointer;min-height:48px}
+.tab.on{color:var(--lav);border-bottom-color:var(--lav)}
+.tab:disabled{opacity:.35;cursor:default}
+
+h2{font-size:22px;margin:0 0 12px;font-weight:900;line-height:1.35}
+h3{font-size:18px;margin:26px 0 10px;font-weight:900}
+.gist{border-left:4px solid var(--lav2);padding:2px 0 2px 14px;margin:0 0 20px;font-size:16.5px}
+.gist b{color:var(--lav)}
+
+.flow{list-style:none;margin:0 0 22px;padding:0}
+.flow li{display:grid;grid-template-columns:44px auto 1fr;gap:10px;align-items:baseline;padding:10px 0;border-bottom:1px dashed var(--line)}
+.no{font-size:13px;color:var(--sub);font-weight:800}
+.badge{font-size:12.5px;font-weight:800;color:var(--lav);background:var(--soft);border-radius:6px;padding:2px 8px;white-space:nowrap}
+
+.btn{min-height:48px;padding:0 18px;border-radius:12px;border:1.5px solid var(--lav);background:var(--paper);color:var(--lav);font-size:15.5px;font-weight:800;cursor:pointer}
+.btn.pri{background:var(--lav);color:#fff}
+.btn.sm{min-height:44px;font-size:14.5px;padding:0 14px}
+.btn:disabled{opacity:.35;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.center{text-align:center;margin:22px 0}
+
+/* ② 어순 */
+.lead{color:var(--sub);font-size:15px;margin:0 0 16px}
+.ord{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;margin:0 0 18px}
+.ord.ok{border-color:#bfe3cf}
+.oq{margin:0;font-size:13.5px;font-weight:800;color:var(--sub)}
+.oko{margin:4px 0 10px;font-size:18px;font-weight:700}
+.chunks{list-style:none;margin:0 0 14px;padding:0}
+.chunks li{display:flex;gap:12px;align-items:center;padding:6px 0}
+.cn{flex:none;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--lav);color:var(--lav);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:15px}
+.cn.f{background:var(--lav);color:#fff}
+.cko{font-size:17px;font-weight:500}
+.role{font-size:12.5px;color:var(--sub);border:1px solid var(--line);border-radius:6px;padding:1px 7px;white-space:nowrap}
+.slots{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px;min-height:48px}
+.slot{width:46px;height:46px;border:2px dashed var(--line);border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:var(--lav)}
+.slot.f{border-style:solid;border-color:var(--lav);background:var(--soft)}
+.pad{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+.pad button{width:52px;height:52px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);font-size:22px;font-weight:900;color:var(--ink);cursor:pointer}
+.pad button:disabled{opacity:.25;cursor:default}
+.msg{margin:10px 0 0;font-size:15px;font-weight:700}
+.msg.bad{color:var(--bad)}
+.eng{list-style:none;margin:6px 0 12px;padding:0}
+.eng li{display:flex;gap:12px;align-items:center;padding:5px 0;font-size:18px;font-weight:700}
+.diffcard{border:1.5px solid var(--lav2);border-radius:12px;padding:10px 14px;margin:8px 0 10px}
+.dl{font-size:13px;font-weight:800;color:var(--lav)}
+.diffcard p{margin:2px 0 0}
+.diffcard b{color:var(--lav)}
+.tts{display:inline-flex;gap:6px;margin-left:6px;vertical-align:middle}
+.tts button{min-height:40px;min-width:44px;border-radius:10px;border:1.5px solid var(--line);background:var(--paper);font-size:17px;cursor:pointer}
+
+/* ③ 영작 */
+.wr{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin:0 0 16px}
+.wr.pass{border-color:#bfe3cf}
+.wr.wrong{border-color:#f0c2ca}
+.wtop{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.st{font-size:12.5px;font-weight:800;border-radius:6px;padding:2px 8px}
+.st.ok{color:var(--ok);background:var(--okbg)}
+.st.re{color:#8a5a00;background:#fff4dc}
+.st.bad{color:var(--bad);background:var(--badbg)}
+.wko{font-size:18px;font-weight:700;margin:4px 0 8px}
+.keys{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px}
+.kl{font-size:12.5px;font-weight:800;color:var(--sub);margin-right:2px}
+.kc{border:1px dashed var(--lav2);background:var(--paper);color:var(--ink);border-radius:8px;padding:5px 10px;font-size:14px;cursor:pointer;min-height:36px;text-align:left}
+.kc.open{border-style:solid;background:var(--soft)}
+.kc b{color:var(--lav)}
+.hint{font-family:'Nunito',monospace;letter-spacing:.06em;color:var(--lav);font-weight:800;margin:0 0 8px;font-size:16px;word-break:break-word}
+.inp{width:100%;height:52px;font-size:18px;border:1.5px solid var(--line);border-radius:12px;padding:0 14px;font-family:'Nunito',sans-serif;color:var(--ink);background:#fff}
+.inp:focus{outline:none;border-color:var(--lav)}
+.inp[readonly]{background:var(--okbg);border-color:#bfe3cf}
+.wbtns{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.res{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+.rl{margin:0;font-size:12.5px;font-weight:800;color:var(--sub)}
+.dw{margin:2px 0 8px;font-size:17px;line-height:1.9}
+.t-ok{color:var(--ok);font-weight:800}
+.t-bad{color:var(--bad);text-decoration:line-through}
+.t-miss{color:var(--miss);font-weight:800}
+.ans{font-size:17px;font-weight:800;color:var(--ink)}
+.res .ans{margin:2px 0 0}
+.rn{margin:6px 0 0;font-size:14px;color:var(--bad);font-weight:700}
+.passline{margin-top:10px;display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+.empty{text-align:center;color:var(--sub);padding:30px 0}
+
+/* 하단 고정 바 */
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:10px 0 calc(10px + env(safe-area-inset-bottom))}
+.bar.hide{display:none}
+.bar .wrap{display:flex;gap:8px;align-items:center}
+.cnt{margin-left:auto;margin-right:4px;font-weight:800;color:var(--sub);white-space:nowrap}
+.cnt b{color:var(--lav);font-size:19px}
+
+/* 완주 */
+.fin p{margin:0 0 10px}
+.ktab{width:100%;border-collapse:collapse;font-size:15px}
+.ktab td{padding:8px 6px;border-bottom:1px dashed var(--line);vertical-align:top}
+.ktab td:first-child{font-weight:800;color:var(--lav);white-space:nowrap}
+.ktab td.n{color:var(--sub);font-size:13px;white-space:nowrap}
+@media (max-width:520px){
+  .hd h1{font-size:24px}
+  .flow li{grid-template-columns:40px 1fr}
+  .flow li .fko{grid-column:1 / -1}
+  .bar .btn{padding:0 10px;font-size:14px}
+  .ktab td:first-child{white-space:normal}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="hd wrap">
+  <div class="brand">준티 잉글리쉬</div>
+  <h1>Be a Detective! 거꾸로 영작</h1>
+  <p>천재(이상기) 중2 Lesson 05 본문</p>
+</header>
+<nav class="wrap rail" id="rail" aria-label="문단"></nav>
+<main class="wrap" id="app"></main>
+<div class="bar hide" id="bar"><div class="wrap" id="barIn"></div></div>
+
+<script>
+/* ============ DATA ============ */
+const PARAS=[
+{
+  tag:"의뢰",
+  title:"사라진 케이크, 조사 시작",
+  gist:"케이크가 사라지자 엄마는 이웃의 Jones 부인을 부른다. 이 문단은 Jones 부인이 <b>먼저 엄마를 안심시키고</b>, 그다음 <b>그날 아침 집에 누가 있었는지</b> 묻는 순서다. 대답으로 용의자 세 명의 이름이 한꺼번에 나온다.",
+  flow:[
+    {no:"10-1",fn:"안심시키기",ko:"걱정하지 말라고 말한다."},
+    {no:"10-2",fn:"목표 제시",ko:"케이크를 먹은 대식가를 찾아내자고 한다."},
+    {no:"11",fn:"질문 던지기",ko:"오늘 아침 집에 누가 있었는지 엄마에게 묻는다."},
+    {no:"12",fn:"용의자 소개",ko:"아이들 Harry, Carol, Tom이 있었다고 답한다."}
+  ],
+  order:[
+    {ko:"그녀는 엄마에게 “오늘 아침에 누가 집에 있었나요?”라고 물었다.",
+     chunks:[{ko:"그녀는",role:"주어"},{ko:"엄마에게",role:"목적어"},{ko:"누가",role:"의문사 주어"},{ko:"오늘 아침에",role:"시간"},{ko:"집에",role:"장소"},{ko:"있었나요",role:"동사"},{ko:"물었다",role:"동사"}],
+     seq:[1,7,2,3,6,5,4],
+     eng:["She","asked","Mom,","“Who","was","in the house","this morning?”"],
+     full:"She asked Mom, “Who was in the house this morning?”",
+     diff:"한글은 ‘오늘 아침에 → 집에’ 순서지만, 영어는 <b>장소(in the house) 다음에 시간(this morning)</b>을 문장 끝에 둔다."}
+  ],
+  write:[
+    {no:"10-1",ko:"“걱정 마세요!”",en:"“Don't worry!",
+     keys:[{en:"Don't + 동사원형",ko:"~하지 마 (부정 명령문)"}]},
+    {no:"10-2",ko:"“대식가를 찾아내 봐요!”",en:"Let's find out the big eater!”",
+     keys:[{en:"Let's + 동사원형",ko:"~하자"},{en:"find out",ko:"~을 알아내다, 찾아내다"},{en:"the big eater",ko:"대식가 (= 케이크를 먹은 사람)"}]},
+    {no:"11",ko:"그녀는 엄마에게 “오늘 아침에 누가 집에 있었나요?”라고 물었다.",en:"She asked Mom, “Who was in the house this morning?”",
+     keys:[{en:"Who + 동사 ~?",ko:"누가 ~? (의문사가 주어면 바로 동사)"},{en:"this morning",ko:"오늘 아침(에)"}]},
+    {no:"12",ko:"“제 아이들이요, Harry, Carol, 그리고 Tom이요.”",en:"“My children, Harry, Carol, and Tom.”",
+     keys:[{en:"A, B, and C",ko:"A, B, 그리고 C (셋 이상 나열)"}]}
+  ]
+},
+{
+  tag:"Harry",
+  title:"첫째 Harry의 알리바이",
+  gist:"Jones 부인은 <b>첫째부터 차례로</b> 조사한다. Harry는 축구 → 귀가 → 상자 열기 → 방으로 순서로 알리바이를 댄다. 마지막에 Jones 부인이 <b>입 주위의 부스러기</b>라는 단서를 들이밀자 쿠키를 먹었다고 해명한다.",
+  flow:[
+    {no:"13-1",fn:"조사 시작",ko:"첫째 아들 Harry에게 케이크가 없어졌다고 알린다."},
+    {no:"13-2",fn:"질문 던지기",ko:"오늘 아침에 무엇을 했는지 묻는다."},
+    {no:"14",fn:"알리바이",ko:"축구를 하고 11시쯤 집에 돌아왔다."},
+    {no:"15",fn:"행동 진술",ko:"테이블 위 상자를 보고 열어 봤다."},
+    {no:"16",fn:"부인",ko:"케이크는 있었지만 먹지 않았다."},
+    {no:"17",fn:"추가 질문",ko:"그다음에 무엇을 했는지 묻는다."},
+    {no:"18",fn:"행동 진술",ko:"그냥 자기 방으로 갔다."},
+    {no:"19",fn:"단서 주기",ko:"입 주위의 부스러기를 지적한다."},
+    {no:"20",fn:"해명",ko:"배가 고파서 초콜릿 쿠키를 먹었다고 한다."}
+  ],
+  order:[
+    {ko:"“음…. 그럼 왜 네 입 주위에 부스러기가 있는 거니?”",
+     chunks:[{ko:"음…",role:"감탄"},{ko:"그럼",role:"연결"},{ko:"왜",role:"의문사"},{ko:"네 입 주위에",role:"장소"},{ko:"부스러기가",role:"목적어"},{ko:"있는 거니",role:"주어+동사"}],
+     seq:[1,2,3,6,5,4],
+     eng:["“Hmm....","Then","why","do you have","crumbs","around your mouth?”"],
+     full:"“Hmm.... Then why do you have crumbs around your mouth?”",
+     diff:"한글엔 ‘너는’이 없지만, 영어는 <b>do you have</b>처럼 주어를 반드시 세우고 그 뒤에 crumbs를 둔다."},
+    {ko:"“아, 배가 고파서 저는 초콜릿 쿠키를 좀 먹었어요.”",
+     chunks:[{ko:"아",role:"감탄"},{ko:"배가 고파서",role:"이유"},{ko:"저는",role:"주어"},{ko:"초콜릿 쿠키를 좀",role:"목적어"},{ko:"먹었어요",role:"동사"}],
+     seq:[1,3,5,4,2],
+     eng:["“Oh,","I","ate","some chocolate cookies","because I was hungry.”"],
+     full:"“Oh, I ate some chocolate cookies because I was hungry.”",
+     diff:"한글은 이유(배가 고파서)를 먼저 말하지만, 영어는 <b>결론(I ate …) 먼저, because절은 뒤</b>에 둔다."}
+  ],
+  write:[
+    {no:"13-1",ko:"먼저, Jones 부인은 첫째 아들인 Harry와 이야기했다. “누군가 네 엄마의 케이크를 먹었어.”",en:"First, Ms. Jones spoke with Harry, the oldest son, “Someone ate your mom's cake.",
+     keys:[{en:"speak with",ko:"~와 이야기하다 (과거 spoke)"},{en:"Harry, the oldest son",ko:"동격: 첫째 아들인 Harry"},{en:"oldest",ko:"old의 최상급, 가장 나이 많은"},{en:"your mom's cake",ko:"네 엄마의 케이크 ('s 소유격)"}]},
+    {no:"13-2",ko:"“오늘 아침에 너는 무엇을 했니?”",en:"What did you do this morning?”",
+     keys:[{en:"What did you + 동사원형?",ko:"너는 무엇을 ~했니? (일반동사 과거 의문문)"}]},
+    {no:"14",ko:"“저는 축구를 했고, 11시쯤 집에 돌아왔어요.",en:"“I played soccer, and I came back home around 11.",
+     keys:[{en:"come back home",ko:"집에 돌아오다 (과거 came)"},{en:"around 11",ko:"11시쯤 (around = 약, ~쯤)"},{en:"played ~, and I came ~",ko:"and로 연결된 병렬"}]},
+    {no:"15",ko:"저는 테이블 위의 상자를 보고 그것을 열었어요.",en:"I saw the box on the table and opened it.",
+     keys:[{en:"the box on the table",ko:"테이블 위의 상자 (꾸밈이 명사 뒤)"},{en:"opened it",ko:"그것(= the box)을 열었다"}]},
+    {no:"16",ko:"안에 케이크가 있었지만, 저는 그것을 먹지 않았어요.”",en:"There was a cake inside, but I didn't eat it.”",
+     keys:[{en:"There was + 단수명사",ko:"~이 있었다 (복수면 There were)"},{en:"inside",ko:"(부사) 안에"},{en:"didn't eat it",ko:"그것(= a cake)을 먹지 않았다"}]},
+    {no:"17",ko:"“그 후에 너는 무엇을 했니?”",en:"“What did you do after that?”",
+     keys:[{en:"after that",ko:"그 후에 (= 상자를 연 후에)"}]},
+    {no:"18",ko:"“저는 그냥 제 방으로 갔어요.”",en:"“I just went to my room.”",
+     keys:[{en:"just",ko:"그냥, 단지"},{en:"went to my room",ko:"내 방으로 갔다 (go의 과거)"}]},
+    {no:"19",ko:"“음…. 그럼 왜 네 입 주위에 부스러기가 있는 거니?”",en:"“Hmm.... Then why do you have crumbs around your mouth?”",
+     keys:[{en:"Then",ko:"그러면"},{en:"do you have ~",ko:"~을 가지고(묻히고) 있니"},{en:"crumbs",ko:"부스러기"},{en:"around your mouth",ko:"네 입 주위에"}]},
+    {no:"20",ko:"“아, 배가 고파서 저는 초콜릿 쿠키를 좀 먹었어요.”",en:"“Oh, I ate some chocolate cookies because I was hungry.”",
+     keys:[{en:"because + 주어 + 동사",ko:"~ 때문에 (cf. because of + 명사)"},{en:"some chocolate cookies",ko:"초콜릿 쿠키 몇 개"}]}
+  ]
+},
+{
+  tag:"Carol",
+  title:"딸 Carol의 알리바이",
+  gist:"두 번째 용의자는 딸 Carol. Jones 부인은 <b>11시와 12시 사이</b>로 시간을 좁혀서 묻는다. Carol은 거실 → 부엌 → 상자 발견 순서로 답하고, <b>상자 안의 케이크는 보지 못했다</b>고 말한다.",
+  flow:[
+    {no:"21-1",fn:"조사 대상 전환",ko:"다음으로 딸 Carol과 이야기한다."},
+    {no:"21-2",fn:"배경",ko:"Carol은 오전 내내 집에 있었다."},
+    {no:"22",fn:"질문 던지기",ko:"11시와 12시 사이에 무엇을 하고 있었는지 묻는다."},
+    {no:"23",fn:"알리바이",ko:"거실에서 추리 소설을 읽고 있었다."},
+    {no:"24",fn:"행동 진술",ko:"물을 마시러 부엌에 갔다가 상자를 발견했다."},
+    {no:"25",fn:"단서 주기",ko:"상자 안의 케이크는 보지 못했다."}
+  ],
+  order:[
+    {ko:"다음으로, Jones 부인은 딸인 Carol과 이야기했다.",
+     chunks:[{ko:"다음으로",role:"연결"},{ko:"Jones 부인은",role:"주어"},{ko:"딸인",role:"꾸밈"},{ko:"Carol과",role:"대상"},{ko:"이야기했다",role:"동사"}],
+     seq:[1,2,5,4,3],
+     eng:["Next,","Ms. Jones","talked","to Carol,","the daughter."],
+     full:"Next, Ms. Jones talked to Carol, the daughter.",
+     diff:"한글은 ‘딸인 Carol’처럼 설명이 이름 앞이지만, 영어는 <b>Carol, the daughter</b>로 이름 뒤에 콤마를 찍고 붙인다(동격)."},
+    {ko:"저는 물을 마시러 부엌에 갔다가 테이블 위의 상자를 발견했어요.",
+     chunks:[{ko:"저는",role:"주어"},{ko:"물을 마시러",role:"목적"},{ko:"부엌에",role:"장소"},{ko:"갔다가",role:"동사"},{ko:"테이블 위의",role:"꾸밈"},{ko:"상자를",role:"목적어"},{ko:"발견했어요",role:"동사"}],
+     seq:[1,4,3,2,7,6,5],
+     eng:["I","went","to the kitchen","to drink some water","and found","the box","on the table."],
+     full:"I went to the kitchen to drink some water and found the box on the table.",
+     diff:"한글은 ‘물을 마시러’를 먼저 말하지만, 영어는 <b>went to the kitchen 뒤에 to drink(목적)</b>를 붙인다."}
+  ],
+  write:[
+    {no:"21-1",ko:"다음으로, Jones 부인은 딸인 Carol과 이야기했다.",en:"Next, Ms. Jones talked to Carol, the daughter.",
+     keys:[{en:"talk to",ko:"~와 이야기하다 (과거 talked)"},{en:"Carol, the daughter",ko:"동격: 딸인 Carol"}]},
+    {no:"21-2",ko:"그녀는 오전 내내 집에 있었다.",en:"She stayed home all morning.",
+     keys:[{en:"stay home",ko:"집에 있다 (과거 stayed)"},{en:"all morning",ko:"오전 내내"}]},
+    {no:"22",ko:"Jones 부인은 “너는 11시와 12시 사이에 무엇을 하고 있었니?”라고 물었다.",en:"Ms. Jones asked, “What were you doing between 11 and 12?”",
+     keys:[{en:"were you doing",ko:"과거진행 의문문: ~하고 있었니"},{en:"between A and B",ko:"A와 B 사이에"}]},
+    {no:"23",ko:"“저는 거실에서 추리 소설을 읽고 있었어요.",en:"“I was reading a detective novel in the living room.",
+     keys:[{en:"was reading",ko:"과거진행: 읽고 있었다"},{en:"a detective novel",ko:"추리 소설"},{en:"in the living room",ko:"거실에서"}]},
+    {no:"24",ko:"저는 물을 마시러 부엌에 갔다가 테이블 위의 상자를 발견했어요.",en:"I went to the kitchen to drink some water and found the box on the table.",
+     keys:[{en:"to drink some water",ko:"물을 마시러 (to부정사 목적)"},{en:"went ~ and found ~",ko:"and로 연결된 병렬 (둘 다 과거)"}]},
+    {no:"25",ko:"하지만 상자 안에 있는 케이크는 볼 수 없었어요.",en:"But I couldn't see the cake inside the box.",
+     keys:[{en:"couldn't",ko:"can't의 과거, ~할 수 없었다"},{en:"inside the box",ko:"상자 안의 (inside = 전치사)"}]}
+  ]
+},
+{
+  tag:"단서",
+  title:"Carol의 해명과 목격",
+  gist:"Carol은 <b>살을 빼는 중이라 디저트를 안 먹는다</b>며 스스로를 용의선상에서 빼려 한다. 초콜릿 케이크는 특히 싫다고 이유까지 댄 뒤, <b>Tom이 부엌에서 나오는 것을 봤다</b>며 의심을 동생에게 돌린다.",
+  flow:[
+    {no:"26-1",fn:"해명",ko:"요즘 살을 빼려고 노력 중이다."},
+    {no:"26-2",fn:"결과",ko:"그래서 디저트는 전혀 안 먹는다."},
+    {no:"27-1",fn:"강조",ko:"무엇보다 초콜릿 케이크를 좋아하지 않는다."},
+    {no:"27-2",fn:"이유",ko:"설탕과 버터가 너무 많이 들어 있다."},
+    {no:"29",fn:"결정적 목격",ko:"시간은 모르지만 Tom이 부엌에서 나오는 것을 봤다."}
+  ],
+  order:[
+    {ko:"“그 안에는 설탕과 버터가 너무 많아요.”",
+     chunks:[{ko:"그 안에는",role:"장소"},{ko:"설탕과 버터가",role:"명사"},{ko:"너무 많아요",role:"수량 꾸밈"}],
+     seq:[3,2,1],
+     eng:["Too much","sugar and butter","in it.”"],
+     full:"Too much sugar and butter in it.”",
+     diff:"한글을 <b>끝에서부터 거꾸로</b> 읽으면 그대로 영어 순서다: 너무 많은 → 설탕과 버터 → 그 안에."},
+    {ko:"“정확한 시간은 모르겠어요, 하지만 Tom이 부엌에서 나오는 것을 봤어요.”",
+     chunks:[{ko:"정확한 시간은",role:"목적어"},{ko:"모르겠어요",role:"주어+동사"},{ko:"하지만",role:"연결"},{ko:"Tom이",role:"목적어"},{ko:"부엌에서",role:"장소"},{ko:"나오는 것을",role:"목적격보어"},{ko:"봤어요",role:"주어+동사"}],
+     seq:[2,1,3,7,4,6,5],
+     eng:["“I don't know","the exact time,","but","I saw","Tom","coming out","of the kitchen.”"],
+     full:"“I don't know the exact time, but I saw Tom coming out of the kitchen.”",
+     diff:"한글은 ‘Tom이 나오는 것을 봤다’로 동사가 맨 끝이지만, 영어는 <b>saw Tom coming</b>: 동사 바로 뒤에 목적어, 그 뒤에 -ing."}
+  ],
+  write:[
+    {no:"26-1",ko:"아시다시피, 저는 요즘 살을 빼려고 노력 중이에요.",en:"You know, I'm trying to lose weight these days.",
+     keys:[{en:"You know,",ko:"아시다시피, 있잖아요"},{en:"try to + 동사원형",ko:"~하려고 노력하다"},{en:"lose weight",ko:"살을 빼다 (cf. on a diet 다이어트 중인)"},{en:"these days",ko:"요즘 (= recently, lately)"}]},
+    {no:"26-2",ko:"그래서 저는 디저트를 전혀 먹지 않아요.",en:"So, I don't eat any dessert.",
+     keys:[{en:"not ~ any",ko:"(부정문) 어떤 ~도 … 않다"}]},
+    {no:"27-1",ko:"무엇보다도, 저는 초콜릿 케이크를 좋아하지 않아요.",en:"Most of all, I don't like chocolate cake.",
+     keys:[{en:"Most of all",ko:"무엇보다도 (= Above all)"}]},
+    {no:"27-2",ko:"“그 안에는 설탕과 버터가 너무 많아요.”",en:"Too much sugar and butter in it.”",
+     keys:[{en:"too much + 셀 수 없는 명사",ko:"너무 많은 ~"},{en:"in it",ko:"그 안에 (it = chocolate cake)"}]},
+    {no:"29",ko:"“정확한 시간은 모르겠어요, 하지만 Tom이 부엌에서 나오는 것을 봤어요.”",en:"“I don't know the exact time, but I saw Tom coming out of the kitchen.”",
+     keys:[{en:"the exact time",ko:"정확한 시간"},{en:"see + 목적어 + -ing",ko:"~가 …하는 것을 보다 (지각동사)"},{en:"come out of",ko:"~에서 나오다"}]}
+  ]
+},
+{
+  tag:"Tom",
+  title:"막내 Tom의 알리바이",
+  gist:"마지막 용의자는 막내 Tom. Tom은 엄마 케이크를 좋아한다고 인정하고, <b>아침에 엄마가 케이크 굽는 냄새를 맡았다</b>고 말한다. 하지만 배가 아파서 침대에 있었다고 하자, Jones 부인은 <b>부엌에 갔었는지</b> 묻는다.",
+  flow:[
+    {no:"30-1",fn:"조사 대상 전환",ko:"마지막으로 막내아들 Tom을 만난다."},
+    {no:"30-2",fn:"떠보기",ko:"엄마 케이크를 좋아하지 않냐고 확인한다."},
+    {no:"31-1",fn:"인정",ko:"좋아한다고 답한다."},
+    {no:"31-2",fn:"정보 노출",ko:"아침에 엄마가 케이크 굽는 냄새를 맡았다."},
+    {no:"32",fn:"알리바이",ko:"배가 아파서 침대에 있었다."},
+    {no:"33",fn:"질문 던지기",ko:"부엌에 갔었는지 묻는다."}
+  ],
+  order:[
+    {ko:"“Tom, 너는 네 엄마의 케이크를 좋아하지, 그렇지?”",
+     chunks:[{ko:"Tom아",role:"부르기"},{ko:"너는",role:"주어"},{ko:"네 엄마의 케이크를",role:"목적어"},{ko:"좋아하지",role:"동사"},{ko:"그렇지",role:"확인"}],
+     seq:[1,2,4,3,5],
+     eng:["“Tom,","you","like","your mom's cake,","right?”"],
+     full:"“Tom, you like your mom's cake, right?”",
+     diff:"한글은 ‘좋아하지’가 끝에 오지만, 영어는 <b>you like</b>처럼 동사가 주어 바로 뒤에 온다."},
+    {ko:"사실은, 저는 아침에 엄마가 케이크를 굽는 냄새를 맡았어요.",
+     chunks:[{ko:"사실은",role:"연결"},{ko:"저는",role:"주어"},{ko:"아침에",role:"시간"},{ko:"엄마가",role:"목적어"},{ko:"케이크를",role:"목적어"},{ko:"굽는",role:"목적격보어"},{ko:"냄새를 맡았어요",role:"동사"}],
+     seq:[1,2,7,4,6,5,3],
+     eng:["Actually,","I","smelled","Mom","baking","a cake","in the morning."],
+     full:"Actually, I smelled Mom baking a cake in the morning.",
+     diff:"한글은 ‘엄마가 굽는 냄새를 맡았다’로 동사가 끝이지만, 영어는 <b>smelled Mom baking</b>: 감각 동사 → 누가 → 무엇을 하는 중인지 순서다."}
+  ],
+  write:[
+    {no:"30-1",ko:"마지막으로, Jones 부인은 막내아들인 Tom을 만났다.",en:"Finally, Ms. Jones met Tom, the youngest son.",
+     keys:[{en:"Finally",ko:"마지막으로 (= Lastly)"},{en:"Tom, the youngest son",ko:"동격: 막내아들인 Tom"},{en:"youngest",ko:"young의 최상급"}]},
+    {no:"30-2",ko:"“Tom, 너는 네 엄마의 케이크를 좋아하지, 그렇지?”",en:"“Tom, you like your mom's cake, right?”",
+     keys:[{en:"~, right?",ko:"~, 그렇지? (확인)"},{en:"your mom's cake",ko:"네 엄마의 케이크"}]},
+    {no:"31-1",ko:"“네, 저는 그걸 좋아해요.”",en:"“Yeah, I like it.",
+     keys:[{en:"I like it.",ko:"주어와 목적어를 꼭 쓴다 (it = 엄마 케이크)"}]},
+    {no:"31-2",ko:"사실은, 저는 아침에 엄마가 케이크를 굽는 냄새를 맡았어요.",en:"Actually, I smelled Mom baking a cake in the morning.",
+     keys:[{en:"Actually",ko:"사실은 (= In fact)"},{en:"smell + 목적어 + -ing",ko:"~가 …하는 냄새를 맡다 (지각동사)"},{en:"in the morning",ko:"아침에"}]},
+    {no:"32",ko:"하지만 저는 배가 아파서 침대에 누워 있었어요.”",en:"But I had a stomachache, so I stayed in bed.”",
+     keys:[{en:"have a stomachache",ko:"배가 아프다 (복통이 있다)"},{en:"~, so …",ko:"~해서 (그래서) …"},{en:"stay in bed",ko:"침대에 (누워) 있다"}]},
+    {no:"33",ko:"“너는 부엌에 갔었니?”",en:"“Did you go to the kitchen?”",
+     keys:[{en:"Did you + 동사원형?",ko:"너는 ~했니?"}]}
+  ]
+},
+{
+  tag:"해결",
+  title:"Tom의 진술과 사건 해결",
+  gist:"Tom은 11시 30분쯤 약을 먹으러 부엌에 갔고, <b>상자가 열려 있어 케이크를 봤다가 닫았다</b>고 말한다. Jones 부인은 <b>거짓말한 사람이 케이크를 먹었다</b>고 결론 내린다. 생각해 볼 것: 케이크를 <b>보지 못했다</b>던 Carol은 그게 <b>초콜릿</b> 케이크인 걸 어떻게 알았을까?",
+  flow:[
+    {no:"34",fn:"행동 진술",ko:"11시 30분쯤 약을 먹으러 부엌에 갔다."},
+    {no:"35-1",fn:"결정적 진술",ko:"상자가 열려 있어서 케이크를 볼 수 있었다."},
+    {no:"35-2",fn:"행동 진술",ko:"그다음 상자를 닫았다."},
+    {no:"36",fn:"해결",ko:"거짓말한 사람이 케이크를 먹었다고 말한다."}
+  ],
+  order:[
+    {ko:"“네, 저는 11시 30분쯤에 약을 먹으러 부엌에 갔어요.”",
+     chunks:[{ko:"네",role:"대답"},{ko:"저는",role:"주어"},{ko:"11시 30분쯤에",role:"시간"},{ko:"약을 먹으러",role:"목적"},{ko:"부엌에",role:"장소"},{ko:"갔어요",role:"동사"}],
+     seq:[1,2,6,5,4,3],
+     eng:["“Yes,","I","went","to the kitchen","to take some medicine","at about 11:30."],
+     full:"“Yes, I went to the kitchen to take some medicine at about 11:30.",
+     diff:"‘11시 30분쯤에 약을 먹으러 부엌에 갔어요’를 <b>끝에서부터 거꾸로</b> 읽으면 영어 순서다: 갔다 → 부엌에 → 약 먹으러 → 11시 30분쯤."},
+    {ko:"Jones 부인은 미소 짓고 “거짓말한 사람이 케이크를 먹었군요.”라고 말했다.",
+     chunks:[{ko:"Jones 부인은",role:"주어"},{ko:"미소 짓고",role:"동사"},{ko:"거짓말한",role:"꾸밈(절)"},{ko:"사람이",role:"주어"},{ko:"케이크를",role:"목적어"},{ko:"먹었군요",role:"동사"},{ko:"말했다",role:"동사"}],
+     seq:[1,2,7,4,3,6,5],
+     eng:["Ms. Jones","smiled","and said,","“The person","who lied","ate","the cake.”"],
+     full:"Ms. Jones smiled and said, “The person who lied ate the cake.”",
+     diff:"한글은 ‘거짓말한 사람’처럼 꾸밈말이 앞이지만, 영어는 <b>The person who lied</b>로 명사 뒤에 관계대명사절을 붙인다."}
+  ],
+  write:[
+    {no:"34",ko:"“네, 저는 11시 30분쯤에 약을 먹으러 부엌에 갔어요.",en:"“Yes, I went to the kitchen to take some medicine at about 11:30.",
+     keys:[{en:"take some medicine",ko:"약을 먹다 (eat 아님)"},{en:"to take",ko:"먹으러 (to부정사 목적)"},{en:"at about 11:30",ko:"11시 30분쯤에"}]},
+    {no:"35-1",ko:"상자가 열려 있어서, 저는 그 안의 케이크를 볼 수 있었어요.",en:"The box was open, so I could see the cake in it.",
+     keys:[{en:"open",ko:"(형용사) 열린"},{en:"could see",ko:"볼 수 있었다 (= was able to see)"},{en:"in it",ko:"그 안에 (it = the box)"}]},
+    {no:"35-2",ko:"그런 다음 저는 상자를 닫았어요.”",en:"Then I closed the box.”",
+     keys:[{en:"Then",ko:"그런 다음"},{en:"closed the box",ko:"상자를 닫았다"}]},
+    {no:"36",ko:"Jones 부인은 미소 짓고 “거짓말한 사람이 케이크를 먹었군요.”라고 말했다.",en:"Ms. Jones smiled and said, “The person who lied ate the cake.”",
+     keys:[{en:"smiled and said",ko:"and로 연결된 병렬"},{en:"The person who lied",ko:"거짓말한 사람 (주격 관계대명사)"},{en:"ate",ko:"문장의 진짜 동사"}]}
+  ]
+}
+];
+
+/* ============ STATE (세션 메모리만) ============ */
+function freshState(){
+  return {p:0,maxP:0,finished:false,onlyWrong:false,
+    P:PARAS.map(()=>({read:false,stage:1})),ord:{},wr:{}};
+}
+let S=freshState();
+function oS(p,i){const k=p+'-'+i;return S.ord[k]||(S.ord[k]={pick:[],done:false,msg:''});}
+function wS(p,i){const k=p+'-'+i;return S.wr[k]||(S.wr[k]={val:'',status:'',tries:0,retried:false,hint:false,keys:{},diff:null});}
+function ordAllDone(p){return PARAS[p].order.every((_,i)=>oS(p,i).done);}
+function passCount(p){return PARAS[p].write.filter((_,i)=>wS(p,i).status==='pass').length;}
+function paraDone(p){return passCount(p)===PARAS[p].write.length;}
+
+/* ============ UTIL ============ */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/[\u2018\u2019]/g,"'")
+    .replace(/[^a-z0-9'\-\s]/gi,' ')
+    .replace(/\s+/g,' ').trim();
+}
+function toks(s){const n=norm(s);return n?n.split(' '):[];}
+/* 교재 번호 단위로 잘린 따옴표를 화면에서만 짝 맞춤 */
+function showQ(s){
+  const o=(s.match(/\u201C/g)||[]).length,c=(s.match(/\u201D/g)||[]).length;
+  if(o>c)return s+'\u201D';
+  if(c>o)return '\u201C'+s;
+  return s;
+}
+function hintOf(en){
+  return en.replace(/[\u201C\u201D"]/g,'').split(/\s+/).filter(Boolean).map(w=>{
+    let first=true;
+    return w.replace(/[A-Za-z0-9]/g,ch=>{if(first){first=false;return ch;}return '_';});
+  }).join(' ');
+}
+function lcsDiff(u,a){
+  const n=u.length,m=a.length;
+  const L=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+  for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)
+    L[i][j]=u[i]===a[j]?L[i+1][j+1]+1:Math.max(L[i+1][j],L[i][j+1]);
+  const out=[];let i=0,j=0;
+  while(i<n&&j<m){
+    if(u[i]===a[j]){out.push({t:'ok',w:u[i]});i++;j++;}
+    else if(L[i+1][j]>=L[i][j+1]){out.push({t:'bad',w:u[i]});i++;}
+    else{out.push({t:'miss',w:a[j]});j++;}
+  }
+  while(i<n)out.push({t:'bad',w:u[i++]});
+  while(j<m)out.push({t:'miss',w:a[j++]});
+  return out;
+}
+function goTop(){try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}}
+
+/* ============ SOUND ============ */
+let voice=null,actx=null,unlocked=false;
+const hasTTS=typeof window!=='undefined'&&'speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined';
+function pickVoice(){
+  if(!hasTTS)return;
+  const vs=speechSynthesis.getVoices();if(!vs.length)return;
+  const pref=[v=>v.name==='Google US English',v=>/Samantha/i.test(v.name),v=>/Aria/i.test(v.name),v=>/^en[-_]US$/i.test(v.lang)];
+  for(const f of pref){const v=vs.find(f);if(v){voice=v;return;}}
+}
+if(hasTTS){pickVoice();try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){}}
+function speak(t,slow){
+  if(!hasTTS)return;
+  try{
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(String(t).replace(/[\u201C\u201D"]/g,''));
+    u.lang='en-US';if(voice)u.voice=voice;u.rate=slow?0.6:0.88;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function getCtx(){
+  if(actx)return actx;
+  const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;
+  try{actx=new C();}catch(e){actx=null;}
+  return actx;
+}
+function unlock(){
+  if(unlocked)return;unlocked=true;
+  if(hasTTS){try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}catch(e){}}
+  const c=getCtx();if(c&&c.state==='suspended'){try{c.resume();}catch(e){}}
+}
+document.addEventListener('touchstart',unlock,{once:true,passive:true});
+document.addEventListener('click',unlock,{once:true});
+function pageTurn(){
+  const c=getCtx();if(!c)return;
+  try{
+    const d=0.24,n=Math.floor(c.sampleRate*d),b=c.createBuffer(1,n,c.sampleRate),a=b.getChannelData(0);
+    for(let i=0;i<n;i++){const t=i/n;a[i]=(Math.random()*2-1)*Math.pow(1-t,2)*Math.min(1,t*8);}
+    const s=c.createBufferSource();s.buffer=b;
+    const f=c.createBiquadFilter();f.type='bandpass';f.Q.value=0.9;
+    f.frequency.setValueAtTime(1500,c.currentTime);f.frequency.exponentialRampToValueAtTime(4800,c.currentTime+d);
+    const g=c.createGain();g.gain.value=0.35;
+    s.connect(f);f.connect(g);g.connect(c.destination);s.start();
+  }catch(e){}
+}
+function ttsBtns(t){
+  return `<span class="tts"><button data-act="say" data-t="${esc(t)}" aria-label="문장 듣기">🔊</button><button data-act="say" data-slow="1" data-t="${esc(t)}" aria-label="천천히 듣기">🐢</button></span>`;
+}
+
+/* ============ RENDER ============ */
+const app=document.getElementById('app'),rail=document.getElementById('rail'),bar=document.getElementById('bar'),barIn=document.getElementById('barIn');
+
+function render(){renderRail();if(S.finished)renderFinish();else renderPara();renderBar();}
+
+function renderRail(){
+  rail.innerHTML=PARAS.map((P,p)=>{
+    const done=paraDone(p),lock=p>S.maxP;
+    const cls=(!S.finished&&p===S.p)?'cur':(done?'done':'');
+    return `<button class="pill ${cls}" data-act="goPara" data-p="${p}" ${lock?'disabled':''}>${p+1}. ${esc(P.tag)}${done?' ✓':''}</button>`;
+  }).join('');
+}
+
+function renderPara(){
+  const p=S.p,P=PARAS[p],st=S.P[p];
+  const t2=st.read,t3=ordAllDone(p)&&st.read;
+  let h=`<div class="tabs" role="tablist">
+    <button class="tab ${st.stage===1?'on':''}" data-act="stage" data-s="1" id="tab1">① 문단 읽기</button>
+    <button class="tab ${st.stage===2?'on':''}" data-act="stage" data-s="2" id="tab2" ${t2?'':'disabled'}>② 어순 바꾸기</button>
+    <button class="tab ${st.stage===3?'on':''}" data-act="stage" data-s="3" id="tab3" ${t3?'':'disabled'}>③ 거꾸로 영작</button>
+  </div><h2>${p+1}. ${esc(P.title)}</h2>`;
+  if(st.stage===1)h+=stage1(p);
+  else if(st.stage===2)h+=stage2(p);
+  else h+=stage3(p);
+  app.innerHTML=h;
+}
+
+function stage1(p){
+  const P=PARAS[p];
+  let h=`<p class="gist">${P.gist}</p><ol class="flow">`;
+  h+=P.flow.map(f=>`<li><span class="no">${esc(f.no)}</span><span class="badge">${esc(f.fn)}</span><span class="fko">${esc(f.ko)}</span></li>`).join('');
+  h+=`</ol><div class="center"><button class="btn pri" data-act="readOk" id="readOk">흐름 파악했어요</button></div>`;
+  return h;
+}
+
+function stage2(p){
+  const P=PARAS[p];
+  let h=`<p class="lead">영어는 쓰지 않아요. 한글 덩어리 번호를 <b>영어 문장 순서대로</b> 눌러 보세요.</p>`;
+  h+=P.order.map((o,i)=>ordHTML(p,i)).join('');
+  if(ordAllDone(p))h+=`<div class="center"><button class="btn pri" data-act="stage" data-s="3" id="goWrite">영작하러 가기</button></div>`;
+  return h;
+}
+
+function ordHTML(p,i){
+  const o=PARAS[p].order[i],st=oS(p,i),n=o.chunks.length;
+  let h=`<div class="ord ${st.done?'ok':''}" id="o-${p}-${i}"><p class="oq">어순 문장 ${i+1}</p><p class="oko">${esc(o.ko)}</p><ol class="chunks">`;
+  h+=o.chunks.map((c,k)=>`<li><span class="cn">${k+1}</span><span class="cko">${esc(c.ko)}</span><span class="role">${esc(c.role)}</span></li>`).join('')+`</ol>`;
+  if(!st.done){
+    h+=`<div class="slots" aria-label="고른 순서">`+Array.from({length:n},(_,k)=>`<span class="slot ${st.pick[k]?'f':''}">${st.pick[k]||''}</span>`).join('')+`</div>`;
+    h+=`<div class="pad">`+Array.from({length:n},(_,k)=>`<button data-act="pick" data-p="${p}" data-i="${i}" data-n="${k+1}" ${st.pick.includes(k+1)?'disabled':''} aria-label="${k+1}번">${k+1}</button>`).join('')+`</div>`;
+    h+=`<div class="row"><button class="btn sm" data-act="undo" data-p="${p}" data-i="${i}">하나 지우기</button><button class="btn sm" data-act="clear" data-p="${p}" data-i="${i}">전체 지우기</button><button class="btn sm pri" data-act="check" data-p="${p}" data-i="${i}">순서 확인</button></div>`;
+    if(st.msg)h+=`<p class="msg bad">${esc(st.msg)}</p>`;
+  }else{
+    h+=`<ol class="eng">`+o.eng.map((e,k)=>`<li><span class="cn f">${o.seq[k]}</span><span>${esc(e.replace(/[\u201C\u201D]/g,''))}</span></li>`).join('')+`</ol>`;
+    h+=`<div class="diffcard"><span class="dl">한글과 뒤집힌 지점</span><p>${o.diff}</p></div>`;
+    h+=`<div class="passline"><span class="ans">${esc(showQ(o.full))}</span>${ttsBtns(o.full)}</div>`;
+  }
+  return h+`</div>`;
+}
+
+function stage3(p){
+  const P=PARAS[p];
+  let idx=P.write.map((_,i)=>i);
+  if(S.onlyWrong)idx=idx.filter(i=>wS(p,i).status!=='pass');
+  if(!idx.length)return `<p class="empty" id="emptyMsg">틀린 문장이 없어요. 이 문단은 모두 통과했어요.</p>`;
+  let h=`<p class="lead">한글만 보고 영어로 써 보세요. 핵심표현 칸을 누르면 영어 형태가 보여요.</p>`;
+  h+=idx.map(i=>wrHTML(p,i)).join('');
+  if(paraDone(p)&&!S.onlyWrong)h+=`<p class="empty">이 문단 완료. 아래 ‘${p===PARAS.length-1?'완주하기':'다음 문단'}’을 누르세요.</p>`;
+  return h;
+}
+
+function wrHTML(p,i){
+  const it=PARAS[p].write[i],w=wS(p,i),pass=w.status==='pass';
+  let badge='';
+  if(pass)badge=w.retried?'<span class="st re">다시 써서 통과</span>':'<span class="st ok">한 번에 통과</span>';
+  else if(w.status==='wrong')badge='<span class="st bad">정답 보고 다시 쓰기</span>';
+  let h=`<div class="wr ${pass?'pass':''} ${w.status==='wrong'?'wrong':''}" id="w-${p}-${i}"><div class="wtop"><span class="no">${esc(it.no)}</span>${badge}</div><p class="wko">${esc(it.ko)}</p>`;
+  if(it.keys&&it.keys.length){
+    h+=`<div class="keys"><span class="kl">핵심표현</span>`+it.keys.map((k,j)=>{
+      const open=pass||w.keys[j];
+      return `<button class="kc ${open?'open':''}" data-act="key" data-p="${p}" data-i="${i}" data-j="${j}">${open?`<b>${esc(k.en)}</b> `:''}${esc(k.ko)}</button>`;
+    }).join('')+`</div>`;
+  }
+  if(w.hint&&!pass)h+=`<p class="hint">${esc(hintOf(it.en))}</p>`;
+  h+=`<input class="inp" data-k="${p}-${i}" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="영어로 써 보세요" value="${esc(w.val)}" ${pass?'readonly':''} aria-label="${esc(it.no)} 영작">`;
+  if(!pass)h+=`<div class="wbtns"><button class="btn sm" data-act="hint" data-p="${p}" data-i="${i}" ${w.hint?'disabled':''}>첫 글자 힌트</button><button class="btn sm pri" data-act="grade" data-p="${p}" data-i="${i}">채점</button></div>`;
+  if(w.status==='empty')h+=`<p class="msg bad">먼저 영작을 입력하세요.</p>`;
+  if(w.status==='wrong'&&w.diff){
+    const dw=w.diff.map(d=>d.t==='ok'?`<span class="t-ok">${esc(d.w)}</span>`:d.t==='bad'?`<s class="t-bad">${esc(d.w)}</s>`:`<span class="t-miss">___</span>`).join(' ');
+    h+=`<div class="res"><p class="rl">내 답</p><p class="dw">${dw}</p><p class="rl">정답</p><p class="ans">${esc(showQ(it.en))}</p><p class="rn">정답을 보고 똑같이 다시 써서 채점하세요.</p></div>`;
+  }
+  if(pass)h+=`<div class="passline"><span class="rl">문장 듣기</span>${ttsBtns(it.en)}</div>`;
+  return h+`</div>`;
+}
+
+function renderBar(){
+  const st=S.P[S.p];
+  if(S.finished||st.stage!==3){bar.classList.add('hide');barIn.innerHTML='';return;}
+  bar.classList.remove('hide');
+  const p=S.p,n=passCount(p),N=PARAS[p].write.length,last=p===PARAS.length-1;
+  barIn.innerHTML=`<button class="btn sm" data-act="gradeAll" id="gradeAll">전체 채점</button><button class="btn sm" data-act="onlyWrong" id="onlyWrong">${S.onlyWrong?'전체 보기':'틀린 것만 다시'}</button><span class="cnt">통과 <b id="passN">${n}</b>/${N}</span><button class="btn sm pri" data-act="next" id="nextBtn" ${n===N?'':'disabled'}>${last?'완주하기':'다음 문단'}</button>`;
+}
+
+function renderFinish(){
+  const all=[];PARAS.forEach((P,p)=>P.write.forEach((_,i)=>all.push(wS(p,i))));
+  const one=all.filter(w=>w.status==='pass'&&!w.retried).length,re=all.filter(w=>w.retried).length;
+  const seen=new Set(),rows=[];
+  PARAS.forEach(P=>P.write.forEach(it=>(it.keys||[]).forEach(k=>{if(!seen.has(k.en)){seen.add(k.en);rows.push({no:it.no,en:k.en,ko:k.ko});}})));
+  app.innerHTML=`<section class="fin" id="finish"><h2>사건 해결, 본문 완주!</h2>
+  <p>전체 ${all.length}문장 중 한 번에 통과 <b>${one}</b>문장, 다시 써서 통과 <b>${re}</b>문장.</p>
+  <p>다시 써서 통과한 문장은 다음 시간에 한 번 더 써 보세요.</p>
+  <h3>핵심표현 다시 보기</h3>
+  <table class="ktab"><tbody>${rows.map(r=>`<tr><td>${esc(r.en)}</td><td>${esc(r.ko)}</td><td class="n">${esc(r.no)}</td></tr>`).join('')}</tbody></table>
+  <div class="center"><button class="btn pri" data-act="restart" id="restart">처음부터 다시</button></div></section>`;
+}
+
+/* ============ ACTIONS ============ */
+function grade(p,i){
+  const w=wS(p,i),it=PARAS[p].write[i];
+  if(w.status==='pass')return;
+  const u=toks(w.val);
+  if(!u.length){w.status='empty';return;}
+  const a=toks(it.en);
+  if(u.length===a.length&&u.every((t,k)=>t===a[k])){
+    if(w.tries>0)w.retried=true;
+    w.status='pass';w.diff=null;
+  }else{
+    w.tries++;w.status='wrong';w.diff=lcsDiff(u,a);
+  }
+}
+function focusInp(p,i){const el=document.querySelector(`.inp[data-k="${p}-${i}"]`);if(el&&!el.readOnly){try{el.focus();}catch(e){}}}
+function nextUnpassed(p,from){const W=PARAS[p].write;for(let k=from+1;k<W.length;k++)if(wS(p,k).status!=='pass')return k;return -1;}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-act]');if(!b||b.disabled)return;
+  const a=b.dataset.act,p=+b.dataset.p,i=+b.dataset.i;
+  switch(a){
+    case 'goPara':
+      if(p>S.maxP)return;
+      S.p=p;S.finished=false;S.onlyWrong=false;render();goTop();break;
+    case 'stage':{
+      const s=+b.dataset.s,st=S.P[S.p];
+      if(s===2&&!st.read)return;
+      if(s===3&&!(st.read&&ordAllDone(S.p)))return;
+      st.stage=s;S.onlyWrong=false;render();goTop();break;}
+    case 'readOk':
+      S.P[S.p].read=true;S.P[S.p].stage=2;render();goTop();break;
+    case 'pick':{
+      const st=oS(p,i),n=+b.dataset.n,len=PARAS[p].order[i].chunks.length;
+      if(st.done||st.pick.includes(n)||st.pick.length>=len)return;
+      st.pick.push(n);st.msg='';render();break;}
+    case 'undo':oS(p,i).pick.pop();oS(p,i).msg='';render();break;
+    case 'clear':oS(p,i).pick=[];oS(p,i).msg='';render();break;
+    case 'check':{
+      const st=oS(p,i),o=PARAS[p].order[i],n=o.seq.length;
+      if(st.pick.length<n){st.msg=`번호 ${n}개를 모두 눌러 주세요.`;render();return;}
+      let k=0;while(k<n&&st.pick[k]===o.seq[k])k++;
+      if(k===n){st.done=true;st.msg='';}
+      else{st.msg=`${k+1}번째 자리부터 달라요. 처음부터 다시 눌러 보세요.`;st.pick=[];}
+      render();
+      const el=document.getElementById(`o-${p}-${i}`);if(el&&el.scrollIntoView&&st.done){try{el.scrollIntoView({block:'nearest'});}catch(e){}}
+      break;}
+    case 'say':speak(b.dataset.t,!!b.dataset.slow);break;
+    case 'key':{const w=wS(p,i),j=+b.dataset.j;w.keys[j]=!w.keys[j];render();break;}
+    case 'hint':wS(p,i).hint=true;render();focusInp(p,i);break;
+    case 'grade':{
+      grade(p,i);render();
+      if(wS(p,i).status==='pass'){const k=nextUnpassed(p,i);if(k>=0)focusInp(p,k);}
+      else focusInp(p,i);
+      break;}
+    case 'gradeAll':
+      PARAS[S.p].write.forEach((_,k)=>{
+        if(S.onlyWrong&&wS(S.p,k).status==='pass')return;
+        grade(S.p,k);
+      });
+      render();break;
+    case 'onlyWrong':
+      S.onlyWrong=!S.onlyWrong;
+      if(S.onlyWrong){PARAS[S.p].write.forEach((_,k)=>{const w=wS(S.p,k);if(w.status==='wrong'||w.status==='empty'){w.val='';w.status='';w.diff=null;}});}
+      render();goTop();break;
+    case 'next':
+      if(!paraDone(S.p))return;
+      S.onlyWrong=false;
+      if(S.p<PARAS.length-1){S.p++;S.maxP=Math.max(S.maxP,S.p);}
+      else S.finished=true;
+      pageTurn();render();goTop();break;
+    case 'restart':
+      S=freshState();pageTurn();render();goTop();break;
+  }
+});
+document.addEventListener('input',e=>{
+  if(!e.target.matches||!e.target.matches('.inp'))return;
+  const [p,i]=e.target.dataset.k.split('-').map(Number);
+  wS(p,i).val=e.target.value;
+});
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'||!e.target.matches||!e.target.matches('.inp'))return;
+  e.preventDefault();
+  const [p,i]=e.target.dataset.k.split('-').map(Number);
+  grade(p,i);render();
+  if(wS(p,i).status==='pass'){const k=nextUnpassed(p,i);if(k>=0)focusInp(p,k);}else focusInp(p,i);
+});
+
+render();
+</script>
+</body>
+</html>
