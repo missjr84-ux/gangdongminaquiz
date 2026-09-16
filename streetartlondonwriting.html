@@ -1,555 +1,1875 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>준티 잉글리쉬 · 거꾸로 영작 · 동아(윤정미) Lesson 5</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Street Art in London 거꾸로 영작</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f5f4fa; --card:#ffffff; --card2:#eeecf7; --card3:#f8f7fd;
-  --purple:#5b4fa8; --purple-lt:#ece9f8; --purple-dk:#3b2f8a; --purple-sf:#7b6fd0;
-  --green:#1a7a3c; --green-lt:#e8f5ec;
-  --amber:#e8a020; --amber-lt:#fef3dc;
-  --blue:#1a5c9e; --blue-lt:#e8f0fb;
-  --red:#c0392b; --red-lt:#fdecea;
-  --ink:#1a1a2e; --sub:#6b6880; --border:#d8d4ee;
-  --r:12px;
+  --bg:#f7f5fc; --paper:#ffffff; --ink:#2a2440; --sub:#6f6790;
+  --lav:#6a57cc; --lav2:#a597e6; --soft:#efebfb; --line:#ddd6f3;
+  --ok:#1d8a5c; --okbg:#e7f6ee; --bad:#c7364a; --badbg:#fdeef0; --miss:#a19cb2;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;
-  -webkit-font-smoothing:antialiased;padding-bottom:80px}
-.wrap{max-width:740px;margin:0 auto;padding:0 16px}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito','Noto Sans KR',system-ui,sans-serif;font-size:17px;line-height:1.65;padding-bottom:120px}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--lav2);outline-offset:2px}
 
-/* header */
-header{padding:26px 0 14px}
-.brand{font-size:.78rem;font-weight:700;color:var(--purple);letter-spacing:.02em}
-h1{font-family:'Lora',serif;font-size:1.55rem;line-height:1.35;margin:6px 0 4px;font-weight:600}
-.sub{font-size:.9rem;color:var(--sub)}
+/* header: 글자 위주, 색 채움 없음 */
+.hd{padding:30px 0 6px}
+.brand{font-size:14px;font-weight:800;color:var(--lav);letter-spacing:.02em}
+.hd h1{margin:4px 0 2px;font-size:28px;line-height:1.25;font-weight:900}
+.hd p{margin:0;color:var(--sub);font-size:15px}
 
-/* story rail */
-.rail{display:flex;gap:6px;margin:18px 0 6px}
-.rail div{flex:1;text-align:center;font-size:.76rem;font-weight:500;color:var(--sub);
-  padding:9px 2px;border-radius:9px;background:var(--card);border:1.5px solid var(--border)}
-.rail div.on{background:var(--purple);border-color:var(--purple);color:#fff;font-weight:700}
-.rail div.done{background:var(--green-lt);border-color:#b2d8c2;color:var(--green)}
-.railnote{font-size:.78rem;color:var(--sub);text-align:center;margin-bottom:20px}
+/* 스토리 레일 */
+.rail{padding:4px 0 6px}
+.pill{border:1.5px solid var(--line);background:var(--paper);color:var(--sub);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:800;cursor:pointer;min-height:38px}
+.pill.cur{border-color:var(--lav);color:var(--lav)}
+.pill.done{color:var(--ok);border-color:#bfe3cf}
+.pill:disabled{opacity:.4;cursor:default}
 
-/* step bar */
-.steps{display:flex;gap:8px;margin:0 0 16px}
-.steps button{flex:1;font-family:inherit;font-size:.84rem;font-weight:700;padding:11px 4px;
-  border-radius:10px;border:1.5px solid var(--border);background:var(--card);color:var(--sub);cursor:pointer}
-.steps button.on{background:var(--purple-lt);border-color:var(--purple);color:var(--purple-dk)}
-.steps button.done{background:var(--green-lt);border-color:#b2d8c2;color:var(--green)}
-.steps button:disabled{opacity:.45;cursor:not-allowed}
+/* 단계 탭 */
+.tabs{display:flex;gap:4px;border-bottom:1.5px solid var(--line);margin:14px 0 18px}
+.tab{flex:1;background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-1.5px;padding:12px 4px;font-size:15.5px;font-weight:800;color:var(--sub);cursor:pointer;min-height:48px}
+.tab.on{color:var(--lav);border-bottom-color:var(--lav)}
+.tab:disabled{opacity:.35;cursor:default}
 
-/* card */
-.card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);
-  padding:22px 20px;margin-bottom:16px}
-.card h2{font-size:1.05rem;font-weight:700;margin-bottom:6px;color:var(--purple-dk)}
-.lead{font-size:.92rem;color:var(--sub);margin-bottom:16px}
-.gist{background:var(--purple-lt);border-radius:10px;padding:16px 18px;margin-bottom:18px;
-  font-size:.98rem;line-height:1.85}
-.flow{list-style:none}
-.flow li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--border)}
-.flow li:last-child{border-bottom:0}
-.fn{flex:0 0 auto;font-size:.74rem;font-weight:700;padding:3px 9px;border-radius:999px;
-  background:var(--blue-lt);color:var(--blue);white-space:nowrap;margin-top:3px}
-.fk{font-size:.94rem;line-height:1.7}
+h2{font-size:22px;margin:0 0 12px;font-weight:900;line-height:1.35}
+h3{font-size:18px;margin:26px 0 10px;font-weight:900}
+.gist{border-left:4px solid var(--lav2);padding:2px 0 2px 14px;margin:0 0 20px;font-size:16.5px}
+.gist b{color:var(--lav)}
 
-/* buttons */
-.btn{font-family:inherit;font-size:.95rem;font-weight:700;padding:13px 20px;border-radius:10px;
-  border:0;background:var(--purple);color:#fff;cursor:pointer}
-.btn:disabled{background:#c9c4e2;cursor:not-allowed}
-.btn.ghost{background:var(--card);color:var(--purple-dk);border:1.5px solid var(--border)}
-.btn.wide{width:100%}
-.btn.sm{font-size:.85rem;padding:9px 14px}
-.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.sound{font-family:inherit;font-size:.85rem;padding:7px 13px;border-radius:999px;
-  border:1.5px solid var(--border);background:var(--card3);color:var(--purple-dk);cursor:pointer}
+.flow{list-style:none;margin:0 0 22px;padding:0}
+.flow li{display:grid;grid-template-columns:44px auto 1fr;gap:10px;align-items:baseline;padding:10px 0;border-bottom:1px dashed var(--line)}
+.no{font-size:13px;color:var(--sub);font-weight:800}
+.badge{justify-self:start;font-size:12.5px;font-weight:800;color:var(--lav);background:var(--soft);border-radius:6px;padding:2px 8px;white-space:nowrap}
 
-/* order trainer */
-.qhead{font-size:.8rem;font-weight:700;color:var(--purple);margin-bottom:8px}
-.kosent{font-size:1.05rem;font-weight:500;line-height:1.8;margin-bottom:16px}
-.chunks{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
-.chunk{display:flex;gap:10px;align-items:center;background:var(--card3);
-  border:1.5px solid var(--border);border-radius:10px;padding:11px 13px}
-.cnum{flex:0 0 26px;height:26px;line-height:24px;text-align:center;border-radius:50%;
-  background:var(--purple);color:#fff;font-size:.82rem;font-weight:700}
-.ctxt{flex:1;font-size:.95rem}
-.crole{font-size:.74rem;font-weight:700;color:var(--sub);background:var(--card2);
-  padding:3px 9px;border-radius:999px;white-space:nowrap}
-.slotline{background:var(--purple-lt);border-radius:10px;padding:14px;margin-bottom:12px;min-height:58px;
-  display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.slotline .ph{color:var(--sub);font-size:.88rem}
-.slot{width:38px;height:38px;line-height:36px;text-align:center;border-radius:9px;
-  background:#fff;border:2px solid var(--purple);color:var(--purple-dk);font-weight:700}
-.pad{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.pad button{width:52px;height:52px;font-family:inherit;font-size:1.15rem;font-weight:700;
-  border-radius:11px;border:1.5px solid var(--border);background:var(--card);color:var(--purple-dk);cursor:pointer}
-.pad button:disabled{opacity:.35;cursor:not-allowed}
-.eng{display:flex;flex-direction:column;gap:6px;margin-top:14px}
-.engrow{display:flex;gap:10px;align-items:baseline;background:var(--green-lt);
-  border-radius:9px;padding:9px 12px}
-.engrow b{flex:0 0 22px;color:var(--green);font-size:.82rem}
-.engrow span{font-family:'Lora',serif;font-size:1rem}
-.diff{background:var(--amber-lt);border-left:4px solid var(--amber);border-radius:0 9px 9px 0;
-  padding:13px 15px;margin-top:14px;font-size:.93rem;line-height:1.75}
-.diff b{color:#a06b00}
+.btn{min-height:48px;padding:0 18px;border-radius:12px;border:1.5px solid var(--lav);background:var(--paper);color:var(--lav);font-size:15.5px;font-weight:800;cursor:pointer}
+.btn.pri{background:var(--lav);color:#fff}
+.btn.sm{min-height:44px;font-size:14.5px;padding:0 14px}
+.btn:disabled{opacity:.35;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.center{text-align:center;margin:22px 0}
 
-/* writing */
-.wq{border:1.5px solid var(--border);border-radius:11px;padding:16px;margin-bottom:12px;background:var(--card)}
-.wq.ok{background:var(--green-lt);border-color:#b2d8c2}
-.wq .num{font-size:.76rem;font-weight:700;color:var(--sub)}
-.wq .ko{font-size:1rem;font-weight:500;margin:5px 0 11px;line-height:1.75}
-.wq input{width:100%;font-family:'Lora',serif;font-size:1.02rem;padding:12px 13px;
-  border:1.5px solid var(--border);border-radius:9px;background:#fff;color:var(--ink)}
-.wq input:focus{outline:2px solid var(--purple-sf);outline-offset:1px}
-.fb{margin-top:10px;font-size:.92rem;line-height:1.8}
-.fb .tk{display:inline-block;padding:1px 5px;border-radius:5px;margin:1px 2px;font-family:'Lora',serif}
-.tk.g{background:#d5efdd;color:var(--green)}
-.tk.b{background:#fadcd8;color:var(--red);text-decoration:line-through}
-.tk.m{background:var(--card2);color:var(--purple-dk)}
-.ansline{font-family:'Lora',serif;font-size:1rem;background:#fff;border:1.5px dashed var(--border);
-  border-radius:9px;padding:10px 12px;margin-top:9px}
-.hintline{font-family:'Lora',serif;font-size:.95rem;color:var(--sub);margin-top:8px;letter-spacing:.06em}
-.msg{font-weight:700;margin-bottom:6px}
-.msg.ok{color:var(--green)} .msg.no{color:var(--red)}
-.bar{position:sticky;bottom:0;background:rgba(245,244,250,.96);border-top:1.5px solid var(--border);
-  padding:12px 0;margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
-.progress{font-size:.85rem;color:var(--sub);text-align:center;margin:10px 0}
-.hidden{display:none}
-.locked{text-align:center;color:var(--sub);font-size:.92rem;padding:26px 10px}
-footer{text-align:center;font-size:.78rem;color:var(--sub);padding:26px 0 10px}
+/* ② 어순 */
+.lead{color:var(--sub);font-size:15px;margin:0 0 16px}
+.ord{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;margin:0 0 18px}
+.ord.ok{border-color:#bfe3cf}
+.oq{margin:0;font-size:13.5px;font-weight:800;color:var(--sub)}
+.oko{margin:4px 0 10px;font-size:18px;font-weight:700}
+.chunks{list-style:none;margin:0 0 14px;padding:0}
+.chunks li{display:flex;gap:12px;align-items:center;padding:6px 0}
+.cn{flex:none;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--lav);color:var(--lav);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:15px}
+.cn.f{background:var(--lav);color:#fff}
+.cko{font-size:17px;font-weight:500}
+.role{font-size:12.5px;color:var(--sub);border:1px solid var(--line);border-radius:6px;padding:1px 7px;white-space:nowrap}
+.slots{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px;min-height:48px}
+.slot{width:46px;height:46px;border:2px dashed var(--line);border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:var(--lav)}
+.slot.f{border-style:solid;border-color:var(--lav);background:var(--soft)}
+.pad{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+.pad button{width:52px;height:52px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);font-size:22px;font-weight:900;color:var(--ink);cursor:pointer}
+.pad button:disabled{opacity:.25;cursor:default}
+.msg{margin:10px 0 0;font-size:15px;font-weight:700}
+.msg.bad{color:var(--bad)}
+.eng{list-style:none;margin:6px 0 12px;padding:0}
+.eng li{display:flex;gap:12px;align-items:center;padding:5px 0;font-size:18px;font-weight:700}
+.diffcard{border:1.5px solid var(--lav2);border-radius:12px;padding:10px 14px;margin:8px 0 10px}
+.dl{font-size:13px;font-weight:800;color:var(--lav)}
+.diffcard p{margin:2px 0 0}
+.diffcard b{color:var(--lav)}
+.tts{display:inline-flex;gap:6px;margin-left:6px;vertical-align:middle}
+.tts button{min-height:40px;min-width:44px;border-radius:10px;border:1.5px solid var(--line);background:var(--paper);font-size:17px;cursor:pointer}
+
+/* ③ 영작 */
+.wr{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin:0 0 16px}
+.wr.pass{border-color:#bfe3cf}
+.wr.wrong{border-color:#f0c2ca}
+.wtop{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.st{font-size:12.5px;font-weight:800;border-radius:6px;padding:2px 8px}
+.st.ok{color:var(--ok);background:var(--okbg)}
+.st.re{color:#8a5a00;background:#fff4dc}
+.st.bad{color:var(--bad);background:var(--badbg)}
+.wko{font-size:18px;font-weight:700;margin:4px 0 8px}
+.keys{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px}
+.kl{font-size:12.5px;font-weight:800;color:var(--sub);margin-right:2px}
+.kc{border:1px dashed var(--lav2);background:var(--paper);color:var(--ink);border-radius:8px;padding:5px 10px;font-size:14px;cursor:pointer;min-height:36px;text-align:left}
+.kc.open{border-style:solid;background:var(--soft)}
+.kc b{color:var(--lav)}
+.hint{font-family:'Nunito',monospace;letter-spacing:.06em;color:var(--lav);font-weight:800;margin:0 0 8px;font-size:16px;word-break:break-word}
+.inp{width:100%;height:52px;font-size:18px;border:1.5px solid var(--line);border-radius:12px;padding:0 14px;font-family:'Nunito',sans-serif;color:var(--ink);background:#fff}
+.inp:focus{outline:none;border-color:var(--lav)}
+.inp[readonly]{background:var(--okbg);border-color:#bfe3cf}
+.wbtns{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.res{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+.rl{margin:0;font-size:12.5px;font-weight:800;color:var(--sub)}
+.dw{margin:2px 0 8px;font-size:17px;line-height:1.9}
+.t-ok{color:var(--ok);font-weight:800}
+.t-bad{color:var(--bad);text-decoration:line-through}
+.t-miss{color:var(--miss);font-weight:800}
+.ans{font-size:17px;font-weight:800;color:var(--ink)}
+.res .ans{margin:2px 0 0}
+.rn{margin:6px 0 0;font-size:14px;color:var(--bad);font-weight:700}
+.passline{margin-top:10px;display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+.empty{text-align:center;color:var(--sub);padding:30px 0}
+
+/* 하단 고정 바 */
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:10px 0 calc(10px + env(safe-area-inset-bottom))}
+.bar.hide{display:none}
+.bar .wrap{display:flex;gap:8px;align-items:center}
+.cnt{margin-left:auto;margin-right:4px;font-weight:800;color:var(--sub);white-space:nowrap}
+.cnt b{color:var(--lav);font-size:19px}
+
+/* 완주 */
+.fin p{margin:0 0 10px}
+.ktab{width:100%;border-collapse:collapse;font-size:15px}
+.ktab td{padding:8px 6px;border-bottom:1px dashed var(--line);vertical-align:top}
+.ktab td:first-child{font-weight:800;color:var(--lav);white-space:nowrap}
+.ktab td.n{color:var(--sub);font-size:13px;white-space:nowrap}
+@media (max-width:520px){
+  .hd h1{font-size:24px}
+  .flow li{grid-template-columns:40px 1fr}
+  .flow li .fko{grid-column:1 / -1}
+  .bar .btn{padding:0 10px;font-size:14px}
+  .ktab td:first-child{white-space:normal}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+.pill.big{border-style:dashed}
+.pill.big.cur{border-style:solid}
+.peek{margin-left:6px;border:1px solid var(--line);background:var(--paper);color:var(--sub);border-radius:8px;padding:2px 10px;font-size:13px;font-weight:800;min-height:32px;cursor:pointer;vertical-align:middle}
+.peekbox{border:1.5px dashed var(--lav2);border-radius:12px;padding:8px 12px;margin:0 0 10px}
+.peekbox .ans{margin:0}
+.peekbox .rn{color:var(--sub)}
+.wr.compact{padding:12px 16px;margin-bottom:10px}
+.wr.compact .wko{font-size:17px}
+.smap{list-style:none;margin:0 0 20px;padding:0;border-left:3px solid var(--line)}
+.smap li{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:baseline;padding:5px 0 5px 12px;font-size:15px}
+.smap li b{color:var(--lav)}
+.smap li.done{color:var(--ok)}
+.smap .sc{font-size:13px;color:var(--sub);font-weight:800}
+.sgroup{margin:0 0 8px}
+.sgroup h3{margin:22px 0 10px;font-size:17px}
+.storypara{background:var(--paper);border:1px solid #bfe3cf;border-radius:16px;padding:14px 18px;margin:0 0 12px}
+.storypara p{margin:0 0 6px;font-size:17px;line-height:1.8}
+.sech{margin:30px 0 12px;padding-bottom:6px;border-bottom:1.5px solid var(--line);color:var(--lav)}
+.exq{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin:0 0 14px}
+.exq.pass{border-color:#bfe3cf}
+.exq.wrong{border-color:#f0c2ca}
+.qq{margin:4px 0 8px;font-size:17px;font-weight:700}
+.qq b{color:var(--bad)}
+.ctx{margin:0 0 12px;padding:8px 12px;border-left:3px solid var(--lav2);font-size:17px;background:#fbfaff}
+.ctx u,.ch u{text-decoration-thickness:2px;text-underline-offset:3px}
+.chs{display:flex;flex-direction:column;gap:8px}
+.ch{display:flex;gap:10px;align-items:flex-start;text-align:left;border:1.5px solid var(--line);background:var(--paper);border-radius:12px;padding:11px 14px;font-size:16px;min-height:48px;cursor:pointer;color:var(--ink)}
+.ch .cir{color:var(--lav);font-weight:900}
+.ch.sel{border-color:var(--lav);background:var(--soft)}
+.ch.right{border-color:var(--ok);background:var(--okbg)}
+.ch.wrongc{border-color:var(--bad);background:var(--badbg)}
+.ch:disabled{cursor:default;opacity:1}
+.given{margin:0 0 8px;font-size:16px}
+.oitems{list-style:none;margin:0 0 12px;padding:0}
+.oitems li{padding:5px 0;font-size:16px}
+.oitems b{color:var(--lav);margin-right:4px}
+.slot.wide{width:62px}
+.pad button.wide{width:66px;font-size:18px}
+.aline{min-height:52px;border:1.5px dashed var(--line);border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:18px;font-weight:700}
+.aline .ph{color:var(--miss);font-weight:500;font-size:15px}
+.wchips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.wchips button{min-height:48px;padding:0 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);font-size:17px;font-weight:800;font-family:'Nunito',sans-serif;color:var(--ink);cursor:pointer}
+.wchips button:disabled{opacity:.25;cursor:default}
+.cond{margin:-4px 0 8px;font-size:14px;color:var(--lav);font-weight:800}
+.exp{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:15.5px}
+.exp p{margin:0 0 4px}
+.chunks li.hascj{background:linear-gradient(90deg,var(--soft),transparent 70%);border-radius:10px}
+.cjb{font-size:12.5px;font-weight:800;color:#fff;background:var(--lav);border-radius:6px;padding:2px 8px;white-space:nowrap}
+.cjnote{border:1.5px dashed var(--lav2);border-radius:12px;padding:10px 14px;margin:0 0 14px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.cjnote .rn{flex-basis:100%;margin:2px 0 0;color:var(--sub)}
+.eng .cjw{font-style:normal;color:var(--lav);background:var(--soft);border-radius:6px;padding:1px 6px}
+.railhead{margin:16px 0 8px;font-size:13.5px;color:var(--sub);font-weight:700}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pn{font-size:12.5px;color:var(--sub);font-weight:800}
+.pill.cur .pn{color:var(--lav)}
+.conflow{border:1.5px solid var(--line);border-radius:14px;padding:12px 16px;margin:0 0 20px}
+.cchain{margin:6px 0 10px;font-size:18px;font-weight:800;color:var(--lav);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.carrow{color:var(--miss);font-weight:700}
+.clist{list-style:none;margin:0;padding:0;font-size:15px}
+.clist li{padding:3px 0}
+.clist b{color:var(--lav);margin-right:2px}
+.links{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px}
+.lc{border:1px solid var(--lav2);border-radius:8px;padding:4px 10px;font-size:14px;background:var(--soft)}
+.lc b{color:var(--lav);font-size:15px}
+.chs.tight{margin:0 0 12px}
+.ptag{font-size:12.5px;font-weight:800;color:var(--lav);background:var(--soft);border-radius:6px;padding:1px 7px;margin-right:2px}
+.blankline{display:inline-block;min-width:180px;border-bottom:2px solid var(--lav2);color:var(--lav);font-weight:800;text-align:center;padding:0 6px}
+.conntext{line-height:2.4}
+.cinp{width:112px;height:38px;font-size:16px;font-weight:700;font-family:'Nunito',sans-serif;color:var(--lav);text-align:center;border:0;border-bottom:2px solid var(--lav2);background:transparent;padding:0 2px;vertical-align:baseline}
+.cinp:focus{outline:none;border-bottom-color:var(--lav);background:var(--soft)}
+.cinp.ok{color:var(--ok);border-bottom-color:var(--ok)}
+.cinp.bad{color:var(--bad);border-bottom-color:var(--bad)}
+.cinp.rev{background:var(--soft)}
+.pmark{display:inline-block;min-width:110px;border-bottom:2px solid var(--lav2);color:var(--lav);font-weight:900;text-align:center}
+.pw{text-decoration-thickness:2px;text-underline-offset:3px;font-weight:800;color:var(--lav)}
+.pnum{color:var(--lav);font-weight:900;margin-left:1px}
+.spara{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin:0 0 12px}
+.spara.used{border-color:var(--lav);background:#fbfaff}
+.spara p{margin:4px 0 6px;font-size:16.5px;line-height:1.85}
+.plab{font-size:16px;font-weight:900;color:var(--lav)}
+.cblank{display:inline-block;min-width:74px;border-bottom:2px solid var(--lav2);vertical-align:baseline}
+.storypara.fill{background:#fbfaff}
+.storypara.fill p{line-height:2.5}
+.slot.sok{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
+.slot.sbad{border-color:var(--bad);background:var(--badbg);color:var(--bad)}
+.st.bad{color:var(--bad);background:var(--badbg)}
+.ansord{counter-reset:none}
+.ansord li{display:flex;gap:8px;align-items:baseline;padding:4px 0}
+.ansord .cn{flex:none;width:24px;height:24px;font-size:13px}
+.cwhy{color:var(--sub);font-size:14px}
+.ansord .rn{margin:0;font-size:13.5px}
+
+.peekbtn.on{background:var(--soft);border-color:var(--lav)}
+.peekbox .passline{margin:0}
+.olead{margin:0 0 10px;font-size:14.5px;color:var(--sub)}
+.cjmark{color:var(--lav);font-weight:900}
+.ochips{gap:10px}
+.ochips button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:8px 14px;min-height:56px;text-align:left;line-height:1.35}
+.ochips button b{font-size:17px;font-weight:800;color:var(--ink)}
+.ochips button .cko{font-size:12.5px;color:var(--sub);font-weight:600}
+.aline .aw{margin-right:2px}
+.cslot{display:inline-block;min-width:76px;text-align:center;border-bottom:2px solid var(--lav2);color:var(--lav);font-weight:800;padding:0 4px}
+.cslot.ok{color:var(--ok);border-bottom-color:var(--ok)}
+.cslot.bad{color:var(--bad);border-bottom-color:var(--bad)}
+.eng li .cko{font-size:13px;color:var(--sub);font-weight:600;margin-left:4px}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header>
+<header class="hd wrap">
   <div class="brand">준티 잉글리쉬</div>
-  <h1>거꾸로 영작 · Street Art in London</h1>
-  <div class="sub">동아(윤정미) Lesson 5 · 본문 28문장 — 한글 문단을 분석하고, 어순을 뒤집어서, 영어로 쓴다</div>
+  <h1>Street Art in London 거꾸로 영작</h1>
+  <p>동아(윤정미) Lesson 05 Street Art in London 본문</p>
 </header>
-
-<div class="rail" id="rail"></div>
-<div class="railnote" id="railnote"></div>
-
-<div class="steps" id="steps">
-  <button id="sb0" onclick="goStep(0)">1 · 문단 읽기</button>
-  <button id="sb1" onclick="goStep(1)">2 · 어순 바꾸기</button>
-  <button id="sb2" onclick="goStep(2)">3 · 영작</button>
-</div>
-
-<div id="stage"></div>
-</div>
-
-<footer>준티 잉글리쉬 · 강동미나</footer>
+<nav class="wrap rail" id="rail" aria-label="문단"></nav>
+<main class="wrap" id="app"></main>
+<div class="bar hide" id="bar"><div class="wrap" id="barIn"></div></div>
 
 <script>
-/* ================= 데이터 ================= */
-const PARAS = [
+/* ============================================================
+   DATA START — 새 본문을 만들 때 여기서 DATA END 까지만 바꾼다.
+   아래 엔진 코드는 한 글자도 건드리지 않는다.
+   BOOK = 교재 원문(번호별). check.js 가 PARAS 와 대조한다.
+   이 샘플은 예시다. 전부 지우고 새 본문으로 채운다.
+   ============================================================ */
+/* ── 교재 원문 ── */
+const BOOK={
+1:"Modern street art comes in many different forms, and it makes cities colorful and lively.",
+2:"Today, we are going to see some well-known street artworks in London.",
+3:"The place that we are going to visit is Shoreditch.",
+4:"Poor workers used to live in this area, but now it is one of the hippest areas in London.",
+5:"We can find so many great pieces of street art here.",
+6:"Do you see the painting over there?",
+7:"It is by the artist STIK.",
+8:"He is famous for using only lines and dots in his paintings of human bodies.",
+9:"According to STIK, the three figures represent the past, present, and future of Shoreditch.",
+10:"Which figure represents which?",
+11:"Well, look closely at the eyes of the three figures.",
+12:"They are just dots, but they will give you a clue.",
+13:"We are now in Finsbury Park to see a painting by Banksy, an internationally famous street artist.",
+14:"Banksy's artworks often carry social messages, and the green tree you see over there is a good example.",
+15:"As you can see, he created a green tree by spraying green paint on a wall behind a leafless tree.",
+16:"Next to the tree, there is a person who is holding a sprayer.",
+17:"What message does Banksy want to give us through this painting?",
+18:"In many people's opinion, he is telling us that nature is having a hard time.",
+19:"They think he wants us to take better care of it.",
+20:"The final stop of our tour today is Muswell Hill.",
+21:"Can't see any street artworks?",
+22:"Well, look down and look closely.",
+23:"Do you see the little chewing gum paintings?",
+24:"They are by the artist Ben Wilson.",
+25:"Wilson is well known for painting pictures on gum that people drop on the street.",
+26:"His gum paintings often carry personal messages from people he meets on the street.",
+27:"For example, the one over here is a happy birthday wish for a loved one.",
+28:"Wilson's gum paintings are tiny, but they give great pleasure to many people."
+};
+
+/* ── 본문 ── */
+const PARAS=[
 {
-  tag:"도입", title:"거리 예술이란, 그리고 오늘의 계획",
-  gist:"두 문장짜리 짧은 도입이다. 앞 문장은 <b>거리 예술이 무엇인지</b>(형태가 다양하고 도시를 살아나게 한다), 뒤 문장은 <b>오늘 무엇을 할지</b>(런던의 유명 작품 보기)를 알려 준다. 이 글은 여기서부터 <b>장소를 옮겨 다니는 투어</b> 형식으로 진행된다.",
+  tag:"도입",
+  title:"거리 예술이란, 그리고 오늘의 계획",
+  gist:"두 문장짜리 짧은 도입이다. 앞 문장은 <b>거리 예술이 무엇인지</b>, 뒤 문장은 <b>오늘 무엇을 할지</b>를 알려 준다. 이 글은 여기서부터 <b>장소를 옮겨 다니는 투어</b> 형식으로 이어진다.",
   flow:[
-    {fn:"정의", ko:"현대 거리 예술은 형태가 다양하고, 도시를 다채롭고 활기차게 만든다."},
-    {fn:"오늘의 계획", ko:"오늘 우리는 런던의 잘 알려진 거리 예술 작품들을 볼 것이다."}
+    {no:"1", fn:"정의", ko:"현대 거리 예술은 형태가 다양하고, 도시를 다채롭고 활기차게 만든다."},
+    {no:"2", fn:"오늘의 계획", ko:"오늘 런던의 잘 알려진 거리 예술 작품들을 볼 것이다."}
   ],
   order:[
     { ko:"현대의 거리 예술은 다양한 형태로 나타나며, 그것은 도시를 다채롭고 활기차게 만든다.",
-      chunks:[{ko:"현대의 거리 예술은",role:"주어"},{ko:"다양한 형태로",role:"방식"},{ko:"나타난다",role:"동사"},{ko:"그리고 그것은",role:"주어2"},{ko:"도시를",role:"목적어"},{ko:"다채롭고 활기차게",role:"목적격보어"},{ko:"만든다",role:"동사2"}],
+      chunks:[
+        {ko:"현대의 거리 예술은",   role:"주어"},
+        {ko:"다양한 형태로",       role:"방식"},
+        {ko:"나타난다",           role:"동사"},
+        {ko:"그리고 그것은",       role:"주어2",
+         cj:{w:"and", pos:"앞", why:"앞뒤 두 문장을 잇는다. 주어 it을 다시 쓰므로 and 앞에 콤마"}},
+        {ko:"도시를",             role:"목적어"},
+        {ko:"다채롭고 활기차게",    role:"목적격보어"},
+        {ko:"만든다",             role:"동사2"}
+      ],
       seq:[1,3,2,4,7,5,6],
-      eng:["Modern street art","comes","in many different forms,","and it","makes","cities","colorful and lively"],
+      eng:["Modern street art","comes","in many different forms,","and it","makes","cities","colorful and lively."],
       full:"Modern street art comes in many different forms, and it makes cities colorful and lively.",
-      diff:"동사가 두 번 다 <b>주어 바로 뒤</b>로 온다. 특히 뒤 절은 <b>make + 목적어 + 형용사</b> 순서(makes → cities → colorful and lively)인데, 한글은 '도시를 → 다채롭게 → 만든다'로 동사가 맨 끝이다."},
+      diff:"뒤 절은 <b>makes → cities → colorful and lively</b> 순서다. 한글은 ‘도시를 다채롭게 만든다’로 동사가 맨 끝에 온다."
+    },
     { ko:"오늘 우리는 런던에서 몇몇 잘 알려진 거리 예술 작품들을 볼 것이다.",
-      chunks:[{ko:"오늘",role:"시간"},{ko:"우리는",role:"주어"},{ko:"런던에서",role:"장소"},{ko:"몇몇 잘 알려진 거리 예술 작품들을",role:"목적어"},{ko:"볼 것이다",role:"동사"}],
+      chunks:[
+        {ko:"오늘",                        role:"시간"},
+        {ko:"우리는",                      role:"주어"},
+        {ko:"런던에서",                    role:"장소"},
+        {ko:"몇몇 잘 알려진 거리 예술 작품들을", role:"목적어"},
+        {ko:"볼 것이다",                   role:"동사"}
+      ],
       seq:[1,2,5,4,3],
       eng:["Today,","we","are going to see","some well-known street artworks","in London."],
       full:"Today, we are going to see some well-known street artworks in London.",
-      diff:"<b>장소 표현이 문장 맨 뒤</b>로 간다. 한글은 '런던에서 → 작품들을 → 볼 것이다'인데, 영어는 동사 → 목적어 → 장소 순서다."}
+      diff:"한글은 ‘런던에서’가 중간에 오지만, 영어는 <b>장소 표현을 문장 맨 끝</b>에 둔다."
+    }
   ],
   write:[
-    {ko:"현대의 거리 예술은 다양한 형태로 나타나며, 그것은 도시를 다채롭고 활기차게 만든다.", en:"Modern street art comes in many different forms, and it makes cities colorful and lively."},
-    {ko:"오늘 우리는 런던에서 몇몇 잘 알려진 거리 예술 작품들을 볼 것이다.", en:"Today, we are going to see some well-known street artworks in London."}
+    {no:"1", ko:"현대의 거리 예술은 다양한 형태로 나타나며, 그것은 도시를 다채롭고 활기차게 만든다.",
+     en:"Modern street art comes in many different forms, and it makes cities colorful and lively.",
+     link:[{en:"and", why:"두 문장을 잇는다. 주어 it을 다시 쓰므로 and 앞에 콤마를 찍는다"}],
+     keys:[{en:"come in ~ forms", ko:"~한 형태로 나타나다"},
+           {en:"make + 목적어 + 형용사", ko:"~을 …하게 만들다"}]},
+    {no:"2", ko:"오늘 우리는 런던에서 몇몇 잘 알려진 거리 예술 작품들을 볼 것이다.",
+     en:"Today, we are going to see some well-known street artworks in London.",
+     keys:[{en:"be going to + 동사원형", ko:"~할 것이다"},
+           {en:"well-known", ko:"잘 알려진"}]}
   ]
 },
 {
-  tag:"STIK", title:"첫 번째 장소 — Shoreditch, 화가 STIK",
-  gist:"첫 번째 정거장이다. <b>장소 소개 → 그 동네의 변화 → 작품 가리키기 → 작가 소개 → 작품의 의미 → 질문과 힌트</b> 순서로 간다. 마지막에 답을 바로 주지 않고 '눈을 자세히 보라'는 <b>단서</b>만 남기고 넘어가는 것이 이 문단의 특징이다.",
+  tag:"STIK",
+  title:"첫 번째 장소 — Shoreditch, 화가 STIK",
+  gist:"첫 번째 정거장이다. <b>장소 소개 → 동네의 변화 → 작품 가리키기 → 작가 소개 → 작품의 의미 → 질문과 단서</b> 순서로 간다. 답을 주지 않고 <b>‘눈을 자세히 보라’는 단서</b>만 남기고 넘어가는 것이 특징이다.",
   flow:[
-    {fn:"장소 소개", ko:"우리가 방문할 장소는 Shoreditch이다."},
-    {fn:"배경 변화", ko:"예전엔 가난한 노동자들이 살았지만 지금은 가장 최신 유행 지역 중 하나다."},
-    {fn:"현재 모습", ko:"여기서 훌륭한 거리 예술 작품을 아주 많이 볼 수 있다."},
-    {fn:"작품 가리키기", ko:"저기 저 그림이 보이는가? 화가 STIK의 작품이다."},
-    {fn:"작가 특징", ko:"그는 인체를 선과 점만으로 그리는 것으로 유명하다."},
-    {fn:"작품의 의미", ko:"세 인물은 Shoreditch의 과거·현재·미래를 나타낸다."},
-    {fn:"질문 던지기", ko:"그럼 어떤 인물이 어떤 것을 나타낼까?"},
-    {fn:"단서 주기", ko:"눈을 자세히 보아라 — 점일 뿐이지만 단서가 된다."}
+    {no:"3",  fn:"장소 소개", ko:"우리가 방문할 장소는 Shoreditch이다."},
+    {no:"4",  fn:"배경 변화", ko:"예전엔 가난한 노동자들이 살았지만 지금은 가장 최신 유행 지역 중 하나다."},
+    {no:"5",  fn:"현재 모습", ko:"여기서 훌륭한 거리 예술 작품을 아주 많이 볼 수 있다."},
+    {no:"6",  fn:"작품 가리키기", ko:"저기 저 그림이 보이는지 묻는다."},
+    {no:"7",  fn:"작가 밝히기", ko:"그것은 예술가 STIK의 작품이다."},
+    {no:"8",  fn:"작가 특징", ko:"그는 인체를 선과 점만으로 그리는 것으로 유명하다."},
+    {no:"9",  fn:"작품의 의미", ko:"세 인물은 Shoreditch의 과거·현재·미래를 나타낸다."},
+    {no:"10", fn:"질문 던지기", ko:"어떤 인물이 어떤 것을 나타낼지 묻는다."},
+    {no:"11", fn:"단서 주기", ko:"세 인물의 눈을 자세히 보라고 한다."},
+    {no:"12", fn:"단서 설명", ko:"그저 점일 뿐이지만 단서를 줄 것이다."}
   ],
   order:[
-    { ko:"우리가 방문할 장소는 Shoreditch이다.",
-      chunks:[{ko:"우리가 방문할",role:"꾸밈(절)"},{ko:"그 장소는",role:"주어"},{ko:"Shoreditch이다",role:"동사+보어"}],
+    { ko:"우리가 방문할 그 장소는 Shoreditch이다.",
+      chunks:[
+        {ko:"우리가 방문할", role:"꾸밈(절)"},
+        {ko:"그 장소는",     role:"주어"},
+        {ko:"Shoreditch이다", role:"동사+보어"}
+      ],
       seq:[2,1,3],
       eng:["The place","that we are going to visit","is Shoreditch."],
       full:"The place that we are going to visit is Shoreditch.",
-      diff:"이 과의 핵심 문법이다. 한글은 <b>'우리가 방문할' + 장소</b>처럼 꾸밈말이 앞이지만, 영어는 <b>The place를 먼저 쓰고 that절을 뒤에</b> 붙인다. 목적격 관계대명사 자리."},
+      diff:"이 과의 핵심이다. 한글은 꾸밈말이 앞이지만, 영어는 <b>The place를 먼저 쓰고 that절을 뒤</b>에 붙인다."
+    },
     { ko:"그는 인체를 그린 그의 그림에서 선과 점만을 사용하는 것으로 유명하다.",
-      chunks:[{ko:"그는",role:"주어"},{ko:"인체를 그린 그의 그림에서",role:"장소"},{ko:"선과 점만을",role:"목적어"},{ko:"사용하는 것으로",role:"전치사구"},{ko:"유명하다",role:"동사"}],
+      chunks:[
+        {ko:"그는",                  role:"주어"},
+        {ko:"인체를 그린 그의 그림에서", role:"장소"},
+        {ko:"선과 점만을",            role:"목적어",
+         cj:{w:"and", pos:"안", why:"lines와 dots, 두 명사를 잇는다"}},
+        {ko:"사용하는 것으로",         role:"전치사구"},
+        {ko:"유명하다",              role:"동사"}
+      ],
       seq:[1,5,4,3,2],
       eng:["He","is famous for","using","only lines and dots","in his paintings of human bodies."],
       full:"He is famous for using only lines and dots in his paintings of human bodies.",
-      diff:"한글을 <b>끝에서부터 거꾸로</b> 읽으면 영어 순서가 된다. 그리고 for는 전치사라서 뒤에 동사원형(use)이 아니라 <b>동명사(using)</b>가 온다."}
+      diff:"한글을 <b>끝에서부터 거꾸로</b> 읽으면 영어 순서다. for는 전치사라서 뒤에 동명사 using이 온다."
+    }
   ],
   write:[
-    {ko:"우리가 방문할 장소는 Shoreditch이다.", en:"The place that we are going to visit is Shoreditch."},
-    {ko:"가난한 노동자들이 이 지역에 살았었지만, 지금 그곳은 런던에서 가장 최신 유행을 따르는 지역들 중 하나이다.", en:"Poor workers used to live in this area, but now it is one of the hippest areas in London."},
-    {ko:"우리는 여기에서 아주 많은 훌륭한 거리 예술 작품들을 발견할 수 있다.", en:"We can find so many great pieces of street art here."},
-    {ko:"저기에 있는 그림이 보이는가?", en:"Do you see the painting over there?"},
-    {ko:"그것은 예술가 STIK이 그린 것이다.", en:"It is by the artist STIK."},
-    {ko:"그는 인체를 그린 그의 그림에서 선과 점만을 사용하는 것으로 유명하다.", en:"He is famous for using only lines and dots in his paintings of human bodies."},
-    {ko:"STIK에 따르면, 그 세 인물은 Shoreditch의 과거, 현재, 그리고 미래를 나타낸다.", en:"According to STIK, the three figures represent the past, present, and future of Shoreditch."},
-    {ko:"어떤 인물이 어떤 것을 나타낼까?", en:"Which figure represents which?"},
-    {ko:"자, 그 세 인물의 눈을 자세히 보아라.", en:"Well, look closely at the eyes of the three figures."},
-    {ko:"그것들은 그저 점일 뿐이지만, 너희에게 단서를 줄 것이다.", en:"They are just dots, but they will give you a clue."}
+    {no:"3", ko:"우리가 방문할 그 장소는 Shoreditch이다.",
+     en:"The place that we are going to visit is Shoreditch.",
+     keys:[{en:"the place that ~", ko:"~하는 그 장소 (목적격 관계대명사)"}]},
+    {no:"4", ko:"가난한 노동자들이 이 지역에 살았었지만, 지금 그곳은 런던에서 가장 최신 유행을 따르는 지역들 중 하나이다.",
+     en:"Poor workers used to live in this area, but now it is one of the hippest areas in London.",
+     link:[{en:"but", why:"예전과 지금이 반대다. 콤마 뒤에 온다"}],
+     keys:[{en:"used to + 동사원형", ko:"예전에는 ~했었다"},
+           {en:"one of the + 최상급 + 복수명사", ko:"가장 ~한 것들 중 하나"}]},
+    {no:"5", ko:"우리는 여기에서 아주 많은 훌륭한 거리 예술 작품들을 발견할 수 있다.",
+     en:"We can find so many great pieces of street art here.",
+     keys:[{en:"pieces of street art", ko:"거리 예술 작품들"},
+           {en:"here", ko:"여기에서 (문장 끝)"}]},
+    {no:"6", ko:"저기에 있는 그 그림이 보이는가?",
+     en:"Do you see the painting over there?",
+     keys:[{en:"over there", ko:"저기에 (명사 뒤에서 꾸민다)"}]},
+    {no:"7", ko:"그것은 예술가 STIK이 그린 것이다.",
+     en:"It is by the artist STIK.",
+     keys:[{en:"by + 작가", ko:"~가 만든, ~의 작품인"}]},
+    {no:"8", ko:"그는 인체를 그린 그의 그림에서 선과 점만을 사용하는 것으로 유명하다.",
+     en:"He is famous for using only lines and dots in his paintings of human bodies.",
+     link:[{en:"and", why:"lines와 dots, 두 명사를 잇는다"}],
+     keys:[{en:"be famous for + 동명사", ko:"~하는 것으로 유명하다"},
+           {en:"only lines and dots", ko:"선과 점만"}]},
+    {no:"9", ko:"STIK에 따르면, 그 세 인물은 Shoreditch의 과거, 현재, 그리고 미래를 나타낸다.",
+     en:"According to STIK, the three figures represent the past, present, and future of Shoreditch.",
+     link:[{en:"and", why:"셋 이상 나열은 마지막 것 앞에만 and를 쓴다"}],
+     keys:[{en:"according to ~", ko:"~에 따르면"},
+           {en:"represent", ko:"나타내다, 상징하다"}]},
+    {no:"10", ko:"어떤 인물이 어떤 것을 나타낼까?",
+     en:"Which figure represents which?",
+     keys:[{en:"Which + 명사", ko:"어떤 ~ (의문형용사)"}]},
+    {no:"11", ko:"자, 그 세 인물의 눈을 자세히 보아라.",
+     en:"Well, look closely at the eyes of the three figures.",
+     keys:[{en:"look closely at ~", ko:"~을 자세히 보다"}]},
+    {no:"12", ko:"그것들은 그저 점일 뿐이지만, 그것들은 너희에게 단서를 줄 것이다.",
+     en:"They are just dots, but they will give you a clue.",
+     link:[{en:"but", why:"‘점일 뿐’과 ‘단서가 된다’가 반대다. 콤마 뒤에 온다"}],
+     keys:[{en:"give + 사람 + 사물", ko:"~에게 …을 주다"}]}
   ]
 },
 {
-  tag:"Banksy", title:"두 번째 장소 — Finsbury Park, Banksy",
-  gist:"두 번째 정거장. <b>장소 이동 → 작가의 특징(사회적 메시지) → 그 예시 작품 → 어떻게 만들었는지 → 질문 → 사람들의 해석</b> 순서다. 앞 문단이 '단서만 주고 끝'이었다면, 이 문단은 <b>사람들의 의견으로 답을 대신</b>하며 끝난다.",
+  tag:"Banksy",
+  title:"두 번째 장소 — Finsbury Park, Banksy",
+  gist:"두 번째 정거장. <b>장소 이동 → 작가의 특징 → 예시 작품 → 제작 방법 → 질문 → 사람들의 해석</b> 순서다. 앞 문단이 단서만 주고 끝났다면, 여기는 <b>사람들의 의견으로 답을 대신</b>하며 끝난다.",
   flow:[
-    {fn:"장소 이동", ko:"지금은 Banksy의 그림을 보러 Finsbury Park에 와 있다."},
-    {fn:"작가 특징 + 예시", ko:"Banksy 작품은 사회적 메시지를 담는데, 저 초록 나무가 좋은 예다."},
-    {fn:"제작 방법", ko:"잎이 없는 나무 뒤 벽에 초록 페인트를 뿌려 만들었다."},
-    {fn:"장면 묘사", ko:"나무 옆에는 분무기를 들고 있는 사람이 있다."},
-    {fn:"질문 던지기", ko:"이 그림으로 어떤 메시지를 주려는 걸까?"},
-    {fn:"사람들의 해석", ko:"자연이 힘들어하고 있다는 말이며, 더 잘 돌보길 원한다는 뜻이라고 본다."}
+    {no:"13", fn:"장소 이동", ko:"Banksy의 그림을 보러 Finsbury Park에 와 있다."},
+    {no:"14", fn:"작가 특징", ko:"작품에 사회적 메시지를 담는데, 저 초록 나무가 좋은 예다."},
+    {no:"15", fn:"제작 방법", ko:"잎이 없는 나무 뒤 벽에 초록 페인트를 뿌려 만들었다."},
+    {no:"16", fn:"장면 묘사", ko:"나무 옆에는 분무기를 들고 있는 사람이 있다."},
+    {no:"17", fn:"질문 던지기", ko:"이 그림으로 어떤 메시지를 주려는지 묻는다."},
+    {no:"18", fn:"사람들의 해석", ko:"자연이 힘든 시간을 보내고 있다고 말하는 것이다."},
+    {no:"19", fn:"해석 마무리", ko:"우리가 자연을 더 잘 돌보기를 원한다고 본다."}
   ],
   order:[
-    { ko:"Banksy의 작품들은 종종 사회적 메시지를 담고 있는데, 저기에 보이는 초록색 나무가 좋은 예이다.",
-      chunks:[{ko:"Banksy의 작품들은",role:"주어"},{ko:"종종",role:"빈도부사"},{ko:"사회적 메시지를",role:"목적어"},{ko:"담고 있다",role:"동사"},{ko:"저기에 보이는",role:"꾸밈(절)"},{ko:"그리고 그 초록색 나무가",role:"주어2"},{ko:"좋은 예이다",role:"동사+보어"}],
+    { ko:"Banksy의 작품들은 종종 사회적 메시지를 담고 있는데, 저기에 보이는 그 초록색 나무가 좋은 예이다.",
+      chunks:[
+        {ko:"Banksy의 작품들은",       role:"주어"},
+        {ko:"종종",                   role:"빈도부사"},
+        {ko:"사회적 메시지를",          role:"목적어"},
+        {ko:"담고 있다",               role:"동사"},
+        {ko:"저기에 보이는",            role:"꾸밈(절)"},
+        {ko:"그리고 그 초록색 나무가",    role:"주어2",
+         cj:{w:"and", pos:"앞", why:"두 문장을 잇는다. 뒤 문장에 새 주어가 오므로 and 앞에 콤마"}},
+        {ko:"좋은 예이다",             role:"동사+보어"}
+      ],
       seq:[1,2,4,3,6,5,7],
       eng:["Banksy's artworks","often","carry","social messages,","and the green tree","you see over there","is a good example."],
       full:"Banksy's artworks often carry social messages, and the green tree you see over there is a good example.",
-      diff:"두 가지가 걸린다. <b>빈도부사 often은 일반동사 앞</b>(often carry). 그리고 '저기에 보이는'은 관계대명사 which[that]가 <b>생략된 채 명사 뒤</b>로 간다(the green tree → you see over there)."},
+      diff:"‘저기에 보이는’은 관계대명사가 생략된 채 <b>명사 뒤</b>로 간다 (the green tree → you see over there)."
+    },
     { ko:"그들은 그가 우리가 그것을 더 잘 돌보기를 원한다고 생각한다.",
-      chunks:[{ko:"그들은",role:"주어"},{ko:"그가",role:"주어2"},{ko:"우리가",role:"목적어"},{ko:"그것을 더 잘 돌보기를",role:"to부정사"},{ko:"원한다고",role:"동사2"},{ko:"생각한다",role:"동사"}],
+      chunks:[
+        {ko:"그들은",             role:"주어"},
+        {ko:"그가",               role:"주어2"},
+        {ko:"우리가",             role:"목적어"},
+        {ko:"그것을 더 잘 돌보기를", role:"to부정사"},
+        {ko:"원한다고",           role:"동사2"},
+        {ko:"생각한다",           role:"동사"}
+      ],
       seq:[1,6,2,5,3,4],
       eng:["They","think","he","wants","us","to take better care of it."],
       full:"They think he wants us to take better care of it.",
-      diff:"한글은 동사가 <b>맨 끝에 몰려</b>서 나온다(원한다고 → 생각한다). 영어는 앞에서부터 think → wants로 풀린다. <b>want + 목적어 + to부정사</b> 형태에 주의."}
+      diff:"한글은 동사가 맨 끝에 몰리지만, 영어는 앞에서부터 <b>think → wants</b>로 풀린다."
+    }
   ],
   write:[
-    {ko:"우리는 지금 국제적으로 유명한 거리 예술가인 Banksy의 그림을 보기 위해 Finsbury Park에 있다.", en:"We are now in Finsbury Park to see a painting by Banksy, an internationally famous street artist."},
-    {ko:"Banksy의 작품들은 종종 사회적 메시지를 담고 있는데, 저기에 보이는 초록색 나무가 좋은 예이다.", en:"Banksy's artworks often carry social messages, and the green tree you see over there is a good example."},
-    {ko:"보다시피, 그는 잎이 없는 나무 뒤의 벽에 초록색 페인트를 뿌림으로써 초록색 나무를 만들어 냈다.", en:"As you can see, he created a green tree by spraying green paint on a wall behind a leafless tree."},
-    {ko:"그 나무 옆에는, 분무기를 들고 있는 사람이 있다.", en:"Next to the tree, there is a person who is holding a sprayer."},
-    {ko:"Banksy는 이 그림을 통해 우리에게 어떤 메시지를 주고 싶어 할까?", en:"What message does Banksy want to give us through this painting?"},
-    {ko:"많은 사람들의 의견으로는, 그는 자연이 힘든 시간을 보내고 있다고 우리에게 말하고 있다.", en:"In many people's opinion, he is telling us that nature is having a hard time."},
-    {ko:"그들은 그가 우리가 그것을 더 잘 돌보기를 원한다고 생각한다.", en:"They think he wants us to take better care of it."}
+    {no:"13", ko:"우리는 지금 국제적으로 유명한 거리 예술가인 Banksy의 그림을 보기 위해 Finsbury Park에 있다.",
+     en:"We are now in Finsbury Park to see a painting by Banksy, an internationally famous street artist.",
+     keys:[{en:"to see", ko:"보기 위해 (to부정사 목적)"},
+           {en:"Banksy, an ~ artist", ko:"동격: ~인 Banksy"}]},
+    {no:"14", ko:"Banksy의 작품들은 종종 사회적 메시지를 담고 있는데, 저기에 보이는 그 초록색 나무가 좋은 예이다.",
+     en:"Banksy's artworks often carry social messages, and the green tree you see over there is a good example.",
+     link:[{en:"and", why:"두 문장을 잇는다. 뒤 문장에 새 주어가 오므로 and 앞에 콤마를 찍는다"}],
+     keys:[{en:"often", ko:"빈도부사는 일반동사 앞"},
+           {en:"the green tree you see", ko:"관계대명사가 생략된 꾸밈절"}]},
+    {no:"15", ko:"보다시피, 그는 잎이 없는 나무 뒤의 벽에 초록색 페인트를 뿌림으로써 초록색 나무를 만들어 냈다.",
+     en:"As you can see, he created a green tree by spraying green paint on a wall behind a leafless tree.",
+     keys:[{en:"by + 동명사", ko:"~함으로써 (수단)"},
+           {en:"behind", ko:"~ 뒤의"}]},
+    {no:"16", ko:"그 나무 옆에는, 분무기를 들고 있는 사람이 있다.",
+     en:"Next to the tree, there is a person who is holding a sprayer.",
+     keys:[{en:"there is + 단수명사", ko:"~이 있다"},
+           {en:"a person who ~", ko:"~하는 사람 (주격 관계대명사)"}]},
+    {no:"17", ko:"Banksy는 이 그림을 통해 우리에게 어떤 메시지를 주고 싶어 할까?",
+     en:"What message does Banksy want to give us through this painting?",
+     keys:[{en:"What + 명사 + does + 주어 ~?", ko:"어떤 ~을 …하니?"},
+           {en:"through", ko:"~을 통해"}]},
+    {no:"18", ko:"많은 사람들의 의견으로는, 그는 자연이 힘든 시간을 보내고 있다고 우리에게 말하고 있다.",
+     en:"In many people's opinion, he is telling us that nature is having a hard time.",
+     keys:[{en:"tell + 사람 + that절", ko:"~에게 …라고 말하다"},
+           {en:"have a hard time", ko:"힘든 시간을 보내다"}]},
+    {no:"19", ko:"그들은 그가 우리가 그것을 더 잘 돌보기를 원한다고 생각한다.",
+     en:"They think he wants us to take better care of it.",
+     keys:[{en:"want + 목적어 + to부정사", ko:"~가 …하기를 원하다"},
+           {en:"take care of", ko:"~을 돌보다"}]}
   ]
 },
 {
-  tag:"Ben Wilson", title:"마지막 장소 — Muswell Hill, Ben Wilson",
-  gist:"마지막 정거장. <b>안 보인다고? 아래를 봐라</b>로 시선을 바닥으로 돌린 뒤, 껌 그림의 작가와 그 안에 담긴 메시지를 소개하고, <b>작지만 큰 기쁨을 준다</b>는 대조로 글 전체를 마무리한다.",
+  tag:"Wilson",
+  title:"마지막 장소 — Muswell Hill, Ben Wilson",
+  gist:"마지막 정거장. <b>안 보인다고? 아래를 봐라</b>로 시선을 바닥으로 돌린 뒤, 껌 그림의 작가와 담긴 메시지를 소개하고, <b>작지만 큰 기쁨을 준다</b>는 대조로 글을 마무리한다.",
   flow:[
-    {fn:"장소 이동", ko:"오늘 투어의 마지막 방문지는 Muswell Hill이다."},
-    {fn:"시선 돌리기", ko:"작품이 안 보인다고? 아래를 내려다보고 자세히 보아라."},
-    {fn:"작품 소개", ko:"그 작은 껌 그림들이 Ben Wilson의 작품이다."},
-    {fn:"작가 특징", ko:"사람들이 길에 뱉은 껌 위에 그림을 그리는 것으로 알려져 있다."},
-    {fn:"담긴 내용", ko:"길에서 만난 사람들의 개인적인 메시지가 담긴다. 예를 들면 생일 축하."},
-    {fn:"마무리 대조", ko:"그림은 아주 작지만, 많은 사람에게 큰 기쁨을 준다."}
+    {no:"20", fn:"장소 이동", ko:"오늘 투어의 마지막 방문지는 Muswell Hill이다."},
+    {no:"21", fn:"시선 돌리기", ko:"작품이 하나도 안 보이는지 묻는다."},
+    {no:"22", fn:"지시", ko:"아래를 내려다보고 자세히 보라고 한다."},
+    {no:"23", fn:"작품 가리키기", ko:"작은 껌 그림들이 보이는지 묻는다."},
+    {no:"24", fn:"작가 밝히기", ko:"그것들은 예술가 Ben Wilson의 작품이다."},
+    {no:"25", fn:"작가 특징", ko:"사람들이 길에 뱉은 껌 위에 그림을 그리는 것으로 알려져 있다."},
+    {no:"26", fn:"담긴 내용", ko:"길에서 만난 사람들의 개인적인 메시지가 담긴다."},
+    {no:"27", fn:"예시", ko:"여기 이것은 사랑하는 사람을 위한 생일 축하 소망이다."},
+    {no:"28", fn:"마무리 대조", ko:"아주 작지만 많은 사람에게 큰 기쁨을 준다."}
   ],
   order:[
     { ko:"Wilson은 사람들이 길에 뱉은 껌 위에 그림을 그리는 것으로 잘 알려져 있다.",
-      chunks:[{ko:"Wilson은",role:"주어"},{ko:"사람들이 길에 뱉은",role:"꾸밈(절)"},{ko:"껌 위에",role:"장소"},{ko:"그림을",role:"목적어"},{ko:"그리는 것으로",role:"동명사"},{ko:"잘 알려져 있다",role:"동사"}],
+      chunks:[
+        {ko:"Wilson은",           role:"주어"},
+        {ko:"사람들이 길에 뱉은",   role:"꾸밈(절)"},
+        {ko:"껌 위에",            role:"장소"},
+        {ko:"그림을",             role:"목적어"},
+        {ko:"그리는 것으로",       role:"동명사"},
+        {ko:"잘 알려져 있다",      role:"동사"}
+      ],
       seq:[1,6,5,4,3,2],
       eng:["Wilson","is well known for","painting","pictures","on gum","that people drop on the street."],
       full:"Wilson is well known for painting pictures on gum that people drop on the street.",
-      diff:"한글을 <b>끝에서부터 하나씩 거꾸로</b> 읽으면 그대로 영어 순서다. 껌을 꾸미는 '사람들이 길에 뱉은'은 <b>gum 뒤에 that절</b>로 붙는다."},
-    { ko:"그의 껌 그림들은 종종 그가 길에서 만나는 사람들의 개인적인 메시지를 담고 있다.",
-      chunks:[{ko:"그의 껌 그림들은",role:"주어"},{ko:"종종",role:"빈도부사"},{ko:"그가 길에서 만나는",role:"꾸밈(절)"},{ko:"사람들로부터 온",role:"전치사구"},{ko:"개인적인 메시지를",role:"목적어"},{ko:"담고 있다",role:"동사"}],
+      diff:"한글을 <b>끝에서부터 거꾸로</b> 읽으면 그대로 영어다. 껌을 꾸미는 말은 gum 뒤에 that절로 붙는다."
+    },
+    { ko:"그의 껌 그림들은 종종 그가 길에서 만나는 사람들로부터 온 개인적인 메시지를 담고 있다.",
+      chunks:[
+        {ko:"그의 껌 그림들은",     role:"주어"},
+        {ko:"종종",               role:"빈도부사"},
+        {ko:"그가 길에서 만나는",    role:"꾸밈(절)"},
+        {ko:"사람들로부터 온",      role:"전치사구"},
+        {ko:"개인적인 메시지를",     role:"목적어"},
+        {ko:"담고 있다",           role:"동사"}
+      ],
       seq:[1,2,6,5,4,3],
       eng:["His gum paintings","often","carry","personal messages","from people","he meets on the street."],
       full:"His gum paintings often carry personal messages from people he meets on the street.",
-      diff:"꾸미는 말이 <b>둘 다 뒤로</b> 밀린다. messages → from people → he meets on the street 순서이고, people 뒤에는 관계대명사 who(m)[that]이 생략돼 있다."}
+      diff:"꾸미는 말이 둘 다 뒤로 밀린다. <b>messages → from people → he meets</b> 순서다."
+    }
   ],
   write:[
-    {ko:"오늘 우리 여행의 마지막 방문지는 Muswell Hill이다.", en:"The final stop of our tour today is Muswell Hill."},
-    {ko:"거리 예술 작품이 하나도 안 보이는가?", en:"Can't see any street artworks?"},
-    {ko:"자, 아래를 내려다보고 자세히 보아라.", en:"Well, look down and look closely."},
-    {ko:"그 작은 씹던 껌 그림들이 보이는가?", en:"Do you see the little chewing gum paintings?"},
-    {ko:"그것들은 예술가 Ben Wilson이 만든 것이다.", en:"They are by the artist Ben Wilson."},
-    {ko:"Wilson은 사람들이 길에 뱉은 껌 위에 그림을 그리는 것으로 잘 알려져 있다.", en:"Wilson is well known for painting pictures on gum that people drop on the street."},
-    {ko:"그의 껌 그림들은 종종 그가 길에서 만나는 사람들의 개인적인 메시지를 담고 있다.", en:"His gum paintings often carry personal messages from people he meets on the street."},
-    {ko:"예를 들어, 여기 이것은 사랑하는 사람을 위한 생일 축하 소망이다.", en:"For example, the one over here is a happy birthday wish for a loved one."},
-    {ko:"Wilson의 껌 그림들은 아주 작지만, 그것들은 많은 사람들에게 큰 기쁨을 준다.", en:"Wilson's gum paintings are tiny, but they give great pleasure to many people."}
+    {no:"20", ko:"오늘 우리 여행의 마지막 방문지는 Muswell Hill이다.",
+     en:"The final stop of our tour today is Muswell Hill.",
+     keys:[{en:"the final stop of ~", ko:"~의 마지막 방문지"}]},
+    {no:"21", ko:"거리 예술 작품이 하나도 안 보이는가?",
+     en:"Can't see any street artworks?",
+     keys:[{en:"not ~ any", ko:"(부정문) 어떤 ~도 … 않다"}]},
+    {no:"22", ko:"자, 아래를 내려다보고 자세히 보아라.",
+     en:"Well, look down and look closely.",
+     link:[{en:"and", why:"look down과 look closely, 두 명령을 잇는다"}],
+     keys:[{en:"look down", ko:"아래를 내려다보다"}]},
+    {no:"23", ko:"그 작은 씹던 껌 그림들이 보이는가?",
+     en:"Do you see the little chewing gum paintings?",
+     keys:[{en:"chewing gum", ko:"씹는 껌"}]},
+    {no:"24", ko:"그것들은 예술가 Ben Wilson이 만든 것이다.",
+     en:"They are by the artist Ben Wilson.",
+     keys:[{en:"by + 작가", ko:"~가 만든"}]},
+    {no:"25", ko:"Wilson은 사람들이 길에 뱉은 껌 위에 그림을 그리는 것으로 잘 알려져 있다.",
+     en:"Wilson is well known for painting pictures on gum that people drop on the street.",
+     keys:[{en:"be well known for + 동명사", ko:"~하는 것으로 잘 알려져 있다"},
+           {en:"gum that people drop", ko:"사람들이 뱉은 껌 (목적격 관계대명사)"}]},
+    {no:"26", ko:"그의 껌 그림들은 종종 그가 길에서 만나는 사람들로부터 온 개인적인 메시지를 담고 있다.",
+     en:"His gum paintings often carry personal messages from people he meets on the street.",
+     keys:[{en:"often", ko:"빈도부사는 일반동사 앞"},
+           {en:"people he meets", ko:"그가 만나는 사람들 (관계대명사 생략)"}]},
+    {no:"27", ko:"예를 들어, 여기 이것은 사랑하는 사람을 위한 생일 축하 소망이다.",
+     en:"For example, the one over here is a happy birthday wish for a loved one.",
+     link:[{en:"For example", why:"앞말의 예를 든다. 문장 맨 앞 + 콤마"}],
+     keys:[{en:"the one over here", ko:"여기 이것 (one은 앞의 명사를 대신한다)"},
+           {en:"a loved one", ko:"사랑하는 사람"}]},
+    {no:"28", ko:"Wilson의 껌 그림들은 아주 작지만, 그것들은 많은 사람들에게 큰 기쁨을 준다.",
+     en:"Wilson's gum paintings are tiny, but they give great pleasure to many people.",
+     link:[{en:"but", why:"‘아주 작다’와 ‘큰 기쁨을 준다’가 반대다. 콤마 뒤에 온다"}],
+     keys:[{en:"tiny", ko:"아주 작은"},
+           {en:"give A to B", ko:"B에게 A를 주다"}]}
   ]
 }
 ];
 
-/* ================= 상태 ================= */
-let P = 0;                 // 현재 문단
-let step = 0;              // 0 읽기 / 1 어순 / 2 영작
-const doneStep = PARAS.map(()=>[false,false,false]);
-const ordState = PARAS.map(p=>p.order.map(()=>({picks:[],solved:false})));
-const wrState  = PARAS.map(p=>p.write.map(()=>({solved:false,tried:false,hint:false,val:'',fb:''})));
-let retryOnly = false;
+/* ── 실전 문제 ── */
+const SECS={A:"대명사가 가리키는 것",B:"본문 문법",N:"연결어: 무엇을 왜 잇는가",
+            C:"문단·대화 순서",D:"내용 확인: 일치 / 불일치 / 알 수 없음",
+            E:"질문에 답하기",F:"배열 영작",G:"조건 영작",H:"추론"};
+const OX=["본문과 일치","본문과 불일치","본문으로 알 수 없음"];
 
-/* ================= 소리 ================= */
-let voices=[], ttsReady=false;
-function loadVoices(){ try{ voices = speechSynthesis.getVoices()||[]; }catch(e){ voices=[]; } }
-if('speechSynthesis' in window){ loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
-function unlockTTS(){
-  if(ttsReady || !('speechSynthesis' in window)) return;
-  try{ const u=new SpeechSynthesisUtterance(' '); u.volume=0; speechSynthesis.speak(u); ttsReady=true; }catch(e){}
+const EXAM=[
+/* A 대명사 */
+{id:"A1",sec:"A",type:"mc",from:"1",q:"밑줄 친 <u>it</u>이 가리키는 것은?",
+ ctx:"Modern street art comes in many different forms, and <u>it</u> makes cities colorful and lively.",
+ choices:["Modern street art","cities","London","many different forms"],ans:0,
+ exp:"도시를 다채롭게 만드는 주체는 앞의 Modern street art."},
+{id:"A2",sec:"A",type:"mc",from:"4",q:"밑줄 친 <u>it</u>이 가리키는 것은?",
+ ctx:"Poor workers used to live in this area, but now <u>it</u> is one of the hippest areas in London.",
+ choices:["Poor workers","this area","London","street art"],ans:1,
+ exp:"지금 최신 유행 지역이 된 것은 this area."},
+{id:"A3",sec:"A",type:"mc",from:"7",q:"밑줄 친 <u>It</u>이 가리키는 것은?",
+ ctx:"Do you see the painting over there? <u>It</u> is by the artist STIK.",
+ choices:["the painting","Shoreditch","the artist","London"],ans:0,
+ exp:"바로 앞 문장의 the painting을 받는다."},
+{id:"A4",sec:"A",type:"mc",from:"12",q:"밑줄 친 <u>They</u>가 가리키는 것은?",
+ ctx:"Well, look closely at the eyes of the three figures. <u>They</u> are just dots, but they will give you a clue.",
+ choices:["the three figures","the eyes of the three figures","street artworks","the dots on the wall"],ans:1,
+ exp:"점일 뿐이라고 한 것은 바로 앞 문장의 눈이다."},
+{id:"A5",sec:"A",type:"mc",from:"19",q:"밑줄 친 <u>it</u>이 가리키는 것은?",
+ ctx:"In many people's opinion, he is telling us that nature is having a hard time. They think he wants us to take better care of <u>it</u>.",
+ choices:["the painting","Banksy","nature","the green tree"],ans:2,
+ exp:"더 잘 돌봐야 할 대상은 앞 문장의 nature."},
+{id:"A6",sec:"A",type:"mc",from:"27",q:"밑줄 친 <u>the one</u>이 가리키는 것은?",
+ ctx:"For example, <u>the one</u> over here is a happy birthday wish for a loved one.",
+ choices:["a gum painting","a street","a sprayer","a figure"],ans:0,
+ exp:"one은 앞에 나온 명사를 대신한다. 여기서는 껌 그림 하나를 가리킨다."},
+
+/* B 문법 */
+{id:"B1",sec:"B",type:"mc",q:"빈칸에 알맞은 것은?",
+ ctx:"The place ______ we are going to visit is Shoreditch.",
+ choices:["who","that","what","where"],ans:1,
+ exp:"선행사가 사물(the place)이고 visit의 목적어가 빠졌으므로 목적격 관계대명사 that[which]."},
+{id:"B2",sec:"B",type:"mc",q:"어법상 <b>틀린</b> 문장은?",
+ choices:["He is famous for using only lines and dots.","He created a green tree by spraying green paint.","Wilson is well known for paint pictures on gum.","Thank you for visiting our city."],ans:2,
+ exp:"for는 전치사라서 뒤에 동명사가 온다. paint → painting."},
+{id:"B3",sec:"B",type:"mc",q:"빈칸에 알맞은 것은?",
+ ctx:"Poor workers ______ live in this area, but now it is one of the hippest areas.",
+ choices:["use to","used to","are used to","using to"],ans:1,
+ exp:"‘예전에는 ~했었다’는 used to + 동사원형."},
+{id:"B4",sec:"B",type:"mc",q:"빈칸에 알맞은 것은?",
+ ctx:"Now it is one of the ______ in London.",
+ choices:["hippest area","hippest areas","hipper area","most hippest areas"],ans:1,
+ exp:"one of the + 최상급 + 복수명사."},
+{id:"B5",sec:"B",type:"mc",q:"often의 위치가 바른 문장은?",
+ choices:["Banksy's artworks carry often social messages.","Often Banksy's artworks carry social messages often.","Banksy's artworks often carry social messages.","Banksy's often artworks carry social messages."],ans:2,
+ exp:"빈도부사는 일반동사 앞에 온다."},
+{id:"B6",sec:"B",type:"mc",q:"빈칸에 알맞은 것은?",
+ ctx:"They think he wants us ______ better care of it.",
+ choices:["take","taking","to take","takes"],ans:2,
+ exp:"want + 목적어 + to부정사."},
+{id:"B7",sec:"B",type:"mc",q:"빈칸에 알맞은 것은?",
+ ctx:"It makes cities ______.",
+ choices:["colorful and lively","colorfully and lively","to colorful","colorfully"],ans:0,
+ exp:"make + 목적어 + 형용사. 부사는 올 수 없다."},
+{id:"B8",sec:"B",type:"mc",q:"두 문장을 한 문장으로 바르게 합친 것은?",
+ ctx:"There is a person. + He is holding a sprayer.",
+ choices:["There is a person who is holding a sprayer.","There is a person which is holding a sprayer.","There is a person who he is holding a sprayer.","There is a person is holding a sprayer."],ans:0,
+ exp:"사람 선행사이므로 who. who가 주어라서 he를 다시 쓰지 않는다."},
+{id:"B9",sec:"B",type:"mc",q:"밑줄 친 부분을 생략할 수 <b>없는</b> 것은?",
+ choices:["the green tree <u>you see</u> over there","personal messages from people <u>he meets</u> on the street","gum <u>that people drop</u> on the street","a person <u>who is holding</u> a sprayer"],ans:3,
+ exp:"①②③은 목적격 관계대명사라 생략할 수 있지만, ④는 주격이라 생략할 수 없다."},
+
+/* N 연결어 */
+{id:"N1",sec:"N",type:"mc",q:"빈칸에 알맞은 연결어는?",
+ ctx:"Poor workers used to live in this area, ______ now it is one of the hippest areas in London.",
+ choices:["and","but","so","because"],ans:1,
+ exp:"예전과 지금이 반대다. 그래서 but."},
+{id:"N2",sec:"N",type:"mc",q:"빈칸에 알맞은 연결어는?",
+ ctx:"They are just dots, ______ they will give you a clue.",
+ choices:["so","and","but","or"],ans:2,
+ exp:"‘점일 뿐’과 ‘단서가 된다’가 반대다."},
+{id:"N3",sec:"N",type:"mc",q:"빈칸에 알맞은 연결어는?",
+ ctx:"Well, look down ______ look closely.",
+ choices:["and","but","so","because"],ans:0,
+ exp:"두 명령을 나란히 잇는다."},
+{id:"N4",sec:"N",type:"mc",q:"빈칸에 알맞은 연결어는?",
+ ctx:"Wilson's gum paintings are tiny, ______ they give great pleasure to many people.",
+ choices:["and","so","but","or"],ans:2,
+ exp:"작다는 것과 큰 기쁨을 준다는 것이 대조된다."},
+{id:"N5",sec:"N",type:"mc",q:"빈칸에 알맞은 표현은?",
+ ctx:"______, the one over here is a happy birthday wish for a loved one.",
+ choices:["For example","However","Instead","In addition"],ans:0,
+ exp:"앞에서 말한 ‘개인적인 메시지’의 예를 드는 자리다."},
+{id:"N6",sec:"N",type:"mc",q:"밑줄 친 <u>and</u>가 잇는 두 부분으로 알맞은 것은?",
+ ctx:"Modern street art comes in many different forms, <u>and</u> it makes cities colorful and lively.",
+ choices:["forms와 cities","앞 문장 전체와 뒤 문장 전체","colorful과 lively","art와 cities"],ans:1,
+ exp:"주어가 각각 있는 두 문장을 잇는다. 그래서 and 앞에 콤마가 있다."},
+
+/* C 순서 */
+{id:"C1",sec:"C",type:"order",q:"주어진 문장 다음에 이어질 순서로 알맞은 것은?",
+ given:"The place that we are going to visit is Shoreditch.",
+ items:["We can find so many great pieces of street art here.",
+        "Poor workers used to live in this area, but now it is one of the hippest areas in London.",
+        "Do you see the painting over there?"],
+ ans:[1,0,2],
+ exp:"동네 소개 → 지금 볼 수 있는 것 → 구체적인 작품 가리키기 순서다."},
+{id:"C2",sec:"C",type:"order",q:"주어진 문장 다음에 이어질 순서로 알맞은 것은?",
+ given:"According to STIK, the three figures represent the past, present, and future of Shoreditch.",
+ items:["They are just dots, but they will give you a clue.",
+        "Well, look closely at the eyes of the three figures.",
+        "Which figure represents which?"],
+ ans:[2,1,0],
+ exp:"질문을 던지고 → 눈을 보라는 단서 → 그 눈이 점이라는 설명 순서다."},
+{id:"C3",sec:"C",type:"order",q:"주어진 문장 다음에 이어질 순서로 알맞은 것은?",
+ given:"The final stop of our tour today is Muswell Hill.",
+ items:["Do you see the little chewing gum paintings?",
+        "Well, look down and look closely.",
+        "Can't see any street artworks?"],
+ ans:[2,1,0],
+ exp:"안 보이냐고 묻고 → 아래를 보라 하고 → 껌 그림을 가리킨다."},
+
+/* D 내용 확인 */
+{id:"D1",sec:"D",type:"mc",q:"Shoreditch was once home to poor workers.",choices:OX,ans:0,
+ exp:"Poor workers used to live in this area."},
+{id:"D2",sec:"D",type:"mc",q:"STIK draws human bodies with only lines and dots.",choices:OX,ans:0,
+ exp:"He is famous for using only lines and dots."},
+{id:"D3",sec:"D",type:"mc",q:"STIK tells us which figure represents the past.",choices:OX,ans:1,
+ exp:"답을 알려 주지 않고 눈을 보라는 단서만 준다."},
+{id:"D4",sec:"D",type:"mc",q:"Banksy painted the green tree on a leafless tree.",choices:OX,ans:1,
+ exp:"나무가 아니라 나무 뒤의 벽에 페인트를 뿌렸다."},
+{id:"D5",sec:"D",type:"mc",q:"Banksy explained the meaning of the painting himself.",choices:OX,ans:1,
+ exp:"본문은 ‘많은 사람들의 의견으로는’이라고 했다. 작가의 설명이 아니다."},
+{id:"D6",sec:"D",type:"mc",q:"Ben Wilson paints on gum that people drop on the street.",choices:OX,ans:0,
+ exp:"Wilson is well known for painting pictures on gum that people drop."},
+{id:"D7",sec:"D",type:"mc",q:"Ben Wilson sells his gum paintings to visitors.",choices:OX,ans:2,
+ exp:"판매 이야기는 본문에 없다."},
+{id:"D8",sec:"D",type:"mc",q:"The tour visits three places in London.",choices:OX,ans:0,
+ exp:"Shoreditch, Finsbury Park, Muswell Hill 세 곳을 돈다."},
+
+/* E 질문에 답하기 */
+{id:"E1",sec:"E",type:"mc",q:"What is STIK famous for?",
+ choices:["Painting on chewing gum","Using only lines and dots","Spraying green paint on walls","Making sprayers"],ans:1,
+ exp:"He is famous for using only lines and dots."},
+{id:"E2",sec:"E",type:"mc",q:"How did Banksy create the green tree?",
+ choices:["By planting a new tree","By spraying green paint on a wall behind a leafless tree","By drawing lines and dots","By putting gum on the wall"],ans:1,
+ exp:"by spraying green paint on a wall behind a leafless tree."},
+{id:"E3",sec:"E",type:"mc",q:"What do many people think Banksy's message is?",
+ choices:["Nature is having a hard time.","Street art should be free.","Cities need more trees to sell.","Artists should paint on gum."],ans:0,
+ exp:"he is telling us that nature is having a hard time."},
+{id:"E4",sec:"E",type:"mc",q:"Where do Ben Wilson's personal messages come from?",
+ choices:["From famous artists","From people he meets on the street","From the city government","From his students"],ans:1,
+ exp:"personal messages from people he meets on the street."},
+
+/* F 배열 영작 */
+{id:"F1",sec:"F",type:"arrange",q:"우리말과 같도록 단어를 배열하세요. (필요 없는 단어 1개)",
+ ko:"우리가 방문할 그 장소는 Shoreditch이다.",
+ words:["that","place","visit","The","which","we","is","to","Shoreditch","going","are"],
+ ans:"The place that we are going to visit is Shoreditch.",
+ exp:"목적격 관계대명사는 하나만 쓴다. which는 필요 없다."},
+{id:"F2",sec:"F",type:"arrange",q:"우리말과 같도록 단어를 배열하세요. (필요 없는 단어 1개)",
+ ko:"Wilson은 사람들이 길에 뱉은 껌 위에 그림을 그리는 것으로 잘 알려져 있다.",
+ words:["street","on","for","painting","gum","pictures","that","people","known","the","Wilson","well","drop","is","on","paint"],
+ ans:"Wilson is well known for painting pictures on gum that people drop on the street.",
+ exp:"for 뒤에는 동명사 painting. 원형 paint는 필요 없다."},
+{id:"F3",sec:"F",type:"arrange",q:"우리말과 같도록 단어를 배열하세요. (필요 없는 단어 1개)",
+ ko:"그들은 그가 우리가 그것을 더 잘 돌보기를 원한다고 생각한다.",
+ words:["wants","think","he","take","us","They","to","it","of","better","care","taking"],
+ ans:"They think he wants us to take better care of it.",
+ exp:"want + 목적어 + to부정사. taking은 필요 없다."},
+
+/* G 조건 영작 */
+{id:"G1",sec:"G",type:"write",q:"우리말과 같도록 영작하세요.",
+ ko:"그것은 도시를 다채롭고 활기차게 만든다.",
+ cond:"make + 목적어 + 형용사 로 쓸 것 · 6단어",
+ ans:["It makes cities colorful and lively."],
+ exp:"make 뒤에 목적어, 그 뒤에 형용사."},
+{id:"G2",sec:"G",type:"write",q:"우리말과 같도록 영작하세요.",
+ ko:"그는 선과 점만을 사용하는 것으로 유명하다.",
+ cond:"be famous for 를 쓸 것",
+ ans:["He is famous for using only lines and dots."],
+ exp:"for는 전치사라서 뒤에 동명사 using."},
+{id:"G3",sec:"G",type:"write",q:"우리말과 같도록 영작하세요.",
+ ko:"그 나무 옆에는 분무기를 들고 있는 사람이 있다.",
+ cond:"there is 와 관계대명사 who 를 쓸 것",
+ ans:["Next to the tree, there is a person who is holding a sprayer."],
+ exp:"사람 선행사에는 who. 주격이라 생략할 수 없다."},
+{id:"G4",sec:"G",type:"write",q:"우리말과 같도록 영작하세요.",
+ ko:"그는 벽에 초록색 페인트를 뿌림으로써 초록색 나무를 만들어 냈다.",
+ cond:"by + 동명사 를 쓸 것",
+ ans:["He created a green tree by spraying green paint on a wall."],
+ exp:"수단은 by + 동명사."},
+{id:"G5",sec:"G",type:"write",q:"우리말과 같도록 영작하세요.",
+ ko:"Wilson의 껌 그림들은 아주 작지만, 그것들은 많은 사람들에게 큰 기쁨을 준다.",
+ cond:"but 을 쓸 것",
+ ans:["Wilson's gum paintings are tiny, but they give great pleasure to many people."],
+ exp:"대조는 콤마 뒤 but."},
+
+/* H 추론 */
+{id:"H1",sec:"H",type:"mc",q:"세 작가의 특징을 바르게 짝지은 것은?",
+ choices:["STIK — 선과 점 / Banksy — 사회적 메시지 / Wilson — 껌 그림",
+          "STIK — 껌 그림 / Banksy — 선과 점 / Wilson — 사회적 메시지",
+          "STIK — 사회적 메시지 / Banksy — 껌 그림 / Wilson — 선과 점",
+          "셋 다 같은 방식으로 작업한다."],ans:0,
+ exp:"각 문단의 작가 특징을 그대로 정리한 것이다."},
+{id:"H2",sec:"H",type:"mc",q:"이 글 전체의 흐름으로 알맞은 것은?",
+ choices:["한 장소에서 세 작가를 모두 만난다.","장소를 옮겨 다니며 작품과 작가를 하나씩 소개한다.","거리 예술의 역사를 연대순으로 설명한다.","거리 예술의 문제점을 지적한다."],ans:1,
+ exp:"Shoreditch → Finsbury Park → Muswell Hill 순서로 이동하는 투어 형식이다."}
+];
+
+/* ── 마무리 정리 ── */
+const FSECS={S:"서술형: 누가 무엇을 왜",K:"핵심문장 고르기",R:"대명사가 가리키는 것 (문단 속에서)"};
+
+const FINAL=[
+{id:"S1",kind:"short",sec:"S",who:"STIK",
+ q:"STIK은 무엇으로 유명한가요? be famous for 를 써서 쓰세요.",
+ must:[["famous for"],["lines and dots"]],
+ model:"He is famous for using only lines and dots.",
+ exp:"for 뒤에는 동명사 using."},
+{id:"S2",kind:"short",sec:"S",who:"STIK",
+ q:"STIK 작품의 세 인물은 무엇을 나타내나요? represent 를 써서 쓰세요.",
+ must:[["represent"],["past"]],
+ model:"They represent the past, present, and future of Shoreditch.",
+ exp:"셋 이상 나열은 마지막 것 앞에만 and."},
+{id:"S3",kind:"short",sec:"S",who:"Banksy",
+ q:"Banksy는 초록색 나무를 어떻게 만들었나요? by 를 써서 쓰세요.",
+ must:[["by spraying"],["wall"]],
+ model:"He created a green tree by spraying green paint on a wall.",
+ exp:"수단은 by + 동명사."},
+{id:"S4",kind:"short",sec:"S",who:"Banksy",
+ q:"사람들은 Banksy가 무엇을 원한다고 생각하나요? want 를 써서 쓰세요.",
+ must:[["wants us"],["take better care"]],
+ model:"They think he wants us to take better care of it.",
+ exp:"want + 목적어 + to부정사."},
+{id:"S5",kind:"short",sec:"S",who:"Ben Wilson",
+ q:"Ben Wilson은 어디에 그림을 그리나요? gum 을 써서 쓰세요.",
+ must:[["gum"],["drop"]],
+ model:"He paints pictures on gum that people drop on the street.",
+ exp:"껌을 꾸미는 말은 gum 뒤에 that절로 붙는다."},
+{id:"S6",kind:"short",sec:"S",who:"Ben Wilson",
+ q:"Wilson의 껌 그림은 크기와 달리 어떤 점이 특별한가요? but 을 써서 쓰세요.",
+ must:[["tiny"],["but"]],
+ model:"His gum paintings are tiny, but they give great pleasure to many people.",
+ exp:"작다는 것과 큰 기쁨이 대조된다."},
+
+{id:"K1",kind:"pick",sec:"K",
+ q:"빈칸에 들어갈 문장으로 알맞은 것은?",
+ text:"Modern street art comes in many different forms, and it makes cities colorful and lively. [[BLANK]]",
+ choices:["Today, we are going to see some well-known street artworks in London.",
+          "The final stop of our tour today is Muswell Hill.",
+          "We can find so many great pieces of street art here.",
+          "They are by the artist Ben Wilson."],
+ ans:0,
+ exp:"거리 예술이 무엇인지 말한 뒤에는 오늘 무엇을 할지가 온다."},
+{id:"K2",kind:"pick",sec:"K",
+ q:"빈칸에 들어갈 문장으로 알맞은 것은?",
+ text:"Do you see the painting over there? It is by the artist STIK. [[BLANK]] According to STIK, the three figures represent the past, present, and future of Shoreditch.",
+ choices:["Poor workers used to live in this area, but now it is one of the hippest areas in London.",
+          "He is famous for using only lines and dots in his paintings of human bodies.",
+          "Well, look down and look closely.",
+          "What message does Banksy want to give us through this painting?"],
+ ans:1,
+ exp:"작가를 밝힌 뒤 그 작가의 특징이 오고, 그다음 작품의 의미로 이어진다."},
+{id:"K3",kind:"pick",sec:"K",
+ q:"빈칸에 들어갈 문장으로 알맞은 것은?",
+ text:"We are now in Finsbury Park to see a painting by Banksy, an internationally famous street artist. [[BLANK]] As you can see, he created a green tree by spraying green paint on a wall behind a leafless tree.",
+ choices:["Banksy's artworks often carry social messages, and the green tree you see over there is a good example.",
+          "Wilson is well known for painting pictures on gum that people drop on the street.",
+          "Which figure represents which?",
+          "Can't see any street artworks?"],
+ ans:0,
+ exp:"뒤 문장의 ‘그 초록색 나무’가 무엇인지 먼저 소개해야 한다."},
+
+{id:"R1",kind:"pron",sec:"R",
+ q:"같은 <b>They</b>이지만 가리키는 것이 다릅니다. 각각 무엇을 가리키나요?",
+ text:"Well, look closely at the eyes of the three figures. [[1]] are just dots, but they will give you a clue. … Do you see the little chewing gum paintings? [[2]] are by the artist Ben Wilson.",
+ blanks:[
+  {label:"①",w:"They",choices:["the eyes of the three figures","the three figures","street artworks","clues"],ans:0,
+   exp:"점일 뿐이라고 한 것은 바로 앞 문장의 눈이다."},
+  {label:"②",w:"They",choices:["the eyes","the little chewing gum paintings","people on the street","the artists"],ans:1,
+   exp:"바로 앞 문장의 껌 그림들을 받는다. 같은 They라도 가리키는 것이 바뀐다."}
+ ]},
+{id:"R2",kind:"pron",sec:"R",
+ q:"같은 <b>it</b>이지만 가리키는 것이 다릅니다. 각각 무엇을 가리키나요?",
+ text:"Poor workers used to live in this area, but now [[1]] is one of the hippest areas in London. … They think he wants us to take better care of [[2]].",
+ blanks:[
+  {label:"①",w:"it",choices:["this area","London","street art","poor workers"],ans:0,
+   exp:"최신 유행 지역이 된 것은 this area."},
+  {label:"②",w:"it",choices:["the painting","nature","the green tree","the sprayer"],ans:1,
+   exp:"앞 문장에서 말한 nature를 받는다."}
+ ]},
+{id:"R3",kind:"pron",sec:"R",
+ q:"밑줄 친 대명사가 가리키는 것을 고르세요.",
+ text:"Modern street art comes in many different forms, and [[1]] makes cities colorful and lively. … Wilson's gum paintings are tiny, but [[2]] give great pleasure to many people.",
+ blanks:[
+  {label:"①",w:"it",choices:["Modern street art","cities","London","forms"],ans:0,
+   exp:"도시를 다채롭게 만드는 것은 현대 거리 예술이다."},
+  {label:"②",w:"they",choices:["many people","Wilson's gum paintings","the streets","the artists"],ans:1,
+   exp:"큰 기쁨을 주는 것은 Wilson의 껌 그림들이다."}
+ ]}
+];
+
+/* ============================================================
+   DATA END — 여기부터는 엔진. 수정 금지.
+   ============================================================ */
+
+/* ============ STATE (세션 메모리만) ============ */
+function freshState(){
+  return {phase:'para',p:0,onlyWrong:false,
+    P:PARAS.map(()=>({read:false,stage:1})),ord:{},wr:{},ex:{},fn:{},story:{step:1,pick:[],ordered:false,shown:false,omarks:null,ashown:{},vals:{},rev:{},marks:{},done:false,tries:0,msg:''}};
 }
-document.addEventListener('touchstart', unlockTTS, {once:true});
-document.addEventListener('click', unlockTTS, {once:true});
-function speak(text, slow){
-  if(!('speechSynthesis' in window)) return;
+let S=freshState();
+function oS(p,i){const k=p+'-'+i;return S.ord[k]||(S.ord[k]={pick:[],ordered:false,done:false,msg:'',shown:false,cj:{},cjmk:{},cjmsg:'',cjshown:false});}
+function ws(m,p,i){const map=S.wr,k=p+'-'+i;return map[k]||(map[k]={val:'',status:'',tries:0,retried:false,peek:false,peeked:false,hint:false,keys:{},diff:null});}
+function xs(id){return S.ex[id]||(S.ex[id]={sel:null,pick:[],val:'',status:'',tries:0,first:null,diff:null});}
+function fsx(id){return S.fn[id]||(S.fn[id]={sel:null,pick:[],val:'',vals:{},bs:{},rev:{},status:'',first:null,marks:null});}
+function finalOk(){return FINAL.filter(q=>fsx(q.id).status==='ok').length;}
+function ordAllDone(p){return PARAS[p].order.every((_,i)=>oS(p,i).done);}
+function passCount(m,p){return PARAS[p].write.filter((_,i)=>ws(m,p,i).status==='pass').length;}
+function paraDone(p){return passCount('w',p)===PARAS[p].write.length;}
+const TOTAL=PARAS.reduce((a,P)=>a+P.write.length,0);
+const SHUF=(()=>{                       /* 문단 수에 맞춰 자동으로 섞는다 (정답 순서와 절대 같지 않게) */
+  const n=PARAS.length,out=[];
+  for(let i=n-1;i>=0;i-=2)out.push(i);
+  for(let i=(n%2?1:0);i<n;i+=2)out.push(i);
+  return out;
+})();
+const SORD=PARAS.map((_,p)=>SHUF.indexOf(p));
+function storyDone(){return S.story.ordered&&storyAllOk();}
+function examOk(){return EXAM.filter(q=>xs(q.id).status==='ok').length;}
+
+/* ============ UTIL ============ */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/[\u2018\u2019]/g,"'")
+    .replace(/[^a-z0-9'\-\s]/gi,' ')
+    .replace(/\s+/g,' ').trim();
+}
+function toks(s){const n=norm(s);return n?n.split(' '):[];}
+function sameToks(a,b){const x=toks(a),y=toks(b);return x.length===y.length&&x.every((t,k)=>t===y[k]);}
+function showQ(s){
+  const o=(s.match(/\u201C/g)||[]).length,c=(s.match(/\u201D/g)||[]).length;
+  if(o>c)return s+'\u201D';
+  if(c>o)return '\u201C'+s;
+  return s;
+}
+function hintOf(en){
+  return en.replace(/[\u201C\u201D"]/g,'').split(/\s+/).filter(Boolean).map(w=>{
+    let first=true;
+    return w.replace(/[A-Za-z0-9]/g,ch=>{if(first){first=false;return ch;}return '_';});
+  }).join(' ');
+}
+function lcsDiff(u,a){
+  const n=u.length,m=a.length;
+  const L=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+  for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)
+    L[i][j]=u[i]===a[j]?L[i+1][j+1]+1:Math.max(L[i+1][j],L[i][j+1]);
+  const out=[];let i=0,j=0;
+  while(i<n&&j<m){
+    if(u[i]===a[j]){out.push({t:'ok',w:u[i]});i++;j++;}
+    else if(L[i+1][j]>=L[i][j+1]){out.push({t:'bad',w:u[i]});i++;}
+    else{out.push({t:'miss',w:a[j]});j++;}
+  }
+  while(i<n)out.push({t:'bad',w:u[i++]});
+  while(j<m)out.push({t:'miss',w:a[j++]});
+  return out;
+}
+function diffHTML(d){return d.map(x=>x.t==='ok'?`<span class="t-ok">${esc(x.w)}</span>`:x.t==='bad'?`<s class="t-bad">${esc(x.w)}</s>`:`<span class="t-miss">___</span>`).join(' ');}
+function goTop(){try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}}
+const CIR=['①','②','③','④','⑤'],LAB=['(A)','(B)','(C)','(D)','(E)'];
+const LAB8=['(A)','(B)','(C)','(D)','(E)','(F)','(G)','(H)','(I)','(J)','(K)','(L)'];
+
+/* ============ SOUND ============ */
+let voice=null,actx=null,unlocked=false;
+const VOICE_FIRST=/\bWilliam\b/i;   /* 지정 목소리: William. 없으면 기본 미국 영어로 대체 */
+const hasTTS=typeof window!=='undefined'&&'speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined';
+function enVoices(){
+  if(!hasTTS)return [];
+  let vs=[];
+  try{vs=speechSynthesis.getVoices()||[];}catch(e){return [];}
+  return vs.filter(v=>/^en([-_]|$)/i.test(v.lang||''));
+}
+function pickVoice(){
+  if(!hasTTS)return;
+  const vs=enVoices();
+  if(!vs.length){voice=null;return;}
+  const will=vs.find(v=>VOICE_FIRST.test(v.name||''));
+  if(will){voice=will;return;}
+  const us=vs.filter(v=>/^en[-_]US/i.test(v.lang||''));
+  const pool=us.length?us:vs;
+  const rank=v=>{
+    const n=v.name||'';let s=0;
+    if(/Google US English/i.test(n))s+=30;
+    else if(/Samantha|Aria|Jenny|Ava|Zira/i.test(n))s+=20;
+    if(/Natural|Neural|Enhanced|Premium/i.test(n))s+=10;
+    if(/Compact|eSpeak|Espeak/i.test(n))s-=15;
+    return s;
+  };
+  voice=pool.slice().sort((a,b)=>rank(b)-rank(a))[0];
+}
+if(hasTTS){
+  pickVoice();
+  try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){}
+  setTimeout(pickVoice,400);
+}
+function speak(t,slow){
+  if(!hasTTS)return;
   try{
     speechSynthesis.cancel();
-    const u=new SpeechSynthesisUtterance(text);
-    u.lang='en-US'; u.rate = slow?0.65:0.9;
-    const want=['Google US English','Samantha','Microsoft Aria Online (Natural) - English (United States)','Alex'];
-    for(const w of want){ const v=voices.find(v=>v.name===w); if(v){ u.voice=v; break; } }
-    if(!u.voice){ const v=voices.find(v=>/^en(-|_)US/i.test(v.lang)); if(v) u.voice=v; }
+    if(!voice)pickVoice();
+    const u=new SpeechSynthesisUtterance(String(t).replace(/[\u201C\u201D"]/g,''));
+    if(voice){u.voice=voice;u.lang=voice.lang||'en-US';}else u.lang='en-US';
+    u.rate=slow?0.6:0.88;
     speechSynthesis.speak(u);
   }catch(e){}
 }
-/* 페이지 넘김음 — 문단 이동에만 */
-let actx=null;
+function getCtx(){
+  if(actx)return actx;
+  const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;
+  try{actx=new C();}catch(e){actx=null;}
+  return actx;
+}
+function unlock(){
+  if(unlocked)return;unlocked=true;
+  if(hasTTS){try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}catch(e){}pickVoice();}
+  const c=getCtx();if(c&&c.state==='suspended'){try{c.resume();}catch(e){}}
+}
+document.addEventListener('touchstart',unlock,{once:true,passive:true});
+document.addEventListener('click',unlock,{once:true});
 function pageTurn(){
+  const c=getCtx();if(!c)return;
   try{
-    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
-    const t=actx.currentTime, o=actx.createOscillator(), g=actx.createGain();
-    o.type='triangle'; o.frequency.setValueAtTime(420,t); o.frequency.exponentialRampToValueAtTime(190,t+0.16);
-    g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.09,t+0.02);
-    g.gain.exponentialRampToValueAtTime(0.0001,t+0.22);
-    o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+0.24);
+    const d=0.24,n=Math.floor(c.sampleRate*d),b=c.createBuffer(1,n,c.sampleRate),a=b.getChannelData(0);
+    for(let i=0;i<n;i++){const t=i/n;a[i]=(Math.random()*2-1)*Math.pow(1-t,2)*Math.min(1,t*8);}
+    const s=c.createBufferSource();s.buffer=b;
+    const f=c.createBiquadFilter();f.type='bandpass';f.Q.value=0.9;
+    f.frequency.setValueAtTime(1500,c.currentTime);f.frequency.exponentialRampToValueAtTime(4800,c.currentTime+d);
+    const g=c.createGain();g.gain.value=0.35;
+    s.connect(f);f.connect(g);g.connect(c.destination);s.start();
   }catch(e){}
 }
+function clickTick(){
+  const c=getCtx();if(!c)return;
+  try{
+    const t0=c.currentTime,o=c.createOscillator(),g=c.createGain();
+    o.type='triangle';
+    o.frequency.setValueAtTime(880,t0);
+    o.frequency.exponentialRampToValueAtTime(1480,t0+0.05);
+    g.gain.setValueAtTime(0.0001,t0);
+    g.gain.exponentialRampToValueAtTime(0.16,t0+0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001,t0+0.11);
+    o.connect(g);g.connect(c.destination);o.start(t0);o.stop(t0+0.12);
+  }catch(e){}
+}
+function ttsBtns(t){
+  return `<span class="tts"><button data-act="say" data-t="${esc(t)}" aria-label="듣기">🔊</button><button data-act="say" data-slow="1" data-t="${esc(t)}" aria-label="천천히 듣기">🐢</button></span>`;
+}
+function paraText(p){return PARAS[p].write.map(x=>x.en).join(' ');}
 
-/* ================= 유틸 ================= */
-function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function norm(s){
-  return String(s).toLowerCase().replace(/[\u2018\u2019]/g,"'").replace(/[^a-z0-9'\-\s]/gi,' ')
-    .replace(/\s+/g,' ').trim();
-}
-function tokens(s){ const n=norm(s); return n?n.split(' '):[]; }
-function firstLetters(en){
-  return tokens(en).map(w=> w.length>1 ? w[0]+'_'.repeat(Math.min(w.length-1,6)) : w).join(' ');
-}
-function goTop(){ window.scrollTo(0,0); }
+/* ============ RENDER ============ */
+const app=document.getElementById('app'),rail=document.getElementById('rail'),bar=document.getElementById('bar'),barIn=document.getElementById('barIn');
 
-/* ================= 레일 · 스텝바 ================= */
-function renderRail(){
-  const r=document.getElementById('rail'); r.innerHTML='';
-  PARAS.forEach((p,i)=>{
-    const d=document.createElement('div');
-    d.textContent=p.tag;
-    if(i===P) d.className='on';
-    else if(doneStep[i].every(Boolean)) d.className='done';
-    r.appendChild(d);
-  });
-  document.getElementById('railnote').innerHTML =
-    '문단 '+(P+1)+' / '+PARAS.length+' · <b>'+esc(PARAS[P].title)+'</b>';
-  for(let s=0;s<3;s++){
-    const b=document.getElementById('sb'+s);
-    b.className = (s===step?'on':(doneStep[P][s]?'done':''));
-    b.disabled = s>0 && !doneStep[P][s-1];
-  }
-}
-function goStep(s){
-  if(s>0 && !doneStep[P][s-1]) return;
-  step=s; retryOnly=false; render(); goTop();
-}
-function unlock(s){ doneStep[P][s]=true; }
-
-/* ================= 렌더 ================= */
 function render(){
   renderRail();
-  const st=document.getElementById('stage');
-  if(step===0) st.innerHTML=viewRead();
-  else if(step===1) st.innerHTML=viewOrder();
-  else st.innerHTML=viewWrite();
+  if(S.phase==='finish')renderFinish();
+  else if(S.phase==='story')renderStory();
+  else if(S.phase==='exam')renderExam();
+  else if(S.phase==='final')renderFinalStage();
+  else renderPara();
+  renderBar();
 }
 
-/* --- STEP 1 : 문단 읽기 --- */
-function viewRead(){
-  const p=PARAS[P];
-  let li=p.flow.map(f=>'<li><span class="fn">'+esc(f.fn)+'</span><span class="fk">'+esc(f.ko)+'</span></li>').join('');
-  return '<div class="card">'+
-    '<h2>'+esc(p.title)+'</h2>'+
-    '<div class="lead">영작하기 전에, 이 문단이 무슨 말을 어떤 순서로 하는지부터 잡는다.</div>'+
-    '<div class="gist">'+p.gist+'</div>'+
-    '<h2 style="font-size:.95rem;margin-bottom:8px">문장이 하는 일</h2>'+
-    '<ul class="flow">'+li+'</ul>'+
-    '<div class="btnrow"><button class="btn wide" onclick="readDone()">흐름 파악했어요 · 어순 단계로</button></div>'+
-  '</div>';
+function tick(n,N){return n===N?' ✓':(n>0?` <span class="pn">${n}/${N}</span>`:'');}
+function renderRail(){
+  let h=`<p class="railhead">하고 싶은 부분을 눌러 바로 들어가세요.</p><div class="pills">`;
+  h+=PARAS.map((P,p)=>{
+    const n=passCount('w',p),N=P.write.length,done=n===N;
+    const cls=(S.phase==='para'&&p===S.p)?'cur':(done?'done':'');
+    return `<button class="pill ${cls}" data-act="goPara" data-p="${p}">${p+1}. ${esc(P.tag)}${tick(n,N)}</button>`;
+  }).join('');
+  const sn=storyDone()?1:0,en=examOk();
+  h+=`<button class="pill big ${S.phase==='story'?'cur':(sn?'done':'')}" data-act="goPhase" data-ph="story" id="pillStory">전체 이야기${sn?' ✓':''}</button>`;
+  h+=`<button class="pill big ${S.phase==='exam'?'cur':(en===EXAM.length?'done':'')}" data-act="goPhase" data-ph="exam" id="pillExam">실전 문제${tick(en,EXAM.length)}</button>`;
+  const fn=finalOk();
+  h+=`<button class="pill big ${S.phase==='final'?'cur':(fn===FINAL.length?'done':'')}" data-act="goPhase" data-ph="final" id="pillFinal">마무리 정리${tick(fn,FINAL.length)}</button>`;
+  rail.innerHTML=h+`</div>`;
 }
-function readDone(){ unlock(0); step=1; render(); goTop(); }
 
-/* --- STEP 2 : 어순 바꾸기 --- */
-function viewOrder(){
-  const p=PARAS[P];
-  let html='<div class="card"><h2>한글 순서를 영어 순서로</h2>'+
-    '<div class="lead">한글 덩어리에 번호가 붙어 있다. 영어로 쓸 때의 순서대로 번호를 눌러라. 영어는 아직 쓰지 않는다.</div></div>';
-  p.order.forEach((q,qi)=>{
-    const s=ordState[P][qi];
-    let chunks=q.chunks.map((c,ci)=>
-      '<div class="chunk"><div class="cnum">'+(ci+1)+'</div><div class="ctxt">'+esc(c.ko)+'</div><div class="crole">'+esc(c.role)+'</div></div>').join('');
-    let slots = s.picks.length
-      ? s.picks.map(n=>'<div class="slot">'+n+'</div>').join('')
-      : '<span class="ph">영어 순서대로 아래 번호를 누르세요</span>';
-    let pad = q.chunks.map((c,ci)=>{
-      const n=ci+1, used=s.picks.indexOf(n)>=0;
-      return '<button onclick="pick('+qi+','+n+')"'+((used||s.solved)?' disabled':'')+'>'+n+'</button>';
-    }).join('');
-    let body='';
-    if(s.solved){
-      const rows=q.seq.map((n,i)=>'<div class="engrow"><b>'+n+'</b><span>'+esc(q.eng[i])+'</span></div>').join('');
-      body='<div class="eng">'+rows+'</div>'+
-        '<div class="diff"><b>한글과 뒤집힌 지점</b><br>'+q.diff+'</div>'+
-        '<div class="btnrow"><button class="sound" onclick="speak(_ordFull('+P+','+qi+'),false)">🔊 문장 듣기</button>'+
-        '<button class="sound" onclick="speak(_ordFull('+P+','+qi+'),true)">🐢 천천히</button></div>';
-    }else{
-      body='<div class="btnrow">'+
-        '<button class="btn ghost sm" onclick="undo('+qi+')">← 하나 지우기</button>'+
-        '<button class="btn ghost sm" onclick="clr('+qi+')">전체 지우기</button>'+
-        '<button class="btn sm" onclick="checkOrd('+qi+')"'+(s.picks.length===q.chunks.length?'':' disabled')+'>순서 확인</button>'+
-        '</div><div class="fb" id="ofb'+qi+'"></div>';
+function renderPara(){
+  const p=S.p,P=PARAS[p],st=S.P[p];
+  const t2=st.read,t3=ordAllDone(p)&&st.read;
+  let h=`<div class="tabs" role="tablist">
+    <button class="tab ${st.stage===1?'on':''}" data-act="stage" data-s="1" id="tab1">① 문단 읽기</button>
+    <button class="tab ${st.stage===2?'on':''}" data-act="stage" data-s="2" id="tab2" ${t2?'':'disabled'}>② 어순 바꾸기</button>
+    <button class="tab ${st.stage===3?'on':''}" data-act="stage" data-s="3" id="tab3" ${t3?'':'disabled'}>③ 거꾸로 영작</button>
+  </div><h2>${p+1}. ${esc(P.title)}</h2>`;
+  if(st.stage===1)h+=stage1(p);
+  else if(st.stage===2)h+=stage2(p);
+  else h+=stage3(p);
+  app.innerHTML=h;
+}
+
+function stage1(p){
+  const P=PARAS[p];
+  let h=`<p class="gist">${P.gist}</p>`;
+  const cons=[];
+  P.write.forEach(it=>(it.link||[]).forEach(l=>{if(!cons.some(c=>c.en.toLowerCase()===l.en.toLowerCase()&&c.no===it.no))cons.push({en:l.en,why:l.why,no:it.no});}));
+  if(cons.length){
+    h+=`<div class="conflow"><span class="kl">이 문단의 연결어</span><p class="cchain">`+cons.map(c=>`<span class="cw">${esc(c.en)}</span>`).join('<span class="carrow">→</span>')+`</p><ul class="clist">`+cons.map(c=>`<li><b>${esc(c.en)}</b> <span class="no">${esc(c.no)}</span> ${esc(c.why)}</li>`).join('')+`</ul></div>`;
+  }
+  h+=`<ol class="flow">`;
+  h+=P.flow.map(f=>`<li><span class="no">${esc(f.no)}</span><span class="badge">${esc(f.fn)}</span><span class="fko">${esc(f.ko)}</span></li>`).join('');
+  h+=`</ol><div class="center"><button class="btn pri" data-act="readOk" id="readOk">흐름 파악했어요</button></div>`;
+  return h;
+}
+
+function stage2(p){
+  const P=PARAS[p];
+  let h=`<p class="lead">한글 문장을 보고 <b>영어 조각을 순서대로</b> 놓아 문장을 만드세요. <span class="cjmark">▢</span> 자리에 들어갈 연결어는 순서를 맞힌 뒤 직접 고릅니다.</p>`;
+  h+=P.order.map((o,i)=>ordHTML(p,i)).join('');
+  if(ordAllDone(p))h+=`<div class="center"><button class="btn pri" data-act="stage" data-s="3" id="goWrite">영작하러 가기</button></div>`;
+  return h;
+}
+
+function ordHTML(p,i){
+  const o=PARAS[p].order[i],st=oS(p,i),view=ordView(p,i),n=view.length,blanks=ordBlanks(p,i);
+  let h=`<div class="ord ${st.done?'ok':''}" id="o-${p}-${i}"><p class="oq">어순 문장 ${i+1}</p><p class="oko">${esc(o.ko)}</p>`;
+
+  if(!st.ordered){
+    h+=`<p class="olead">한글을 보고 <b>영어 조각을 순서대로</b> 눌러 문장을 만드세요. <span class="cjmark">▢</span> 자리에는 연결어가 들어가요.</p>`;
+    h+=`<div class="aline">`+(st.pick.length
+        ? st.pick.map(cn=>{const v=view.find(x=>x.cn===cn);return `<span class="aw">${esc(v.text)}</span>`}).join(' ')
+        : '<span class="ph">영어 조각을 눌러 보세요</span>')+`</div>`;
+    h+=`<div class="wchips ochips">`+ordChips(p,i).map(v=>
+        `<button data-act="pick" data-p="${p}" data-i="${i}" data-n="${v.cn}" ${st.pick.includes(v.cn)?'disabled':''}><b>${esc(v.text)}</b><span class="cko">${esc(v.ko)}</span></button>`
+      ).join('')+`</div>`;
+    if(!st.shown)h+=`<div class="row"><button class="btn sm" data-act="undo" data-p="${p}" data-i="${i}">하나 지우기</button><button class="btn sm" data-act="clear" data-p="${p}" data-i="${i}">전체 지우기</button><button class="btn sm pri" data-act="check" data-p="${p}" data-i="${i}">순서 확인</button></div>`;
+    if(st.msg)h+=`<p class="msg bad">${esc(st.msg)}</p>`;
+    if(st.shown){
+      h+=`<div class="exp"><p class="rl">정답 순서</p><ol class="clist ansord">`+view.map((v,k)=>{
+        const mine=st.pick[k],right=mine===v.cn;
+        return `<li><span class="cn ${right?'f':''}">${k+1}</span><b>${esc(v.text)}</b> <span class="cwhy">${esc(v.ko)}</span></li>`;
+      }).join('')+`</ol><p class="rn">정답을 보고 다시 놓아 보세요.</p></div>`;
+      h+=`<div class="row"><button class="btn sm pri" data-act="oretry" data-p="${p}" data-i="${i}">다시 놓기</button></div>`;
     }
-    html+='<div class="card">'+
-      '<div class="qhead">어순 '+(qi+1)+' / '+p.order.length+'</div>'+
-      '<div class="kosent">'+esc(q.ko)+'</div>'+
-      '<div class="chunks">'+chunks+'</div>'+
-      '<div class="slotline">'+slots+'</div>'+
-      '<div class="pad">'+pad+'</div>'+
-      body+'</div>';
-  });
-  const all=ordState[P].every(s=>s.solved);
-  html+='<div class="card"><button class="btn wide" onclick="orderDone()"'+(all?'':' disabled')+'>'+
-    (all?'어순 훈련 끝 · 영작 단계로':'모든 문장의 순서를 맞혀야 열립니다')+'</button></div>';
-  return html;
+    return h+`</div>`;
+  }
+
+  if(st.ordered&&!st.done){
+    h+=`<p class="olead">순서를 맞췄어요. 이제 <b>▢ 자리에 들어갈 연결어</b>를 고르세요.</p>`;
+    let bidx=-1;
+    h+=`<p class="ctx conntext">`+view.map(v=>{
+      if(!v.cj)return esc(v.en);
+      const b=++bidx,got=st.cj[b],mk=st.cjmk[b];
+      return esc(v.text.split('\u25A2')[0])+`<span class="cslot ${mk==='ok'?'ok':''} ${mk==='bad'?'bad':''}">${got?esc(got):'▢'}</span>`+esc(v.text.split('\u25A2')[1]||'');
+    }).join(' ')+`</p>`;
+    blanks.forEach((v,b)=>{
+      h+=`<p class="rl">${b+1}번째 ▢ 자리</p><div class="chs tight">`+cjOptions(v.cj.w).map(w=>
+        `<button class="ch ${st.cj[b]===w?'sel':''} ${st.cjmk[b]==='bad'&&st.cj[b]===w?'wrongc':''} ${st.cjmk[b]==='ok'&&st.cj[b]===w?'right':''}" data-act="ocj" data-p="${p}" data-i="${i}" data-b="${b}" data-w="${esc(w)}" ${st.cjmk[b]==='ok'?'disabled':''}>${esc(w)}</button>`
+      ).join('')+`</div>`;
+    });
+    h+=`<div class="row"><button class="btn sm pri" data-act="ocheck" data-p="${p}" data-i="${i}">연결어 확인</button></div>`;
+    if(st.cjmsg)h+=`<p class="msg bad">${esc(st.cjmsg)}</p>`;
+    if(st.cjshown){
+      h+=`<div class="exp"><p class="rl">정답 연결어</p><ol class="clist ansord">`+blanks.map((v,k)=>{
+        const mine=st.cj[k],right=mine&&norm(mine)===norm(v.cj.w);
+        return `<li><span class="cn ${right?'f':''}">${k+1}</span><b>${esc(v.cj.w)}</b> <span class="cwhy">${esc(v.cj.why)}</span>${mine&&!right?` <span class="rn">내 답: ${esc(mine)}</span>`:''}</li>`;
+      }).join('')+`</ol><p class="rn">정답을 보고 다시 골라 확인하세요.</p></div>`;
+    }
+    return h+`</div>`;
+  }
+
+  h+=`<ol class="eng">`+view.map((v,k)=>{
+    let t=esc(v.en);
+    if(v.cj){const w=esc(v.cj.w);t=t.replace(w,`<em class="cjw">${w}</em>`);}
+    return `<li><span class="cn f">${k+1}</span><span>${t}</span><span class="cko">${esc(v.ko)}</span></li>`;
+  }).join('')+`</ol>`;
+  if(blanks.length)h+=`<div class="cjnote"><span class="kl">연결어</span>`+blanks.map(v=>`<span class="lc"><b>${esc(v.cj.w)}</b> ${esc(v.cj.why)}</span>`).join('')+`</div>`;
+  h+=`<div class="diffcard"><span class="dl">한글과 뒤집힌 지점</span><p>${o.diff}</p></div>`;
+  h+=`<div class="passline"><span class="ans">${esc(showQ(o.full))}</span>${ttsBtns(o.full)}</div>`;
+  return h+`</div>`;
 }
-function _ordFull(pi,qi){ return PARAS[pi].order[qi].full; }
-function pick(qi,n){
-  const s=ordState[P][qi]; if(s.solved) return;
-  if(s.picks.indexOf(n)<0) s.picks.push(n);
+
+function stage3(p){
+  const P=PARAS[p];
+  let idx=P.write.map((_,i)=>i);
+  if(S.onlyWrong)idx=idx.filter(i=>ws('w',p,i).status!=='pass');
+  if(!idx.length)return `<p class="empty" id="emptyMsg">틀린 문장이 없어요. 이 문단은 모두 통과했어요.</p>`;
+  let h=`<p class="lead">한글만 보고 영어로 써 보세요. <b>연결어</b>는 어디에 왜 들어가는지 함께 적어 뒀어요. 막히면 핵심표현 칸을 누르고, 아예 모르겠으면 <b>답 보기</b>로 답을 보고 들으며 외운 뒤 직접 쓰세요.</p>`;
+  h+=idx.map(i=>wrHTML('w',p,i)).join('');
+  if(paraDone(p)&&!S.onlyWrong)h+=`<p class="empty">이 문단 완료. 아래 ‘${p===PARAS.length-1?'전체 이야기로':'다음 문단'}’을 누르세요.</p>`;
+  return h;
+}
+
+function wrHTML(m,p,i){
+  const it=PARAS[p].write[i],w=ws(m,p,i),pass=w.status==='pass',key=`${m}:${p}-${i}`;
+  let badge='';
+  if(pass)badge=w.peeked?'<span class="st re">답 보고 통과</span>':(w.retried?'<span class="st re">다시 써서 통과</span>':'<span class="st ok">한 번에 통과</span>');
+  else if(w.status==='wrong')badge='<span class="st bad">정답 보고 다시 쓰기</span>';
+  const canPeek=!pass&&w.status!=='wrong';
+  let h=`<div class="wr ${m==='s'?'compact':''} ${pass?'pass':''} ${w.status==='wrong'?'wrong':''}" id="${m}-${p}-${i}"><div class="wtop"><span class="no">${esc(it.no)}</span>${badge}</div>`;
+  h+=`<p class="wko">${esc(it.ko)}</p>`;
+  if(it.link&&it.link.length){
+    h+=`<div class="links"><span class="kl">연결어</span>`+it.link.map(l=>m==='w'
+      ? `<span class="lc"><b>${esc(l.en)}</b> ${esc(l.why)}</span>`
+      : `<span class="lc"><b>${esc(l.en)}</b></span>`).join('')+`</div>`;
+  }
+  if(m==='w'&&it.keys&&it.keys.length){
+    h+=`<div class="keys"><span class="kl">핵심표현</span>`+it.keys.map((k,j)=>{
+      const open=pass||w.keys[j];
+      return `<button class="kc ${open?'open':''}" data-act="key" data-p="${p}" data-i="${i}" data-j="${j}">${open?`<b>${esc(k.en)}</b> `:''}${esc(k.ko)}</button>`;
+    }).join('')+`</div>`;
+  }
+  if(canPeek&&w.peek)h+=`<div class="peekbox"><div class="passline"><span class="ans">${esc(showQ(it.en))}</span>${ttsBtns(it.en)}</div><p class="rn">듣고 외운 다음, 답을 가리고 직접 써서 채점하면 통과예요.</p></div>`;
+  if(w.hint&&!pass)h+=`<p class="hint">${esc(hintOf(it.en))}</p>`;
+  h+=`<input class="inp" data-k="${key}" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="영어로 써 보세요" value="${esc(w.val)}" ${pass?'readonly':''} aria-label="${esc(it.no)} 영작">`;
+  if(!pass)h+=`<div class="wbtns"><button class="btn sm" data-act="hint" data-m="${m}" data-p="${p}" data-i="${i}" ${w.hint?'disabled':''}>첫 글자 힌트</button>${canPeek?`<button class="btn sm peekbtn ${w.peek?'on':''}" data-act="peek" data-m="${m}" data-p="${p}" data-i="${i}">${w.peek?'답 가리기':'답 보기'}</button>`:''}<button class="btn sm pri" data-act="grade" data-m="${m}" data-p="${p}" data-i="${i}">채점</button></div>`;
+  if(w.status==='empty')h+=`<p class="msg bad">먼저 영작을 입력하세요.</p>`;
+  if(w.status==='wrong'&&w.diff){
+    h+=`<div class="res"><p class="rl">내 답</p><p class="dw">${diffHTML(w.diff)}</p><p class="rl">정답</p><p class="ans">${esc(showQ(it.en))}</p><p class="rn">정답을 보고 똑같이 다시 써서 채점하세요.</p></div>`;
+  }
+  if(pass)h+=`<div class="passline"><span class="rl">문장 듣기</span>${ttsBtns(it.en)}</div>`;
+  return h+`</div>`;
+}
+
+
+/* ---- ② 어순: 영어 조각 + 연결어 빈칸 ---- */
+const CONN_POOL=(()=>{
+  const o=[];
+  PARAS.forEach(P=>P.write.forEach(x=>(x.link||[]).forEach(l=>{if(!o.some(y=>y.toLowerCase()===l.en.toLowerCase()))o.push(l.en)})));
+  ['and','but','so','because','when','or','Then','First','Next','Finally','Actually'].forEach(w=>{if(!o.some(y=>y.toLowerCase()===w.toLowerCase()))o.push(w)});
+  return o;
+})();
+function ordView(p,i){
+  const o=PARAS[p].order[i],out=[];
+  o.seq.forEach((cn,pos)=>{
+    const c=o.chunks[cn-1],en=o.eng[pos];
+    let text=en,cj=null;
+    if(c.cj){
+      const w=c.cj.w,re=new RegExp('(^|\\W)'+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(\\W|$)');
+      const m=re.exec(en);
+      if(m){const at=m.index+m[1].length;text=en.slice(0,at)+'\u25A2'+en.slice(at+w.length);}
+      cj={w:w,why:c.cj.why};
+    }
+    out.push({cn:cn,pos:pos,en:en,ko:c.ko,role:c.role,text:text,cj:cj});
+  });
+  return out;
+}
+function ordBlanks(p,i){return ordView(p,i).filter(v=>v.cj);}
+function ordChips(p,i){                      /* 고정 규칙으로 섞는다 (정답 순서와 다르게) */
+  const v=ordView(p,i),n=v.length,out=[];
+  for(let k=n-1;k>=0;k-=2)out.push(v[k]);
+  for(let k=(n%2?1:0);k<n;k+=2)out.push(v[k]);
+  return out;
+}
+function cjOptions(word){
+  const cap=/^[A-Z]/.test(word);
+  const fix=w=>cap?w.charAt(0).toUpperCase()+w.slice(1):w.toLowerCase();
+  const out=[word];
+  CONN_POOL.forEach(w=>{
+    if(out.length>=4)return;
+    const f=fix(w);
+    if(!out.some(y=>y.toLowerCase()===f.toLowerCase()))out.push(f);
+  });
+  const key=word.length;                      /* 문항마다 같은 자리에 정답이 오지 않게 */
+  return out.slice(0,4).sort((a,b)=>((a.length*7+key)%5)-((b.length*7+key)%5));
+}
+
+/* ---- 전체 이야기: 문단 순서 → 연결어 채우기 ---- */
+function reEsc(x){return String(x).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+const STORY_SEGS=PARAS.map((P,p)=>{
+  const out=[];let bi=0;
+  P.write.forEach(it=>{
+    let parts=[{t:'text',v:it.en}];
+    (it.link||[]).forEach(l=>{
+      for(let i=0;i<parts.length;i++){
+        if(parts[i].t!=='text')continue;
+        const m=new RegExp('(^|[^A-Za-z])('+reEsc(l.en)+')($|[^A-Za-z])').exec(parts[i].v);
+        if(!m)continue;
+        const at=m.index+m[1].length;
+        const before=parts[i].v.slice(0,at),after=parts[i].v.slice(at+l.en.length);
+        parts.splice(i,1,{t:'text',v:before},{t:'blank',a:l.en,why:l.why},{t:'text',v:after});
+        break;
+      }
+    });
+    parts.forEach(x=>{
+      if(x.t==='text'){if(x.v)out.push(x);}
+      else out.push({t:'blank',k:bi++,a:x.a,why:x.why});
+    });
+    out.push({t:'text',v:' '});
+  });
+  return out;
+});
+const CONN_BANK=(()=>{const o=[];STORY_SEGS.forEach(sg=>sg.forEach(x=>{if(x.t==='blank'&&!o.some(y=>y.toLowerCase()===x.a.toLowerCase()))o.push(x.a);}));return o.sort((a,b)=>a.toLowerCase()<b.toLowerCase()?-1:1);})();
+const STORY_NB=STORY_SEGS.reduce((a,sg)=>a+sg.filter(x=>x.t==='blank').length,0);
+function sKey(p,k){return p+'-'+k;}
+function storyFilled(){let n=0;STORY_SEGS.forEach((sg,p)=>sg.forEach(x=>{if(x.t==='blank'&&norm(S.story.vals[sKey(p,x.k)]||'')===norm(x.a))n++;}));return n;}
+function paraHTML(p,mode){
+  return STORY_SEGS[p].map(x=>{
+    if(x.t==='text')return esc(x.v);
+    if(mode==='full')return `<b class="cjw">${esc(x.a)}</b>`;
+    if(mode==='hide')return `<span class="cblank">______</span>`;
+    const key=sKey(p,x.k),mk=S.story.marks[key];
+    return `<input class="cinp ${mk==='ok'?'ok':''} ${mk==='bad'?'bad':''} ${S.story.rev[key]?'rev':''}" data-story="${key}" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" value="${esc(S.story.vals[key]||'')}" aria-label="${x.k+1}번 빈칸">`;
+  }).join('');
+}
+function storyParaOk(p){return STORY_SEGS[p].every(x=>x.t!=='blank'||norm(S.story.vals[sKey(p,x.k)]||'')===norm(x.a));}
+function storyParaCount(p){
+  const bl=STORY_SEGS[p].filter(x=>x.t==='blank');
+  return {n:bl.filter(x=>norm(S.story.vals[sKey(p,x.k)]||'')===norm(x.a)).length,N:bl.length};
+}
+function storyAllOk(){return PARAS.every((_,p)=>storyParaOk(p));}
+function renderStory(){
+  const st=S.story,n=PARAS.length;
+  let h=`<h2>전체 이야기</h2>`;
+  h+=`<div class="tabs" role="tablist">
+    <button class="tab ${st.step===1?'on':''}" data-act="sStep" data-s="1" id="sTab1">① 문단 순서${st.ordered?' ✓':''}</button>
+    <button class="tab ${st.step===2?'on':''}" data-act="sStep" data-s="2" id="sTab2">② 연결어 넣기${storyAllOk()?' ✓':''}</button>
+  </div>`;
+  if(st.step===1)h+=storyStep1();
+  else h+=storyStep2();
+  app.innerHTML=h;
+}
+function storyStep1(){
+  const st=S.story,n=PARAS.length;
+  let h='';
+  if(st.ordered){
+    h+=`<p class="lead">순서를 맞췄어요. 이야기 순서대로 놓인 본문이에요. 연결어는 <b>② 연결어 넣기</b>에서 채워요.</p>`;
+    h+=PARAS.map((P,p)=>`<section class="sgroup"><h3>${p+1}. ${esc(P.tag)} — ${esc(P.title)}</h3><div class="storypara"><p>${paraHTML(p,'hide')}</p></div></section>`).join('');
+    return h;
+  }
+  h+=`<p class="lead">문단이 섞여 있어요. <b>이야기 순서대로</b> 문단 기호를 눌러 보세요. 연결어는 비어 있으니 내용으로 판단해야 해요.</p>`;
+  h+=`<div class="slots">`+PARAS.map((_,k)=>{
+    const mk=st.omarks?st.omarks[k]:null;
+    return `<span class="slot wide ${st.pick[k]!=null?'f':''} ${mk==='ok'?'sok':''} ${mk==='bad'?'sbad':''}">${st.pick[k]!=null?LAB8[st.pick[k]]:''}</span>`;
+  }).join('')+`</div>`;
+  if(!st.shown){
+    h+=`<div class="pad">`+SHUF.map((_,k)=>`<button class="wide" data-act="sPick" data-k="${k}" ${st.pick.includes(k)?'disabled':''}>${LAB8[k]}</button>`).join('')+`</div>`;
+    h+=`<div class="row"><button class="btn sm" data-act="sUndo" id="sUndo">하나 지우기</button><button class="btn sm" data-act="sClear" id="sClear">전체 지우기</button><button class="btn sm pri" data-act="sCheck" id="sCheck">순서 확인</button></div>`;
+  }
+  if(st.msg)h+=`<p class="msg bad">${esc(st.msg)}</p>`;
+  if(st.shown){
+    h+=`<div class="exp" id="sAnswer"><p class="rl">정답 순서</p><p class="ans">`+SORD.map((k,i)=>`${LAB8[k]} <span class="ptag">${esc(PARAS[i].tag)}</span>`).join(' → ')+`</p><p>${esc(PARAS.map((P,i)=>`${i+1}. ${P.tag}`).join(' → '))} 순서예요. 정답을 보고 다시 놓아 보세요.</p></div>`;
+    h+=`<div class="row"><button class="btn sm pri" data-act="sRetry" id="sRetry">다시 놓기</button><button class="btn sm" data-act="sStep" data-s="2">연결어 먼저 하기</button></div>`;
+  }
+  h+=SHUF.map((p,k)=>{
+    const at=st.pick.indexOf(k),right=SORD.indexOf(k);
+    return `<section class="spara ${at>=0?'used':''}" id="sp-${k}"><div class="wtop"><span class="plab">${LAB8[k]}</span>${st.shown?`<span class="st ${at===right?'ok':'bad'}">정답 ${right+1}번째</span>`:(at>=0?`<span class="st ok">${at+1}번째</span>`:'')}</div><p>${paraHTML(p,'hide')}</p></section>`;
+  }).join('');
+  return h;
+}
+function storyStep2(){
+  const st=S.story;
+  let h=`<p class="lead">문단마다 빈칸에 <b>연결어</b>를 쓰고 그 문단만 채점하세요. 모르겠으면 그 빈칸을 <b>두 번</b> 누르면 답이 나와요.</p>`;
+  h+=`<div class="keys"><span class="kl">쓰이는 연결어</span>`+CONN_BANK.map(wd=>`<span class="lc">${esc(wd)}</span>`).join('')+`</div>`;
+  h+=PARAS.map((P,p)=>{
+    const c=storyParaCount(p),ok=c.n===c.N;
+    let b=`<section class="sgroup" id="sg-${p}"><div class="wtop"><h3>${p+1}. ${esc(P.tag)} — ${esc(P.title)}</h3><span class="st ${ok?'ok':''}">${c.n}/${c.N}</span></div>`;
+    if(ok){
+      b+=`<div class="storypara"><p>${paraHTML(p,'full')}</p><div class="passline"><span class="rl">문단 듣기</span>${ttsBtns(paraText(p))}</div></div>`;
+    }else{
+      b+=`<div class="storypara fill"><p class="conntext">${paraHTML(p,'fill')}</p><div class="wbtns"><button class="btn sm pri" data-act="sGradeP" data-p="${p}">이 문단 채점</button></div>`;
+      if(st.pmsg&&st.pmsg.p===p)b+=`<p class="msg bad">${esc(st.pmsg.t)}</p>`;
+      if(st.ashown[p]){
+        const bl=STORY_SEGS[p].filter(x=>x.t==='blank');
+        b+=`<div class="exp"><p class="rl">정답 순서</p><ol class="clist ansord">`+bl.map((x,i)=>{
+          const mine=String(st.vals[sKey(p,x.k)]||'').trim(),right=norm(mine)===norm(x.a);
+          return `<li><span class="cn ${right?'f':''}">${i+1}</span><b>${esc(x.a)}</b> <span class="cwhy">${esc(x.why)}</span>${mine&&!right?` <span class="rn">내 답: ${esc(mine)}</span>`:''}</li>`;
+        }).join('')+`</ol><p class="rn">정답을 보고 빈칸에 직접 써서 다시 채점하세요.</p></div>`;
+      }
+      b+=`</div>`;
+    }
+    return b+`</section>`;
+  }).join('');
+  if(storyAllOk())h+=`<p class="empty">연결어를 모두 채웠어요. 아래 ‘실전 문제로’를 누르세요.</p>`;
+  return h;
+}
+function storyGradeP(p){
+  const st=S.story;let bad=0,empty=0;
+  STORY_SEGS[p].forEach(x=>{
+    if(x.t!=='blank')return;
+    const key=sKey(p,x.k),v=String(st.vals[key]||'').trim();
+    if(!v){st.marks[key]=null;empty++;return;}
+    const ok=norm(v)===norm(x.a);
+    st.marks[key]=ok?'ok':'bad';
+    if(!ok)bad++;
+  });
+  if(empty){st.pmsg={p:p,t:`빈칸 ${empty}개가 비어 있어요. 아래 정답을 보고 채워 보세요.`};st.ashown[p]=true;}
+  else if(bad){st.tries++;st.pmsg={p:p,t:`빨간 칸 ${bad}개를 고쳐서 다시 채점하세요.`};st.ashown[p]=true;}
+  else{st.pmsg=null;pageTurn();}
+}
+function storyGradeAll(){
+  let touched=false;
+  PARAS.forEach((_,p)=>{
+    if(storyParaOk(p))return;
+    const has=STORY_SEGS[p].some(x=>x.t==='blank'&&String(S.story.vals[sKey(p,x.k)]||'').trim());
+    if(has){storyGradeP(p);touched=true;}
+  });
+  if(!touched)S.story.pmsg={p:-1,t:'먼저 빈칸을 채우세요.'};
+}
+function storyReveal(key){
+  const st=S.story;if(st.done)return;
+  const [p,k]=key.split('-').map(Number);
+  const b=STORY_SEGS[p].find(x=>x.t==='blank'&&x.k===k);
+  if(!b)return;
+  st.vals[key]=b.a;st.rev[key]=true;st.marks[key]='ok';S.story.pmsg=null;render();
+}
+/* ---- 실전 문제 ---- */
+function renderExam(){
+  let h=`<h2>실전 문제</h2><p class="lead">본문에서 시험에 자주 나오는 유형이에요. 답을 고르고 채점하세요. 틀리면 해설을 보고 다시 풀어 맞혀야 완주할 수 있어요.</p>`;
+  let list=EXAM;
+  if(S.onlyWrong)list=EXAM.filter(q=>xs(q.id).status!=='ok');
+  if(!list.length){app.innerHTML=h+`<p class="empty" id="emptyMsg">틀린 문제가 없어요. 모두 맞혔어요.</p>`;return;}
+  let cur='';
+  list.forEach(q=>{
+    if(q.sec!==cur){cur=q.sec;h+=`<h3 class="sech">${esc(SECS[q.sec])}</h3>`;}
+    h+=exHTML(q);
+  });
+  app.innerHTML=h;
+}
+
+function exHTML(q){
+  const x=xs(q.id),graded=x.status==='ok'||x.status==='bad';
+  let badge='';
+  if(x.status==='ok')badge=x.first?'<span class="st ok">정답</span>':'<span class="st re">다시 풀어 정답</span>';
+  else if(x.status==='bad')badge='<span class="st bad">오답</span>';
+  let h=`<div class="exq ${x.status==='ok'?'pass':''} ${x.status==='bad'?'wrong':''}" id="q-${q.id}"><div class="wtop"><span class="no">${q.id}</span>${badge}</div><p class="qq">${q.q}</p>`;
+  if(q.ctx)h+=`<p class="ctx">${q.ctx}</p>`;
+  if(q.type==='mc'){
+    h+=`<div class="chs">`+q.choices.map((c,k)=>{
+      let cls='';
+      if(x.sel===k)cls+=' sel';
+      if(graded&&k===q.ans&&x.status==='ok')cls+=' right';
+      if(x.status==='bad'&&k===x.sel)cls+=' wrongc';
+      return `<button class="ch${cls}" data-act="exSel" data-id="${q.id}" data-k="${k}" ${graded?'disabled':''}><span class="cir">${CIR[k]}</span><span>${c}</span></button>`;
+    }).join('')+`</div>`;
+  }else if(q.type==='order'){
+    h+=`<p class="given"><span class="rl">주어진 문장</span><br>${esc(q.given)}</p><ol class="oitems">`+q.items.map((t,k)=>`<li><b>${LAB[k]}</b> ${esc(t)}</li>`).join('')+`</ol>`;
+    h+=`<div class="slots">`+q.items.map((_,k)=>`<span class="slot wide ${x.pick[k]!=null?'f':''}">${x.pick[k]!=null?LAB[x.pick[k]]:''}</span>`).join('')+`</div>`;
+    if(!graded){
+      h+=`<div class="pad">`+q.items.map((_,k)=>`<button class="wide" data-act="exPick" data-id="${q.id}" data-k="${k}" ${x.pick.includes(k)?'disabled':''}>${LAB[k]}</button>`).join('')+`</div>`;
+      h+=`<div class="row"><button class="btn sm" data-act="exUndo" data-id="${q.id}">하나 지우기</button><button class="btn sm" data-act="exClear" data-id="${q.id}">전체 지우기</button></div>`;
+    }
+  }else if(q.type==='arrange'){
+    h+=`<p class="wko">${esc(q.ko)}</p>`;
+    h+=`<div class="aline">${x.pick.length?x.pick.map(k=>`<span class="aw">${esc(q.words[k])}</span>`).join(' '):'<span class="ph">단어를 순서대로 누르세요</span>'}</div>`;
+    if(!graded){
+      h+=`<div class="wchips">`+q.words.map((w,k)=>`<button data-act="exPick" data-id="${q.id}" data-k="${k}" ${x.pick.includes(k)?'disabled':''}>${esc(w)}</button>`).join('')+`</div>`;
+      h+=`<div class="row"><button class="btn sm" data-act="exUndo" data-id="${q.id}">하나 지우기</button><button class="btn sm" data-act="exClear" data-id="${q.id}">전체 지우기</button></div>`;
+    }
+  }else if(q.type==='write'){
+    h+=`<p class="wko">${esc(q.ko)}</p><p class="cond">조건: ${esc(q.cond)}</p>`;
+    h+=`<input class="inp" data-k="x:${q.id}" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="영어로 써 보세요" value="${esc(x.val)}" ${x.status==='ok'?'readonly':''} aria-label="${q.id} 영작">`;
+  }
+  if(x.status!=='ok'&&!(x.status==='bad'&&q.type!=='write'))h+=`<div class="wbtns"><button class="btn sm pri" data-act="exGrade" data-id="${q.id}">채점</button></div>`;
+  if(x.status==='empty')h+=`<p class="msg bad">${q.type==='mc'?'답을 먼저 고르세요.':q.type==='write'?'먼저 영작을 입력하세요.':'끝까지 골라 주세요.'}</p>`;
+  if(graded){
+    let ansTxt='';
+    if(x.status==='bad'){
+      if(q.type==='mc')ansTxt=`정답 ${CIR[q.ans]} ${q.choices[q.ans]}`;
+      else if(q.type==='order')ansTxt='정답 '+q.ans.map(k=>LAB[k]).join(' - ');
+      else if(q.type==='arrange')ansTxt='정답 '+esc(q.ans);
+      else ansTxt='정답 '+q.ans.map(esc).join(' / ');
+    }
+    h+=`<div class="exp">`;
+    if(x.status==='bad'&&q.type==='write'&&x.diff)h+=`<p class="rl">내 답</p><p class="dw">${diffHTML(x.diff)}</p>`;
+    if(ansTxt)h+=`<p class="ans">${ansTxt}</p>`;
+    h+=`<p>${q.exp}</p></div>`;
+    if(x.status==='bad'&&q.type!=='write')h+=`<div class="wbtns"><button class="btn sm pri" data-act="exRetry" data-id="${q.id}">다시 풀기</button></div>`;
+    if(x.status==='bad'&&q.type==='write')h+=`<p class="rn">고쳐 쓴 뒤 다시 채점하세요.</p>`;
+  }
+  return h+`</div>`;
+}
+
+/* ============ ⑥ 마무리 정리 ============ */
+function renderFinalStage(){
+  let h=`<h2>마무리 정리</h2><p class="lead">이야기 전체를 묶어서 확인해요. 아이들의 대답을 문장으로 쓰고, 문단 순서와 핵심문장, 연결어, 대명사를 차례로 점검합니다.</p>`;
+  let list=FINAL;
+  if(S.onlyWrong)list=FINAL.filter(q=>fsx(q.id).status!=='ok');
+  if(!list.length){app.innerHTML=h+`<p class="empty" id="emptyMsg">틀린 것이 없어요. 마무리 정리를 모두 통과했어요.</p>`;return;}
+  let cur='';
+  list.forEach(q=>{
+    if(q.sec!==cur){cur=q.sec;h+=`<h3 class="sech">${esc(FSECS[q.sec])}</h3>`;}
+    h+=fnHTML(q);
+  });
+  app.innerHTML=h;
+}
+
+function fnBadge(x){
+  if(x.status==='ok')return x.first?'<span class="st ok">통과</span>':(x.rev&&Object.keys(x.rev).length?'<span class="st re">답 보고 통과</span>':'<span class="st re">다시 풀어 통과</span>');
+  if(x.status==='bad')return '<span class="st bad">다시</span>';
+  return '';
+}
+
+function segs(text){return String(text).split(/\[\[(\w+)\]\]/);}
+
+function fnHTML(q){
+  const x=fsx(q.id),done=x.status==='ok';
+  let h=`<div class="exq ${done?'pass':''} ${x.status==='bad'?'wrong':''}" id="f-${q.id}"><div class="wtop"><span class="no">${esc(q.id)}${q.who?' · '+esc(q.who):''}</span>${fnBadge(x)}</div><p class="qq">${q.q}</p>`;
+
+  if(q.kind==='short'){
+    h+=`<div class="keys"><span class="kl">꼭 들어갈 말</span>`+q.must.map(g=>`<span class="lc">${esc(g[0])}</span>`).join('')+`</div>`;
+    h+=`<input class="inp" data-k="f:${q.id}" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="영어 문장으로 답하세요" value="${esc(x.val)}" ${done?'readonly':''} aria-label="${esc(q.id)} 서술형">`;
+    if(x.status==='bad'&&x.marks)h+=`<p class="msg bad">빠진 말: ${x.marks.map(t=>esc(t)).join(', ')}</p>`;
+  }
+
+  if(q.kind==='paraorder'){
+    h+=`<ol class="oitems">`+q.items.map((t,k)=>`<li><b>${LAB8[k]}</b> ${done?`<span class="ptag">${esc(t.tag)}</span> `:''}${esc(t.s)}</li>`).join('')+`</ol>`;
+    h+=`<div class="slots">`+q.items.map((_,k)=>`<span class="slot wide ${x.pick[k]!=null?'f':''}">${x.pick[k]!=null?LAB8[x.pick[k]]:''}</span>`).join('')+`</div>`;
+    if(!done&&x.status!=='bad'){
+      h+=`<div class="pad">`+q.items.map((_,k)=>`<button class="wide" data-act="fPick" data-id="${q.id}" data-k="${k}" ${x.pick.includes(k)?'disabled':''}>${LAB8[k]}</button>`).join('')+`</div>`;
+      h+=`<div class="row"><button class="btn sm" data-act="fUndo" data-id="${q.id}">하나 지우기</button><button class="btn sm" data-act="fClear" data-id="${q.id}">전체 지우기</button></div>`;
+    }
+  }
+
+  if(q.kind==='pick'){
+    const parts=q.text.split('[[BLANK]]');
+    h+=`<p class="ctx">${esc(parts[0])}<span class="blankline">${done?esc(q.choices[q.ans]):'________________'}</span>${esc(parts[1]||'')}</p>`;
+    h+=`<div class="chs">`+q.choices.map((c,k)=>{
+      let cls='';
+      if(x.sel===k)cls+=' sel';
+      if(done&&k===q.ans)cls+=' right';
+      if(x.status==='bad'&&k===x.sel)cls+=' wrongc';
+      return `<button class="ch${cls}" data-act="fSel" data-id="${q.id}" data-k="${k}" ${done||x.status==='bad'?'disabled':''}><span class="cir">${CIR[k]}</span><span>${esc(c)}</span></button>`;
+    }).join('')+`</div>`;
+  }
+
+  if(q.kind==='conn'){
+    const sp=segs(q.text);
+    let body='';
+    sp.forEach((t,i)=>{
+      if(i%2===0){body+=esc(t);return;}
+      const bi=+t-1,v=x.vals[bi]||'',mk=x.marks?x.marks[bi]:null;
+      body+=`<input class="cinp ${mk==='ok'?'ok':''} ${mk==='bad'?'bad':''} ${x.rev[bi]?'rev':''}" data-b="${bi}" data-id="${q.id}" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" value="${esc(v)}" ${done?'readonly':''} aria-label="${bi+1}번 빈칸">`;
+    });
+    h+=`<p class="ctx conntext">${body}</p>`;
+    if(x.status==='bad')h+=`<p class="msg bad">빨간 칸을 고쳐서 다시 채점하세요. 모르겠으면 그 칸을 두 번 누르세요.</p>`;
+    if(done)h+=`<ul class="clist">`+q.blanks.map((b,k)=>`<li><b>${esc(b.a)}</b> ${esc(b.exp)}${x.rev[k]?' <span class="rn">(답 보기)</span>':''}</li>`).join('')+`</ul>`;
+  }
+
+  if(q.kind==='pron'){
+    const sp=segs(q.text);
+    let body='';
+    sp.forEach((t,i)=>{
+      if(i%2===0){body+=esc(t);return;}
+      const bi=+t-1,b=q.blanks[bi];body+=`<u class="pw">${esc(b.w)}</u><sup class="pnum">${esc(b.label)}</sup>`;
+    });
+    h+=`<p class="ctx">${body}</p>`;
+    q.blanks.forEach((b,bi)=>{
+      const sel=x.bs[bi],mk=x.marks?x.marks[bi]:null;
+      h+=`<p class="rl">${esc(b.label)} <b>${esc(b.w)}</b>이(가) 가리키는 것</p><div class="chs tight">`+b.choices.map((c,k)=>{
+        let cls='';
+        if(sel===k)cls+=' sel';
+        if(done&&k===b.ans)cls+=' right';
+        if(mk==='bad'&&k===sel)cls+=' wrongc';
+        return `<button class="ch${cls}" data-act="fSel" data-id="${q.id}" data-b="${bi}" data-k="${k}" ${done?'disabled':''}><span class="cir">${CIR[k]}</span><span>${esc(c)}</span></button>`;
+      }).join('')+`</div>`;
+    });
+    if(x.status==='bad')h+=`<p class="msg bad">빨간 것을 다시 골라 채점하세요.</p>`;
+  }
+
+  if(!done)h+=`<div class="wbtns">${x.status==='bad'&&(q.kind==='pick'||q.kind==='paraorder')?`<button class="btn sm pri" data-act="fRetry" data-id="${q.id}">다시 풀기</button>`:`<button class="btn sm pri" data-act="fGrade" data-id="${q.id}">채점</button>`}</div>`;
+  if(x.status==='empty')h+=`<p class="msg bad">${q.kind==='short'?'먼저 문장을 쓰세요.':q.kind==='conn'?'빈칸을 모두 채우세요.':'답을 고르세요.'}</p>`;
+
+  if(done||x.status==='bad'){
+    let ansTxt='';
+    if(q.kind==='short')ansTxt='모범답안: '+q.model;
+    else if(q.kind==='paraorder'&&x.status==='bad')ansTxt='정답 '+q.ans.map(k=>LAB8[k]).join(' - ');
+    else if(q.kind==='pick'&&x.status==='bad')ansTxt='정답 '+CIR[q.ans]+' '+q.choices[q.ans];
+    if(ansTxt||q.exp){
+      h+=`<div class="exp">`;
+      if(ansTxt)h+=`<p class="ans">${esc(ansTxt)}</p>`;
+      if(q.exp)h+=`<p>${q.exp}</p>`;
+      h+=`</div>`;
+    }
+    if(q.kind==='pron'&&done)h+=`<div class="exp">`+q.blanks.map(b=>`<p><b>${esc(b.label)}</b> ${esc(b.choices[b.ans])} — ${esc(b.exp)}</p>`).join('')+`</div>`;
+    if(done&&q.kind==='short')h+=`<div class="passline"><span class="rl">모범답안 듣기</span>${ttsBtns(q.model)}</div>`;
+  }
+  return h+`</div>`;
+}
+
+function fnGrade(id){
+  const q=FINAL.find(z=>z.id===id),x=fsx(id);
+  if(x.status==='ok')return;
+  let ok=false;
+  if(q.kind==='short'){
+    if(!toks(x.val).length){x.status='empty';return;}
+    const v=' '+norm(x.val)+' ';
+    const miss=q.must.filter(g=>!g.some(a=>v.includes(' '+norm(a)+' ')||v.includes(norm(a))));
+    ok=miss.length===0;x.marks=miss.map(g=>g[0]);
+  }else if(q.kind==='paraorder'){
+    if(x.pick.length<q.items.length){x.status='empty';return;}
+    ok=x.pick.join()===q.ans.join();
+  }else if(q.kind==='pick'){
+    if(x.sel==null){x.status='empty';return;}
+    ok=x.sel===q.ans;
+  }else if(q.kind==='conn'){
+    if(q.blanks.some((_,k)=>!String(x.vals[k]||'').trim())){x.status='empty';return;}
+    const m=q.blanks.map((b,k)=>norm(x.vals[k])===norm(b.a)?'ok':'bad');
+    x.marks=m;ok=m.every(t=>t==='ok');
+  }else if(q.kind==='pron'){
+    if(q.blanks.some((_,k)=>x.bs[k]==null)){x.status='empty';return;}
+    const m=q.blanks.map((b,k)=>x.bs[k]===b.ans?'ok':'bad');
+    x.marks=m;ok=m.every(t=>t==='ok');
+  }
+  if(x.first===null)x.first=ok&&!Object.keys(x.rev).length;
+  x.status=ok?'ok':'bad';
+  if(ok&&q.kind==='conn')q.blanks.forEach((b,k)=>{x.vals[k]=b.a;});
+}
+function fnReset(id){
+  const q=FINAL.find(z=>z.id===id),x=fsx(id);
+  x.status='';x.marks=null;
+  if(q.kind==='paraorder')x.pick=[];
+  if(q.kind==='pick')x.sel=null;
+}
+function fnReveal(id,bi){
+  const q=FINAL.find(z=>z.id===id),x=fsx(id);
+  if(x.status==='ok')return;
+  x.vals[bi]=q.blanks[bi].a;x.rev[bi]=true;
+  if(x.marks)x.marks[bi]='ok';
   render();
 }
-function undo(qi){ ordState[P][qi].picks.pop(); render(); }
-function clr(qi){ ordState[P][qi].picks=[]; render(); }
-function checkOrd(qi){
-  const q=PARAS[P].order[qi], s=ordState[P][qi];
-  const ok = s.picks.length===q.seq.length && s.picks.every((n,i)=>n===q.seq[i]);
-  if(ok){ s.solved=true; render(); }
-  else{
-    const first = s.picks.findIndex((n,i)=>n!==q.seq[i]);
-    s.picks=[];
-    render();
-    const fb=document.getElementById('ofb'+qi);
-    if(fb) fb.innerHTML='<div class="msg no">'+(first===0?'첫 번째 자리부터 달라요.':(first+1)+'번째 자리부터 달라요.')+'</div>'+
-      '<div>영어는 <b>주어 → 동사</b>가 먼저 붙고, 꾸미는 말은 뒤로 갑니다. 다시 눌러 보세요.</div>';
+
+function renderBar(){
+  const sh=()=>bar.classList.remove('hide');
+  if(S.phase==='para'){
+    if(S.P[S.p].stage!==3){bar.classList.add('hide');barIn.innerHTML='';return;}
+    sh();
+    const p=S.p,n=passCount('w',p),N=PARAS[p].write.length,last=p===PARAS.length-1;
+    barIn.innerHTML=`<button class="btn sm" data-act="gradeAll" id="gradeAll">전체 채점</button><button class="btn sm" data-act="onlyWrong" id="onlyWrong">${S.onlyWrong?'전체 보기':'틀린 것만 다시'}</button><span class="cnt">통과 <b id="passN">${n}</b>/${N}</span><button class="btn sm pri" data-act="next" id="nextBtn" ${n===N?'':'disabled'}>${last?'전체 이야기로':'다음 문단'}</button>`;
+  }else if(S.phase==='story'){
+    sh();const st=S.story;
+    if(st.step===1){
+      barIn.innerHTML=st.ordered
+        ?`<span class="cnt">문단 순서 완료</span><button class="btn sm pri" data-act="sStep" data-s="2" id="nextBtn">연결어 넣기로</button>`
+        :(st.shown?`<button class="btn sm pri" data-act="sRetry">다시 놓기</button><span class="cnt">배치 <b id="passN">${st.pick.length}</b>/${PARAS.length}</span><button class="btn sm" data-act="sStep" data-s="2" id="nextBtn">연결어 넣기로</button>`
+                  :`<button class="btn sm" data-act="sClear">전체 지우기</button><button class="btn sm pri" data-act="sCheck">순서 확인</button><span class="cnt">배치 <b id="passN">${st.pick.length}</b>/${PARAS.length}</span><button class="btn sm" data-act="sStep" data-s="2" id="nextBtn">연결어 넣기로</button>`);
+    }else{
+      const n=storyFilled();
+      barIn.innerHTML=`<button class="btn sm" data-act="sGradeAll" id="sGradeAll">전체 채점</button><span class="cnt">연결어 <b id="passN">${n}</b>/${STORY_NB}</span><button class="btn sm pri" data-act="toExam" id="nextBtn" ${storyDone()?'':'disabled'}>실전 문제로</button>`;
+    }
+  }else if(S.phase==='exam'){
+    sh();const n=examOk();
+    barIn.innerHTML=`<button class="btn sm" data-act="gradeAll" id="gradeAll">전체 채점</button><button class="btn sm" data-act="onlyWrong" id="onlyWrong">${S.onlyWrong?'전체 보기':'틀린 것만 다시'}</button><span class="cnt">정답 <b id="passN">${n}</b>/${EXAM.length}</span><button class="btn sm pri" data-act="toFinal" id="nextBtn" ${n===EXAM.length?'':'disabled'}>마무리 정리로</button>`;
+  }else if(S.phase==='final'){
+    sh();const n=finalOk();
+    barIn.innerHTML=`<button class="btn sm" data-act="gradeAll" id="gradeAll">전체 채점</button><button class="btn sm" data-act="onlyWrong" id="onlyWrong">${S.onlyWrong?'전체 보기':'틀린 것만 다시'}</button><span class="cnt">통과 <b id="passN">${n}</b>/${FINAL.length}</span><button class="btn sm pri" data-act="toFinish" id="nextBtn" ${n===FINAL.length?'':'disabled'}>완주하기</button>`;
+  }else{bar.classList.add('hide');barIn.innerHTML='';}
+}
+
+function renderFinish(){
+  const cnt=m=>{const a=[];PARAS.forEach((P,p)=>P.write.forEach((_,i)=>a.push(ws(m,p,i))));return a;};
+  const W=cnt('w');
+  const one=a=>a.filter(w=>w.status==='pass'&&!w.retried&&!w.peeked).length;
+  const firstOk=EXAM.filter(q=>xs(q.id).first===true).length;
+  const seen=new Set(),rows=[];
+  PARAS.forEach(P=>P.write.forEach(it=>(it.keys||[]).forEach(k=>{if(!seen.has(k.en)){seen.add(k.en);rows.push({no:it.no,en:k.en,ko:k.ko});}})));
+  const lrows=[];PARAS.forEach(P=>P.write.forEach(it=>(it.link||[]).forEach(l=>lrows.push({no:it.no,en:l.en,why:l.why}))));
+  const wrongSecs={};EXAM.forEach(q=>{if(xs(q.id).first===false)wrongSecs[q.sec]=(wrongSecs[q.sec]||0)+1;});
+  const ws2=Object.keys(wrongSecs).map(k=>`${SECS[k]} ${wrongSecs[k]}문제`).join(', ');
+  app.innerHTML=`<section class="fin" id="finish"><h2>사건 해결, 본문 완주!</h2>
+  <p>문단 영작: ${TOTAL}문장 중 한 번에 통과 <b>${one(W)}</b>문장</p>
+  <p>전체 이야기: 문단 순서 ${S.story.shownEver?'정답을 보고 맞춤':'<b>한 번에</b> 맞춤'} · 연결어 ${STORY_NB}개 중 답 보기 <b>${Object.keys(S.story.rev).length}</b>개 · 정답을 본 문단 <b>${Object.keys(S.story.ashown).length}</b>개</p>
+  <p>마무리 정리: ${FINAL.length}개 중 한 번에 통과 <b>${FINAL.filter(q=>fsx(q.id).first===true).length}</b>개</p>
+  <p>실전 문제: ${EXAM.length}문제 중 첫 시도 정답 <b>${firstOk}</b>문제${ws2?` (처음에 틀린 유형: ${esc(ws2)})`:''}</p>
+  <h3>완성된 본문</h3>
+  ${PARAS.map((P,p)=>`<div class="storypara"><p>${esc(paraText(p))}</p><div class="passline">${ttsBtns(paraText(p))}</div></div>`).join('')}
+  <h3>연결어 다시 보기</h3>
+  <table class="ktab"><tbody>${lrows.map(r=>`<tr><td>${esc(r.en)}</td><td>${esc(r.why)}</td><td class="n">${esc(r.no)}</td></tr>`).join('')}</tbody></table>
+  <h3>핵심표현 다시 보기</h3>
+  <table class="ktab"><tbody>${rows.map(r=>`<tr><td>${esc(r.en)}</td><td>${esc(r.ko)}</td><td class="n">${esc(r.no)}</td></tr>`).join('')}</tbody></table>
+  <div class="center"><button class="btn pri" data-act="restart" id="restart">처음부터 다시</button></div></section>`;
+}
+
+/* ============ ACTIONS ============ */
+function grade(m,p,i){
+  const w=ws(m,p,i),it=PARAS[p].write[i];
+  if(w.status==='pass')return;
+  if(!toks(w.val).length){w.status='empty';return;}
+  if(sameToks(w.val,it.en)){
+    if(w.tries>0)w.retried=true;
+    w.status='pass';w.diff=null;w.peek=false;
+  }else{
+    w.tries++;w.status='wrong';w.peek=false;w.diff=lcsDiff(toks(w.val),toks(it.en));
   }
 }
-function orderDone(){ unlock(1); step=2; render(); goTop(); }
+function exGrade(id){
+  const q=EXAM.find(z=>z.id===id),x=xs(id);
+  if(x.status==='ok')return;
+  let ok;
+  if(q.type==='mc'){if(x.sel==null){x.status='empty';return;}ok=x.sel===q.ans;}
+  else if(q.type==='order'){if(x.pick.length<q.items.length){x.status='empty';return;}ok=x.pick.join()===q.ans.join();}
+  else if(q.type==='arrange'){if(!x.pick.length){x.status='empty';return;}ok=sameToks(x.pick.map(k=>q.words[k]).join(' '),q.ans);}
+  else{
+    if(!toks(x.val).length){x.status='empty';return;}
+    ok=q.ans.some(a=>sameToks(x.val,a));
+    x.diff=ok?null:lcsDiff(toks(x.val),toks(q.ans[0]));
+  }
+  if(x.first===null)x.first=ok;
+  if(!ok)x.tries++;
+  x.status=ok?'ok':'bad';
+}
+function exReset(id){const x=xs(id);x.sel=null;x.pick=[];x.status='';x.diff=null;const q=EXAM.find(z=>z.id===id);if(q.type==='write')x.val='';}
+function focusInp(k){const el=document.querySelector(`.inp[data-k="${k}"]`);if(el&&!el.readOnly){try{el.focus();}catch(e){}}}
+function nextUnpassed(m,p,i){
+  const W=PARAS[p].write;
+  for(let k=i+1;k<W.length;k++)if(ws(m,p,k).status!=='pass')return `${m}:${p}-${k}`;
+  if(m==='s')for(let q=p+1;q<PARAS.length;q++)for(let k=0;k<PARAS[q].write.length;k++)if(ws(m,q,k).status!=='pass')return `${m}:${q}-${k}`;
+  return null;
+}
+function afterGrade(m,p,i){
+  render();
+  if(ws(m,p,i).status==='pass'){const k=nextUnpassed(m,p,i);if(k)focusInp(k);}
+  else focusInp(`${m}:${p}-${i}`);
+}
+function goPhase(ph){
+  S.phase=ph;S.onlyWrong=false;render();goTop();
+}
 
-/* --- STEP 3 : 거꾸로 영작 --- */
-function viewWrite(){
-  const p=PARAS[P];
-  let html='<div class="card"><h2>한글을 보고 영어로 쓰기</h2>'+
-    '<div class="lead">방금 잡은 어순 그대로 쓴다. 틀리면 정답을 보여주고, 정답을 보고 다시 정확히 써야 통과된다.</div></div>';
-  let shown=0;
-  p.write.forEach((w,wi)=>{
-    const s=wrState[P][wi];
-    if(retryOnly && s.solved) return;
-    shown++;
-    html+='<div class="wq'+(s.solved?' ok':'')+'" id="wq'+wi+'">'+
-      '<div class="num">문장 '+(wi+1)+'</div>'+
-      '<div class="ko">'+esc(w.ko)+'</div>'+
-      '<input id="wi'+wi+'" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" value="'+esc(s.val)+'" '+
-        (s.solved?'disabled ':'')+'placeholder="영어로 쓰세요" onkeydown="if(event.key===\'Enter\')checkWrite('+wi+')">'+
-      (s.hint&&!s.solved?'<div class="hintline">'+esc(firstLetters(w.en))+'</div>':'')+
-      '<div class="btnrow">'+
-        (s.solved?'':'<button class="btn sm" onclick="checkWrite('+wi+')">채점</button>')+
-        (s.solved?'':'<button class="btn ghost sm" onclick="showHint('+wi+')">첫 글자 힌트</button>')+
-        (s.solved?'<button class="sound" onclick="speak(_wrEn('+P+','+wi+'),false)">🔊 듣기</button><button class="sound" onclick="speak(_wrEn('+P+','+wi+'),true)">🐢 천천히</button>':'')+
-      '</div>'+
-      '<div class="fb" id="wfb'+wi+'">'+(s.fb||'')+'</div>'+
-    '</div>';
-  });
-  if(shown===0) html+='<div class="card locked">틀린 문장이 없습니다.</div>';
-  const solved=wrState[P].filter(s=>s.solved).length;
-  html+='<div class="progress">통과 '+solved+' / '+p.write.length+'</div>';
-  html+='<div class="bar">'+
-    '<button class="btn ghost sm" onclick="checkAll()">전체 채점</button>'+
-    '<button class="btn ghost sm" onclick="toggleRetry()">'+(retryOnly?'전체 보기':'틀린 것만 다시')+'</button>'+
-    (solved===p.write.length
-      ? (P<PARAS.length-1 ? '<button class="btn sm" onclick="nextPara()">다음 문단으로 →</button>'
-                          : '<button class="btn sm" onclick="finish()">전체 마무리</button>')
-      : '')+
-  '</div>';
-  return html;
-}
-function _wrEn(pi,wi){ return PARAS[pi].write[wi].en; }
-function syncVals(){
-  PARAS[P].write.forEach((w,wi)=>{ const el=document.getElementById('wi'+wi); if(el) wrState[P][wi].val=el.value; });
-}
-function showHint(wi){ syncVals(); wrState[P][wi].hint=true; render(); }
-function gradeOne(wi){
-  const w=PARAS[P].write[wi], s=wrState[P][wi];
-  const user=tokens(s.val), ans=tokens(w.en);
-  if(!user.length){ s.fb='<div class="msg no">아직 안 썼어요</div>'; return; }
-  if(user.length===ans.length && user.every((t,i)=>t===ans[i])){
-    s.solved=true; s.fb='<div class="msg ok">'+(s.tried?'다시 써서 통과':'정답')+'</div><div class="ansline">'+esc(w.en)+'</div>';
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-act]');if(!b||b.disabled)return;
+  const a=b.dataset.act,p=+b.dataset.p,i=+b.dataset.i,m=b.dataset.m||'w',id=b.dataset.id;
+  if(a==='goPara'||a==='goPhase'||a==='stage'||a==='sStep')clickTick();
+  switch(a){
+    case 'goPara':
+      S.phase='para';S.p=p;S.onlyWrong=false;render();goTop();break;
+    case 'goPhase':goPhase(b.dataset.ph);break;
+    case 'stage':{
+      const s=+b.dataset.s,st=S.P[S.p];
+      if(s===2&&!st.read)return;
+      if(s===3&&!(st.read&&ordAllDone(S.p)))return;
+      st.stage=s;S.onlyWrong=false;render();goTop();break;}
+    case 'readOk':
+      S.P[S.p].read=true;S.P[S.p].stage=2;render();goTop();break;
+    case 'pick':{
+      const st=oS(p,i),n=+b.dataset.n,len=PARAS[p].order[i].chunks.length;
+      if(st.ordered||st.shown||st.pick.includes(n)||st.pick.length>=len)return;
+      st.pick.push(n);st.msg='';render();break;}
+    case 'undo':{const st=oS(p,i);if(st.ordered||st.shown)return;st.pick.pop();st.msg='';render();break;}
+    case 'clear':{const st=oS(p,i);if(st.ordered||st.shown)return;st.pick=[];st.msg='';render();break;}
+    case 'check':{
+      const st=oS(p,i),o=PARAS[p].order[i],n=o.seq.length;
+      if(st.pick.length<n){st.msg=`조각 ${n}개를 모두 놓아 주세요.`;render();return;}
+      let k=0;while(k<n&&st.pick[k]===o.seq[k])k++;
+      if(k===n){st.ordered=true;st.shown=false;st.msg='';if(!ordBlanks(p,i).length)st.done=true;}
+      else{st.shown=true;st.msg=`${n}개 중 ${st.pick.filter((v,z)=>v===o.seq[z]).length}개가 제자리예요. ${k+1}번째 자리부터 달라요.`;}
+      render();break;}
+    case 'oretry':{const st=oS(p,i);st.pick=[];st.shown=false;st.msg='';render();break;}
+    case 'ocj':{
+      const st=oS(p,i),bi=+b.dataset.b;
+      if(st.cjmk[bi]==='ok')return;
+      st.cj[bi]=b.dataset.w;st.cjmk[bi]=null;st.cjmsg='';render();break;}
+    case 'ocheck':{
+      const st=oS(p,i),bl=ordBlanks(p,i);
+      if(bl.some((_,k)=>!st.cj[k])){st.cjmsg='연결어를 모두 골라 주세요.';render();return;}
+      let wrong=0;
+      bl.forEach((v,k)=>{const ok=norm(st.cj[k])===norm(v.cj.w);st.cjmk[k]=ok?'ok':'bad';if(!ok)wrong++;});
+      if(wrong){st.cjmsg=`${wrong}개가 달라요. 아래 정답을 보고 다시 골라 보세요.`;st.cjshown=true;}
+      else{st.cjmsg='';st.done=true;}
+      render();break;}
+    case 'say':speak(b.dataset.t,!!b.dataset.slow);break;
+    case 'key':{const w=ws('w',p,i),j=+b.dataset.j;w.keys[j]=!w.keys[j];render();break;}
+    case 'peek':{const w=ws(m,p,i);w.peek=!w.peek;if(w.peek)w.peeked=true;render();if(!w.peek)focusInp(`${m}:${p}-${i}`);break;}
+    case 'hint':ws(m,p,i).hint=true;render();focusInp(`${m}:${p}-${i}`);break;
+    case 'grade':grade(m,p,i);afterGrade(m,p,i);break;
+    case 'gradeAll':
+      if(S.phase==='para')PARAS[S.p].write.forEach((_,k)=>grade('w',S.p,k));
+      else if(S.phase==='final')FINAL.forEach(q=>{const x=fsx(q.id);if(x.status==='ok')return;if(x.status==='bad'&&(q.kind==='pick'||q.kind==='paraorder'))return;if(S.onlyWrong||x.sel!=null||x.pick.length||x.val||Object.keys(x.vals).length||Object.keys(x.bs).length)fnGrade(q.id);});
+      else if(S.phase==='exam')EXAM.forEach(q=>{const x=xs(q.id);if(x.status==='bad'&&q.type!=='write')return;if(S.onlyWrong||x.sel!=null||x.pick.length||x.val||x.status)exGrade(q.id);});
+      render();break;
+    case 'onlyWrong':
+      S.onlyWrong=!S.onlyWrong;
+      if(S.onlyWrong){
+        const reset=w=>{if(w.status==='wrong'||w.status==='empty'){w.val='';w.status='';w.diff=null;w.peek=false;}};
+        if(S.phase==='para')PARAS[S.p].write.forEach((_,k)=>reset(ws('w',S.p,k)));
+        else if(S.phase==='final')FINAL.forEach(q=>{const x=fsx(q.id);if(x.status==='ok')return;if(x.status==='bad'&&(q.kind==='pick'||q.kind==='paraorder'))return;if(S.onlyWrong||x.sel!=null||x.pick.length||x.val||Object.keys(x.vals).length||Object.keys(x.bs).length)fnGrade(q.id);});
+      else if(S.phase==='exam')EXAM.forEach(q=>{const x=xs(q.id);if(x.status==='bad'||x.status==='empty')exReset(q.id);});
+      }
+      render();goTop();break;
+    case 'next':
+      if(!paraDone(S.p))return;
+      S.onlyWrong=false;
+      if(S.p<PARAS.length-1)S.p++;
+      else S.phase='story';
+      pageTurn();render();goTop();break;
+    case 'sPick':{
+      const st=S.story,k=+b.dataset.k;
+      if(st.ordered||st.shown||st.pick.includes(k)||st.pick.length>=PARAS.length)return;
+      st.pick.push(k);st.msg='';render();break;}
+    case 'sUndo':S.story.pick.pop();S.story.msg='';render();break;
+    case 'sRetry':{const st=S.story;st.pick=[];st.shown=false;st.omarks=null;st.msg='';render();goTop();break;}
+    case 'sClear':S.story.pick=[];S.story.msg='';render();break;
+    case 'sCheck':{
+      const st=S.story,n=PARAS.length;
+      if(st.ordered)return;
+      if(st.pick.length<n){st.msg=`문단 ${n}개를 모두 놓아 주세요.`;render();return;}
+      let k=0;while(k<n&&st.pick[k]===SORD[k])k++;
+      if(k===n){st.ordered=true;st.shown=false;st.omarks=null;st.msg='';st.step=2;pageTurn();}
+      else{
+        st.tries++;st.shown=true;st.shownEver=true;
+        st.omarks=st.pick.map((v,i)=>v===SORD[i]?'ok':'bad');
+        const right=st.omarks.filter(m=>m==='ok').length;
+        st.msg=`${n}개 중 ${right}개가 제자리예요. ${k+1}번째 자리부터 달라요.`;
+      }
+      render();goTop();break;}
+    case 'sStep':{S.story.step=+b.dataset.s;S.story.pmsg=null;render();goTop();break;}
+    case 'sGradeP':storyGradeP(p);render();break;
+    case 'sGradeAll':storyGradeAll();render();break;
+    case 'toExam':
+      if(!storyDone())return;
+      S.phase='exam';S.onlyWrong=false;pageTurn();render();goTop();break;
+    case 'toFinish':
+      if(finalOk()!==FINAL.length)return;
+      S.phase='finish';S.onlyWrong=false;pageTurn();render();goTop();break;
+    case 'exSel':{const x=xs(id);if(x.status==='ok'||x.status==='bad')return;x.sel=+b.dataset.k;x.status='';render();break;}
+    case 'exPick':{
+      const x=xs(id),k=+b.dataset.k,q=EXAM.find(z=>z.id===id);
+      if(x.status==='ok'||x.status==='bad'||x.pick.includes(k))return;
+      if(q.type==='order'&&x.pick.length>=q.items.length)return;
+      x.pick.push(k);x.status='';render();break;}
+    case 'exUndo':xs(id).pick.pop();xs(id).status='';render();break;
+    case 'exClear':xs(id).pick=[];xs(id).status='';render();break;
+    case 'exGrade':exGrade(id);render();if(xs(id).status!=='ok'){const q=EXAM.find(z=>z.id===id);if(q.type==='write')focusInp('x:'+id);}break;
+    case 'exRetry':exReset(id);render();break;
+    case 'fSel':{
+      const x=fsx(id),q=FINAL.find(z=>z.id===id);
+      if(x.status==='ok')return;
+      if(q.kind==='pron'){if(x.status==='bad'&&x.marks&&x.marks[+b.dataset.b]==='ok')return;x.bs[+b.dataset.b]=+b.dataset.k;if(x.marks)x.marks[+b.dataset.b]=null;}
+      else{if(x.status==='bad')return;x.sel=+b.dataset.k;}
+      x.status='';render();break;}
+    case 'fPick':{
+      const x=fsx(id),q=FINAL.find(z=>z.id===id),k=+b.dataset.k;
+      if(x.status==='ok'||x.status==='bad'||x.pick.includes(k)||x.pick.length>=q.items.length)return;
+      x.pick.push(k);x.status='';render();break;}
+    case 'fUndo':fsx(id).pick.pop();fsx(id).status='';render();break;
+    case 'fClear':fsx(id).pick=[];fsx(id).status='';render();break;
+    case 'fGrade':fnGrade(id);render();break;
+    case 'fRetry':fnReset(id);render();break;
+    case 'toFinal':
+      if(examOk()!==EXAM.length)return;
+      S.phase='final';S.onlyWrong=false;pageTurn();render();goTop();break;
+    case 'restart':S=freshState();pageTurn();render();goTop();break;
+  }
+});
+let lastTap={el:null,t:0,v:''};
+document.addEventListener('click',e=>{
+  const el=e.target;
+  if(!el.matches||!el.matches('.cinp')||el.readOnly)return;
+  const now=Date.now();
+  if(lastTap.el===el&&now-lastTap.t<800&&lastTap.v===el.value){lastTap={el:null,t:0,v:''};if(el.dataset.story)storyReveal(el.dataset.story);else fnReveal(el.dataset.id,+el.dataset.b);return;}
+  lastTap={el:el,t:now,v:el.value};
+});
+document.addEventListener('dblclick',e=>{
+  const el=e.target;
+  if(el.matches&&el.matches('.cinp')&&!el.readOnly){if(el.dataset.story)storyReveal(el.dataset.story);else fnReveal(el.dataset.id,+el.dataset.b);}
+});
+document.addEventListener('input',e=>{
+  if(e.target.matches&&e.target.matches('.cinp')){
+    if(e.target.dataset.story){const key=e.target.dataset.story;S.story.vals[key]=e.target.value;S.story.marks[key]=null;return;}
+    const x=fsx(e.target.dataset.id),bi=+e.target.dataset.b;
+    x.vals[bi]=e.target.value;if(x.marks)x.marks[bi]=null;
     return;
   }
-  s.tried=true;
-  let marks='', len=Math.max(user.length,ans.length);
-  for(let i=0;i<len;i++){
-    if(i<user.length && user[i]===ans[i]) marks+='<span class="tk g">'+esc(user[i])+'</span>';
-    else if(i<user.length) marks+='<span class="tk b">'+esc(user[i])+'</span>';
-    else marks+='<span class="tk m">___</span>';
-  }
-  s.fb='<div class="msg no">아직 아니에요</div><div>'+marks+'</div>'+
-    '<div class="ansline">'+esc(w.en)+'</div>'+
-    '<div style="font-size:.86rem;color:var(--sub);margin-top:6px">정답을 보고 그대로 다시 쳐서 통과시키세요.</div>';
-}
-function checkWrite(wi){ syncVals(); gradeOne(wi); render(); }
-function checkAll(){
-  syncVals();
-  PARAS[P].write.forEach((w,wi)=>{ if(!wrState[P][wi].solved) gradeOne(wi); });
-  render(); goTop();
-}
-function toggleRetry(){ retryOnly=!retryOnly; render(); goTop(); }
-function nextPara(){
-  unlock(2);
-  pageTurn();
-  P++; step=0; retryOnly=false; render(); goTop();
-}
-function finish(){
-  unlock(2); pageTurn();
-  const ordN=PARAS.reduce((a,p)=>a+p.order.length,0);
-  const wrN=PARAS.reduce((a,p)=>a+p.write.length,0);
-  document.getElementById('stage').innerHTML=
-    '<div class="card"><h2>5과 거꾸로 영작 완주</h2>'+
-    '<div class="lead">문단 '+PARAS.length+'개 · 어순 훈련 '+ordN+'문장 · 영작 '+wrN+'문장</div>'+
-    '<div class="gist">오늘 잡은 규칙 네 가지<br>' +
-    '1. 동사는 주어 바로 뒤 — 한글처럼 맨 끝에 두지 않는다<br>'+
-    '2. 꾸미는 말이 두 단어 이상이면 명사 <b>뒤</b>로 간다 (that절·관계대명사 생략)<br>'+
-    '3. 장소·방식 표현은 대체로 문장 끝<br>'+
-    '4. 한글을 끝에서부터 거꾸로 읽으면 영어 순서가 되는 문장이 많다</div>'+
-    '<div class="btnrow"><button class="btn wide" onclick="location.reload()">처음부터 다시</button></div></div>';
-  goTop();
-}
+  if(!e.target.matches||!e.target.matches('.inp'))return;
+  const k=e.target.dataset.k;
+  if(k.startsWith('x:')){xs(k.slice(2)).val=e.target.value;return;}
+  if(k.startsWith('f:')){fsx(k.slice(2)).val=e.target.value;return;}
+  const [m,rest]=k.split(':'),[p,i]=rest.split('-').map(Number);
+  ws(m,p,i).val=e.target.value;
+});
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'||!e.target.matches||!e.target.matches('.inp'))return;
+  e.preventDefault();
+  const k=e.target.dataset.k;
+  if(k.startsWith('x:')){const id=k.slice(2);exGrade(id);render();if(xs(id).status!=='ok')focusInp(k);return;}
+  if(k.startsWith('f:')){const id=k.slice(2);fnGrade(id);render();if(fsx(id).status!=='ok')focusInp(k);return;}
+  const [m,rest]=k.split(':'),[p,i]=rest.split('-').map(Number);
+  grade(m,p,i);afterGrade(m,p,i);
+});
 
 render();
+
 </script>
 </body>
 </html>
