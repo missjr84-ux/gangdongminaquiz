@@ -232,6 +232,17 @@ h3{font-size:18px;margin:26px 0 10px;font-weight:900}
 
 .peekbtn.on{background:var(--soft);border-color:var(--lav)}
 .peekbox .passline{margin:0}
+.olead{margin:0 0 10px;font-size:14.5px;color:var(--sub)}
+.cjmark{color:var(--lav);font-weight:900}
+.ochips{gap:10px}
+.ochips button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:8px 14px;min-height:56px;text-align:left;line-height:1.35}
+.ochips button b{font-size:17px;font-weight:800;color:var(--ink)}
+.ochips button .cko{font-size:12.5px;color:var(--sub);font-weight:600}
+.aline .aw{margin-right:2px}
+.cslot{display:inline-block;min-width:76px;text-align:center;border-bottom:2px solid var(--lav2);color:var(--lav);font-weight:800;padding:0 4px}
+.cslot.ok{color:var(--ok);border-bottom-color:var(--ok)}
+.cslot.bad{color:var(--bad);border-bottom-color:var(--bad)}
+.eng li .cko{font-size:13px;color:var(--sub);font-weight:600;margin-left:4px}
 </style>
 </head>
 <body>
@@ -245,7 +256,47 @@ h3{font-size:18px;margin:26px 0 10px;font-weight:900}
 <div class="bar hide" id="bar"><div class="wrap" id="barIn"></div></div>
 
 <script>
-/* ============ DATA ============ */
+/* ============================================================
+   DATA START — 새 본문을 만들 때 여기서 DATA END 까지만 바꾼다.
+   아래 엔진 코드는 한 글자도 건드리지 않는다.
+   BOOK = 교재 원문(번호별). check.js 가 PARAS 와 대조한다.
+   ============================================================ */
+const BOOK={
+1:"Today was Dad's birthday. As a secret gift, Mom baked him a cake.",
+2:"She wrapped the cake in a box and put it on the table in the kitchen.",
+3:"Then she went out to buy candles at 11.",
+4:"When she came back home one hour later, she found that the box was empty.",
+5:"Someone ate the whole cake!",
+6:"Mom called Ms. Jones to find the person who ate the cake.",
+7:"Ms. Jones was a wise old lady who lived next door.",
+8:"Everyone in town came to her when they were in trouble.",
+9:"Ms. Jones came with her sweet smile.",
+10:"“Don't worry! Let's find out the big eater!”",
+11:"She asked Mom, “Who was in the house this morning?”",
+12:"“My children, Harry, Carol, and Tom.”",
+13:"First, Ms. Jones spoke with Harry, the oldest son, “Someone ate your mom's cake. What did you do this morning?”",
+14:"“I played soccer, and I came back home around 11.",
+15:"I saw the box on the table and opened it.",
+16:"There was a cake inside, but I didn't eat it.”",
+17:"“What did you do after that?”",
+18:"“I just went to my room.”",
+19:"“Hmm.... Then why do you have crumbs around your mouth?”",
+20:"“Oh, I ate some chocolate cookies because I was hungry.”",
+21:"Next, Ms. Jones talked to Carol, the daughter. She stayed home all morning.",
+22:"Ms. Jones asked, “What were you doing between 11 and 12?”",
+23:"“I was reading a detective novel in the living room.",
+24:"I went to the kitchen to drink some water and found the box on the table.",
+25:"But I couldn't see the cake inside the box.",
+26:"You know, I'm trying to lose weight these days. So, I don't eat any dessert.",
+27:"Most of all, I don't like chocolate cake. Too much sugar and butter in it.”",
+29:"“I don't know the exact time, but I saw Tom coming out of the kitchen.”",
+30:"Finally, Ms. Jones met Tom, the youngest son. “Tom, you like your mom's cake, right?”",
+31:"“Yeah, I like it. Actually, I smelled Mom baking a cake in the morning.",
+32:"But I had a stomachache, so I stayed in bed.”",
+33:"“Did you go to the kitchen?”",
+34:"“Yes, I went to the kitchen to take some medicine at about 11:30.",
+35:"The box was open, so I could see the cake in it. Then I closed the box.”",
+36:"Ms. Jones smiled and said, “The person who lied ate the cake.”"};
 const PARAS=[
 {
   tag:"사건",
@@ -825,7 +876,6 @@ const EXAM=[
 ];
 
 const FSECS={S:"서술형: 누가 무엇을 왜",K:"핵심문장 고르기",R:"대명사가 가리키는 것 (문단 속에서)"};
-const LAB8=["(A)","(B)","(C)","(D)","(E)","(F)","(G)","(H)"];
 
 const FINAL=[
 /* S 서술형 — 아이들의 대답·이유·상황 */
@@ -927,13 +977,18 @@ const FINAL=[
  ]}
 ];
 
+
+/* ============================================================
+   DATA END — 여기부터는 엔진. 수정 금지.
+   ============================================================ */
+
 /* ============ STATE (세션 메모리만) ============ */
 function freshState(){
   return {phase:'para',p:0,onlyWrong:false,
     P:PARAS.map(()=>({read:false,stage:1})),ord:{},wr:{},ex:{},fn:{},story:{step:1,pick:[],ordered:false,shown:false,omarks:null,ashown:{},vals:{},rev:{},marks:{},done:false,tries:0,msg:''}};
 }
 let S=freshState();
-function oS(p,i){const k=p+'-'+i;return S.ord[k]||(S.ord[k]={pick:[],done:false,msg:''});}
+function oS(p,i){const k=p+'-'+i;return S.ord[k]||(S.ord[k]={pick:[],ordered:false,done:false,msg:'',shown:false,cj:{},cjmk:{},cjmsg:'',cjshown:false});}
 function ws(m,p,i){const map=S.wr,k=p+'-'+i;return map[k]||(map[k]={val:'',status:'',tries:0,retried:false,peek:false,peeked:false,hint:false,keys:{},diff:null});}
 function xs(id){return S.ex[id]||(S.ex[id]={sel:null,pick:[],val:'',status:'',tries:0,first:null,diff:null});}
 function fsx(id){return S.fn[id]||(S.fn[id]={sel:null,pick:[],val:'',vals:{},bs:{},rev:{},status:'',first:null,marks:null});}
@@ -942,7 +997,12 @@ function ordAllDone(p){return PARAS[p].order.every((_,i)=>oS(p,i).done);}
 function passCount(m,p){return PARAS[p].write.filter((_,i)=>ws(m,p,i).status==='pass').length;}
 function paraDone(p){return passCount('w',p)===PARAS[p].write.length;}
 const TOTAL=PARAS.reduce((a,P)=>a+P.write.length,0);
-const SHUF=[2,6,0,4,7,1,5,3];
+const SHUF=(()=>{                       /* 문단 수에 맞춰 자동으로 섞는다 (정답 순서와 절대 같지 않게) */
+  const n=PARAS.length,out=[];
+  for(let i=n-1;i>=0;i-=2)out.push(i);
+  for(let i=(n%2?1:0);i<n;i+=2)out.push(i);
+  return out;
+})();
 const SORD=PARAS.map((_,p)=>SHUF.indexOf(p));
 function storyDone(){return S.story.ordered&&storyAllOk();}
 function examOk(){return EXAM.filter(q=>xs(q.id).status==='ok').length;}
@@ -987,6 +1047,7 @@ function lcsDiff(u,a){
 function diffHTML(d){return d.map(x=>x.t==='ok'?`<span class="t-ok">${esc(x.w)}</span>`:x.t==='bad'?`<s class="t-bad">${esc(x.w)}</s>`:`<span class="t-miss">___</span>`).join(' ');}
 function goTop(){try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}}
 const CIR=['①','②','③','④','⑤'],LAB=['(A)','(B)','(C)','(D)','(E)'];
+const LAB8=['(A)','(B)','(C)','(D)','(E)','(F)','(G)','(H)','(I)','(J)','(K)','(L)'];
 
 /* ============ SOUND ============ */
 let voice=null,actx=null,unlocked=false;
@@ -1134,33 +1195,68 @@ function stage1(p){
 
 function stage2(p){
   const P=PARAS[p];
-  let h=`<p class="lead">영어는 쓰지 않아요. 한글 덩어리 번호를 <b>영어 문장 순서대로</b> 눌러 보세요. 연결어가 붙는 덩어리는 따로 표시해 뒀어요.</p>`;
+  let h=`<p class="lead">한글 문장을 보고 <b>영어 조각을 순서대로</b> 놓아 문장을 만드세요. <span class="cjmark">▢</span> 자리에 들어갈 연결어는 순서를 맞힌 뒤 직접 고릅니다.</p>`;
   h+=P.order.map((o,i)=>ordHTML(p,i)).join('');
   if(ordAllDone(p))h+=`<div class="center"><button class="btn pri" data-act="stage" data-s="3" id="goWrite">영작하러 가기</button></div>`;
   return h;
 }
 
 function ordHTML(p,i){
-  const o=PARAS[p].order[i],st=oS(p,i),n=o.chunks.length;
-  let h=`<div class="ord ${st.done?'ok':''}" id="o-${p}-${i}"><p class="oq">어순 문장 ${i+1}</p><p class="oko">${esc(o.ko)}</p><ol class="chunks">`;
-  h+=o.chunks.map((c,k)=>`<li class="${c.cj?'hascj':''}"><span class="cn">${k+1}</span><span class="cko">${esc(c.ko)}</span><span class="role">${esc(c.role)}</span>${c.cj?`<span class="cjb">${esc(c.cj.w)} ${c.cj.pos==='안'?'덩어리 안':(c.cj.pos==='앞'?'덩어리 앞':'이 자리')}</span>`:''}</li>`).join('')+`</ol>`;
-  const cjs=o.chunks.filter(c=>c.cj);
-  if(cjs.length)h+=`<div class="cjnote"><span class="kl">연결어</span>`+cjs.map(c=>`<span class="lc"><b>${esc(c.cj.w)}</b> ${esc(c.cj.why)}</span>`).join('')+`<p class="rn">한글 덩어리에는 안 보이지만, 영어에서는 표시된 자리에 들어가요.</p></div>`;
-  if(!st.done){
-    h+=`<div class="slots" aria-label="고른 순서">`+Array.from({length:n},(_,k)=>`<span class="slot ${st.pick[k]?'f':''}">${st.pick[k]||''}</span>`).join('')+`</div>`;
-    h+=`<div class="pad">`+Array.from({length:n},(_,k)=>`<button data-act="pick" data-p="${p}" data-i="${i}" data-n="${k+1}" ${st.pick.includes(k+1)?'disabled':''} aria-label="${k+1}번">${k+1}</button>`).join('')+`</div>`;
-    h+=`<div class="row"><button class="btn sm" data-act="undo" data-p="${p}" data-i="${i}">하나 지우기</button><button class="btn sm" data-act="clear" data-p="${p}" data-i="${i}">전체 지우기</button><button class="btn sm pri" data-act="check" data-p="${p}" data-i="${i}">순서 확인</button></div>`;
+  const o=PARAS[p].order[i],st=oS(p,i),view=ordView(p,i),n=view.length,blanks=ordBlanks(p,i);
+  let h=`<div class="ord ${st.done?'ok':''}" id="o-${p}-${i}"><p class="oq">어순 문장 ${i+1}</p><p class="oko">${esc(o.ko)}</p>`;
+
+  if(!st.ordered){
+    h+=`<p class="olead">한글을 보고 <b>영어 조각을 순서대로</b> 눌러 문장을 만드세요. <span class="cjmark">▢</span> 자리에는 연결어가 들어가요.</p>`;
+    h+=`<div class="aline">`+(st.pick.length
+        ? st.pick.map(cn=>{const v=view.find(x=>x.cn===cn);return `<span class="aw">${esc(v.text)}</span>`}).join(' ')
+        : '<span class="ph">영어 조각을 눌러 보세요</span>')+`</div>`;
+    h+=`<div class="wchips ochips">`+ordChips(p,i).map(v=>
+        `<button data-act="pick" data-p="${p}" data-i="${i}" data-n="${v.cn}" ${st.pick.includes(v.cn)?'disabled':''}><b>${esc(v.text)}</b><span class="cko">${esc(v.ko)}</span></button>`
+      ).join('')+`</div>`;
+    if(!st.shown)h+=`<div class="row"><button class="btn sm" data-act="undo" data-p="${p}" data-i="${i}">하나 지우기</button><button class="btn sm" data-act="clear" data-p="${p}" data-i="${i}">전체 지우기</button><button class="btn sm pri" data-act="check" data-p="${p}" data-i="${i}">순서 확인</button></div>`;
     if(st.msg)h+=`<p class="msg bad">${esc(st.msg)}</p>`;
-  }else{
-    h+=`<ol class="eng">`+o.eng.map((e,k)=>{
-      const c=o.chunks[o.seq[k]-1];
-      let t=esc(e.replace(/[\u201C\u201D]/g,''));
-      if(c.cj){const w=esc(c.cj.w);t=t.replace(w,`<em class="cjw">${w}</em>`);}
-      return `<li><span class="cn f">${o.seq[k]}</span><span>${t}</span></li>`;
-    }).join('')+`</ol>`;
-    h+=`<div class="diffcard"><span class="dl">한글과 뒤집힌 지점</span><p>${o.diff}</p></div>`;
-    h+=`<div class="passline"><span class="ans">${esc(showQ(o.full))}</span>${ttsBtns(o.full)}</div>`;
+    if(st.shown){
+      h+=`<div class="exp"><p class="rl">정답 순서</p><ol class="clist ansord">`+view.map((v,k)=>{
+        const mine=st.pick[k],right=mine===v.cn;
+        return `<li><span class="cn ${right?'f':''}">${k+1}</span><b>${esc(v.text)}</b> <span class="cwhy">${esc(v.ko)}</span></li>`;
+      }).join('')+`</ol><p class="rn">정답을 보고 다시 놓아 보세요.</p></div>`;
+      h+=`<div class="row"><button class="btn sm pri" data-act="oretry" data-p="${p}" data-i="${i}">다시 놓기</button></div>`;
+    }
+    return h+`</div>`;
   }
+
+  if(st.ordered&&!st.done){
+    h+=`<p class="olead">순서를 맞췄어요. 이제 <b>▢ 자리에 들어갈 연결어</b>를 고르세요.</p>`;
+    let bidx=-1;
+    h+=`<p class="ctx conntext">`+view.map(v=>{
+      if(!v.cj)return esc(v.en);
+      const b=++bidx,got=st.cj[b],mk=st.cjmk[b];
+      return esc(v.text.split('\u25A2')[0])+`<span class="cslot ${mk==='ok'?'ok':''} ${mk==='bad'?'bad':''}">${got?esc(got):'▢'}</span>`+esc(v.text.split('\u25A2')[1]||'');
+    }).join(' ')+`</p>`;
+    blanks.forEach((v,b)=>{
+      h+=`<p class="rl">${b+1}번째 ▢ 자리</p><div class="chs tight">`+cjOptions(v.cj.w).map(w=>
+        `<button class="ch ${st.cj[b]===w?'sel':''} ${st.cjmk[b]==='bad'&&st.cj[b]===w?'wrongc':''} ${st.cjmk[b]==='ok'&&st.cj[b]===w?'right':''}" data-act="ocj" data-p="${p}" data-i="${i}" data-b="${b}" data-w="${esc(w)}" ${st.cjmk[b]==='ok'?'disabled':''}>${esc(w)}</button>`
+      ).join('')+`</div>`;
+    });
+    h+=`<div class="row"><button class="btn sm pri" data-act="ocheck" data-p="${p}" data-i="${i}">연결어 확인</button></div>`;
+    if(st.cjmsg)h+=`<p class="msg bad">${esc(st.cjmsg)}</p>`;
+    if(st.cjshown){
+      h+=`<div class="exp"><p class="rl">정답 연결어</p><ol class="clist ansord">`+blanks.map((v,k)=>{
+        const mine=st.cj[k],right=mine&&norm(mine)===norm(v.cj.w);
+        return `<li><span class="cn ${right?'f':''}">${k+1}</span><b>${esc(v.cj.w)}</b> <span class="cwhy">${esc(v.cj.why)}</span>${mine&&!right?` <span class="rn">내 답: ${esc(mine)}</span>`:''}</li>`;
+      }).join('')+`</ol><p class="rn">정답을 보고 다시 골라 확인하세요.</p></div>`;
+    }
+    return h+`</div>`;
+  }
+
+  h+=`<ol class="eng">`+view.map((v,k)=>{
+    let t=esc(v.en);
+    if(v.cj){const w=esc(v.cj.w);t=t.replace(w,`<em class="cjw">${w}</em>`);}
+    return `<li><span class="cn f">${k+1}</span><span>${t}</span><span class="cko">${esc(v.ko)}</span></li>`;
+  }).join('')+`</ol>`;
+  if(blanks.length)h+=`<div class="cjnote"><span class="kl">연결어</span>`+blanks.map(v=>`<span class="lc"><b>${esc(v.cj.w)}</b> ${esc(v.cj.why)}</span>`).join('')+`</div>`;
+  h+=`<div class="diffcard"><span class="dl">한글과 뒤집힌 지점</span><p>${o.diff}</p></div>`;
+  h+=`<div class="passline"><span class="ans">${esc(showQ(o.full))}</span>${ttsBtns(o.full)}</div>`;
   return h+`</div>`;
 }
 
@@ -1204,6 +1300,49 @@ function wrHTML(m,p,i){
   }
   if(pass)h+=`<div class="passline"><span class="rl">문장 듣기</span>${ttsBtns(it.en)}</div>`;
   return h+`</div>`;
+}
+
+
+/* ---- ② 어순: 영어 조각 + 연결어 빈칸 ---- */
+const CONN_POOL=(()=>{
+  const o=[];
+  PARAS.forEach(P=>P.write.forEach(x=>(x.link||[]).forEach(l=>{if(!o.some(y=>y.toLowerCase()===l.en.toLowerCase()))o.push(l.en)})));
+  ['and','but','so','because','when','or','Then','First','Next','Finally','Actually'].forEach(w=>{if(!o.some(y=>y.toLowerCase()===w.toLowerCase()))o.push(w)});
+  return o;
+})();
+function ordView(p,i){
+  const o=PARAS[p].order[i],out=[];
+  o.seq.forEach((cn,pos)=>{
+    const c=o.chunks[cn-1],en=o.eng[pos];
+    let text=en,cj=null;
+    if(c.cj){
+      const w=c.cj.w,re=new RegExp('(^|\\W)'+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(\\W|$)');
+      const m=re.exec(en);
+      if(m){const at=m.index+m[1].length;text=en.slice(0,at)+'\u25A2'+en.slice(at+w.length);}
+      cj={w:w,why:c.cj.why};
+    }
+    out.push({cn:cn,pos:pos,en:en,ko:c.ko,role:c.role,text:text,cj:cj});
+  });
+  return out;
+}
+function ordBlanks(p,i){return ordView(p,i).filter(v=>v.cj);}
+function ordChips(p,i){                      /* 고정 규칙으로 섞는다 (정답 순서와 다르게) */
+  const v=ordView(p,i),n=v.length,out=[];
+  for(let k=n-1;k>=0;k-=2)out.push(v[k]);
+  for(let k=(n%2?1:0);k<n;k+=2)out.push(v[k]);
+  return out;
+}
+function cjOptions(word){
+  const cap=/^[A-Z]/.test(word);
+  const fix=w=>cap?w.charAt(0).toUpperCase()+w.slice(1):w.toLowerCase();
+  const out=[word];
+  CONN_POOL.forEach(w=>{
+    if(out.length>=4)return;
+    const f=fix(w);
+    if(!out.some(y=>y.toLowerCase()===f.toLowerCase()))out.push(f);
+  });
+  const key=word.length;                      /* 문항마다 같은 자리에 정답이 오지 않게 */
+  return out.slice(0,4).sort((a,b)=>((a.length*7+key)%5)-((b.length*7+key)%5));
 }
 
 /* ---- 전체 이야기: 문단 순서 → 연결어 채우기 ---- */
@@ -1674,16 +1813,29 @@ document.addEventListener('click',e=>{
       S.P[S.p].read=true;S.P[S.p].stage=2;render();goTop();break;
     case 'pick':{
       const st=oS(p,i),n=+b.dataset.n,len=PARAS[p].order[i].chunks.length;
-      if(st.done||st.pick.includes(n)||st.pick.length>=len)return;
+      if(st.ordered||st.shown||st.pick.includes(n)||st.pick.length>=len)return;
       st.pick.push(n);st.msg='';render();break;}
-    case 'undo':oS(p,i).pick.pop();oS(p,i).msg='';render();break;
-    case 'clear':oS(p,i).pick=[];oS(p,i).msg='';render();break;
+    case 'undo':{const st=oS(p,i);if(st.ordered||st.shown)return;st.pick.pop();st.msg='';render();break;}
+    case 'clear':{const st=oS(p,i);if(st.ordered||st.shown)return;st.pick=[];st.msg='';render();break;}
     case 'check':{
       const st=oS(p,i),o=PARAS[p].order[i],n=o.seq.length;
-      if(st.pick.length<n){st.msg=`번호 ${n}개를 모두 눌러 주세요.`;render();return;}
+      if(st.pick.length<n){st.msg=`조각 ${n}개를 모두 놓아 주세요.`;render();return;}
       let k=0;while(k<n&&st.pick[k]===o.seq[k])k++;
-      if(k===n){st.done=true;st.msg='';}
-      else{st.msg=`${k+1}번째 자리부터 달라요. 처음부터 다시 눌러 보세요.`;st.pick=[];}
+      if(k===n){st.ordered=true;st.shown=false;st.msg='';if(!ordBlanks(p,i).length)st.done=true;}
+      else{st.shown=true;st.msg=`${n}개 중 ${st.pick.filter((v,z)=>v===o.seq[z]).length}개가 제자리예요. ${k+1}번째 자리부터 달라요.`;}
+      render();break;}
+    case 'oretry':{const st=oS(p,i);st.pick=[];st.shown=false;st.msg='';render();break;}
+    case 'ocj':{
+      const st=oS(p,i),bi=+b.dataset.b;
+      if(st.cjmk[bi]==='ok')return;
+      st.cj[bi]=b.dataset.w;st.cjmk[bi]=null;st.cjmsg='';render();break;}
+    case 'ocheck':{
+      const st=oS(p,i),bl=ordBlanks(p,i);
+      if(bl.some((_,k)=>!st.cj[k])){st.cjmsg='연결어를 모두 골라 주세요.';render();return;}
+      let wrong=0;
+      bl.forEach((v,k)=>{const ok=norm(st.cj[k])===norm(v.cj.w);st.cjmk[k]=ok?'ok':'bad';if(!ok)wrong++;});
+      if(wrong){st.cjmsg=`${wrong}개가 달라요. 아래 정답을 보고 다시 골라 보세요.`;st.cjshown=true;}
+      else{st.cjmsg='';st.done=true;}
       render();break;}
     case 'say':speak(b.dataset.t,!!b.dataset.slow);break;
     case 'key':{const w=ws('w',p,i),j=+b.dataset.j;w.keys[j]=!w.keys[j];render();break;}
