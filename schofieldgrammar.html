@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lesson 6 문법 서술형 — so ~ that · 5형식 보어 · used to</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5fc; --paper:#ffffff; --ink:#2a2440; --sub:#6f6790;
+  --lav:#6a57cc; --lav2:#a597e6; --soft:#efebfb; --line:#ddd6f3;
+  --ok:#1d8a5c; --okbg:#e7f6ee; --bad:#c7364a; --badbg:#fdeef0; --miss:#a19cb2; --warn:#b5651d;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito','Noto Sans KR',system-ui,sans-serif;font-size:17px;line-height:1.65;padding-bottom:120px}
+.wrap{max-width:780px;margin:0 auto;padding:0 18px}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--lav2);outline-offset:2px}
+.hd{padding:30px 0 6px}
+.brand{font-size:14px;font-weight:800;color:var(--lav);letter-spacing:.02em}
+.hd h1{margin:4px 0 2px;font-size:27px;line-height:1.25;font-weight:900}
+.hd p{margin:0;color:var(--sub);font-size:15px}
+.rail{display:flex;flex-wrap:wrap;gap:6px;padding:12px 0 6px}
+.pill{border:1.5px solid var(--line);background:var(--paper);color:var(--sub);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:800;cursor:pointer;min-height:40px}
+.pill.cur{border-color:var(--lav);color:var(--lav)}
+.pill.done{color:var(--ok);border-color:#bfe3cf}
+.pill small{font-weight:700;margin-left:4px}
+h2{font-size:22px;margin:22px 0 10px;font-weight:900;line-height:1.35}
+h3{font-size:18px;margin:22px 0 8px;font-weight:900}
+.lead{color:var(--sub);font-size:15px;margin:0 0 14px}
+.center{text-align:center;margin:22px 0}
+/* 공식 카드 */
+.card{background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 16px}
+.card h3{margin:0 0 8px}
+.formula{font-size:19px;font-weight:900;margin:4px 0 10px;line-height:1.5}
+.formula em{font-style:normal;color:var(--lav)}
+.formula .arr{color:var(--sub);font-weight:700;margin:0 6px}
+.rules{list-style:none;margin:0 0 10px;padding:0}
+.rules li{padding:3px 0;font-size:16px}
+.rules li::before{content:attr(data-n);display:inline-block;min-width:24px;font-weight:900;color:var(--lav)}
+.from{font-size:15px;color:var(--sub);margin:12px 0 4px}
+.from b{color:var(--ink)}
+.exs{font-size:19px;font-weight:700;line-height:2.3;margin:4px 0}
+.bk{display:inline-flex;align-items:center;justify-content:center;min-width:64px;min-height:40px;padding:0 10px;margin:0 2px;border:2px dashed var(--lav2);border-radius:10px;background:#fbfaff;color:var(--lav);font-size:17px;font-weight:900;cursor:pointer;vertical-align:middle;line-height:1.2}
+.bk.open{border-style:solid;border-color:#bfe3cf;background:var(--okbg);color:var(--ok);cursor:default}
+.bk.del{border-style:solid;border-color:#f1c3ca;background:var(--badbg);color:var(--bad);text-decoration:line-through;cursor:default}
+.steps{list-style:none;margin:6px 0 0;padding:0}
+.steps li{font-size:15.5px;padding:5px 0;border-top:1px dashed var(--line)}
+.steps li b{color:var(--lav);margin-right:6px}
+.msg{font-size:15px;font-weight:700;margin:8px 0 0}
+.msg.bad{color:var(--bad)}
+.msg.ok{color:var(--ok)}
+.chk{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chkb{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:6px 12px;font-size:14.5px;font-weight:800;color:var(--sub);cursor:pointer;min-height:40px;text-align:left}
+.chkb.on{border-color:#bfe3cf;background:var(--okbg);color:var(--ink);font-weight:700}
+.chkb .ck{color:var(--ok);font-weight:900;margin-right:4px}
+.mini{min-height:38px;padding:0 12px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--sub);font-weight:800;font-size:14px;cursor:pointer;margin-top:8px}
+/* 동사 그룹 */
+.grp{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;padding:10px 0;border-top:1px dashed var(--line)}
+.grp .gn{font-weight:900;font-size:16.5px}
+.grp .gv{grid-column:1/2;color:var(--sub);font-size:15px}
+.grp .ge{grid-column:1/3;font-size:16.5px;font-weight:700}
+.grp .bk{min-width:120px}
+.drill{padding:12px 0;border-top:1px dashed var(--line)}
+.drill .ds{font-size:17.5px;font-weight:700;margin-bottom:6px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{min-height:44px;padding:0 14px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:16px;font-weight:700;cursor:pointer;color:var(--ink)}
+.opt.ok{border-color:#bfe3cf;background:var(--okbg);color:var(--ok)}
+.opt.no{border-color:#f1c3ca;background:var(--badbg);color:var(--bad);text-decoration:line-through}
+.dfb{font-size:14.5px;margin-top:6px}
+/* 속는 곳 */
+.trap{list-style:none;margin:6px 0 0;padding:0}
+.trap li{padding:8px 0;border-top:1px dashed var(--line);font-size:16px}
+.trap li b.x{color:var(--bad)}
+.trap li b.o{color:var(--ok)}
+.tg{display:inline-block;font-size:12px;font-weight:800;color:var(--warn);border:1.3px solid #efcfa9;border-radius:6px;padding:0 7px;margin-right:6px;white-space:nowrap}
+.tg.new{color:var(--lav);border-color:var(--lav2)}
+/* 문항 */
+.q{background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 14px}
+.q.pass{border-color:#bfe3cf}
+.qh{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-bottom:6px}
+.qn{font-weight:900;color:var(--lav)}
+.deep{font-size:12px;font-weight:800;color:var(--bad);border:1.3px solid #f1c3ca;border-radius:6px;padding:0 7px}
+.given{font-size:17px;font-weight:700;margin:4px 0 6px;padding:8px 12px;border:1.5px dashed var(--line);border-radius:10px}
+.ko{font-size:16.5px;margin:4px 0}
+.cond{display:inline-block;font-size:14px;font-weight:800;color:var(--lav);background:var(--soft);border-radius:8px;padding:3px 10px;margin:4px 0 8px}
+textarea.inp{width:100%;font-family:inherit;font-size:17px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;resize:vertical;min-height:52px;line-height:1.5;background:#fff;color:var(--ink)}
+textarea.inp:focus{border-color:var(--lav);outline:none}
+textarea.inp[readonly]{background:var(--okbg);border-color:#bfe3cf}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.btn{min-height:46px;padding:0 16px;border-radius:12px;border:1.5px solid var(--lav);background:var(--paper);color:var(--lav);font-size:15px;font-weight:800;cursor:pointer}
+.btn.pri{background:var(--lav);color:#fff}
+.btn.on{background:var(--soft)}
+.ans{margin-top:10px;padding:10px 12px;border-left:4px solid var(--lav2);background:#fbfaff;border-radius:0 10px 10px 0;font-size:16px}
+.ans .lb{font-size:13px;font-weight:800;color:var(--sub);display:block}
+.mine .w-ok{color:var(--ok);font-weight:700}
+.mine .w-bad{color:var(--bad);text-decoration:line-through}
+.mine .w-miss{color:var(--miss)}
+.exp{margin-top:8px;font-size:15px}
+.pre{font-size:13.5px;color:var(--sub);margin:6px 0 0}
+.pre b{color:var(--ink)}
+.bdg{font-size:12.5px;font-weight:800;border-radius:6px;padding:1px 8px}
+.b1{color:var(--ok);background:var(--okbg)}
+.b2{color:var(--warn);background:#fdf3e7}
+.b3{color:var(--sub);background:var(--soft)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);border-top:1.5px solid var(--line);padding:10px 0 calc(10px + env(safe-area-inset-bottom))}
+.bar .wrap{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.bar .cnt{margin-left:auto;font-weight:900;color:var(--lav)}
+.empty{color:var(--sub);text-align:center;padding:30px 0}
+.res li{margin:6px 0}
+hr.sp{border:0;border-top:1.5px solid var(--line);margin:26px 0 8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hd">
+    <div class="brand">준티 잉글리쉬</div>
+    <h1>문법 서술형 — so ~ that · 5형식 보어 · used to</h1>
+    <p>동아(윤정미) 중2 Lesson 06 Dr. Schofield 본문 기반</p>
+  </header>
+  <nav class="rail" id="rail"></nav>
+  <main id="app"></main>
+</div>
+<div class="bar" id="bar"></div>
+<script>
+/* ================= DATA ================= */
+/* 공식 카드: ex.t 는 문장 조각. 문자열 = 그대로, {n,w,why,del} = 빈칸(n 순서대로 눌러야 열림) */
+const SECS=[
+{k:"R",name:"① so ~ that",
+ pre:["시제","that 뒤 주어+동사","very ✗"],
+ cards:[{h:"결과: 매우 ~해서 …하다",
+  f:'<em>so</em> + 형/부 + <em>that</em> + 주어 + 동사',
+  rules:["so 자리에 very ✗","that 뒤는 주어 + 동사까지 다 쓴다","앞뒤 시제를 맞춘다"],
+  ex:[{from:"그는 매우 열심히 공부해서 한국어로 가르칠 수 있었다.",
+   t:["He studied ",{n:1,w:"so",why:"hard 앞에 so (very ✗)"}," hard ",{n:2,w:"that",why:"결과가 시작된다는 신호"}," ",{n:3,w:"he",why:"that 뒤 주어를 다시 쓴다"}," ",{n:4,w:"was able to",why:"studied(과거) → was(과거). = could"}," teach in Korean."]}],
+  chk:[["시제","studied ↔ was able to (둘 다 과거)"],["that 뒤","주어 he + 동사 was ✔"],["very?","없다 ✔ so만"]]}]},
+{k:"G",name:"② 긍정 → enough to",
+ pre:["can·could인가?","enough 위치","for 목적격","it 지우기"],
+ cards:[
+ {h:"할 수 있다(can) → enough to",
+  f:'so 형/부 that 주어 <em>can</em> 동사<span class="arr">→</span>형/부 + <em>enough to</em> 동사',
+  rules:["can · could(할 수 있다)일 때만","so를 지우고 enough는 형용사 뒤에","that 주어 can → to 하나로"],
+  ex:[{from:"He was so tall that he could reach the shelf.",
+   t:["He was tall ",{n:1,w:"enough",why:"so를 지우고 형용사 tall 뒤에"}," ",{n:2,w:"to",why:"that he could → to (주어가 같으니 사람은 안 쓴다)"}," ",{n:3,w:"reach",why:"to 뒤는 동사원형"}," the shelf."]}],
+  chk:[["can?","could(할 수 있었다) → 긍정 ✔"],["enough 위치","tall enough ✔ (enough tall ✗)"]]},
+ {h:"주어가 다를 때: for + 사람",
+  f:'형/부 + enough + <em>for 사람</em> + to 동사',
+  rules:["that 뒤 주어가 문장 주어와 다르면 → for me / for him","it이 문장 주어를 가리키면 → 지운다"],
+  ex:[{from:"The box was so light that I could lift it.",
+   t:["The box was light ",{n:1,w:"enough",why:"light 뒤에"}," ",{n:2,w:"for me",why:"I ≠ the box → for + me(목적격)"}," ",{n:3,w:"to lift",why:"could lift → to lift"}," ",{n:4,w:"it",del:true,why:"it = the box. 문장 맨 앞에 있으니 지운다"},"."]}],
+  chk:[["주어 같나?","the box ≠ I → for me"],["it = 문장 주어?","it = the box → 삭제"],["격","I → me (목적격)"]]}]},
+{k:"N",name:"③ 부정 → too ~ to",
+ pre:["can't·couldn't인가?","not ✗","for 목적격","it 지우기/살리기","시제"],
+ cards:[
+ {h:"할 수 없다(can't) → too ~ to",
+  f:'so 형/부 that 주어 <em>can\'t</em> 동사<span class="arr">→</span><em>too</em> + 형/부 + (for 사람) + <em>to</em> 동사',
+  rules:["can't · couldn't(할 수 없다)일 때만","too 안에 ‘못 한다’가 이미 있다 → not ✗","주어가 다르면 for 사람, it은 지운다"],
+  ex:[{from:"The box was so heavy that I couldn't lift it.",
+   t:["The box was ",{n:1,w:"too",why:"so → too"}," heavy ",{n:2,w:"for me",why:"I ≠ the box → for + me"}," ",{n:3,w:"to lift",why:"couldn't lift → to lift (not 없이)"}," ",{n:4,w:"it",del:true,why:"it = the box → 지운다"},"."]}],
+  chk:[["can't?","couldn't → 부정 ✔ too"],["not?","to lift 앞에 not ✗"],["it","the box와 같음 → 삭제"]]},
+ {h:"거꾸로: too ~ to → so ~ that can't",
+  f:'too 형/부 to 동사<span class="arr">→</span><em>so</em> 형/부 <em>that</em> 주어 <em>can\'t / couldn\'t</em> 동사',
+  rules:["too → so","that + 주어(주격)를 되살린다","시제 맞춰 can't / couldn't","지웠던 it을 되살린다"],
+  ex:[{from:"The box was too heavy for me to lift.",
+   t:["The box was ",{n:1,w:"so",why:"too → so"}," heavy ",{n:2,w:"that I",why:"for me → that + I(주격)"}," ",{n:3,w:"couldn't",why:"was(과거) → couldn't (can't ✗)"}," lift ",{n:4,w:"it",why:"that 뒤는 완전한 문장 → 목적어 it 되살리기"},"."]}],
+  chk:[["시제","was → couldn't ✔"],["격","for me → that I ✔"],["it","되살림 ✔"]]}]},
+{k:"X",name:"④ such · so that",
+ pre:["명사가 있나?","a / an","붙었나 떨어졌나","시제"],
+ cards:[
+ {h:"명사가 있으면 such",
+  f:'<em>such</em> + a(n) + 형 + 명사 + that',
+  rules:["형용사 뒤에 명사가 있으면 so ✗ such","a / an 확인 (an important)","명사가 없으면 so"],
+  ex:[{from:"It was a very important event, so the world had to know about it.",
+   t:["It was ",{n:1,w:"such",why:"뒤에 명사 event가 있다 → such"}," ",{n:2,w:"an",why:"important는 모음 소리 → an"}," important event ",{n:3,w:"that",why:"결과 시작"}," the world had to know about it."]}],
+  chk:[["명사?","event 있음 → such"],["관사","an important ✔"]]},
+ {h:"붙어 있으면 목적: so that",
+  f:'<em>so that</em> + 주어 + can/could = ~하기 위해',
+  rules:["so that 붙음 = 목적(~하기 위해)","so ~ that 떨어짐 = 결과","= in order to 동사"],
+  ex:[{from:"He hid in a building in order to take pictures.",
+   t:["He hid in a building ",{n:1,w:"so that",why:"in order to → so that (붙여 쓴다)"}," ",{n:2,w:"he",why:"주어를 다시 쓴다"}," ",{n:3,w:"could",why:"hid(과거) → could"}," take pictures."]}],
+  chk:[["붙었나?","so that 붙음 → 목적"],["시제","hid → could ✔"]]}]},
+{k:"F",name:"⑤ 5형식 동사별 보어",
+ pre:["동사 그룹","목적격","보어는 원형 (과거형 ✗)","당하면 p.p."],
+ groups:true},
+{k:"U",name:"⑥ used to",
+ pre:["뒤에 원형? -ing?","did 있으면 use","상태면 would ✗"],
+ cards:[{h:"used to 삼형제",
+  f:'<em>used to</em> + 원형 = 예전엔 ~했다',
+  rules:["be used to + -ing = ~에 익숙하다","be used to + 원형 = ~하는 데 쓰이다","did가 있으면 use (used ✗)"],
+  ex:[
+   {from:"그는 예전에 캐나다에 살았다. (지금은 아님)",t:["He ",{n:1,w:"used to",why:"예전엔 ~했다"}," ",{n:2,w:"live",why:"to 뒤 원형"}," in Canada."]},
+   {from:"그는 한국어로 말하는 것에 익숙하다.",t:["He ",{n:1,w:"is used to",why:"~에 익숙하다 (be동사 있음)"}," ",{n:2,w:"speaking",why:"이 to는 전치사 → -ing"}," Korean."]},
+   {from:"그 카메라는 사진을 찍는 데 사용되었다.",t:["The camera ",{n:1,w:"was used",why:"use(사용하다)의 수동태"}," ",{n:2,w:"to take",why:"~하기 위해 → to + 원형"}," pictures."]},
+   {from:"그는 예전엔 한국어를 말하지 않았다.",t:["He ",{n:1,w:"didn't",why:"과거는 did가 맡는다"}," ",{n:2,w:"use to",why:"did 뒤는 원형 use (used ✗)"}," speak Korean."]}],
+  chk:[["be동사?","있으면 익숙 / 쓰이다, 없으면 예전에"],["did?","있으면 use"],["상태?","be · live · have는 would ✗"]]}]},
+{k:"E",name:"⑦ 오류 수정",pre:["시제","수 일치","목적어 it","보어 모양","짝 (so~that / because·so)"],cards:[]},
+{k:"M",name:"⑧ 본문 응용",pre:["시제","수 일치","동사 그룹 → 보어","it · for"],cards:[]}
+];
+
+/* 5형식: 동사 그룹 → 보어 */
+const GROUPS=[
+ {n:"지각동사",v:"see · watch · look at · hear · listen to · feel · smell · notice",b:"원형 / -ing",t:["He heard people ",{n:1,w:"shouting",why:"지각 → 원형·-ing (to ✗)"},"."]},
+ {n:"사역동사",v:"make · have · let",b:"원형",t:["The police made him ",{n:1,w:"leave",why:"사역 → 원형 (to leave ✗)"}," Korea."]},
+ {n:"help",v:"help",b:"원형 / to 원형",t:["His students helped him ",{n:1,w:"(to) learn",why:"help는 둘 다 (-ing ✗)"}," Korean."]},
+ {n:"요청동사",v:"want · ask · expect · would like",b:"to 원형",t:["The man asked him ",{n:1,w:"to take",why:"부탁·바람 → to"}," pictures."]},
+ {n:"지시동사",v:"tell · order · advise · allow · get",b:"to 원형",t:["She told us ",{n:1,w:"to be",why:"지시·허락 → to (get도 to!)"}," quiet."]},
+ {n:"상태동사",v:"make · keep · find · leave",b:"형용사",t:["The pictures made the event ",{n:1,w:"famous",why:"상태 → 형용사 (famously ✗)"},"."]},
+ {n:"지명동사",v:"call · name · elect",b:"명사",t:["People called him ",{n:1,w:"Seok Hopil",why:"이름 → 명사 (as ✗)"},"."]},
+ {n:"당하는 관계",v:"지각동사 · have · make + 목적어가 ‘당할’ 때",b:"p.p.",t:["She heard her name ",{n:1,w:"called",why:"이름은 불리는 것 → p.p."},"."]}
+];
+const DRILL=[
+ {s:"Dr. Schofield saw people ___ outside.",o:["gather","to gather","gathering","gathered"],a:[0,2],g:"지각동사 → 원형 / -ing"},
+ {s:"The man asked him ___ pictures.",o:["take","to take","taking","took"],a:[1],g:"요청동사 → to 원형"},
+ {s:"The police made him ___ Korea.",o:["leave","to leave","leaving","left"],a:[0],g:"사역동사 → 원형"},
+ {s:"He heard his Korean name ___.",o:["call","to call","calling","called"],a:[3],g:"이름은 불리는 것 → p.p."},
+ {s:"The police didn't let him ___ in Korea.",o:["stay","to stay","staying","stayed"],a:[0],g:"사역동사 let → 원형"},
+ {s:"His students helped him ___ Korean.",o:["learn","to learn","learning","learned"],a:[0,1],g:"help → 원형 / to 원형 (-ing ✗)"},
+ {s:"He wanted the world ___ about the event.",o:["know","to know","knowing","knew"],a:[1],g:"요청동사 want → to 원형"},
+ {s:"The doctor told him ___ some rest.",o:["get","to get","getting","got"],a:[1],g:"지시동사 tell → to 원형"},
+ {s:"I got my brother ___ the dishes.",o:["wash","to wash","washing","washed"],a:[1],g:"get은 ‘시키다’여도 to 원형 (사역동사 아님)"},
+ {s:"She had her bike ___.",o:["fix","to fix","fixing","fixed"],a:[3],g:"자전거는 고쳐지는 것 → p.p."},
+ {s:"We listened to him ___ the story.",o:["tell","to tell","telling","told"],a:[0,2],g:"지각동사 listen to → 원형 / -ing"},
+ {s:"The pictures made the event ___.",o:["famous","famously","to be famous","fame"],a:[0],g:"상태동사 make → 형용사"},
+ {s:"People called him ___.",o:["Seok Hopil","as Seok Hopil","to Seok Hopil","Seok Hopil's"],a:[0],g:"지명동사 call → 명사"},
+ {s:"They felt the ground ___.",o:["shake","to shake","shaking","shook"],a:[0,2],g:"지각동사 feel → 원형 / -ing"}
+];
+
+const Q=[
+/* ① so ~ that */
+{s:"R",given:"The movie was very sad. Everyone cried.",cond:"so ~ that 으로 한 문장을 만드세요.",
+ ans:["The movie was so sad that everyone cried."],trap:"very ~ that ✗",exp:"결과를 잇는 건 <b>so</b>뿐. everyone은 단수 취급이지만 cried(과거)라 모양은 같다."},
+{s:"R",given:"He studied Korean hard. As a result, he was able to teach in Korean.",cond:"so ~ that 으로 한 문장을 만드세요.",
+ ans:["He studied Korean so hard that he was able to teach in Korean.","He studied Korean so hard that he could teach in Korean."],trap:"very ~ that ✗",exp:"so는 부사 hard 앞. was able to = could."},
+{s:"R",given:"The police watched him closely, so he couldn't stay in Korea.",cond:"so ~ that 으로 한 문장을 만드세요.",
+ ans:["The police watched him so closely that he couldn't stay in Korea."],trap:"부사 앞 so",exp:"so는 <b>부사 closely 앞</b>에도 온다."},
+{s:"R",given:"There were very many people, so Dr. Schofield couldn't count them.",cond:"so ~ that 으로 한 문장 · 본문 8번 표현",
+ ans:["There were so many people that Dr. Schofield couldn't count them."],trap:"so many + 복수",exp:"<b>so many + 복수명사</b> (셀 수 없으면 so much). 목적어는 사람들 = them."},
+
+/* ② 긍정 enough */
+{s:"G",given:"Dr. Schofield was so brave that he could take pictures of the event.",cond:"enough 를 써서 바꿔 쓰세요.",
+ ans:["Dr. Schofield was brave enough to take pictures of the event."],trap:"enough 위치",exp:"brave <b>enough</b> to. 주어가 같으니 for 없음."},
+{s:"G",given:"He studied so hard that he could teach in Korean.",cond:"enough 를 써서 바꿔 쓰세요.",
+ ans:["He studied hard enough to teach in Korean."],trap:"enough 위치",exp:"부사 hard 뒤에 enough."},
+{s:"G",given:"The box was light enough for me to lift.",cond:"so ~ that 으로 바꿔 쓰세요.",
+ ans:["The box was so light that I could lift it."],trap:"it 되살리기",exp:"for me → that <b>I</b>, 과거라 <b>could</b>, that 뒤는 완전한 문장이라 <b>it</b>을 되살린다."},
+{s:"G",given:"His Korean was so good that his students could understand him.",cond:"enough 와 for 를 써서 바꿔 쓰세요.",
+ ans:["His Korean was good enough for his students to understand him."],trap:"it 지우기? 아니다",exp:"him(= Schofield)은 문장 주어 His Korean과 <b>다르다</b> → 지우지 않는다. 지우는 건 문장 주어와 같은 것뿐."},
+{s:"G",given:"She is so tall that she can reach the shelf.",cond:"enough 를 써서 바꿔 쓰세요.",
+ ans:["She is tall enough to reach the shelf."],trap:"시제 유지",exp:"is(현재) 그대로. enough는 tall 뒤."},
+
+/* ③ 부정 too ~ to */
+{s:"N",given:"The camera was too small for the police to find.",cond:"so ~ that 으로 바꿔 쓰세요.",
+ ans:["The camera was so small that the police couldn't find it."],trap:"it 되살리기",exp:"과거라 <b>couldn't</b>, 목적어 <b>it</b> 되살리기."},
+{s:"N",given:"The article was so shocking that people couldn't believe it.",cond:"too ~ to 로 바꿔 쓰세요.",
+ ans:["The article was too shocking for people to believe."],trap:"it 지우기",exp:"people ≠ the article → <b>for people</b>. it = the article → 지운다."},
+{s:"N",given:"He was too busy to answer the man's letter.",cond:"so ~ that 으로 바꿔 쓰세요.",
+ ans:["He was so busy that he couldn't answer the man's letter."],trap:"시제 일치",exp:"that + <b>he</b> + <b>couldn't</b>. can't ✗."},
+{s:"N",given:"The man spoke too quietly for Dr. Schofield to hear.",cond:"so ~ that 으로 바꿔 쓰세요.",
+ ans:["The man spoke so quietly that Dr. Schofield couldn't hear him."],trap:"목적어 되살리기",exp:"hear의 목적어 the man을 <b>him</b>으로 되살린다."},
+{s:"N",given:"He was so young that he couldn't ride the roller coaster.",cond:"too ~ to 로 바꿔 쓰세요.",
+ ans:["He was too young to ride the roller coaster."],trap:"for 중복 ✗",exp:"주어가 같으면 for him을 쓰지 않는다. 목적어 the roller coaster는 문장 주어와 다르니 그대로."},
+
+/* ④ such · so that */
+{s:"X",given:"It was a very important event, so the world had to know about it.",cond:"such 를 써서 한 문장을 만드세요.",
+ ans:["It was such an important event that the world had to know about it."],trap:"such a(n)",exp:"명사 event가 있으니 <b>such an</b>."},
+{s:"X",given:"It was a very cold day, so we stayed home.",cond:"such 를 써서 한 문장을 만드세요.",
+ ans:["It was such a cold day that we stayed home."],trap:"such a(n)",exp:"such + a + 형용사 + 명사 + that."},
+{s:"X",given:"He hid in a building in order to take pictures safely.",cond:"so that 을 써서 바꿔 쓰세요.",
+ ans:["He hid in a building so that he could take pictures safely."],trap:"목적 so that",exp:"붙어 있는 <b>so that</b> = 목적. hid(과거) → could."},
+{s:"X",given:"He worked hard in order to help poor students.",cond:"so that 을 써서 바꿔 쓰세요.",
+ ans:["He worked hard so that he could help poor students."],trap:"목적 so that",exp:"so that + he + could. so hard that(결과)와 헷갈리지 말 것."},
+
+/* ⑤ 5형식 */
+{s:"F",given:"Dr. Schofield heard people. They were shouting for independence.",cond:"한 문장으로 · 진행 중인 동작을 살릴 것",
+ ans:["Dr. Schofield heard people shouting for independence."],trap:"지각 + to ✗",exp:"지각동사 hear → <b>-ing</b>. 본문 17번."},
+{s:"F",given:"The man saw Dr. Schofield. He entered the building.",cond:"한 문장으로 · 동사원형을 쓸 것",
+ ans:["The man saw Dr. Schofield enter the building."],trap:"과거형 보어 ✗",exp:"saw가 과거여도 보어는 원형 <b>enter</b>."},
+{s:"F",given:"Dr. Schofield heard his Korean name. Someone called it.",cond:"한 문장으로 · 7단어",
+ ans:["Dr. Schofield heard his Korean name called."],trap:"p.p. 보어",exp:"이름은 불리는 것 → <b>called</b>."},
+{s:"F",ko:"우리는 그가 그 이야기를 하는 것을 들었다.",cond:"listen to 를 쓸 것",
+ ans:["We listened to him tell the story.","We listened to him telling the story."],trap:"listen to",exp:"<b>to</b>를 빼면 안 된다. 목적격 him."},
+{s:"F",ko:"경찰은 그가 그 건물을 떠나는 것을 지켜보았다.",cond:"watch, leave 를 쓸 것",
+ ans:["The police watched him leave the building.","The police watched him leaving the building."],trap:"목적격",exp:"watched <b>him</b>(he ✗) + leave / leaving."},
+{s:"F",ko:"남자는 Schofield 박사에게 사진을 찍어 달라고 부탁했다.",cond:"ask 를 쓸 것",
+ ans:["The man asked Dr. Schofield to take pictures."],trap:"요청 → to",exp:"요청동사 ask → <b>to take</b>."},
+{s:"F",ko:"일본 경찰은 그가 한국을 떠나게 만들었다.",cond:"make 를 쓸 것",
+ ans:["The Japanese police made him leave Korea."],trap:"사역 → 원형",exp:"사역동사 make → <b>leave</b> (to leave ✗)."},
+{s:"F",ko:"그의 학생들은 그가 한국어를 배우는 것을 도왔다.",cond:"help 를 쓸 것",
+ ans:["His students helped him learn Korean.","His students helped him to learn Korean."],trap:"help → 둘 다",exp:"help는 원형·to 원형 둘 다."},
+{s:"F",ko:"그는 세계가 그 사건에 대해 알기를 원했다.",cond:"want 를 쓸 것",
+ ans:["He wanted the world to know about the event."],trap:"요청 → to",exp:"want + 목적어 + <b>to know</b>."},
+{s:"F",ko:"선생님은 우리에게 조용히 하라고 말했다.",cond:"tell 을 쓸 것",
+ ans:["The teacher told us to be quiet."],trap:"지시 → to",exp:"지시동사 tell → <b>to be</b>."},
+{s:"F",ko:"나는 남동생이 설거지를 하게 했다.",cond:"get 을 쓸 것",
+ ans:["I got my brother to wash the dishes.","I got my brother to do the dishes."],trap:"get → to",exp:"get은 ‘시키다’ 뜻이어도 <b>to</b>. 사역동사(make·have·let)가 아니다."},
+{s:"F",ko:"그 사진들은 그 사건을 유명하게 만들었다.",cond:"make 를 쓸 것",
+ ans:["The pictures made the event famous."],trap:"형용사 보어",exp:"상태동사 make → 형용사 <b>famous</b>."},
+{s:"F",ko:"사람들은 그를 석호필(Seok Hopil)이라고 불렀다.",cond:"call 을 쓸 것",
+ ans:["People called him Seok Hopil."],trap:"명사 보어",exp:"지명동사 call → 명사. as ✗."},
+{s:"F",ko:"그 이야기는 슬프게 들렸고, 나는 몇몇 사람들이 우는 것을 들었다.",cond:"sound 와 hear 를 모두 쓸 것",
+ ans:["The story sounded sad, and I heard some people cry.","The story sounded sad, and I heard some people crying."],trap:"감각동사 vs 지각동사",exp:"sound + <b>형용사</b>(2형식) / hear + 목적어 + <b>원형·-ing</b>(5형식)."},
+{s:"F",deep:true,ko:"그가 그 건물에 들어가는 것이 목격되었다.",cond:"수동태 · He was seen 으로 시작",
+ ans:["He was seen to enter the building.","He was seen entering the building."],trap:"수동태 to",exp:"수동태가 되면 원형이 <b>to enter</b>로 바뀐다."},
+
+/* ⑥ used to */
+{s:"U",ko:"Schofield 박사는 예전에 캐나다에 살았다. (지금은 아니다)",cond:"used to 를 쓸 것",
+ ans:["Dr. Schofield used to live in Canada."],trap:"used to + 원형",exp:"used to + <b>live</b>."},
+{s:"U",ko:"예전에 이 공원에는 큰 나무가 한 그루 있었다.",cond:"There 로 시작 · used to",
+ ans:["There used to be a big tree in this park."],trap:"There used to be",exp:"상태(be)라서 would ✗."},
+{s:"U",ko:"그는 예전에는 한국어를 말하지 않았다.",cond:"didn't 를 쓸 것",
+ ans:["He didn't use to speak Korean."],trap:"didn't use to",exp:"did 뒤는 <b>use</b>."},
+{s:"U",ko:"그는 예전에 의학을 가르쳤니?",cond:"Did 로 시작",
+ ans:["Did he use to teach medicine?"],trap:"Did ~ use to",exp:"Did + 주어 + <b>use to</b>."},
+{s:"U",ko:"그는 이제 한국어로 말하는 것에 익숙하다.",cond:"be used to 를 쓸 것",
+ ans:["He is used to speaking Korean now.","Now he is used to speaking Korean.","He is used to speaking in Korean now.","Now he is used to speaking in Korean."],trap:"be used to -ing",exp:"be used to + <b>-ing</b>."},
+{s:"U",ko:"이 카메라는 그 사건의 사진을 찍는 데 사용되었다.",cond:"be used 를 쓸 것 · 수동태",
+ ans:["This camera was used to take pictures of the event."],trap:"be used to + 원형",exp:"‘~하는 데 쓰이다’ → <b>to take</b>."},
+{s:"U",given:"He taught medicine in Korea before. He doesn't teach it now.",cond:"used to 로 한 문장을 만드세요.",
+ ans:["He used to teach medicine in Korea."],trap:"지금은 아님",exp:"과거에 했고 지금은 안 함 → used to."},
+{s:"U",ko:"그는 매일 아침 일찍 일어나곤 했다.",cond:"would 를 쓸 것",
+ ans:["He would get up early every morning."],trap:"would는 동작만",exp:"반복 <b>동작</b>은 would 가능. 상태는 used to만."},
+
+/* ⑦ 오류 수정 */
+{s:"E",given:"Dr. Schofield saw people to gather outside.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["Dr. Schofield saw people gather outside.","Dr. Schofield saw people gathering outside."],trap:"지각 + to ✗",exp:"to gather → <b>gather / gathering</b>."},
+{s:"E",given:"He studied very hard that he could teach in Korean.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["He studied so hard that he could teach in Korean."],trap:"very ~ that ✗",exp:"very → <b>so</b>."},
+{s:"E",given:"The camera was so small that the police couldn't find.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["The camera was so small that the police couldn't find it."],trap:"it 되살리기",exp:"find 뒤에 <b>it</b>."},
+{s:"E",given:"The box was too heavy for me to lift it.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["The box was too heavy for me to lift."],trap:"it 지우기",exp:"it = the box → 지운다."},
+{s:"E",given:"The box was light enough for me to lift it.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["The box was light enough for me to lift."],trap:"it 지우기",exp:"enough to에서도 it = the box → 지운다."},
+{s:"E",given:"He was too tired not to walk anymore.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["He was too tired to walk anymore."],trap:"too + not ✗",exp:"too 안에 ‘못 한다’가 이미 있다 → <b>not</b>을 지운다."},
+{s:"E",given:"He was so tired that he can't walk anymore.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["He was so tired that he couldn't walk anymore."],trap:"시제 일치",exp:"was → <b>couldn't</b>."},
+{s:"E",given:"He was too young for him to ride the roller coaster.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["He was too young to ride the roller coaster."],trap:"for 중복 ✗",exp:"주어가 같으면 for him을 쓰지 않는다."},
+{s:"E",given:"It was so a cold day that we stayed home.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["It was such a cold day that we stayed home.","It was so cold a day that we stayed home."],trap:"such a(n)",exp:"<b>such a cold day</b>."},
+{s:"E",given:"He was enough brave to take pictures.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["He was brave enough to take pictures."],trap:"enough 위치",exp:"<b>brave enough</b>."},
+{s:"E",given:"She heard her name call.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["She heard her name called."],trap:"p.p. 보어",exp:"<b>called</b>."},
+{s:"E",given:"It sounded similarly to his real name.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["It sounded similar to his real name."],trap:"감각동사 + 형용사",exp:"<b>similar</b>."},
+{s:"E",given:"We listened him sing.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["We listened to him sing.","We listened to him singing."],trap:"listen to",exp:"<b>listened to</b>."},
+{s:"E",given:"The police made him to leave Korea.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["The police made him leave Korea."],trap:"사역 → 원형",exp:"to leave → <b>leave</b>."},
+{s:"E",given:"His students helped him learning Korean.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["His students helped him learn Korean.","His students helped him to learn Korean."],trap:"help + -ing ✗",exp:"help → 원형 / to 원형."},
+{s:"E",given:"Did he used to live in Canada?",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["Did he use to live in Canada?"],trap:"Did ~ use to",exp:"<b>use</b>."},
+{s:"E",given:"He used to living in Canada.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요. 고치는 방법은 두 가지입니다.",
+ ans:["He used to live in Canada.","He is used to living in Canada.","He was used to living in Canada."],trap:"used to vs be used to",exp:"<b>used to live</b> 또는 <b>is used to living</b>."},
+{s:"E",given:"There would be a big tree in the park.",ko:"(뜻: 예전에 그 공원에는 큰 나무가 한 그루 있었다.)",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["There used to be a big tree in the park."],trap:"would는 동작만",exp:"<b>used to be</b>."},
+{s:"E",given:"Because he was under the watchful eye of the police, so he had to leave.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["Because he was under the watchful eye of the police, he had to leave.","He was under the watchful eye of the police, so he had to leave."],trap:"because + so ✗",exp:"because와 so 중 하나만."},
+{s:"E",given:"Every country have the right to be independent.",cond:"틀린 곳을 고쳐 문장 전체를 쓰세요.",
+ ans:["Every country has the right to be independent."],trap:"수 일치",exp:"every + 단수 → <b>has</b>."},
+
+/* ⑧ 본문 응용 */
+{s:"M",ko:"3월 1일, Schofield 박사는 너무 흥분해서 사진 찍는 것을 멈출 수 없었다.",cond:"so ~ that 과 stop 을 쓸 것",
+ ans:["On March 1, Dr. Schofield was so excited that he couldn't stop taking pictures."],trap:"stop -ing",exp:"stop <b>taking</b>(찍는 것을 멈추다). stop to take는 ‘찍으려고 멈추다’."},
+{s:"M",ko:"Schofield 박사는 건물 안에 숨어서 많은 사람들이 밖에서 모이는 것을 지켜보았다.",cond:"watch + 목적어 + 동사원형 을 쓸 것",
+ ans:["Dr. Schofield hid in a building and watched many people gather outside.","Dr. Schofield was hiding in a building and watched many people gather outside.","Dr. Schofield hid in a building and watched a lot of people gather outside.","Dr. Schofield was hiding in a building and watched a lot of people gather outside.","Dr. Schofield hid in a building and watched a large group of people gather outside.","Dr. Schofield was hiding in a building and watched a large group of people gather outside."],trap:"지각 + 원형",exp:"watched + many people + <b>gather</b>."},
+{s:"M",ko:"남자는 Schofield 박사에게 그 행사의 사진을 찍어 세계와 공유해 달라고 부탁했다.",cond:"ask + 목적어 + to 원형 을 쓸 것",
+ ans:["The man asked Dr. Schofield to take pictures of the event and share them with the world.","The man asked Dr. Schofield to take pictures of the event and to share them with the world."],trap:"요청 → to",exp:"asked + Dr. Schofield + <b>to take</b> ... and (to) share."},
+{s:"M",ko:"Schofield 박사는 세계가 그의 사진들을 통해 이 중요한 사건에 대해 알게 되기를 원했다.",cond:"want + 목적어 + to 원형 을 쓸 것",
+ ans:["Dr. Schofield wanted the world to learn about this important event through his pictures."],trap:"요청 → to",exp:"본문 9번 I hope ~를 want + 목적어 + <b>to learn</b>으로."},
+{s:"M",ko:"사람들은 그를 석호필(Seok Hopil)이라고 불렀고, 그는 그 이름을 사랑했다.",cond:"call + 목적어 + 명사 를 쓸 것",
+ ans:["People called him Seok Hopil, and he loved the name.","People called him Seok Hopil, and he loved that name.","People called him Seok Hopil, and he loved it."],trap:"명사 보어",exp:"called him <b>Seok Hopil</b>. as ✗."},
+{s:"M",ko:"그는 한국어로 가르치고 싶었기 때문에 곧바로 한국어를 배우기 시작했다.",cond:"Because 로 시작 · begin + 동명사",
+ ans:["Because he wanted to teach in Korean, he began learning Korean right away."],trap:"because + so ✗",exp:"Because ~, 뒤에 so를 또 쓰지 않는다. began <b>learning</b>."},
+{s:"M",ko:"그는 몇 년 만에 한국어로 가르칠 수 있을 만큼 충분히 열심히 공부했다.",cond:"enough 를 쓸 것",
+ ans:["He studied hard enough to teach in Korean after only a few years.","He studied hard enough to teach in Korean after a few years."],trap:"enough 위치",exp:"hard <b>enough to</b>. 본문 15번의 긍정 전환."},
+{s:"M",ko:"그의 한국어는 너무 훌륭해서 학생들은 그의 수업을 쉽게 이해할 수 있었다.",cond:"so ~ that 을 쓸 것",
+ ans:["His Korean was so good that his students could understand his classes easily.","His Korean was so good that his students could easily understand his classes."],trap:"could 긍정",exp:"결과가 ‘할 수 있었다’ → <b>could</b>."},
+{s:"M",ko:"그는 모든 사람이 자유롭게 살 권리가 있다고 믿었다.",cond:"every 를 쓸 것 · the right to",
+ ans:["He believed that every person has the right to live freely.","He believed every person has the right to live freely.","He believed that every person had the right to live freely.","He believed every person had the right to live freely.","He believed that everyone has the right to live freely.","He believed everyone has the right to live freely.","He believed that everyone had the right to live freely.","He believed everyone had the right to live freely."],trap:"수 일치",exp:"every + 단수 → <b>has</b>(have ✗). 본문 16번."},
+{s:"M",ko:"사람들이 너무 크게 외쳐서 Schofield 박사는 그들이 외치는 소리를 들을 수 있었다.",cond:"so ~ that 과 hear + 목적어 + -ing 를 쓸 것",
+ ans:["People shouted so loudly that Dr. Schofield could hear them shouting."],trap:"두 문법 섞기",exp:"so <b>loudly</b> that + could hear <b>them</b>(목적격) <b>shouting</b>."},
+{s:"M",ko:"그는 사람들이 한국의 독립을 외치는 것을 들었고, 그들의 사진을 찍기 시작했다.",cond:"hear + 목적어 + -ing, begin to 를 쓸 것",
+ ans:["He heard people shouting for Korean independence, and he began to take their pictures.","He heard people shouting for Korean independence and began to take their pictures.","He heard people shouting for Korean independence, and he began to take pictures of them.","He heard people shouting for Korean independence and began to take pictures of them."],trap:"두 문법 섞기",exp:"heard people <b>shouting</b> + began <b>to take</b>."},
+{s:"M",ko:"그 기사는 너무 충격적이어서 외국 사람들은 그것을 믿을 수 없었다.",cond:"too ~ to 와 for 를 쓸 것",
+ ans:["The article was too shocking for foreign people to believe.","The article was too shocking for foreigners to believe."],trap:"it 지우기",exp:"for 사람 + to believe. 끝에 it ✗."},
+{s:"M",ko:"그 기사는 세계가 한국의 끔찍한 상황에 대해 알게 만들었다.",cond:"make + 목적어 + 동사원형 · learn 을 쓸 것",
+ ans:["The article made the world learn about the terrible situation in Korea."],trap:"사역 → 원형",exp:"made the world <b>learn</b> (to learn ✗)."},
+{s:"M",ko:"경찰은 그가 기사 한 편을 쓰는 것은 보았지만, 그가 그 사진들을 보내는 것은 보지 못했다.",cond:"see + 목적어 + 동사원형 을 두 번 쓸 것",
+ ans:["The police saw him write an article, but they didn't see him send the pictures."],trap:"과거형 보어 ✗",exp:"saw him <b>write</b> / didn't see him <b>send</b>."},
+{s:"M",ko:"일본 경찰은 그를 너무 가까이 감시해서 그는 캐나다로 돌아가야 했다.",cond:"so ~ that 과 had to 를 쓸 것",
+ ans:["The Japanese police watched him so closely that he had to go back to Canada."],trap:"부사 앞 so",exp:"so <b>closely</b> that + had to."},
+{s:"M",ko:"일본 경찰이 그를 너무 가까이 감시해서 그는 한국에 머무를 수 없었다.",cond:"too ~ to 와 for 를 쓸 것",
+ ans:["The Japanese police watched him too closely for him to stay in Korea."],trap:"for 목적격",exp:"문장 주어(경찰) ≠ 머무는 사람(그) → <b>for him</b>. stay는 목적어가 없으니 지울 it도 없다."},
+{s:"M",ko:"3·1 운동은 너무 중요한 사건이어서 세계가 그것에 대해 알아야 했다.",cond:"such 를 쓸 것",
+ ans:["The March 1st Movement was such an important event that the world had to know about it.","The March 1st Movement was such an important event that the world had to learn about it."],trap:"such a(n)",exp:"명사 event → <b>such an</b>. that 뒤는 완전한 문장이라 about <b>it</b>을 쓴다."},
+{s:"M",ko:"그는 가난한 학생들이 공부할 수 있도록 열심히 일했다.",cond:"so that 을 쓸 것",
+ ans:["He worked hard so that poor students could study."],trap:"목적 so that",exp:"붙은 <b>so that</b> = 목적. worked(과거) → could."},
+{s:"M",ko:"남은 생애 동안, 그는 가난한 학생들이 공부하는 것을 도왔다.",cond:"help + 목적어 + 동사원형 을 쓸 것",
+ ans:["For the rest of his life, he helped poor students study.","He helped poor students study for the rest of his life."],trap:"help → 원형",exp:"helped poor students <b>study</b>. 본문 24번."},
+{s:"M",ko:"Schofield 박사는 예전에 캐나다에 살았지만, 남은 생애 동안은 한국에서 살았다.",cond:"used to 와 but 을 쓸 것",
+ ans:["Dr. Schofield used to live in Canada, but he lived in Korea for the rest of his life."],trap:"used to + 원형",exp:"used to <b>live</b> ↔ but 뒤는 실제 과거 lived."},
+{s:"M",ko:"그는 예전엔 한국어를 말하지 않았지만, 겨우 몇 년 후에 한국어로 가르칠 수 있었다.",cond:"didn't use to 와 but 을 쓸 것",
+ ans:["He didn't use to speak Korean, but he was able to teach in Korean after only a few years.","He didn't use to speak Korean, but he could teach in Korean after only a few years."],trap:"didn't use to",exp:"did 뒤는 <b>use</b>. was able to = could."}
+];
+
+/* ================= ENGINE ================= */
+const norm=s=>String(s).toLowerCase().replace(/[\u2018\u2019]/g,"'").replace(/[^a-z0-9'\-\s]/gi,' ').replace(/\s+/g,' ').trim();
+const CONTR=[["couldn't","could not"],["can't","cannot"],["can't","can not"],["didn't","did not"],["doesn't","does not"],["don't","do not"],["wasn't","was not"],["isn't","is not"],["weren't","were not"]];
+function variants(a){let out=[norm(a)];CONTR.forEach(([c,f])=>{const add=[];out.forEach(v=>{if(v.includes(c))add.push(v.split(c).join(f));if(v.includes(f))add.push(v.split(f).join(c));});add.forEach(x=>{if(!out.includes(x))out.push(x)});});return out;}
+Q.forEach((q,i)=>{q.id=q.s+(Q.filter((z,j)=>j<=i&&z.s===q.s).length);q.acc=[];q.ans.forEach(a=>variants(a).forEach(v=>{if(!q.acc.includes(v))q.acc.push(v)}));});
+let S=fresh();
+function fresh(){return {tab:'R',st:{},only:false,cd:{},dr:{}};}
+function st(id){return S.st[id]||(S.st[id]={val:'',status:'',tries:0,peek:false,peeked:false,first:null,mine:''});}
+function cd(key){return S.cd[key]||(S.cd[key]={open:0,msg:'',chk:{}});}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+const CIR=['','①','②','③','④','⑤','⑥'];
+function lcs(a,b){const d=Array(a.length+1).fill(0).map(()=>Array(b.length+1).fill(0));for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=a[i-1]===b[j-1]?d[i-1][j-1]+1:Math.max(d[i-1][j],d[i][j-1]);return d[a.length][b.length];}
+function best(q,v){const a=norm(v).split(' ');let bi=0,bs=-1;q.ans.forEach((x,k)=>{const s=lcs(a,norm(x).split(' '));if(s>bs){bs=s;bi=k}});return q.ans[bi];}
+function diffHTML(mine,ans){
+  const a=norm(mine).split(' ').filter(Boolean),b=norm(ans).split(' ');const n=a.length,m=b.length,d=Array(n+1).fill(0).map(()=>Array(m+1).fill(0));
+  for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)d[i][j]=a[i]===b[j]?d[i+1][j+1]+1:Math.max(d[i+1][j],d[i][j+1]);
+  let i=0,j=0,out=[];while(i<n||j<m){if(i<n&&j<m&&a[i]===b[j]){out.push(`<span class="w-ok">${esc(a[i])}</span>`);i++;j++;}else if(j<m&&(i>=n||d[i][j+1]>=d[i+1][j])){out.push(`<span class="w-miss">___</span>`);j++;}else{out.push(`<span class="w-bad">${esc(a[i])}</span>`);i++;}}
+  return out.join(' ');
+}
+function grade(q){const x=st(q.id);if(x.status==='pass')return;if(!norm(x.val)){x.status='empty';return;}
+  x.tries++;if(q.acc.includes(norm(x.val))){x.status='pass';if(x.first===null)x.first=true;x.badge=x.peeked?3:(x.tries>1?2:1);x.peek=false;}
+  else{x.status='wrong';if(x.first===null)x.first=false;x.mine=x.val;x.peek=false;}}
+function secQs(k){return Q.filter(q=>q.s===k);}
+function passN(k){return secQs(k).filter(q=>st(q.id).status==='pass').length;}
+
+/* 탭 순서 빈칸 */
+function blanksOf(t){return t.filter(x=>typeof x!=='string');}
+function exHTML(key,t){
+  const c=cd(key),bl=blanksOf(t),total=bl.length;
+  let h=`<div class="exs">`+t.map(x=>{
+    if(typeof x==='string')return esc(x);
+    if(c.open>=x.n)return `<span class="bk ${x.del?'del':'open'}">${esc(x.w)}</span>`;
+    return `<button class="bk" data-act="bk" data-key="${key}" data-n="${x.n}">${CIR[x.n]}</button>`;
+  }).join('')+`</div>`;
+  if(c.msg)h+=`<p class="msg bad">${esc(c.msg)}</p>`;
+  const shown=bl.filter(x=>c.open>=x.n).sort((a,b)=>a.n-b.n);
+  if(shown.length)h+=`<ol class="steps">`+shown.map(x=>`<li><b>${CIR[x.n]}</b>${x.del?'<b style="color:var(--bad)">삭제</b> ':''}${esc(x.why)}</li>`).join('')+`</ol>`;
+  if(c.open>=total){
+    const full=t.map(x=>typeof x==='string'?x:(x.del?'':x.w)).join('').replace(/\s+([.?!,])/g,'$1').replace(/\s{2,}/g,' ');
+    h+=`<p class="msg ok">완성: ${esc(full)}</p><button class="mini" data-act="bkreset" data-key="${key}">다시 해 보기</button>`;
+  }
+  return h;
+}
+function cardHTML(sk,ci,c){
+  let h=`<div class="card"><h3>${esc(c.h)}</h3><p class="formula">${c.f}</p><ul class="rules">`+c.rules.map((r,i)=>`<li data-n="${i+1}">${esc(r)}</li>`).join('')+`</ul>`;
+  c.ex.forEach((e,ei)=>{h+=`<p class="from">예문 <b>${esc(e.from)}</b> → 빈칸을 ①부터 순서대로 누르세요</p>`+exHTML(`${sk}-${ci}-${ei}`,e.t);});
+  const allOpen=c.ex.every((e,ei)=>cd(`${sk}-${ci}-${ei}`).open>=blanksOf(e.t).length);
+  if(allOpen&&c.chk){const cc=cd(`${sk}-${ci}-chk`);
+    h+=`<p class="from"><b>점검</b> — 눌러서 확인</p><div class="chk">`+c.chk.map((k,i)=>`<button class="chkb ${cc.chk[i]?'on':''}" data-act="chk" data-key="${sk}-${ci}-chk" data-i="${i}">${cc.chk[i]?`<span class="ck">✔</span>${esc(k[0])}: ${esc(k[1])}`:esc(k[0])+' ?'}</button>`).join('')+`</div>`;}
+  return h+`</div>`;
+}
+function groupsHTML(){
+  let h=`<div class="card"><h3>동사가 보어 모양을 정한다</h3><p class="formula">동사 + 목적어 + <em>보어</em></p><ul class="rules"><li data-n="1">보고·듣고·느끼면 → 원형 / -ing</li><li data-n="2">시키면 (make · have · let) → 원형</li><li data-n="3">부탁·지시하면 → to 원형</li></ul><p class="from">그룹마다 ① 빈칸을 눌러 보어를 확인하세요</p>`;
+  GROUPS.forEach((g,gi)=>{h+=`<div class="grp"><span class="gn">${esc(g.n)} → ${esc(g.b)}</span><span></span><span class="gv">${esc(g.v)}</span><div class="ge">${exHTML('grp-'+gi,g.t)}</div></div>`;});
+  h+=`</div><div class="card"><h3>바로 대입하기</h3><p class="lead">동사 그룹을 떠올리고 보어를 고르세요. 정답이 둘인 문항도 있어요.</p>`;
+  DRILL.forEach((d,di)=>{const r=S.dr[di]||{};
+    h+=`<div class="drill"><div class="ds">${di+1}. ${esc(d.s)}</div><div class="opts">`+d.o.map((o,k)=>{const cls=r[k]==='ok'?'ok':r[k]==='no'?'no':'';return `<button class="opt ${cls}" data-act="dr" data-d="${di}" data-k="${k}">${esc(o)}</button>`}).join('')+`</div>`;
+    const okN=d.a.filter(k=>r[k]==='ok').length;
+    if(Object.values(r).includes('no')||okN)h+=`<p class="dfb ${okN===d.a.length?'msg ok':''}">${esc(d.g)}${d.a.length>1&&okN<d.a.length&&okN?' — 정답이 하나 더 있어요':''}</p>`;
+    h+=`</div>`;});
+  return h+`</div>`;
+}
+function rail(){
+  let h='';SECS.forEach(s=>{const n=passN(s.k),t=secQs(s.k).length;
+    h+=`<button class="pill ${S.tab===s.k?'cur':''} ${n===t?'done':''}" data-go="${s.k}">${s.name}${n?`<small>${n===t?'✓':n+'/'+t}</small>`:''}</button>`;});
+  h+=`<button class="pill ${S.tab==='T'?'cur':''}" data-go="T">속는 곳 모음</button><button class="pill ${S.tab==='Z'?'cur':''}" data-go="Z">결과</button>`;
+  document.getElementById('rail').innerHTML=h;
+}
+function qHTML(q,n,sec){
+  const x=st(q.id),pass=x.status==='pass',wrong=x.status==='wrong';
+  let h=`<div class="q ${pass?'pass':''}" id="q-${q.id}"><div class="qh"><span class="qn">${n}</span>`;
+  if(q.deep)h+=`<span class="deep">심화</span>`;
+  if(pass)h+=` <span class="bdg ${['','b1','b2','b3'][x.badge]}">${['','한 번에 통과','다시 써서 통과','답 보고 통과'][x.badge]}</span>`;
+  h+=`</div>`;
+  if(q.given)h+=`<div class="given">${esc(q.given)}</div>`;
+  if(q.ko)h+=`<p class="ko">${esc(q.ko)}</p>`;
+  h+=`<span class="cond">${esc(q.cond)}</span>`;
+  h+=`<textarea class="inp" data-id="${q.id}" rows="2" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="영어 문장 전체를 쓰세요" ${pass?'readonly':''}>${esc(x.val)}</textarea>`;
+  if(!pass){h+=`<div class="btns"><button class="btn pri" data-act="grade" data-id="${q.id}">채점</button>`;if(!wrong)h+=`<button class="btn ${x.peek?'on':''}" data-act="peek" data-id="${q.id}">${x.peek?'답 닫기':'답 보기'}</button>`;h+=`</div>`;
+    h+=`<p class="pre">채점 전 점검 · ${sec.pre.map(p=>`<b>${esc(p)}</b>`).join(' · ')}</p>`;}
+  if(x.status==='empty')h+=`<p class="msg bad">문장을 먼저 써 주세요.</p>`;
+  if(x.peek&&!pass)h+=`<div class="ans"><span class="lb">정답</span>${esc(q.ans[0])}${q.ans.length>1?`<span class="lb">다른 정답: ${q.ans.slice(1).map(esc).join(' / ')}</span>`:''}</div>`;
+  if(wrong){const b=best(q,x.mine);
+    h+=`<p class="msg bad">틀렸어요. 정답을 보고 문장 전체를 다시 써서 채점하세요.</p><div class="ans mine"><span class="lb">내 답</span>${diffHTML(x.mine,b)}</div><div class="ans"><span class="lb">정답</span>${esc(b)}${q.ans.length>1?`<span class="lb">인정되는 다른 답: ${q.ans.filter(a=>a!==b).map(esc).join(' / ')}</span>`:''}</div>`;}
+  if(wrong||pass)h+=`<p class="exp"><span class="tg">${esc(q.trap)}</span>${q.exp}</p>`;
+  return h+`</div>`;
+}
+function section(k){
+  const sec=SECS.find(s=>s.k===k);let h=`<h2>${sec.name}</h2>`;
+  if(!S.only){if(sec.groups)h+=groupsHTML();(sec.cards||[]).forEach((c,ci)=>{h+=cardHTML(k,ci,c)});
+    if((sec.cards&&sec.cards.length)||sec.groups)h+=`<hr class="sp"><h3>서술형 ${secQs(k).length}문항</h3>`;}
+  let qs=secQs(k);if(S.only)qs=qs.filter(q=>st(q.id).status!=='pass'&&(st(q.id).first===false||st(q.id).status==='wrong'));
+  if(!qs.length&&S.only)h+=`<p class="empty">다시 풀 문항이 없어요.</p>`;
+  qs.forEach(q=>{h+=qHTML(q,q.id.replace(/^[A-Z]/,''),sec)});
+  const idx=SECS.findIndex(s=>s.k===k);
+  if(passN(k)===secQs(k).length)h+=`<p class="center"><button class="btn pri" data-go="${idx<SECS.length-1?SECS[idx+1].k:'Z'}">${idx<SECS.length-1?SECS[idx+1].name+'로':'결과 보기'}</button></p>`;
+  return h;
+}
+function traps(){
+  const L=(tag,html,n)=>`<li><span class="tg ${n?'new':''}">${tag}</span>${html}</li>`;
+  return `<h2>속는 곳 모음</h2><p class="lead">시험 직전에 이것만 훑어요. 보라색 태그는 이번에 새로 더한 것.</p>
+<div class="card"><h3>so ~ that · enough to · too ~ to</h3><ul class="trap">
+${L('속는 곳','<b class="x">very</b> hard that → <b class="o">so</b> hard that')}
+${L('속는 곳','<b class="x">enough brave</b> → <b class="o">brave enough</b> (명사는 enough money처럼 앞)')}
+${L('속는 곳','too ~ to <b class="x">not</b> — too 안에 이미 ‘못 한다’가 있다',1)}
+${L('속는 곳','He was too young <b class="x">for him</b> to ride — 주어가 같으면 for 안 씀',1)}
+${L('속는 곳','enough to에서도 it = 문장 주어면 지운다: light enough for me to lift <b class="x">it</b>',1)}
+${L('시제','was → <b class="o">couldn\'t</b> / is → can\'t. too ~ to를 so ~ that으로 바꿀 때 제일 많이 틀린다')}
+${L('구별','<b>so that</b>(붙음) = 목적 / <b>so ~ that</b>(떨어짐) = 결과 / <b>, so</b> = 그래서')}
+${L('구별','명사가 있으면 <b>such a(n)</b> + 형 + 명사, 없으면 so')}
+${L('스킵 주의','본문 8번 There are <b>so many</b> people here.는 that이 없어서 so ~ that이 아니다')}
+${L('속는 곳','Because ~, <b class="x">so</b> ~ — 둘 중 하나만')}</ul></div>
+<div class="card"><h3>5형식 보어</h3><ul class="trap">
+${L('속는 곳','heard people <b class="x">to shout</b> — 지각동사 뒤 to ✗')}
+${L('속는 곳','saw him <b class="x">entered</b> — 과거 이야기여도 보어는 원형')}
+${L('속는 곳','saw <b class="x">he</b> running → <b class="o">him</b>')}
+${L('속는 곳','listened <b class="x">him</b> → listened <b class="o">to</b> him, looked <b class="o">at</b> him')}
+${L('속는 곳','got my brother <b class="x">wash</b> → <b class="o">to wash</b>. get은 사역동사가 아니다',1)}
+${L('속는 곳','helped him <b class="x">learning</b> → learn / to learn',1)}
+${L('헷갈림','sound·look·feel + <b>형용사</b> (It sounded <b class="o">similar</b>, similarly ✗). 명사면 sound <b>like</b>')}
+${L('헷갈림','heard people shouting(소리를 들음) ≠ heard <b>that</b> people shouted(소식을 들음)',1)}
+${L('심화','수동태가 되면 원형 → to: He was seen <b>to enter</b>')}</ul></div>
+<div class="card"><h3>used to</h3><ul class="trap">
+${L('속는 곳','<b class="x">didn\'t used to</b> / Did he <b class="x">used</b> to → <b class="o">use</b>')}
+${L('속는 곳','used to <b class="x">living</b> → used to <b class="o">live</b> (be동사가 있으면 -ing)')}
+${L('구별','would는 동작만. There <b class="x">would</b> be → There <b class="o">used to</b> be')}
+${L('스킵 주의','used to에는 ‘지금은 아니다’가 숨어 있다')}</ul></div>
+<div class="card"><h3>기본 점검 (모든 서술형)</h3><ul class="trap">
+${L('시제','주절이 과거면 that절도 과거 (could · couldn\'t · had to)',1)}
+${L('수 일치','every + 단수명사 + <b>has</b> / everyone <b>was</b>',1)}
+${L('격','that <b>I</b> ↔ for <b>me</b> (주격 ↔ 목적격)',1)}
+${L('대문자·마침표','문장 첫 글자 대문자, 끝 마침표 — 서술형 감점 1순위',1)}</ul></div>`;
+}
+function result(){
+  const tot=Q.length,pass=Q.filter(q=>st(q.id).status==='pass').length,first=Q.filter(q=>st(q.id).badge===1).length;
+  let h=`<h2>결과</h2><p class="lead">통과 ${pass}/${tot} · 한 번에 통과 ${first}</p><div class="card"><h3>섹션별</h3><ul class="res">`;
+  SECS.forEach(s=>{const qs=secQs(s.k);h+=`<li><b>${s.name}</b> — 통과 ${passN(s.k)}/${qs.length}, 한 번에 ${qs.filter(q=>st(q.id).badge===1).length}, 답 보고 ${qs.filter(q=>st(q.id).badge===3).length}</li>`});
+  h+=`</ul></div>`;
+  const miss={};Q.forEach(q=>{const x=st(q.id);if(x.first===false||x.peeked)(miss[q.trap]=miss[q.trap]||[]).push(q.id)});
+  const ks=Object.keys(miss);
+  h+=`<div class="card"><h3>처음에 틀린 함정 (다음 수업 보강)</h3>`+(ks.length?`<ul class="res">${ks.sort((a,b)=>miss[b].length-miss[a].length).map(k=>`<li><span class="tg">${esc(k)}</span>${miss[k].length}문항 (${miss[k].join(', ')})</li>`).join('')}</ul>`:`<p class="empty">아직 틀린 기록이 없어요.</p>`)+`</div>`;
+  return h+`<p class="center"><button class="btn" data-act="restart">처음부터 다시</button></p>`;
+}
+function bar(){const el=document.getElementById('bar');
+  if(S.tab==='T'||S.tab==='Z'){el.innerHTML='';el.style.display='none';return;}
+  el.style.display='';el.innerHTML=`<div class="wrap"><button class="btn pri" data-act="gradeAll">전체 채점</button><button class="btn ${S.only?'on':''}" data-act="only">${S.only?'전체 보기':'틀린 것만 다시'}</button><span class="cnt">통과 ${passN(S.tab)}/${secQs(S.tab).length}</span></div>`;}
+function render(){rail();document.getElementById('app').innerHTML=S.tab==='T'?traps():S.tab==='Z'?result():section(S.tab);bar();}
+function goTop(){try{window.scrollTo({top:0,behavior:'smooth'})}catch(e){}}
+function findT(key){
+  if(key.startsWith('grp-'))return GROUPS[+key.slice(4)].t;
+  const [sk,ci,ei]=key.split('-');return SECS.find(s=>s.k===sk).cards[+ci].ex[+ei].t;
+}
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]');if(g){S.tab=g.dataset.go;S.only=false;render();goTop();return;}
+  const b=e.target.closest('[data-act]');if(!b||b.disabled)return;
+  const a=b.dataset.act,q=Q.find(z=>z.id===b.dataset.id);
+  if(a==='bk'){const c=cd(b.dataset.key),n=+b.dataset.n;
+    if(n===c.open+1){c.open=n;c.msg='';}else c.msg=`${CIR[c.open+1]}번 빈칸부터 눌러요. 순서가 곧 쓰는 순서예요.`;render();return;}
+  if(a==='bkreset'){const k=b.dataset.key;S.cd[k]={open:0,msg:'',chk:{}};if(!k.startsWith('grp-')){const [sk,ci]=k.split('-');delete S.cd[`${sk}-${ci}-chk`];}render();return;}
+  if(a==='chk'){const c=cd(b.dataset.key);c.chk[+b.dataset.i]=true;render();return;}
+  if(a==='dr'){const di=+b.dataset.d,k=+b.dataset.k,d=DRILL[di];const r=S.dr[di]||(S.dr[di]={});r[k]=d.a.includes(k)?'ok':'no';render();return;}
+  if(a==='grade'){grade(q);render();const t=document.querySelector(`#q-${q.id} textarea`);if(t&&st(q.id).status!=='pass')t.focus();}
+  if(a==='peek'){const x=st(q.id);x.peek=!x.peek;if(x.peek)x.peeked=true;render();}
+  if(a==='gradeAll'){const qs=secQs(S.tab);if(!qs.some(q=>norm(st(q.id).val)&&st(q.id).status!=='pass'))qs.forEach(q=>{if(st(q.id).status!=='pass')st(q.id).status='empty'});else qs.forEach(q=>{const x=st(q.id);if(x.status!=='pass'&&norm(x.val))grade(q)});render();}
+  if(a==='only'){S.only=!S.only;render();goTop();}
+  if(a==='restart'){S=fresh();render();goTop();}
+});
+document.addEventListener('input',e=>{if(e.target.matches('textarea.inp'))st(e.target.dataset.id).val=e.target.value;});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&e.target.matches('textarea.inp')){e.preventDefault();const q=Q.find(z=>z.id===e.target.dataset.id);grade(q);render();const t=document.querySelector(`#q-${q.id} textarea`);if(t&&st(q.id).status!=='pass')t.focus();}});
+render();
+</script>
+</body>
+</html>
