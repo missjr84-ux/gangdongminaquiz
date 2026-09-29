@@ -1,0 +1,2078 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dr. Schofield 거꾸로 영작</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5fc; --paper:#ffffff; --ink:#2a2440; --sub:#6f6790;
+  --lav:#6a57cc; --lav2:#a597e6; --soft:#efebfb; --line:#ddd6f3;
+  --ok:#1d8a5c; --okbg:#e7f6ee; --bad:#c7364a; --badbg:#fdeef0; --miss:#a19cb2;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito','Noto Sans KR',system-ui,sans-serif;font-size:17px;line-height:1.65;padding-bottom:120px}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--lav2);outline-offset:2px}
+
+/* header: 글자 위주, 색 채움 없음 */
+.hd{padding:30px 0 6px}
+.brand{font-size:14px;font-weight:800;color:var(--lav);letter-spacing:.02em}
+.hd h1{margin:4px 0 2px;font-size:28px;line-height:1.25;font-weight:900}
+.hd p{margin:0;color:var(--sub);font-size:15px}
+
+/* 스토리 레일 */
+.rail{padding:4px 0 6px}
+.pill{border:1.5px solid var(--line);background:var(--paper);color:var(--sub);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:800;cursor:pointer;min-height:38px}
+.pill.cur{border-color:var(--lav);color:var(--lav)}
+.pill.done{color:var(--ok);border-color:#bfe3cf}
+.pill:disabled{opacity:.4;cursor:default}
+
+/* 단계 탭 */
+.tabs{display:flex;gap:4px;border-bottom:1.5px solid var(--line);margin:14px 0 18px}
+.tab{flex:1;background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-1.5px;padding:12px 4px;font-size:15.5px;font-weight:800;color:var(--sub);cursor:pointer;min-height:48px}
+.tab.on{color:var(--lav);border-bottom-color:var(--lav)}
+.tab:disabled{opacity:.35;cursor:default}
+
+h2{font-size:22px;margin:0 0 12px;font-weight:900;line-height:1.35}
+h3{font-size:18px;margin:26px 0 10px;font-weight:900}
+.gist{border-left:4px solid var(--lav2);padding:2px 0 2px 14px;margin:0 0 20px;font-size:16.5px}
+.gist b{color:var(--lav)}
+
+.flow{list-style:none;margin:0 0 22px;padding:0}
+.flow li{display:grid;grid-template-columns:44px auto 1fr;gap:10px;align-items:baseline;padding:10px 0;border-bottom:1px dashed var(--line)}
+.no{font-size:13px;color:var(--sub);font-weight:800}
+.badge{justify-self:start;font-size:12.5px;font-weight:800;color:var(--lav);background:var(--soft);border-radius:6px;padding:2px 8px;white-space:nowrap}
+
+.btn{min-height:48px;padding:0 18px;border-radius:12px;border:1.5px solid var(--lav);background:var(--paper);color:var(--lav);font-size:15.5px;font-weight:800;cursor:pointer}
+.btn.pri{background:var(--lav);color:#fff}
+.btn.sm{min-height:44px;font-size:14.5px;padding:0 14px}
+.btn:disabled{opacity:.35;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.center{text-align:center;margin:22px 0}
+
+/* ② 어순 */
+.lead{color:var(--sub);font-size:15px;margin:0 0 16px}
+.ord{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;margin:0 0 18px}
+.ord.ok{border-color:#bfe3cf}
+.oq{margin:0;font-size:13.5px;font-weight:800;color:var(--sub)}
+.oko{margin:4px 0 10px;font-size:18px;font-weight:700}
+.chunks{list-style:none;margin:0 0 14px;padding:0}
+.chunks li{display:flex;gap:12px;align-items:center;padding:6px 0}
+.cn{flex:none;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--lav);color:var(--lav);display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:15px}
+.cn.f{background:var(--lav);color:#fff}
+.cko{font-size:17px;font-weight:500}
+.role{font-size:12.5px;color:var(--sub);border:1px solid var(--line);border-radius:6px;padding:1px 7px;white-space:nowrap}
+.slots{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px;min-height:48px}
+.slot{width:46px;height:46px;border:2px dashed var(--line);border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:var(--lav)}
+.slot.f{border-style:solid;border-color:var(--lav);background:var(--soft)}
+.pad{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+.pad button{width:52px;height:52px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);font-size:22px;font-weight:900;color:var(--ink);cursor:pointer}
+.pad button:disabled{opacity:.25;cursor:default}
+.msg{margin:10px 0 0;font-size:15px;font-weight:700}
+.msg.bad{color:var(--bad)}
+.eng{list-style:none;margin:6px 0 12px;padding:0}
+.eng li{display:flex;gap:12px;align-items:center;padding:5px 0;font-size:18px;font-weight:700}
+.diffcard{border:1.5px solid var(--lav2);border-radius:12px;padding:10px 14px;margin:8px 0 10px}
+.dl{font-size:13px;font-weight:800;color:var(--lav)}
+.diffcard p{margin:2px 0 0}
+.diffcard b{color:var(--lav)}
+.tts{display:inline-flex;gap:6px;margin-left:6px;vertical-align:middle}
+.tts button{min-height:40px;min-width:44px;border-radius:10px;border:1.5px solid var(--line);background:var(--paper);font-size:17px;cursor:pointer}
+
+/* ③ 영작 */
+.wr{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin:0 0 16px}
+.wr.pass{border-color:#bfe3cf}
+.wr.wrong{border-color:#f0c2ca}
+.wtop{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.st{font-size:12.5px;font-weight:800;border-radius:6px;padding:2px 8px}
+.st.ok{color:var(--ok);background:var(--okbg)}
+.st.re{color:#8a5a00;background:#fff4dc}
+.st.bad{color:var(--bad);background:var(--badbg)}
+.wko{font-size:18px;font-weight:700;margin:4px 0 8px}
+.keys{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px}
+.kl{font-size:12.5px;font-weight:800;color:var(--sub);margin-right:2px}
+.kc{border:1px dashed var(--lav2);background:var(--paper);color:var(--ink);border-radius:8px;padding:5px 10px;font-size:14px;cursor:pointer;min-height:36px;text-align:left}
+.kc.open{border-style:solid;background:var(--soft)}
+.kc b{color:var(--lav)}
+.hint{font-family:'Nunito',monospace;letter-spacing:.06em;color:var(--lav);font-weight:800;margin:0 0 8px;font-size:16px;word-break:break-word}
+.inp{width:100%;height:52px;font-size:18px;border:1.5px solid var(--line);border-radius:12px;padding:0 14px;font-family:'Nunito',sans-serif;color:var(--ink);background:#fff}
+.inp:focus{outline:none;border-color:var(--lav)}
+.inp[readonly]{background:var(--okbg);border-color:#bfe3cf}
+.wbtns{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.res{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+.rl{margin:0;font-size:12.5px;font-weight:800;color:var(--sub)}
+.dw{margin:2px 0 8px;font-size:17px;line-height:1.9}
+.t-ok{color:var(--ok);font-weight:800}
+.t-bad{color:var(--bad);text-decoration:line-through}
+.t-miss{color:var(--miss);font-weight:800}
+.ans{font-size:17px;font-weight:800;color:var(--ink)}
+.res .ans{margin:2px 0 0}
+.rn{margin:6px 0 0;font-size:14px;color:var(--bad);font-weight:700}
+.passline{margin-top:10px;display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+.empty{text-align:center;color:var(--sub);padding:30px 0}
+
+/* 하단 고정 바 */
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:10px 0 calc(10px + env(safe-area-inset-bottom))}
+.bar.hide{display:none}
+.bar .wrap{display:flex;gap:8px;align-items:center}
+.cnt{margin-left:auto;margin-right:4px;font-weight:800;color:var(--sub);white-space:nowrap}
+.cnt b{color:var(--lav);font-size:19px}
+
+/* 완주 */
+.fin p{margin:0 0 10px}
+.ktab{width:100%;border-collapse:collapse;font-size:15px}
+.ktab td{padding:8px 6px;border-bottom:1px dashed var(--line);vertical-align:top}
+.ktab td:first-child{font-weight:800;color:var(--lav);white-space:nowrap}
+.ktab td.n{color:var(--sub);font-size:13px;white-space:nowrap}
+@media (max-width:520px){
+  .hd h1{font-size:24px}
+  .flow li{grid-template-columns:40px 1fr}
+  .flow li .fko{grid-column:1 / -1}
+  .bar .btn{padding:0 10px;font-size:14px}
+  .ktab td:first-child{white-space:normal}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+.pill.big{border-style:dashed}
+.pill.big.cur{border-style:solid}
+.peek{margin-left:6px;border:1px solid var(--line);background:var(--paper);color:var(--sub);border-radius:8px;padding:2px 10px;font-size:13px;font-weight:800;min-height:32px;cursor:pointer;vertical-align:middle}
+.peekbox{border:1.5px dashed var(--lav2);border-radius:12px;padding:8px 12px;margin:0 0 10px}
+.peekbox .ans{margin:0}
+.peekbox .rn{color:var(--sub)}
+.wr.compact{padding:12px 16px;margin-bottom:10px}
+.wr.compact .wko{font-size:17px}
+.smap{list-style:none;margin:0 0 20px;padding:0;border-left:3px solid var(--line)}
+.smap li{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:baseline;padding:5px 0 5px 12px;font-size:15px}
+.smap li b{color:var(--lav)}
+.smap li.done{color:var(--ok)}
+.smap .sc{font-size:13px;color:var(--sub);font-weight:800}
+.sgroup{margin:0 0 8px}
+.sgroup h3{margin:22px 0 10px;font-size:17px}
+.storypara{background:var(--paper);border:1px solid #bfe3cf;border-radius:16px;padding:14px 18px;margin:0 0 12px}
+.storypara p{margin:0 0 6px;font-size:17px;line-height:1.8}
+.sech{margin:30px 0 12px;padding-bottom:6px;border-bottom:1.5px solid var(--line);color:var(--lav)}
+.exq{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin:0 0 14px}
+.exq.pass{border-color:#bfe3cf}
+.exq.wrong{border-color:#f0c2ca}
+.qq{margin:4px 0 8px;font-size:17px;font-weight:700}
+.qq b{color:var(--bad)}
+.ctx{margin:0 0 12px;padding:8px 12px;border-left:3px solid var(--lav2);font-size:17px;background:#fbfaff}
+.ctx u,.ch u{text-decoration-thickness:2px;text-underline-offset:3px}
+.chs{display:flex;flex-direction:column;gap:8px}
+.ch{display:flex;gap:10px;align-items:flex-start;text-align:left;border:1.5px solid var(--line);background:var(--paper);border-radius:12px;padding:11px 14px;font-size:16px;min-height:48px;cursor:pointer;color:var(--ink)}
+.ch .cir{color:var(--lav);font-weight:900}
+.ch.sel{border-color:var(--lav);background:var(--soft)}
+.ch.right{border-color:var(--ok);background:var(--okbg)}
+.ch.wrongc{border-color:var(--bad);background:var(--badbg)}
+.ch:disabled{cursor:default;opacity:1}
+.given{margin:0 0 8px;font-size:16px}
+.oitems{list-style:none;margin:0 0 12px;padding:0}
+.oitems li{padding:5px 0;font-size:16px}
+.oitems b{color:var(--lav);margin-right:4px}
+.slot.wide{width:62px}
+.pad button.wide{width:66px;font-size:18px}
+.aline{min-height:52px;border:1.5px dashed var(--line);border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:18px;font-weight:700}
+.aline .ph{color:var(--miss);font-weight:500;font-size:15px}
+.wchips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.wchips button{min-height:48px;padding:0 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);font-size:17px;font-weight:800;font-family:'Nunito',sans-serif;color:var(--ink);cursor:pointer}
+.wchips button:disabled{opacity:.25;cursor:default}
+.cond{margin:-4px 0 8px;font-size:14px;color:var(--lav);font-weight:800}
+.exp{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:15.5px}
+.exp p{margin:0 0 4px}
+.chunks li.hascj{background:linear-gradient(90deg,var(--soft),transparent 70%);border-radius:10px}
+.cjb{font-size:12.5px;font-weight:800;color:#fff;background:var(--lav);border-radius:6px;padding:2px 8px;white-space:nowrap}
+.cjnote{border:1.5px dashed var(--lav2);border-radius:12px;padding:10px 14px;margin:0 0 14px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.cjnote .rn{flex-basis:100%;margin:2px 0 0;color:var(--sub)}
+.eng .cjw{font-style:normal;color:var(--lav);background:var(--soft);border-radius:6px;padding:1px 6px}
+.railhead{margin:16px 0 8px;font-size:13.5px;color:var(--sub);font-weight:700}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pn{font-size:12.5px;color:var(--sub);font-weight:800}
+.pill.cur .pn{color:var(--lav)}
+.conflow{border:1.5px solid var(--line);border-radius:14px;padding:12px 16px;margin:0 0 20px}
+.cchain{margin:6px 0 10px;font-size:18px;font-weight:800;color:var(--lav);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.carrow{color:var(--miss);font-weight:700}
+.clist{list-style:none;margin:0;padding:0;font-size:15px}
+.clist li{padding:3px 0}
+.clist b{color:var(--lav);margin-right:2px}
+.links{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 10px}
+.lc{border:1px solid var(--lav2);border-radius:8px;padding:4px 10px;font-size:14px;background:var(--soft)}
+.lc b{color:var(--lav);font-size:15px}
+.chs.tight{margin:0 0 12px}
+.ptag{font-size:12.5px;font-weight:800;color:var(--lav);background:var(--soft);border-radius:6px;padding:1px 7px;margin-right:2px}
+.blankline{display:inline-block;min-width:180px;border-bottom:2px solid var(--lav2);color:var(--lav);font-weight:800;text-align:center;padding:0 6px}
+.conntext{line-height:2.4}
+.cinp{width:112px;height:38px;font-size:16px;font-weight:700;font-family:'Nunito',sans-serif;color:var(--lav);text-align:center;border:0;border-bottom:2px solid var(--lav2);background:transparent;padding:0 2px;vertical-align:baseline}
+.cinp:focus{outline:none;border-bottom-color:var(--lav);background:var(--soft)}
+.cinp.ok{color:var(--ok);border-bottom-color:var(--ok)}
+.cinp.bad{color:var(--bad);border-bottom-color:var(--bad)}
+.cinp.rev{background:var(--soft)}
+.pmark{display:inline-block;min-width:110px;border-bottom:2px solid var(--lav2);color:var(--lav);font-weight:900;text-align:center}
+.pw{text-decoration-thickness:2px;text-underline-offset:3px;font-weight:800;color:var(--lav)}
+.pnum{color:var(--lav);font-weight:900;margin-left:1px}
+.spara{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin:0 0 12px}
+.spara.used{border-color:var(--lav);background:#fbfaff}
+.spara p{margin:4px 0 6px;font-size:16.5px;line-height:1.85}
+.plab{font-size:16px;font-weight:900;color:var(--lav)}
+.cblank{display:inline-block;min-width:74px;border-bottom:2px solid var(--lav2);vertical-align:baseline}
+.storypara.fill{background:#fbfaff}
+.storypara.fill p{line-height:2.5}
+.slot.sok{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
+.slot.sbad{border-color:var(--bad);background:var(--badbg);color:var(--bad)}
+.st.bad{color:var(--bad);background:var(--badbg)}
+.ansord{counter-reset:none}
+.ansord li{display:flex;gap:8px;align-items:baseline;padding:4px 0}
+.ansord .cn{flex:none;width:24px;height:24px;font-size:13px}
+.cwhy{color:var(--sub);font-size:14px}
+.ansord .rn{margin:0;font-size:13.5px}
+
+.peekbtn.on{background:var(--soft);border-color:var(--lav)}
+.peekbox .passline{margin:0}
+.olead{margin:0 0 10px;font-size:14.5px;color:var(--sub)}
+.cjmark{color:var(--lav);font-weight:900}
+.ochips{gap:10px}
+.ochips button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:8px 14px;min-height:56px;text-align:left;line-height:1.35}
+.ochips button b{font-size:17px;font-weight:800;color:var(--ink)}
+.ochips button .cko{font-size:12.5px;color:var(--sub);font-weight:600}
+.aline .aw{margin-right:2px}
+.cslot{display:inline-block;min-width:76px;text-align:center;border-bottom:2px solid var(--lav2);color:var(--lav);font-weight:800;padding:0 4px}
+.cslot.ok{color:var(--ok);border-bottom-color:var(--ok)}
+.cslot.bad{color:var(--bad);border-bottom-color:var(--bad)}
+.eng li .cko{font-size:13px;color:var(--sub);font-weight:600;margin-left:4px}
+</style>
+</head>
+<body>
+<header class="hd wrap">
+  <div class="brand">준티 잉글리쉬</div>
+  <h1>Dr. Schofield 거꾸로 영작</h1>
+  <p>동아(윤정미) 중2 Lesson 06 Dr. Schofield, a Foreigner Who Loved Korea 본문</p>
+</header>
+<nav class="wrap rail" id="rail" aria-label="문단"></nav>
+<main class="wrap" id="app"></main>
+<div class="bar hide" id="bar"><div class="wrap" id="barIn"></div></div>
+
+<script>
+/* ============================================================
+   DATA START — 새 본문을 만들 때 여기서 DATA END 까지만 바꾼다.
+   아래 엔진 코드는 한 글자도 건드리지 않는다.
+   BOOK = 교재 원문(번호별). check.js 가 PARAS 와 대조한다.
+   ============================================================ */
+/* ── 교재 원문 ── */
+const BOOK={
+1:"On February 28, 1919, a man came to Dr. Schofield's house.",
+2:"Man: Dr. Schofield, I have a special favor to ask you.",
+3:"Dr. Schofield: What can I do for you?",
+4:"Man: Many people are going to gather tomorrow for the independence of Korea.",
+5:"Could you take pictures of the event and share them with the world?",
+6:"At 2 p.m. on March 1, Dr. Schofield was hiding in a building and saw a large group of people gathering outside.",
+7:"He began to take pictures.",
+8:"Dr. Schofield: Unbelievable! There are so many people here.",
+9:"I hope the world will learn about this important event through my pictures.",
+10:"Do you know Seok Hopil?",
+11:"His English name was Frank W. Schofield, but he loved his Korean name.",
+12:"It sounded similar to his real name, and it also had a good meaning.",
+13:"Dr. Schofield was a Canadian doctor, and he first came to Korea in 1916 to teach medicine.",
+14:"He wanted to teach in Korean, so he began to learn Korean right away.",
+15:"He studied so hard that he was able to teach in Korean after only a few years.",
+16:"He believed that every country has the right to be independent, so he helped the Korean independence movement.",
+17:"On March 1, 1919, Dr. Schofield heard people shouting for Korean independence in Tapgol Park.",
+18:"He took pictures of the event with his camera.",
+19:"He then wrote an article about the historic event and sent it to foreign newspapers with his pictures.",
+20:"Dr. Schofield's fight for Korean independence didn't stop even after the March 1st Movement.",
+21:"He continued to write about the terrible situation in Korea for foreign newspapers.",
+22:"He was under the watchful eye of the Japanese police, so he had to go back to Canada in 1920.",
+23:"In 1958, he returned to Korea at the invitation of the Korean government and never left again.",
+24:"For the rest of his life, he worked hard to help Koreans, especially poor students.",
+25:"Dr. Schofield died in April 1970, and he was buried in Seoul National Cemetery."
+};
+
+/* ── 본문 ── */
+const PARAS=[
+{
+  tag:"부탁",
+  title:"1919년 2월 28일, 한 남자의 부탁",
+  gist:"이야기는 <b>3·1 운동 바로 전날</b>의 장면으로 시작한다. <b>날짜와 방문 → 부탁이 있다 → 무엇을 도와줄까 → 내일 사람들이 모인다 → 사진을 찍어 세계에 알려 달라</b> 순서다. 부탁의 진짜 내용은 <b>마지막 문장</b>에 가서야 나온다.",
+  flow:[
+    {no:"1", fn:"배경", ko:"1919년 2월 28일, 한 남자가 Schofield 박사의 집에 왔다."},
+    {no:"2", fn:"부탁 예고", ko:"특별히 부탁할 것이 있다고 말한다."},
+    {no:"3", fn:"되묻기", ko:"무엇을 도와줄지 묻는다."},
+    {no:"4", fn:"상황 설명", ko:"내일 한국의 독립을 위해 많은 사람이 모인다."},
+    {no:"5", fn:"부탁 내용", ko:"그 행사를 사진으로 찍어 세계와 공유해 달라고 한다."}
+  ],
+  order:[
+    { ko:"남자: Schofield 박사님, 저는 당신에게 부탁할 특별한 부탁이 하나 있습니다.",
+      chunks:[
+        {ko:"남자",           role:"화자"},
+        {ko:"Schofield 박사님", role:"부르는 말"},
+        {ko:"저는",           role:"주어"},
+        {ko:"당신에게 부탁할",  role:"꾸밈(to부정사)"},
+        {ko:"특별한 부탁이 하나", role:"목적어"},
+        {ko:"있습니다",        role:"동사"}
+      ],
+      seq:[1,2,3,6,5,4],
+      eng:["Man:","Dr. Schofield,","I","have","a special favor","to ask you."],
+      full:"Man: Dr. Schofield, I have a special favor to ask you.",
+      diff:"‘당신에게 부탁할’은 한글에서 명사 앞에 오지만, 영어는 <b>a special favor 뒤에 to ask you</b>로 붙는다."
+    },
+    { ko:"그 행사의 사진들을 찍어서 그것들을 세계와 공유해 주실 수 있나요?",
+      chunks:[
+        {ko:"그 행사의 사진들을", role:"목적어"},
+        {ko:"찍어서",           role:"동사"},
+        {ko:"그것들을",         role:"목적어2"},
+        {ko:"세계와",           role:"전치사구"},
+        {ko:"공유해",           role:"동사2",
+         cj:{w:"and", pos:"앞", why:"take와 share, 두 동사를 잇는다. 주어 you가 같아 콤마 없이 and"}},
+        {ko:"주실 수 있나요?",   role:"조동사+주어"}
+      ],
+      seq:[6,2,1,5,3,4],
+      eng:["Could you","take","pictures of the event","and share","them","with the world?"],
+      full:"Could you take pictures of the event and share them with the world?",
+      diff:"한글은 ‘~해 주실 수 있나요?’가 맨 끝이지만, 영어는 <b>Could you를 맨 앞</b>에 두고 부탁을 시작한다."
+    }
+  ],
+  write:[
+    {no:"1", ko:"1919년 2월 28일에, 한 남자가 Schofield 박사의 집에 왔다.",
+     en:"On February 28, 1919, a man came to Dr. Schofield's house.",
+     keys:[{en:"On + 날짜", ko:"날짜 앞에는 전치사 on (연도가 붙어도 on)"},
+           {en:"Dr. Schofield's house", ko:"Schofield 박사의 집 ('s 소유격)"}]},
+    {no:"2", ko:"남자: Schofield 박사님, 저는 당신에게 부탁할 특별한 부탁이 하나 있습니다.",
+     en:"Man: Dr. Schofield, I have a special favor to ask you.",
+     keys:[{en:"a favor to ask", ko:"부탁할 일 (형용사적 to부정사: 명사 뒤에서 꾸민다)"},
+           {en:"favor", ko:"부탁, 호의"}]},
+    {no:"3", ko:"Schofield 박사: 제가 당신을 위해 무엇을 해 드릴 수 있을까요?",
+     en:"Dr. Schofield: What can I do for you?",
+     keys:[{en:"What can I do for you?", ko:"무엇을 도와드릴까요? (의문사 + 조동사 + 주어 + 동사)"}]},
+    {no:"4", ko:"남자: 많은 사람들이 내일 한국의 독립을 위해 모일 예정입니다.",
+     en:"Man: Many people are going to gather tomorrow for the independence of Korea.",
+     keys:[{en:"be going to + 동사원형", ko:"~할 예정이다"},
+           {en:"gather", ko:"모이다"},
+           {en:"the independence of Korea", ko:"한국의 독립 (of가 뒤에서 꾸민다)"}]},
+    {no:"5", ko:"그 행사의 사진들을 찍어서 그것들을 세계와 공유해 주실 수 있나요?",
+     en:"Could you take pictures of the event and share them with the world?",
+     link:[{en:"and", why:"take와 share, 두 동사를 잇는다. 주어 you가 같아서 콤마 없이 and"}],
+     keys:[{en:"Could you ~?", ko:"~해 주시겠어요? (Can you보다 공손한 부탁)"},
+           {en:"take pictures of", ko:"~의 사진을 찍다"},
+           {en:"share A with B", ko:"A를 B와 공유하다"}]}
+  ]
+},
+{
+  tag:"3·1 현장",
+  title:"3월 1일, 건물 안에 숨어서",
+  gist:"다음 날 <b>3월 1일 오후 2시</b>, 앞 문단의 부탁이 실제로 이루어지는 장면이다. <b>건물에 숨어 사람들이 모이는 것을 봄 → 사진을 찍기 시작함 → 놀람 → 세계가 알게 되기를 바람</b> 순서다. 6번 문장은 이 과의 핵심 문법 <b>see + 목적어 + -ing</b>가 들어 있는 시험 빈출 문장이다.",
+  flow:[
+    {no:"6", fn:"장면", ko:"건물에 숨어서, 밖에 많은 사람들이 모이고 있는 것을 보았다."},
+    {no:"7", fn:"행동", ko:"사진을 찍기 시작했다."},
+    {no:"8", fn:"반응", ko:"믿을 수 없다, 사람이 정말 많다고 말한다."},
+    {no:"9", fn:"바람", ko:"자기 사진을 통해 세계가 이 사건을 알게 되기를 바란다."}
+  ],
+  order:[
+    { ko:"3월 1일 오후 2시에, Schofield 박사는 한 건물 안에 숨어 있었고 밖에서 많은 무리의 사람들이 모이고 있는 것을 보았다.",
+      chunks:[
+        {ko:"3월 1일",            role:"날짜"},
+        {ko:"오후 2시에",          role:"시각"},
+        {ko:"Schofield 박사는",    role:"주어"},
+        {ko:"한 건물 안에",        role:"장소"},
+        {ko:"숨어 있었고",         role:"동사"},
+        {ko:"밖에서",             role:"장소2"},
+        {ko:"많은 무리의 사람들이",  role:"목적어"},
+        {ko:"모이고 있는 것을",     role:"목적격보어"},
+        {ko:"보았다",             role:"동사2",
+         cj:{w:"and", pos:"앞", why:"was hiding과 saw, 두 동사를 잇는다. 주어가 같아 콤마 없이 and"}}
+      ],
+      seq:[2,1,3,5,4,9,7,8,6],
+      eng:["At 2 p.m.","on March 1,","Dr. Schofield","was hiding","in a building","and saw","a large group of people","gathering","outside."],
+      full:"At 2 p.m. on March 1, Dr. Schofield was hiding in a building and saw a large group of people gathering outside.",
+      diff:"이 과의 핵심이다. ‘사람들이 모이고 있는 것을 보았다’는 영어로 <b>saw → a large group of people → gathering</b>, 즉 동사 → 누가 → 무엇을 하는지 순서다."
+    },
+    { ko:"나는 세계가 내 사진들을 통해 이 중요한 사건에 대해 알게 되기를 바란다.",
+      chunks:[
+        {ko:"나는",               role:"주어"},
+        {ko:"세계가",             role:"주어2"},
+        {ko:"내 사진들을 통해",     role:"수단"},
+        {ko:"이 중요한 사건에 대해", role:"전치사구"},
+        {ko:"알게 되기를",         role:"동사2"},
+        {ko:"바란다",             role:"동사"}
+      ],
+      seq:[1,6,2,5,4,3],
+      eng:["I","hope","the world","will learn","about this important event","through my pictures."],
+      full:"I hope the world will learn about this important event through my pictures.",
+      diff:"한글은 ‘바란다’가 맨 끝이지만, 영어는 <b>I hope를 먼저</b> 쓰고 그 뒤에 that이 생략된 문장이 통째로 온다."
+    }
+  ],
+  write:[
+    {no:"6", ko:"3월 1일 오후 2시에, Schofield 박사는 한 건물 안에 숨어 있었고 밖에서 많은 무리의 사람들이 모이고 있는 것을 보았다.",
+     en:"At 2 p.m. on March 1, Dr. Schofield was hiding in a building and saw a large group of people gathering outside.",
+     link:[{en:"and", why:"was hiding과 saw, 두 동사를 잇는다. 주어가 같아서 콤마 없이 and"}],
+     keys:[{en:"at 2 p.m. on March 1", ko:"작은 시간(at + 시각) → 큰 시간(on + 날짜). p.m.은 점까지 그대로"},
+           {en:"was hiding", ko:"숨어 있었다 (과거진행형)"},
+           {en:"see + 목적어 + -ing", ko:"~가 …하고 있는 것을 보다 (지각동사, to부정사 X)"},
+           {en:"a large group of people", ko:"많은 무리의 사람들"}]},
+    {no:"7", ko:"그는 사진을 찍기 시작했다.",
+     en:"He began to take pictures.",
+     keys:[{en:"began to take (= began taking)", ko:"찍기 시작했다 (begin·start·like·love·hate·continue는 to부정사·동명사 둘 다 가능)"}]},
+    {no:"8", ko:"Schofield 박사: 믿을 수 없어! 여기에 정말 많은 사람들이 있군.",
+     en:"Dr. Schofield: Unbelievable! There are so many people here.",
+     keys:[{en:"There are + 복수명사", ko:"~들이 있다"},
+           {en:"so many + 복수명사", ko:"정말 많은 ~ (여기의 so는 so ~ that이 아니다)"}]},
+    {no:"9", ko:"나는 세계가 내 사진들을 통해 이 중요한 사건에 대해 알게 되기를 바란다.",
+     en:"I hope the world will learn about this important event through my pictures.",
+     keys:[{en:"hope (that) + 주어 + 동사", ko:"~하기를 바라다 (that 생략)"},
+           {en:"learn about", ko:"~에 대해 알게 되다"},
+           {en:"through", ko:"~을 통해"}]}
+  ]
+},
+{
+  tag:"석호필",
+  title:"그의 한국 이름, 석호필",
+  gist:"장면이 끝나고 <b>글쓴이가 독자에게 질문</b>을 던지며 설명이 시작된다. <b>석호필을 아느냐 → 영어 이름과 한국 이름 대조 → 한국 이름을 좋아한 이유 두 가지</b>(진짜 이름과 비슷하게 들림 + 좋은 뜻). 앞 장면의 주인공이 바로 이 사람이다.",
+  flow:[
+    {no:"10", fn:"질문 던지기", ko:"석호필을 아느냐고 묻는다."},
+    {no:"11", fn:"이름 대조", ko:"영어 이름은 Frank W. Schofield였지만 한국 이름을 사랑했다."},
+    {no:"12", fn:"이유 두 가지", ko:"진짜 이름과 비슷하게 들렸고 좋은 뜻도 있었다."}
+  ],
+  order:[
+    { ko:"그것은 그의 진짜 이름과 비슷하게 들렸고, 그것은 또한 좋은 의미를 가지고 있었다.",
+      chunks:[
+        {ko:"그것은",          role:"주어"},
+        {ko:"그의 진짜 이름과",  role:"전치사구"},
+        {ko:"비슷하게",        role:"보어(형용사)"},
+        {ko:"들렸다",          role:"동사"},
+        {ko:"그리고 그것은",    role:"주어2",
+         cj:{w:"and", pos:"앞", why:"두 문장을 잇는다. 주어 it을 다시 쓰므로 and 앞에 콤마"}},
+        {ko:"또한",            role:"부사"},
+        {ko:"좋은 의미를",      role:"목적어"},
+        {ko:"가지고 있었다",    role:"동사2"}
+      ],
+      seq:[1,4,3,2,5,6,8,7],
+      eng:["It","sounded","similar","to his real name,","and it","also","had","a good meaning."],
+      full:"It sounded similar to his real name, and it also had a good meaning.",
+      diff:"한글은 ‘진짜 이름과 비슷하게 들렸다’로 동사가 끝에 오지만, 영어는 <b>sounded similar → to his real name</b>: 동사를 먼저 쓰고 비교 대상은 맨 뒤에 둔다."
+    }
+  ],
+  write:[
+    {no:"10", ko:"여러분은 석호필(Seok Hopil)을 아나요?",
+     en:"Do you know Seok Hopil?",
+     keys:[{en:"Do you know ~?", ko:"~을 아나요?"}]},
+    {no:"11", ko:"그의 영어 이름은 Frank W. Schofield였지만, 그는 자신의 한국 이름을 사랑했다.",
+     en:"His English name was Frank W. Schofield, but he loved his Korean name.",
+     link:[{en:"but", why:"영어 이름과 한국 이름을 대조한다. 주어 he를 다시 쓰므로 but 앞에 콤마"}],
+     keys:[{en:"his Korean name", ko:"그의 한국 이름 (= 석호필)"}]},
+    {no:"12", ko:"그것은 그의 진짜 이름과 비슷하게 들렸고, 그것은 또한 좋은 의미를 가지고 있었다.",
+     en:"It sounded similar to his real name, and it also had a good meaning.",
+     link:[{en:"and", why:"두 문장을 잇는다. 주어 it을 다시 쓰므로 and 앞에 콤마를 찍는다"}],
+     keys:[{en:"sound + 형용사", ko:"~하게 들리다 (‘-하게’여도 부사 similarly X)"},
+           {en:"similar to", ko:"~와 비슷한"},
+           {en:"also", ko:"또한 (일반동사 앞)"}]}
+  ]
+},
+{
+  tag:"한국어",
+  title:"한국에 온 캐나다 의사",
+  gist:"석호필이 누구인지 <b>배경</b>을 알려 준다. <b>캐나다 의사로 1916년에 옴 → 한국어로 가르치고 싶어 바로 배움 → 몇 년 만에 한국어로 가르칠 수 있게 됨 → 모든 나라는 독립할 권리가 있다고 믿어 독립운동을 도움</b>. <b>, so(그래서)</b>가 원인 → 결과를 두 번 잇고, 15번 문장은 핵심 문법 <b>so ~ that</b>이다.",
+  flow:[
+    {no:"13", fn:"인물 소개", ko:"캐나다 의사로, 의학을 가르치러 1916년에 처음 한국에 왔다."},
+    {no:"14", fn:"원인 → 결과", ko:"한국어로 가르치고 싶어서 곧바로 한국어를 배우기 시작했다."},
+    {no:"15", fn:"노력의 결과", ko:"매우 열심히 공부해서 몇 년 만에 한국어로 가르칠 수 있었다."},
+    {no:"16", fn:"신념 → 행동", ko:"모든 나라는 독립할 권리가 있다고 믿어 독립운동을 도왔다."}
+  ],
+  order:[
+    { ko:"그는 매우 열심히 공부해서 겨우 몇 년 후에 한국어로 가르칠 수 있었다.",
+      chunks:[
+        {ko:"그는",               role:"주어"},
+        {ko:"매우 열심히",         role:"부사(so)"},
+        {ko:"공부해서",            role:"동사"},
+        {ko:"겨우 몇 년 후에",      role:"시간"},
+        {ko:"한국어로",            role:"방식"},
+        {ko:"(그 결과 그는) 가르칠 수 있었다", role:"결과(that절)",
+         cj:{w:"that", pos:"앞", why:"앞의 so hard와 짝을 이뤄 결과를 이끈다: so ~ that + 주어 + 동사"}}
+      ],
+      seq:[1,3,2,6,5,4],
+      eng:["He","studied","so hard","that he was able to teach","in Korean","after only a few years."],
+      full:"He studied so hard that he was able to teach in Korean after only a few years.",
+      diff:"한글 ‘매우 열심히 공부<b>해서</b>’의 ‘-해서’가 영어에서는 <b>so hard ... that</b>으로 벌어진다: so는 hard 앞, that은 결과 문장 맨 앞."
+    },
+    { ko:"그는 모든 나라가 독립할 권리를 가지고 있다고 믿었고, 그래서 그는 한국의 독립운동을 도왔다.",
+      chunks:[
+        {ko:"그는",             role:"주어"},
+        {ko:"모든 나라가",       role:"주어2(that절)"},
+        {ko:"독립할",           role:"꾸밈(to부정사)"},
+        {ko:"권리를",           role:"목적어"},
+        {ko:"가지고 있다고",     role:"동사2"},
+        {ko:"믿었다",           role:"동사"},
+        {ko:"그래서 그는",       role:"주어3",
+         cj:{w:"so", pos:"앞", why:"원인(믿음) → 결과(도움)를 잇는다. 콤마 뒤에 온다"}},
+        {ko:"한국의 독립운동을",  role:"목적어2"},
+        {ko:"도왔다",           role:"동사3"}
+      ],
+      seq:[1,6,2,5,4,3,7,9,8],
+      eng:["He","believed","that every country","has","the right","to be independent,","so he","helped","the Korean independence movement."],
+      full:"He believed that every country has the right to be independent, so he helped the Korean independence movement.",
+      diff:"‘독립할 권리’는 한글에선 꾸밈이 앞이지만, 영어는 <b>the right 뒤에 to be independent</b>가 붙는다."
+    }
+  ],
+  write:[
+    {no:"13", ko:"Schofield 박사는 캐나다인 의사였고, 그는 의학을 가르치기 위해 1916년에 처음으로 한국에 왔다.",
+     en:"Dr. Schofield was a Canadian doctor, and he first came to Korea in 1916 to teach medicine.",
+     link:[{en:"and", why:"두 문장을 잇는다. 주어 he를 다시 쓰므로 and 앞에 콤마"}],
+     keys:[{en:"first came", ko:"처음으로 왔다 (first는 동사 앞)"},
+           {en:"in + 연도", ko:"연도 앞에는 전치사 in"},
+           {en:"to teach", ko:"가르치기 위해 (부사적 to부정사: 목적)"}]},
+    {no:"14", ko:"그는 한국어로 가르치기를 원했고, 그래서 그는 곧바로 한국어를 배우기 시작했다.",
+     en:"He wanted to teach in Korean, so he began to learn Korean right away.",
+     link:[{en:"so", why:"원인(한국어로 가르치고 싶음) → 결과(배우기 시작). 콤마 뒤에 온다"}],
+     keys:[{en:"want to + 동사원형", ko:"~하기를 원하다 (명사적 to부정사: 목적어)"},
+           {en:"in Korean", ko:"한국어로 (in + 언어)"},
+           {en:"began to learn (= began learning)", ko:"배우기 시작했다"},
+           {en:"right away", ko:"곧바로, 즉시 (문장 끝)"}]},
+    {no:"15", ko:"그는 매우 열심히 공부해서 겨우 몇 년 후에 한국어로 가르칠 수 있었다.",
+     en:"He studied so hard that he was able to teach in Korean after only a few years.",
+     keys:[{en:"so + 부사 + that + 주어 + 동사", ko:"매우 ~해서 (그 결과) …하다"},
+           {en:"was able to (= could)", ko:"~할 수 있었다"},
+           {en:"a few + 복수명사", ko:"몇몇의 ~ (셀 수 있는 명사). 셀 수 없는 명사는 a little"}]},
+    {no:"16", ko:"그는 모든 나라가 독립할 권리를 가지고 있다고 믿었고, 그래서 그는 한국의 독립운동을 도왔다.",
+     en:"He believed that every country has the right to be independent, so he helped the Korean independence movement.",
+     link:[{en:"so", why:"원인(모든 나라는 독립할 권리가 있다는 믿음) → 결과(독립운동을 도움). 콤마 뒤"}],
+     keys:[{en:"believe that + 주어 + 동사", ko:"~라고 믿다 (that 생략 가능)"},
+           {en:"every + 단수명사 + 단수동사", ko:"every country has (have X)"},
+           {en:"the right to be independent", ko:"독립할 권리 (형용사적 to부정사)"},
+           {en:"independent ↔ dependent", ko:"독립된 ↔ 의존하는 (in-은 반대 뜻: visible ↔ invisible)"}]}
+  ]
+},
+{
+  tag:"기사",
+  title:"3·1 운동을 세계에 알리다",
+  gist:"2번 문단의 3·1 운동을 <b>전기문의 눈으로 다시</b> 말한다. <b>탑골공원에서 독립 만세 소리를 들음 → 카메라로 사진을 찍음 → 그 후 기사를 써서 사진과 함께 외국 신문사에 보냄</b>. <b>then</b>이 시간 순서 단서이고, 17번 문장은 핵심 문법 <b>hear + 목적어 + -ing</b>이다.",
+  flow:[
+    {no:"17", fn:"사건 목격", ko:"탑골공원에서 사람들이 한국 독립을 외치는 것을 들었다."},
+    {no:"18", fn:"기록", ko:"카메라로 그 사건의 사진을 찍었다."},
+    {no:"19", fn:"세계에 알림", ko:"그 후 기사를 써서 사진과 함께 외국 신문사에 보냈다."}
+  ],
+  order:[
+    { ko:"1919년 3월 1일에, Schofield 박사는 탑골공원에서 사람들이 한국의 독립을 외치는 것을 들었다.",
+      chunks:[
+        {ko:"1919년 3월 1일에",  role:"날짜"},
+        {ko:"Schofield 박사는", role:"주어"},
+        {ko:"탑골공원에서",      role:"장소"},
+        {ko:"사람들이",         role:"목적어"},
+        {ko:"한국의 독립을",     role:"전치사구"},
+        {ko:"외치는 것을",       role:"목적격보어"},
+        {ko:"들었다",           role:"동사"}
+      ],
+      seq:[1,2,7,4,6,5,3],
+      eng:["On March 1, 1919,","Dr. Schofield","heard","people","shouting","for Korean independence","in Tapgol Park."],
+      full:"On March 1, 1919, Dr. Schofield heard people shouting for Korean independence in Tapgol Park.",
+      diff:"‘Schofield 박사는’ 다음부터 한글을 <b>끝에서 거꾸로</b> 읽으면 영어 순서다: 들었다 → 사람들이 → 외치는 → 독립을 → 탑골공원에서."
+    },
+    { ko:"그 후 그는 그 역사적인 사건에 대한 기사를 썼고 그것을 그의 사진들과 함께 외국 신문사들에 보냈다.",
+      chunks:[
+        {ko:"그 후",                role:"순서 표지",
+         cj:{w:"then", pos:"자리", why:"사진을 찍은 ‘다음에’ 한 일이라는 시간 순서 단서. 주어 뒤, 동사 앞에 온다"}},
+        {ko:"그는",                 role:"주어"},
+        {ko:"그 역사적인 사건에 대한", role:"꾸밈"},
+        {ko:"기사를",               role:"목적어"},
+        {ko:"썼고",                 role:"동사"},
+        {ko:"그것을",               role:"목적어2"},
+        {ko:"그의 사진들과 함께",     role:"전치사구"},
+        {ko:"외국 신문사들에",        role:"전치사구"},
+        {ko:"보냈다",               role:"동사2",
+         cj:{w:"and", pos:"앞", why:"wrote와 sent, 두 동사를 잇는다. 주어가 같아 콤마 없이 and"}}
+      ],
+      seq:[2,1,5,4,3,9,6,8,7],
+      eng:["He","then","wrote","an article","about the historic event","and sent","it","to foreign newspapers","with his pictures."],
+      full:"He then wrote an article about the historic event and sent it to foreign newspapers with his pictures.",
+      diff:"‘역사적인 사건에 대한 기사’는 한글에선 꾸밈이 앞이지만, 영어는 <b>an article 뒤에 about the historic event</b>가 붙는다."
+    }
+  ],
+  write:[
+    {no:"17", ko:"1919년 3월 1일에, Schofield 박사는 탑골공원(Tapgol Park)에서 사람들이 한국의 독립을 외치는 것을 들었다.",
+     en:"On March 1, 1919, Dr. Schofield heard people shouting for Korean independence in Tapgol Park.",
+     keys:[{en:"hear + 목적어 + -ing", ko:"~가 …하는 것을 듣다 (지각동사, to부정사 X)"},
+           {en:"shout for", ko:"~을 외치다, ~을 요구하며 외치다"},
+           {en:"Korean independence", ko:"한국의 독립"}]},
+    {no:"18", ko:"그는 자신의 카메라로 그 사건의 사진들을 찍었다.",
+     en:"He took pictures of the event with his camera.",
+     keys:[{en:"with + 도구", ko:"~로, ~을 이용하여 (with의 뜻: ~와 함께 / ~로 / ~을 가진 / ~때문에)"},
+           {en:"the event", ko:"그 사건 (= 3·1 운동)"}]},
+    {no:"19", ko:"그 후 그는 그 역사적인 사건에 대한 기사를 썼고 그것을 그의 사진들과 함께 외국 신문사들에 보냈다.",
+     en:"He then wrote an article about the historic event and sent it to foreign newspapers with his pictures.",
+     link:[{en:"then", why:"그 후에. 사진을 찍은 다음 일이라는 시간 순서 단서. 주어 He 뒤, 동사 앞에 온다"},
+           {en:"and", why:"wrote와 sent, 두 동사를 잇는다. 주어가 같아서 콤마 없이 and"}],
+     keys:[{en:"an article about", ko:"~에 대한 기사"},
+           {en:"send A to B", ko:"A를 B에게 보내다. A가 대명사 it이면 sent newspapers it(4형식) X"},
+           {en:"with + 사람·사물", ko:"~와 함께"}]}
+  ]
+},
+{
+  tag:"추방",
+  title:"멈추지 않은 싸움, 그리고 떠나야 했던 한국",
+  gist:"3·1 운동 <b>이후</b>의 이야기다. <b>싸움은 멈추지 않았다 → 외국 신문에 한국의 상황을 계속 썼다 → 일본 경찰의 감시 때문에 1920년 캐나다로 돌아가야 했다</b>. <b>even after</b>가 ‘그 뒤에도’를, <b>, so</b>가 원인 → 결과를 알려 준다.",
+  flow:[
+    {no:"20", fn:"계속됨", ko:"3·1 운동 이후에도 독립을 위한 싸움은 멈추지 않았다."},
+    {no:"21", fn:"활동", ko:"외국 신문에 한국의 끔찍한 상황에 대해 계속 썼다."},
+    {no:"22", fn:"원인 → 결과", ko:"일본 경찰의 감시를 받아 1920년에 캐나다로 돌아가야 했다."}
+  ],
+  order:[
+    { ko:"한국의 독립을 위한 Schofield 박사의 투쟁은 3·1 운동 후에도 멈추지 않았다.",
+      chunks:[
+        {ko:"한국의 독립을 위한",     role:"꾸밈"},
+        {ko:"Schofield 박사의 투쟁은", role:"주어"},
+        {ko:"3·1 운동 후에도",        role:"시간"},
+        {ko:"멈추지 않았다",          role:"동사"}
+      ],
+      seq:[2,1,4,3],
+      eng:["Dr. Schofield's fight","for Korean independence","didn't stop","even after the March 1st Movement."],
+      full:"Dr. Schofield's fight for Korean independence didn't stop even after the March 1st Movement.",
+      diff:"‘한국의 독립을 위한 투쟁’은 영어에서 <b>fight 뒤에 for Korean independence</b>가 붙어 주어가 길어진다. 동사 didn't stop은 그 긴 주어가 끝난 뒤에 온다."
+    },
+    { ko:"그는 일본 경찰의 감시를 받고 있었고, 그래서 그는 1920년에 캐나다로 돌아가야 했다.",
+      chunks:[
+        {ko:"그는",             role:"주어"},
+        {ko:"일본 경찰의",       role:"꾸밈"},
+        {ko:"감시를 받고 있었다", role:"동사+보어"},
+        {ko:"그래서 그는",       role:"주어2",
+         cj:{w:"so", pos:"앞", why:"원인(감시) → 결과(돌아감)를 잇는다. 콤마 뒤에 온다"}},
+        {ko:"1920년에",         role:"시간"},
+        {ko:"캐나다로",          role:"방향"},
+        {ko:"돌아가야 했다",      role:"동사2"}
+      ],
+      seq:[1,3,2,4,7,6,5],
+      eng:["He","was under the watchful eye","of the Japanese police,","so he","had to go back","to Canada","in 1920."],
+      full:"He was under the watchful eye of the Japanese police, so he had to go back to Canada in 1920.",
+      diff:"한글은 ‘1920년에’가 중간에 오지만, 영어는 <b>시간 표현 in 1920을 문장 맨 끝</b>에 둔다."
+    }
+  ],
+  write:[
+    {no:"20", ko:"한국의 독립을 위한 Schofield 박사의 투쟁은 3·1 운동 후에도 멈추지 않았다.",
+     en:"Dr. Schofield's fight for Korean independence didn't stop even after the March 1st Movement.",
+     keys:[{en:"fight for", ko:"~을 위한 투쟁 (여기서 fight는 명사)"},
+           {en:"didn't + 동사원형", ko:"~하지 않았다 (stopped X)"},
+           {en:"even after", ko:"~ 후에도"},
+           {en:"the March 1st Movement", ko:"3·1 운동"}]},
+    {no:"21", ko:"그는 외국 신문들을 위해 한국의 끔찍한 상황에 대해 계속 글을 썼다.",
+     en:"He continued to write about the terrible situation in Korea for foreign newspapers.",
+     keys:[{en:"continue to + 동사원형 (= continued writing)", ko:"계속 ~하다"},
+           {en:"the terrible situation in Korea", ko:"한국의 끔찍한 상황 (in Korea가 뒤에서 꾸민다)"},
+           {en:"for foreign newspapers", ko:"외국 신문에 (싣기 위해)"}]},
+    {no:"22", ko:"그는 일본 경찰의 감시를 받고 있었고, 그래서 그는 1920년에 캐나다로 돌아가야 했다.",
+     en:"He was under the watchful eye of the Japanese police, so he had to go back to Canada in 1920.",
+     link:[{en:"so", why:"원인(일본 경찰의 감시) → 결과(캐나다로 돌아감). 콤마 뒤에 온다"}],
+     keys:[{en:"under the watchful eye of", ko:"~의 감시를 받는"},
+           {en:"had to + 동사원형", ko:"~해야 했다 (have to의 과거)"},
+           {en:"go back to", ko:"~로 돌아가다"}]}
+  ]
+},
+{
+  tag:"귀환",
+  title:"다시 한국으로, 그리고 영원히",
+  gist:"마지막 문단. <b>1958년 한국 정부의 초청으로 돌아와 다시는 떠나지 않음 → 남은 생애 동안 한국인, 특히 가난한 학생들을 도움 → 1970년 4월 세상을 떠나 국립서울현충원에 묻힘</b>. 연도가 <b>1958 → 1970</b>으로 이어지며 이야기가 끝난다.",
+  flow:[
+    {no:"23", fn:"귀환", ko:"1958년 한국 정부의 초청으로 돌아와 다시는 떠나지 않았다."},
+    {no:"24", fn:"여생", ko:"남은 생애 동안 한국인, 특히 가난한 학생들을 돕기 위해 열심히 일했다."},
+    {no:"25", fn:"마무리", ko:"1970년 4월에 세상을 떠나 국립서울현충원에 묻혔다."}
+  ],
+  order:[
+    { ko:"1958년에, 그는 한국 정부의 초청으로 한국에 돌아왔고 다시는 떠나지 않았다.",
+      chunks:[
+        {ko:"1958년에",     role:"시간"},
+        {ko:"그는",         role:"주어"},
+        {ko:"한국 정부의",   role:"꾸밈"},
+        {ko:"초청으로",      role:"방식"},
+        {ko:"한국에",        role:"방향"},
+        {ko:"돌아왔고",      role:"동사"},
+        {ko:"다시는",        role:"부사"},
+        {ko:"떠나지 않았다",  role:"동사2",
+         cj:{w:"and", pos:"앞", why:"returned와 left, 두 동사를 잇는다. 주어가 같아 콤마 없이 and"}}
+      ],
+      seq:[1,2,6,5,4,3,8,7],
+      eng:["In 1958,","he","returned","to Korea","at the invitation","of the Korean government","and never left","again."],
+      full:"In 1958, he returned to Korea at the invitation of the Korean government and never left again.",
+      diff:"‘한국 정부의 초청으로’가 영어에서는 <b>at the invitation → of the Korean government</b>로 뒤집힌다."
+    },
+    { ko:"남은 생애 동안, 그는 한국인들, 특히 가난한 학생들을 돕기 위해 열심히 일했다.",
+      chunks:[
+        {ko:"남은 생애 동안",                role:"시간"},
+        {ko:"그는",                        role:"주어"},
+        {ko:"한국인들, 특히 가난한 학생들을",  role:"목적어"},
+        {ko:"돕기 위해",                    role:"목적(to부정사)"},
+        {ko:"열심히",                       role:"부사"},
+        {ko:"일했다",                       role:"동사"}
+      ],
+      seq:[1,2,6,5,4,3],
+      eng:["For the rest of his life,","he","worked","hard","to help","Koreans, especially poor students."],
+      full:"For the rest of his life, he worked hard to help Koreans, especially poor students.",
+      diff:"‘그는’ 다음부터 한글을 <b>끝에서 거꾸로</b> 읽으면 영어 순서다: 일했다 → 열심히 → 돕기 위해 → 한국인들."
+    }
+  ],
+  write:[
+    {no:"23", ko:"1958년에, 그는 한국 정부의 초청으로 한국에 돌아왔고 다시는 떠나지 않았다.",
+     en:"In 1958, he returned to Korea at the invitation of the Korean government and never left again.",
+     link:[{en:"and", why:"returned와 left, 두 동사를 잇는다. 주어가 같아서 콤마 없이 and"}],
+     keys:[{en:"return to", ko:"~로 돌아오다 (return back X)"},
+           {en:"at the invitation of", ko:"~의 초청으로"},
+           {en:"never ~ again", ko:"다시는 ~하지 않다"}]},
+    {no:"24", ko:"남은 생애 동안, 그는 한국인들, 특히 가난한 학생들을 돕기 위해 열심히 일했다.",
+     en:"For the rest of his life, he worked hard to help Koreans, especially poor students.",
+     keys:[{en:"for the rest of one's life", ko:"남은 생애 동안"},
+           {en:"to help", ko:"돕기 위해 (부사적 to부정사: 목적)"},
+           {en:"especially", ko:"특히"}]},
+    {no:"25", ko:"Schofield 박사는 1970년 4월에 세상을 떠났고, 그는 국립서울현충원에 묻혔다.",
+     en:"Dr. Schofield died in April 1970, and he was buried in Seoul National Cemetery.",
+     link:[{en:"and", why:"두 문장을 잇는다. 주어 he를 다시 쓰므로 and 앞에 콤마"}],
+     keys:[{en:"in + 월 + 연도", ko:"날짜 없이 월·연도만 있으면 in"},
+           {en:"was buried in", ko:"~에 묻혔다 (수동태)"},
+           {en:"Seoul National Cemetery", ko:"국립서울현충원"}]}
+  ]
+}
+];
+
+
+/* ── 실전 문제 ── */
+const SECS={A:"대명사가 가리키는 것",B:"본문 문법",N:"연결어: 무엇을 왜 잇는가",
+            C:"문단·대화 순서",D:"내용 확인: 일치 / 불일치 / 알 수 없음",
+            E:"질문에 답하기",F:"배열 영작",G:"조건 영작",H:"추론"};
+const OX=["본문과 일치","본문과 불일치","본문으로 알 수 없음"];
+
+const EXAM=[
+/* A 대명사 */
+{id:"A1",sec:"A",type:"mc",from:"3",q:"밑줄 친 <u>you</u>가 가리키는 것은?",
+ ctx:"Dr. Schofield: What can I do for <u>you</u>?",
+ choices:["Dr. Schofield","the man","many people","the world"],ans:1,
+ exp:"Schofield 박사가 찾아온 남자에게 묻는 말이다. 바로 뒤 5번의 Could you의 you(= Schofield 박사)와 헷갈리지 말 것."},
+{id:"A2",sec:"A",type:"mc",from:"5",q:"밑줄 친 <u>them</u>이 가리키는 것은?",
+ ctx:"Could you take pictures of the event and share <u>them</u> with the world?",
+ choices:["the event","many people","pictures of the event","the world"],ans:2,
+ exp:"세계와 공유할 대상은 앞의 pictures of the event. 복수형 them이므로 단수 the event는 안 된다."},
+{id:"A3",sec:"A",type:"mc",from:"9",q:"밑줄 친 <u>this important event</u>가 가리키는 것은?",
+ ctx:"I hope the world will learn about <u>this important event</u> through my pictures.",
+ choices:["Schofield 박사가 한국어를 배운 일","많은 사람들이 한국의 독립을 위해 모인 일","한 남자가 부탁하러 찾아온 일","Schofield 박사가 캐나다로 돌아간 일"],ans:1,
+ exp:"3월 1일 밖에 모인 많은 사람들, 즉 3·1 운동을 가리킨다."},
+{id:"A4",sec:"A",type:"mc",from:"11",q:"밑줄 친 <u>his Korean name</u>이 가리키는 것은?",
+ ctx:"His English name was Frank W. Schofield, but he loved <u>his Korean name</u>.",
+ choices:["Frank W. Schofield","Canada","Seok Hopil","the Korean government"],ans:2,
+ exp:"바로 앞 10번에서 물은 Seok Hopil(석호필)이 그의 한국 이름이다."},
+{id:"A5",sec:"A",type:"mc",from:"12",q:"밑줄 친 <u>It</u>이 가리키는 것은?",
+ ctx:"<u>It</u> sounded similar to his real name, and it also had a good meaning.",
+ choices:["his real name","his Korean name","his English name","a good meaning"],ans:1,
+ exp:"진짜 이름과 비슷하게 들린 것은 앞 문장의 his Korean name. 같은 문장 안의 his real name은 비교 대상이다."},
+{id:"A6",sec:"A",type:"mc",from:"18",q:"밑줄 친 <u>the event</u>가 가리키는 것은?",
+ ctx:"He took pictures of <u>the event</u> with his camera.",
+ choices:["the March 1st Movement","Dr. Schofield's house","his Korean name","the Korean government"],ans:0,
+ exp:"앞 문장에서 사람들이 독립을 외친 3·1 운동이다."},
+{id:"A7",sec:"A",type:"mc",from:"19",q:"밑줄 친 <u>it</u>이 가리키는 것은?",
+ ctx:"He then wrote an article about the historic event and sent <u>it</u> to foreign newspapers with his pictures.",
+ choices:["the historic event","his camera","his pictures","an article"],ans:3,
+ exp:"쓴 뒤 신문사에 보낸 것은 an article. 사진은 with his pictures로 따로 나온다."},
+
+/* B 문법 */
+{id:"B1",sec:"B",type:"mc",q:"빈칸에 알맞은 것은?",
+ ctx:"Dr. Schofield saw a large group of people ______ outside.",
+ choices:["to gather","gathering","gathers","to gathering"],ans:1,
+ exp:"see + 목적어 + 동사원형 / -ing. 지각동사 뒤에 to부정사는 올 수 없다."},
+{id:"B2",sec:"B",type:"mc",q:"어법상 <b>옳은</b> 문장은?",
+ choices:["Dr. Schofield heard people shouting for independence.","Dr. Schofield heard they shouting for independence.","Dr. Schofield heard people to shout for independence.","Dr. Schofield heard people shouted for independence."],ans:0,
+ exp:"hear + 목적격 + 동사원형/-ing. to부정사 X, 주격 they X, 과거형 shouted X."},
+{id:"B3",sec:"B",type:"mc",q:"어법상 <b>틀린</b> 문장은?",
+ choices:["I saw him cross the street.","We watched the children playing soccer.","She heard her name call.","He felt the ground shake."],ans:2,
+ exp:"이름은 ‘불리는’ 것이므로 과거분사 called. 목적어가 당하는 관계면 p.p.를 쓴다."},
+{id:"B4",sec:"B",type:"mc",q:"두 문장의 뜻이 같도록 할 때 빈칸에 알맞은 것은?",
+ ctx:"He studied very hard, so he was able to teach in Korean. = He studied ______ he was able to teach in Korean.",
+ choices:["very hard that","too hard to","hard enough that","so hard that"],ans:3,
+ exp:"결과는 so + 부사 + that. very ~ that은 쓰지 않는다."},
+{id:"B5",sec:"B",type:"mc",q:"같은 뜻의 문장으로 알맞은 것은?",
+ ctx:"The box was so heavy that he couldn't lift it.",
+ choices:["The box was too heavy for him to lift it.","The box was too heavy for him to lift.","The box was so heavy for him to lift.","The box was heavy enough for him to lift."],ans:1,
+ exp:"too ~ to로 바꾸면 문장 주어(the box)와 같은 목적어 it은 지운다. that절에서는 it이 꼭 있어야 한다."},
+{id:"B6",sec:"B",type:"mc",q:"빈칸에 알맞은 것은?",
+ ctx:"He studied so hard that he could teach in Korean. = He studied hard ______ teach in Korean.",
+ choices:["enough to","too to","so that","enough that"],ans:0,
+ exp:"so ~ that ... can(could) = 형용사/부사 + enough to. enough는 hard 뒤에 온다."},
+{id:"B7",sec:"B",type:"mc",q:"빈칸에 알맞은 것은?",
+ ctx:"It was ______ a cold day that we stayed home.",
+ choices:["so","very","such","too"],ans:2,
+ exp:"a + 형용사 + 명사 앞에는 so가 아니라 such. (so cold a day도 가능하지만 어순이 다르다)"},
+{id:"B8",sec:"B",type:"mc",q:"밑줄 친 <u>so</u>의 쓰임이 나머지와 <b>다른</b> 것은?",
+ choices:["He studied <u>so</u> hard that he was able to teach in Korean.","The movie was <u>so</u> sad that everyone cried.","I was <u>so</u> hungry that I ate the whole cake.","He wanted to teach in Korean, <u>so</u> he began to learn Korean."],ans:3,
+ exp:"④는 콤마 뒤 접속사 ‘그래서’. 나머지는 that과 짝을 이루는 so ~ that의 so."},
+{id:"B9",sec:"B",type:"mc",q:"밑줄 친 to부정사의 쓰임이 <u>a special favor to ask you</u>와 같은 것은?",
+ choices:["He wanted <u>to teach</u> in Korean.","He first came to Korea <u>to teach</u> medicine.","He worked hard <u>to help</u> Koreans.","Every country has the right <u>to be</u> independent."],ans:3,
+ exp:"명사를 뒤에서 꾸미는 형용사적 용법. ①은 목적어(명사적), ②③은 ‘~하기 위해’(부사적)."},
+{id:"B10",sec:"B",type:"mc",q:"빈칸에 알맞은 것은?",
+ ctx:"It sounded ______ to his real name.",
+ choices:["similarly","like","similarity","similar"],ans:3,
+ exp:"sound + 형용사. 한글이 ‘비슷하게’여도 부사 similarly는 쓸 수 없다."},
+
+{id:"B11",sec:"B",type:"mc",q:"빈칸에 들어갈 말이 순서대로 바르게 짝지어진 것은?",
+ ctx:"______ 2 p.m. ______ March 1, Dr. Schofield was hiding in a building.",
+ choices:["On – in","At – on","In – at","At – in"],ans:1,
+ exp:"시각 앞 at, 날짜 앞 on. 작은 시간 → 큰 시간 순서."},
+{id:"B12",sec:"B",type:"mc",q:"빈칸에 들어갈 전치사가 <b>나머지와 다른</b> 것은?",
+ choices:["______ 1916","______ April 1970","______ March 1, 1919","______ winter"],ans:2,
+ exp:"날짜가 있으면 연도가 붙어도 on. 나머지(연도·월·계절)는 in."},
+{id:"B13",sec:"B",type:"mc",q:"어법상 <b>틀린</b> 문장은?",
+ choices:["He sent it to foreign newspapers.","He sent his article to foreign newspapers.","He sent foreign newspapers his article.","He sent foreign newspapers it."],ans:3,
+ exp:"직접목적어가 대명사 it이면 4형식(sent newspapers it)으로 쓸 수 없다. send it to ~ 만 된다."},
+{id:"B14",sec:"B",type:"mc",q:"빈칸에 알맞은 것은?",
+ ctx:"He was able to teach in Korean after only ______ years.",
+ choices:["a little","a few","much","little"],ans:1,
+ exp:"years는 셀 수 있는 복수명사 → a few. a little은 셀 수 없는 명사(time, sugar) 앞."},
+{id:"B15",sec:"B",type:"mc",q:"밑줄 친 단어의 반대말로 알맞은 것은?",
+ ctx:"Every country has the right to be <u>independent</u>.",
+ choices:["undependent","disdependent","nondependent","dependent"],ans:3,
+ exp:"in-이 반대 뜻을 만든 말이다. independent ↔ dependent (visible ↔ invisible, direct ↔ indirect)."},
+{id:"B16",sec:"B",type:"mc",q:"밑줄 친 with의 뜻이 <u>He took pictures of the event with his camera.</u>의 with와 같은 것은?",
+ choices:["I went to the park <u>with</u> my friend.","He cut the paper <u>with</u> scissors.","I saw a boy <u>with</u> red hair.","He was shaking <u>with</u> fear."],ans:1,
+ exp:"‘~로, ~을 이용하여’(도구). ①~와 함께 ③~을 가진 ④~ 때문에. 19번 with his pictures는 ‘~와 함께’."},
+{id:"B17",sec:"B",type:"mc",q:"빈칸에 들어갈 수 <b>없는</b> 것은?",
+ ctx:"He ______ to write about the terrible situation in Korea.",
+ choices:["began","enjoyed","continued","started"],ans:1,
+ exp:"begin·continue·start는 to부정사·동명사 둘 다 된다. enjoy는 동명사만(enjoyed writing)."},
+
+/* N 연결어 */
+{id:"N1",sec:"N",type:"mc",q:"빈칸에 알맞은 연결어는?",
+ ctx:"He wanted to teach in Korean, ______ he began to learn Korean right away.",
+ choices:["but","so","because","or"],ans:1,
+ exp:"가르치고 싶다(원인) → 배우기 시작(결과). 콤마 뒤 so."},
+{id:"N2",sec:"N",type:"mc",q:"빈칸에 알맞은 연결어는?",
+ ctx:"His English name was Frank W. Schofield, ______ he loved his Korean name.",
+ choices:["and","so","but","because"],ans:2,
+ exp:"영어 이름과 한국 이름을 대조한다."},
+{id:"N3",sec:"N",type:"mc",q:"빈칸에 알맞은 연결어는?",
+ ctx:"He was under the watchful eye of the Japanese police, ______ he had to go back to Canada in 1920.",
+ choices:["so","but","or","when"],ans:0,
+ exp:"감시(원인) → 캐나다로 돌아감(결과)."},
+{id:"N4",sec:"N",type:"mc",q:"빈칸에 알맞은 것은?",
+ ctx:"He had to go back to Canada ______ he was under the watchful eye of the Japanese police.",
+ choices:["because of","so","because","but"],ans:2,
+ exp:"뒤에 주어 + 동사(he was)가 오므로 because. because of 뒤에는 명사만 온다. 원인·결과 순서가 뒤집히면 so 대신 because."},
+{id:"N5",sec:"N",type:"mc",q:"밑줄 친 <u>and</u>가 잇는 두 부분으로 알맞은 것은?",
+ ctx:"At 2 p.m. on March 1, Dr. Schofield was hiding in a building <u>and</u> saw a large group of people gathering outside.",
+ choices:["a building과 a large group","hiding과 gathering","was hiding과 saw","Dr. Schofield와 people"],ans:2,
+ exp:"주어 Dr. Schofield의 두 동사를 잇는다. 주어가 같아서 and 앞에 콤마가 없다."},
+{id:"N6",sec:"N",type:"mc",q:"빈칸에 알맞은 것은?",
+ ctx:"He took pictures of the event with his camera. He ______ wrote an article about the historic event.",
+ choices:["then","because","but","or"],ans:0,
+ exp:"사진을 찍은 ‘다음에’ 기사를 썼다. 시간 순서 단서 then."},
+
+/* C 순서 */
+{id:"C1",sec:"C",type:"order",q:"주어진 문장 다음에 이어질 순서로 알맞은 것은?",
+ given:"On February 28, 1919, a man came to Dr. Schofield's house.",
+ items:["Dr. Schofield: What can I do for you?",
+        "Man: Dr. Schofield, I have a special favor to ask you.",
+        "Man: Many people are going to gather tomorrow for the independence of Korea."],
+ ans:[1,0,2],
+ exp:"부탁이 있다 → 무엇을 도와줄까 → 내일 사람들이 모인다. 질문(What can I do)은 부탁 예고 뒤에 온다."},
+{id:"C2",sec:"C",type:"order",q:"주어진 문장 다음에 이어질 순서로 알맞은 것은?",
+ given:"Dr. Schofield was a Canadian doctor, and he first came to Korea in 1916 to teach medicine.",
+ items:["He studied so hard that he was able to teach in Korean after only a few years.",
+        "He believed that every country has the right to be independent, so he helped the Korean independence movement.",
+        "He wanted to teach in Korean, so he began to learn Korean right away."],
+ ans:[2,0,1],
+ exp:"배우기 시작(right away) → 몇 년 만에 가르침(after only a few years) → 독립운동. 시간 표현이 단서."},
+{id:"C3",sec:"C",type:"order",q:"주어진 문장 다음에 이어질 순서로 알맞은 것은?",
+ given:"On March 1, 1919, Dr. Schofield heard people shouting for Korean independence in Tapgol Park.",
+ items:["He took pictures of the event with his camera.",
+        "Dr. Schofield's fight for Korean independence didn't stop even after the March 1st Movement.",
+        "He then wrote an article about the historic event and sent it to foreign newspapers with his pictures."],
+ ans:[0,2,1],
+ exp:"사진을 찍고 → 그 후(then) 기사를 보냄 → 3·1 운동 후에도(even after) 싸움은 계속."},
+{id:"C4",sec:"C",type:"order",q:"주어진 문장 다음에 이어질 순서로 알맞은 것은?",
+ given:"He was under the watchful eye of the Japanese police, so he had to go back to Canada in 1920.",
+ items:["Dr. Schofield died in April 1970, and he was buried in Seoul National Cemetery.",
+        "In 1958, he returned to Korea at the invitation of the Korean government and never left again.",
+        "For the rest of his life, he worked hard to help Koreans, especially poor students."],
+ ans:[1,2,0],
+ exp:"연도 순서 1920 → 1958 → (남은 생애) → 1970."},
+
+/* D 내용 확인 */
+{id:"D1",sec:"D",type:"mc",q:"A man visited Dr. Schofield on February 28, 1919.",choices:OX,ans:0,
+ exp:"1번 문장: a man came to Dr. Schofield's house."},
+{id:"D2",sec:"D",type:"mc",q:"The man asked Dr. Schofield to join the gathering.",choices:OX,ans:1,
+ exp:"부탁은 모임 참여가 아니라 사진을 찍어 세계와 공유하는 것이었다(5번)."},
+{id:"D3",sec:"D",type:"mc",q:"Dr. Schofield's Korean name sounded similar to his real name.",choices:OX,ans:0,
+ exp:"12번: It sounded similar to his real name."},
+{id:"D4",sec:"D",type:"mc",q:"Dr. Schofield first came to Korea to teach English.",choices:OX,ans:1,
+ exp:"13번: 의학(medicine)을 가르치러 왔다."},
+{id:"D5",sec:"D",type:"mc",q:"Dr. Schofield learned Korean from a Korean teacher.",choices:OX,ans:2,
+ exp:"한국어를 배우기 시작했다는 말만 있고, 누구에게 배웠는지는 본문에 없다."},
+{id:"D6",sec:"D",type:"mc",q:"Dr. Schofield sent his article to Korean newspapers.",choices:OX,ans:1,
+ exp:"19번: 외국(foreign) 신문사에 보냈다."},
+{id:"D7",sec:"D",type:"mc",q:"The Japanese police put Dr. Schofield in prison.",choices:OX,ans:2,
+ exp:"22번은 ‘감시를 받았다’까지만 말한다. 감옥 이야기는 본문에 없다. 불일치가 아니라 알 수 없음."},
+{id:"D8",sec:"D",type:"mc",q:"Dr. Schofield never came back to Korea after 1920.",choices:OX,ans:1,
+ exp:"23번: 1958년에 한국 정부의 초청으로 돌아왔다."},
+{id:"D9",sec:"D",type:"mc",q:"Dr. Schofield had a Korean wife and children.",choices:OX,ans:2,
+ exp:"가족 이야기는 본문에 없다."},
+{id:"D10",sec:"D",type:"mc",q:"Dr. Schofield was buried in Korea.",choices:OX,ans:0,
+ exp:"25번: 국립서울현충원(Seoul National Cemetery)에 묻혔다."},
+
+/* E 질문에 답하기 */
+{id:"E1",sec:"E",type:"mc",q:"What favor did the man ask Dr. Schofield?",
+ choices:["To teach medicine in Korean","To take pictures of the event and share them with the world","To hide people in his house","To write about Canada"],ans:1,
+ exp:"5번: Could you take pictures of the event and share them with the world?"},
+{id:"E2",sec:"E",type:"mc",q:"Why did Dr. Schofield begin to learn Korean right away?",
+ choices:["Because the police told him to","Because he wanted a Korean name","Because he wanted to write for Korean newspapers","Because he wanted to teach in Korean"],ans:3,
+ exp:"14번: He wanted to teach in Korean, so he began to learn Korean."},
+{id:"E3",sec:"E",type:"mc",q:"Why did Dr. Schofield have to go back to Canada in 1920?",
+ choices:["He was under the watchful eye of the Japanese police.","He finished teaching medicine.","His family asked him to come back.","He lost his camera."],ans:0,
+ exp:"22번: 일본 경찰의 감시 때문이다."},
+{id:"E4",sec:"E",type:"mc",q:"Why did he love his Korean name?",
+ choices:["It was easy to write.","The Korean government gave it to him.","His students made it for him.","It sounded similar to his real name and had a good meaning."],ans:3,
+ exp:"12번: 발음이 비슷하고 좋은 뜻이 있었다."},
+
+/* F 배열 영작 */
+{id:"F1",sec:"F",type:"arrange",q:"우리말과 같도록 단어를 배열하세요. (필요 없는 단어 1개)",
+ ko:"Schofield 박사는 사람들이 한국의 독립을 외치는 것을 들었다.",
+ words:["shouting","independence","heard","to","Korean","Schofield","people","for","Dr."],
+ ans:"Dr. Schofield heard people shouting for Korean independence.",
+ exp:"hear + 목적어 + -ing. 지각동사 뒤에 to는 쓰지 않는다."},
+{id:"F2",sec:"F",type:"arrange",q:"우리말과 같도록 단어를 배열하세요. (필요 없는 단어 1개)",
+ ko:"그는 매우 열심히 공부해서 한국어로 가르칠 수 있었다.",
+ words:["able","that","very","Korean","studied","teach","he","hard","was","in","He","so","to"],
+ ans:"He studied so hard that he was able to teach in Korean.",
+ exp:"결과는 so + 부사 + that. very는 필요 없다."},
+{id:"F3",sec:"F",type:"arrange",q:"우리말과 같도록 단어를 배열하세요. (필요 없는 단어 1개)",
+ ko:"모든 나라는 독립할 권리를 가지고 있다.",
+ words:["right","have","be","the","country","independent","Every","to","has"],
+ ans:"Every country has the right to be independent.",
+ exp:"every + 단수명사 + 단수동사. have는 필요 없다."},
+{id:"F4",sec:"F",type:"arrange",q:"우리말과 같도록 단어를 배열하세요. (필요 없는 단어 1개)",
+ ko:"그는 곧바로 한국어를 배우기 시작했다.",
+ words:["away","learned","Korean","to","right","began","He","learn"],
+ ans:"He began to learn Korean right away.",
+ exp:"begin to + 동사원형. to 뒤에 과거형 learned는 올 수 없다."},
+
+/* G 조건 영작 */
+{id:"G1",sec:"G",type:"write",q:"우리말과 같도록 영작하세요.",
+ ko:"그는 사진을 찍기 시작했다.",
+ cond:"began과 동명사를 쓸 것 · 4단어",
+ ans:["He began taking pictures."],
+ exp:"begin은 to부정사·동명사 둘 다 쓸 수 있다. 본문은 began to take."},
+{id:"G2",sec:"G",type:"write",q:"우리말과 같도록 영작하세요.",
+ ko:"Schofield 박사는 밖에서 많은 사람들이 모이고 있는 것을 보았다.",
+ cond:"saw + 목적어 + -ing 를 쓸 것",
+ ans:["Dr. Schofield saw many people gathering outside.","Dr. Schofield saw a lot of people gathering outside.","Dr. Schofield saw lots of people gathering outside.","Dr. Schofield saw a large group of people gathering outside."],
+ exp:"see + 목적어 + -ing. outside는 문장 끝."},
+{id:"G3",sec:"G",type:"write",q:"우리말과 같도록 영작하세요.",
+ ko:"그는 한국어로 가르칠 수 있을 만큼 충분히 열심히 공부했다.",
+ cond:"enough 를 쓸 것 · 8단어",
+ ans:["He studied hard enough to teach in Korean."],
+ exp:"enough는 부사 hard 뒤. so hard that he could teach in Korean과 같은 뜻."},
+{id:"G4",sec:"G",type:"write",q:"우리말과 같도록 영작하세요.",
+ ko:"그는 일본 경찰의 감시를 받고 있었기 때문에 캐나다로 돌아가야 했다.",
+ cond:"because 절을 문장 뒤에 쓸 것",
+ ans:["He had to go back to Canada because he was under the watchful eye of the Japanese police."],
+ exp:"결론(돌아가야 했다)을 먼저, because절은 뒤. 한글과 순서가 뒤집힌다."},
+{id:"G5",sec:"G",type:"write",q:"우리말과 같도록 영작하세요.",
+ ko:"그는 외국 신문에 한국의 끔찍한 상황에 대해 계속 썼다.",
+ cond:"continued 와 동명사를 쓸 것",
+ ans:["He continued writing about the terrible situation in Korea for foreign newspapers."],
+ exp:"continue는 to부정사·동명사 둘 다 가능. 본문은 continued to write."},
+{id:"G6",sec:"G",type:"write",q:"우리말과 같도록 영작하세요.",
+ ko:"그것은 그의 진짜 이름과 비슷하게 들렸다.",
+ cond:"sound 를 쓸 것 · 7단어",
+ ans:["It sounded similar to his real name."],
+ exp:"sound + 형용사. similarly는 틀린다."},
+
+/* H 추론 */
+{id:"H1",sec:"H",type:"mc",q:"1~5번에서 남자가 한 부탁이 실제로 이루어진 결과로 알맞은 것은?",
+ choices:["Schofield 박사가 한국어를 배우기 시작했다.","Schofield 박사의 사진과 기사가 외국 신문사에 전해졌다.","Schofield 박사가 캐나다 의사가 되었다.","Schofield 박사가 한국 정부의 초청을 받았다."],ans:1,
+ exp:"부탁은 사진을 찍어 세계와 공유하는 것. 19번에서 기사와 사진을 외국 신문사에 보냈다."},
+{id:"H2",sec:"H",type:"mc",q:"이 글의 구성으로 알맞은 것은?",
+ choices:["3·1 운동 전날의 장면으로 시작한 뒤, 그의 삶을 처음부터 다시 소개한다.","한 사람의 인터뷰를 그대로 옮긴다.","어린 시절부터 죽음까지 시간 순서로만 말한다.","3·1 운동의 원인을 분석한다."],ans:0,
+ exp:"1~9번은 1919년의 장면, 10번(Do you know Seok Hopil?)부터 1916년으로 돌아가 삶을 다시 소개한다. 그래서 3월 1일이 두 번 나온다."},
+{id:"H3",sec:"H",type:"mc",q:"Schofield 박사가 캐나다로 돌아간 뒤에도 한국을 떠나지 않은 마음을 가장 잘 보여 주는 문장은?",
+ choices:["He took pictures of the event with his camera.","In 1958, he returned to Korea at the invitation of the Korean government and never left again.","He began to take pictures.","Do you know Seok Hopil?"],ans:1,
+ exp:"다시 돌아와 never left again(다시는 떠나지 않았다)."}
+];
+
+/* ── 마무리 정리 ── */
+const FSECS={S:"서술형: 누가 무엇을 왜",K:"핵심문장 고르기",R:"대명사가 가리키는 것 (문단 속에서)"};
+
+const FINAL=[
+{id:"S1",kind:"short",sec:"S",who:"남자",
+ q:"남자는 Schofield 박사에게 무엇을 해 달라고 부탁했나요? asked 를 써서 쓰세요.",
+ must:[["asked"],["take pictures"],["share"]],
+ model:"He asked Dr. Schofield to take pictures of the event and share them with the world.",
+ exp:"ask + 사람 + to부정사: ~에게 …해 달라고 부탁하다."},
+{id:"S2",kind:"short",sec:"S",who:"남자",
+ q:"남자는 내일 무슨 일이 있을 거라고 말했나요? be going to 를 써서 쓰세요.",
+ must:[["going to gather"],["independence"]],
+ model:"Many people are going to gather tomorrow for the independence of Korea.",
+ exp:"be going to + 동사원형: ~할 예정이다."},
+{id:"S3",kind:"short",sec:"S",who:"Schofield 박사",
+ q:"3월 1일 건물 안에 숨어 있던 Schofield 박사는 무엇을 보았나요? saw 와 -ing 를 써서 쓰세요.",
+ must:[["saw"],["gathering"]],
+ model:"He saw a large group of people gathering outside.",
+ exp:"see + 목적어 + -ing. to gather는 쓸 수 없다."},
+{id:"S4",kind:"short",sec:"S",who:"Schofield 박사",
+ q:"Schofield 박사는 왜 곧바로 한국어를 배우기 시작했나요? because 를 써서 쓰세요.",
+ must:[["because"],["teach in korean"]],
+ model:"He began to learn Korean right away because he wanted to teach in Korean.",
+ exp:"결론 먼저, because절은 뒤."},
+{id:"S5",kind:"short",sec:"S",who:"Schofield 박사",
+ q:"Schofield 박사는 얼마나 열심히 공부했고, 그 결과는 어땠나요? so ~ that 을 써서 쓰세요.",
+ must:[["so hard that"],["teach in korean"]],
+ model:"He studied so hard that he was able to teach in Korean after only a few years.",
+ exp:"so + 부사 + that + 주어 + 동사."},
+{id:"S6",kind:"short",sec:"S",who:"Schofield 박사",
+ q:"Schofield 박사는 사진을 찍은 뒤 무엇을 했나요? sent 를 써서 쓰세요.",
+ must:[["article"],["sent it","sent the article","sent an article"],["foreign newspapers"]],
+ model:"He wrote an article about the historic event and sent it to foreign newspapers with his pictures.",
+ exp:"send A to B: A를 B에게 보내다."},
+{id:"S7",kind:"short",sec:"S",who:"일본 경찰",
+ q:"일본 경찰 때문에 Schofield 박사는 어떻게 되었나요? so 와 had to 를 써서 쓰세요.",
+ must:[["so"],["had to go back","had to return"],["canada"]],
+ model:"He was under the watchful eye of the Japanese police, so he had to go back to Canada in 1920.",
+ exp:"원인, so + 결과. had to는 have to의 과거."},
+{id:"S8",kind:"short",sec:"S",who:"한국 정부",
+ q:"1958년에 Schofield 박사는 어떻게 한국에 돌아왔나요? invitation 을 써서 쓰세요.",
+ must:[["returned","came back"],["invitation"]],
+ model:"He returned to Korea at the invitation of the Korean government.",
+ exp:"at the invitation of: ~의 초청으로."},
+
+{id:"K1",kind:"pick",sec:"K",
+ q:"빈칸에 들어갈 문장으로 알맞은 것은?",
+ text:"At 2 p.m. on March 1, Dr. Schofield was hiding in a building and saw a large group of people gathering outside. [[BLANK]] Dr. Schofield: Unbelievable! There are so many people here.",
+ choices:["He wanted to teach in Korean, so he began to learn Korean right away.","He began to take pictures.","Do you know Seok Hopil?","He continued to write about the terrible situation in Korea for foreign newspapers."],
+ ans:1,
+ exp:"사람들이 모이는 것을 본 바로 다음 행동이다. 부탁(사진)이 이루어지는 자리."},
+{id:"K2",kind:"pick",sec:"K",
+ q:"빈칸에 들어갈 문장으로 알맞은 것은?",
+ text:"Do you know Seok Hopil? [[BLANK]] It sounded similar to his real name, and it also had a good meaning.",
+ choices:["Dr. Schofield was a Canadian doctor, and he first came to Korea in 1916 to teach medicine.","He took pictures of the event with his camera.","His English name was Frank W. Schofield, but he loved his Korean name.","He began to take pictures."],
+ ans:2,
+ exp:"뒤 문장의 It이 가리킬 his Korean name이 먼저 나와야 한다."},
+{id:"K3",kind:"pick",sec:"K",
+ q:"빈칸에 들어갈 문장으로 알맞은 것은?",
+ text:"He wanted to teach in Korean, so he began to learn Korean right away. [[BLANK]] He believed that every country has the right to be independent, so he helped the Korean independence movement.",
+ choices:["He studied so hard that he was able to teach in Korean after only a few years.","His English name was Frank W. Schofield, but he loved his Korean name.","He was under the watchful eye of the Japanese police, so he had to go back to Canada in 1920.","He began to take pictures."],
+ ans:0,
+ exp:"배우기 시작(right away) → 결과(몇 년 만에 가르침)가 이어진다."},
+{id:"K4",kind:"pick",sec:"K",
+ q:"빈칸에 들어갈 문장으로 알맞은 것은?",
+ text:"He was under the watchful eye of the Japanese police, so he had to go back to Canada in 1920. [[BLANK]] For the rest of his life, he worked hard to help Koreans, especially poor students.",
+ choices:["Dr. Schofield died in April 1970, and he was buried in Seoul National Cemetery.","He took pictures of the event with his camera.","In 1958, he returned to Korea at the invitation of the Korean government and never left again.","Dr. Schofield's fight for Korean independence didn't stop even after the March 1st Movement."],
+ ans:2,
+ exp:"캐나다로 떠난 뒤 → 다시 돌아옴 → 남은 생애. 1970년 죽음은 맨 마지막."},
+
+{id:"R1",kind:"pron",sec:"R",
+ q:"같은 <b>you</b>이지만 가리키는 사람이 다릅니다. 각각 무엇을 가리키나요?",
+ text:"Dr. Schofield: What can I do for [[1]]? Man: Many people are going to gather tomorrow for the independence of Korea. Could [[2]] take pictures of the event and share [[3]] with the world?",
+ blanks:[
+  {label:"①",w:"you",choices:["Dr. Schofield","the man","many people","the world"],ans:1,
+   exp:"Schofield 박사가 말하는 상대, 즉 찾아온 남자."},
+  {label:"②",w:"you",choices:["the man","many people","Dr. Schofield","the world"],ans:2,
+   exp:"이번엔 남자가 말하는 상대, 즉 Schofield 박사. 말하는 사람이 바뀌면 you도 바뀐다."},
+  {label:"③",w:"them",choices:["pictures of the event","the event","many people","the world"],ans:0,
+   exp:"공유할 대상은 사진들. 복수 them."}
+ ]},
+{id:"R2",kind:"pron",sec:"R",
+ q:"밑줄 친 대명사가 가리키는 것을 고르세요. ②와 ③은 같은 것일까요?",
+ text:"His English name was Frank W. Schofield, but [[1]] loved his Korean name. [[2]] sounded similar to his real name, and [[3]] also had a good meaning.",
+ blanks:[
+  {label:"①",w:"he",choices:["Frank W. Schofield (Dr. Schofield)","the man","the Korean government","a reporter"],ans:0,
+   exp:"한국 이름을 사랑한 사람은 Schofield 박사."},
+  {label:"②",w:"It",choices:["his English name","his real name","his Korean name","a good meaning"],ans:2,
+   exp:"진짜 이름과 비슷하게 들린 것은 한국 이름."},
+  {label:"③",w:"it",choices:["his real name","his Korean name","his English name","the world"],ans:1,
+   exp:"좋은 뜻을 가진 것도 한국 이름. ②와 같다. his real name은 비교 대상일 뿐이다."}
+ ]},
+{id:"R3",kind:"pron",sec:"R",
+ q:"밑줄 친 말이 가리키는 것을 고르세요. the historic event를 보낸 걸까요?",
+ text:"He took pictures of [[1]] with his camera. He then wrote an article about the historic event and sent [[2]] to foreign newspapers with his pictures.",
+ blanks:[
+  {label:"①",w:"the event",choices:["the March 1st Movement","Dr. Schofield's house","the Korean government","his camera"],ans:0,
+   exp:"앞 문장에서 사람들이 독립을 외친 3·1 운동."},
+  {label:"②",w:"it",choices:["the historic event","an article","his camera","his pictures"],ans:1,
+   exp:"신문사에 보낸 것은 기사. the historic event를 보낸 게 아니다."}
+ ]}
+];
+
+/* ============================================================
+   DATA END — 여기부터는 엔진. 수정 금지.
+   ============================================================ */
+
+/* ============ STATE (세션 메모리만) ============ */
+function freshState(){
+  return {phase:'para',p:0,onlyWrong:false,
+    P:PARAS.map(()=>({read:false,stage:1})),ord:{},wr:{},ex:{},fn:{},story:{step:1,pick:[],ordered:false,shown:false,omarks:null,ashown:{},vals:{},rev:{},marks:{},done:false,tries:0,msg:''}};
+}
+let S=freshState();
+function oS(p,i){const k=p+'-'+i;return S.ord[k]||(S.ord[k]={pick:[],ordered:false,done:false,msg:'',shown:false,cj:{},cjmk:{},cjmsg:'',cjshown:false});}
+function ws(m,p,i){const map=S.wr,k=p+'-'+i;return map[k]||(map[k]={val:'',status:'',tries:0,retried:false,peek:false,peeked:false,hint:false,keys:{},diff:null});}
+function xs(id){return S.ex[id]||(S.ex[id]={sel:null,pick:[],val:'',status:'',tries:0,first:null,diff:null});}
+function fsx(id){return S.fn[id]||(S.fn[id]={sel:null,pick:[],val:'',vals:{},bs:{},rev:{},status:'',first:null,marks:null});}
+function finalOk(){return FINAL.filter(q=>fsx(q.id).status==='ok').length;}
+function ordAllDone(p){return PARAS[p].order.every((_,i)=>oS(p,i).done);}
+function passCount(m,p){return PARAS[p].write.filter((_,i)=>ws(m,p,i).status==='pass').length;}
+function paraDone(p){return passCount('w',p)===PARAS[p].write.length;}
+const TOTAL=PARAS.reduce((a,P)=>a+P.write.length,0);
+const SHUF=(()=>{                       /* 문단 수에 맞춰 자동으로 섞는다 (정답 순서와 절대 같지 않게) */
+  const n=PARAS.length,out=[];
+  for(let i=n-1;i>=0;i-=2)out.push(i);
+  for(let i=(n%2?1:0);i<n;i+=2)out.push(i);
+  return out;
+})();
+const SORD=PARAS.map((_,p)=>SHUF.indexOf(p));
+function storyDone(){return S.story.ordered&&storyAllOk();}
+function examOk(){return EXAM.filter(q=>xs(q.id).status==='ok').length;}
+
+/* ============ UTIL ============ */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/[\u2018\u2019]/g,"'")
+    .replace(/[^a-z0-9'\-\s]/gi,' ')
+    .replace(/\s+/g,' ').trim();
+}
+function toks(s){const n=norm(s);return n?n.split(' '):[];}
+function sameToks(a,b){const x=toks(a),y=toks(b);return x.length===y.length&&x.every((t,k)=>t===y[k]);}
+function showQ(s){
+  const o=(s.match(/\u201C/g)||[]).length,c=(s.match(/\u201D/g)||[]).length;
+  if(o>c)return s+'\u201D';
+  if(c>o)return '\u201C'+s;
+  return s;
+}
+function hintOf(en){
+  return en.replace(/[\u201C\u201D"]/g,'').split(/\s+/).filter(Boolean).map(w=>{
+    let first=true;
+    return w.replace(/[A-Za-z0-9]/g,ch=>{if(first){first=false;return ch;}return '_';});
+  }).join(' ');
+}
+function lcsDiff(u,a){
+  const n=u.length,m=a.length;
+  const L=Array.from({length:n+1},()=>new Array(m+1).fill(0));
+  for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)
+    L[i][j]=u[i]===a[j]?L[i+1][j+1]+1:Math.max(L[i+1][j],L[i][j+1]);
+  const out=[];let i=0,j=0;
+  while(i<n&&j<m){
+    if(u[i]===a[j]){out.push({t:'ok',w:u[i]});i++;j++;}
+    else if(L[i+1][j]>=L[i][j+1]){out.push({t:'bad',w:u[i]});i++;}
+    else{out.push({t:'miss',w:a[j]});j++;}
+  }
+  while(i<n)out.push({t:'bad',w:u[i++]});
+  while(j<m)out.push({t:'miss',w:a[j++]});
+  return out;
+}
+function diffHTML(d){return d.map(x=>x.t==='ok'?`<span class="t-ok">${esc(x.w)}</span>`:x.t==='bad'?`<s class="t-bad">${esc(x.w)}</s>`:`<span class="t-miss">___</span>`).join(' ');}
+function goTop(){try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}}
+const CIR=['①','②','③','④','⑤'],LAB=['(A)','(B)','(C)','(D)','(E)'];
+const LAB8=['(A)','(B)','(C)','(D)','(E)','(F)','(G)','(H)','(I)','(J)','(K)','(L)'];
+
+/* ============ SOUND ============ */
+let voice=null,actx=null,unlocked=false;
+const VOICE_FIRST=/\bWilliam\b/i;   /* 지정 목소리: William. 없으면 기본 미국 영어로 대체 */
+const hasTTS=typeof window!=='undefined'&&'speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined';
+function enVoices(){
+  if(!hasTTS)return [];
+  let vs=[];
+  try{vs=speechSynthesis.getVoices()||[];}catch(e){return [];}
+  return vs.filter(v=>/^en([-_]|$)/i.test(v.lang||''));
+}
+function pickVoice(){
+  if(!hasTTS)return;
+  const vs=enVoices();
+  if(!vs.length){voice=null;return;}
+  const will=vs.find(v=>VOICE_FIRST.test(v.name||''));
+  if(will){voice=will;return;}
+  const us=vs.filter(v=>/^en[-_]US/i.test(v.lang||''));
+  const pool=us.length?us:vs;
+  const rank=v=>{
+    const n=v.name||'';let s=0;
+    if(/Google US English/i.test(n))s+=30;
+    else if(/Samantha|Aria|Jenny|Ava|Zira/i.test(n))s+=20;
+    if(/Natural|Neural|Enhanced|Premium/i.test(n))s+=10;
+    if(/Compact|eSpeak|Espeak/i.test(n))s-=15;
+    return s;
+  };
+  voice=pool.slice().sort((a,b)=>rank(b)-rank(a))[0];
+}
+if(hasTTS){
+  pickVoice();
+  try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){}
+  setTimeout(pickVoice,400);
+}
+function speak(t,slow){
+  if(!hasTTS)return;
+  try{
+    speechSynthesis.cancel();
+    if(!voice)pickVoice();
+    const u=new SpeechSynthesisUtterance(String(t).replace(/[\u201C\u201D"]/g,''));
+    if(voice){u.voice=voice;u.lang=voice.lang||'en-US';}else u.lang='en-US';
+    u.rate=slow?0.6:0.88;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function getCtx(){
+  if(actx)return actx;
+  const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;
+  try{actx=new C();}catch(e){actx=null;}
+  return actx;
+}
+function unlock(){
+  if(unlocked)return;unlocked=true;
+  if(hasTTS){try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}catch(e){}pickVoice();}
+  const c=getCtx();if(c&&c.state==='suspended'){try{c.resume();}catch(e){}}
+}
+document.addEventListener('touchstart',unlock,{once:true,passive:true});
+document.addEventListener('click',unlock,{once:true});
+function pageTurn(){
+  const c=getCtx();if(!c)return;
+  try{
+    const d=0.24,n=Math.floor(c.sampleRate*d),b=c.createBuffer(1,n,c.sampleRate),a=b.getChannelData(0);
+    for(let i=0;i<n;i++){const t=i/n;a[i]=(Math.random()*2-1)*Math.pow(1-t,2)*Math.min(1,t*8);}
+    const s=c.createBufferSource();s.buffer=b;
+    const f=c.createBiquadFilter();f.type='bandpass';f.Q.value=0.9;
+    f.frequency.setValueAtTime(1500,c.currentTime);f.frequency.exponentialRampToValueAtTime(4800,c.currentTime+d);
+    const g=c.createGain();g.gain.value=0.35;
+    s.connect(f);f.connect(g);g.connect(c.destination);s.start();
+  }catch(e){}
+}
+function clickTick(){
+  const c=getCtx();if(!c)return;
+  try{
+    const t0=c.currentTime,o=c.createOscillator(),g=c.createGain();
+    o.type='triangle';
+    o.frequency.setValueAtTime(880,t0);
+    o.frequency.exponentialRampToValueAtTime(1480,t0+0.05);
+    g.gain.setValueAtTime(0.0001,t0);
+    g.gain.exponentialRampToValueAtTime(0.16,t0+0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001,t0+0.11);
+    o.connect(g);g.connect(c.destination);o.start(t0);o.stop(t0+0.12);
+  }catch(e){}
+}
+function ttsBtns(t){
+  return `<span class="tts"><button data-act="say" data-t="${esc(t)}" aria-label="듣기">🔊</button><button data-act="say" data-slow="1" data-t="${esc(t)}" aria-label="천천히 듣기">🐢</button></span>`;
+}
+function paraText(p){return PARAS[p].write.map(x=>x.en).join(' ');}
+
+/* ============ RENDER ============ */
+const app=document.getElementById('app'),rail=document.getElementById('rail'),bar=document.getElementById('bar'),barIn=document.getElementById('barIn');
+
+function render(){
+  renderRail();
+  if(S.phase==='finish')renderFinish();
+  else if(S.phase==='story')renderStory();
+  else if(S.phase==='exam')renderExam();
+  else if(S.phase==='final')renderFinalStage();
+  else renderPara();
+  renderBar();
+}
+
+function tick(n,N){return n===N?' ✓':(n>0?` <span class="pn">${n}/${N}</span>`:'');}
+function renderRail(){
+  let h=`<p class="railhead">하고 싶은 부분을 눌러 바로 들어가세요.</p><div class="pills">`;
+  h+=PARAS.map((P,p)=>{
+    const n=passCount('w',p),N=P.write.length,done=n===N;
+    const cls=(S.phase==='para'&&p===S.p)?'cur':(done?'done':'');
+    return `<button class="pill ${cls}" data-act="goPara" data-p="${p}">${p+1}. ${esc(P.tag)}${tick(n,N)}</button>`;
+  }).join('');
+  const sn=storyDone()?1:0,en=examOk();
+  h+=`<button class="pill big ${S.phase==='story'?'cur':(sn?'done':'')}" data-act="goPhase" data-ph="story" id="pillStory">전체 이야기${sn?' ✓':''}</button>`;
+  h+=`<button class="pill big ${S.phase==='exam'?'cur':(en===EXAM.length?'done':'')}" data-act="goPhase" data-ph="exam" id="pillExam">실전 문제${tick(en,EXAM.length)}</button>`;
+  const fn=finalOk();
+  h+=`<button class="pill big ${S.phase==='final'?'cur':(fn===FINAL.length?'done':'')}" data-act="goPhase" data-ph="final" id="pillFinal">마무리 정리${tick(fn,FINAL.length)}</button>`;
+  rail.innerHTML=h+`</div>`;
+}
+
+function renderPara(){
+  const p=S.p,P=PARAS[p],st=S.P[p];
+  const t2=st.read,t3=ordAllDone(p)&&st.read;
+  let h=`<div class="tabs" role="tablist">
+    <button class="tab ${st.stage===1?'on':''}" data-act="stage" data-s="1" id="tab1">① 문단 읽기</button>
+    <button class="tab ${st.stage===2?'on':''}" data-act="stage" data-s="2" id="tab2" ${t2?'':'disabled'}>② 어순 바꾸기</button>
+    <button class="tab ${st.stage===3?'on':''}" data-act="stage" data-s="3" id="tab3" ${t3?'':'disabled'}>③ 거꾸로 영작</button>
+  </div><h2>${p+1}. ${esc(P.title)}</h2>`;
+  if(st.stage===1)h+=stage1(p);
+  else if(st.stage===2)h+=stage2(p);
+  else h+=stage3(p);
+  app.innerHTML=h;
+}
+
+function stage1(p){
+  const P=PARAS[p];
+  let h=`<p class="gist">${P.gist}</p>`;
+  const cons=[];
+  P.write.forEach(it=>(it.link||[]).forEach(l=>{if(!cons.some(c=>c.en.toLowerCase()===l.en.toLowerCase()&&c.no===it.no))cons.push({en:l.en,why:l.why,no:it.no});}));
+  if(cons.length){
+    h+=`<div class="conflow"><span class="kl">이 문단의 연결어</span><p class="cchain">`+cons.map(c=>`<span class="cw">${esc(c.en)}</span>`).join('<span class="carrow">→</span>')+`</p><ul class="clist">`+cons.map(c=>`<li><b>${esc(c.en)}</b> <span class="no">${esc(c.no)}</span> ${esc(c.why)}</li>`).join('')+`</ul></div>`;
+  }
+  h+=`<ol class="flow">`;
+  h+=P.flow.map(f=>`<li><span class="no">${esc(f.no)}</span><span class="badge">${esc(f.fn)}</span><span class="fko">${esc(f.ko)}</span></li>`).join('');
+  h+=`</ol><div class="center"><button class="btn pri" data-act="readOk" id="readOk">흐름 파악했어요</button></div>`;
+  return h;
+}
+
+function stage2(p){
+  const P=PARAS[p];
+  let h=`<p class="lead">한글 문장을 보고 <b>영어 조각을 순서대로</b> 놓아 문장을 만드세요. <span class="cjmark">▢</span> 자리에 들어갈 연결어는 순서를 맞힌 뒤 직접 고릅니다.</p>`;
+  h+=P.order.map((o,i)=>ordHTML(p,i)).join('');
+  if(ordAllDone(p))h+=`<div class="center"><button class="btn pri" data-act="stage" data-s="3" id="goWrite">영작하러 가기</button></div>`;
+  return h;
+}
+
+function ordHTML(p,i){
+  const o=PARAS[p].order[i],st=oS(p,i),view=ordView(p,i),n=view.length,blanks=ordBlanks(p,i);
+  let h=`<div class="ord ${st.done?'ok':''}" id="o-${p}-${i}"><p class="oq">어순 문장 ${i+1}</p><p class="oko">${esc(o.ko)}</p>`;
+
+  if(!st.ordered){
+    h+=`<p class="olead">한글을 보고 <b>영어 조각을 순서대로</b> 눌러 문장을 만드세요. <span class="cjmark">▢</span> 자리에는 연결어가 들어가요.</p>`;
+    h+=`<div class="aline">`+(st.pick.length
+        ? st.pick.map(cn=>{const v=view.find(x=>x.cn===cn);return `<span class="aw">${esc(v.text)}</span>`}).join(' ')
+        : '<span class="ph">영어 조각을 눌러 보세요</span>')+`</div>`;
+    h+=`<div class="wchips ochips">`+ordChips(p,i).map(v=>
+        `<button data-act="pick" data-p="${p}" data-i="${i}" data-n="${v.cn}" ${st.pick.includes(v.cn)?'disabled':''}><b>${esc(v.text)}</b><span class="cko">${esc(v.ko)}</span></button>`
+      ).join('')+`</div>`;
+    if(!st.shown)h+=`<div class="row"><button class="btn sm" data-act="undo" data-p="${p}" data-i="${i}">하나 지우기</button><button class="btn sm" data-act="clear" data-p="${p}" data-i="${i}">전체 지우기</button><button class="btn sm pri" data-act="check" data-p="${p}" data-i="${i}">순서 확인</button></div>`;
+    if(st.msg)h+=`<p class="msg bad">${esc(st.msg)}</p>`;
+    if(st.shown){
+      h+=`<div class="exp"><p class="rl">정답 순서</p><ol class="clist ansord">`+view.map((v,k)=>{
+        const mine=st.pick[k],right=mine===v.cn;
+        return `<li><span class="cn ${right?'f':''}">${k+1}</span><b>${esc(v.text)}</b> <span class="cwhy">${esc(v.ko)}</span></li>`;
+      }).join('')+`</ol><p class="rn">정답을 보고 다시 놓아 보세요.</p></div>`;
+      h+=`<div class="row"><button class="btn sm pri" data-act="oretry" data-p="${p}" data-i="${i}">다시 놓기</button></div>`;
+    }
+    return h+`</div>`;
+  }
+
+  if(st.ordered&&!st.done){
+    h+=`<p class="olead">순서를 맞췄어요. 이제 <b>▢ 자리에 들어갈 연결어</b>를 고르세요.</p>`;
+    let bidx=-1;
+    h+=`<p class="ctx conntext">`+view.map(v=>{
+      if(!v.cj)return esc(v.en);
+      const b=++bidx,got=st.cj[b],mk=st.cjmk[b];
+      return esc(v.text.split('\u25A2')[0])+`<span class="cslot ${mk==='ok'?'ok':''} ${mk==='bad'?'bad':''}">${got?esc(got):'▢'}</span>`+esc(v.text.split('\u25A2')[1]||'');
+    }).join(' ')+`</p>`;
+    blanks.forEach((v,b)=>{
+      h+=`<p class="rl">${b+1}번째 ▢ 자리</p><div class="chs tight">`+cjOptions(v.cj.w).map(w=>
+        `<button class="ch ${st.cj[b]===w?'sel':''} ${st.cjmk[b]==='bad'&&st.cj[b]===w?'wrongc':''} ${st.cjmk[b]==='ok'&&st.cj[b]===w?'right':''}" data-act="ocj" data-p="${p}" data-i="${i}" data-b="${b}" data-w="${esc(w)}" ${st.cjmk[b]==='ok'?'disabled':''}>${esc(w)}</button>`
+      ).join('')+`</div>`;
+    });
+    h+=`<div class="row"><button class="btn sm pri" data-act="ocheck" data-p="${p}" data-i="${i}">연결어 확인</button></div>`;
+    if(st.cjmsg)h+=`<p class="msg bad">${esc(st.cjmsg)}</p>`;
+    if(st.cjshown){
+      h+=`<div class="exp"><p class="rl">정답 연결어</p><ol class="clist ansord">`+blanks.map((v,k)=>{
+        const mine=st.cj[k],right=mine&&norm(mine)===norm(v.cj.w);
+        return `<li><span class="cn ${right?'f':''}">${k+1}</span><b>${esc(v.cj.w)}</b> <span class="cwhy">${esc(v.cj.why)}</span>${mine&&!right?` <span class="rn">내 답: ${esc(mine)}</span>`:''}</li>`;
+      }).join('')+`</ol><p class="rn">정답을 보고 다시 골라 확인하세요.</p></div>`;
+    }
+    return h+`</div>`;
+  }
+
+  h+=`<ol class="eng">`+view.map((v,k)=>{
+    let t=esc(v.en);
+    if(v.cj){const w=esc(v.cj.w);t=t.replace(w,`<em class="cjw">${w}</em>`);}
+    return `<li><span class="cn f">${k+1}</span><span>${t}</span><span class="cko">${esc(v.ko)}</span></li>`;
+  }).join('')+`</ol>`;
+  if(blanks.length)h+=`<div class="cjnote"><span class="kl">연결어</span>`+blanks.map(v=>`<span class="lc"><b>${esc(v.cj.w)}</b> ${esc(v.cj.why)}</span>`).join('')+`</div>`;
+  h+=`<div class="diffcard"><span class="dl">한글과 뒤집힌 지점</span><p>${o.diff}</p></div>`;
+  h+=`<div class="passline"><span class="ans">${esc(showQ(o.full))}</span>${ttsBtns(o.full)}</div>`;
+  return h+`</div>`;
+}
+
+function stage3(p){
+  const P=PARAS[p];
+  let idx=P.write.map((_,i)=>i);
+  if(S.onlyWrong)idx=idx.filter(i=>ws('w',p,i).status!=='pass');
+  if(!idx.length)return `<p class="empty" id="emptyMsg">틀린 문장이 없어요. 이 문단은 모두 통과했어요.</p>`;
+  let h=`<p class="lead">한글만 보고 영어로 써 보세요. <b>연결어</b>는 어디에 왜 들어가는지 함께 적어 뒀어요. 막히면 핵심표현 칸을 누르고, 아예 모르겠으면 <b>답 보기</b>로 답을 보고 들으며 외운 뒤 직접 쓰세요.</p>`;
+  h+=idx.map(i=>wrHTML('w',p,i)).join('');
+  if(paraDone(p)&&!S.onlyWrong)h+=`<p class="empty">이 문단 완료. 아래 ‘${p===PARAS.length-1?'전체 이야기로':'다음 문단'}’을 누르세요.</p>`;
+  return h;
+}
+
+function wrHTML(m,p,i){
+  const it=PARAS[p].write[i],w=ws(m,p,i),pass=w.status==='pass',key=`${m}:${p}-${i}`;
+  let badge='';
+  if(pass)badge=w.peeked?'<span class="st re">답 보고 통과</span>':(w.retried?'<span class="st re">다시 써서 통과</span>':'<span class="st ok">한 번에 통과</span>');
+  else if(w.status==='wrong')badge='<span class="st bad">정답 보고 다시 쓰기</span>';
+  const canPeek=!pass&&w.status!=='wrong';
+  let h=`<div class="wr ${m==='s'?'compact':''} ${pass?'pass':''} ${w.status==='wrong'?'wrong':''}" id="${m}-${p}-${i}"><div class="wtop"><span class="no">${esc(it.no)}</span>${badge}</div>`;
+  h+=`<p class="wko">${esc(it.ko)}</p>`;
+  if(it.link&&it.link.length){
+    h+=`<div class="links"><span class="kl">연결어</span>`+it.link.map(l=>m==='w'
+      ? `<span class="lc"><b>${esc(l.en)}</b> ${esc(l.why)}</span>`
+      : `<span class="lc"><b>${esc(l.en)}</b></span>`).join('')+`</div>`;
+  }
+  if(m==='w'&&it.keys&&it.keys.length){
+    h+=`<div class="keys"><span class="kl">핵심표현</span>`+it.keys.map((k,j)=>{
+      const open=pass||w.keys[j];
+      return `<button class="kc ${open?'open':''}" data-act="key" data-p="${p}" data-i="${i}" data-j="${j}">${open?`<b>${esc(k.en)}</b> `:''}${esc(k.ko)}</button>`;
+    }).join('')+`</div>`;
+  }
+  if(canPeek&&w.peek)h+=`<div class="peekbox"><div class="passline"><span class="ans">${esc(showQ(it.en))}</span>${ttsBtns(it.en)}</div><p class="rn">듣고 외운 다음, 답을 가리고 직접 써서 채점하면 통과예요.</p></div>`;
+  if(w.hint&&!pass)h+=`<p class="hint">${esc(hintOf(it.en))}</p>`;
+  h+=`<input class="inp" data-k="${key}" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="영어로 써 보세요" value="${esc(w.val)}" ${pass?'readonly':''} aria-label="${esc(it.no)} 영작">`;
+  if(!pass)h+=`<div class="wbtns"><button class="btn sm" data-act="hint" data-m="${m}" data-p="${p}" data-i="${i}" ${w.hint?'disabled':''}>첫 글자 힌트</button>${canPeek?`<button class="btn sm peekbtn ${w.peek?'on':''}" data-act="peek" data-m="${m}" data-p="${p}" data-i="${i}">${w.peek?'답 가리기':'답 보기'}</button>`:''}<button class="btn sm pri" data-act="grade" data-m="${m}" data-p="${p}" data-i="${i}">채점</button></div>`;
+  if(w.status==='empty')h+=`<p class="msg bad">먼저 영작을 입력하세요.</p>`;
+  if(w.status==='wrong'&&w.diff){
+    h+=`<div class="res"><p class="rl">내 답</p><p class="dw">${diffHTML(w.diff)}</p><p class="rl">정답</p><p class="ans">${esc(showQ(it.en))}</p><p class="rn">정답을 보고 똑같이 다시 써서 채점하세요.</p></div>`;
+  }
+  if(pass)h+=`<div class="passline"><span class="rl">문장 듣기</span>${ttsBtns(it.en)}</div>`;
+  return h+`</div>`;
+}
+
+
+/* ---- ② 어순: 영어 조각 + 연결어 빈칸 ---- */
+const CONN_POOL=(()=>{
+  const o=[];
+  PARAS.forEach(P=>P.write.forEach(x=>(x.link||[]).forEach(l=>{if(!o.some(y=>y.toLowerCase()===l.en.toLowerCase()))o.push(l.en)})));
+  ['and','but','so','because','when','or','Then','First','Next','Finally','Actually'].forEach(w=>{if(!o.some(y=>y.toLowerCase()===w.toLowerCase()))o.push(w)});
+  return o;
+})();
+function ordView(p,i){
+  const o=PARAS[p].order[i],out=[];
+  o.seq.forEach((cn,pos)=>{
+    const c=o.chunks[cn-1],en=o.eng[pos];
+    let text=en,cj=null;
+    if(c.cj){
+      const w=c.cj.w,re=new RegExp('(^|\\W)'+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(\\W|$)');
+      const m=re.exec(en);
+      if(m){const at=m.index+m[1].length;text=en.slice(0,at)+'\u25A2'+en.slice(at+w.length);}
+      cj={w:w,why:c.cj.why};
+    }
+    out.push({cn:cn,pos:pos,en:en,ko:c.ko,role:c.role,text:text,cj:cj});
+  });
+  return out;
+}
+function ordBlanks(p,i){return ordView(p,i).filter(v=>v.cj);}
+function ordChips(p,i){                      /* 고정 규칙으로 섞는다 (정답 순서와 다르게) */
+  const v=ordView(p,i),n=v.length,out=[];
+  for(let k=n-1;k>=0;k-=2)out.push(v[k]);
+  for(let k=(n%2?1:0);k<n;k+=2)out.push(v[k]);
+  return out;
+}
+function cjOptions(word){
+  const cap=/^[A-Z]/.test(word);
+  const fix=w=>cap?w.charAt(0).toUpperCase()+w.slice(1):w.toLowerCase();
+  const out=[word];
+  CONN_POOL.forEach(w=>{
+    if(out.length>=4)return;
+    const f=fix(w);
+    if(!out.some(y=>y.toLowerCase()===f.toLowerCase()))out.push(f);
+  });
+  const key=word.length;                      /* 문항마다 같은 자리에 정답이 오지 않게 */
+  return out.slice(0,4).sort((a,b)=>((a.length*7+key)%5)-((b.length*7+key)%5));
+}
+
+/* ---- 전체 이야기: 문단 순서 → 연결어 채우기 ---- */
+function reEsc(x){return String(x).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+const STORY_SEGS=PARAS.map((P,p)=>{
+  const out=[];let bi=0;
+  P.write.forEach(it=>{
+    let parts=[{t:'text',v:it.en}];
+    (it.link||[]).forEach(l=>{
+      for(let i=0;i<parts.length;i++){
+        if(parts[i].t!=='text')continue;
+        const m=new RegExp('(^|[^A-Za-z])('+reEsc(l.en)+')($|[^A-Za-z])').exec(parts[i].v);
+        if(!m)continue;
+        const at=m.index+m[1].length;
+        const before=parts[i].v.slice(0,at),after=parts[i].v.slice(at+l.en.length);
+        parts.splice(i,1,{t:'text',v:before},{t:'blank',a:l.en,why:l.why},{t:'text',v:after});
+        break;
+      }
+    });
+    parts.forEach(x=>{
+      if(x.t==='text'){if(x.v)out.push(x);}
+      else out.push({t:'blank',k:bi++,a:x.a,why:x.why});
+    });
+    out.push({t:'text',v:' '});
+  });
+  return out;
+});
+const CONN_BANK=(()=>{const o=[];STORY_SEGS.forEach(sg=>sg.forEach(x=>{if(x.t==='blank'&&!o.some(y=>y.toLowerCase()===x.a.toLowerCase()))o.push(x.a);}));return o.sort((a,b)=>a.toLowerCase()<b.toLowerCase()?-1:1);})();
+const STORY_NB=STORY_SEGS.reduce((a,sg)=>a+sg.filter(x=>x.t==='blank').length,0);
+function sKey(p,k){return p+'-'+k;}
+function storyFilled(){let n=0;STORY_SEGS.forEach((sg,p)=>sg.forEach(x=>{if(x.t==='blank'&&norm(S.story.vals[sKey(p,x.k)]||'')===norm(x.a))n++;}));return n;}
+function paraHTML(p,mode){
+  return STORY_SEGS[p].map(x=>{
+    if(x.t==='text')return esc(x.v);
+    if(mode==='full')return `<b class="cjw">${esc(x.a)}</b>`;
+    if(mode==='hide')return `<span class="cblank">______</span>`;
+    const key=sKey(p,x.k),mk=S.story.marks[key];
+    return `<input class="cinp ${mk==='ok'?'ok':''} ${mk==='bad'?'bad':''} ${S.story.rev[key]?'rev':''}" data-story="${key}" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" value="${esc(S.story.vals[key]||'')}" aria-label="${x.k+1}번 빈칸">`;
+  }).join('');
+}
+function storyParaOk(p){return STORY_SEGS[p].every(x=>x.t!=='blank'||norm(S.story.vals[sKey(p,x.k)]||'')===norm(x.a));}
+function storyParaCount(p){
+  const bl=STORY_SEGS[p].filter(x=>x.t==='blank');
+  return {n:bl.filter(x=>norm(S.story.vals[sKey(p,x.k)]||'')===norm(x.a)).length,N:bl.length};
+}
+function storyAllOk(){return PARAS.every((_,p)=>storyParaOk(p));}
+function renderStory(){
+  const st=S.story,n=PARAS.length;
+  let h=`<h2>전체 이야기</h2>`;
+  h+=`<div class="tabs" role="tablist">
+    <button class="tab ${st.step===1?'on':''}" data-act="sStep" data-s="1" id="sTab1">① 문단 순서${st.ordered?' ✓':''}</button>
+    <button class="tab ${st.step===2?'on':''}" data-act="sStep" data-s="2" id="sTab2">② 연결어 넣기${storyAllOk()?' ✓':''}</button>
+  </div>`;
+  if(st.step===1)h+=storyStep1();
+  else h+=storyStep2();
+  app.innerHTML=h;
+}
+function storyStep1(){
+  const st=S.story,n=PARAS.length;
+  let h='';
+  if(st.ordered){
+    h+=`<p class="lead">순서를 맞췄어요. 이야기 순서대로 놓인 본문이에요. 연결어는 <b>② 연결어 넣기</b>에서 채워요.</p>`;
+    h+=PARAS.map((P,p)=>`<section class="sgroup"><h3>${p+1}. ${esc(P.tag)} — ${esc(P.title)}</h3><div class="storypara"><p>${paraHTML(p,'hide')}</p></div></section>`).join('');
+    return h;
+  }
+  h+=`<p class="lead">문단이 섞여 있어요. <b>이야기 순서대로</b> 문단 기호를 눌러 보세요. 연결어는 비어 있으니 내용으로 판단해야 해요.</p>`;
+  h+=`<div class="slots">`+PARAS.map((_,k)=>{
+    const mk=st.omarks?st.omarks[k]:null;
+    return `<span class="slot wide ${st.pick[k]!=null?'f':''} ${mk==='ok'?'sok':''} ${mk==='bad'?'sbad':''}">${st.pick[k]!=null?LAB8[st.pick[k]]:''}</span>`;
+  }).join('')+`</div>`;
+  if(!st.shown){
+    h+=`<div class="pad">`+SHUF.map((_,k)=>`<button class="wide" data-act="sPick" data-k="${k}" ${st.pick.includes(k)?'disabled':''}>${LAB8[k]}</button>`).join('')+`</div>`;
+    h+=`<div class="row"><button class="btn sm" data-act="sUndo" id="sUndo">하나 지우기</button><button class="btn sm" data-act="sClear" id="sClear">전체 지우기</button><button class="btn sm pri" data-act="sCheck" id="sCheck">순서 확인</button></div>`;
+  }
+  if(st.msg)h+=`<p class="msg bad">${esc(st.msg)}</p>`;
+  if(st.shown){
+    h+=`<div class="exp" id="sAnswer"><p class="rl">정답 순서</p><p class="ans">`+SORD.map((k,i)=>`${LAB8[k]} <span class="ptag">${esc(PARAS[i].tag)}</span>`).join(' → ')+`</p><p>${esc(PARAS.map((P,i)=>`${i+1}. ${P.tag}`).join(' → '))} 순서예요. 정답을 보고 다시 놓아 보세요.</p></div>`;
+    h+=`<div class="row"><button class="btn sm pri" data-act="sRetry" id="sRetry">다시 놓기</button><button class="btn sm" data-act="sStep" data-s="2">연결어 먼저 하기</button></div>`;
+  }
+  h+=SHUF.map((p,k)=>{
+    const at=st.pick.indexOf(k),right=SORD.indexOf(k);
+    return `<section class="spara ${at>=0?'used':''}" id="sp-${k}"><div class="wtop"><span class="plab">${LAB8[k]}</span>${st.shown?`<span class="st ${at===right?'ok':'bad'}">정답 ${right+1}번째</span>`:(at>=0?`<span class="st ok">${at+1}번째</span>`:'')}</div><p>${paraHTML(p,'hide')}</p></section>`;
+  }).join('');
+  return h;
+}
+function storyStep2(){
+  const st=S.story;
+  let h=`<p class="lead">문단마다 빈칸에 <b>연결어</b>를 쓰고 그 문단만 채점하세요. 모르겠으면 그 빈칸을 <b>두 번</b> 누르면 답이 나와요.</p>`;
+  h+=`<div class="keys"><span class="kl">쓰이는 연결어</span>`+CONN_BANK.map(wd=>`<span class="lc">${esc(wd)}</span>`).join('')+`</div>`;
+  h+=PARAS.map((P,p)=>{
+    const c=storyParaCount(p),ok=c.n===c.N;
+    let b=`<section class="sgroup" id="sg-${p}"><div class="wtop"><h3>${p+1}. ${esc(P.tag)} — ${esc(P.title)}</h3><span class="st ${ok?'ok':''}">${c.n}/${c.N}</span></div>`;
+    if(ok){
+      b+=`<div class="storypara"><p>${paraHTML(p,'full')}</p><div class="passline"><span class="rl">문단 듣기</span>${ttsBtns(paraText(p))}</div></div>`;
+    }else{
+      b+=`<div class="storypara fill"><p class="conntext">${paraHTML(p,'fill')}</p><div class="wbtns"><button class="btn sm pri" data-act="sGradeP" data-p="${p}">이 문단 채점</button></div>`;
+      if(st.pmsg&&st.pmsg.p===p)b+=`<p class="msg bad">${esc(st.pmsg.t)}</p>`;
+      if(st.ashown[p]){
+        const bl=STORY_SEGS[p].filter(x=>x.t==='blank');
+        b+=`<div class="exp"><p class="rl">정답 순서</p><ol class="clist ansord">`+bl.map((x,i)=>{
+          const mine=String(st.vals[sKey(p,x.k)]||'').trim(),right=norm(mine)===norm(x.a);
+          return `<li><span class="cn ${right?'f':''}">${i+1}</span><b>${esc(x.a)}</b> <span class="cwhy">${esc(x.why)}</span>${mine&&!right?` <span class="rn">내 답: ${esc(mine)}</span>`:''}</li>`;
+        }).join('')+`</ol><p class="rn">정답을 보고 빈칸에 직접 써서 다시 채점하세요.</p></div>`;
+      }
+      b+=`</div>`;
+    }
+    return b+`</section>`;
+  }).join('');
+  if(storyAllOk())h+=`<p class="empty">연결어를 모두 채웠어요. 아래 ‘실전 문제로’를 누르세요.</p>`;
+  return h;
+}
+function storyGradeP(p){
+  const st=S.story;let bad=0,empty=0;
+  STORY_SEGS[p].forEach(x=>{
+    if(x.t!=='blank')return;
+    const key=sKey(p,x.k),v=String(st.vals[key]||'').trim();
+    if(!v){st.marks[key]=null;empty++;return;}
+    const ok=norm(v)===norm(x.a);
+    st.marks[key]=ok?'ok':'bad';
+    if(!ok)bad++;
+  });
+  if(empty){st.pmsg={p:p,t:`빈칸 ${empty}개가 비어 있어요. 아래 정답을 보고 채워 보세요.`};st.ashown[p]=true;}
+  else if(bad){st.tries++;st.pmsg={p:p,t:`빨간 칸 ${bad}개를 고쳐서 다시 채점하세요.`};st.ashown[p]=true;}
+  else{st.pmsg=null;pageTurn();}
+}
+function storyGradeAll(){
+  let touched=false;
+  PARAS.forEach((_,p)=>{
+    if(storyParaOk(p))return;
+    const has=STORY_SEGS[p].some(x=>x.t==='blank'&&String(S.story.vals[sKey(p,x.k)]||'').trim());
+    if(has){storyGradeP(p);touched=true;}
+  });
+  if(!touched)S.story.pmsg={p:-1,t:'먼저 빈칸을 채우세요.'};
+}
+function storyReveal(key){
+  const st=S.story;if(st.done)return;
+  const [p,k]=key.split('-').map(Number);
+  const b=STORY_SEGS[p].find(x=>x.t==='blank'&&x.k===k);
+  if(!b)return;
+  st.vals[key]=b.a;st.rev[key]=true;st.marks[key]='ok';S.story.pmsg=null;render();
+}
+/* ---- 실전 문제 ---- */
+function renderExam(){
+  let h=`<h2>실전 문제</h2><p class="lead">본문에서 시험에 자주 나오는 유형이에요. 답을 고르고 채점하세요. 틀리면 해설을 보고 다시 풀어 맞혀야 완주할 수 있어요.</p>`;
+  let list=EXAM;
+  if(S.onlyWrong)list=EXAM.filter(q=>xs(q.id).status!=='ok');
+  if(!list.length){app.innerHTML=h+`<p class="empty" id="emptyMsg">틀린 문제가 없어요. 모두 맞혔어요.</p>`;return;}
+  let cur='';
+  list.forEach(q=>{
+    if(q.sec!==cur){cur=q.sec;h+=`<h3 class="sech">${esc(SECS[q.sec])}</h3>`;}
+    h+=exHTML(q);
+  });
+  app.innerHTML=h;
+}
+
+function exHTML(q){
+  const x=xs(q.id),graded=x.status==='ok'||x.status==='bad';
+  let badge='';
+  if(x.status==='ok')badge=x.first?'<span class="st ok">정답</span>':'<span class="st re">다시 풀어 정답</span>';
+  else if(x.status==='bad')badge='<span class="st bad">오답</span>';
+  let h=`<div class="exq ${x.status==='ok'?'pass':''} ${x.status==='bad'?'wrong':''}" id="q-${q.id}"><div class="wtop"><span class="no">${q.id}</span>${badge}</div><p class="qq">${q.q}</p>`;
+  if(q.ctx)h+=`<p class="ctx">${q.ctx}</p>`;
+  if(q.type==='mc'){
+    h+=`<div class="chs">`+q.choices.map((c,k)=>{
+      let cls='';
+      if(x.sel===k)cls+=' sel';
+      if(graded&&k===q.ans&&x.status==='ok')cls+=' right';
+      if(x.status==='bad'&&k===x.sel)cls+=' wrongc';
+      return `<button class="ch${cls}" data-act="exSel" data-id="${q.id}" data-k="${k}" ${graded?'disabled':''}><span class="cir">${CIR[k]}</span><span>${c}</span></button>`;
+    }).join('')+`</div>`;
+  }else if(q.type==='order'){
+    h+=`<p class="given"><span class="rl">주어진 문장</span><br>${esc(q.given)}</p><ol class="oitems">`+q.items.map((t,k)=>`<li><b>${LAB[k]}</b> ${esc(t)}</li>`).join('')+`</ol>`;
+    h+=`<div class="slots">`+q.items.map((_,k)=>`<span class="slot wide ${x.pick[k]!=null?'f':''}">${x.pick[k]!=null?LAB[x.pick[k]]:''}</span>`).join('')+`</div>`;
+    if(!graded){
+      h+=`<div class="pad">`+q.items.map((_,k)=>`<button class="wide" data-act="exPick" data-id="${q.id}" data-k="${k}" ${x.pick.includes(k)?'disabled':''}>${LAB[k]}</button>`).join('')+`</div>`;
+      h+=`<div class="row"><button class="btn sm" data-act="exUndo" data-id="${q.id}">하나 지우기</button><button class="btn sm" data-act="exClear" data-id="${q.id}">전체 지우기</button></div>`;
+    }
+  }else if(q.type==='arrange'){
+    h+=`<p class="wko">${esc(q.ko)}</p>`;
+    h+=`<div class="aline">${x.pick.length?x.pick.map(k=>`<span class="aw">${esc(q.words[k])}</span>`).join(' '):'<span class="ph">단어를 순서대로 누르세요</span>'}</div>`;
+    if(!graded){
+      h+=`<div class="wchips">`+q.words.map((w,k)=>`<button data-act="exPick" data-id="${q.id}" data-k="${k}" ${x.pick.includes(k)?'disabled':''}>${esc(w)}</button>`).join('')+`</div>`;
+      h+=`<div class="row"><button class="btn sm" data-act="exUndo" data-id="${q.id}">하나 지우기</button><button class="btn sm" data-act="exClear" data-id="${q.id}">전체 지우기</button></div>`;
+    }
+  }else if(q.type==='write'){
+    h+=`<p class="wko">${esc(q.ko)}</p><p class="cond">조건: ${esc(q.cond)}</p>`;
+    h+=`<input class="inp" data-k="x:${q.id}" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="영어로 써 보세요" value="${esc(x.val)}" ${x.status==='ok'?'readonly':''} aria-label="${q.id} 영작">`;
+  }
+  if(x.status!=='ok'&&!(x.status==='bad'&&q.type!=='write'))h+=`<div class="wbtns"><button class="btn sm pri" data-act="exGrade" data-id="${q.id}">채점</button></div>`;
+  if(x.status==='empty')h+=`<p class="msg bad">${q.type==='mc'?'답을 먼저 고르세요.':q.type==='write'?'먼저 영작을 입력하세요.':'끝까지 골라 주세요.'}</p>`;
+  if(graded){
+    let ansTxt='';
+    if(x.status==='bad'){
+      if(q.type==='mc')ansTxt=`정답 ${CIR[q.ans]} ${q.choices[q.ans]}`;
+      else if(q.type==='order')ansTxt='정답 '+q.ans.map(k=>LAB[k]).join(' - ');
+      else if(q.type==='arrange')ansTxt='정답 '+esc(q.ans);
+      else ansTxt='정답 '+q.ans.map(esc).join(' / ');
+    }
+    h+=`<div class="exp">`;
+    if(x.status==='bad'&&q.type==='write'&&x.diff)h+=`<p class="rl">내 답</p><p class="dw">${diffHTML(x.diff)}</p>`;
+    if(ansTxt)h+=`<p class="ans">${ansTxt}</p>`;
+    h+=`<p>${q.exp}</p></div>`;
+    if(x.status==='bad'&&q.type!=='write')h+=`<div class="wbtns"><button class="btn sm pri" data-act="exRetry" data-id="${q.id}">다시 풀기</button></div>`;
+    if(x.status==='bad'&&q.type==='write')h+=`<p class="rn">고쳐 쓴 뒤 다시 채점하세요.</p>`;
+  }
+  return h+`</div>`;
+}
+
+/* ============ ⑥ 마무리 정리 ============ */
+function renderFinalStage(){
+  let h=`<h2>마무리 정리</h2><p class="lead">이야기 전체를 묶어서 확인해요. 아이들의 대답을 문장으로 쓰고, 문단 순서와 핵심문장, 연결어, 대명사를 차례로 점검합니다.</p>`;
+  let list=FINAL;
+  if(S.onlyWrong)list=FINAL.filter(q=>fsx(q.id).status!=='ok');
+  if(!list.length){app.innerHTML=h+`<p class="empty" id="emptyMsg">틀린 것이 없어요. 마무리 정리를 모두 통과했어요.</p>`;return;}
+  let cur='';
+  list.forEach(q=>{
+    if(q.sec!==cur){cur=q.sec;h+=`<h3 class="sech">${esc(FSECS[q.sec])}</h3>`;}
+    h+=fnHTML(q);
+  });
+  app.innerHTML=h;
+}
+
+function fnBadge(x){
+  if(x.status==='ok')return x.first?'<span class="st ok">통과</span>':(x.rev&&Object.keys(x.rev).length?'<span class="st re">답 보고 통과</span>':'<span class="st re">다시 풀어 통과</span>');
+  if(x.status==='bad')return '<span class="st bad">다시</span>';
+  return '';
+}
+
+function segs(text){return String(text).split(/\[\[(\w+)\]\]/);}
+
+function fnHTML(q){
+  const x=fsx(q.id),done=x.status==='ok';
+  let h=`<div class="exq ${done?'pass':''} ${x.status==='bad'?'wrong':''}" id="f-${q.id}"><div class="wtop"><span class="no">${esc(q.id)}${q.who?' · '+esc(q.who):''}</span>${fnBadge(x)}</div><p class="qq">${q.q}</p>`;
+
+  if(q.kind==='short'){
+    h+=`<div class="keys"><span class="kl">꼭 들어갈 말</span>`+q.must.map(g=>`<span class="lc">${esc(g[0])}</span>`).join('')+`</div>`;
+    h+=`<input class="inp" data-k="f:${q.id}" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="영어 문장으로 답하세요" value="${esc(x.val)}" ${done?'readonly':''} aria-label="${esc(q.id)} 서술형">`;
+    if(x.status==='bad'&&x.marks)h+=`<p class="msg bad">빠진 말: ${x.marks.map(t=>esc(t)).join(', ')}</p>`;
+  }
+
+  if(q.kind==='paraorder'){
+    h+=`<ol class="oitems">`+q.items.map((t,k)=>`<li><b>${LAB8[k]}</b> ${done?`<span class="ptag">${esc(t.tag)}</span> `:''}${esc(t.s)}</li>`).join('')+`</ol>`;
+    h+=`<div class="slots">`+q.items.map((_,k)=>`<span class="slot wide ${x.pick[k]!=null?'f':''}">${x.pick[k]!=null?LAB8[x.pick[k]]:''}</span>`).join('')+`</div>`;
+    if(!done&&x.status!=='bad'){
+      h+=`<div class="pad">`+q.items.map((_,k)=>`<button class="wide" data-act="fPick" data-id="${q.id}" data-k="${k}" ${x.pick.includes(k)?'disabled':''}>${LAB8[k]}</button>`).join('')+`</div>`;
+      h+=`<div class="row"><button class="btn sm" data-act="fUndo" data-id="${q.id}">하나 지우기</button><button class="btn sm" data-act="fClear" data-id="${q.id}">전체 지우기</button></div>`;
+    }
+  }
+
+  if(q.kind==='pick'){
+    const parts=q.text.split('[[BLANK]]');
+    h+=`<p class="ctx">${esc(parts[0])}<span class="blankline">${done?esc(q.choices[q.ans]):'________________'}</span>${esc(parts[1]||'')}</p>`;
+    h+=`<div class="chs">`+q.choices.map((c,k)=>{
+      let cls='';
+      if(x.sel===k)cls+=' sel';
+      if(done&&k===q.ans)cls+=' right';
+      if(x.status==='bad'&&k===x.sel)cls+=' wrongc';
+      return `<button class="ch${cls}" data-act="fSel" data-id="${q.id}" data-k="${k}" ${done||x.status==='bad'?'disabled':''}><span class="cir">${CIR[k]}</span><span>${esc(c)}</span></button>`;
+    }).join('')+`</div>`;
+  }
+
+  if(q.kind==='conn'){
+    const sp=segs(q.text);
+    let body='';
+    sp.forEach((t,i)=>{
+      if(i%2===0){body+=esc(t);return;}
+      const bi=+t-1,v=x.vals[bi]||'',mk=x.marks?x.marks[bi]:null;
+      body+=`<input class="cinp ${mk==='ok'?'ok':''} ${mk==='bad'?'bad':''} ${x.rev[bi]?'rev':''}" data-b="${bi}" data-id="${q.id}" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" value="${esc(v)}" ${done?'readonly':''} aria-label="${bi+1}번 빈칸">`;
+    });
+    h+=`<p class="ctx conntext">${body}</p>`;
+    if(x.status==='bad')h+=`<p class="msg bad">빨간 칸을 고쳐서 다시 채점하세요. 모르겠으면 그 칸을 두 번 누르세요.</p>`;
+    if(done)h+=`<ul class="clist">`+q.blanks.map((b,k)=>`<li><b>${esc(b.a)}</b> ${esc(b.exp)}${x.rev[k]?' <span class="rn">(답 보기)</span>':''}</li>`).join('')+`</ul>`;
+  }
+
+  if(q.kind==='pron'){
+    const sp=segs(q.text);
+    let body='';
+    sp.forEach((t,i)=>{
+      if(i%2===0){body+=esc(t);return;}
+      const bi=+t-1,b=q.blanks[bi];body+=`<u class="pw">${esc(b.w)}</u><sup class="pnum">${esc(b.label)}</sup>`;
+    });
+    h+=`<p class="ctx">${body}</p>`;
+    q.blanks.forEach((b,bi)=>{
+      const sel=x.bs[bi],mk=x.marks?x.marks[bi]:null;
+      h+=`<p class="rl">${esc(b.label)} <b>${esc(b.w)}</b>이(가) 가리키는 것</p><div class="chs tight">`+b.choices.map((c,k)=>{
+        let cls='';
+        if(sel===k)cls+=' sel';
+        if(done&&k===b.ans)cls+=' right';
+        if(mk==='bad'&&k===sel)cls+=' wrongc';
+        return `<button class="ch${cls}" data-act="fSel" data-id="${q.id}" data-b="${bi}" data-k="${k}" ${done?'disabled':''}><span class="cir">${CIR[k]}</span><span>${esc(c)}</span></button>`;
+      }).join('')+`</div>`;
+    });
+    if(x.status==='bad')h+=`<p class="msg bad">빨간 것을 다시 골라 채점하세요.</p>`;
+  }
+
+  if(!done)h+=`<div class="wbtns">${x.status==='bad'&&(q.kind==='pick'||q.kind==='paraorder')?`<button class="btn sm pri" data-act="fRetry" data-id="${q.id}">다시 풀기</button>`:`<button class="btn sm pri" data-act="fGrade" data-id="${q.id}">채점</button>`}</div>`;
+  if(x.status==='empty')h+=`<p class="msg bad">${q.kind==='short'?'먼저 문장을 쓰세요.':q.kind==='conn'?'빈칸을 모두 채우세요.':'답을 고르세요.'}</p>`;
+
+  if(done||x.status==='bad'){
+    let ansTxt='';
+    if(q.kind==='short')ansTxt='모범답안: '+q.model;
+    else if(q.kind==='paraorder'&&x.status==='bad')ansTxt='정답 '+q.ans.map(k=>LAB8[k]).join(' - ');
+    else if(q.kind==='pick'&&x.status==='bad')ansTxt='정답 '+CIR[q.ans]+' '+q.choices[q.ans];
+    if(ansTxt||q.exp){
+      h+=`<div class="exp">`;
+      if(ansTxt)h+=`<p class="ans">${esc(ansTxt)}</p>`;
+      if(q.exp)h+=`<p>${q.exp}</p>`;
+      h+=`</div>`;
+    }
+    if(q.kind==='pron'&&done)h+=`<div class="exp">`+q.blanks.map(b=>`<p><b>${esc(b.label)}</b> ${esc(b.choices[b.ans])} — ${esc(b.exp)}</p>`).join('')+`</div>`;
+    if(done&&q.kind==='short')h+=`<div class="passline"><span class="rl">모범답안 듣기</span>${ttsBtns(q.model)}</div>`;
+  }
+  return h+`</div>`;
+}
+
+function fnGrade(id){
+  const q=FINAL.find(z=>z.id===id),x=fsx(id);
+  if(x.status==='ok')return;
+  let ok=false;
+  if(q.kind==='short'){
+    if(!toks(x.val).length){x.status='empty';return;}
+    const v=' '+norm(x.val)+' ';
+    const miss=q.must.filter(g=>!g.some(a=>v.includes(' '+norm(a)+' ')||v.includes(norm(a))));
+    ok=miss.length===0;x.marks=miss.map(g=>g[0]);
+  }else if(q.kind==='paraorder'){
+    if(x.pick.length<q.items.length){x.status='empty';return;}
+    ok=x.pick.join()===q.ans.join();
+  }else if(q.kind==='pick'){
+    if(x.sel==null){x.status='empty';return;}
+    ok=x.sel===q.ans;
+  }else if(q.kind==='conn'){
+    if(q.blanks.some((_,k)=>!String(x.vals[k]||'').trim())){x.status='empty';return;}
+    const m=q.blanks.map((b,k)=>norm(x.vals[k])===norm(b.a)?'ok':'bad');
+    x.marks=m;ok=m.every(t=>t==='ok');
+  }else if(q.kind==='pron'){
+    if(q.blanks.some((_,k)=>x.bs[k]==null)){x.status='empty';return;}
+    const m=q.blanks.map((b,k)=>x.bs[k]===b.ans?'ok':'bad');
+    x.marks=m;ok=m.every(t=>t==='ok');
+  }
+  if(x.first===null)x.first=ok&&!Object.keys(x.rev).length;
+  x.status=ok?'ok':'bad';
+  if(ok&&q.kind==='conn')q.blanks.forEach((b,k)=>{x.vals[k]=b.a;});
+}
+function fnReset(id){
+  const q=FINAL.find(z=>z.id===id),x=fsx(id);
+  x.status='';x.marks=null;
+  if(q.kind==='paraorder')x.pick=[];
+  if(q.kind==='pick')x.sel=null;
+}
+function fnReveal(id,bi){
+  const q=FINAL.find(z=>z.id===id),x=fsx(id);
+  if(x.status==='ok')return;
+  x.vals[bi]=q.blanks[bi].a;x.rev[bi]=true;
+  if(x.marks)x.marks[bi]='ok';
+  render();
+}
+
+function renderBar(){
+  const sh=()=>bar.classList.remove('hide');
+  if(S.phase==='para'){
+    if(S.P[S.p].stage!==3){bar.classList.add('hide');barIn.innerHTML='';return;}
+    sh();
+    const p=S.p,n=passCount('w',p),N=PARAS[p].write.length,last=p===PARAS.length-1;
+    barIn.innerHTML=`<button class="btn sm" data-act="gradeAll" id="gradeAll">전체 채점</button><button class="btn sm" data-act="onlyWrong" id="onlyWrong">${S.onlyWrong?'전체 보기':'틀린 것만 다시'}</button><span class="cnt">통과 <b id="passN">${n}</b>/${N}</span><button class="btn sm pri" data-act="next" id="nextBtn" ${n===N?'':'disabled'}>${last?'전체 이야기로':'다음 문단'}</button>`;
+  }else if(S.phase==='story'){
+    sh();const st=S.story;
+    if(st.step===1){
+      barIn.innerHTML=st.ordered
+        ?`<span class="cnt">문단 순서 완료</span><button class="btn sm pri" data-act="sStep" data-s="2" id="nextBtn">연결어 넣기로</button>`
+        :(st.shown?`<button class="btn sm pri" data-act="sRetry">다시 놓기</button><span class="cnt">배치 <b id="passN">${st.pick.length}</b>/${PARAS.length}</span><button class="btn sm" data-act="sStep" data-s="2" id="nextBtn">연결어 넣기로</button>`
+                  :`<button class="btn sm" data-act="sClear">전체 지우기</button><button class="btn sm pri" data-act="sCheck">순서 확인</button><span class="cnt">배치 <b id="passN">${st.pick.length}</b>/${PARAS.length}</span><button class="btn sm" data-act="sStep" data-s="2" id="nextBtn">연결어 넣기로</button>`);
+    }else{
+      const n=storyFilled();
+      barIn.innerHTML=`<button class="btn sm" data-act="sGradeAll" id="sGradeAll">전체 채점</button><span class="cnt">연결어 <b id="passN">${n}</b>/${STORY_NB}</span><button class="btn sm pri" data-act="toExam" id="nextBtn" ${storyDone()?'':'disabled'}>실전 문제로</button>`;
+    }
+  }else if(S.phase==='exam'){
+    sh();const n=examOk();
+    barIn.innerHTML=`<button class="btn sm" data-act="gradeAll" id="gradeAll">전체 채점</button><button class="btn sm" data-act="onlyWrong" id="onlyWrong">${S.onlyWrong?'전체 보기':'틀린 것만 다시'}</button><span class="cnt">정답 <b id="passN">${n}</b>/${EXAM.length}</span><button class="btn sm pri" data-act="toFinal" id="nextBtn" ${n===EXAM.length?'':'disabled'}>마무리 정리로</button>`;
+  }else if(S.phase==='final'){
+    sh();const n=finalOk();
+    barIn.innerHTML=`<button class="btn sm" data-act="gradeAll" id="gradeAll">전체 채점</button><button class="btn sm" data-act="onlyWrong" id="onlyWrong">${S.onlyWrong?'전체 보기':'틀린 것만 다시'}</button><span class="cnt">통과 <b id="passN">${n}</b>/${FINAL.length}</span><button class="btn sm pri" data-act="toFinish" id="nextBtn" ${n===FINAL.length?'':'disabled'}>완주하기</button>`;
+  }else{bar.classList.add('hide');barIn.innerHTML='';}
+}
+
+function renderFinish(){
+  const cnt=m=>{const a=[];PARAS.forEach((P,p)=>P.write.forEach((_,i)=>a.push(ws(m,p,i))));return a;};
+  const W=cnt('w');
+  const one=a=>a.filter(w=>w.status==='pass'&&!w.retried&&!w.peeked).length;
+  const firstOk=EXAM.filter(q=>xs(q.id).first===true).length;
+  const seen=new Set(),rows=[];
+  PARAS.forEach(P=>P.write.forEach(it=>(it.keys||[]).forEach(k=>{if(!seen.has(k.en)){seen.add(k.en);rows.push({no:it.no,en:k.en,ko:k.ko});}})));
+  const lrows=[];PARAS.forEach(P=>P.write.forEach(it=>(it.link||[]).forEach(l=>lrows.push({no:it.no,en:l.en,why:l.why}))));
+  const wrongSecs={};EXAM.forEach(q=>{if(xs(q.id).first===false)wrongSecs[q.sec]=(wrongSecs[q.sec]||0)+1;});
+  const ws2=Object.keys(wrongSecs).map(k=>`${SECS[k]} ${wrongSecs[k]}문제`).join(', ');
+  app.innerHTML=`<section class="fin" id="finish"><h2>사건 해결, 본문 완주!</h2>
+  <p>문단 영작: ${TOTAL}문장 중 한 번에 통과 <b>${one(W)}</b>문장</p>
+  <p>전체 이야기: 문단 순서 ${S.story.shownEver?'정답을 보고 맞춤':'<b>한 번에</b> 맞춤'} · 연결어 ${STORY_NB}개 중 답 보기 <b>${Object.keys(S.story.rev).length}</b>개 · 정답을 본 문단 <b>${Object.keys(S.story.ashown).length}</b>개</p>
+  <p>마무리 정리: ${FINAL.length}개 중 한 번에 통과 <b>${FINAL.filter(q=>fsx(q.id).first===true).length}</b>개</p>
+  <p>실전 문제: ${EXAM.length}문제 중 첫 시도 정답 <b>${firstOk}</b>문제${ws2?` (처음에 틀린 유형: ${esc(ws2)})`:''}</p>
+  <h3>완성된 본문</h3>
+  ${PARAS.map((P,p)=>`<div class="storypara"><p>${esc(paraText(p))}</p><div class="passline">${ttsBtns(paraText(p))}</div></div>`).join('')}
+  <h3>연결어 다시 보기</h3>
+  <table class="ktab"><tbody>${lrows.map(r=>`<tr><td>${esc(r.en)}</td><td>${esc(r.why)}</td><td class="n">${esc(r.no)}</td></tr>`).join('')}</tbody></table>
+  <h3>핵심표현 다시 보기</h3>
+  <table class="ktab"><tbody>${rows.map(r=>`<tr><td>${esc(r.en)}</td><td>${esc(r.ko)}</td><td class="n">${esc(r.no)}</td></tr>`).join('')}</tbody></table>
+  <div class="center"><button class="btn pri" data-act="restart" id="restart">처음부터 다시</button></div></section>`;
+}
+
+/* ============ ACTIONS ============ */
+function grade(m,p,i){
+  const w=ws(m,p,i),it=PARAS[p].write[i];
+  if(w.status==='pass')return;
+  if(!toks(w.val).length){w.status='empty';return;}
+  if(sameToks(w.val,it.en)){
+    if(w.tries>0)w.retried=true;
+    w.status='pass';w.diff=null;w.peek=false;
+  }else{
+    w.tries++;w.status='wrong';w.peek=false;w.diff=lcsDiff(toks(w.val),toks(it.en));
+  }
+}
+function exGrade(id){
+  const q=EXAM.find(z=>z.id===id),x=xs(id);
+  if(x.status==='ok')return;
+  let ok;
+  if(q.type==='mc'){if(x.sel==null){x.status='empty';return;}ok=x.sel===q.ans;}
+  else if(q.type==='order'){if(x.pick.length<q.items.length){x.status='empty';return;}ok=x.pick.join()===q.ans.join();}
+  else if(q.type==='arrange'){if(!x.pick.length){x.status='empty';return;}ok=sameToks(x.pick.map(k=>q.words[k]).join(' '),q.ans);}
+  else{
+    if(!toks(x.val).length){x.status='empty';return;}
+    ok=q.ans.some(a=>sameToks(x.val,a));
+    x.diff=ok?null:lcsDiff(toks(x.val),toks(q.ans[0]));
+  }
+  if(x.first===null)x.first=ok;
+  if(!ok)x.tries++;
+  x.status=ok?'ok':'bad';
+}
+function exReset(id){const x=xs(id);x.sel=null;x.pick=[];x.status='';x.diff=null;const q=EXAM.find(z=>z.id===id);if(q.type==='write')x.val='';}
+function focusInp(k){const el=document.querySelector(`.inp[data-k="${k}"]`);if(el&&!el.readOnly){try{el.focus();}catch(e){}}}
+function nextUnpassed(m,p,i){
+  const W=PARAS[p].write;
+  for(let k=i+1;k<W.length;k++)if(ws(m,p,k).status!=='pass')return `${m}:${p}-${k}`;
+  if(m==='s')for(let q=p+1;q<PARAS.length;q++)for(let k=0;k<PARAS[q].write.length;k++)if(ws(m,q,k).status!=='pass')return `${m}:${q}-${k}`;
+  return null;
+}
+function afterGrade(m,p,i){
+  render();
+  if(ws(m,p,i).status==='pass'){const k=nextUnpassed(m,p,i);if(k)focusInp(k);}
+  else focusInp(`${m}:${p}-${i}`);
+}
+function goPhase(ph){
+  S.phase=ph;S.onlyWrong=false;render();goTop();
+}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-act]');if(!b||b.disabled)return;
+  const a=b.dataset.act,p=+b.dataset.p,i=+b.dataset.i,m=b.dataset.m||'w',id=b.dataset.id;
+  if(a==='goPara'||a==='goPhase'||a==='stage'||a==='sStep')clickTick();
+  switch(a){
+    case 'goPara':
+      S.phase='para';S.p=p;S.onlyWrong=false;render();goTop();break;
+    case 'goPhase':goPhase(b.dataset.ph);break;
+    case 'stage':{
+      const s=+b.dataset.s,st=S.P[S.p];
+      if(s===2&&!st.read)return;
+      if(s===3&&!(st.read&&ordAllDone(S.p)))return;
+      st.stage=s;S.onlyWrong=false;render();goTop();break;}
+    case 'readOk':
+      S.P[S.p].read=true;S.P[S.p].stage=2;render();goTop();break;
+    case 'pick':{
+      const st=oS(p,i),n=+b.dataset.n,len=PARAS[p].order[i].chunks.length;
+      if(st.ordered||st.shown||st.pick.includes(n)||st.pick.length>=len)return;
+      st.pick.push(n);st.msg='';render();break;}
+    case 'undo':{const st=oS(p,i);if(st.ordered||st.shown)return;st.pick.pop();st.msg='';render();break;}
+    case 'clear':{const st=oS(p,i);if(st.ordered||st.shown)return;st.pick=[];st.msg='';render();break;}
+    case 'check':{
+      const st=oS(p,i),o=PARAS[p].order[i],n=o.seq.length;
+      if(st.pick.length<n){st.msg=`조각 ${n}개를 모두 놓아 주세요.`;render();return;}
+      let k=0;while(k<n&&st.pick[k]===o.seq[k])k++;
+      if(k===n){st.ordered=true;st.shown=false;st.msg='';if(!ordBlanks(p,i).length)st.done=true;}
+      else{st.shown=true;st.msg=`${n}개 중 ${st.pick.filter((v,z)=>v===o.seq[z]).length}개가 제자리예요. ${k+1}번째 자리부터 달라요.`;}
+      render();break;}
+    case 'oretry':{const st=oS(p,i);st.pick=[];st.shown=false;st.msg='';render();break;}
+    case 'ocj':{
+      const st=oS(p,i),bi=+b.dataset.b;
+      if(st.cjmk[bi]==='ok')return;
+      st.cj[bi]=b.dataset.w;st.cjmk[bi]=null;st.cjmsg='';render();break;}
+    case 'ocheck':{
+      const st=oS(p,i),bl=ordBlanks(p,i);
+      if(bl.some((_,k)=>!st.cj[k])){st.cjmsg='연결어를 모두 골라 주세요.';render();return;}
+      let wrong=0;
+      bl.forEach((v,k)=>{const ok=norm(st.cj[k])===norm(v.cj.w);st.cjmk[k]=ok?'ok':'bad';if(!ok)wrong++;});
+      if(wrong){st.cjmsg=`${wrong}개가 달라요. 아래 정답을 보고 다시 골라 보세요.`;st.cjshown=true;}
+      else{st.cjmsg='';st.done=true;}
+      render();break;}
+    case 'say':speak(b.dataset.t,!!b.dataset.slow);break;
+    case 'key':{const w=ws('w',p,i),j=+b.dataset.j;w.keys[j]=!w.keys[j];render();break;}
+    case 'peek':{const w=ws(m,p,i);w.peek=!w.peek;if(w.peek)w.peeked=true;render();if(!w.peek)focusInp(`${m}:${p}-${i}`);break;}
+    case 'hint':ws(m,p,i).hint=true;render();focusInp(`${m}:${p}-${i}`);break;
+    case 'grade':grade(m,p,i);afterGrade(m,p,i);break;
+    case 'gradeAll':
+      if(S.phase==='para')PARAS[S.p].write.forEach((_,k)=>grade('w',S.p,k));
+      else if(S.phase==='final')FINAL.forEach(q=>{const x=fsx(q.id);if(x.status==='ok')return;if(x.status==='bad'&&(q.kind==='pick'||q.kind==='paraorder'))return;if(S.onlyWrong||x.sel!=null||x.pick.length||x.val||Object.keys(x.vals).length||Object.keys(x.bs).length)fnGrade(q.id);});
+      else if(S.phase==='exam')EXAM.forEach(q=>{const x=xs(q.id);if(x.status==='bad'&&q.type!=='write')return;if(S.onlyWrong||x.sel!=null||x.pick.length||x.val||x.status)exGrade(q.id);});
+      render();break;
+    case 'onlyWrong':
+      S.onlyWrong=!S.onlyWrong;
+      if(S.onlyWrong){
+        const reset=w=>{if(w.status==='wrong'||w.status==='empty'){w.val='';w.status='';w.diff=null;w.peek=false;}};
+        if(S.phase==='para')PARAS[S.p].write.forEach((_,k)=>reset(ws('w',S.p,k)));
+        else if(S.phase==='final')FINAL.forEach(q=>{const x=fsx(q.id);if(x.status==='ok')return;if(x.status==='bad'&&(q.kind==='pick'||q.kind==='paraorder'))return;if(S.onlyWrong||x.sel!=null||x.pick.length||x.val||Object.keys(x.vals).length||Object.keys(x.bs).length)fnGrade(q.id);});
+      else if(S.phase==='exam')EXAM.forEach(q=>{const x=xs(q.id);if(x.status==='bad'||x.status==='empty')exReset(q.id);});
+      }
+      render();goTop();break;
+    case 'next':
+      if(!paraDone(S.p))return;
+      S.onlyWrong=false;
+      if(S.p<PARAS.length-1)S.p++;
+      else S.phase='story';
+      pageTurn();render();goTop();break;
+    case 'sPick':{
+      const st=S.story,k=+b.dataset.k;
+      if(st.ordered||st.shown||st.pick.includes(k)||st.pick.length>=PARAS.length)return;
+      st.pick.push(k);st.msg='';render();break;}
+    case 'sUndo':S.story.pick.pop();S.story.msg='';render();break;
+    case 'sRetry':{const st=S.story;st.pick=[];st.shown=false;st.omarks=null;st.msg='';render();goTop();break;}
+    case 'sClear':S.story.pick=[];S.story.msg='';render();break;
+    case 'sCheck':{
+      const st=S.story,n=PARAS.length;
+      if(st.ordered)return;
+      if(st.pick.length<n){st.msg=`문단 ${n}개를 모두 놓아 주세요.`;render();return;}
+      let k=0;while(k<n&&st.pick[k]===SORD[k])k++;
+      if(k===n){st.ordered=true;st.shown=false;st.omarks=null;st.msg='';st.step=2;pageTurn();}
+      else{
+        st.tries++;st.shown=true;st.shownEver=true;
+        st.omarks=st.pick.map((v,i)=>v===SORD[i]?'ok':'bad');
+        const right=st.omarks.filter(m=>m==='ok').length;
+        st.msg=`${n}개 중 ${right}개가 제자리예요. ${k+1}번째 자리부터 달라요.`;
+      }
+      render();goTop();break;}
+    case 'sStep':{S.story.step=+b.dataset.s;S.story.pmsg=null;render();goTop();break;}
+    case 'sGradeP':storyGradeP(p);render();break;
+    case 'sGradeAll':storyGradeAll();render();break;
+    case 'toExam':
+      if(!storyDone())return;
+      S.phase='exam';S.onlyWrong=false;pageTurn();render();goTop();break;
+    case 'toFinish':
+      if(finalOk()!==FINAL.length)return;
+      S.phase='finish';S.onlyWrong=false;pageTurn();render();goTop();break;
+    case 'exSel':{const x=xs(id);if(x.status==='ok'||x.status==='bad')return;x.sel=+b.dataset.k;x.status='';render();break;}
+    case 'exPick':{
+      const x=xs(id),k=+b.dataset.k,q=EXAM.find(z=>z.id===id);
+      if(x.status==='ok'||x.status==='bad'||x.pick.includes(k))return;
+      if(q.type==='order'&&x.pick.length>=q.items.length)return;
+      x.pick.push(k);x.status='';render();break;}
+    case 'exUndo':xs(id).pick.pop();xs(id).status='';render();break;
+    case 'exClear':xs(id).pick=[];xs(id).status='';render();break;
+    case 'exGrade':exGrade(id);render();if(xs(id).status!=='ok'){const q=EXAM.find(z=>z.id===id);if(q.type==='write')focusInp('x:'+id);}break;
+    case 'exRetry':exReset(id);render();break;
+    case 'fSel':{
+      const x=fsx(id),q=FINAL.find(z=>z.id===id);
+      if(x.status==='ok')return;
+      if(q.kind==='pron'){if(x.status==='bad'&&x.marks&&x.marks[+b.dataset.b]==='ok')return;x.bs[+b.dataset.b]=+b.dataset.k;if(x.marks)x.marks[+b.dataset.b]=null;}
+      else{if(x.status==='bad')return;x.sel=+b.dataset.k;}
+      x.status='';render();break;}
+    case 'fPick':{
+      const x=fsx(id),q=FINAL.find(z=>z.id===id),k=+b.dataset.k;
+      if(x.status==='ok'||x.status==='bad'||x.pick.includes(k)||x.pick.length>=q.items.length)return;
+      x.pick.push(k);x.status='';render();break;}
+    case 'fUndo':fsx(id).pick.pop();fsx(id).status='';render();break;
+    case 'fClear':fsx(id).pick=[];fsx(id).status='';render();break;
+    case 'fGrade':fnGrade(id);render();break;
+    case 'fRetry':fnReset(id);render();break;
+    case 'toFinal':
+      if(examOk()!==EXAM.length)return;
+      S.phase='final';S.onlyWrong=false;pageTurn();render();goTop();break;
+    case 'restart':S=freshState();pageTurn();render();goTop();break;
+  }
+});
+let lastTap={el:null,t:0,v:''};
+document.addEventListener('click',e=>{
+  const el=e.target;
+  if(!el.matches||!el.matches('.cinp')||el.readOnly)return;
+  const now=Date.now();
+  if(lastTap.el===el&&now-lastTap.t<800&&lastTap.v===el.value){lastTap={el:null,t:0,v:''};if(el.dataset.story)storyReveal(el.dataset.story);else fnReveal(el.dataset.id,+el.dataset.b);return;}
+  lastTap={el:el,t:now,v:el.value};
+});
+document.addEventListener('dblclick',e=>{
+  const el=e.target;
+  if(el.matches&&el.matches('.cinp')&&!el.readOnly){if(el.dataset.story)storyReveal(el.dataset.story);else fnReveal(el.dataset.id,+el.dataset.b);}
+});
+document.addEventListener('input',e=>{
+  if(e.target.matches&&e.target.matches('.cinp')){
+    if(e.target.dataset.story){const key=e.target.dataset.story;S.story.vals[key]=e.target.value;S.story.marks[key]=null;return;}
+    const x=fsx(e.target.dataset.id),bi=+e.target.dataset.b;
+    x.vals[bi]=e.target.value;if(x.marks)x.marks[bi]=null;
+    return;
+  }
+  if(!e.target.matches||!e.target.matches('.inp'))return;
+  const k=e.target.dataset.k;
+  if(k.startsWith('x:')){xs(k.slice(2)).val=e.target.value;return;}
+  if(k.startsWith('f:')){fsx(k.slice(2)).val=e.target.value;return;}
+  const [m,rest]=k.split(':'),[p,i]=rest.split('-').map(Number);
+  ws(m,p,i).val=e.target.value;
+});
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'||!e.target.matches||!e.target.matches('.inp'))return;
+  e.preventDefault();
+  const k=e.target.dataset.k;
+  if(k.startsWith('x:')){const id=k.slice(2);exGrade(id);render();if(xs(id).status!=='ok')focusInp(k);return;}
+  if(k.startsWith('f:')){const id=k.slice(2);fnGrade(id);render();if(fsx(id).status!=='ok')focusInp(k);return;}
+  const [m,rest]=k.split(':'),[p,i]=rest.split('-').map(Number);
+  grade(m,p,i);afterGrade(m,p,i);
+});
+
+render();
+
+</script>
+</body>
+</html>
