@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>모의고사 변형 — 유형 공식 훈련</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F5F7;--paper:#FFFFFF;--ink:#1E2330;--muted:#636A77;--line:#D8DCE3;--mark:#FFE07A;--ok:#17805A;--okbg:#E5F4EC;--bad:#C93C4A;--badbg:#FBE9EB;--hint:#9A6B00;--hintbg:#FFF5D6;}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:17px;line-height:1.65;padding-bottom:env(safe-area-inset-bottom)}
+.wrap{max-width:800px;margin:0 auto;padding:16px 16px 80px}
+header.top{padding:18px 0 14px;border-bottom:2px solid var(--ink);margin-bottom:14px}
+header.top h1{margin:0;font-size:24px;font-weight:900;letter-spacing:-.5px}
+header.top p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.srow,.qrow{display:flex;flex-wrap:wrap;gap:8px;width:100%}
+.srow{margin-bottom:6px}
+.stab{font:inherit;border:2px solid var(--line);background:var(--paper);border-radius:8px;padding:6px 12px;cursor:pointer;color:var(--ink);display:flex;flex-direction:column;align-items:flex-start;line-height:1.35;min-height:46px;text-align:left}
+.stab b{font-size:15px}
+.stab span{font-size:12.5px;color:var(--muted)}
+.stab.on{border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--ink)}
+.stab.done b::after{content:' ✓';color:var(--ok)}
+.stab:disabled{opacity:.4;cursor:not-allowed}
+.chip{border:2px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 14px;font:inherit;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer;display:flex;gap:6px;align-items:center;min-height:42px}
+.chip .dot{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.chip.on{border-color:var(--c);box-shadow:inset 0 -3px 0 var(--c)}
+.chip.done::after{content:'✓';color:var(--ok);font-weight:900}
+.chip:disabled{opacity:.4;cursor:not-allowed}
+.chip.res{--c:var(--ink)}
+.progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:6px 0 18px}
+.progress i{display:block;height:100%;background:var(--ink);transition:width .4s}
+.qhead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:6px 0 10px}
+.btn.arm{background:var(--bad);border-color:var(--bad);color:#fff}
+.qhead .redo1{margin:0 0 0 auto;min-height:36px;padding:4px 12px;font-size:14px}
+.qhead h2{margin:0;font-size:22px;font-weight:900}
+.badge{display:inline-block;border-radius:6px;padding:2px 10px;font-size:14px;font-weight:700;color:#fff;background:var(--c)}
+.src{color:var(--muted);font-size:14px}
+.formula{border-left:5px solid var(--c);padding:6px 0 6px 14px;margin:0 0 16px}
+.formula div{font-weight:700;font-size:16px}
+.formula div::before{content:'공식 ';color:var(--c);font-weight:900}
+.paper{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:20px 22px;margin-bottom:18px}
+.blk{margin:0 0 12px;font-size:18px;line-height:2.05}
+.blk:last-child{margin-bottom:0}
+.blk .lab{font-weight:900;margin-right:6px}
+.blk.given{border:1.5px solid var(--ink);padding:8px 14px;border-radius:3px}
+.blk.given .lab{display:block;font-size:14px;color:var(--muted);font-weight:700;line-height:1.4;margin-bottom:2px}
+.blk u{text-decoration-thickness:2px;text-underline-offset:4px}
+.trbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 10px}
+.trbar .btn{margin:0}
+.trbar span{color:var(--muted);font-size:14.5px}
+.blk2{margin:0 0 14px}
+.blk2.given{border:1.5px solid var(--ink);padding:6px 14px;border-radius:3px}
+.blk2 .lab{display:block;font-weight:900;margin:0 0 2px}
+.pair{padding:10px 0;border-top:1px dashed var(--line)}
+.blk2 .pair:first-of-type{border-top:0}
+.en{font-size:18px;line-height:1.9}
+.sn{display:inline-block;min-width:22px;font-size:13px;font-weight:900;color:var(--muted);vertical-align:2px}
+.kr{font-size:16px;line-height:1.8;color:#3A4150;padding-left:22px}
+.nt{font-size:14.5px;line-height:1.7;color:var(--c);font-weight:700;padding-left:22px;margin-top:2px}
+.cue.on{text-decoration:underline wavy var(--c);text-decoration-thickness:2px;text-underline-offset:5px;font-weight:700;color:var(--c)}
+.sen.scand{cursor:pointer;border-radius:3px}
+.sen.scand:hover{background:#EDF0F4}
+.sen.spick{background:#FFF0B3}
+.sen[data-pick]::before,.sen[data-ord]::before{content:attr(data-pick);display:inline-block;font-size:12px;font-weight:900;line-height:1;padding:3px 6px;border-radius:9px;background:var(--ink);color:#fff;margin-right:4px;vertical-align:2px}
+.sen[data-ord]::before{content:attr(data-ord);background:var(--c)}
+.sen.skip{color:#5F6672}
+.sen.skip[data-ord]::before{background:#E1E4E9;color:#3F4550}
+.tblw{margin:4px 0 14px;overflow-x:auto}
+.tblt{font-weight:900;text-align:center;margin-bottom:6px}
+.dt{border-collapse:collapse;width:100%;font-size:16px}
+.dt th,.dt td{border:1px solid #9AA1AD;padding:6px 10px;text-align:left}
+.dt th{background:#F1F3F6}
+.dt td.n{text-align:center}
+.tblu{font-size:13.5px;color:var(--muted);text-align:right;margin-top:4px}
+.pv{border:1px dashed #AEB4BF;border-radius:4px;padding:10px 14px;margin:-8px 0 18px;background:#FAFBFC}
+.pvh{font-size:13.5px;font-weight:700;color:var(--muted);margin-bottom:4px}
+.pvo{font-size:15px;line-height:1.7;padding:2px 0}
+.sen.sshow{outline:2px dashed var(--bad);outline-offset:2px}
+.seqv{margin-top:6px;font-weight:700}
+.tk{border-radius:3px;transition:background-color .25s}
+.tk.cand{cursor:pointer;background-image:linear-gradient(transparent 88%,#B9BFCA 88%);padding:0 1px}
+.tk.cand:hover{background-color:#F0F2F5}
+.tk.cand.box{outline:2px dashed #8A93A3;outline-offset:2px;background-color:#F1F3F6;background-image:none;border-radius:4px;padding:0 3px}
+.tk.box[data-bn]::before{content:attr(data-bn);display:inline-block;font-size:11.5px;font-weight:900;line-height:1;padding:3px 6px;border-radius:9px;background:#5F6672;color:#fff;margin-right:4px;vertical-align:2px}
+.tk.sel{background-color:var(--mark)!important;background-image:none}
+.tk.show{outline:2px dashed var(--bad);outline-offset:2px}
+.tk.found{background-image:linear-gradient(transparent 82%,var(--c) 82%);font-weight:700}
+.tk.wrong{background-color:var(--badbg)!important;text-decoration:line-through;text-decoration-color:var(--bad)}
+.tk:focus-visible,.opt:focus-visible,.chip:focus-visible,.btn:focus-visible,.rchip:focus-visible{outline:3px solid #2B68C4;outline-offset:2px}
+.step{background:var(--paper);border:1px solid var(--line);border-radius:4px;margin-bottom:12px;padding:16px 18px}
+.step.lock{background:transparent;border-style:dashed;color:var(--muted);padding:12px 18px}
+.step.ok{border-color:var(--ok)}
+.shd{display:flex;gap:10px;align-items:flex-start}
+.num{flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-weight:900;font-size:15px}
+.step.ok .num{background:var(--ok);border-color:var(--ok);color:#fff}
+.step.lock .num{border-color:var(--line);color:var(--muted)}
+.sq{font-weight:700;font-size:17px;padding-top:2px}
+.sbody{margin:12px 0 0 40px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;font:inherit;font-size:16px;border:2px solid var(--line);background:#fff;border-radius:6px;padding:10px 14px;cursor:pointer;color:var(--ink);min-height:48px}
+.opt:hover{border-color:#9AA2AF}
+.opt.pick{border-color:var(--ok);background:var(--okbg);font-weight:700}
+.opt.no{border-color:var(--bad);background:var(--badbg)}
+.opt.show{border-style:dashed;border-color:var(--bad)}
+.opt:disabled{cursor:default}
+.mrow{border-top:1px solid var(--line);padding:10px 0}
+.mrow:first-child{border-top:0;padding-top:0}
+.mlab{font-weight:700;margin-bottom:6px}
+.mlab.x::after{content:' — 다시';color:var(--bad);font-weight:700}
+.rchips{display:flex;flex-wrap:wrap;gap:6px}
+.rchip{font:inherit;font-size:15px;border:2px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;color:var(--ink);min-height:40px}
+.rchip.sel{border-color:var(--ink);background:var(--ink);color:#fff}
+.rchip.show{border-style:dashed;border-color:var(--bad)}
+.rchip:disabled{cursor:default}
+.btn{font:inherit;font-weight:700;font-size:16px;border:2px solid var(--ink);background:var(--ink);color:#fff;border-radius:6px;padding:10px 20px;cursor:pointer;margin-top:12px;min-height:46px}
+.btn.ghost{background:#fff;color:var(--ink)}
+.msg{margin-top:10px;padding:10px 12px;border-radius:6px;font-size:15.5px}
+.msg.hint{background:var(--hintbg);color:#5E4300}
+.msg.ok{background:var(--okbg);color:#0E5A3E}
+.msg.rv{background:var(--badbg);color:#7D1F2A}
+.pre{border-left:3px solid var(--c);padding:6px 0 6px 12px;margin:0 0 12px;font-size:15.5px;line-height:1.75}
+.pre div:first-child{font-weight:700}
+.tapnote{font-size:14.5px;color:var(--muted);margin:2px 0 0}
+.after{background:var(--paper);border:2px solid var(--ok);border-radius:4px;padding:18px 20px;margin:6px 0 16px}
+.after h3{margin:0 0 10px;font-size:19px}
+.after h4{margin:16px 0 6px;font-size:16px}
+.mg{margin:8px 0 12px;border-left:3px solid var(--c);padding-left:12px}
+.mgt{font-weight:900;font-size:15px;margin-bottom:2px}
+.mgi{padding:4px 0;border-top:1px dashed var(--line);font-size:15px;line-height:1.6}
+.mgi:first-of-type{border-top:0}
+.mgi b{display:block}
+.mgi span{color:var(--muted)}
+.olist div{padding:6px 0;border-top:1px solid var(--line);font-size:15.5px}
+.olist div:first-child{border-top:0}
+.olist b{display:inline-block;min-width:0;margin-right:6px}
+table.lk{width:100%;border-collapse:collapse;font-size:15px}
+table.lk td{border:1px solid var(--line);padding:7px 9px;vertical-align:top}
+table.lk td:first-child{width:50%}
+details{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-weight:700}
+details p{font-size:15.5px;line-height:1.9}
+.next{display:flex;justify-content:flex-end}
+.sum{background:var(--paper);border:2px solid var(--ink);border-radius:4px;padding:20px}
+.sum h2{margin:0 0 6px;font-size:22px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.stats div{border:1px solid var(--line);border-radius:4px;padding:10px;text-align:center}
+.stats b{display:block;font-size:26px;font-weight:900}
+.code{font-size:26px;font-weight:900;letter-spacing:2px;border:2px dashed var(--ink);padding:10px 14px;text-align:center;margin:12px 0}
+.qline{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding:8px 0;font-size:15.5px;flex-wrap:wrap}
+.qline .btn{margin:0;padding:6px 12px;min-height:38px;font-size:14.5px}
+.foot{margin-top:24px;color:var(--muted);font-size:13.5px;text-align:center}
+.flash{animation:fl .5s}
+@keyframes fl{0%{transform:scale(1)}40%{transform:scale(1.02)}100%{transform:scale(1)}}
+@media (max-width:560px){body{font-size:16px}.paper{padding:16px}.blk{font-size:17px}.sbody{margin-left:0}.step{padding:14px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><h1 id="ttl"></h1><p id="sub"></p></header>
+<nav class="chips" id="chips" aria-label="문항"></nav>
+<div class="progress"><i id="bar"></i></div>
+<main id="main"></main>
+<div class="foot" id="foot"></div>
+</div>
+<script>
+/* ============ ENGINE 상수 (수정 금지) ============ */
+const CATS=['수일치','관계대명사','동사 vs 준동사','병렬','능동 / 수동','대명사','대동사'];
+const ORD=['① (A)-(C)-(B)','② (B)-(A)-(C)','③ (B)-(C)-(A)','④ (C)-(A)-(B)','⑤ (C)-(B)-(A)'];
+const POS=['①','②','③','④','⑤'];
+const TYPE_COLOR={'지칭':'#5B6B7F','목적':'#5B6B7F','심경':'#A0527A','주장':'#8A5A2B','함축':'#0D878A','요지':'#4E7A1F','주제':'#4E7A1F','제목':'#4E7A1F','도표':'#5B6B7F','일치':'#5B6B7F','어법':'#2F7D46','어휘':'#3D7A6E','빈칸':'#C23E5A','무관':'#6B5BA8','순서':'#2B68C4','삽입':'#7550C4','요약':'#B2700C','장문':'#9A4E1C'};
+/* ============ DATA 구간 시작 — 이 아래부터 DATA 구간 끝까지만 바꾼다 ============ */
+const EXAM={id:'r1',title:'독해 1단원 — 정보 확인',sub:'도표 · 일치/불일치 · 지칭. 선지 순서 = 지문 순서 — 선지가 지도다. 회차는 모두 열려 있다.',footer:'강동미나 뮤엠영어 · 진행 상황은 이 기기에 저장된다',key:'reading1_v1',code:'RD1',ver:'v1.0 (2026-10-02)',lock:false};
+const SB=[{"l": "(A)", "s": [["Mina had practiced the piano piece for weeks, but on the morning of the school concert, her hands were shaking.", "미나는 몇 주 동안 그 피아노 곡을 연습했지만, 학교 연주회 날 아침 그녀의 손은 떨리고 있었다."], ["Her friend Jiho noticed and sat beside (a) __her__.", "친구 지호가 그것을 알아차리고 (a) 그녀 옆에 앉았다.", "(a) 바로 앞 인물: Jiho가 옆에 앉은 대상 = Mina"], ["“You know this song better than anyone,” he said.", "\"넌 이 곡을 누구보다 잘 알아.\"라고 그가 말했다."]]}, {"l": "(B)", "s": [["When Mina’s turn came, she walked onto the stage and looked at the audience.", "미나의 차례가 오자, 그녀는 무대로 걸어 나가 청중을 바라보았다."], ["For a moment, (b) __she__ forgot the first note.", "잠시 (b) 그녀는 첫 음을 잊어버렸다."], ["Then she saw Jiho in the front row.", "그때 그녀는 맨 앞줄에 있는 지호를 보았다."], ["He was smiling and tapping the rhythm on (c) __his__ knee.", "그는 미소를 지으며 (c) 자신의 무릎을 두드려 박자를 맞추고 있었다.", "(c) 앞 문장의 He = Jiho"]]}, {"l": "(C)", "s": [["Mina began to play.", "미나는 연주를 시작했다."], ["The music filled the hall, and her fear slowly disappeared.", "음악이 강당을 채웠고, 그녀의 두려움은 서서히 사라졌다."], ["When she finished, the audience stood up and clapped.", "그녀가 연주를 마치자, 청중은 일어나서 박수를 쳤다.", "stood up = 일어섰다"], ["Mina’s teacher, Ms. Park, hugged (d) __her__ and said, “I’m so proud of you.”", "미나의 선생님인 박 선생님은 (d) 그녀를 안아 주며 \"정말 자랑스러워.\"라고 말했다."]]}, {"l": "(D)", "s": [["After the concert, Mina found Jiho outside.", "연주회가 끝난 뒤, 미나는 밖에서 지호를 찾았다."], ["“Thank you for helping me,” she said.", "\"도와줘서 고마워.\"라고 그녀가 말했다."], ["Jiho shook his head.", "지호는 고개를 저었다."], ["“You did it all by (e) __yourself__,” he answered.", "\"네가 (e) 혼자 다 해낸 거야.\"라고 그가 대답했다.", "따옴표 안 you = 듣는 사람 Mina"]]}];
+const DATA=[
+{"id": "a1", "src": "a1", "chip": "안내문 1", "tag": "28번형 · 실용문 일치", "type": "일치", "title": "안내문 내용 일치 — 선지가 지도다", "formula": ["선지 순서 = 지문 순서 — 선지 ①→⑤ 순서대로 지문을 따라가며 근거 문장만 정확히 읽는다", "함정 단어: 숫자·요일·나이 / only · not · never · but · except / or(둘 중 하나)"], "preview": 1, "steps": [{"k": "choice", "q": "일치·불일치 문제에서 가장 먼저 할 일은?", "o": ["선지를 먼저 훑고, 선지 순서대로 지문에서 근거를 찾는다", "지문을 처음부터 끝까지 해석한 뒤 선지를 본다"], "a": 0, "h": "선지 순서와 지문 순서는 같아요. 선지가 지도예요.", "w": "선지 ①의 근거는 지문 앞쪽, ⑤의 근거는 지문 뒤쪽에 있다."}, {"k": "order", "roles": "1:제목 — 훑기|2:소개 — 훑기|3:①② 근거 — 요일·시간|4:장소 — 선지에 없음|5:③ 근거 — 나이|6:④ 근거 — 참가비|7:⑤ 근거 — 신청 조건|8:참고 — 선지에 없음", "q": "선지 ①→⑤ 순서대로, 각 선지의 근거 문장을 탭하세요.", "pre": ["선지 순서 = 지문 순서", "근거 문장만 정확히 읽고 나머지는 훑는다", "숫자·요일·나이·only·not·but에 특히 주의"], "seq": [3, 5, 6, 7], "h": "선지(또는 밑줄)의 핵심 단어를 지문에서 찾아요. 앞에서부터 순서대로 나와요.", "w": "근거 문장 다섯 개만 정확히 읽으면 된다. 나머지는 훑기."}, {"k": "match", "q": "선지마다 지문과 일치하는지 판정하세요.", "pre": ["요일·시간: Saturday ≠ 일요일 / 2:00~3:30은 몇 시간?", "Free = 돈을 내지 않는다", "Only the first 20 = 선착순 20명만"], "rows": [["① 매주 일요일에 모인다", ["일치", "불일치"], 1], ["② 모임은 한 번에 두 시간씩 열린다", ["일치", "불일치"], 1], ["③ 13세부터 16세까지 참여할 수 있다", ["일치", "불일치"], 0], ["④ 참가비로 책 가방 값을 낸다", ["일치", "불일치"], 1], ["⑤ 신청한 사람은 모두 참여할 수 있다", ["일치", "불일치"], 1]], "h": "시간은 직접 빼 보세요: 3:30 − 2:00 = ?", "w": "틀린 선지는 요일·시간·무료·선착순을 하나씩 바꿔 놓은 것."}, {"k": "final", "q": "Riverside Summer Book Club에 관한 다음 안내문의 내용과 일치하는 것은?", "o": ["① 매주 일요일에 모인다.", "② 모임은 한 번에 두 시간씩 열린다.", "③ 13세부터 16세까지 참여할 수 있다.", "④ 참가비로 책 가방 값을 낸다.", "⑤ 신청한 사람은 모두 참여할 수 있다."], "a": 2, "h": "Who 줄"}], "after": {"opts": [["① 매주 일요일", "✘ Every Saturday — 토요일"], ["② 두 시간씩", "✘ 2:00~3:30 = 1시간 30분"], ["③ 13~16세", "✔ Students aged 13 to 16"], ["④ 책 가방 값을 낸다", "✘ Free, 가방은 받는다(is given)"], ["⑤ 모두 참여", "✘ Only the first 20 — 선착순 20명"]], "link": [["When: Every Saturday ~", "①② 요일·시간"], ["Who: aged 13 to 16", "③ 정답"], ["Fee: Free / Only the first 20", "④⑤ 함정"]], "note": "실용문은 항목 이름(When·Who·Fee)이 곧 선지 순서다. 숫자는 직접 계산해서 확인한다.", "tr": ""},"blocks":[{"s": [["Riverside Summer Book Club", "Riverside 여름 독서 모임"], ["Join us for six weeks of reading and talking about great books!", "6주 동안 좋은 책을 읽고 이야기하는 모임에 함께하세요!"], ["When: Every Saturday, July 6 – August 10, 2:00 p.m. – 3:30 p.m.", "언제: 7월 6일~8월 10일 매주 토요일, 오후 2시~3시 30분", "Every Saturday = 매주 토요일 / 2:00~3:30 = 1시간 30분"], ["Where: Riverside Library, Room 203", "어디서: Riverside 도서관 203호"], ["Who: Students aged 13 to 16", "대상: 13세~16세 학생", "aged 13 to 16 = 13~16세"], ["Fee: Free (a book bag is given to every member)", "참가비: 무료 (모든 회원에게 책 가방 제공)", "Free = 무료 / is given = 받는다"], ["How to join: Sign up online by June 30. Only the first 20 students will be accepted.", "신청 방법: 6월 30일까지 온라인 신청. 선착순 20명만 받는다.", "Only the first 20 = 선착순 20명만"], ["Note: Members who miss more than two meetings cannot receive a certificate.", "참고: 모임에 세 번 이상 빠진 회원은 수료증을 받을 수 없다.", "more than two = 3번 이상"]]}]},
+{"id": "a2", "src": "a2", "chip": "안내문 2", "tag": "27번형 · 실용문 불일치", "type": "일치", "title": "안내문 내용 불일치 — 조건 단어 잡기", "formula": ["선지 순서 = 지문 순서 — 선지 ①→⑤ 순서대로 지문을 따라가며 근거 문장만 정확히 읽는다", "함정 단어: 숫자·요일·나이 / only · not · never · but · except / or(둘 중 하나)"], "preview": 1, "steps": [{"k": "choice", "q": "일치·불일치 문제에서 가장 먼저 할 일은?", "o": ["선지를 먼저 훑고, 선지 순서대로 지문에서 근거를 찾는다", "지문을 처음부터 끝까지 해석한 뒤 선지를 본다"], "a": 0, "h": "선지 순서와 지문 순서는 같아요. 선지가 지도예요.", "w": "선지 ①의 근거는 지문 앞쪽, ⑤의 근거는 지문 뒤쪽에 있다."}, {"k": "order", "roles": "1:제목 — 훑기|2:소개 — 훑기|3:① 근거 — 날짜|4:② 근거 — 시간|5:③ 근거 — 할 일|6:④ 근거 — 나이 조건|7:⑤ 근거 — 준비물|8:등록 — 선지에 없음", "q": "선지 ①→⑤ 순서대로, 각 선지의 근거 문장을 탭하세요.", "pre": ["선지 순서 = 지문 순서", "근거 문장만 정확히 읽고 나머지는 훑는다", "숫자·요일·나이·only·not·but에 특히 주의"], "seq": [3, 4, 5, 6, 7], "h": "선지(또는 밑줄)의 핵심 단어를 지문에서 찾아요. 앞에서부터 순서대로 나와요.", "w": "근거 문장 다섯 개만 정확히 읽으면 된다. 나머지는 훑기."}, {"k": "match", "q": "선지마다 지문과 일치하는지 판정하세요.", "pre": ["must come with a parent = 부모와 함께 와야 한다", "or = 그중 하나를 할 수 있다", "불일치 문제: \"불일치\"가 하나뿐"], "rows": [["① 5월 12일 일요일에 열린다", ["일치", "불일치"], 0], ["② 세 시간 동안 진행된다", ["일치", "불일치"], 0], ["③ 재활용품 분류나 방문객 안내를 할 수 있다", ["일치", "불일치"], 0], ["④ 15세 미만은 혼자 참여할 수 있다", ["일치", "불일치"], 1], ["⑤ 장갑은 제공된다", ["일치", "불일치"], 0]], "h": "④의 근거 문장: under 15 ~ must come with a parent.", "w": "불일치 문제는 조건 문장(must, only, not)을 뒤집은 선지가 정답인 경우가 많다."}, {"k": "final", "q": "Green Market Volunteer Day에 관한 다음 안내문의 내용과 일치하지 않는 것은?", "o": ["① 5월 12일 일요일에 열린다.", "② 세 시간 동안 진행된다.", "③ 재활용품 분류나 방문객 안내를 할 수 있다.", "④ 15세 미만은 혼자 참여할 수 있다.", "⑤ 장갑은 제공된다."], "a": 3, "h": "Requirements 줄"}], "after": {"opts": [["① 5월 12일 일요일", "✔ Date: Sunday, May 12"], ["② 세 시간", "✔ 9:00~12:00"], ["③ 분류나 안내", "✔ or = 그중 하나"], ["④ 15세 미만 혼자", "✘ must come with a parent — 부모와 함께"], ["⑤ 장갑 제공", "✔ Gloves will be provided"]], "link": [["Requirements: under 15 must come with a parent", "④ 정답 (뒤집힘)"], ["Gloves will be provided", "⑤ 수동 = 제공된다"]], "note": "불일치 문제는 조건 문장(must · only · not)이 정답 자리. will be provided(제공된다)와 bring your own(직접 가져온다)도 자주 뒤집힌다.", "tr": ""},"blocks":[{"s": [["Green Market Volunteer Day", "Green Market 자원봉사의 날"], ["Help us keep our town market clean and friendly!", "우리 마을 시장을 깨끗하고 친절하게 지키는 일을 도와주세요!"], ["Date: Sunday, May 12", "날짜: 5월 12일 일요일"], ["Time: 9:00 a.m. – 12:00 p.m.", "시간: 오전 9시~낮 12시", "9시~12시 = 3시간"], ["Tasks: Sorting recycling, guiding visitors, or setting up tables", "할 일: 재활용품 분류, 방문객 안내, 또는 테이블 설치", "or = 셋 중 하나"], ["Requirements: Volunteers under 15 must come with a parent.", "조건: 15세 미만 자원봉사자는 부모와 함께 와야 한다.", "under 15 = 15세 미만 / must come with = 함께 와야 한다"], ["Bring your own water bottle. Gloves will be provided.", "물병은 각자 가져오세요. 장갑은 제공됩니다.", "will be provided = 제공된다"], ["Register by email or at the market office.", "이메일이나 시장 사무소에서 등록하세요."]]}]},
+{"id": "a3", "src": "a3", "chip": "인물 1", "tag": "26번형 · 인물 불일치", "type": "일치", "title": "인물 글 불일치 — but 뒤를 조심", "formula": ["선지 순서 = 지문 순서 — 선지 ①→⑤ 순서대로 지문을 따라가며 근거 문장만 정확히 읽는다", "함정 단어: 숫자·요일·나이 / only · not · never · but · except / or(둘 중 하나)"], "preview": 1, "steps": [{"k": "choice", "q": "일치·불일치 문제에서 가장 먼저 할 일은?", "o": ["선지를 먼저 훑고, 선지 순서대로 지문에서 근거를 찾는다", "지문을 처음부터 끝까지 해석한 뒤 선지를 본다"], "a": 0, "h": "선지 순서와 지문 순서는 같아요. 선지가 지도예요.", "w": "선지 ①의 근거는 지문 앞쪽, ⑤의 근거는 지문 뒤쪽에 있다."}, {"k": "order", "roles": "1:① 근거 — 출생|2:② 근거 — 어린 시절|3:③ 근거 — but 뒤 주의|4:④ 근거 — 회사|5:지도 특징 — 선지에 없음|6:⑤ 근거 — 일흔 살|7:산길 이름 — 선지에 없음", "q": "선지 ①→⑤ 순서대로, 각 선지의 근거 문장을 탭하세요.", "pre": ["선지 순서 = 지문 순서", "근거 문장만 정확히 읽고 나머지는 훑는다", "숫자·요일·나이·only·not·but에 특히 주의"], "seq": [1, 2, 3, 4, 6], "h": "선지(또는 밑줄)의 핵심 단어를 지문에서 찾아요. 앞에서부터 순서대로 나와요.", "w": "근거 문장 다섯 개만 정확히 읽으면 된다. 나머지는 훑기."}, {"k": "match", "q": "선지마다 지문과 일치하는지 판정하세요.", "pre": ["but 뒤 = 실제 일어난 일 / could not find a job at first", "finally(마침내) = 오래 걸렸다는 뜻"], "rows": [["① 1921년 오리건의 작은 마을에서 태어났다", ["일치", "불일치"], 0], ["② 어린 시절 숲의 지도를 그리는 것을 좋아했다", ["일치", "불일치"], 0], ["③ 대학을 졸업하자마자 지도 제작자로 일했다", ["일치", "불일치"], 1], ["④ 등산객을 위한 지도를 만드는 회사에 들어갔다", ["일치", "불일치"], 0], ["⑤ 일흔 살에 마지막 지도를 출판했다", ["일치", "불일치"], 0]], "h": "③의 근거 문장 but 뒤를 보세요: could not find a job ~ at first.", "w": "인물 글 함정 1순위: but · at first · finally가 있는 문장을 반대로 바꾼 선지."}, {"k": "final", "q": "Elena Brooks에 관한 다음 글의 내용과 일치하지 않는 것은?", "o": ["① 1921년 오리건의 작은 마을에서 태어났다.", "② 어린 시절 숲의 지도를 그리는 것을 좋아했다.", "③ 대학을 졸업하자마자 지도 제작자로 일했다.", "④ 등산객을 위한 지도를 만드는 회사에 들어갔다.", "⑤ 일흔 살에 마지막 지도를 출판했다."], "a": 2, "h": "but 뒤"}], "after": {"opts": [["① 1921년 오리건", "✔"], ["② 숲 지도 그리기", "✔"], ["③ 졸업하자마자 지도 제작자", "✘ could not find a job as a mapmaker at first — 처음엔 일자리를 못 구함 (1950년에야 finally)"], ["④ 등산객 지도 회사", "✔ a small company that made maps for hikers"], ["⑤ 일흔 살 마지막 지도", "✔ at the age of seventy"]], "link": [["but she could not find a job ~ at first", "③ 정답 (뒤집힘)"], ["In 1950, she finally joined ~", "③을 한 번 더 확인"]], "note": "인물 글은 연도 순서 = 선지 순서. but · at first · finally · never가 있는 문장은 반드시 정확히 읽는다.", "tr": ""},"blocks":[{"s": [["Elena Brooks was born in 1921 in a small town in Oregon.", "Elena Brooks는 1921년 오리건의 작은 마을에서 태어났다."], ["As a child, she loved drawing maps of the forests near her home.", "어린 시절 그녀는 집 근처 숲의 지도를 그리는 것을 좋아했다."], ["She studied geography in college, but she could not find a job as a mapmaker at first because few companies hired women.", "그녀는 대학에서 지리학을 공부했지만, 여성을 고용하는 회사가 거의 없어서 처음에는 지도 제작자로 일자리를 구하지 못했다.", "but 뒤 = 선지 뒤집기 단골 / at first = 처음에는"], ["In 1950, she finally joined a small company that made maps for hikers.", "1950년, 그녀는 마침내 등산객을 위한 지도를 만드는 작은 회사에 들어갔다.", "finally = 마침내 (오래 걸렸다)"], ["Her maps were famous for showing trails in clear, simple colors.", "그녀의 지도는 등산로를 선명하고 단순한 색으로 보여 주는 것으로 유명했다."], ["She never stopped working, and she published her last map at the age of seventy.", "그녀는 일을 멈추지 않았고, 일흔 살에 마지막 지도를 출판했다."], ["Today, a mountain path in Oregon is named after her.", "오늘날 오리건의 한 산길은 그녀의 이름을 따서 지어졌다."]]}]},
+{"id": "b1", "src": "b1", "chip": "도표 1", "tag": "25번형 · 도표", "type": "도표", "title": "도표 — 숫자 비교 하나씩", "formula": ["선지(문장)의 숫자 비교부터 계산한다 — 표를 먼저 다 읽지 않는다", "비교 표현을 정확히: more than / less than / twice / the highest / decreased as ~"], "steps": [{"k": "choice", "q": "도표 문제에서 가장 먼저 할 일은?", "o": ["선지 문장의 숫자 비교를 하나씩 표에서 계산한다", "표 전체를 먼저 다 해석한다"], "a": 0, "h": "선지 다섯 개만 확인하면 끝나요. 표를 다 볼 필요는 없어요.", "w": "선지 하나 = 계산 하나. 틀린 비교 표현 하나만 찾으면 된다."}, {"k": "order", "roles": "1:도입 — 훑기|2:① — 표에서 계산|3:② — 표에서 계산|4:③ — 표에서 계산|5:④ — 표에서 계산|6:⑤ — 표에서 계산", "q": "선지 ①→⑤ 순서대로, 각 선지의 근거 문장을 탭하세요.", "pre": ["선지 ①~⑤가 각각 하나의 문장이다", "문장마다 표에서 해당 숫자만 찾아 계산한다"], "seq": [2, 3, 4, 5, 6], "h": "선지(또는 밑줄)의 핵심 단어를 지문에서 찾아요. 앞에서부터 순서대로 나와요.", "w": "근거 문장 다섯 개만 정확히 읽으면 된다. 나머지는 훑기."}, {"k": "match", "q": "선지 문장마다 표와 맞는지 판정하세요.", "pre": ["선지마다 표의 숫자 두 개를 찾아 비교", "twice = 두 배 / more than twice = 두 배보다 많다"], "rows": [["In every grade, the percentage of students using smartphones…", ["맞다", "틀리다"], 0], ["The percentage of students using smartphones for less than 1…", ["맞다", "틀리다"], 0], ["Among 3rd-grade middle school students, the percentage of th…", ["맞다", "틀리다"], 0], ["For 1st-grade high school students, the percentage using sma…", ["맞다", "틀리다"], 0], ["The percentage of 2nd-grade middle school students using sma…", ["맞다", "틀리다"], 1]], "h": "표에서 그 줄·그 칸 숫자를 찾아 직접 비교해 보세요.", "w": "틀린 문장은 하나 — 비교 방향이나 배수를 바꿔 놓았다."}, {"k": "choice", "q": "③ more than twice가 맞는지 계산하면? (중3: 3시간 초과 38, 1시간 미만 15)", "o": ["맞다 — 15의 두 배는 30, 38은 30보다 많다", "틀리다 — 38은 15의 두 배가 아니다"], "a": 0, "h": "more than twice = 두 배보다 많다. 15 × 2 = ?", "w": "배수 문장은 곱해서 확인한다. 38 > 30 → 맞다"}, {"k": "final", "q": "다음 도표의 내용과 일치하지 않는 것은?", "o": ["①", "②", "③", "④", "⑤"], "a": 4, "h": "숫자 비교가 틀린 문장"}], "after": {"opts": [["① 1~3시간 모두 40% 초과", "✔ 50·51·47·42"], ["② 1시간 미만 감소", "✔ 30→22→15→10"], ["③ 중3 두 배 초과", "✔ 38 > 15×2=30"], ["④ 고1 3시간 초과 최고", "✔ 48 > 42 > 10"], ["⑤ 중2가 중1보다 낮다", "✘ 27 > 20 — 더 높다 (비교 방향 뒤집기)"]], "link": [["less than that of ~", "⑤ 비교 방향"], ["more than twice", "③ 배수 계산"]], "note": "도표는 선지 문장 다섯 개만 계산하면 끝난다. 비교 방향(more/less), 배수(twice), 최상급(the highest)을 표의 숫자로 직접 확인.", "tr": ""},"blocks":[{"l": "Daily Smartphone Use Time of Students by Grade (2025)", "tbl": {"head": ["Grade", "Less than 1 hour", "1–3 hours", "More than 3 hours"], "rows": [["Middle school 1st", "30", "50", "20"], ["Middle school 2nd", "22", "51", "27"], ["Middle school 3rd", "15", "47", "38"], ["High school 1st", "10", "42", "48"]], "unit": "(unit: %)"}, "s": []}, {"s": [["The table above shows how much time students spent on their smartphones each day in 2025, by grade.", "위 표는 2025년 학년별 학생들의 하루 스마트폰 사용 시간을 보여 준다."], ["① In every grade, the percentage of students using smartphones for 1–3 hours was higher than 40%.", "① 모든 학년에서 하루 1~3시간 사용하는 학생 비율이 40%보다 높았다."], ["② The percentage of students using smartphones for less than 1 hour decreased as the grade went up.", "② 1시간 미만 사용 학생 비율은 학년이 올라갈수록 줄었다."], ["③ Among 3rd-grade middle school students, the percentage of those using smartphones for more than 3 hours was more than twice that of those using them for less than 1 hour.", "③ 중3에서 3시간 넘게 쓰는 비율은 1시간 미만 쓰는 비율의 두 배보다 많았다."], ["④ For 1st-grade high school students, the percentage using smartphones for more than 3 hours was the highest among the three time groups.", "④ 고1에서는 3시간 넘게 쓰는 비율이 세 시간대 중 가장 높았다."], ["⑤ The percentage of 2nd-grade middle school students using smartphones for more than 3 hours was less than that of 1st-grade middle school students.", "⑤ 중2의 3시간 초과 비율은 중1보다 낮았다."]]}]},
+{"id": "b2", "src": "b2", "chip": "도표 2", "tag": "25번형 · 도표", "type": "도표", "title": "도표 — 두 해 비교", "formula": ["선지(문장)의 숫자 비교부터 계산한다 — 표를 먼저 다 읽지 않는다", "비교 표현을 정확히: more than / less than / twice / the highest / decreased as ~"], "steps": [{"k": "choice", "q": "도표 문제에서 가장 먼저 할 일은?", "o": ["선지 문장의 숫자 비교를 하나씩 표에서 계산한다", "표 전체를 먼저 다 해석한다"], "a": 0, "h": "선지 다섯 개만 확인하면 끝나요. 표를 다 볼 필요는 없어요.", "w": "선지 하나 = 계산 하나. 틀린 비교 표현 하나만 찾으면 된다."}, {"k": "order", "roles": "1:도입 — 훑기|2:① — 표에서 계산|3:② — 표에서 계산|4:③ — 표에서 계산|5:④ — 표에서 계산|6:⑤ — 표에서 계산", "q": "선지 ①→⑤ 순서대로, 각 선지의 근거 문장을 탭하세요.", "pre": ["선지 ①~⑤가 각각 하나의 문장이다", "문장마다 표에서 해당 숫자만 찾아 계산한다"], "seq": [2, 3, 4, 5, 6], "h": "선지(또는 밑줄)의 핵심 단어를 지문에서 찾아요. 앞에서부터 순서대로 나와요.", "w": "근거 문장 다섯 개만 정확히 읽으면 된다. 나머지는 훑기."}, {"k": "match", "q": "선지 문장마다 표와 맞는지 판정하세요.", "pre": ["선지마다 표의 숫자 두 개를 찾아 비교", "twice = 두 배 / more than twice = 두 배보다 많다"], "rows": [["In 2025, watching videos was the most popular way to spend w…", ["맞다", "틀리다"], 0], ["The percentage of teenagers who chose playing sports in 2015…", ["맞다", "틀리다"], 0], ["Meeting friends was the most popular activity in 2015, but i…", ["맞다", "틀리다"], 0], ["The percentage of teenagers who chose playing games in 2025 …", ["맞다", "틀리다"], 1], ["Reading was the least popular activity in both years.", ["맞다", "틀리다"], 0]], "h": "표에서 그 줄·그 칸 숫자를 찾아 직접 비교해 보세요.", "w": "틀린 문장은 하나 — 비교 방향이나 배수를 바꿔 놓았다."}, {"k": "choice", "q": "④ twice that in 2015가 맞는지 계산하면? (게임: 2015년 15, 2025년 20)", "o": ["틀리다 — 15의 두 배는 30인데 20이다", "맞다 — 20은 15보다 크다"], "a": 0, "h": "twice = 정확히 두 배. 15 × 2 = ?", "w": "\"크다\"와 \"두 배\"는 다르다. 20 ≠ 30"}, {"k": "final", "q": "다음 도표의 내용과 일치하지 않는 것은?", "o": ["①", "②", "③", "④", "⑤"], "a": 3, "h": "숫자 비교가 틀린 문장"}], "after": {"opts": [["① 2025 영상 1위", "✔ 34"], ["② 운동 2015 > 2025", "✔ 22 > 15"], ["③ 친구 2015 1위 → 2025 2위", "✔ 28 / 24(영상 34 다음)"], ["④ 게임 두 배", "✘ 15 → 20, 두 배(30)가 아니다"], ["⑤ 독서 두 해 모두 꼴찌", "✔ 10 · 7"]], "link": [["twice that in 2015", "④ 배수 함정"], ["ranked second", "③ 순위 확인"]], "note": "두 해 비교 도표는 \"증가했다\"와 \"두 배가 됐다\"를 구별한다. 순위(ranked second)는 그 해 숫자를 모두 비교해야 한다.", "tr": ""},"blocks":[{"l": "Favorite Ways to Spend Weekends among Teenagers (2015 vs 2025)", "tbl": {"head": ["Activity", "2015", "2025"], "rows": [["Watching videos", "25", "34"], ["Playing sports", "22", "15"], ["Meeting friends", "28", "24"], ["Playing games", "15", "20"], ["Reading", "10", "7"]], "unit": "(unit: %)"}, "s": []}, {"s": [["The table above shows teenagers’ favorite ways to spend weekends in 2015 and 2025.", "위 표는 2015년과 2025년 십 대들이 가장 좋아하는 주말 보내는 방법을 보여 준다."], ["① In 2025, watching videos was the most popular way to spend weekends.", "① 2025년에는 영상 보기가 가장 인기 있는 주말 활동이었다."], ["② The percentage of teenagers who chose playing sports in 2015 was more than that in 2025.", "② 운동하기를 고른 비율은 2015년이 2025년보다 높았다."], ["③ Meeting friends was the most popular activity in 2015, but it ranked second in 2025.", "③ 친구 만나기는 2015년에 1위였지만 2025년에는 2위였다."], ["④ The percentage of teenagers who chose playing games in 2025 was twice that in 2015.", "④ 게임하기를 고른 비율은 2025년이 2015년의 두 배였다."], ["⑤ Reading was the least popular activity in both years.", "⑤ 독서는 두 해 모두 가장 인기가 낮았다."]]}]},
+{"id": "c44", "src": "c44", "chip": "44 지칭", "tag": "44번형 · 장문 지칭", "type": "지칭", "title": "지칭 — 바로 앞 인물, 따옴표 안 I · you", "formula": ["등장인물부터 정리한다 (Mina · Jiho · Ms. Park)", "(a)~(e) 바로 앞 문장의 인물을 본다 / 따옴표 안 I = 말하는 사람, you = 듣는 사람"], "steps": [{"k": "choice", "q": "지칭 문제에서 가장 먼저 할 일은?", "o": ["등장인물을 정리하고, (a)~(e) 바로 앞에 나온 인물부터 본다", "(a)~(e)를 모두 첫 번째 인물로 생각한다"], "a": 0, "h": "따옴표 안의 I·you는 말하는 사람·듣는 사람이에요. 바로 앞 인물부터 확인!", "w": "등장인물 정리 → (a)~(e) 바로 앞 인물 → 따옴표 안 I/you 확인"}, {"k": "order", "roles": "1:배경 — 훑기|2:(a)|3:대사 — 훑기|4:배경 — 훑기|5:(b)|6:전환 — 지호 등장|7:(c)|8:훑기|9:훑기|10:훑기|11:(d)|12:훑기|13:대사 — 훑기|14:훑기|15:(e)", "q": "(a)→(e) 순서대로, 밑줄이 있는 문장을 탭하세요.", "pre": ["(a)~(e)가 들어 있는 문장만 먼저 읽는다", "각 밑줄 바로 앞에 나온 인물을 확인한다"], "seq": [2, 5, 7, 11, 15], "h": "선지(또는 밑줄)의 핵심 단어를 지문에서 찾아요. 앞에서부터 순서대로 나와요.", "w": "근거 문장 다섯 개만 정확히 읽으면 된다. 나머지는 훑기."}, {"k": "match", "q": "(a)~(e)가 가리키는 인물을 고르세요.", "pre": ["(a)~(e) 바로 앞에 나온 인물", "따옴표 안 you = 듣는 사람"], "rows": [["(a) her", ["Mina", "Jiho"], 0], ["(b) she", ["Mina", "Jiho"], 0], ["(c) his", ["Mina", "Jiho"], 1], ["(d) her", ["Mina", "Jiho"], 0], ["(e) yourself", ["Mina", "Jiho"], 0]], "h": "(c) 바로 앞 문장의 주어는 He — 그 He는 누구?", "w": "(c)만 지호, 나머지는 모두 미나"}, {"k": "final", "q": "밑줄 친 (a)~(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?", "o": ["① (a)", "② (b)", "③ (c)", "④ (d)", "⑤ (e)"], "a": 2, "h": "(c) his"}], "after": {"opts": [["(a) her", "Mina — 지호가 옆에 앉은 대상"], ["(b) she", "Mina — 첫 음을 잊음"], ["(c) his", "✘ Jiho — 앞 문장 He was smiling"], ["(d) her", "Mina — 박 선생님이 안아 줌"], ["(e) yourself", "Mina — 지호의 말 속 you = 미나"]], "link": [["Then she saw Jiho → He was smiling ~ his knee", "(c) = Jiho"], ["“You did it all by yourself,” he answered", "(e) 따옴표 안 you = 듣는 미나"]], "note": "지칭은 (a)~(e)가 든 문장만 읽고 바로 앞 인물을 확인한다. 따옴표가 나오면 말하는 사람과 듣는 사람을 먼저 정한다.", "tr": ""},"blocks":SB},
+{"id": "c45", "src": "c45", "chip": "45 일치", "tag": "45번형 · 장문 내용 불일치", "type": "일치", "title": "장문 내용 불일치 — 장면 순서 = 선지 순서", "formula": ["선지 순서 = 지문 순서 — 선지 ①→⑤ 순서대로 지문을 따라가며 근거 문장만 정확히 읽는다", "함정 단어: 숫자·요일·나이 / only · not · never · but · except / or(둘 중 하나)"], "preview": 1, "steps": [{"k": "choice", "q": "일치·불일치 문제에서 가장 먼저 할 일은?", "o": ["선지를 먼저 훑고, 선지 순서대로 지문에서 근거를 찾는다", "지문을 처음부터 끝까지 해석한 뒤 선지를 본다"], "a": 0, "h": "선지 순서와 지문 순서는 같아요. 선지가 지도예요.", "w": "선지 ①의 근거는 지문 앞쪽, ⑤의 근거는 지문 뒤쪽에 있다."}, {"k": "order", "roles": "1:① 근거 — 몇 주 연습|2:② 근거 — 지호가 알아챔|3:대사 — 훑기|4:훑기|5:③ 근거 — 첫 음|6:훑기|7:훑기|8:훑기|9:훑기|10:④ 근거 — 청중 반응|11:⑤ 근거 — 선생님 말|12:훑기|13:훑기|14:훑기|15:훑기", "q": "선지 ①→⑤ 순서대로, 각 선지의 근거 문장을 탭하세요.", "pre": ["선지 순서 = 지문 순서", "근거 문장만 정확히 읽고 나머지는 훑는다", "숫자·요일·나이·only·not·but에 특히 주의"], "seq": [1, 2, 5, 10, 11], "h": "선지(또는 밑줄)의 핵심 단어를 지문에서 찾아요. 앞에서부터 순서대로 나와요.", "w": "근거 문장 다섯 개만 정확히 읽으면 된다. 나머지는 훑기."}, {"k": "match", "q": "선지마다 지문과 일치하는지 판정하세요.", "pre": ["동작 단어(stood up, sat) 정확히", "장면 순서 = 선지 순서"], "rows": [["① 미나는 몇 주 동안 피아노 곡을 연습했다", ["일치", "불일치"], 0], ["② 지호는 미나의 손이 떨리는 것을 알아차렸다", ["일치", "불일치"], 0], ["③ 미나는 무대에서 첫 음을 잠시 잊었다", ["일치", "불일치"], 0], ["④ 공연이 끝나자 청중은 자리에 앉은 채 박수를 쳤다", ["일치", "불일치"], 1], ["⑤ 박 선생님은 미나에게 자랑스럽다고 말했다", ["일치", "불일치"], 0]], "h": "④ 근거 문장: the audience stood up and clapped — stood up은?", "w": "④ 앉은 채 ✘ → stood up(일어섰다)"}, {"k": "final", "q": "윗글의 내용으로 적절하지 않은 것은?", "o": ["① 미나는 몇 주 동안 피아노 곡을 연습했다.", "② 지호는 미나의 손이 떨리는 것을 알아차렸다.", "③ 미나는 무대에서 첫 음을 잠시 잊었다.", "④ 공연이 끝나자 청중은 자리에 앉은 채 박수를 쳤다.", "⑤ 박 선생님은 미나에게 자랑스럽다고 말했다."], "a": 3, "h": "stood up"}], "after": {"opts": [["① 몇 주 연습", "✔ for weeks"], ["② 지호가 알아챔", "✔ Jiho noticed"], ["③ 첫 음을 잊음", "✔ forgot the first note"], ["④ 앉은 채 박수", "✘ stood up and clapped — 일어서서"], ["⑤ 자랑스럽다", "✔ I’m so proud of you"]], "link": [["the audience stood up and clapped", "④ 동작 뒤집기"]], "note": "장문 일치는 단락 (A)→(D) 순서 = 선지 순서. 동작·감정 단어 하나를 뒤집은 선지가 정답이 된다.", "tr": ""},"blocks":SB},
+{"id": "d1", "src": "d1", "chip": "안내문 3", "tag": "27번형 · 실용문 불일치", "type": "일치", "title": "모고형 — 안내문 불일치", "formula": ["선지 순서 = 지문 순서 — 선지 ①→⑤ 순서대로 지문을 따라가며 근거 문장만 정확히 읽는다", "함정 단어: 숫자·요일·나이 / only · not · never · but · except / or(둘 중 하나)"], "preview": 1, "steps": [{"k": "choice", "q": "일치·불일치 문제에서 가장 먼저 할 일은?", "o": ["선지를 먼저 훑고, 선지 순서대로 지문에서 근거를 찾는다", "지문을 처음부터 끝까지 해석한 뒤 선지를 본다"], "a": 0, "h": "선지 순서와 지문 순서는 같아요. 선지가 지도예요.", "w": "선지 ①의 근거는 지문 앞쪽, ⑤의 근거는 지문 뒤쪽에 있다."}, {"k": "order", "roles": "1:제목 — 훑기|2:① 근거 — 주제|3:② 근거 — 나이|4:③ 근거 — 장수|5:④ 근거 — 보정 금지|6:상품 — 선지에 없음|7:⑤ 근거 — 발표", "q": "선지 ①→⑤ 순서대로, 각 선지의 근거 문장을 탭하세요.", "pre": ["선지 순서 = 지문 순서", "근거 문장만 정확히 읽고 나머지는 훑는다", "숫자·요일·나이·only·not·but에 특히 주의"], "seq": [2, 3, 4, 5, 7], "h": "선지(또는 밑줄)의 핵심 단어를 지문에서 찾아요. 앞에서부터 순서대로 나와요.", "w": "근거 문장 다섯 개만 정확히 읽으면 된다. 나머지는 훑기."}, {"k": "match", "q": "선지마다 지문과 일치하는지 판정하세요.", "pre": ["must not be edited = 보정하면 안 된다"], "rows": [["① 마을의 작은 순간이 주제이다", ["일치", "불일치"], 0], ["② 12세에서 18세의 주민이 참가할 수 있다", ["일치", "불일치"], 0], ["③ 사진은 한 장만 올릴 수 있다", ["일치", "불일치"], 0], ["④ 앱으로 보정한 사진도 제출할 수 있다", ["일치", "불일치"], 1], ["⑤ 수상자는 11월 15일에 웹사이트에서 발표된다", ["일치", "불일치"], 0]], "h": "④의 근거: must not be edited with any apps", "w": "must not 문장을 뒤집은 ④가 정답"}, {"k": "final", "q": "2026 Youth Photo Contest에 관한 다음 안내문의 내용과 일치하지 않는 것은?", "o": ["① 마을의 작은 순간이 주제이다.", "② 12세에서 18세의 주민이 참가할 수 있다.", "③ 사진은 한 장만 올릴 수 있다.", "④ 앱으로 보정한 사진도 제출할 수 있다.", "⑤ 수상자는 11월 15일에 웹사이트에서 발표된다."], "a": 3, "h": "must not"}], "after": {"opts": [["① 작은 순간", "✔"], ["② 12~18세", "✔"], ["③ 한 장", "✔ one photo"], ["④ 앱 보정 가능", "✘ must not be edited with any apps"], ["⑤ 11월 15일 발표", "✔"]], "link": [["must not be edited", "④ 정답 (뒤집힘)"]], "note": "금지(must not)·제한(only, one)은 불일치 정답 1순위.", "tr": ""},"blocks":[{"s": [["2026 Youth Photo Contest", "2026 청소년 사진 공모전"], ["Theme: “Small Moments in My Town”", "주제: \"우리 마을의 작은 순간들\""], ["Who can enter: Residents aged 12–18", "참가 대상: 12~18세 주민"], ["How to enter: Upload one photo to our website by October 31.", "참가 방법: 10월 31일까지 웹사이트에 사진 한 장을 올리세요.", "one photo = 한 장"], ["Photos must be taken in 2026 and must not be edited with any apps.", "사진은 2026년에 찍은 것이어야 하며, 어떤 앱으로도 보정해서는 안 된다.", "must not = ~하면 안 된다"], ["Prizes: 1st place – $100 gift card / 2nd place – $50 gift card", "상품: 1등 100달러 상품권 / 2등 50달러 상품권"], ["Winners will be announced on November 15 on our website.", "수상자는 11월 15일 웹사이트에서 발표된다."]]}]},
+{"id": "d2", "src": "d2", "chip": "인물 2", "tag": "26번형 · 인물 불일치", "type": "일치", "title": "모고형 — 인물 불일치", "formula": ["선지 순서 = 지문 순서 — 선지 ①→⑤ 순서대로 지문을 따라가며 근거 문장만 정확히 읽는다", "함정 단어: 숫자·요일·나이 / only · not · never · but · except / or(둘 중 하나)"], "preview": 1, "steps": [{"k": "choice", "q": "일치·불일치 문제에서 가장 먼저 할 일은?", "o": ["선지를 먼저 훑고, 선지 순서대로 지문에서 근거를 찾는다", "지문을 처음부터 끝까지 해석한 뒤 선지를 본다"], "a": 0, "h": "선지 순서와 지문 순서는 같아요. 선지가 지도예요.", "w": "선지 ①의 근거는 지문 앞쪽, ⑤의 근거는 지문 뒤쪽에 있다."}, {"k": "order", "roles": "1:① 근거 — 출생|2:② 근거 — 12살|3:③ 근거 — Although · taught himself|4:④ 근거 — 런던|5:발명 — 선지에 없음|6:⑤ 근거 — refused|7:사망·박물관 — 선지에 없음", "q": "선지 ①→⑤ 순서대로, 각 선지의 근거 문장을 탭하세요.", "pre": ["선지 순서 = 지문 순서", "근거 문장만 정확히 읽고 나머지는 훑는다", "숫자·요일·나이·only·not·but에 특히 주의"], "seq": [1, 2, 3, 4, 6], "h": "선지(또는 밑줄)의 핵심 단어를 지문에서 찾아요. 앞에서부터 순서대로 나와요.", "w": "근거 문장 다섯 개만 정확히 읽으면 된다. 나머지는 훑기."}, {"k": "match", "q": "선지마다 지문과 일치하는지 판정하세요.", "pre": ["little formal education = 정규 교육을 거의 못 받음", "taught himself = 혼자 배움"], "rows": [["① 스코틀랜드의 농촌 마을에서 태어났다", ["일치", "불일치"], 0], ["② 12살에 학교를 그만두었다", ["일치", "불일치"], 0], ["③ 대학에서 수학을 공부했다", ["일치", "불일치"], 1], ["④ 런던에서 시계 수리공으로 일했다", ["일치", "불일치"], 0], ["⑤ 자신의 발명품을 대기업에 팔지 않았다", ["일치", "불일치"], 0]], "h": "③ 근거 문장: Although he had little formal education, he taught himself ~", "w": "③ 대학 ✘ → 독학"}, {"k": "final", "q": "Thomas Reed에 관한 다음 글의 내용과 일치하지 않는 것은?", "o": ["① 스코틀랜드의 농촌 마을에서 태어났다.", "② 12살에 학교를 그만두었다.", "③ 대학에서 수학을 공부했다.", "④ 런던에서 시계 수리공으로 일했다.", "⑤ 자신의 발명품을 대기업에 팔지 않았다."], "a": 2, "h": "taught himself"}], "after": {"opts": [["① 스코틀랜드 농촌", "✔"], ["② 12살에 그만둠", "✔ left school at the age of twelve"], ["③ 대학에서 수학", "✘ little formal education, taught himself — 독학"], ["④ 시계 수리공", "✔"], ["⑤ 대기업에 안 팖", "✔ refused to sell"]], "link": [["Although ~ little formal education, he taught himself", "③ 정답 (뒤집힘)"]], "note": "Although · but 문장의 앞뒤를 바꿔 놓은 선지가 단골 정답.", "tr": ""},"blocks":[{"s": [["Thomas Reed was born in 1874 in a farming village in Scotland.", "Thomas Reed는 1874년 스코틀랜드의 농촌 마을에서 태어났다."], ["He left school at the age of twelve to help his father on the farm.", "그는 농장에서 아버지를 돕기 위해 열두 살에 학교를 그만두었다."], ["Although he had little formal education, he taught himself mathematics by reading old books at night.", "정규 교육은 거의 받지 못했지만, 그는 밤에 오래된 책을 읽으며 수학을 독학했다.", "taught himself = 독학했다 / little = 거의 없는"], ["In 1901, he moved to London and worked as a clock repairer.", "1901년 그는 런던으로 이사해 시계 수리공으로 일했다."], ["There, he invented a small device that made clocks more accurate, and it was soon used in many train stations.", "그곳에서 그는 시계를 더 정확하게 만드는 작은 장치를 발명했고, 그것은 곧 많은 기차역에서 쓰였다."], ["He refused to sell his invention to a large company because he wanted it to stay cheap.", "그는 발명품이 저렴하게 남기를 원했기 때문에 대기업에 팔기를 거절했다.", "refused to sell = 팔기를 거절했다"], ["He died in 1938, and his workshop is now a small museum.", "그는 1938년에 세상을 떠났고, 그의 작업장은 지금 작은 박물관이다."]]}]}
+];
+const SESSIONS=[{"n": "정보 확인 1", "t": "기초 — 선지가 지도다", "q": ["a1", "a2", "a3"]}, {"n": "정보 확인 2", "t": "도표 — 숫자 비교", "q": ["b1", "b2"]}, {"n": "정보 확인 3", "t": "장문 44 지칭 · 45 일치", "q": ["c44", "c45"]}, {"n": "정보 확인 4", "t": "모고형", "q": ["d1", "d2"]}];
+/* ============ DATA 구간 끝 ============ */
+/* ============ ENGINE (수정 금지) ============ */
+const KEY=EXAM.key;
+const LOCK=!!EXAM.lock;
+let MEM=null;
+function load(){try{const s=localStorage.getItem(KEY);if(s)return JSON.parse(s)}catch(e){}return MEM?JSON.parse(MEM):null}
+function save(){const s=JSON.stringify(ST);MEM=s;try{localStorage.setItem(KEY,s)}catch(e){}}
+function fresh(){return{cur:0,view:'q',tr:false,q:DATA.map(d=>({steps:d.steps.map(s=>newStep(s))}))}}
+function newStep(s){return{sel:(s.k==='tap'||s.k==='order')?[]:s.k==='match'?s.rows.map(()=>null):null,att:0,res:0,done:false,rv:false,msg:'',mt:'',bad:[]}}
+let ST=load();
+if(!ST||!ST.q||ST.q.length!==DATA.length||ST.q.some((q,i)=>q.steps.length!==DATA[i].steps.length))ST=fresh();
+const $=s=>document.querySelector(s);
+const esc=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function mk(t){return esc(t).replace(/\{\{!(\w+)\|([^}]+)\}\}/g,'<span class="cue" data-cue="$1">$2</span>').replace(/\{\{(\w+)\|([^}]+)\}\}/g,'<span class="tk" data-id="$1">$2</span>').replace(/__([^_]+)__/g,'<u>$1</u>')}
+const qDone=i=>ST.q[i].steps.every(s=>s.done);
+const unlocked=i=>!LOCK||i===0||qDone(i-1);
+const allDone=()=>DATA.every((d,i)=>qDone(i));
+const active=i=>ST.q[i].steps.findIndex(s=>!s.done);
+function color(d){return TYPE_COLOR[d.type]||'#1E2330'}
+
+const SS=(typeof SESSIONS!=='undefined'&&SESSIONS.length)?SESSIONS:[{n:'전체',t:'',q:DATA.map(d=>d.src)}];
+const sessIdx=i=>Math.max(0,SS.findIndex(s=>s.q.includes(DATA[i].src)));
+const sessQ=k=>SS[k].q.map(src=>DATA.findIndex(d=>d.src===src)).filter(x=>x>=0);
+const sessDone=k=>sessQ(k).every(i=>qDone(i));
+const sessNum=k=>(SS[k].n.match(/\d+/)||[String(k+1)])[0];
+if(!ST.q.some(q=>q.steps.some(s=>s.done))&&ST.view==='q'&&!SS[0].q.includes(DATA[ST.cur].src))ST.cur=sessQ(0)[0];
+if(ST.sess===undefined||ST.sess>=SS.length)ST.sess=sessIdx(ST.cur||0);
+function chips(){
+ const c=$('#chips');c.innerHTML='';
+ if(SS.length>1){const row=document.createElement('div');row.className='srow';
+  SS.forEach((s,k)=>{const b=document.createElement('button');b.className='stab'+(ST.sess===k?' on':'')+(sessDone(k)?' done':'');b.disabled=LOCK&&k>0&&!sessDone(k-1);b.innerHTML=`<b>${esc(s.n)}</b><span>${esc(s.t)}</span>`;b.onclick=()=>{ST.sess=k;const L=sessQ(k);const nd=L.find(i=>!qDone(i));ST.cur=nd===undefined?L[0]:nd;ST.view='q';save();render();window.scrollTo({top:0})};row.appendChild(b)});c.appendChild(row)}
+ const row2=document.createElement('div');row2.className='qrow';const L=sessQ(ST.sess);
+ L.forEach((i,j)=>{const d=DATA[i];const b=document.createElement('button');b.className='chip'+(ST.view==='q'&&ST.cur===i?' on':'')+(qDone(i)?' done':'');b.style.setProperty('--c',color(d));b.disabled=LOCK&&j>0&&!qDone(L[j-1]);b.innerHTML=`<span class="dot"></span>${d.chip?esc(d.chip):d.src+'번'}`;b.setAttribute('aria-label',`${d.src}번 ${d.type}`);b.onclick=()=>{ST.view='q';ST.cur=i;save();render();window.scrollTo({top:0})};row2.appendChild(b)});
+ const r=document.createElement('button');r.className='chip res'+(ST.view==='sum'?' on':'');r.textContent=SS.length>1?SS[ST.sess].n+' 결과':'결과';r.disabled=LOCK&&!sessDone(ST.sess);r.onclick=()=>{ST.view='sum';save();render()};row2.appendChild(r);c.appendChild(row2);
+ const tot=L.reduce((a,i)=>a+DATA[i].steps.length,0),dn=L.reduce((a,i)=>a+ST.q[i].steps.filter(s=>s.done).length,0);
+ $('#bar').style.width=(tot?dn/tot*100:0)+'%';
+}
+function twoTap(b,msg,fn){if(!b)return;b.onclick=()=>{if(b.dataset.arm==='1'){fn();return}b.dataset.arm='1';const t=b.textContent;b.textContent=msg;b.classList.add('arm');setTimeout(()=>{if(b.isConnected&&b.dataset.arm==='1'){b.dataset.arm='';b.textContent=t;b.classList.remove('arm')}},4000)}}
+function render(){if(ST.view==='q')ST.sess=sessIdx(ST.cur);chips();if(ST.view==='sum')return renderSum();renderQ(ST.cur)}
+
+function tblHTML(b){const t=b.tbl;return `<div class="tblw">${b.l?`<div class="tblt">${esc(b.l)}</div>`:''}<table class="dt"><thead><tr>${t.head.map(x=>`<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${t.rows.map(r=>`<tr>${r.map((x,ci)=>`<td${ci?' class="n"':''}>${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table>${t.unit?`<div class="tblu">${esc(t.unit)}</div>`:''}</div>`}
+function renderQ(i){
+ const d=DATA[i],q=ST.q[i],m=$('#main');const a=active(i);
+ let h=`<section style="--c:${color(d)}"><div class="qhead"><span class="badge">${d.type}</span><h2>${esc(d.title)}</h2><span class="src">${d.tag?esc(d.tag):'원 문항 '+d.src+'번 변형'}</span>${q.steps.some(s=>s.done||s.att)?`<button class="btn ghost redo1" id="redo1">이 문제 처음부터 다시 풀기</button>`:''}</div>`;
+ h+=`<div class="formula">${d.formula.map(f=>`<div>${esc(f)}</div>`).join('')}</div>`;
+ const finDone=(()=>{const fk=d.steps.findIndex(x=>x.k==='final');return fk>=0&&q.steps[fk].done})();
+ if(finDone)h+=`<div class="trbar"><button class="btn ghost" id="trbtn">${ST.tr?'문장별 해석 끄기':'문장별 해석 켜기'}</button><span>영어 한 문장 ↔ 해석 한 줄 + 구문 포인트</span></div>`;
+ const showTr=ST.tr&&finDone;let n=0;
+ h+=`<div class="paper${showTr?' tron':''}" id="psg">${d.blocks.map(b=>showTr
+  ?(b.tbl?tblHTML(b):`<div class="blk2${b.g?' given':''}">${b.l?`<span class="lab">${esc(b.l)}</span>`:''}${b.s.map(x=>{n++;return `<div class="pair"><div class="en"><span class="sn">${n}</span>${mk(x[0])}</div><div class="kr">${esc(x[1])}</div>${x[2]?`<div class="nt">구문  ${esc(x[2])}</div>`:''}</div>`}).join('')}</div>`)
+  :(b.tbl?tblHTML(b):`<p class="blk${b.g?' given':''}">${b.l?`<span class="lab">${esc(b.l)}</span>`:''}${b.s.map(x=>{n++;return `<span class="sen" data-sn="${n}">${mk(x[0])}</span>`}).join(' ')}</p>`)).join('')}</div>`;
+ if(d.preview&&!qDone(i)){const fo=d.steps.find(x=>x.k==='final').o;h+=`<div class="pv"><div class="pvh">선지 미리 보기 — 고르기는 마지막 단계에서</div>${fo.map(o=>`<div class="pvo">${esc(o)}</div>`).join('')}</div>`}
+ d.steps.forEach((s,k)=>{h+=stepHTML(i,k,a)});
+ if(qDone(i))h+=afterHTML(d);
+ if(qDone(i)){h+=`<div class="next">${(()=>{const L=sessQ(sessIdx(i)),j=L.indexOf(i);return j<L.length-1?`<button class="btn" id="nx">다음 문제 (${DATA[L[j+1]].src}번)</button>`:`<button class="btn" id="nx">${SS.length>1?esc(SS[sessIdx(i)].n)+' 결과 보기':'결과 보기'}</button>`})()}</div>`}
+ h+='</section>';m.innerHTML=h;
+ paintPassage(i);bind(i);
+}
+function stepHTML(i,k,a){
+ const d=DATA[i],s=d.steps[k],st=ST.q[i].steps[k];
+ const lock=!st.done&&k!==a;
+ const title=s.k==='final'?s.q:s.q;
+ if(lock)return `<div class="step lock"><div class="shd"><span class="num">${k+1}</span><span class="sq">${s.k==='final'?'정답 고르기':'잠김'} — 앞 단계를 맞히면 열린다</span></div></div>`;
+ let b='';
+ if(s.k==='choice'||s.k==='final'){
+  b=`<div class="opts">${s.o.map((o,j)=>{let c='opt';if(st.done&&j===s.a)c+=' pick';else if(!st.done&&st.bad.includes(j))c+=' no';if(!st.done&&st.rv&&j===s.a)c+=' show';return `<button class="${c}" data-s="${k}" data-o="${j}" ${st.done?'disabled':''}>${esc(o)}</button>`}).join('')}</div>`;
+ }else if(s.k==='tap'){
+  b=`<p class="tapnote">${st.done?'찾은 단서가 지문에 밑줄로 남아 있다.':'위 지문에서 해당 부분을 탭한 뒤 확인을 누르세요. 다시 탭하면 취소된다.'}</p>${st.done?'':`<button class="btn" data-chk="${k}">확인</button>`}`;
+ }else if(s.k==='order'){
+  const lab=st.sel.length?st.sel.map(n=>n+'번째').join(' → '):'아직 안 고름';
+  b=st.done?`<p class="tapnote">지문에 읽는 순서 번호가 남아 있다.</p>`:`<p class="tapnote">위 지문에서 문장을 순서대로 탭하세요. 다시 탭하면 빠진다.</p><div class="seqv">선택: ${esc(lab)}</div><button class="btn" data-chk="${k}">확인</button> <button class="btn ghost" data-clr="${k}">다시 고르기</button>`;
+ }else if(s.k==='match'){
+  b=s.rows.map((r,ri)=>{const v=st.sel[ri];const x=!st.done&&st.bad.includes(ri);return `<div class="mrow"><div class="mlab${x?' x':''}">${esc(r[0])}</div><div class="rchips">${r[1].map((o,j)=>{let c='rchip';if(v===j)c+=' sel';if(!st.done&&st.rv&&j===r[2]&&v!==j)c+=' show';return `<button class="${c}" data-s="${k}" data-r="${ri}" data-o="${j}" ${st.done?'disabled':''}>${esc(o)}</button>`}).join('')}</div></div>`}).join('')+(st.done?'':`<button class="btn" data-chk="${k}">확인</button>`);
+ }
+ let msg='';
+ if(st.done){msg=`<div class="msg ok">${st.res===1?'한 번에 정답!':st.res===2?'힌트 보고 정답.':'정답 확인 후 직접 해결.'}${s.w?' '+esc(s.w):''}</div>`}
+ else if(st.msg){msg=`<div class="msg ${st.mt}">${esc(st.msg)}</div>`}
+ const pre=s.pre?`<div class="pre">${s.pre.map(l=>`<div>${esc(l)}</div>`).join('')}</div>`:'';
+ return `<div class="step${st.done?' ok':''}" id="st${k}"><div class="shd"><span class="num">${k+1}</span><span class="sq">${esc(title)}</span></div><div class="sbody">${pre}${b}${msg}</div></div>`;
+}
+function paintPassage(i){
+ const d=DATA[i],q=ST.q[i],a=active(i);
+ const found=new Set();d.steps.forEach((s,k)=>{if(s.k==='tap'&&q.steps[k].done)s.a.forEach(x=>found.add(x))});
+ const s=a>=0?d.steps[a]:null,st=a>=0?q.steps[a]:null;
+ document.querySelectorAll('#psg .sen').forEach(el=>{const n=+el.dataset.sn;el.className='sen';delete el.dataset.pick;delete el.dataset.ord;
+  if(s&&s.k==='order'){el.classList.add('scand');const p=st.sel.indexOf(n);if(p>=0){el.classList.add('spick');el.dataset.pick=s.any?'✓':String(p+1)}if(st.rv&&!st.sel.includes(n)&&s.seq.includes(n))el.classList.add('sshow')}
+  if(!(s&&s.k==='order'))d.steps.forEach((s2,k2)=>{if(s2.k!=='order'||!q.steps[k2].done)return;const R={};(s2.roles||'').split('|').forEach(x=>{const p=x.indexOf(':');if(p>0)R[+x.slice(0,p)]=x.slice(p+1)});
+   if(s2.seq.includes(n)){el.classList.add('key');el.dataset.ord=(s2.any?'':(s2.seq.indexOf(n)+1)+' ')+(R[n]||'읽기')}else if(R[n]){el.classList.add('skip');el.dataset.ord=R[n]}});
+ });
+ document.querySelectorAll('#psg .cue').forEach(el=>{el.classList.toggle('on',!!(s&&s.cue&&s.cue.includes(el.dataset.cue)))});
+ document.querySelectorAll('#psg .tk').forEach(el=>{
+  const id=el.dataset.id;el.className='tk';delete el.dataset.bn;el.removeAttribute('tabindex');el.removeAttribute('role');
+  if(found.has(id))el.classList.add('found');
+  if(s&&s.k==='tap'&&s.c.includes(id)){el.classList.add('cand');if(s.box){el.classList.add('box');el.dataset.bn=s.c.indexOf(id)+1}else delete el.dataset.bn;el.tabIndex=0;el.setAttribute('role','button');
+   if(st.sel.includes(id))el.classList.add('sel');
+   if(st.rv&&s.a.includes(id)&&!st.sel.includes(id))el.classList.add('show');
+   if(st.bad.includes(id)&&!st.sel.includes(id))el.classList.add('wrong');}
+ });
+}
+function bind(i){
+ const d=DATA[i],q=ST.q[i];
+ document.querySelectorAll('#psg .tk').forEach(el=>{
+  const f=()=>{const a=active(i);if(a<0)return;const s=d.steps[a];if(s.k!=='tap'||!s.c.includes(el.dataset.id))return;const st=q.steps[a];const id=el.dataset.id;st.bad=st.bad.filter(x=>x!==id);
+   st.sel=st.sel.includes(id)?st.sel.filter(x=>x!==id):[...st.sel,id];paintPassage(i)};
+  el.onclick=f;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();f()}};
+ });
+ document.querySelectorAll('#psg .sen').forEach(el=>{el.addEventListener('click',()=>{const a=active(i);if(a<0)return;const s=d.steps[a];if(s.k!=='order')return;const st=q.steps[a];const n=+el.dataset.sn;st.sel=st.sel.includes(n)?st.sel.filter(x=>x!==n):[...st.sel,n];st.msg='';renderKeep(i,a)})});
+ document.querySelectorAll('[data-clr]').forEach(b=>b.onclick=()=>{const k=+b.dataset.clr;q.steps[k].sel=[];renderKeep(i,k)});
+ document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=+b.dataset.s,j=+b.dataset.o;const st=q.steps[k];st.sel=j;check(i,k)});
+ document.querySelectorAll('.rchip').forEach(b=>b.onclick=()=>{const k=+b.dataset.s,r=+b.dataset.r,j=+b.dataset.o;const st=q.steps[k];st.sel[r]=j;st.bad=st.bad.filter(x=>x!==r);renderKeep(i,k)});
+ document.querySelectorAll('[data-chk]').forEach(b=>b.onclick=()=>check(i,+b.dataset.chk));
+ const tb=$('#trbtn');if(tb)tb.onclick=()=>{ST.tr=!ST.tr;save();renderKeep(i,0)};
+ twoTap($('#redo1'),'한 번 더 누르면 처음부터',()=>{ST.q[i]={steps:d.steps.map(s=>newStep(s))};ST.view='q';save();render();window.scrollTo({top:0,behavior:'smooth'})});
+ const nx=$('#nx');if(nx)nx.onclick=()=>{const L=sessQ(sessIdx(i)),j=L.indexOf(i);if(j<L.length-1){ST.cur=L[j+1];ST.view='q'}else ST.view='sum';save();render();window.scrollTo({top:0,behavior:'smooth'})};
+}
+function renderKeep(i,k){const y=window.scrollY;renderQ(i);chips();window.scrollTo(0,y)}
+function check(i,k){
+ const s=DATA[i].steps[k],st=ST.q[i].steps[k];let ok=false;
+ if(s.k==='choice'||s.k==='final'){ok=st.sel===s.a;if(!ok&&!st.bad.includes(st.sel))st.bad.push(st.sel)}
+ else if(s.k==='tap'){const A=new Set(s.a),S=new Set(st.sel);ok=A.size===S.size&&[...A].every(x=>S.has(x));if(!ok){st.bad=st.sel.filter(x=>!A.has(x));st.sel=st.sel.filter(x=>A.has(x))}}
+ else if(s.k==='order'){if(s.any){const A=new Set(s.seq),S=new Set(st.sel);ok=A.size===S.size&&[...A].every(x=>S.has(x));if(!ok)st.sel=st.sel.filter(x=>A.has(x))}else{ok=st.sel.length===s.seq.length&&st.sel.every((x,j)=>x===s.seq[j]);if(!ok)st.sel=[]}}
+ else if(s.k==='match'){if(st.sel.some(v=>v===null)){st.msg='모든 줄을 골라야 확인할 수 있어요.';st.mt='hint';return renderKeep(i,k)}st.bad=[];s.rows.forEach((r,ri)=>{if(st.sel[ri]!==r[2])st.bad.push(ri)});ok=st.bad.length===0;if(!ok)st.bad.forEach(ri=>st.sel[ri]=null)}
+ if(ok){st.done=true;st.res=st.rv?3:(st.att===0?1:2);st.msg='';st.bad=[];save();renderKeep(i,k);
+  const nxt=document.getElementById('st'+(k+1));const tgt=nxt||document.querySelector('.after');if(tgt){tgt.classList.add('flash');tgt.scrollIntoView({behavior:'smooth',block:'center'})}
+  return}
+ st.att++;
+ if(st.att===1){st.msg='힌트: '+s.h;st.mt='hint'}
+ else{st.rv=true;st.msg=s.k==='order'?'읽어야 할 문장을 빨간 점선으로 표시했어요. '+(s.any?'모두 탭하고':'순서대로 탭하고')+' 확인을 누르세요.':s.k==='tap'?'정답 위치를 빨간 점선으로 표시했어요. 직접 탭해서 확인을 누르세요.':s.k==='match'?'정답을 빨간 점선으로 표시했어요. 직접 골라서 확인을 누르세요.':'정답을 빨간 점선으로 표시했어요. 직접 눌러서 넘어가세요.';st.mt='rv'}
+ save();renderKeep(i,k);
+}
+function afterHTML(d){
+ const A=d.after;
+ return `<div class="after"><h3>정답 ${(()=>{const f=d.steps.find(x=>x.k==='final');return esc(f.o[f.a].split(' ')[0])})()} — 해설</h3>
+ <h4>선지 판정</h4><div class="olist">${A.opts.map(o=>`<div><b>${esc(o[0])}</b>${esc(o[1])}</div>`).join('')}</div>
+ <h4>연결구조</h4><table class="lk">${A.link.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')}</table>
+ <p style="font-size:15.5px;margin:12px 0 0">${esc(A.note)}</p>
+ ${A.more?`<h4>같이 알아두면 좋을 표현</h4>${A.more.map(g=>`<div class="mg"><div class="mgt">${esc(g.t)}</div>${g.i.map(x=>`<div class="mgi"><b>${esc(x[0])}</b><span>${esc(x[1])}</span></div>`).join('')}</div>`).join('')}`:''}
+ <p style="font-size:14.5px;color:var(--muted);margin:10px 0 0">지문 위 "문장별 해석 켜기"를 누르면 문장마다 해석과 구문 포인트가 나온다.</p></div>`;
+}
+function stats(L){let o=0,h=0,r=0;L.forEach(i=>ST.q[i].steps.forEach(s=>{if(s.res===1)o++;else if(s.res===2)h++;else if(s.res===3)r++}));return{o,h,r}}
+function code(L,k){const{o,h,r}=stats(L);const p=n=>String(n).padStart(2,'0');const c=String.fromCharCode(65+((o*3+h*5+r*7+k*11)%26));return `${EXAM.code}${SS.length>1?'-S'+sessNum(k):''}-${p(o)}${p(h)}${p(r)}-${c}`}
+function renderSum(){
+ const k=ST.sess,L=sessQ(k),S=SS[k];const{o,h,r}=stats(L);const fin=sessDone(k);const nm=SS.length>1?S.n:'';
+ let x=`<div class="sum"><h2>${fin?(nm?nm+' 완료':L.length+'문항 완료'):(nm?nm+' 진행 상황':'진행 상황')}</h2>${S.t?`<p style="margin:0 0 4px;font-weight:700">${esc(S.t)}</p>`:''}<p style="margin:0;color:var(--muted)">${fin?'완료 코드를 클래스룸 댓글로 제출하세요.':L.length+'문항을 모두 끝내면 완료 코드가 나온다.'}</p>
+ ${fin?`<div class="code">${code(L,k)}</div>`:''}
+ <div class="stats"><div><b>${o}</b>한 번에 정답</div><div><b>${h}</b>힌트 후 정답</div><div><b>${r}</b>정답 공개</div></div>
+ <h3 style="font-size:17px;margin:16px 0 4px">문항별</h3>`;
+ L.forEach(i=>{const d=DATA[i],q=ST.q[i];const rv=q.steps.filter(s=>s.res===3).length,hh=q.steps.filter(s=>s.res===2).length;
+  const dn=qDone(i);x+=`<div class="qline"><span><span class="badge" style="--c:${color(d)}">${d.type}</span> ${d.src}번 변형 — ${dn?`힌트 ${hh} · 공개 ${rv}`:'아직 안 끝남'}</span>${dn?'':`<button class="btn ghost" data-go="${i}">풀러 가기</button>`}${rv?`<button class="btn ghost" data-redo="${i}">공개된 문제 다시 풀기</button>`:''}</div>`});
+ x+=`<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">${fin&&k<SS.length-1?`<button class="btn" id="nsess">다음 회차로 (${esc(SS[k+1].n)})</button>`:''}<button class="btn ghost" id="redoS">${nm?esc(nm)+' ':''}전부 다시 풀기</button><button class="btn ghost" id="reset">모든 회차 기록 지우기</button></div></div>`;
+ $('#main').innerHTML=x;
+ document.querySelectorAll('[data-redo]').forEach(b=>b.onclick=()=>{const i=+b.dataset.redo;ST.q[i]={steps:DATA[i].steps.map(s=>newStep(s))};ST.cur=i;ST.view='q';save();render();window.scrollTo({top:0})});
+ document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{ST.cur=+b.dataset.go;ST.view='q';save();render();window.scrollTo({top:0})});
+ const ns=$('#nsess');if(ns)ns.onclick=()=>{ST.sess=k+1;ST.cur=sessQ(k+1)[0];ST.view='q';save();render();window.scrollTo({top:0})};
+ twoTap($('#redoS'),'한 번 더 누르면 이 회차만 처음부터',()=>{L.forEach(i=>{ST.q[i]={steps:DATA[i].steps.map(s=>newStep(s))}});ST.cur=L[0];ST.view='q';save();render();window.scrollTo({top:0})});
+ twoTap($('#reset'),'한 번 더 누르면 모든 기록 삭제',()=>{ST=fresh();ST.sess=0;save();render()});
+}
+/* 시작 */
+document.title=EXAM.title;$('#ttl').textContent=EXAM.title;$('#sub').textContent=EXAM.sub;$('#foot').textContent=EXAM.footer+(EXAM.ver?' · '+EXAM.ver:'');
+try{render()}catch(e){console.error(e);ST=fresh();ST.sess=0;try{save()}catch(_){}render()}
+</script></body></html>
