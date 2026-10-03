@@ -108,6 +108,12 @@ header.top p{margin:4px 0 0;color:var(--muted);font-size:15px}
 .olist div{padding:6px 0;border-top:1px solid var(--line);font-size:15.5px}
 .olist div:first-child{border-top:0}
 .olist b{display:inline-block;min-width:0;margin-right:6px}
+.ud{border-top:1px solid var(--line);padding:12px 0 4px}
+.udh{display:flex;gap:10px;align-items:baseline;margin-bottom:6px;font-size:16.5px}
+.udh .uo{color:var(--ok);font-weight:700}.udh .ux{color:var(--bad);font-weight:700}
+.ud dl{display:grid;grid-template-columns:7.5em 1fr;gap:4px 12px;margin:0;font-size:15.5px;line-height:1.75}
+.ud dt{font-weight:700;color:var(--c)}.ud dd{margin:0}
+@media (max-width:560px){.ud dl{grid-template-columns:1fr}.ud dt{margin-top:6px}}
 table.lk{width:100%;border-collapse:collapse;font-size:15px}
 table.lk td{border:1px solid var(--line);padding:7px 9px;vertical-align:top}
 table.lk td:first-child{width:50%}
@@ -143,7 +149,7 @@ const BL={
 q29:[{s:[
 [`A mental map is a picture in our heads of how a place is arranged.`,`마음속 지도는 어떤 장소가 어떻게 배치되어 있는지에 대한 머릿속 그림이다.`,`how + 주어 + 동사 = ~가 어떻게 …하는지`],
 [`It does not need to be detailed or even ① __correct__ as long as it helps us find our way.`,`길을 찾는 데 도움이 되기만 하면, 그것은 자세하거나 심지어 정확할 필요도 없다.`,`as long as = ~하는 한 / help O + 동사원형`],
-[`{{s|The signs, arrows, and symbols}} that {{y|you}} notice ② __posted__ in {{st|a subway station}} ③ __guides__ {{tr|travelers}} to build such a map of tunnels and platforms.`,`지하철역에 게시된 것을 여러분이 보는 표지판, 화살표, 기호들은 여행자들이 터널과 승강장에 대한 그런 지도를 만들도록 이끈다.`,`주어 [The signs, arrows, and symbols (that you notice posted ~)] + 동사 / guide O to V`],
+[`{{s|The signs, arrows, and symbols}} that {{y|you}} {{nv|notice}} ② __{{pp|posted}}__ in {{st|a subway station}} ③ __{{gv|guides}}__ {{tr|travelers}} {{tb|to build}} such a map of tunnels and platforms.`,`지하철역에 게시된 것을 여러분이 보는 표지판, 화살표, 기호들은 여행자들이 터널과 승강장에 대한 그런 지도를 만들도록 이끈다.`,`주어 [The signs, arrows, and symbols (that you notice posted ~)] + 동사 / guide O to V`],
 [`In reality, the lines on a subway map are rarely straight; they are simplified shapes designed to make the system easier to read.`,`실제로 지하철 노선도의 선은 거의 직선이 아니다. 그것들은 체계를 읽기 쉽게 만들도록 고안된 단순화된 모양이다.`,`rarely = 거의 ~않다 / make O easier to V`],
 [`Sometimes, however, this simplicity can mislead ④ __those__ who depend on it.`,`그러나 때때로 이 단순함은 그것에 의존하는 사람들을 잘못 이끌 수 있다.`,`those who ~ = ~하는 사람들`],
 [`Two stations that look far apart on the map may actually be a short walk from each other, because the map shows connections, not real distances.`,`노선도에서 멀리 떨어져 보이는 두 역이 실제로는 서로 걸어서 금방인 거리일 수도 있는데, 노선도는 실제 거리가 아니라 연결을 보여 주기 때문이다.`,`A, not B = B가 아니라 A`],
@@ -204,18 +210,30 @@ const ORD=['① (A)-(C)-(B)','② (B)-(A)-(C)','③ (B)-(C)-(A)','④ (C)-(A)-(B
 const POS=['①','②','③','④','⑤'];
 const DATA=[
 {id:'q29',src:'29',type:'어법',title:'어법상 틀린 것 고르기',
-formula:['정답은 7가지 범주 안에서만 나온다 — 밑줄마다 범주부터 붙인다','동사 자리면 수일치: 수식어는 괄호, 남은 주어와 맞추기'],
+formula:['어법은 동사부터 — 동사 개수 세기: 접속사·관계사 수 = 동사 수 − 1','주어 찾기: 수식어(관계사절·분사·전치사구)는 괄호, 남은 진짜 주어와 수일치','밑줄마다 판별 기준을 순서대로 → 이 문장에 대입 → ✓ / ✗ 예문으로 확인'],
 blocks:BL.q29,
 steps:[
-{k:'choice',q:'어법 문제에서 가장 먼저 할 일은?',o:['밑줄마다 7가지 출제 범주 중 무엇인지 정한다','지문 전체를 처음부터 해석한다'],a:0,h:'해석보다 "무엇을 묻는지"가 먼저예요.',w:'범주를 정하면 확인할 규칙이 하나로 줄어든다.'},
+{k:'choice',q:'어법 문제에서 가장 먼저 할 일은?',o:['밑줄 문장의 진짜 동사부터 센다 (동사 개수 세기)','지문 전체를 처음부터 해석한다'],a:0,h:'해석보다 \"문장 구조\"가 먼저예요. 구조의 중심은 동사.',w:'3·6·9월 정답 세 개가 모두 동사 자리 문제였다 (helps → help / having → have / is → are). 어법은 동사부터 확인한다.'},
 {k:'order',any:1,q:'어법 문제는 밑줄이 있는 문장만 읽는다. 밑줄이 있는 문장을 모두 탭하세요.',pre:['어법은 해석 문제가 아니다 — 밑줄 문장의 구조만 본다','밑줄 없는 문장(1·4·6번째)은 읽지 않아도 된다','동사 자리 밑줄이면 그 문장의 주어~동사만 정확히 끊어 읽는다'],seq:[2,3,5,7],h:'①~⑤ 밑줄이 들어 있는 문장을 찾아요. 한 문장에 밑줄이 두 개 있을 수도 있어요.',w:'밑줄 문장 4개만 보면 된다. ②③은 같은 문장 — 주어가 길어서 헷갈리는 문장이 바로 여기.'},
-{k:'match',q:'밑줄 ①~⑤의 범주를 고르세요.',rows:[['① correct',CATS,3],['② posted',CATS,4],['③ guides',CATS,0],['④ those',CATS,5],['⑤ that',CATS,1]],h:'동사 자리 → 수일치 / p.p. → 능동·수동 / or로 이어짐 → 병렬 / who·that → 관계대명사',w:'① detailed or correct (병렬)  ② notice + O + p.p. (능동/수동)  ③ 동사 자리 (수일치)  ④ those who (대명사)  ⑤ 선행사 streets and blocks (관계대명사)'},
-{k:'tap',q:'③ guides의 진짜 주어를 지문에서 탭하세요.',c:['s','y','st','tr'],a:['s'],h:'that you notice posted in a subway station은 수식어 괄호. 그 앞 명사 덩어리가 주인이에요.',w:'The signs, arrows, and symbols (that you notice posted in a subway station) → A, B, and C = 복수'},
-{k:'choice',q:'③ guides는 맞을까?',o:['맞다 — 주어가 단수','틀리다 — 주어가 복수라서 guide'],a:1,h:'주어가 몇 개였는지 다시 세어 보세요.',w:'복수 주어 + guides(단수 동사) → guide'},
-{k:'final',q:'밑줄 친 부분 중, 어법상 틀린 것은?',o:['① correct','② posted','③ guides','④ those','⑤ that'],a:2,h:'범주 표에서 "수일치"로 붙인 밑줄을 다시 보세요.'}],
-after:{opts:[['① correct','✔ need to be detailed or correct — 형용사 + 형용사 병렬. detailed는 -ed로 끝나지만 "상세한"이라는 형용사라서, 짝도 형용사 correct(정확한)가 맞다. corrected(수정된)로 바꾸면 "수정될 필요가 없다"가 되어 뜻이 깨진다. 병렬은 끝 모양(-ed)이 아니라 품사·역할을 맞춘다.'],['② posted','✔ notice + 목적어 + p.p. — 표지판은 "게시된" 것'],['③ guides','✘ 주어 The signs, arrows, and symbols = 복수 → guide'],['④ those','✔ those who ~ : ~하는 사람들'],['⑤ that','✔ 주격 관계대명사, 선행사 streets and blocks → follow(복수)']],
-link:[['원 문항 29번','The files, folders, and icons (you see displayed ~) helps → help'],['변형 문제','The signs, arrows, and symbols (that you notice posted ~) guides → guide']],
-note:'병렬 공식: be careful and detailed ✔ / be detailed or correct ✔ / be detailed or correctly ✘ (형용사 + 부사). 그리고 원 문항은 that이 생략돼 있고, 변형 문제는 that이 보인다. 구조는 같다: 명사 + (that) 주어 + see/notice + p.p.',
+{k:'match',q:'밑줄 ①~⑤가 무엇을 묻는지 고르세요.',rows:[['① correct',CATS,3],['② posted',CATS,4],['③ guides',CATS,0],['④ those',CATS,5],['⑤ that',CATS,1]],h:'동사 자리 → 수일치 / p.p. → 능동·수동 / or로 이어짐 → 병렬 / those who → 대명사 / 앞 명사 + that → 관계대명사',w:'① detailed or correct (병렬)  ② notice + O + p.p. (능동/수동)  ③ 동사 자리 (수일치)  ④ those who (대명사)  ⑤ 선행사 streets and blocks (관계대명사)'},
+{k:'tap',q:'③부터(틀린 밑줄부터) — ②③이 있는 3번째 문장에서 진짜 동사(시제가 있는 동사)를 모두 탭하세요.',pre:['판별 기준 1 — 동사 개수 세기','① 문장 안의 접속사·관계사를 센다: that 1개','② 동사 수 = 접속사·관계사 수 + 1 → 동사는 2개여야 한다','③ to부정사·분사(-ing / p.p.)는 준동사 — 동사로 세지 않는다'],c:['nv','pp','gv','tb'],a:['nv','gv'],h:'that이 1개니까 동사는 2개. 누가 \"보는지\", 그리고 표지판들이 무엇을 \"하는지\" 찾아요.',w:'동사 2개 = notice(관계사절 동사) + guides(문장 본동사). posted는 notice의 목적격보어(분사), to build는 guide O to V의 to부정사 → 둘 다 준동사.'},
+{k:'tap',q:'③ guides의 진짜 주어를 지문에서 탭하세요.',pre:['판별 기준 2 — 주어 찾기 (괄호 치기)','① 주어 덩어리에서 수식어를 괄호 친다: (that you notice posted in a subway station)','② 괄호 밖에 남은 명사가 진짜 주어','③ 바로 앞 명사에 끌리지 않는다'],c:['s','y','st','tr'],a:['s'],h:'that ~ station까지는 수식어 괄호. 그 앞 명사 덩어리가 주인이에요.',w:'The signs, arrows, and symbols (that you notice posted in a subway station) → A, B, and C = 복수'},
+{k:'choice',q:'③ 이 문장에 대입 — 맞는 문장은?',pre:['판별 기준 3 — 동사를 주어에 맞춘다','주어 = The signs, arrows, and symbols (A, B, and C = 복수)'],o:['The signs, arrows, and symbols (…) guides travelers','The signs, arrows, and symbols (…) guide travelers'],a:1,h:'A, B, and C는 몇 개일까요? 바로 앞 station에 속지 마세요.',w:'✘ guides → guide. 시험 포인트: 바로 앞 station(단수)에 끌려 guides를 쓰는 게 함정 — 원 문항 helps → help와 똑같은 함정. 수식어가 길수록 주어를 먼저 찾는다.'},
+{k:'choice',q:'맞는 밑줄도 같은 방식으로 — ① correct 대입: 맞는 것은?',pre:['판별 기준 — 병렬 + 보어 자리','① 등위접속사 or 앞뒤 짝을 찾는다: detailed or (even) correct','② 병렬 A와 B는 같은 품사','③ need to be 뒤 = 보어 자리 → 형용사'],o:['need to be detailed or even correct','need to be detailed or even correctly','need to be detailed or even corrected'],a:0,h:'be 뒤 보어 자리에 부사가 올 수 있을까요? detailed는 \"상세한\"이라는 형용사예요.',w:'✔ 지워 보기: need to be (correct) 지우면 be 뒤가 비어 깨짐 → 보어 자리 = 형용사. 시험 포인트: even이 끼어 있어도 짝은 detailed. -ed 모양이 아니라 품사를 맞춘다 — corrected(수정된)는 뜻이 깨진다.'},
+{k:'choice',q:'② posted 대입: 맞는 것은?',pre:['판별 기준 — 지각동사 + 목적어 + 목적격보어','① 지각동사인가: notice (see · hear · watch · notice)','② 목적어 찾기: notice의 목적어 = 관계사 that = 앞의 signs, arrows, and symbols','③ 목적어가 하나(원형 · -ing) / 당하나(p.p.)'],o:['you notice the signs posted in a station','you notice the signs posting in a station'],a:0,h:'표지판이 스스로 무언가를 게시할까요, 누군가에 의해 게시될까요?',w:'✔ 표지판은 \"게시된다\"(당함) → p.p. 확인: 동사는 notice · guides 2개로 이미 꽉 참 → posted는 동사가 아니다. 원 문항 you see displayed(화면에 표시된)와 같은 구조.'},
+{k:'choice',q:'④ those 대입: 맞는 것은?',pre:['판별 기준 — 지시대명사 those','① 뒤에서 who 관계사절이 꾸미나: who depend on it','② \"~하는 사람들\" = those who (복수 → depend)','③ 인칭대명사 them은 who의 꾸밈을 받지 못한다'],o:['mislead those who depend on it','mislead them who depend on it','mislead that who depend on it'],a:0,h:'\"~하는 사람들\"을 뜻하는 짝 표현을 떠올려요.',w:'✔ 확인: who depend(복수 동사) → those = 복수 ✓. 시험 포인트: those who ~ / anyone who ~ ✓, them who ~ ✘'},
+{k:'choice',q:'⑤ that 대입: 맞는 것은?',pre:['판별 기준 — 주격 관계대명사','① 선행사를 찾는다: streets and blocks','② 뒤 절에서 빠진 성분: (주어 없음) seldom follow ~','③ 주어 빠진 불완전 절 + 사물 선행사 → which / that (콤마·전치사 뒤 아니므로 that 가능)'],o:['streets and blocks that seldom follow','streets and blocks what seldom follow','streets and blocks that seldom follows'],a:0,h:'선행사가 있으면 what은 못 와요. 관계사절 동사는 선행사에 수를 맞춰요.',w:'✔ 뒤 절이 불완전 → 관계대명사. 시험 포인트: 관계사절 동사는 선행사에 수일치 — streets and blocks(복수) → follow ✓ / follows ✘'},
+{k:'final',q:'밑줄 친 부분 중, 어법상 틀린 것은?',o:['① correct','② posted','③ guides','④ those','⑤ that'],a:2,h:'대입에서 ✘가 나온 밑줄을 다시 보세요.'}],
+after:{opts:[['① correct','✔ 병렬 + 보어 자리 — detailed or correct (형용사 + 형용사)'],['② posted','✔ 지각동사 notice + 목적어 + p.p. — 표지판은 \"게시된\" 것'],['③ guides','✘ 수일치 — 주어 The signs, arrows, and symbols = 복수 → guide'],['④ those','✔ those who ~ : ~하는 사람들'],['⑤ that','✔ 주격 관계대명사, 선행사 streets and blocks → follow(복수)']],
+rules:[['1. 동사 개수 세기','접속사 · 관계사 수 = 동사 수 − 1. 동사가 없으면 밑줄이 동사 자리, 너무 많으면 하나는 준동사 자리.'],['2. 주어 찾기(괄호 치기)','주어 덩어리의 수식어(관계사절 · 분사 · of 전치사구)를 괄호 → 남은 진짜 주어로 수일치.'],['3. 지워 보기','지워도 문장 완전 → 부사 자리(부사 · 분사구문) / 지우면 깨짐 → 보어 · 목적어 자리(형용사 · 명사).'],['4. 하나 / 당하나','분사 · 수동태: 주어(꾸밈받는 명사)가 동작을 하면 -ing, 당하면 p.p. 타동사 뒤 목적어 있으면 능동.'],['5. 뒤가 완전한가','관계사: 뒤 불완전 → 관계대명사(which · that · what), 뒤 완전 → 관계부사(where · when · why).']],
+detail:[
+{u:'① correct',v:'✓ 맞음',ask:'병렬 + be동사 보어 자리 → 형용사',crit:['① 등위접속사 or 앞뒤를 찾는다: detailed or (even) correct','② 병렬 A와 B는 같은 품사여야 한다','③ need to be 뒤 = 보어 자리 → 형용사'],sub:'It does not need to be [detailed] or even [correct] → be detailed / be correct 둘 다 형용사 ✓',ex:['need to be detailed or correct ✓','need to be detailed or correctly ✗ (부사는 보어 불가)','need to be detailed or corrected ✗ (수정된 — 뜻이 깨짐)'],chk:'지워 보기: need to be (correct) 지우면 be 뒤가 비어 깨짐 → 보어 자리 = 형용사',pt:'even이 끼어 있어도 병렬 짝은 detailed. -ed 모양이 아니라 품사를 맞춘다.'},
+{u:'② posted',v:'✓ 맞음',ask:'지각동사 notice + 목적어 + 목적격보어 (원형 / -ing / p.p.)',crit:['① 지각동사인가: notice','② 목적어를 찾는다: 관계사 that = the signs, arrows, and symbols (목적어가 앞으로 나감)','③ 목적어가 하나(원형 · -ing) 당하나(p.p.): 표지판이 \"게시된다\" → p.p.'],sub:'you notice [the signs] posted in a subway station → 표지판이 게시됨(당함) ✓',ex:['notice the signs posted in a station ✓','notice the signs posting in a station ✗ (표지판이 게시하는 게 아님)','notice him cross the street ✓ (그가 건넘 = 능동 → 원형)'],chk:'동사 개수: that 1개 → 동사 2개(notice · guides)로 이미 꽉 참 → posted는 동사가 아니라 목적격보어',pt:'원 문항 you see displayed와 같은 구조. 지각·사역동사 + 목적어 + p.p. = 목적어가 당할 때.'},
+{u:'③ guides',v:'✘ 틀림 → guide',ask:'수일치 — 진짜 주어 찾기',crit:['① 주어 덩어리에서 수식어를 괄호 친다 (관계사절 · 분사 · 전치사구)','② 남은 진짜 주어가 단수인지 복수인지 본다','③ 동사를 주어에 맞춘다'],sub:'The signs, arrows, and symbols [that you notice posted in a subway station] ③ guides → 주어 = signs, arrows, and symbols (A, B, and C = 복수) → guide',ex:['The signs and symbols [you notice] guide travelers ✓','The signs and symbols [you notice] guides travelers ✗','The sign [you notice] guides travelers ✓ (주어 단수)'],chk:'괄호 치기: that you notice posted in a subway station 괄호 → The signs, arrows, and symbols guide ~',pt:'바로 앞 station(단수)에 끌려 guides를 쓰는 게 함정. 원 문항 helps → help와 같은 포인트 — 이 시험 최다 출제.'},
+{u:'④ those',v:'✓ 맞음',ask:'지시대명사 those — those who ~ (~하는 사람들)',crit:['① 뒤에서 who 관계사절이 꾸미나: who depend on it','② \"~하는 사람들\" = those who, 복수 취급','③ 인칭대명사 them · they는 who의 꾸밈을 받지 못한다'],sub:'this simplicity can mislead [those who depend on it] → 그것에 의존하는 사람들 ✓',ex:['mislead those who depend on it ✓','mislead them who depend on it ✗','mislead that who depend on it ✗'],chk:'수 확인: who depend(복수 동사) → those = 복수 ✓',pt:'those who ~ / anyone who ~ ✓, them who ~ ✗ — 짝으로 외우기'},
+{u:'⑤ that',v:'✓ 맞음',ask:'주격 관계대명사 that',crit:['① 선행사를 찾는다: streets and blocks','② 뒤 절에서 빠진 성분: seldom follow ~ (주어가 없음)','③ 주어 빠진 불완전 절 + 사물 선행사 → which / that ✓ (콤마 · 전치사 뒤가 아니므로 that 가능)'],sub:'streets and blocks [that seldom follow such tidy lines] → streets and blocks가 follow의 주어 ✓',ex:['streets and blocks that seldom follow ✓','streets and blocks what seldom follow ✗ (선행사 있으면 what 불가)','streets and blocks that seldom follows ✗ (관계사절 동사도 선행사에 수일치)'],chk:'뒤 절: (주어 없음) seldom follow such tidy lines → 불완전 → 관계대명사',pt:'관계사절 동사의 수는 선행사가 정한다 — streets and blocks(복수) → follow'}],
+link:[['원 문항 ① accurate (병렬 · 보어)','변형 ① correct — 같은 포인트'],['원 문항 ② helps → help (수일치)','변형 ③ guides → guide — 같은 함정 (긴 수식어 + 바로 앞 단수 명사)'],['원 문항 you see displayed (밑줄 없음)','변형 ② posted — 같은 구조에 밑줄'],['원 문항 ⑤ that (주격 관계대명사)','변형 ⑤ that — 같은 포인트 + 관계사절 수일치']],
+note:'원 문항은 that이 생략돼 있고(The files … you see displayed), 변형 문제는 that이 보인다. 구조는 같다: 명사 + (that) 주어 + see/notice + p.p. + 본동사.',
 tr:'마음속 지도는 어떤 장소가 어떻게 배치되어 있는지에 대한 머릿속 그림이다. 길을 찾는 데 도움이 되기만 하면, 그것은 자세하거나 심지어 정확할 필요도 없다. 지하철역에 게시된 것을 여러분이 보는 표지판, 화살표, 기호들은 여행자들이 터널과 승강장에 대한 그런 지도를 만들도록 이끈다. 실제로 지하철 노선도의 선은 거의 직선이 아니다. 그것들은 체계를 읽기 쉽게 만들도록 고안된 단순화된 모양이다. 그러나 때때로 이 단순함은 그것에 의존하는 사람들을 잘못 이끌 수 있다. 노선도에서 멀리 떨어져 보이는 두 역이 실제로는 서로 걸어서 금방인 거리일 수도 있는데, 노선도는 실제 거리가 아니라 연결을 보여 주기 때문이다. 마음속 지도는 하나의 깔끔한 그림을 제공하는 반면, 실제 도시는 그렇게 깔끔한 선을 거의 따르지 않는 거리와 블록들로 이루어져 있다.'}},
 
 {id:'q36',src:'36',type:'순서',title:'글의 순서 — 지시어 추적',
@@ -441,8 +459,11 @@ function check(i,k){
 }
 function afterHTML(d){
  const A=d.after;
+ const rules=A.rules?`<h4>공통 공식 — 어법 푸는 순서</h4><div class="olist">${A.rules.map(r=>`<div><b>${esc(r[0])}</b>${esc(r[1])}</div>`).join('')}</div>`:'';
+ const det=A.detail?`<h4>밑줄별 판별 과정</h4>${A.detail.map(x=>`<div class="ud"><div class="udh"><b>${esc(x.u)}</b><span class="${x.v.startsWith('✘')?'ux':'uo'}">${esc(x.v)}</span></div><dl><dt>무엇을 묻나</dt><dd>${esc(x.ask)}</dd><dt>판별 기준</dt><dd>${x.crit.map(c=>`<div>${esc(c)}</div>`).join('')}</dd><dt>이 문장에 대입</dt><dd>${esc(x.sub)}</dd><dt>✓ / ✗ 예문</dt><dd>${x.ex.map(e=>`<div>· ${esc(e)}</div>`).join('')}</dd><dt>확인</dt><dd>${esc(x.chk)}</dd><dt>시험 포인트</dt><dd>${esc(x.pt)}</dd></dl></div>`).join('')}`:'';
  return `<div class="after"><h3>정답 ${esc(d.steps[d.steps.length-1].o[d.steps[d.steps.length-1].a].split(' ')[0])} — 해설</h3>
  <h4>선지 판정</h4><div class="olist">${A.opts.map(o=>`<div><b>${esc(o[0])}</b>${esc(o[1])}</div>`).join('')}</div>
+ ${rules}${det}
  <h4>연결구조</h4><table class="lk">${A.link.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')}</table>
  <p style="font-size:15.5px;margin:12px 0 0">${esc(A.note)}</p>
  <p style="font-size:14.5px;color:var(--muted);margin:10px 0 0">지문 위 "문장별 해석 켜기"를 누르면 문장마다 해석과 구문 포인트가 나온다.</p></div>`;
