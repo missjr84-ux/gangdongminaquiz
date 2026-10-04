@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>어법 훈련</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F5F7;--paper:#fff;--ink:#1E2330;--muted:#636A77;--line:#D8DCE3;--ok:#17805A;--okbg:#E5F4EC;--bad:#C93C4A;--badbg:#FBE9EB;--hintbg:#FFF5D6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:17px;line-height:1.65}
+.wrap{max-width:800px;margin:0 auto;padding:16px 16px 80px}
+header.top{padding:18px 0 14px;border-bottom:2px solid var(--ink);margin-bottom:12px}
+header.top h1{margin:0;font-size:24px;font-weight:900;letter-spacing:-.5px}
+header.top p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.urow{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.ulab{font-size:13px;font-weight:700;color:var(--muted);width:100%;margin-top:6px}
+.stab{font:inherit;border:2px solid var(--line);background:var(--paper);border-radius:8px;padding:6px 12px;cursor:pointer;color:var(--ink);display:flex;flex-direction:column;align-items:flex-start;line-height:1.35;min-height:46px;text-align:left}
+.stab b{font-size:15px}.stab span{font-size:12.5px;color:var(--muted)}
+.stab.on{border-color:var(--c);box-shadow:inset 0 -3px 0 var(--c)}
+.stab.done b::after{content:' ✓';color:var(--ok)}
+.stab:disabled{opacity:.4;cursor:not-allowed}
+.progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:10px 0 16px}
+.progress i{display:block;height:100%;background:var(--ink);transition:width .4s}
+.badge{display:inline-block;border-radius:6px;padding:2px 10px;font-size:14px;font-weight:700;color:#fff;background:var(--c)}
+.shead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:4px 0 8px}
+.shead h2{margin:0;font-size:22px;font-weight:900}
+.formula{border-left:5px solid var(--c);padding:6px 0 6px 14px;margin:0 0 16px}
+.formula div{font-weight:700;font-size:15.5px}
+.formula div::before{content:'공식 ';color:var(--c);font-weight:900}
+.it{background:var(--paper);border:1px solid var(--line);border-radius:4px;margin-bottom:10px;padding:14px 16px}
+.it.lock{background:transparent;border-style:dashed;color:var(--muted);padding:10px 16px}
+.it.ok{border-color:var(--ok)}
+.ih{display:flex;gap:10px;align-items:flex-start}
+.num{flex:none;width:28px;height:28px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;font-weight:900;font-size:14px}
+.it.ok .num{background:var(--ok);border-color:var(--ok);color:#fff}
+.it.lock .num{border-color:var(--line);color:var(--muted)}
+.iq{font-weight:700;padding-top:1px}
+.ib{margin:10px 0 0 38px}
+.sent{font-size:18px;line-height:2.1}
+.pk{font:inherit;font-size:17px;border:2px solid var(--line);background:#fff;border-radius:6px;padding:2px 10px;margin:0 2px;cursor:pointer;color:var(--ink)}
+.pk.sel{border-color:var(--ok);background:var(--okbg);font-weight:700}
+.pk.no{border-color:var(--bad);background:var(--badbg);text-decoration:line-through}
+.pk.show{border-style:dashed;border-color:var(--bad)}
+.pk:disabled{cursor:default}
+.sfull{font-size:18.5px;line-height:2.3;background:#FAFBFC;border:1px solid var(--line);border-radius:6px;padding:10px 14px}
+.tk2{font:inherit;font-size:18.5px;background:transparent;border:0;border-bottom:2px dotted #9AA1AD;padding:0 2px;margin:0;cursor:pointer;color:var(--ink);border-radius:3px;line-height:1.5}
+.tk2:hover{background:#EEF1F5}
+.tk2.sel{background:var(--okbg);border-bottom:3px solid var(--ok);font-weight:700}
+.tk2.no{background:var(--badbg);border-bottom:3px solid var(--bad);text-decoration:line-through}
+.tk2.show{outline:2px dashed var(--bad);outline-offset:2px}
+.tk2:disabled{cursor:default}
+.tapnote{font-size:14px;color:var(--muted);margin-top:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.ch{font:inherit;font-size:16.5px;border:2px solid var(--line);background:#fff;border-radius:6px;padding:6px 12px;cursor:pointer;color:var(--ink);text-align:left}
+.ch.sel{border-color:var(--ok);background:var(--okbg);font-weight:700}
+.ch.no{border-color:var(--bad);background:var(--badbg)}
+.ch.show{border-style:dashed;border-color:var(--bad)}
+.ch.used{opacity:.35}
+.ch:disabled{cursor:default}
+.built{min-height:48px;border:2px dashed var(--line);border-radius:6px;padding:8px 10px;margin-bottom:10px;font-size:17px;line-height:1.9;background:#FAFBFC}
+.built span{display:inline-block;background:#EEF0F4;border-radius:4px;padding:0 6px;margin:2px 3px}
+.kr{color:var(--muted);font-size:15.5px;margin-bottom:6px}
+.psg{background:#fff;border:1px solid var(--line);border-radius:4px;padding:14px 16px;font-size:17px;line-height:2;margin-bottom:10px}
+.psg u{text-decoration-thickness:2px;text-underline-offset:4px}
+.opts{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:16px;border:2px solid var(--line);background:#fff;border-radius:6px;padding:9px 14px;cursor:pointer;color:var(--ink);min-height:46px}
+.op.sel{border-color:var(--ok);background:var(--okbg);font-weight:700}
+.op.no{border-color:var(--bad);background:var(--badbg)}
+.op.show{border-style:dashed;border-color:var(--bad)}
+.op:disabled{cursor:default}
+.opts.row{grid-template-columns:repeat(5,1fr)}
+.opts.row .op{text-align:center}
+.btn{font:inherit;font-weight:700;font-size:15.5px;border:2px solid var(--ink);background:var(--ink);color:#fff;border-radius:6px;padding:8px 18px;cursor:pointer;margin-top:10px;min-height:44px}
+.btn.ghost{background:#fff;color:var(--ink)}
+.btn.arm{background:var(--bad);border-color:var(--bad);color:#fff}
+.msg{margin-top:10px;padding:9px 12px;border-radius:6px;font-size:15.5px}
+.msg.hint{background:var(--hintbg);color:#5E4300}
+.msg.ok{background:var(--okbg);color:#0E5A3E}
+.msg.rv{background:var(--badbg);color:#7D1F2A}
+.sum{background:var(--paper);border:2px solid var(--ink);border-radius:4px;padding:20px;margin-top:6px}
+.sum h2{margin:0 0 6px;font-size:22px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.stats div{border:1px solid var(--line);border-radius:4px;padding:10px;text-align:center}
+.stats b{display:block;font-size:26px;font-weight:900}
+.code{font-size:26px;font-weight:900;letter-spacing:2px;border:2px dashed var(--ink);padding:10px 14px;text-align:center;margin:12px 0}
+.foot{margin-top:24px;color:var(--muted);font-size:13.5px;text-align:center}
+button:focus-visible{outline:3px solid #2B68C4;outline-offset:2px}
+@media (max-width:560px){.ib{margin-left:0}.opts.row{grid-template-columns:repeat(5,1fr)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><h1 id="ttl"></h1><p id="sub"></p></header>
+<nav id="tabs" aria-label="회차"></nav>
+<div class="progress"><i id="bar"></i></div>
+<main id="main"></main>
+<div class="foot" id="foot"></div>
+</div>
+<script>
+/* ============ DATA 구간 시작 — 이 아래부터 DATA 구간 끝까지만 바꾼다 ============ */
+const EXAM={id:'g1',title:'고1 어법 훈련 — 7단원',sub:'대명사 → 수일치 → 동사 vs 준동사 → 병렬 → 능동·수동 → 관계사 → 도치·대동사. 쉬운 것부터, 앞 단원이 다음 단원의 기초다. 회차는 모두 열려 있다.',footer:'강동미나 뮤엠영어 · 진행 상황은 이 기기에 저장된다',key:'gram1_v1',code:'GR1',ver:'v2.2 (2026-10-01)'};
+// 단원 → 회차 → 문항. 문항 종류: pick(문장 속 둘 중 고르기) · subj(진짜 주어 탭) · arr(배열) · mc(선택지 · 지문 가능)
+const UNITS=[
+{u:'대명사',d:'가리키는 말이 하나인가 여럿인가 — 단수/복수 감각 워밍업',c:'#A0527A',formula:['대명사는 가리키는 명사의 수에 맞춘다 — it · its ↔ they · them · their','반복 명사: that(단수) · those(복수) of ~ / 주어 = 목적어면 재귀대명사(-self)'],sess:[
+ {n:'대명사 1',t:'기초 — 무엇을 가리키나',items:[
+  {k:'pick',s:'The company changed [its|their] logo.',a:0,w:'The company(단수) → its'},
+  {k:'pick',s:'Teenagers often compare [itself|themselves] with friends.',a:1,w:'주어 = 목적어 + 복수 → themselves'},
+  {k:'pick',s:'The population of Seoul is larger than [that|those] of Busan.',a:0,w:'반복 명사 the population(단수) → that'},
+  {k:'pick',s:'The prices here are higher than [that|those] in my town.',a:1,w:'반복 명사 the prices(복수) → those'},
+  {k:'pick',s:'She looked at [her|herself] in the mirror.',a:1,w:'주어 she = 목적어 → herself'},
+  {k:'pick',s:'He told me to take care of [me|myself].',a:1,w:'take care의 주체는 me → myself'},
+  {k:'pick',s:'The students did [their|its] homework.',a:0,w:'students(복수) → their'},
+  {k:'pick',s:'The dog wagged [its|their] tail.',a:0,w:'The dog(단수) → its'},
+  {k:'pick',s:'My parents and I visited [our|their] grandparents.',a:0,w:'My parents and I = we → our'},
+  {k:'pick',s:'The teacher gave [us|ourselves] homework.',a:0,w:'주어 teacher ≠ us → 재귀대명사 아님'},]},
+ {n:'대명사 2',t:'함정 — 멀리 떨어진 명사',items:[
+  {k:'pick',s:'Plants need light, and the leaves turn [it|them] into energy.',a:0,w:'에너지로 바뀌는 것 = light(단수) → it'},
+  {k:'pick',s:'Babies cry when [it|they] are hungry.',a:1,w:'Babies(복수) → they'},
+  {k:'pick',s:'The rules of the game are simple, but [it|they] can be hard to follow.',a:1,w:'따르기 어려운 것 = rules(복수)'},
+  {k:'pick',s:'If you find old coins, keep [it|them] in a safe place.',a:1,w:'old coins(복수) → them'},
+  {k:'pick',s:'The government announced [its|their] new plan.',a:0,w:'The government(단수) → its'},
+  {k:'pick',s:'Old phones contain metals, and companies recover [it|them].',a:1,w:'회수하는 것 = metals(복수)'},
+  {k:'pick',s:'The climate of Korea is different from [that|those] of Japan.',a:0,w:'the climate(단수) → that'},
+  {k:'pick',s:'Children learn by watching adults and copying [them|it].',a:0,w:'따라 하는 대상 = adults(복수)'},
+  {k:'pick',s:'He enjoyed [him|himself] at the party.',a:1,w:'enjoy oneself = 즐겁게 보내다'},
+  {k:'pick',s:'The book was more interesting than I expected [it|them] to be.',a:0,w:'The book(단수) → it'}]},
+ {n:'대명사 3',t:'모고형 어법',items:[
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`Honeybees are social insects. A single colony can contain thousands of bees, and each of ① __them__ has a specific job. Worker bees collect nectar and bring ② __it__ back to the hive. The queen spends ③ __her__ life laying eggs. Older bees, on the other hand, spend most of ④ __its__ time outside the hive. Scientists believe the colony survives because ⑤ __its__ members work as one.`,o:['①','②','③','④','⑤'],a:3,h:'④ 시간을 밖에서 보내는 것은 누구? 하나인가요, 여럿인가요?',w:'④ its → their. Older bees(복수)'},
+  {k:'mc',q:'④를 바르게 고치면?',o:['their','it','them'],a:0,w:'Older bees(복수)의 → their'},
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`Many teenagers believe that ① __they__ can study well while listening to music. However, research shows that the brain handles two tasks less efficiently than ② __it__ handles one. Students who listen to songs with lyrics remember less than ③ __those__ who study in silence. The words in a song compete with ④ __those__ in the textbook. So if you want to focus, try to keep ⑤ __you__ away from distractions.`,o:['①','②','③','④','⑤'],a:4,h:'⑤ keep의 주체(you)와 목적어가 같은 사람이에요.',w:'⑤ you → yourself. 주어 = 목적어 → 재귀대명사'},
+  {k:'mc',q:'⑤를 바르게 고치면?',o:['yourself','your','yours'],a:0,w:'keep yourself away from ~'},
+  {k:'mc',q:'that of / those of는 무엇으로 고를까?',o:['앞에서 반복되는 명사가 단수면 that, 복수면 those','뒤에 오는 명사에 맞춘다'],a:0,w:'The prices here are higher than those in my town — prices(복수)'},
+  {k:'mc',q:'대명사 문제에서 가장 먼저 할 일은?',o:['그 대명사가 가리키는 명사를 앞에서 찾는다','바로 앞에 있는 명사에 맞춘다'],a:0,w:'가리키는 명사가 멀리 있을 수 있다 (Old phones … recover them)'}]}]},
+{u:'수일치',d:'동사와 진짜 주어 찾기 — 대명사의 단수/복수 감각을 동사로',c:'#2F7D46',formula:['동사 찾기 → 앞 수식어(전치사구·관계사절·분사구)에 괄호 → 남은 진짜 주어 → 단수 / 복수 → 동사','특수 주어: 동명사·what절 = 단수 / one of·the number of = 단수 / most·half·the rest of → of 뒤 / B as well as A·not only A but also B → B'],sess:[
+ {n:'수일치 1',t:'기초 — 동사 찾기, 주어 찾기',items:[
+  {k:'mc',q:'동사의 단수 / 복수는 무엇에 맞출까?',o:['그 동사의 진짜 주어','동사 바로 앞에 있는 명사'],a:0,w:'바로 앞 명사가 아니라 "누가 ~하나?"의 주인공에 맞춘다'},
+  {k:'subj',q:'동사를 탭하세요.',ch:['The students','in the library','are','quiet.'],a:[2],w:'동사 = are (주어의 상태를 말하는 말)'},
+  {k:'subj',q:'동사를 탭하세요.',ch:['The boy','with two dogs','lives','next door.'],a:[2],w:'동사 = lives'},
+  {k:'subj',q:'진짜 주어를 탭하세요. (누가 파랗나?)',ch:['The pens','in my bag','are','blue.'],a:[0],w:'in my bag은 꾸미는 말(수식어) — 파란 것은 The pens'},
+  {k:'subj',q:'진짜 주어를 탭하세요. (누가 사나?)',ch:['The boy','with two dogs','lives','next door.'],a:[0],w:'with two dogs는 수식어 — 사는 사람은 The boy'},
+  {k:'subj',q:'진짜 주어를 탭하세요. (무엇이 맛있었나?)',ch:['The cookies','that my mom made','were','delicious.'],a:[0],w:'that my mom made는 수식어 — 맛있었던 건 The cookies'},
+  {k:'pick',s:'The pens in my bag [is|are] blue.',a:1,w:'주어 The pens (복수) — (in my bag)은 괄호'},
+  {k:'pick',s:'The boy with two dogs [live|lives] next door.',a:1,w:'주어 The boy (단수) — (with two dogs)는 괄호'},
+  {k:'pick',s:'The cookies that my mom made [was|were] delicious.',a:1,w:'주어 The cookies (복수)'},
+  {k:'pick',s:'The color of the walls [is|are] green.',a:0,w:'주어 The color (단수) — walls는 수식어 속 명사'},
+  {k:'pick',s:'The books on the shelf [belong|belongs] to my sister.',a:0,w:'주어 The books (복수)'},
+  {k:'pick',s:'The girl who sits next to me [speak|speaks] three languages.',a:1,w:'주어 The girl (단수) — (who sits next to me)는 괄호'}]},
+ {n:'수일치 2',t:'수식어가 길어도 — 3월 모고 문장',items:[
+  {k:'subj',ch:['The files, folders, and icons','you see displayed on a computer screen','help','people create a conceptual model.'],a:[0],w:'3월 원 29번 — A, B, and C = 복수 → help (원 문항은 helps가 틀린 답)'},
+  {k:'subj',ch:['The way of thinking','that lies behind these words','slowly extinguishes','certain habits.'],a:[0],w:'3월 원 36번 — 주어 the way (단수) → extinguishes'},
+  {k:'subj',ch:['Teaching materials','(even informally or imaginatively)','actively counters','this illusion.'],a:[0],w:'3월 원 32번 — 동명사 주어 = 단수 → counters'},
+  {k:'subj',ch:['Raising the inner covers,','which is difficult because they too are frozen,','reveals','a sight of hard leaves.'],a:[0],w:'3월 원 39번 — 동명사 주어 + 삽입절 → reveals'},
+  {k:'subj',ch:['One','of the most popular exercise machines','is','the treadmill.'],a:[0],w:'one of + 복수명사 → 주어는 One (단수)'},
+  {k:'subj',ch:['The number','of students in my class','is','twenty-five.'],a:[0],w:'The number of = ~의 수 → 단수'},
+  {k:'pick',s:'The key to the lockers [was|were] lost.',a:0,w:'주어 The key (to the lockers)'},
+  {k:'pick',s:'The girls who live next door [is|are] my students.',a:1,w:'주어 The girls (who live next door)'},
+  {k:'pick',s:'Students who study with a friend [remember|remembers] more.',a:0,w:'주어 Students (who ~)'},
+  {k:'pick',s:'The results of the survey [was|were] surprising.',a:1,w:'주어 The results (of the survey)'},
+  {k:'pick',s:'A box of old photos [sit|sits] on the shelf.',a:1,w:'주어 A box (of old photos)'},
+  {k:'pick',s:'The real city consists of streets and blocks that seldom [follow|follows] tidy lines.',a:0,w:'관계사절 동사 → 선행사 streets and blocks (3월 변형 29번)'}]},
+ {n:'수일치 3',t:'특수 주어',items:[
+  {k:'pick',s:'Explaining ideas to others [help|helps] you learn.',a:1,w:'동명사 주어 = 단수'},
+  {k:'pick',s:'What we need now [is|are] more time.',a:0,w:'what절 주어 = 단수'},
+  {k:'pick',s:'Whether he will come [is|are] still unclear.',a:0,w:'whether절 주어 = 단수'},
+  {k:'pick',s:'Each of the players [has|have] a number.',a:0,w:'Each of + 복수명사 → 단수'},
+  {k:'pick',s:'Every boy and girl [was|were] given a gift.',a:0,w:'every A and B → 단수'},
+  {k:'pick',s:'Most of the cake [was|were] eaten.',a:0,w:'Most of + 단수명사 → 단수'},
+  {k:'pick',s:'Most of the cookies [was|were] eaten.',a:1,w:'Most of + 복수명사 → 복수'},
+  {k:'pick',s:'Forty percent of the students [walk|walks] to school.',a:0,w:'percent of + 복수명사 → 복수'},
+  {k:'pick',s:'The number of cars [is|are] increasing.',a:0,w:'The number of → 단수'},
+  {k:'pick',s:'A number of cars [is|are] parked outside.',a:1,w:'A number of = 많은 → 복수'},
+  {k:'pick',s:'Either you or your brother [has|have] to clean the room.',a:0,w:'either A or B → B(your brother)'},
+  {k:'pick',s:'The teacher as well as the students [was|were] excited.',a:0,w:'B as well as A → B(The teacher)'}]},
+ {n:'수일치 4',t:'모고형 어법',items:[
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`Learning a new skill ① __takes__ time and patience. The number of people who give up after the first week ② __is__ surprisingly large. One reason ③ __are__ that beginners expect quick results. However, studies of successful learners ④ __show__ a different pattern. What these learners have in common ⑤ __is__ the habit of practicing a little every day.`,o:['①','②','③','④','⑤'],a:2,h:'밑줄마다 진짜 주어를 찾아요. ③의 주어는 One reason — 몇 개?',w:'③ are → is. 주어 One reason (단수)'},
+  {k:'mc',q:'③을 바르게 고치면?',o:['is','be','were'],a:0,w:'단수 주어 + 현재'},
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`Every student in the two classes ① __was__ given a short reading test. Half of the questions ② __were__ about science, and the rest ③ __was__ about history. Neither the students nor their teacher ④ __was__ expecting the results. Students who read for fun at home ⑤ __were__ among the highest scorers.`,o:['①','②','③','④','⑤'],a:2,h:'the rest는 무엇의 나머지일까요? of 뒤가 생략됐어요.',w:'③ was → were. the rest = the rest of the questions (복수)'},
+  {k:'mc',q:'③을 바르게 고치면?',o:['were','is','be'],a:0,w:'of 뒤 명사가 생략돼도 복수면 복수'},
+  {k:'mc',q:'Not only the students but also the teacher ( ? ) excited.',o:['was','were'],a:0,w:'not only A but also B → B(the teacher)에 맞춤'},
+  {k:'mc',q:'There ( ? ) many reasons to read books.',o:['are','is'],a:0,w:'There + be + 뒤 명사(many reasons)'}]}]},
+{u:'동사 vs 준동사',d:'한 문장에 동사는 하나 — 수일치의 동사 찾기를 넓힌 것',c:'#2B68C4',formula:['한 문장(절)에 동사는 하나 — 접속사·관계사가 하나 늘면 동사도 하나 는다','동사 자리면 시제·수가 있는 동사(is, made) / 이미 동사가 있으면 준동사(to V · V-ing · p.p.)'],sess:[
+ {n:'동사·준동사 1',t:'기초 — 진짜 동사 하나 찾기',items:[
+  {k:'mc',q:'접속사·관계사가 없는 한 문장에 동사는 몇 개?',o:['하나','몇 개든 상관없다'],a:0,w:'나머지 동사 모양은 전부 준동사(to V · V-ing · p.p.)'},
+  {k:'subj',q:'이 문장의 진짜 동사를 탭하세요.',ch:['Walking','in the park','makes','me','relaxed.'],a:[2],w:'Walking은 동명사 주어(준동사), 진짜 동사는 makes'},
+  {k:'subj',q:'이 문장의 진짜 동사를 탭하세요.',ch:['To learn','a language','takes','time.'],a:[2],w:'To learn은 to부정사 주어, 진짜 동사는 takes'},
+  {k:'subj',q:'이 문장의 진짜 동사를 탭하세요.',ch:['The man','standing','by the door','is','my uncle.'],a:[3],w:'standing은 the man을 꾸미는 분사, 진짜 동사는 is'},
+  {k:'subj',q:'이 문장의 진짜 동사를 탭하세요.',ch:['The letter','written','in red ink','was','from my aunt.'],a:[3],w:'written은 분사(쓰인), 진짜 동사는 was'},
+  {k:'pick',s:'The students [study|studying] in the library are my friends.',a:1,w:'이미 동사 are가 있다 → 꾸미는 분사 studying'},
+  {k:'pick',s:'The boy [wears|wearing] a cap is my brother.',a:1,w:'동사 is가 있다 → 분사 wearing'},
+  {k:'pick',s:'She [wants|wanting] to become a doctor.',a:0,w:'다른 동사가 없다 → 동사 wants'},
+  {k:'pick',s:'[Read|Reading] books every day improves your vocabulary.',a:1,w:'동사 improves가 있다 → 주어는 동명사 Reading'},
+  {k:'pick',s:'He decided [buy|to buy] a new bike.',a:1,w:'동사 decided가 있다 → to buy'}]},
+ {n:'동사·준동사 2',t:'접속사 · 관계사가 있으면 동사 둘',items:[
+  {k:'mc',q:'that · who · which · when · because 같은 접속사·관계사가 하나 있으면?',o:['동사가 하나 더 필요하다 (동사 2개)','동사는 여전히 하나'],a:0,w:'절이 둘 → 동사도 둘'},
+  {k:'pick',s:'The book that I bought yesterday [is|being] very interesting.',a:0,w:'that절 동사 bought + 주절 동사 is'},
+  {k:'pick',s:'People who [exercise|exercising] regularly sleep better.',a:0,w:'who절에도 동사가 필요 → exercise'},
+  {k:'pick',s:'I know the girl [sings|singing] on the stage.',a:1,w:'관계사가 없다 → 동사는 know 하나, singing은 분사'},
+  {k:'pick',s:'I know the girl who [sings|singing] on the stage.',a:0,w:'관계사 who가 있다 → who절 동사 sings'},
+  {k:'pick',s:'When the bell [rang|ringing], the students left.',a:0,w:'When절 동사 rang + 주절 동사 left'},
+  {k:'pick',s:'The files you see [displayed|display] on the screen help people.',a:0,w:'3월 원 29번 — see + (목적어) + p.p. / 문장 동사는 help'},
+  {k:'pick',s:'Students [use|using] smartphones in class often lose focus.',a:1,w:'동사 lose가 있다 → 꾸미는 분사 using'},
+  {k:'pick',s:'The museum, [built|was built] in 1900, attracts many visitors.',a:0,w:'콤마 사이 삽입 분사 — 문장 동사는 attracts'},
+  {k:'subj',q:'관계사절 속 동사를 탭하세요.',ch:['The way of thinking','that','lies','behind these words','slowly extinguishes','certain habits.'],a:[2],w:'3월 원 36번 — that절 동사 lies + 주절 동사 extinguishes'}]},
+ {n:'동사·준동사 3',t:'모고형 어법',items:[
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`Many people believe that ① __sleeping__ less is a sign of hard work. However, the brain ② __needs__ rest to store new information. Students ③ __stayed__ up late before a test often remember less than those who sleep well. In fact, a short nap ④ __taken__ in the afternoon can improve memory. The lesson is clear: a good night’s sleep ⑤ __makes__ studying more effective.`,o:['①','②','③','④','⑤'],a:2,h:'③ 문장의 진짜 동사는 무엇일까요? 동사가 이미 있으면 ③은 준동사 자리.',w:'③ stayed → staying. 문장 동사는 remember — Students (staying up late) remember'},
+  {k:'mc',q:'③을 바르게 고치면?',o:['staying','stay','to stay'],a:0,w:'학생들이 (늦게까지) 깨어 있는 → 능동 분사'},
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`To understand a poem ① __requires__ patience. Readers ② __hoping__ for quick answers often feel lost. A poem ③ __written__ centuries ago may use words that ④ __seems__ strange today. Still, ⑤ __reading__ it slowly helps us hear its music.`,o:['①','②','③','④','⑤'],a:3,h:'that절 동사 ④의 주어는? 선행사를 보세요 (수일치 단원).',w:'④ seems → seem. 관계사절 동사 → 선행사 words(복수)'},
+  {k:'mc',q:'④를 바르게 고치면?',o:['seem','seeming','to seem'],a:0,w:'관계사절에도 동사가 필요 + 선행사 복수'},
+  {k:'mc',q:'동사 vs 준동사 판단 순서는?',o:['문장(절)에 이미 동사가 있는지 센다 → 있으면 준동사','뜻만 보고 자연스러운 쪽을 고른다'],a:0,w:'접속사·관계사 개수 + 1 = 동사 개수'},
+  {k:'mc',q:'원 29번 "files you see displayed on the screen help"에서 displayed가 동사가 아닌 이유는?',o:['문장 동사는 help이고, displayed는 see의 목적격 보어(분사)라서','과거 시제라서'],a:0,w:'you see (the files) displayed — 지각동사 see + O + p.p.'}]}]},
+{u:'병렬',d:'and · or · but 앞뒤 맞추기 — 동사·준동사 모양을 구별할 수 있어야',c:'#5B6B7F',formula:['and · or · but 앞뒤는 같은 모양·역할 (동사-동사, to V-to V, V-ing-V-ing, 형용사-형용사, 부사-부사)','병렬은 끝 모양(-ed)이 아니라 품사·역할을 맞춘다 / both A and B · not A but B · either A or B · not only A but also B'],sess:[
+ {n:'병렬 1',t:'기초 — 짝 찾기',items:[
+  {k:'pick',s:'She likes reading, swimming, and [to dance|dancing].',a:1,w:'reading, swimming과 짝 → dancing'},
+  {k:'pick',s:'I want to rest and [watch|watching] a movie.',a:0,w:'to rest and (to) watch'},
+  {k:'pick',s:'The room was clean and [comfortable|comfortably].',a:0,w:'be의 보어 형용사 clean과 짝 → 형용사'},
+  {k:'pick',s:'He spoke slowly and [clear|clearly].',a:1,w:'부사 slowly와 짝 → clearly'},
+  {k:'pick',s:'She opened the door, looked around, and [walks|walked] in.',a:1,w:'과거 동사 opened, looked와 짝'},
+  {k:'pick',s:'Exercise is good for both the body and [the mind|mentally].',a:0,w:'both A and B — 명사구끼리'},
+  {k:'pick',s:'You can pay by card or [in cash|cashing].',a:0,w:'전치사구 by card와 짝 → in cash'},
+  {k:'pick',s:'He is not only smart but also [kind|kindly].',a:0,w:'not only A but also B — 형용사끼리 (be의 보어)'},
+  {k:'pick',s:'Learning is not about memorizing but about [understand|understanding].',a:1,w:'not about A but about B — 동명사끼리'},
+  {k:'pick',s:'The test was long but [easy|easily].',a:0,w:'형용사 long과 짝'}]},
+ {n:'병렬 2',t:'함정 — 멀리 있는 짝, 끝 모양',items:[
+  {k:'mc',q:'It does not need to be detailed or even ( ? ) as long as it helps us. (3월 변형 29번 ①)',o:['correct (형용사)','corrected (수정된)','correctly (부사)'],a:0,w:'detailed는 -ed지만 형용사(상세한). 병렬은 끝 모양이 아니라 품사'},
+  {k:'pick',s:'The teacher asked us to read the text and [answer|answering] the questions.',a:0,w:'to read and (to) answer'},
+  {k:'pick',s:'He enjoys cooking and [to eat|eating] with friends.',a:1,w:'enjoy의 목적어 cooking과 짝'},
+  {k:'pick',s:'The plan was simple, cheap, and [effective|effectively].',a:0,w:'형용사 셋'},
+  {k:'pick',s:'Students who sleep well and [eat|eating] breakfast perform better.',a:0,w:'who sleep and eat — 관계사절 동사끼리'},
+  {k:'pick',s:'She wants either to stay home or [go|going] out.',a:0,w:'either to stay or (to) go'},
+  {k:'pick',s:'The room was quiet and [peaceful|peacefully].',a:0,w:'be의 보어 형용사 quiet와 짝 → 형용사'},
+  {k:'pick',s:'He is good at drawing and [sing|singing].',a:1,w:'전치사 at의 목적어 drawing과 짝'},
+  {k:'pick',s:'Reading books is more useful than [watch|watching] videos.',a:1,w:'비교 대상도 병렬 — Reading과 짝'},
+  {k:'pick',s:'She would rather walk than [take|taking] a bus.',a:0,w:'would rather A than B — 원형끼리'}]},
+ {n:'병렬 3',t:'모고형 어법',items:[
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`A good habit should be simple, ① __specific__, and easy to repeat. For example, instead of deciding to "study more," you might plan to read ten pages and ② __review__ one chapter every night. Such plans work because they are clear and ③ __measurable__. People who write down their goals and ④ __checking__ them daily are more likely to succeed. Small steps, taken regularly and ⑤ __patiently__, build lasting change.`,o:['①','②','③','④','⑤'],a:3,h:'④의 짝은 and 앞의 무엇일까요? who 뒤 동사를 보세요.',w:'④ checking → check. who write ~ and check ~ (관계사절 동사끼리)'},
+  {k:'mc',q:'④를 바르게 고치면?',o:['check','checked','to check'],a:0,w:'write(현재 동사)와 짝'},
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`Museums are no longer places just for looking at objects. Many now invite visitors to touch, ① __listen__, and even create. Children can build models, ② __play__ old instruments, or ③ __trying__ on costumes. These activities make learning active and ④ __memorable__. As a result, visitors leave not only informed but also ⑤ __inspired__.`,o:['①','②','③','④','⑤'],a:2,h:'can 뒤 동사원형 셋이 or로 이어져요.',w:'③ trying → try. can build, play, or try'},
+  {k:'mc',q:'③을 바르게 고치면?',o:['try','tried','to try'],a:0,w:'조동사 can 뒤 원형끼리'},
+  {k:'mc',q:'병렬 판단 순서는?',o:['and · or · but를 찾고 → 앞에서 짝이 되는 말을 찾아 모양·역할 맞추기','바로 앞 단어와 같은 끝 모양(-ed, -ing)으로 맞추기'],a:0,w:'짝은 바로 앞 단어가 아닐 수 있다 (멀리 있는 짝)'},
+  {k:'mc',q:'not only A but also B에서 A와 B는?',o:['같은 모양 (품사·형태)','아무 모양이나'],a:0,w:'visitors leave not only informed but also inspired — p.p.끼리'}]}]},
+{u:'능동 · 수동',d:'준동사(V-ing / p.p.) 중 무엇인가 — 하는가, 당하는가',c:'#B2700C',formula:['주어(꾸밈받는 말)가 하면 능동 / 당하면 수동(be p.p.) — 목적어가 있으면 능동','분사: 명사가 하면 V-ing, 당하면 p.p. / 감정: 감정을 주면 V-ing, 느끼면 p.p.'],sess:[
+ {n:'능동·수동 1',t:'기초 — 하는가, 당하는가',items:[
+  {k:'mc',q:'The window was broken by Tom. — 창문은?',o:['깨진 것 (당함 → 수동)','깬 것 (함 → 능동)'],a:0,w:'창문이 깨짐을 당함 → be + p.p.'},
+  {k:'pick',s:'This bridge [built|was built] in 1990.',a:1,w:'다리는 지어진다 (당함)'},
+  {k:'pick',s:'English [speaks|is spoken] in many countries.',a:1,w:'영어는 말해진다'},
+  {k:'pick',s:'My mom [cooked|was cooked] dinner for us.',a:0,w:'목적어 dinner가 있다 → 능동'},
+  {k:'pick',s:'The movie was [bored|boring], so I fell asleep.',a:1,w:'영화가 지루함을 준다 → V-ing'},
+  {k:'pick',s:'I was [bored|boring] during the movie.',a:0,w:'내가 지루함을 느낀다 → p.p.'},
+  {k:'pick',s:'Look at the leaves [falling|fallen] from the tree right now.',a:0,w:'지금 떨어지고 있는 → 능동 진행 V-ing'},
+  {k:'pick',s:'The boy [called|calling] Tom is my cousin.',a:0,w:'Tom이라고 불리는 → p.p.'},
+  {k:'pick',s:'There is a dog [barking|barked] outside.',a:0,w:'개가 짖는다 → V-ing'},
+  {k:'pick',s:'The news was [shocked|shocking] to everyone.',a:1,w:'소식이 충격을 준다 → V-ing'}]},
+ {n:'능동·수동 2',t:'함정 — 목적어 · 분사구문 · 감정',items:[
+  {k:'pick',s:'The problem [solved|was solved] quickly.',a:1,w:'목적어가 없고 문제는 풀린다 → 수동'},
+  {k:'pick',s:'The letter [sent|was sent] to the wrong address.',a:1,w:'편지는 보내진다'},
+  {k:'pick',s:'I had my hair [cut|cutting] yesterday.',a:0,w:'have + 목적어 + p.p. — 머리가 잘린다'},
+  {k:'pick',s:'She heard her name [called|calling].',a:0,w:'이름이 불린다 → p.p.'},
+  {k:'pick',s:'With his arms [folded|folding], he listened carefully.',a:0,w:'with + 명사 + p.p. — 팔이 접힌'},
+  {k:'pick',s:'[Seen|Seeing] from the sky, the island looks like a heart.',a:0,w:'섬이 보여진다 → p.p. 분사구문'},
+  {k:'pick',s:'[Feeling|Felt] tired, she went to bed early.',a:0,w:'그녀가 피곤함을 느낀다 → V-ing 분사구문'},
+  {k:'pick',s:'The signs [posted|posting] in the station guide travelers.',a:0,w:'3월 변형 29번 — 표지판은 게시된다'},
+  {k:'pick',s:'The results were [disappointed|disappointing] to the team.',a:1,w:'결과가 실망을 준다'},
+  {k:'pick',s:'Most students felt [satisfied|satisfying] with the test.',a:0,w:'학생들이 만족을 느낀다'}]},
+ {n:'능동·수동 3',t:'모고형 어법',items:[
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`Every year, thousands of old phones ① __are thrown__ away. Many of them still contain valuable metals ② __hidden__ inside. Some companies have started programs ③ __collecting__ these phones. The metals ④ __recovered__ from old phones are used again in new products. This process ⑤ __is reduced__ waste and saves resources.`,o:['①','②','③','④','⑤'],a:4,h:'⑤ 뒤에 목적어(waste)가 있나요? 목적어가 있으면 능동!',w:'⑤ is reduced → reduces. 과정이 쓰레기를 줄인다 (목적어 waste)'},
+  {k:'mc',q:'⑤를 바르게 고치면?',o:['reduces','reducing','be reduced'],a:0,w:'and 뒤 saves와 같은 현재 능동'},
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`The first photograph ever ① __taken__ was a view from a window. It ② __required__ hours of light, so the picture looks blurry. People ③ __amazing__ by the image could hardly believe their eyes. Today, millions of photos ④ __are shared__ online every minute. We have become so ⑤ __used__ to them that we rarely stop to look.`,o:['①','②','③','④','⑤'],a:2,h:'사람들이 놀라움을 주나요, 느끼나요? by the image가 힌트.',w:'③ amazing → amazed. 사람들이 놀람을 느낀다'},
+  {k:'mc',q:'③을 바르게 고치면?',o:['amazed','amaze','to amaze'],a:0,w:'감정을 느끼는 쪽 → p.p.'},
+  {k:'mc',q:'The game was exciting. / I was excited. — 차이는?',o:['exciting은 흥분을 주는 쪽, excited는 느끼는 쪽','둘은 같은 뜻'],a:0,w:'사물은 주로 V-ing, 사람은 주로 p.p.'},
+  {k:'mc',q:'He was given a prize. — 수동인데 뒤에 a prize가 있다. 가능할까?',o:['가능 — give는 목적어가 둘이라 하나가 남는다','불가능 — 수동태 뒤에는 명사가 못 온다'],a:0,w:'4형식 동사(give, send, show…)의 수동은 뒤에 명사가 남을 수 있다'}]}]},
+{u:'관계사 · what',d:'수일치에서 괄호 친 관계사절 — 이제 그 안을 본다',c:'#0D878A',formula:['관계대명사(who · which · that · what) 뒤 = 불완전 (주어·목적어 빠짐) / 관계부사(where · when · why)·접속사 that 뒤 = 완전','what = 앞에 선행사 없음 / that·which = 앞에 선행사 있음 / 콤마 뒤·전치사 뒤 that ✘'],sess:[
+ {n:'관계사 1',t:'기초 — 뒤가 완전한가, 불완전한가',items:[
+  {k:'mc',q:'I have a friend who lives in Busan. — who 뒤에 빠진 것은?',o:['주어 (who가 주어 역할)','아무것도 안 빠짐'],a:0,w:'who + 동사 → 주어가 빠진 불완전'},
+  {k:'pick',s:'This is the book [which|where] I bought yesterday.',a:0,w:'bought의 목적어가 빠짐 → which'},
+  {k:'pick',s:'This is the town [which|where] I was born.',a:1,w:'I was born 완전 → 관계부사 where'},
+  {k:'pick',s:'[What|That] I need now is sleep.',a:0,w:'앞에 선행사 없음 + need 목적어 빠짐 → What'},
+  {k:'pick',s:'The house [what|that] they built is beautiful.',a:1,w:'선행사 The house가 있다 → that'},
+  {k:'pick',s:'I remember the day [when|which] we first met.',a:0,w:'we first met 완전 → when'},
+  {k:'pick',s:'She told me [that|what] she was tired.',a:0,w:'she was tired 완전 → 접속사 that'},
+  {k:'pick',s:'Do you know the reason [why|which] he left?',a:0,w:'he left 완전 → why'},
+  {k:'pick',s:'The girl [who|which] won the race is my sister.',a:0,w:'사람 선행사 → who'},
+  {k:'pick',s:'He showed me [what|which] he had made.',a:0,w:'선행사 없음 + made 목적어 빠짐 → what'}]},
+ {n:'관계사 2',t:'함정 — 콤마 · 전치사 · 장소인데 which',items:[
+  {k:'pick',s:'My brother, [that|who] lives in Seoul, is a doctor.',a:1,w:'콤마 뒤 that ✘'},
+  {k:'pick',s:'This is the chair on [which|that] I sat.',a:0,w:'전치사 뒤 that ✘'},
+  {k:'pick',s:'This is the place [where|which] I visited last year.',a:1,w:'visited의 목적어가 빠짐 → which (장소라도!)'},
+  {k:'pick',s:'This is the place [where|which] I stayed last year.',a:0,w:'stayed는 목적어 불필요 → 완전 → where'},
+  {k:'pick',s:'The way [how|that] he solved it was clever.',a:1,w:'the way how ✘ → the way that / the way / how'},
+  {k:'pick',s:'Everything [what|that] he said was true.',a:1,w:'선행사 Everything → that'},
+  {k:'pick',s:'I can\'t believe [what|that] he did.',a:0,w:'did의 목적어가 빠짐 → what'},
+  {k:'pick',s:'I can\'t believe [what|that] he won the prize.',a:1,w:'he won the prize 완전 → 접속사 that'},
+  {k:'pick',s:'The reason [which|why] she gave was strange.',a:0,w:'gave의 목적어가 빠짐 → which'},
+  {k:'pick',s:'Students [who|whose] grades improved got a gift.',a:1,w:'whose + 명사(grades) — 소유'}]},
+ {n:'관계사 3',t:'모고형 어법',items:[
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`Libraries are places ① __where__ people can find quiet and knowledge. In the past, they offered only books ② __that__ people could borrow. Today, ③ __what__ many libraries provide goes far beyond books. Some lend tools, musical instruments, and even seeds, ④ __which__ visitors can plant at home. Librarians say that the items ⑤ __what__ people borrow most are cameras and laptops.`,o:['①','②','③','④','⑤'],a:4,h:'⑤ 앞에 선행사가 있나요? 있으면 what은 못 써요.',w:'⑤ what → that(which). 선행사 the items가 있다'},
+  {k:'mc',q:'⑤를 바르게 고치면?',o:['that','where','whose'],a:0,w:'선행사 + 목적어 빠진 불완전 → that / which'},
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`Some animals have developed clever ways ① __to survive__ winter. The arctic fox, ② __who__ fur turns white in winter, can hide in the snow. Bears find caves ③ __in which__ they sleep for months. Squirrels bury nuts in places ④ __which__ they can remember later. Scientists still study how these animals know ⑤ __what__ to do.`,o:['①','②','③','④','⑤'],a:1,h:'② 뒤에 명사(fur)가 바로 와요. "여우의 털"이라는 뜻이라면?',w:'② who → whose. whose + 명사 = ~의'},
+  {k:'mc',q:'②를 바르게 고치면?',o:['whose','which','that'],a:0,w:'소유격 관계대명사'},
+  {k:'mc',q:'관계대명사 vs 관계부사, 무엇으로 판단할까?',o:['뒤 문장이 완전한지 불완전한지','앞 명사가 장소인지 아닌지만'],a:0,w:'장소 명사라도 뒤가 불완전하면 which'},
+  {k:'mc',q:'what과 that(관계대명사)의 차이는?',o:['what은 앞에 선행사가 없고, that은 앞에 선행사가 있다','둘은 언제나 바꿔 쓸 수 있다'],a:0,w:'what = the thing(s) which'}]}]},
+{u:'도치 · 대동사',d:'조동사를 앞으로, 주어를 뒤로 — 수일치 + 조동사 + 대동사의 종합 (마지막 단원)',c:'#7550C4',formula:['목표: 조동사를 앞으로 꺼내고 주어는 뒤로 — 조동사 = be · have(+p.p.) · can/will… · 없으면 do','① 강조어 + 조동사 + 주어 + 동사원형 — 부정어 · Only · so/neither · if 생략','② 강조어 + 동사 + 주어 — 장소 부사구 · 보어 / 수일치는 뒤에 오는 주어에'],sess:[
+ {n:'도치 1',t:'조동사 꺼내기 — 도치의 핵심',items:[
+  {k:'mc',q:'부정어(never, rarely…)를 맨 앞으로 보낼 때 도치의 목표는?',o:['조동사를 주어 앞으로 꺼내고, 주어는 그 뒤로','동사를 문장 맨 끝으로 보낸다'],a:0,w:'도치 = 조동사 앞으로, 주어 뒤로. 조동사가 없으면 do를 꺼낸다'},
+  {k:'subj',q:'never를 앞으로 보내면 함께 앞으로 나갈 조동사를 탭하세요.',ch:['I','have','never','seen','such a sunset.','[[조동사 없음 → do 꺼내기]]'],a:[1],h:'도우미 동사(be · have+p.p. · can/will/should)가 있나요? 있으면 그게 앞으로, 없으면 do를 꺼내요. have 뒤가 p.p.인지 명사인지 확인!',w:'have + p.p.(seen) → have는 완료 조동사'},
+  {k:'pick',s:'Never [have I seen|I have seen] such a sunset.',a:0,w:'조동사 have가 주어 I 앞으로'},
+  {k:'subj',q:'rarely를 앞으로 보내면 함께 나갈 조동사를 탭하세요.',ch:['She','can','rarely','finish','her homework on time.','[[조동사 없음 → do 꺼내기]]'],a:[1],h:'도우미 동사(be · have+p.p. · can/will/should)가 있나요? 있으면 그게 앞으로, 없으면 do를 꺼내요. have 뒤가 p.p.인지 명사인지 확인!',w:'can + 원형 → can이 조동사'},
+  {k:'pick',s:'Rarely [can she finish|she can finish] her homework on time.',a:0,w:'조동사 can이 주어 she 앞으로'},
+  {k:'subj',q:'seldom을 앞으로 보내면 함께 나갈 말을 탭하세요.',ch:['He','is','seldom','late','for school.','[[조동사 없음 → do 꺼내기]]'],a:[1],h:'도우미 동사(be · have+p.p. · can/will/should)가 있나요? 있으면 그게 앞으로, 없으면 do를 꺼내요. have 뒤가 p.p.인지 명사인지 확인!',w:'be동사는 본동사여도 그대로 앞으로 나간다'},
+  {k:'pick',s:'Seldom [is he|he is] late for school.',a:0,w:'be동사가 주어 he 앞으로'},
+  {k:'subj',q:'rarely를 앞으로 보내면 함께 나갈 조동사는?',ch:['We','rarely','eat','out','on weekdays.','[[조동사 없음 → do 꺼내기]]'],a:[5],h:'도우미 동사(be · have+p.p. · can/will/should)가 있나요? 있으면 그게 앞으로, 없으면 do를 꺼내요. have 뒤가 p.p.인지 명사인지 확인!',w:'eat은 본동사, 조동사가 없다 → do를 꺼낸다'},
+  {k:'pick',s:'Rarely [do we eat|we eat] out on weekdays.',a:0,w:'조동사 do를 꺼내 주어 앞에, 동사는 원형 eat'},
+  {k:'subj',q:'never를 앞으로 보내면 함께 나갈 조동사는? (have가 두 번!)',ch:['I','have','never','had','a pet.','[[조동사 없음 → do 꺼내기]]'],a:[1],h:'도우미 동사(be · have+p.p. · can/will/should)가 있나요? 있으면 그게 앞으로, 없으면 do를 꺼내요. have 뒤가 p.p.인지 명사인지 확인!',w:'앞 have + p.p.(had) = 조동사 / had = 본동사(가졌다) → 앞 have만 앞으로: Never have I had a pet.'},
+  {k:'subj',q:'never를 앞으로 보내면 함께 나갈 조동사는?',ch:['I','never','have','time','to rest.','[[조동사 없음 → do 꺼내기]]'],a:[5],h:'도우미 동사(be · have+p.p. · can/will/should)가 있나요? 있으면 그게 앞으로, 없으면 do를 꺼내요. have 뒤가 p.p.인지 명사인지 확인!',w:'have + 명사(time) = 본동사 → do를 꺼낸다'},
+  {k:'pick',s:'Never [do I have|have I] time to rest.',a:0,w:'have 뒤가 명사면 본동사 → Never do I have ~'}]},
+ {n:'도치 2',t:'대동사 · so / neither — 조동사로 받기',items:[
+  {k:'mc',q:'대동사란?',o:['앞 동사를 다시 쓰지 않고 do · be · have로 받는 것','명사를 대신하는 말'],a:0,w:'일반동사 → do/does/did, be → be, 완료 → have — 도치 1의 조동사와 같은 원리'},
+  {k:'pick',s:'I like jazz, and my sister [does|is] too.',a:0,w:'앞 동사 like(일반동사) → does'},
+  {k:'pick',s:'She is tired, and so [am|do] I.',a:0,w:'앞 동사 is(be) → am'},
+  {k:'pick',s:'He has finished, but I [haven\'t|don\'t].',a:0,w:'앞이 완료(has finished) → have'},
+  {k:'pick',s:'Reading helps us understand others better than watching TV [does|is].',a:0,w:'대동사 does = helps (일반동사)'},
+  {k:'pick',s:'She runs faster than her brother [does|is].',a:0,w:'runs(일반동사) → does'},
+  {k:'pick',s:'"I went to the concert." "So [did I|I did]."',a:0,w:'나도 그랬어 = So + did + I (도치)'},
+  {k:'pick',s:'"I haven\'t eaten yet." "Neither [have I|do I]."',a:0,w:'앞이 완료(haven\'t eaten) → have'},
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`Cats sleep more than dogs ① __do__. A cat may sleep up to sixteen hours a day, and kittens sleep even longer than adult cats ② __do__. Dogs are more active in the daytime than cats ③ __are__. My cat sleeps all afternoon, and so ④ __does__ my neighbor’s cat. I have never seen a cat that sleeps as little as my dog ⑤ __is__.`,o:['①','②','③','④','⑤'],a:4,h:'⑤는 앞의 어떤 동사를 대신하나요? sleeps는 일반동사.',w:'⑤ is → does. 앞 동사 sleeps(일반동사, 단수 my dog)'},
+  {k:'mc',q:'⑤를 바르게 고치면?',o:['does','is','do'],a:0,w:'my dog(단수) + 일반동사 → does'}]},
+ 
+{n:'도치 3',t:'원리 — 주어가 뒤로 가면?',items:[
+  {k:'mc',q:'부정어(Never, Rarely, Little…)가 문장 맨 앞에 오면?',o:['조동사 + 주어 순서로 바뀐다 (의문문 모양)','주어 + 조동사 순서 그대로'],a:0,w:'Never have I seen ~ / Rarely does she ~'},
+  {k:'mc',q:'장소 부사구가 맨 앞에 오면 동사는 무엇에 수일치할까?',o:['동사 뒤에 오는 진짜 주어','앞에 있는 장소 명사'],a:0,w:'Under the table lies a pile of letters — 주어 a pile'},
+  {k:'mc',q:'Only Tom knows the answer. — 도치 문장일까?',o:['아니다 — Only가 주어를 꾸민다','맞다 — Only가 맨 앞에 있다'],a:0,w:'Only + 주어 = 도치 없음 / Only + 부사(then, after ~) = 도치'},
+  {k:'pick',s:'Among the visitors [was|were] two famous writers.',a:1,w:'주어 two famous writers (복수)'},
+  {k:'pick',s:'Under the table [lies|lie] a pile of old letters.',a:0,w:'주어 a pile (단수)'},
+  {k:'pick',s:'Never [he has|has he] been late for class.',a:1,w:'부정어 + 조동사 + 주어'},
+  {k:'pick',s:'Only then [I realized|did I realize] my mistake.',a:1,w:'Only + 부사 + did + 주어 + 원형'},
+  {k:'pick',s:'So important [is|are] these rules that everyone must follow them.',a:1,w:'주어 these rules (복수)'},
+  {k:'pick',s:'Behind the old house [stand|stands] tall pine trees.',a:0,w:'주어 tall pine trees (복수)'},
+  {k:'pick',s:'"I can\'t swim." "Neither [can I|I can]."',a:0,w:'neither + 조동사 + 주어 = 나도 못해'},
+  {k:'pick',s:'Here [it comes|comes it].',a:0,w:'대명사 주어는 도치하지 않는다'},
+  {k:'pick',s:'Should you [need|needs] any help, please call me.',a:0,w:'should 뒤는 동사원형 (if 생략 도치)'}]},
+ {n:'도치 4',t:'진짜 주어 찾기 · 배열',items:[
+  {k:'subj',ch:['Under the inner covers','are','closely spaced rows of healthy leaves'],a:[2],w:'3월 원 39번 — 주어 rows (복수) → are'},
+  {k:'subj',ch:['Even more surprising','was','what happened after the study ended'],a:[2],w:'3월 변형 24번 — what절 주어 = 단수 → was'},
+  {k:'subj',ch:['On the top of the hill','stands','an old church'],a:[2],w:'주어 an old church → stands'},
+  {k:'subj',ch:['Just as kids learn to like healthy food,','so, too,','can','adults','readjust their taste'],a:[3],w:'3월 원 22번 — so + 조동사(can) + 주어(adults)'},
+  {k:'subj',ch:['Among the results','was','a surprising finding'],a:[2],w:'주어 a surprising finding (단수) → was'},
+  {k:'arr',kr:'결코 나는 그렇게 맛있는 음식을 먹어 본 적이 없다.',ch:['Never','have','I','tasted','such delicious food.'],w:'부정어 + have + 주어 + p.p.'},
+  {k:'arr',kr:'그는 그 편지를 읽고 나서야 진실을 알았다.',ch:['Only after reading the letter','did','he','learn','the truth.'],w:'Only + 부사구 + did + 주어 + 원형'},
+  {k:'arr',kr:'강가에 작은 오두막이 서 있었다.',ch:['By the river','stood','a small cabin.'],w:'장소구 + 동사 + 주어'},
+  {k:'arr',kr:'그 소식이 너무 놀라워서 아무도 말을 하지 못했다.',ch:['So surprising','was','the news','that nobody could speak.'],w:'So + 형용사 + be + 주어 + that'},
+  {k:'arr',kr:'만약 내가 너라면, 그 제안을 받아들일 텐데.',ch:['Were','I','you,','I would accept the offer.'],w:'If I were you → Were I you'},
+  {k:'arr',kr:'그녀는 노래를 잘 부를 뿐 아니라 춤도 잘 춘다.',ch:['Not only','does','she','sing well,','but she also dances well.'],w:'Not only + does + 주어 + 원형'}]},
+ {n:'도치 5',t:'모고형 어법 · 해석',items:[
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`Scientists once believed that the adult brain could not change. Rarely ① __did__ they question this idea, because it seemed to match everyday experience. Recent studies, however, ② __have__ shown a very different picture. Inside every healthy brain ③ __is__ billions of nerve cells that keep forming new connections throughout life. Only when we stop learning ④ __does__ this process slow down. So powerful is this ability ⑤ __that__ even people in their eighties can learn a new language.`,o:['①','②','③','④','⑤'],a:2,h:'장소구(Inside every healthy brain) 도치예요. 동사 뒤의 진짜 주어는?',w:'③ is → are. 주어 billions of nerve cells (복수)'},
+  {k:'mc',q:'③을 바르게 고치면?',o:['are','be','being'],a:0,w:'장소구 도치 — 동사는 뒤의 복수 주어에 맞춘다'},
+  {k:'mc',q:'밑줄 친 부분 중, 어법상 틀린 것은?',p:`Not only ① __does__ music improve our mood, but it also helps us remember information. In one experiment, students listened to calm music while studying. Among the results ② __was__ a surprising finding: those students remembered more words than the others. Never ③ __had__ the researchers expected such a clear difference. Even more interesting ④ __were__ the reasons the students gave. Most said that the music ⑤ __make__ them feel relaxed and focused.`,o:['①','②','③','④','⑤'],a:4,h:'도치 부분(①~④)은 다 맞을 수도 있어요. 도치가 아닌 밑줄도 확인!',w:'⑤ make → made. 주어 the music(단수), 과거 이야기. 도치 부분은 함정으로 깔아 둔 맞는 문장'},
+  {k:'mc',q:'⑤를 바르게 고치면?',o:['made','making','to make'],a:0,w:'that절의 동사 자리 — 과거 + 단수 주어'},
+  {k:'mc',q:'Just as kids gradually learn to like nutritious foods, so, too, can adults readjust their taste. (3월 원 22번)',o:['아이들이 점차 영양가 있는 음식을 좋아하게 되는 것처럼, 어른들도 역시 입맛을 재조정할 수 있다','아이들이 영양가 있는 음식을 좋아하게 되면, 어른들도 입맛을 바꿔야 한다','아이들처럼 어른들도 영양가 있는 음식을 좋아해야 한다'],a:0,w:'Just as A, so (too) + 조동사 + 주어 = A인 것처럼 B도'},
+  {k:'mc',q:'Under the inner covers are closely spaced rows of vigorous, healthy leaves. (3월 원 39번)',o:['안쪽 덮개 아래에는 생기 넘치고 건강한 잎들이 촘촘히 줄지어 있다','안쪽 덮개는 생기 넘치는 잎들 아래에 촘촘히 있다','안쪽 덮개 아래의 잎들은 생기 넘치고 건강하다'],a:0,w:'원래 어순: Closely spaced rows of leaves are under the inner covers.'},
+  {k:'mc',q:'Little did the king realize how much he already had.',o:['왕은 자신이 이미 얼마나 많이 가졌는지 전혀 깨닫지 못했다','왕은 자신이 가진 것이 적다는 것을 깨달았다','왕은 조금씩 자신이 가진 것을 깨달았다'],a:0,w:'Little + did + 주어 = 전혀 ~하지 않았다 (little ≠ 조금)'}]}]}
+];
+/* ============ DATA 구간 끝 ============ */
+/* ============ ENGINE (수정 금지) ============ */
+const KEY=EXAM.key;let MEM=null;
+const $=s=>document.querySelector(s);
+const esc=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const mk=t=>esc(t).replace(/__([^_]+)__/g,'<u>$1</u>');
+const SS=[];UNITS.forEach((u,ui)=>u.sess.forEach((s,si)=>SS.push({...s,u,ui,id:ui+'-'+si})));
+function hash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function shuf(arr,seed){let a=hash(seed);const r=()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};const x=arr.map((v,i)=>i);for(let i=x.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[x[i],x[j]]=[x[j],x[i]]}if(x.every((v,i)=>v===i)&&x.length>1)x.push(x.shift());return x}
+const newIt=()=>({sel:null,seq:[],att:0,res:0,done:false,rv:false,msg:'',mt:'',bad:[]});
+function fresh(){return{sess:0,view:'s',d:SS.map(s=>s.items.map(newIt))}}
+function load(){try{const s=localStorage.getItem(KEY);if(s)return JSON.parse(s)}catch(e){}return MEM?JSON.parse(MEM):null}
+function save(){const s=JSON.stringify(ST);MEM=s;try{localStorage.setItem(KEY,s)}catch(e){}}
+let ST=load();if(!ST||!ST.d||ST.d.length!==SS.length||ST.d.some((x,i)=>x.length!==SS[i].items.length))ST=fresh();
+const LOCK=!!EXAM.lock;
+const sDone=k=>ST.d[k].every(x=>x.done);
+const act=k=>ST.d[k].findIndex(x=>!x.done);
+function twoTap(b,msg,fn){if(!b)return;b.onclick=()=>{if(b.dataset.arm==='1'){fn();return}b.dataset.arm='1';const t=b.textContent;b.textContent=msg;b.classList.add('arm');setTimeout(()=>{if(b.isConnected&&b.dataset.arm==='1'){b.dataset.arm='';b.textContent=t;b.classList.remove('arm')}},4000)}}
+function tabs(){
+ const t=$('#tabs');let h='';
+ UNITS.forEach((u,ui)=>{h+=`<div class="ulab">${ui+1}. ${esc(u.u)}${u.d?' — '+esc(u.d):''}</div><div class="urow">`;SS.forEach((s,k)=>{if(s.ui!==ui)return;h+=`<button class="stab${ST.sess===k?' on':''}${sDone(k)?' done':''}" style="--c:${u.c}" data-k="${k}" ${LOCK&&k>0&&!sDone(k-1)?'disabled':''}><b>${esc(s.n)}</b><span>${esc(s.t)}</span></button>`});h+='</div>'});
+ t.innerHTML=h;t.querySelectorAll('.stab').forEach(b=>b.onclick=()=>{ST.sess=+b.dataset.k;ST.view='s';save();render();window.scrollTo({top:0})});
+ const k=ST.sess,n=SS[k].items.length,dn=ST.d[k].filter(x=>x.done).length;$('#bar').style.width=(dn/n*100)+'%';
+}
+function render(){tabs();ST.view==='sum'?renderSum():renderS()}
+function itemHTML(k,j,a){
+ const it=SS[k].items[j],st=ST.d[k][j];
+ if(!st.done&&j!==a)return `<div class="it lock"><div class="ih"><span class="num">${j+1}</span><span class="iq">잠김 — 앞 문제를 맞히면 열린다</span></div></div>`;
+ let q='',b='';
+ if(it.k==='pick'){q=it.q||'알맞은 것을 고르세요.';
+  let n=0;b=`<div class="sent">${esc(it.s).replace(/\[([^\]|]+)\|([^\]]+)\]/,(m,x,y)=>[x,y].map((o,oi)=>{let c='pk';if(st.done&&oi===it.a)c+=' sel';else if(!st.done&&st.bad.includes(oi))c+=' no';if(!st.done&&st.rv&&oi===it.a)c+=' show';return `<button class="${c}" data-k="${k}" data-j="${j}" data-o="${oi}" ${st.done?'disabled':''}>${o}</button>`}).join(' / '))}</div>`}
+ else if(it.k==='subj'){q=it.q||'진짜 주어를 탭하세요.';
+  const cb=(c,ci,cls)=>{let cl=cls;if(st.done&&it.a.includes(ci))cl+=' sel';else if(!st.done&&st.bad.includes(ci))cl+=' no';if(!st.done&&st.rv&&it.a.includes(ci))cl+=' show';return `<button class="${cl}" data-k="${k}" data-j="${j}" data-o="${ci}" ${st.done?'disabled':''}>${esc(c.replace(/^\[\[|\]\]$/g,''))}</button>`};
+  const inS=it.ch.map((c,ci)=>[c,ci]).filter(([c])=>!c.startsWith('[[')),ex=it.ch.map((c,ci)=>[c,ci]).filter(([c])=>c.startsWith('[['));
+  b=`<div class="sfull">${inS.map(([c,ci])=>cb(c,ci,'tk2')).join(' ')}</div>${ex.length?`<div class="chips" style="margin-top:8px">${ex.map(([c,ci])=>cb(c,ci,'ch')).join('')}</div>`:''}<div class="tapnote">문장을 끝까지 읽고, 해당하는 부분을 탭하세요.</div>`}
+ else if(it.k==='arr'){q=it.q||'순서대로 탭해서 문장을 만드세요.';const ord=shuf(it.ch,EXAM.key+k+'-'+j);
+  b=`<div class="kr">${esc(it.kr)}</div><div class="built">${(st.done?it.ch.map((c,i)=>i):st.seq).map(i=>`<span>${esc(it.ch[i])}</span>`).join('')||'&nbsp;'}</div>${st.done?'':`<div class="chips">${ord.map(i=>`<button class="ch${st.seq.includes(i)?' used':''}${st.rv&&!st.seq.includes(i)&&it.ch.findIndex((x,ii)=>!st.seq.includes(ii))===i?' show':''}" data-k="${k}" data-j="${j}" data-o="${i}" ${st.seq.includes(i)?'disabled':''}>${esc(it.ch[i])}</button>`).join('')}</div><button class="btn ghost" data-clr="${k}-${j}">다시 놓기</button>`}`}
+ else if(it.k==='mc'){q=it.q;const row=it.o.every(o=>o.length<=3);
+  b=`${it.p?`<div class="psg">${mk(it.p)}</div>`:''}<div class="opts${row?' row':''}">${it.o.map((o,oi)=>{let c='op';if(st.done&&oi===it.a)c+=' sel';else if(!st.done&&st.bad.includes(oi))c+=' no';if(!st.done&&st.rv&&oi===it.a)c+=' show';return `<button class="${c}" data-k="${k}" data-j="${j}" data-o="${oi}" ${st.done?'disabled':''}>${esc(o)}</button>`}).join('')}</div>`}
+ let m='';if(st.done)m=`<div class="msg ok">${st.res===1?'한 번에 정답!':st.res===2?'힌트 보고 정답.':'정답 확인 후 직접 해결.'} ${esc(it.w||'')}</div>`;else if(st.msg)m=`<div class="msg ${st.mt}">${esc(st.msg)}</div>`;
+ return `<div class="it${st.done?' ok':''}" id="it${j}"><div class="ih"><span class="num">${j+1}</span><span class="iq">${mk(q)}</span></div><div class="ib">${b}${m}</div></div>`;
+}
+const HINT={pick:'동사 앞의 수식어를 괄호로 지우고, 진짜 주어가 단수인지 복수인지 다시 봐요.',subj:'동사를 먼저 찾고, 수식어(전치사구·관계사절·장소구·보어)를 건너뛰어요.',arr:'강조어를 맨 앞에 두고, 조동사 → 주어 → 동사 순서인지 확인해요.',mc:'공식대로 진짜 주어부터 찾아요.'};
+function renderS(){
+ const k=ST.sess,S=SS[k],a=act(k);
+ let h=`<section style="--c:${S.u.c}"><div class="shead"><span class="badge">${esc(S.u.u)}</span><h2>${esc(S.n)} — ${esc(S.t)}</h2></div><div class="formula">${S.u.formula.map(f=>`<div>${esc(f)}</div>`).join('')}</div>`;
+ S.items.forEach((x,j)=>h+=itemHTML(k,j,a));
+ if(sDone(k))h+=`<div style="display:flex;justify-content:flex-end"><button class="btn" id="tosum">${esc(S.n)} 결과 보기</button></div>`;
+ h+='</section>';$('#main').innerHTML=h;bind(k);
+}
+function keep(fn){const y=window.scrollY;fn();window.scrollTo(0,y)}
+function bind(k){
+ document.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{const j=+b.dataset.j,o=+b.dataset.o,it=SS[k].items[j],st=ST.d[k][j];
+  if(it.k==='arr'){st.seq.push(o);st.msg='';if(st.seq.length===it.ch.length)check(k,j);else keep(render);return}
+  st.sel=o;check(k,j)});
+ document.querySelectorAll('[data-clr]').forEach(b=>b.onclick=()=>{const[x,y]=b.dataset.clr.split('-').map(Number);ST.d[x][y].seq=[];keep(render)});
+ const ts=$('#tosum');if(ts)ts.onclick=()=>{ST.view='sum';save();render();window.scrollTo({top:0})};
+}
+function check(k,j){
+ const it=SS[k].items[j],st=ST.d[k][j];let ok;
+ if(it.k==='arr')ok=st.seq.every((v,i)=>v===i);
+ else if(it.k==='subj')ok=it.a.includes(st.sel)&&it.a.length===1;
+ else ok=st.sel===it.a;
+ if(ok){st.done=true;st.res=st.rv?3:(st.att?2:1);st.msg='';st.bad=[];save();keep(render);const nx=document.getElementById('it'+(j+1));if(nx)nx.scrollIntoView({behavior:'smooth',block:'center'});return}
+ st.att++;if(it.k!=='arr'&&!st.bad.includes(st.sel))st.bad.push(st.sel);if(it.k==='arr')st.seq=[];
+ if(st.att===1){st.msg='힌트: '+(it.h||HINT[it.k]);st.mt='hint'}
+ else{st.rv=true;st.msg=it.k==='arr'?'정답: '+it.ch.join(' ')+' — 직접 순서대로 다시 놓으세요.':'정답을 빨간 점선으로 표시했어요. 직접 눌러서 넘어가세요.';st.mt='rv'}
+ save();keep(render);
+}
+function stats(k){let o=0,h=0,r=0;ST.d[k].forEach(s=>{if(s.res===1)o++;else if(s.res===2)h++;else if(s.res===3)r++});return{o,h,r}}
+function code(k){const{o,h,r}=stats(k);const p=n=>String(n).padStart(2,'0');return `${EXAM.code}-${SS[k].ui+1}${String.fromCharCode(65+SS[k].id.split('-')[1]*1)}-${p(o)}${p(h)}${p(r)}-${String.fromCharCode(65+((o*3+h*5+r*7+k*11)%26))}`}
+function renderSum(){
+ const k=ST.sess,S=SS[k],fin=sDone(k),{o,h,r}=stats(k);
+ let x=`<div class="sum" style="--c:${S.u.c}"><h2>${esc(S.n)} ${fin?'완료':'진행 상황'}</h2><p style="margin:0 0 4px;font-weight:700">${esc(S.t)}</p><p style="margin:0;color:var(--muted)">${fin?'완료 코드를 클래스룸 댓글로 제출하세요.':'모든 문제를 끝내면 완료 코드가 나온다.'}</p>${fin?`<div class="code">${code(k)}</div>`:''}<div class="stats"><div><b>${o}</b>한 번에 정답</div><div><b>${h}</b>힌트 후 정답</div><div><b>${r}</b>정답 공개</div></div>`;
+ const wr=ST.d[k].map((s,j)=>s.res>1?j:-1).filter(j=>j>=0);
+ x+=`<div style="display:flex;gap:8px;flex-wrap:wrap">${fin&&k<SS.length-1?`<button class="btn" id="nx">다음 회차로 (${esc(SS[k+1].n)})</button>`:''}${!fin?`<button class="btn" id="back">풀러 가기</button>`:''}${wr.length?`<button class="btn ghost" id="redoW">힌트·공개 문제만 다시 (${wr.length})</button>`:''}<button class="btn ghost" id="redoS">${esc(S.n)} 전부 다시 풀기</button><button class="btn ghost" id="reset">모든 기록 지우기</button></div></div>`;
+ $('#main').innerHTML=x;
+ const nx=$('#nx');if(nx)nx.onclick=()=>{ST.sess=k+1;ST.view='s';save();render();window.scrollTo({top:0})};
+ const bk=$('#back');if(bk)bk.onclick=()=>{ST.view='s';save();render()};
+ twoTap($('#redoW'),'한 번 더 누르면 그 문제만 처음부터',()=>{wr.forEach(j=>ST.d[k][j]=newIt());ST.view='s';save();render();window.scrollTo({top:0})});
+ twoTap($('#redoS'),'한 번 더 누르면 이 회차만 처음부터',()=>{ST.d[k]=SS[k].items.map(newIt);ST.view='s';save();render();window.scrollTo({top:0})});
+ twoTap($('#reset'),'한 번 더 누르면 모든 기록 삭제',()=>{ST=fresh();save();render()});
+}
+document.title=EXAM.title;$('#ttl').textContent=EXAM.title;$('#sub').textContent=EXAM.sub;$('#foot').textContent=EXAM.footer+(EXAM.ver?' · '+EXAM.ver:'');
+try{render()}catch(e){console.error(e);ST=fresh();try{save()}catch(_){}render()}
+</script></body></html>
