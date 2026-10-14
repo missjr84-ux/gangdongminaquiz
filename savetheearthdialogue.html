@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lesson 7 Save Earth, Save Us — 대화문</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f4fa;--card:#fff;--card2:#eeecf7;
+  --primary:#5b4fa8;--primary-lt:#ece9f8;--primary-dk:#3b2f8a;
+  --accent:#e8a020;--accent-lt:#fef3dc;
+  --text:#1a1a2e;--muted:#6b6880;--border:#d8d4ee;
+  --ok:#1a7a3c;--ok-bg:#e8f5ec;--no:#c0392b;--no-bg:#fdecea;
+  --info:#3a5fa8;--info-bg:#e8eef8;
+  --mint:#dff5ec;--mint-t:#1d7a55;--sky:#e1effc;--sky-t:#2a64a8;
+  --peach:#fde9df;--peach-t:#b5532a;--lav:#ece9f8;--lav-t:#5b4fa8;
+  --r:12px;--shadow:0 2px 10px rgba(91,79,168,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Noto Sans KR',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.65;-webkit-tap-highlight-color:transparent}
+.en{font-family:'Noto Sans KR',system-ui,sans-serif}
+header.top{background:linear-gradient(135deg,#3b2f8a,#7b6fd0);color:#fff;padding:16px 16px 0}
+.top .brand{font-size:12px;opacity:.85;letter-spacing:.04em}
+.top h1{font-size:21px;font-weight:800;margin:2px 0 2px}
+.top .sub{font-size:13px;opacity:.9;margin-bottom:12px}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:1.5px solid rgba(255,255,255,.45);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:7px 13px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.tab.on{background:#fff;color:var(--primary-dk);border-color:#fff}
+.tab .pg{font-size:11px;font-weight:700;margin-left:5px;opacity:.85}
+main{max-width:780px;margin:0 auto;padding:16px 14px 80px}
+.panel{display:none;animation:pin .25s ease}
+.panel.on{display:block}
+@keyframes pin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.intro{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:var(--r);padding:12px 14px;margin-bottom:14px;font-size:15px}
+.intro b{color:var(--primary-dk)}
+h2.sec{font-size:18px;font-weight:800;color:var(--primary-dk);margin:22px 2px 10px;display:flex;align-items:center;gap:8px}
+h2.sec:first-child{margin-top:4px}
+h3.sub{font-size:15.5px;font-weight:700;margin:14px 2px 8px;color:var(--primary)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.tip{background:var(--accent-lt);border:1px solid #f3d99a;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14.5px}
+.tip b{color:#9a5b00}
+.warn{background:var(--no-bg);border:1px solid #f2c4bd;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14.5px}
+.warn b{color:var(--no)}
+table.t{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--card)}
+table.t th{background:var(--primary-lt);color:var(--primary-dk);font-weight:700;padding:7px 6px;border:1px solid var(--border);text-align:left}
+table.t td{padding:7px 6px;border:1px solid var(--border);vertical-align:top}
+.tw{overflow-x:auto;border-radius:10px;margin-bottom:12px}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 7px;vertical-align:middle}
+.b-mint{background:var(--mint);color:var(--mint-t)}.b-sky{background:var(--sky);color:var(--sky-t)}
+.b-peach{background:var(--peach);color:var(--peach-t)}.b-lav{background:var(--lav);color:var(--lav-t)}
+.b-amb{background:var(--accent-lt);color:#9a5b00}
+.spk{border:none;background:var(--primary-lt);color:var(--primary);border-radius:8px;width:30px;height:30px;font-size:15px;cursor:pointer;flex:0 0 auto;line-height:30px;text-align:center}
+.spk.playing{background:var(--primary);color:#fff}
+.btn{border:1.5px solid var(--primary);background:#fff;color:var(--primary);border-radius:9px;padding:7px 13px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn.fill{background:var(--primary);color:#fff}
+.btn.sm{padding:4px 10px;font-size:13px}
+.btn.ghost{border-color:var(--border);color:var(--muted)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+/* word chips */
+.wgrid{display:flex;flex-wrap:wrap;gap:6px}
+.wchip{border:1px solid var(--border);background:var(--card);border-radius:9px;padding:5px 10px;font-size:14px;cursor:pointer}
+.wchip b{color:var(--primary-dk)}
+.wchip span{color:var(--muted);font-size:13px;margin-left:4px}
+/* qset */
+.qset{margin-bottom:18px}
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:18px 2px 10px}
+.qhead h3{font-size:16.5px;font-weight:800;color:var(--primary-dk)}
+.score{font-size:13px;font-weight:700;color:var(--primary);background:var(--primary-lt);border-radius:999px;padding:3px 10px}
+.q{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:13px 14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.q.ok{border-color:#8fd0a7;background:#fbfffc}
+.q.no{border-color:#eba59c;background:#fffafa}
+.qn{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}
+.qn .num{flex:0 0 auto;background:var(--primary);color:#fff;font-weight:800;font-size:13px;border-radius:7px;min-width:26px;height:24px;line-height:24px;text-align:center;padding:0 5px;margin-top:2px}
+.qn .qt{flex:1;font-weight:600;font-size:15.5px}
+.qt u{text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:var(--primary)}
+.pass{background:var(--card2);border-radius:10px;padding:10px 12px;margin:6px 0 10px;font-size:15px;line-height:1.75}
+.pass .ln{display:block}
+.pass .sp{font-weight:800;color:var(--primary);margin-right:4px}
+.pass u{text-decoration-thickness:2px;text-underline-offset:3px}
+.mark{color:var(--primary);font-weight:800}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{text-align:left;border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:8px 11px;font-size:15px;cursor:pointer;font-family:inherit;color:var(--text);line-height:1.5}
+.opts.inline .opt{flex:0 0 auto}
+.opt.sel{border-color:var(--primary);background:var(--primary-lt);font-weight:600}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.wrong{border-color:var(--no);background:var(--no-bg)}
+.opt:disabled{cursor:default;color:var(--text)}
+.blank{display:inline-block;min-width:70px;border:none;border-bottom:2px solid var(--primary);background:var(--primary-lt);border-radius:6px 6px 0 0;padding:2px 6px;margin:2px 2px;font-size:15px;font-family:inherit;color:var(--text);text-align:center}
+.blank.wide{display:block;width:100%;text-align:left;margin:6px 0;padding:8px 10px;border-radius:8px;border:1.5px solid var(--border);border-bottom:2px solid var(--primary)}
+.blank.right{background:var(--ok-bg);border-bottom-color:var(--ok)}
+.blank.wrong{background:var(--no-bg);border-bottom-color:var(--no)}
+.tmpl{font-size:15.5px;line-height:2.1}
+.ordwrap{display:flex;flex-direction:column;gap:8px}
+.slots{min-height:48px;border:2px dashed var(--border);border-radius:10px;padding:7px;display:flex;flex-wrap:wrap;gap:6px;background:#fcfbff}
+.slots.block{flex-direction:column}
+.slots .hint{color:var(--muted);font-size:13px;align-self:center;padding:4px}
+.pool{display:flex;flex-wrap:wrap;gap:6px}
+.pool.block{flex-direction:column}
+.chip{border:1.5px solid var(--primary);background:#fff;color:var(--primary-dk);border-radius:9px;padding:6px 11px;font-size:15px;cursor:pointer;font-family:inherit;text-align:left;line-height:1.45}
+.chip.used{visibility:hidden}
+.slots .chip{background:var(--primary-lt)}
+.chip:disabled{cursor:default}
+.qfoot{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.fb{margin-top:9px;border-radius:9px;padding:9px 11px;font-size:14.5px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--ok-bg);color:#145c2e}
+.fb.no{background:var(--no-bg);color:#8e2a1f}
+.fb.ans{background:var(--info-bg);color:#24406f}
+.fb b{font-weight:800}
+.qbar{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}
+.sticky{position:sticky;bottom:10px;display:flex;justify-content:center;gap:8px;margin-top:6px;z-index:5}
+.sticky .btn{box-shadow:0 4px 14px rgba(59,47,138,.25)}
+/* analysis cards */
+.acard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+.acard .kr{font-size:16px;font-weight:600}
+.acard .kr .no{color:var(--primary);font-weight:800;margin-right:6px}
+.chunks{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.ck{border:1.5px solid var(--border);border-radius:9px;padding:5px 9px;background:#fcfbff;cursor:pointer;font-size:14px;text-align:left;font-family:inherit;color:var(--text)}
+.ck small{display:block;color:var(--primary);font-weight:800;font-size:11px}
+.ck .ce{display:none;color:var(--primary-dk);font-weight:700}
+.ck.open .ce{display:block}
+.ck.open{border-color:var(--primary);background:var(--primary-lt)}
+.aen{display:none;margin-top:9px;background:var(--card2);border-radius:9px;padding:8px 10px}
+.aen.show{display:block}
+.aen .s{font-size:16px;font-weight:700;color:var(--primary-dk)}
+.aen .tp{font-size:14px;color:#6a4a00;margin-top:5px}
+.parahead{background:var(--primary-lt);border-radius:10px;padding:9px 12px;margin:18px 0 9px;font-size:14.5px}
+.parahead b{color:var(--primary-dk);font-size:15.5px}
+/* dialogue script */
+.script{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:10px;box-shadow:var(--shadow)}
+.script .shead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.script .shead b{color:var(--primary-dk);font-size:15.5px}
+.line{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed #ebe8f5}
+.line:last-child{border-bottom:none}
+.line .who{flex:0 0 auto;min-width:24px;font-weight:800;color:var(--primary)}
+.line .tx{flex:1}
+.line .ko{display:none;color:var(--muted);font-size:14px}
+.script.kr .line .ko{display:block}
+/* tapfill */
+.tf{font-size:16px;line-height:2.2}
+.tfb{display:inline-block;min-width:56px;border-bottom:2px solid var(--primary);background:var(--primary-lt);border-radius:6px 6px 0 0;padding:0 7px;text-align:center;cursor:pointer;color:transparent;font-weight:700;user-select:none}
+.tfb.next{animation:pulse 1.4s infinite}
+.tfb.open{color:var(--primary-dk);background:#fff3c9;border-bottom-color:var(--accent);cursor:default}
+.tfb.shake{animation:shake .3s}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(91,79,168,.35)}50%{box-shadow:0 0 0 5px rgba(91,79,168,0)}}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.formula{background:var(--card);border:2px solid var(--primary);border-radius:var(--r);padding:14px;margin-bottom:12px;text-align:center;font-size:18px;font-weight:800;color:var(--primary-dk);line-height:1.8}
+.formula .f{display:inline-block;border-radius:8px;padding:2px 8px;margin:2px}
+.steps{counter-reset:st}
+.step{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;margin-bottom:8px;box-shadow:var(--shadow)}
+.step .h{font-weight:800;color:var(--primary-dk)}
+.step .h .n{display:inline-block;background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:6px}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+@media (max-width:480px){
+  .top h1{font-size:19px}
+  main{padding:12px 12px 80px}
+  .opt,.chip{font-size:14.5px}
+}
+
+</style>
+</head>
+<body>
+<script>
+window.DATA={"file":"saveearthdialogue.html","brand":"강동미나 중고등부 · 중1 능률(김기택)","title":"Lesson 7 Save Earth, Save Us — 대화문","sub":"알거나 모름 표현하기 · 예시 들기 · 9개 대화 실전","tabs":[{"name":"💬 핵심 표현","intro":"<b>질문의 동사와 대답의 동사를 맞추는 것</b>이 이 단원 대화문 문제의 핵심이에요.","blocks":[{"k":"h","html":"1. 알고 있는지 묻기 — 대답 짝 맞추기"},{"k":"html","html":"<div class=\"tw\"><table class=\"t\">\n<tr><th>질문</th><th>알 때</th><th>모를 때</th></tr>\n<tr><td><b>Do</b> you know about ~?</td><td>Yes, I <b>do</b>.</td><td>No, I <b>don't</b>.</td></tr>\n<tr><td><b>Do</b> you have any idea about ~?</td><td>Yes, I <b>do</b>.</td><td>No, I <b>don't</b>.</td></tr>\n<tr><td><b>Have</b> you heard of[about] ~?</td><td>Yes, I <b>have</b>.</td><td>No, I <b>haven't</b>.</td></tr>\n<tr><td><b>Did</b> you hear about ~?</td><td>Yes, I <b>did</b>.</td><td>No, I <b>didn't</b>.</td></tr>\n<tr><td><b>Are</b> you aware of ~?</td><td>Yes, I <b>am</b>.</td><td>No, I'm <b>not</b>.</td></tr>\n</table></div>\n<div class=\"tw\"><table class=\"t\">\n<tr><th>안다고 할 때</th><th>모른다고 할 때</th></tr>\n<tr><td>I've heard about it. (들어본 적 있어)</td><td>I'm not sure. (잘 모르겠어)<br>I don't know much about it. (많이 알진 않아)<br>I've never heard of it. (들어본 적 없어)</td></tr>\n</table></div>\n<div class=\"warn\"><b>앞뒤가 안 맞으면 어색한 대화!</b><br>\"Yes, I do. ✗ I don't know much about it.\" — 안다고 해 놓고 모른다고 하면 틀린 대화예요.<br>\"Do you know ~?\" → \"Yes, I am.\" ✗ (동사 짝이 안 맞음)</div>"},{"k":"h","html":"2. 예시 들기"},{"k":"html","html":"<div class=\"tw\"><table class=\"t\">\n<tr><th>예시 표현 ✓</th><th>빈칸에 오면 안 되는 연결어 ✗</th></tr>\n<tr><td><b>For example, ~</b> / <b>For instance, ~</b><br>A <b>like</b> B (B 같은 A)<br>A <b>such as</b> B (B와 같은 A)</td>\n<td>However (그러나)<br>Therefore (그러므로)<br>By the way (그런데)<br>In other words (다시 말해)<br>Instead (대신에)</td></tr>\n</table></div>\n<div class=\"tip\"><b>찾는 법:</b> 앞에 \"We can do a lot of things.\"처럼 <b>큰 말</b>이 있고, 뒤에 <b>구체적인 한 가지</b>가 나오면 → For example.</div>"},{"k":"h","html":"3. 같이 나오는 제안·계획 표현"},{"k":"html","html":"<div class=\"tw\"><table class=\"t\">\n<tr><th>표현</th><th>뜻</th><th>바꿔 쓰기</th></tr>\n<tr><td>Why don't <b>we</b> + 동사원형?</td><td>우리 ~하는 게 어때? (제안)</td><td>Let's + 동사원형.</td></tr>\n<tr><td>Why don't <b>you</b> + 동사원형?</td><td>너 ~하는 게 어때? (권유)</td><td>You should ~. / How about -ing?</td></tr>\n<tr><td>What are you going to do ~?</td><td>~에 무엇을 할 예정이니?</td><td>What are you planning to do ~? / What will you do ~?</td></tr>\n<tr><td>That sounds good[great].</td><td>좋아. (sound + <b>형용사</b>)</td><td>That's a good idea.</td></tr>\n</table></div>"}]},{"name":"✅ 표현 문제","intro":"<b>비슷한 표현 고르기 · 어색한 대화 찾기</b> — 동사 짝(do/have/did/am)을 먼저 확인하세요.","blocks":[{"k":"qset","title":"비슷한 표현 · 알맞은 응답","qs":[{"t":"multi","q":"빈칸에 들어갈 말로 알맞은 것을 <b>모두</b> 고르시오.","p":"<span class=\"ln\"><span class=\"sp\">A:</span>______ the zero waste week?</span><span class=\"ln\"><span class=\"sp\">B:</span>No, I don't. What is it?</span>","o":["Do you know about","Do you have any idea about","Have you heard of","Are you aware of","Did you know about"],"a":[0,1],"e":"대답이 \"No, I <b>don't</b>\" → 질문은 <b>Do</b> you ~. ③ No, I haven't ④ No, I'm not ⑤ No, I didn't가 짝."},{"t":"multi","q":"빈칸에 들어갈 말로 알맞은 것을 <b>모두</b> 고르시오.","p":"<span class=\"ln\"><span class=\"sp\">A:</span>______ Earth Day?</span><span class=\"ln\"><span class=\"sp\">B:</span>Yes, I have. It's on April 22.</span>","o":["Do you know about","Have you heard of","Are you aware of","Have you heard about","Do you have any idea about"],"a":[1,3],"e":"\"Yes, I <b>have</b>\" → Have you heard of[about] ~?"},{"t":"mc","q":"빈칸에 들어갈 응답으로 알맞은 것은?","p":"<span class=\"ln\"><span class=\"sp\">A:</span>Are you aware of global warming?</span><span class=\"ln\"><span class=\"sp\">B:</span>______ It's a big problem.</span>","o":["Yes, I do.","Yes, I have.","No, I didn't.","No, I haven't.","Yes, I am."],"a":4,"e":"<b>Are</b> you aware of ~? → Yes, I <b>am</b>."},{"t":"multi","q":"빈칸에 들어갈 말로 알맞은 것을 <b>모두</b> 고르시오.","p":"<span class=\"ln\"><span class=\"sp\">A:</span>How can we save energy?</span><span class=\"ln\"><span class=\"sp\">B:</span>We can do many things. ______, we can turn off the lights.</span>","o":["For example","For instance","However","By the way","Therefore"],"a":[0,1],"e":"큰 말(many things) 뒤에 구체적 예 → For example = For instance."},{"t":"mc","q":"다음 중 짝지어진 대화가 <b>어색한</b> 것은?","o":["A: Do you know about Earth Day?<br>B: Yes, I do. It's on April 22.","A: Have you heard of zero waste shops?<br>B: No, I haven't. What are they?","A: Do you have any idea about air pollution?<br>B: Yes, I do. I've never heard of it.","A: What can we do to save water?<br>B: We can do many things. For example, we can take quick showers.","A: I enjoy outdoor activities like hiking.<br>B: Me too. I like biking."],"a":2,"e":"안다고(Yes, I do) 해 놓고 \"들어본 적 없어\" → 앞뒤 모순."},{"t":"mc","q":"다음 중 짝지어진 대화가 <b>어색한</b> 것은?","o":["A: What sports do you like?<br>B: I like ball games such as soccer.","A: How can I make friends?<br>B: There are many ways. However, you can join a club.","A: Did you hear about the new club?<br>B: Yes, I did.","A: Are you aware of the problem?<br>B: No, I'm not. Tell me about it.","A: Why don't we plant trees?<br>B: That sounds great."],"a":1,"e":"예를 드는 자리 → For example. However(그러나)는 반대 내용에 써요."},{"t":"mc","q":"의도가 <b>나머지와 다른</b> 것은?","o":["Do you know about it?","Have you heard of it?","Do you have any idea about it?","Are you aware of it?","What do you think of it?"],"a":4,"e":"⑤는 의견 묻기. 나머지는 알고 있는지 묻기."},{"t":"mc","q":"의미가 <b>나머지와 다른</b> 것은?","o":["I don't know much about it.","I've never heard of it.","I'm not sure.","I've heard about it.","No, I don't."],"a":3,"e":"④만 \"들어본 적 있어\"(앎). 나머지는 모름."},{"t":"mc","q":"\"Why don't we take part in the event?\"와 의미가 같은 것은?","o":["Let's take part in the event.","Why did you take part in the event?","We don't take part in the event.","Do you know about the event?","Why can't we take part in the event?"],"a":0,"e":"Why don't we ~? = Let's ~. (제안). 이유를 묻는 말이 아니에요."},{"t":"mc","q":"밑줄 친 말의 의도로 알맞은 것은?","p":"<span class=\"ln\"><span class=\"sp\">G:</span>They don't sell items in containers, so you can reduce waste. <u>Why don't you come with me?</u></span>","o":["이유 묻기","권유하기","거절하기","사과하기","길 묻기"],"a":1,"e":"Why don't you + 동사원형? = 너 ~하는 게 어때? (권유)"},{"t":"multi","q":"\"What are you going to do this weekend?\"와 바꿔 쓸 수 있는 것을 <b>모두</b> 고르시오.","o":["What are you planning to do this weekend?","What did you do last weekend?","What will you do this weekend?","What do you do on weekends?","Where are you going this weekend?"],"a":[0,2],"e":"계획 묻기: be going to = be planning to = will. ②는 과거, ④는 습관."}]}]},{"name":"📗 대화 1~4","intro":"<b>Listen & Talk A-1·A-2·A-3, B</b> — 대화를 먼저 듣고 읽은 뒤 문제를 푸세요. 해석은 버튼으로 켜고 끌 수 있어요.","blocks":[{"k":"h","html":"대화 1 · Listen & Talk A-1"},{"k":"script","title":"지구 온난화","lines":[["G","Do you know about global warming?","너는 지구 온난화에 대해 알고 있니?"],["B","Yes, I do. Earth's temperature is rising. It is a big problem.","응, 알고 있어. 지구의 온도가 상승하는 중이야. 그건 큰 문제야."],["G","Right. The ice is melting quickly, and polar bears are losing their homes.","맞아. 얼음이 빠르게 녹고 있고, 북극곰들은 그들의 집을 잃어가고 있어."],["B","We should do something to help them.","우리는 그들을 돕기 위해 무언가를 해야 해."]]},{"k":"qset","title":"대화 1 문제","qs":[{"t":"ord","blk":1,"q":"첫 줄 다음에 이어질 대화를 순서대로 배열하세요.","p":"<span class=\"ln\"><span class=\"sp\">G:</span>Do you know about global warming?</span>","c":["Yes, I do. Earth's temperature is rising. It is a big problem.","Right. The ice is melting quickly, and polar bears are losing their homes.","We should do something to help them."],"e":"질문 → 대답 → 맞장구/추가 질문 → 예시(For example) → 반응 순서로 흐름을 잡으세요."},{"t":"mc","q":"\"<u>It</u> is a big problem.\"에서 It이 가리키는 것은?","o":["지구 온난화에 대해 아는 것","지구의 온도가 상승하고 있는 것","빠르게 녹는 얼음","북극곰의 집","우리가 무언가를 하는 것"],"a":1,"e":"바로 앞 문장 \"Earth's temperature is rising.\" 전체를 받아요."},{"t":"in","q":"\"We should do something to help <u>them</u>.\"에서 them이 가리키는 말을 대화에서 찾아 쓰시오. (2단어)","a":"polar bears","e":"바로 앞의 복수 명사 polar bears."},{"t":"multi","q":"\"Do you know about global warming?\"과 바꿔 쓸 수 있는 것을 <b>모두</b> 고르시오.","o":["Have you heard of global warming?","What do you think about global warming?","Are you aware of global warming?","Do you have any idea about global warming?","Did you make global warming?"],"a":[0,2,3],"e":"알고 있는지 묻기 = Have you heard of / Are you aware of / Do you have any idea about. ②는 의견 묻기."},{"t":"mc","inline":1,"q":"The boy doesn't know about global warming.","o":["T (일치)","F (불일치)"],"a":1,"e":"\"Yes, I do.\" — 소년은 알고 있어요."},{"t":"mc","inline":1,"q":"Polar bears are losing their homes because the ice is melting.","o":["T (일치)","F (불일치)"],"a":0,"e":"얼음이 빠르게 녹아서 북극곰이 집을 잃고 있어요."}]},{"k":"h","html":"대화 2 · Listen & Talk A-2"},{"k":"script","title":"물 낭비 포스터","lines":[["B","Look at this poster.","이 포스터를 봐."],["G","It's shocking. It looks like someone drank most of Earth's water.","그것은 충격적이야. 누군가가 지구의 물 대부분을 마신 것처럼 보여."],["B","Yes. People waste too much water. What can we do to save water?","맞아. 사람들은 너무 많은 물을 낭비해. 물을 절약하기 위해서 우리가 무엇을 할 수 있니?"],["G","We can do a lot of things. For example, we can take quick showers.","우리는 많은 것들을 할 수 있어. 예를 들어, 우리는 빠르게 샤워를 할 수 있어."],["B","That sounds good.","그거 좋네."]]},{"k":"qset","title":"대화 2 문제","qs":[{"t":"ord","blk":1,"q":"첫 줄 다음에 이어질 대화를 순서대로 배열하세요.","p":"<span class=\"ln\"><span class=\"sp\">B:</span>Look at this poster.</span>","c":["It's shocking. It looks like someone drank most of Earth's water.","Yes. People waste too much water. What can we do to save water?","We can do a lot of things. For example, we can take quick showers.","That sounds good."],"e":"질문 → 대답 → 맞장구/추가 질문 → 예시(For example) → 반응 순서로 흐름을 잡으세요."},{"t":"mc","inline":1,"q":"대화의 흐름상 빈칸에 알맞은 것은? — It's ______. (그것은 충격적이야.)","o":["shocking","shocked"],"a":0,"e":"주어 It(포스터)이 충격을 <b>주는</b> 쪽 → -ing."},{"t":"mc","inline":1,"q":"People waste too (much / many) water.","o":["much","many"],"a":0,"e":"water는 셀 수 없는 명사 → much."},{"t":"mc","q":"\"<u>It</u>'s shocking.\"의 It이 가리키는 것은?","o":["this poster","the water","Earth","someone","a lot of things"],"a":0,"e":"바로 앞에서 보라고 한 포스터(this poster)."},{"t":"mc","q":"\"For example\"과 바꿔 쓸 수 있는 것은?","o":["However","Therefore","In other words","By the way","For instance"],"a":4,"e":"For example = For instance"},{"t":"mc","q":"대화의 주제로 가장 알맞은 것은?","o":["a shocking poster","drinking water","saving water","taking a shower","water pollution"],"a":2,"e":"\"What can we do to save water?\" — 물 절약이 중심."},{"t":"mc","inline":1,"q":"The girl thinks someone really drank most of Earth's water.","o":["T (일치)","F (불일치)"],"a":1,"tag":"함정","e":"\"It <b>looks like</b> ~\" = ~처럼 <b>보인다</b>. 진짜 마셨다는 게 아니에요."}]},{"k":"h","html":"대화 3 · Listen & Talk A-3"},{"k":"script","title":"플라스틱 오염","lines":[["B","Do you know about plastic pollution?","너는 플라스틱 오염에 대해 알고 있어?"],["G","Yes, I do. A lot of plastic waste goes into the oceans.","응, 알고 있어. 많은 플라스틱 쓰레기들이 바다로 들어가고 있어."],["B","Right. It is a serious problem.","맞아. 그건 심각한 문제야."],["G","What can we do to reduce plastic waste?","플라스틱 쓰레기를 줄이기 위해 우리가 무엇을 할 수 있니?"],["B","We can start making small changes. For example, we can carry our own water bottles.","우리는 작은 변화들로 시작할 수 있어. 예를 들어, 우리는 개인 물병을 들고 다닐 수 있어."],["G","That's a good idea.","그거 좋은 생각이야."]]},{"k":"qset","title":"대화 3 문제","qs":[{"t":"ord","blk":1,"q":"첫 줄 다음에 이어질 대화를 순서대로 배열하세요.","p":"<span class=\"ln\"><span class=\"sp\">B:</span>Do you know about plastic pollution?</span>","c":["Yes, I do. A lot of plastic waste goes into the oceans.","Right. It is a serious problem.","What can we do to reduce plastic waste?","We can start making small changes. For example, we can carry our own water bottles.","That's a good idea."],"e":"질문 → 대답 → 맞장구/추가 질문 → 예시(For example) → 반응 순서로 흐름을 잡으세요."},{"t":"mc","q":"다음 문장이 들어갈 위치로 가장 알맞은 곳은?<br><b>For example, we can carry our own water bottles.</b>","p":"<span class=\"ln\"><span class=\"sp\">B:</span>Do you know about plastic pollution?</span><span class=\"ln\"><span class=\"sp\">G:</span>Yes, I do. <span class=\"mark\">( ① )</span> A lot of plastic waste goes into the oceans.</span><span class=\"ln\"><span class=\"sp\">B:</span>Right. It is a serious problem. <span class=\"mark\">( ② )</span></span><span class=\"ln\"><span class=\"sp\">G:</span>What can we do to reduce plastic waste? <span class=\"mark\">( ③ )</span></span><span class=\"ln\"><span class=\"sp\">B:</span>We can start making small changes. <span class=\"mark\">( ④ )</span></span><span class=\"ln\"><span class=\"sp\">G:</span>That's a good idea. <span class=\"mark\">( ⑤ )</span></span>","o":["①","②","③","④","⑤"],"a":3,"nonum":1,"inline":1,"e":"\"작은 변화들로 시작할 수 있어\" (큰 말) → 예시(물병) → \"좋은 생각이야\" 순서."},{"t":"mc","q":"\"Right. <u>It</u> is a serious problem.\"의 It이 가리키는 것은?","o":["지구 온난화","개인 물병","많은 플라스틱 쓰레기가 바다로 들어가는 것","작은 변화","좋은 생각"],"a":2,"e":"바로 앞 문장 내용(플라스틱 쓰레기가 바다로 들어감) = plastic pollution."},{"t":"in","q":"괄호 안의 단어를 알맞은 형태로 쓰시오. (2가지 다 가능)","s":"We can start [] small changes. (make)","a":["making|to make"],"e":"start는 동명사·to부정사 둘 다 목적어로 OK → making = to make."},{"t":"mc","q":"\"What can we do <u>to reduce</u> plastic waste?\"의 밑줄과 바꿔 쓸 수 있는 것은?","o":["reducing","in order to reduce","for reduce","so reduce","reduced"],"a":1,"e":"목적(~하기 위해) to부정사 = in order to = so as to."},{"t":"mc","inline":1,"q":"The boy suggests carrying our own water bottles.","o":["T (일치)","F (불일치)"],"a":0,"e":"소년이 For example 뒤에 개인 물병을 들고 다니자고 해요."}]},{"k":"h","html":"대화 4 · Listen & Talk B"},{"k":"script","title":"대기 오염","lines":[["A","Do you know about air pollution?","너는 대기 오염에 대해 알고 있니?"],["B","Yes, I do. It is a big problem.","응, 알고 있어. 그것은 큰 문제야."],["A","Right. What can we do about it?","맞아. 그것에 대해 우리가 무엇을 할 수 있니?"],["B","We can do a lot of things. For example, we can ride bikes.","우리는 많은 것들을 할 수 있어. 예를 들어, 우리는 자전거를 탈 수 있어."],["A","That's a good idea!","그거 좋은 생각이야!"]]},{"k":"qset","title":"대화 4 문제","qs":[{"t":"ord","blk":1,"q":"대화를 처음부터 순서대로 배열하세요.","p":"","c":["Do you know about air pollution?","Yes, I do. It is a big problem.","Right. What can we do about it?","We can do a lot of things. For example, we can ride bikes.","That's a good idea!"],"e":"질문 → 대답 → 맞장구/추가 질문 → 예시(For example) → 반응 순서로 흐름을 잡으세요."},{"t":"in","q":"\"What can we do about <u>it</u>?\"의 it이 가리키는 말을 대화에서 찾아 쓰시오. (2단어)","a":"air pollution","e":"첫 질문의 air pollution."},{"t":"in","q":"빈칸에 알맞은 두 단어를 쓰시오.","s":"We can do a lot of things. [] [], we can ride bikes.","a":["for","example|instance"],"e":"For example = For instance"},{"t":"mc","inline":1,"q":"Riding bikes is one way to solve air pollution.","o":["T (일치)","F (불일치)"],"a":0,"e":"대기 오염 해결 방법의 예로 자전거 타기."}]}]},{"name":"📘 대화 5~6","intro":"<b>Listen & Talk C·D</b> — 대명사(it, that, they)가 무엇을 가리키는지 꼭 확인하세요.","blocks":[{"k":"h","html":"대화 5 · Listen & Talk C"},{"k":"script","title":"지구의 날","lines":[["G","Hey, Tom! Do you know about Earth Day?","안녕, Tom! 너는 지구의 날에 대해 알고 있니?"],["B","No, I don't. What is it?","아니, 몰라. 그게 뭐니?"],["G","It's a special day on April 22. People take part in a global event.","그것은 4월 22일에 있는 특별한 날이야. 사람들은 세계적인 행사에 참여해."],["B","I see. What do they do?","그렇구나. 그들은 무엇을 하니?"],["G","They do many things. For example, some people turn off the lights for ten minutes.","그들은 많은 것을 해. 예를 들어, 몇몇 사람들은 10분 동안 전등을 꺼."],["B","Wow! But how can that help the environment?","와! 하지만 그것이 어떻게 환경을 도울 수 있어?"],["G","It can save a lot of energy. Also, it can reduce greenhouse gases. Why don't we take part in the event?","그것은 많은 에너지를 절약할 수 있어. 게다가 온실가스를 줄일 수도 있어. 우리 그 행사에 참여해 보는 게 어때?"],["B","That's a great idea. Let's do it.","그거 좋은 생각이야. 그것을 하자."]]},{"k":"qset","title":"대화 5 문제","qs":[{"t":"ord","blk":1,"q":"두 줄 다음에 이어질 대화를 순서대로 배열하세요.","p":"<span class=\"ln\"><span class=\"sp\">G:</span>Hey, Tom! Do you know about Earth Day?</span><span class=\"ln\"><span class=\"sp\">B:</span>No, I don't. What is it?</span>","c":["It's a special day on April 22. People take part in a global event.","I see. What do they do?","They do many things. For example, some people turn off the lights for ten minutes.","Wow! But how can that help the environment?","It can save a lot of energy. Also, it can reduce greenhouse gases. Why don't we take part in the event?","That's a great idea. Let's do it."],"e":"질문 → 대답 → 맞장구/추가 질문 → 예시(For example) → 반응 순서로 흐름을 잡으세요."},{"t":"mc","q":"\"What is <u>it</u>?\"의 it이 가리키는 것은?","o":["Earth Day","April 22","a global event","the lights","the environment"],"a":0,"e":"바로 앞 질문의 Earth Day."},{"t":"mc","q":"\"But how can <u>that</u> help the environment?\"의 that이 가리키는 것은?","o":["지구의 날","세계적인 행사","몇몇 사람들이 10분 동안 전등을 끄는 것","에너지를 절약하는 것","온실가스"],"a":2,"e":"바로 앞 G의 예시 문장 전체."},{"t":"mc","q":"\"Let's do <u>it</u>.\"의 it이 가리키는 것은?","o":["전등을 끄는 것","에너지를 절약하는 것","온실가스를 줄이는 것","그 행사에 참여하는 것","지구의 날을 아는 것"],"a":3,"e":"바로 앞 제안 \"Why don't we take part in the event?\""},{"t":"in","q":"빈칸에 알맞은 전치사를 쓰시오.","s":"It's a special day [] April 22. Some people turn off the lights [] ten minutes.","a":["on","for"],"e":"날짜 앞 on / 숫자가 있는 기간 앞 for (during ✗)."},{"t":"in","q":"같은 뜻이 되도록 빈칸을 채우시오. People take part in a global event.","s":"People [] [] a global event.","a":["participate","in"],"e":"take part in = participate in"},{"t":"mc","q":"대화를 읽고 답할 수 <b>없는</b> 질문은?","o":["When is Earth Day?","What do some people do on Earth Day?","How many people take part in the event?","How long do some people turn off the lights?","How can turning off the lights help the environment?"],"a":2,"e":"참여하는 사람 수는 나오지 않아요."},{"t":"mc","inline":1,"q":"Tom knew about Earth Day before.","o":["T (일치)","F (불일치)"],"a":1,"e":"\"No, I don't.\" — 몰랐어요."},{"t":"mc","inline":1,"q":"Turning off the lights can reduce greenhouse gases.","o":["T (일치)","F (불일치)"],"a":0,"e":"\"Also, it can reduce greenhouse gases.\""},{"t":"mc","inline":1,"q":"People don't turn on the lights all day on Earth Day.","o":["T (일치)","F (불일치)"],"a":1,"tag":"함정","e":"하루 종일이 아니라 <b>10분 동안</b>."}]},{"k":"h","html":"대화 6 · Listen & Talk D"},{"k":"script","title":"환경 동아리","lines":[["A","Do you know about the eco club at our school?","너는 우리 학교에 있는 환경 동아리에 대해 알고 있니?"],["B","No, I don't. What do the club members do?","아니, 몰라. 그 동아리 회원들은 무엇을 하니?"],["A","They do a lot of things for Earth. For example, they grow plants.","그들은 지구를 위해 많은 것들을 해. 예를 들어, 그들은 식물을 키워."],["B","That sounds fun. Let's join the club together!","그거 재미있게 들리는구나. 그 동아리에 같이 가입하자!"],["A","Sure. Which activity do you want to do?","물론이야. 너는 어떤 활동을 하고 싶니?"],["B","I want to pick up waste.","나는 쓰레기를 줍고 싶어."]]},{"k":"qset","title":"대화 6 문제","qs":[{"t":"ord","blk":1,"q":"첫 줄 다음에 이어질 대화를 순서대로 배열하세요.","p":"<span class=\"ln\"><span class=\"sp\">A:</span>Do you know about the eco club at our school?</span>","c":["No, I don't. What do the club members do?","They do a lot of things for Earth. For example, they grow plants.","That sounds fun. Let's join the club together!","Sure. Which activity do you want to do?","I want to pick up waste."],"e":"질문 → 대답 → 맞장구/추가 질문 → 예시(For example) → 반응 순서로 흐름을 잡으세요."},{"t":"in","q":"\"<u>They</u> do a lot of things for Earth.\"의 They가 가리키는 말을 대화에서 찾아 쓰시오. (3단어)","a":"the club members","e":"바로 앞 질문의 the club members."},{"t":"mc","inline":1,"q":"That sounds (fun / funnily).","o":["fun","funnily"],"a":0,"e":"sound + <b>형용사</b> (~하게 들리다)."},{"t":"mc","inline":1,"q":"\"Let's <u>join</u> the club together!\"의 join의 뜻은?","o":["연결하다","가입하다","함께하다"],"a":1,"e":"club → 가입하다."},{"t":"mc","q":"\"Let's join the club together!\"와 의미가 같은 것은?","o":["Why don't we join the club together?","Why do you join the club?","Do you want to leave the club?","Did you join the club together?","I don't want to join the club."],"a":0,"e":"Let's ~ = Why don't we ~?"},{"t":"mc","inline":1,"q":"B wants to grow plants in the eco club.","o":["T (일치)","F (불일치)"],"a":1,"e":"B는 쓰레기를 줍고(pick up waste) 싶어 해요."}]}]},{"name":"📙 대화 7~9","intro":"<b>Real-Life Communication 1·2, Lesson Review A</b> — 긴 대화는 질문-대답 짝으로 끊어 읽으세요.","blocks":[{"k":"h","html":"대화 7 · Real-Life Communication 1"},{"k":"script","title":"제로 웨이스트 상점","lines":[["B","Hi, Bora. What are you going to do this weekend?","안녕, 보라야. 너는 이번 주말에 무엇을 할 예정이니?"],["G","I'm planning to go to a zero waste shop. Do you know about zero waste shops?","나는 제로 웨이스트 상점에 가려고 계획하고 있어. 너는 제로 웨이스트 상점에 대해 알고 있니?"],["B","No, I don't. Please tell me about them.","아니, 몰라. 내게 그것들에 대해 말해줘."],["G","They don't sell items in containers, so you can reduce waste. Why don't you come with me?","그들은 용기에 제품을 팔지 않아서 너는 쓰레기를 줄일 수 있어. 너 나랑 같이 가는 게 어때?"],["B","That sounds great! What can I buy there?","그거 좋다! 그곳에서 내가 무엇을 살 수 있니?"],["G","You can buy a lot of items. For example, they have bags, shampoo, and some snacks.","너는 많은 제품들을 살 수 있어. 예를 들어, 그들은 가방, 샴푸, 그리고 몇몇 과자들을 가지고 있어."],["B","I see. I'm going to buy shampoo.","그렇구나. 나는 샴푸를 살 거야."],["G","You should bring your own container, then. You can put the shampoo in it.","그러면 너는 네 용기를 가져와야 해. 너는 그것에 샴푸를 넣을 수 있어."],["B","Okay.","알겠어."]]},{"k":"qset","title":"대화 7 문제","qs":[{"t":"ord","blk":1,"q":"첫 줄 다음에 이어질 대화를 순서대로 배열하세요. (B: I'm going to buy shampoo.까지)","p":"<span class=\"ln\"><span class=\"sp\">B:</span>Hi, Bora. What are you going to do this weekend?</span>","c":["I'm planning to go to a zero waste shop. Do you know about zero waste shops?","No, I don't. Please tell me about them.","They don't sell items in containers, so you can reduce waste. Why don't you come with me?","That sounds great! What can I buy there?","You can buy a lot of items. For example, they have bags, shampoo, and some snacks.","I see. I'm going to buy shampoo."],"e":"질문 → 대답 → 맞장구/추가 질문 → 예시(For example) → 반응 순서로 흐름을 잡으세요."},{"t":"mc","q":"\"Please tell me about <u>them</u>.\"의 them이 가리키는 것은?","o":["items","containers","zero waste shops","snacks","Bora's friends"],"a":2,"e":"바로 앞 질문의 zero waste shops."},{"t":"in","q":"\"You can put the shampoo in <u>it</u>.\"의 it이 가리키는 말을 대화에서 찾아 쓰시오. (3단어)","a":"your own container","e":"바로 앞 문장의 your own container."},{"t":"in","q":"대화에서 다음 영영풀이에 해당하는 단어를 찾아 쓰시오.<br><i>something that is no longer needed and thrown away</i>","a":"waste","e":"waste: 쓰레기"},{"t":"mc","inline":1,"q":"Why don't you (come / coming / to come) with me?","o":["come","coming","to come"],"a":0,"e":"Why don't you + <b>동사원형</b>?"},{"t":"mc","q":"대화의 내용과 일치하지 <b>않는</b> 것은?","o":["보라는 이번 주말에 제로 웨이스트 상점에 갈 계획이다.","제로 웨이스트 상점은 제품을 용기에 담아 팔지 않는다.","소년은 원래 제로 웨이스트 상점을 알고 있었다.","소년은 샴푸를 살 것이다.","소년은 샴푸를 담을 자기 용기를 가져가야 한다."],"a":2,"e":"\"No, I don't.\" — 소년은 몰랐어요."},{"t":"mc","q":"소년이 제로 웨이스트 상점에서 사려는 것은?","o":["bags","shampoo","snacks","containers","water bottles"],"a":1,"tag":"함정","e":"가방·샴푸·과자는 상점이 파는 것이고, 소년은 <b>샴푸</b>만 사요."}]},{"k":"h","html":"대화 8 · Real-Life Communication 2"},{"k":"script","title":"제로 웨이스트 주간","lines":[["A","Our class will take part in a zero waste week. Do you know about \"zero waste\"?","우리 학급은 제로 웨이스트 주간 행사에 참여할 거야. 너는 ‘제로 웨이스트’에 대해 알고 있니?"],["B","Yes, I do! But what can we do to reduce waste?","응, 알고 있어! 근데 쓰레기를 줄이기 위해 우리가 무엇을 할 수 있니?"],["A","We can do a lot of things. For example, I will use my own water bottle.","우리는 많은 것들을 할 수 있어. 예를 들어, 나는 내 개인 물병을 사용할 거야."],["C","That's a good idea! I will bring my own bag to the market.","그거 좋은 생각이야! 나는 시장에 내 가방을 가져갈 거야."]]},{"k":"qset","title":"대화 8 문제","qs":[{"t":"ord","blk":1,"q":"첫 줄 다음에 이어질 대화를 순서대로 배열하세요.","p":"<span class=\"ln\"><span class=\"sp\">A:</span>Our class will take part in a zero waste week. Do you know about \"zero waste\"?</span>","c":["Yes, I do! But what can we do to reduce waste?","We can do a lot of things. For example, I will use my own water bottle.","That's a good idea! I will bring my own bag to the market."],"e":"질문 → 대답 → 맞장구/추가 질문 → 예시(For example) → 반응 순서로 흐름을 잡으세요."},{"t":"mc","inline":1,"q":"B doesn't know about \"zero waste.\"","o":["T (일치)","F (불일치)"],"a":1,"e":"\"Yes, I do!\" — 알고 있어요."},{"t":"mc","inline":1,"q":"C will bring his or her own bag to the market.","o":["T (일치)","F (불일치)"],"a":0,"e":"\"I will bring my own bag to the market.\""},{"t":"in","q":"빈칸에 알맞은 말을 쓰시오. (A가 할 일)","s":"A will use his or her [] [] [].","a":["own","water","bottle"],"e":"my own water bottle — 소유격 + own: ~ 자신의"}]},{"k":"h","html":"대화 9 · Lesson Review A"},{"k":"script","title":"대기 오염 해결","lines":[["G","Sam, do you know about air pollution?","Sam, 너는 대기 오염에 대해 알고 있니?"],["B","Yes, I do. It's becoming a serious problem. What can we do about it?","응, 알고 있어. 그것은 심각한 문제가 되고 있어. 우리가 그것에 대해 무엇을 할 수 있니?"],["G","We can do a lot of things. For example, we can ride bikes to school. Also, we can walk more often.","우리는 많은 것들을 할 수 있어. 예를 들어, 우리는 학교에 자전거를 타고 갈 수 있어. 또한, 우리는 더 자주 걸을 수 있어."],["B","Great ideas! We can also plant trees. Trees clean the air.","좋은 생각이야! 우리는 나무를 심을 수도 있어. 나무는 공기를 깨끗하게 해."],["G","Right. Let's help the environment.","맞아. 환경을 돕자."]]},{"k":"qset","title":"대화 9 문제","qs":[{"t":"ord","blk":1,"q":"대화를 처음부터 순서대로 배열하세요.","p":"","c":["Sam, do you know about air pollution?","Yes, I do. It's becoming a serious problem. What can we do about it?","We can do a lot of things. For example, we can ride bikes to school. Also, we can walk more often.","Great ideas! We can also plant trees. Trees clean the air.","Right. Let's help the environment."],"e":"질문 → 대답 → 맞장구/추가 질문 → 예시(For example) → 반응 순서로 흐름을 잡으세요."},{"t":"in","q":"\"What can we do about <u>it</u>?\"의 it이 가리키는 말을 대화에서 찾아 쓰시오. (2단어)","a":"air pollution","e":"첫 질문의 air pollution."},{"t":"mc","inline":1,"q":"\"Trees <u>clean</u> the air.\"에서 clean의 품사는?","o":["명사","동사","형용사","부사"],"a":1,"e":"주어 Trees 뒤 → 동사(깨끗하게 하다)."},{"t":"in","q":"Q: What makes the air clean?","s":"A: [] make the air clean.","a":["trees"],"e":"\"Trees clean the air.\""},{"t":"mc","q":"대기 오염을 줄이는 방법으로 언급되지 <b>않은</b> 것은?","o":["학교에 자전거 타고 가기","더 자주 걷기","나무 심기","대중교통 이용하기"],"a":3,"e":"대중교통은 나오지 않아요."}]}]}]};
+</script>
+<script>
+(function(){
+'use strict';
+var D = window.DATA;
+var REG = [];          // all question objects
+var TABQ = [];         // per tab arrays of questions
+var NUMS = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩'];
+
+/* ---------- utils ---------- */
+function el(tag, cls, html){var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function rng(seed){return function(){seed=(Math.imul(seed^(seed>>>15),2246822507)+0x6D2B79F5)>>>0;return (seed%100000)/100000;};}
+function shuffleIdx(n, seedStr){
+  var idx=[];for(var i=0;i<n;i++)idx.push(i);
+  if(n<2)return idx;
+  var r=rng(hash(seedStr));
+  for(var k=0;k<6;k++){
+    for(var j=n-1;j>0;j--){var x=Math.floor(r()*(j+1));var t=idx[j];idx[j]=idx[x];idx[x]=t;}
+    var same=idx.every(function(v,i){return v===i;});
+    if(!same)return idx;
+  }
+  idx.push(idx.shift()); return idx;
+}
+var CONTR=[[/can't/g,'cannot'],[/won't/g,'will not'],[/n't/g,' not'],[/\bi'm\b/g,'i am'],[/\bit's\b/g,'it is'],[/\bthat's\b/g,'that is'],[/\byou're\b/g,'you are'],[/\bthey're\b/g,'they are'],[/\bwe're\b/g,'we are'],[/\bhe's\b/g,'he is'],[/\bshe's\b/g,'she is'],[/\bwhat's\b/g,'what is'],[/\bthere's\b/g,'there is']];
+function norm(s){
+  s=String(s).toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”"]/g,'');
+  CONTR.forEach(function(c){s=s.replace(c[0],c[1]);});
+  s=s.replace(/[.,!?;:~]/g,' ').replace(/\s+/g,' ').trim();
+  return s;
+}
+function variants(str){ // "(that) " optional words
+  var m=str.match(/\(([^()]+)\)/);
+  if(!m)return [str];
+  var a=str.replace(m[0],m[1]), b=str.replace(m[0],'');
+  return variants(a).concat(variants(b));
+}
+function alts(spec){ // 'a|b' or array -> list of normalized answers
+  var arr=Array.isArray(spec)?spec:String(spec).split('|');
+  var out=[];arr.forEach(function(x){variants(x).forEach(function(v){out.push(norm(v));});});
+  return out;
+}
+function firstShow(spec){var s=Array.isArray(spec)?spec[0]:String(spec).split('|')[0];return s;}
+
+/* ---------- sound ---------- */
+var voices=[];
+function loadV(){try{voices=window.speechSynthesis.getVoices()||[];}catch(e){voices=[];}}
+if('speechSynthesis' in window){loadV();try{window.speechSynthesis.onvoiceschanged=loadV;}catch(e){}}
+function pickVoice(){
+  if(!voices.length)loadV();
+  var v=voices.find(function(x){return /william/i.test(x.name);});
+  if(!v)v=voices.find(function(x){return x.lang==='en-US';});
+  if(!v)v=voices.find(function(x){return /^en/i.test(x.lang);});
+  return v;
+}
+var unlocked=false;
+function unlock(){
+  if(unlocked||!('speechSynthesis' in window))return; unlocked=true;
+  try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;window.speechSynthesis.speak(u);}catch(e){}
+}
+document.addEventListener('touchstart',unlock,{once:true,passive:true});
+document.addEventListener('click',unlock,{once:true});
+function mkUtter(text){
+  var u=new SpeechSynthesisUtterance(text.replace(/[○×]/g,''));
+  var v=pickVoice(); if(v){u.voice=v;u.lang=v.lang;}else{u.lang='en-US';}
+  u.rate=0.9; return u;
+}
+function speak(text,btn){
+  if(!('speechSynthesis' in window))return;
+  try{
+    window.speechSynthesis.cancel();
+    var u=mkUtter(text);
+    if(btn){btn.classList.add('playing');u.onend=u.onerror=function(){btn.classList.remove('playing');};}
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakAll(list,btn){
+  if(!('speechSynthesis' in window))return;
+  try{
+    window.speechSynthesis.cancel();
+    list.forEach(function(t,i){
+      var u=mkUtter(t);
+      if(btn&&i===0)btn.classList.add('playing');
+      if(btn&&i===list.length-1)u.onend=u.onerror=function(){btn.classList.remove('playing');};
+      window.speechSynthesis.speak(u);
+    });
+  }catch(e){}
+}
+var actx=null;
+function pageSound(){
+  try{
+    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    var o=actx.createOscillator(),g=actx.createGain();
+    o.type='sine';o.frequency.setValueAtTime(880,actx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(1320,actx.currentTime+.08);
+    g.gain.setValueAtTime(.05,actx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+.15);
+    o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+.16);
+  }catch(e){}
+}
+function spkBtn(text){
+  var b=el('button','spk','🔊');b.type='button';b.setAttribute('aria-label','듣기');
+  b.addEventListener('click',function(ev){ev.stopPropagation();speak(text,b);});
+  return b;
+}
+
+/* ---------- question engine ---------- */
+function Q(def, num, tabIdx, setObj){
+  var self=this;
+  this.def=def; this.state='idle'; this.tab=tabIdx; this.set=setObj;
+  var card=el('div','q'); this.card=card;
+  var top=el('div','qn');
+  top.appendChild(el('span','num',String(num)));
+  var tt={mc:'객관식',multi:'모두 고르기',in:'쓰기',ord:'배열'}[def.t];
+  var tcls={mc:'b-sky',multi:'b-peach',in:'b-mint',ord:'b-lav'}[def.t];
+  var qt=el('div','qt',(def.tag?'<span class="badge b-amb">'+def.tag+'</span> ':'')+'<span class="badge '+tcls+'">'+tt+'</span> '+def.q);
+  top.appendChild(qt); card.appendChild(top);
+  if(def.p){var p=el('div','pass',def.p);card.appendChild(p);}
+  var body=el('div','qbody'); card.appendChild(body);
+  this.body=body;
+  this['build_'+def.t]();
+  var foot=el('div','qfoot');
+  this.gBtn=el('button','btn fill sm','채점');this.gBtn.type='button';
+  this.rBtn=el('button','btn sm','다시 풀기');this.rBtn.type='button';this.rBtn.style.display='none';
+  this.aBtn=el('button','btn ghost sm','정답 보기');this.aBtn.type='button';this.aBtn.style.display='none';
+  this.gBtn.addEventListener('click',function(){self.grade(true);});
+  this.rBtn.addEventListener('click',function(){self.reset();});
+  this.aBtn.addEventListener('click',function(){self.showAns();});
+  foot.appendChild(this.gBtn);foot.appendChild(this.rBtn);foot.appendChild(this.aBtn);
+  card.appendChild(foot);
+  this.fb=el('div','fb');card.appendChild(this.fb);
+  REG.push(this);
+}
+Q.prototype.build_mc=function(){
+  var self=this,d=this.def; this.sel=null; this.optEls=[];
+  var box=el('div','opts'+(d.inline?' inline':''));
+  d.o.forEach(function(o,i){
+    var b=el('button','opt',(d.nonum?'':NUMS[i]+' ')+o);b.type='button';
+    b.addEventListener('click',function(){
+      if(self.locked)return;
+      self.optEls.forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel');self.sel=i;
+    });
+    self.optEls.push(b);box.appendChild(b);
+  });
+  this.body.appendChild(box);
+};
+Q.prototype.build_multi=function(){
+  var self=this,d=this.def; this.sels={}; this.optEls=[];
+  var box=el('div','opts');
+  d.o.forEach(function(o,i){
+    var b=el('button','opt',NUMS[i]+' '+o);b.type='button';
+    b.addEventListener('click',function(){
+      if(self.locked)return;
+      if(self.sels[i]){delete self.sels[i];b.classList.remove('sel');}else{self.sels[i]=1;b.classList.add('sel');}
+    });
+    self.optEls.push(b);box.appendChild(b);
+  });
+  this.body.appendChild(box);
+};
+Q.prototype.build_in=function(){
+  var self=this,d=this.def; this.inputs=[];
+  if(d.s){
+    var parts=d.s.split('[]');
+    var w=el('div','tmpl');
+    parts.forEach(function(pt,i){
+      w.appendChild(document.createTextNode(''));
+      var sp=el('span','',pt);w.appendChild(sp);
+      if(i<parts.length-1){
+        var inp=el('input','blank');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.spellcheck=false;
+        inp.addEventListener('keydown',function(e){if(e.key==='Enter'){self.grade(true);}});
+        self.inputs.push(inp);w.appendChild(inp);
+      }
+    });
+    this.body.appendChild(w);
+  }else{
+    var inp=el('input','blank wide');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.spellcheck=false;
+    inp.placeholder=d.ph||'여기에 쓰기';
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter'){self.grade(true);}});
+    this.inputs.push(inp);this.body.appendChild(inp);
+  }
+};
+Q.prototype.build_ord=function(){
+  var self=this,d=this.def; this.placed=[];
+  var w=el('div','ordwrap');
+  this.slots=el('div','slots'+(d.blk?' block':''));
+  this.hint=el('span','hint','↓ 아래 조각을 순서대로 누르세요 (다시 누르면 빠짐)');
+  this.slots.appendChild(this.hint);
+  this.pool=el('div','pool'+(d.blk?' block':''));
+  var order=shuffleIdx(d.c.length,d.q+'|'+d.c.join('/'));
+  this.poolBtns=[];
+  order.forEach(function(ci){
+    var b=el('button','chip',esc(d.c[ci]));b.type='button';b.dataset.ci=ci;
+    b.addEventListener('click',function(){
+      if(self.locked||b.classList.contains('used'))return;
+      b.classList.add('used');self.place(ci,b);
+    });
+    self.poolBtns.push(b);self.pool.appendChild(b);
+  });
+  w.appendChild(this.slots);w.appendChild(this.pool);this.body.appendChild(w);
+};
+Q.prototype.place=function(ci,src){
+  var self=this,d=this.def;
+  if(this.hint.parentNode)this.hint.remove();
+  var b=el('button','chip',esc(d.c[ci]));b.type='button';
+  var item={ci:ci,el:b,src:src};
+  b.addEventListener('click',function(){
+    if(self.locked)return;
+    var k=self.placed.indexOf(item);if(k>=0)self.placed.splice(k,1);
+    b.remove();src.classList.remove('used');
+    if(!self.placed.length)self.slots.appendChild(self.hint);
+  });
+  this.placed.push(item);this.slots.appendChild(b);
+};
+Q.prototype.answered=function(){
+  var d=this.def;
+  if(d.t==='mc')return this.sel!=null;
+  if(d.t==='multi')return Object.keys(this.sels).length>0;
+  if(d.t==='in')return this.inputs.every(function(i){return i.value.trim()!=='';});
+  if(d.t==='ord')return this.placed.length===d.c.length;
+};
+Q.prototype.check=function(){
+  var d=this.def,self=this;
+  if(d.t==='mc')return this.sel===d.a;
+  if(d.t==='multi'){var k=Object.keys(this.sels).map(Number).sort();var a=d.a.slice().sort();return k.length===a.length&&k.every(function(v,i){return v===a[i];});}
+  if(d.t==='in'){
+    var A=Array.isArray(d.a)?d.a:[d.a];
+    var ok=true;
+    this.inputs.forEach(function(inp,i){
+      var good=alts(A[i]).indexOf(norm(inp.value))>=0;
+      inp.classList.toggle('right',good);inp.classList.toggle('wrong',!good);
+      if(!good)ok=false;
+    });
+    return ok;
+  }
+  if(d.t==='ord'){
+    var got=this.placed.map(function(p){return norm(d.c[p.ci]);}).join(' ');
+    var want=d.c.map(norm).join(' ');
+    return got===want;
+  }
+};
+Q.prototype.lock=function(v){
+  this.locked=v;
+  (this.optEls||[]).forEach(function(b){b.disabled=v;});
+  (this.inputs||[]).forEach(function(i){i.readOnly=v;});
+};
+Q.prototype.grade=function(manual){
+  if(this.state==='ok')return true;
+  if(!this.answered()){
+    if(manual){this.fb.className='fb show no';this.fb.innerHTML='먼저 답을 고르거나 써 주세요.';}
+    return null;
+  }
+  var ok=this.check();
+  var d=this.def;
+  this.lock(true);
+  this.gBtn.style.display='none';
+  if(ok){
+    this.state='ok';this.card.className='q ok';
+    if(d.t==='mc'){this.optEls[d.a].classList.add('right');}
+    if(d.t==='multi'){var s=this;d.a.forEach(function(i){s.optEls[i].classList.add('right');});}
+    this.fb.className='fb show ok';this.fb.innerHTML='<b>정답!</b> '+(d.e||'');
+    this.rBtn.style.display='none';this.aBtn.style.display='none';
+  }else{
+    this.state='no';this.card.className='q no';
+    if(d.t==='mc'){this.optEls[this.sel].classList.add('wrong');}
+    if(d.t==='multi'){var s2=this;Object.keys(this.sels).forEach(function(i){if(d.a.indexOf(+i)<0)s2.optEls[i].classList.add('wrong');});}
+    this.fb.className='fb show no';this.fb.innerHTML='<b>틀렸어요.</b> 다시 풀어 보거나 정답을 확인하세요.';
+    this.rBtn.style.display='';this.aBtn.style.display='';
+  }
+  updateScores();
+  return ok;
+};
+Q.prototype.ansText=function(){
+  var d=this.def;
+  if(d.t==='mc')return NUMS[d.a]+' '+d.o[d.a];
+  if(d.t==='multi')return d.a.map(function(i){return NUMS[i]+' '+d.o[i];}).join(' / ');
+  if(d.t==='in'){var A=Array.isArray(d.a)?d.a:[d.a];return A.map(firstShow).join(' / ');}
+  if(d.t==='ord')return d.c.join(d.blk?'<br>→ ':' ');
+};
+Q.prototype.showAns=function(){
+  var d=this.def,s=this;
+  if(d.t==='mc')this.optEls[d.a].classList.add('right');
+  if(d.t==='multi')d.a.forEach(function(i){s.optEls[i].classList.add('right');});
+  this.state='shown';
+  this.fb.className='fb show ans';
+  this.fb.innerHTML='<b>정답:</b> '+this.ansText()+(d.e?'<br>'+d.e:'');
+  this.aBtn.style.display='none';
+  updateScores();
+};
+Q.prototype.reset=function(){
+  var d=this.def,self=this;
+  this.state='idle';this.card.className='q';this.lock(false);
+  this.fb.className='fb';this.fb.innerHTML='';
+  this.gBtn.style.display='';this.rBtn.style.display='none';this.aBtn.style.display='none';
+  if(this.optEls)this.optEls.forEach(function(b){b.classList.remove('sel','right','wrong');});
+  if(d.t==='mc')this.sel=null;
+  if(d.t==='multi')this.sels={};
+  if(d.t==='in')this.inputs.forEach(function(i){i.value='';i.classList.remove('right','wrong');});
+  if(d.t==='ord'){
+    this.placed.forEach(function(p){p.el.remove();p.src.classList.remove('used');});
+    this.placed=[];this.slots.appendChild(this.hint);
+  }
+  updateScores();
+};
+
+function QSet(blk, tabIdx){
+  var self=this; this.qs=[];
+  var wrap=el('div','qset');
+  var head=el('div','qhead');
+  head.appendChild(el('h3','',blk.title||'문제'));
+  this.sc=el('span','score','0 / '+blk.qs.length);head.appendChild(this.sc);
+  wrap.appendChild(head);
+  if(blk.note)wrap.appendChild(el('div','tip',blk.note));
+  blk.qs.forEach(function(d,i){
+    var q=new Q(d,i+1,tabIdx,self);self.qs.push(q);TABQ[tabIdx].push(q);wrap.appendChild(q.card);
+  });
+  var bar=el('div','sticky');
+  var g=el('button','btn fill','전체 채점');g.type='button';
+  var r=el('button','btn','틀린 것만 다시');r.type='button';
+  g.addEventListener('click',function(){
+    var un=0;self.qs.forEach(function(q){if(q.state==='idle'){var x=q.grade(false);if(x===null)un++;}});
+    updateScores();
+    var ok=self.qs.filter(function(q){return q.state==='ok';}).length;
+    self.sc.textContent=ok+' / '+self.qs.length+(un?' (미응답 '+un+')':'');
+  });
+  r.addEventListener('click',function(){
+    var first=null;
+    self.qs.forEach(function(q){if(q.state==='no'||q.state==='shown'){q.reset();if(!first)first=q;}});
+    if(first)first.card.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  bar.appendChild(g);bar.appendChild(r);wrap.appendChild(bar);
+  this.el=wrap;
+  SETS.push(this);
+}
+var SETS=[];
+function updateScores(){
+  SETS.forEach(function(s){
+    var ok=s.qs.filter(function(q){return q.state==='ok';}).length;
+    var t=s.sc.textContent;var m=t.match(/\(미응답 \d+\)/);
+    s.sc.textContent=ok+' / '+s.qs.length;
+  });
+  TABQ.forEach(function(arr,i){
+    var pg=document.querySelector('.tab[data-i="'+i+'"] .pg');
+    if(!pg)return;
+    if(!arr.length){pg.textContent='';return;}
+    var ok=arr.filter(function(q){return q.state==='ok';}).length;
+    pg.textContent=ok+'/'+arr.length;
+  });
+}
+
+/* ---------- other blocks ---------- */
+function bWords(blk){
+  var w=el('div','box');
+  if(blk.title)w.appendChild(el('h3','sub',blk.title));
+  var g=el('div','wgrid');
+  blk.items.forEach(function(it){
+    var c=el('button','wchip','<b>'+esc(it[0])+'</b><span>'+esc(it[1])+'</span>');c.type='button';
+    c.addEventListener('click',function(){speak(it[0]);});
+    g.appendChild(c);
+  });
+  w.appendChild(g);
+  return w;
+}
+function bAnalysis(blk){
+  var w=el('div','');
+  blk.paras.forEach(function(pa){
+    w.appendChild(el('div','parahead','<b>'+pa.title+'</b>'+(pa.flow?'<br>'+pa.flow:'')));
+    pa.items.forEach(function(it){
+      var c=el('div','acard');
+      c.appendChild(el('div','kr','<span class="no">'+it.n+'</span>'+esc(it.kr)));
+      var bar=el('div','row');bar.style.marginTop='8px';
+      var b1=null;
+      if(it.ch&&it.ch.length>1){b1=el('button','btn sm','① 영어 어순으로 덩어리 보기');b1.type='button';bar.appendChild(b1);}
+      var b2=el('button','btn sm','② 영어 문장 보기');b2.type='button';bar.appendChild(b2);
+      c.appendChild(bar);
+      var ch=el('div','chunks');ch.style.display='none';
+      if(it.ch&&it.ch.length>1){
+        it.ch.forEach(function(x,i){
+          var k=el('button','ck','<small>'+(i+1)+'</small>'+esc(x[1])+'<span class="ce">'+esc(x[0])+'</span>');k.type='button';
+          k.addEventListener('click',function(){k.classList.add('open');});
+          ch.appendChild(k);
+        });
+        c.appendChild(ch);
+        b1.addEventListener('click',function(){ch.style.display='flex';b1.disabled=true;});
+      }
+      var ae=el('div','aen');
+      var srow=el('div','row');srow.appendChild(el('span','s en',esc(it.en)));srow.appendChild(spkBtn(it.en));
+      ae.appendChild(srow);
+      if(it.tip)ae.appendChild(el('div','tp','💡 '+it.tip));
+      c.appendChild(ae);
+      b2.addEventListener('click',function(){ae.classList.add('show');ch.style.display=it.ch&&it.ch.length>1?'flex':'none';ch.querySelectorAll('.ck').forEach(function(k){k.classList.add('open');});b2.disabled=true;if(b1)b1.disabled=true;speak(it.en);});
+      w.appendChild(c);
+    });
+  });
+  return w;
+}
+function bScript(blk){
+  var w=el('div','script');
+  var h=el('div','shead');h.appendChild(el('b','',blk.title));
+  var r=el('div','row');
+  var all=el('button','btn sm','▶ 전체 듣기');all.type='button';
+  var kr=el('button','btn sm ghost','해석 보기');kr.type='button';
+  all.addEventListener('click',function(){speakAll(blk.lines.map(function(l){return l[1];}),all);});
+  kr.addEventListener('click',function(){w.classList.toggle('kr');kr.textContent=w.classList.contains('kr')?'해석 숨기기':'해석 보기';});
+  r.appendChild(all);r.appendChild(kr);h.appendChild(r);w.appendChild(h);
+  blk.lines.forEach(function(l){
+    var ln=el('div','line');
+    ln.appendChild(el('span','who',esc(l[0])));
+    var tx=el('div','tx','<div class="en">'+esc(l[1])+'</div><div class="ko">'+esc(l[2]||'')+'</div>');
+    ln.appendChild(tx);ln.appendChild(spkBtn(l[1]));w.appendChild(ln);
+  });
+  return w;
+}
+function bTapfill(blk){
+  var w=el('div','box');
+  if(blk.title)w.appendChild(el('h3','sub',blk.title));
+  if(blk.note)w.appendChild(el('div','',blk.note));
+  var idx=0;var spans=[];
+  blk.lines.forEach(function(line){
+    var p=el('div','tf');
+    var html=line.replace(/\[\[([^\]]+)\]\]/g,function(m,a){return '<span class="tfb" data-a="'+esc(a)+'">'+esc(a)+'</span>';});
+    p.innerHTML=html;w.appendChild(p);
+    p.querySelectorAll('.tfb').forEach(function(s){spans.push(s);});
+  });
+  function mark(){spans.forEach(function(s,i){s.classList.toggle('next',i===idx);});}
+  spans.forEach(function(s,i){
+    s.addEventListener('click',function(){
+      if(s.classList.contains('open'))return;
+      if(i!==idx){s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake');return;}
+      s.classList.add('open');idx++;mark();
+    });
+  });
+  mark();
+  var rb=el('button','btn sm ghost','처음부터 다시');rb.type='button';rb.style.marginTop='8px';
+  rb.addEventListener('click',function(){spans.forEach(function(s){s.classList.remove('open');});idx=0;mark();});
+  w.appendChild(rb);
+  return w;
+}
+
+/* ---------- page ---------- */
+function build(){
+  document.title=D.title;
+  var hd=el('header','top');
+  hd.appendChild(el('div','brand',D.brand));
+  hd.appendChild(el('h1','',D.title));
+  hd.appendChild(el('div','sub',D.sub));
+  var nav=el('nav','tabs');hd.appendChild(nav);
+  document.body.appendChild(hd);
+  var main=el('main');document.body.appendChild(main);
+  D.tabs.forEach(function(tb,ti){
+    TABQ.push([]);
+    var t=el('button','tab'+(ti===0?' on':''),esc(tb.name)+'<span class="pg"></span>');t.type='button';t.dataset.i=ti;
+    t.addEventListener('click',function(){go(ti);});
+    nav.appendChild(t);
+    var pn=el('section','panel'+(ti===0?' on':''));pn.dataset.i=ti;
+    if(tb.intro)pn.appendChild(el('div','intro',tb.intro));
+    tb.blocks.forEach(function(b){
+      var node;
+      if(b.k==='html')node=el('div','',b.html);
+      else if(b.k==='h')node=el('h2','sec',b.html);
+      else if(b.k==='words')node=bWords(b);
+      else if(b.k==='qset')node=new QSet(b,ti).el;
+      else if(b.k==='analysis')node=bAnalysis(b);
+      else if(b.k==='script')node=bScript(b);
+      else if(b.k==='tapfill')node=bTapfill(b);
+      if(node)pn.appendChild(node);
+    });
+    if(ti<D.tabs.length-1){
+      var nx=el('div','row');nx.style.justifyContent='center';nx.style.marginTop='20px';
+      var nb=el('button','btn','다음: '+esc(D.tabs[ti+1].name)+' →');nb.type='button';
+      nb.addEventListener('click',function(){go(ti+1);});nx.appendChild(nb);pn.appendChild(nx);
+    }
+    main.appendChild(pn);
+  });
+  main.appendChild(el('div','foot',D.brand+' · '+D.title));
+  updateScores();
+}
+function go(i){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',+t.dataset.i===i);});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',+p.dataset.i===i);});
+  var t=document.querySelector('.tab[data-i="'+i+'"]');if(t&&t.scrollIntoView)try{t.scrollIntoView({inline:'center',block:'nearest'});}catch(e){}
+  window.scrollTo(0,0);pageSound();
+}
+window.__L7={REG:REG,SETS:SETS,go:go,norm:norm,alts:alts};
+build();
+})();
+
+</script>
+</body>
+</html>
