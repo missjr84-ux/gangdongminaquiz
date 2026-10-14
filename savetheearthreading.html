@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lesson 7 Save Earth, Save Us — 본문</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f4fa;--card:#fff;--card2:#eeecf7;
+  --primary:#5b4fa8;--primary-lt:#ece9f8;--primary-dk:#3b2f8a;
+  --accent:#e8a020;--accent-lt:#fef3dc;
+  --text:#1a1a2e;--muted:#6b6880;--border:#d8d4ee;
+  --ok:#1a7a3c;--ok-bg:#e8f5ec;--no:#c0392b;--no-bg:#fdecea;
+  --info:#3a5fa8;--info-bg:#e8eef8;
+  --mint:#dff5ec;--mint-t:#1d7a55;--sky:#e1effc;--sky-t:#2a64a8;
+  --peach:#fde9df;--peach-t:#b5532a;--lav:#ece9f8;--lav-t:#5b4fa8;
+  --r:12px;--shadow:0 2px 10px rgba(91,79,168,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Noto Sans KR',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.65;-webkit-tap-highlight-color:transparent}
+.en{font-family:'Noto Sans KR',system-ui,sans-serif}
+header.top{background:linear-gradient(135deg,#3b2f8a,#7b6fd0);color:#fff;padding:16px 16px 0}
+.top .brand{font-size:12px;opacity:.85;letter-spacing:.04em}
+.top h1{font-size:21px;font-weight:800;margin:2px 0 2px}
+.top .sub{font-size:13px;opacity:.9;margin-bottom:12px}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:1.5px solid rgba(255,255,255,.45);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:7px 13px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.tab.on{background:#fff;color:var(--primary-dk);border-color:#fff}
+.tab .pg{font-size:11px;font-weight:700;margin-left:5px;opacity:.85}
+main{max-width:780px;margin:0 auto;padding:16px 14px 80px}
+.panel{display:none;animation:pin .25s ease}
+.panel.on{display:block}
+@keyframes pin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.intro{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:var(--r);padding:12px 14px;margin-bottom:14px;font-size:15px}
+.intro b{color:var(--primary-dk)}
+h2.sec{font-size:18px;font-weight:800;color:var(--primary-dk);margin:22px 2px 10px;display:flex;align-items:center;gap:8px}
+h2.sec:first-child{margin-top:4px}
+h3.sub{font-size:15.5px;font-weight:700;margin:14px 2px 8px;color:var(--primary)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.tip{background:var(--accent-lt);border:1px solid #f3d99a;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14.5px}
+.tip b{color:#9a5b00}
+.warn{background:var(--no-bg);border:1px solid #f2c4bd;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14.5px}
+.warn b{color:var(--no)}
+table.t{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--card)}
+table.t th{background:var(--primary-lt);color:var(--primary-dk);font-weight:700;padding:7px 6px;border:1px solid var(--border);text-align:left}
+table.t td{padding:7px 6px;border:1px solid var(--border);vertical-align:top}
+.tw{overflow-x:auto;border-radius:10px;margin-bottom:12px}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 7px;vertical-align:middle}
+.b-mint{background:var(--mint);color:var(--mint-t)}.b-sky{background:var(--sky);color:var(--sky-t)}
+.b-peach{background:var(--peach);color:var(--peach-t)}.b-lav{background:var(--lav);color:var(--lav-t)}
+.b-amb{background:var(--accent-lt);color:#9a5b00}
+.spk{border:none;background:var(--primary-lt);color:var(--primary);border-radius:8px;width:30px;height:30px;font-size:15px;cursor:pointer;flex:0 0 auto;line-height:30px;text-align:center}
+.spk.playing{background:var(--primary);color:#fff}
+.btn{border:1.5px solid var(--primary);background:#fff;color:var(--primary);border-radius:9px;padding:7px 13px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn.fill{background:var(--primary);color:#fff}
+.btn.sm{padding:4px 10px;font-size:13px}
+.btn.ghost{border-color:var(--border);color:var(--muted)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+/* word chips */
+.wgrid{display:flex;flex-wrap:wrap;gap:6px}
+.wchip{border:1px solid var(--border);background:var(--card);border-radius:9px;padding:5px 10px;font-size:14px;cursor:pointer}
+.wchip b{color:var(--primary-dk)}
+.wchip span{color:var(--muted);font-size:13px;margin-left:4px}
+/* qset */
+.qset{margin-bottom:18px}
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:18px 2px 10px}
+.qhead h3{font-size:16.5px;font-weight:800;color:var(--primary-dk)}
+.score{font-size:13px;font-weight:700;color:var(--primary);background:var(--primary-lt);border-radius:999px;padding:3px 10px}
+.q{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:13px 14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.q.ok{border-color:#8fd0a7;background:#fbfffc}
+.q.no{border-color:#eba59c;background:#fffafa}
+.qn{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}
+.qn .num{flex:0 0 auto;background:var(--primary);color:#fff;font-weight:800;font-size:13px;border-radius:7px;min-width:26px;height:24px;line-height:24px;text-align:center;padding:0 5px;margin-top:2px}
+.qn .qt{flex:1;font-weight:600;font-size:15.5px}
+.qt u{text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:var(--primary)}
+.pass{background:var(--card2);border-radius:10px;padding:10px 12px;margin:6px 0 10px;font-size:15px;line-height:1.75}
+.pass .ln{display:block}
+.pass .sp{font-weight:800;color:var(--primary);margin-right:4px}
+.pass u{text-decoration-thickness:2px;text-underline-offset:3px}
+.mark{color:var(--primary);font-weight:800}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{text-align:left;border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:8px 11px;font-size:15px;cursor:pointer;font-family:inherit;color:var(--text);line-height:1.5}
+.opts.inline .opt{flex:0 0 auto}
+.opt.sel{border-color:var(--primary);background:var(--primary-lt);font-weight:600}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.wrong{border-color:var(--no);background:var(--no-bg)}
+.opt:disabled{cursor:default;color:var(--text)}
+.blank{display:inline-block;min-width:70px;border:none;border-bottom:2px solid var(--primary);background:var(--primary-lt);border-radius:6px 6px 0 0;padding:2px 6px;margin:2px 2px;font-size:15px;font-family:inherit;color:var(--text);text-align:center}
+.blank.wide{display:block;width:100%;text-align:left;margin:6px 0;padding:8px 10px;border-radius:8px;border:1.5px solid var(--border);border-bottom:2px solid var(--primary)}
+.blank.right{background:var(--ok-bg);border-bottom-color:var(--ok)}
+.blank.wrong{background:var(--no-bg);border-bottom-color:var(--no)}
+.tmpl{font-size:15.5px;line-height:2.1}
+.ordwrap{display:flex;flex-direction:column;gap:8px}
+.slots{min-height:48px;border:2px dashed var(--border);border-radius:10px;padding:7px;display:flex;flex-wrap:wrap;gap:6px;background:#fcfbff}
+.slots.block{flex-direction:column}
+.slots .hint{color:var(--muted);font-size:13px;align-self:center;padding:4px}
+.pool{display:flex;flex-wrap:wrap;gap:6px}
+.pool.block{flex-direction:column}
+.chip{border:1.5px solid var(--primary);background:#fff;color:var(--primary-dk);border-radius:9px;padding:6px 11px;font-size:15px;cursor:pointer;font-family:inherit;text-align:left;line-height:1.45}
+.chip.used{visibility:hidden}
+.slots .chip{background:var(--primary-lt)}
+.chip:disabled{cursor:default}
+.qfoot{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.fb{margin-top:9px;border-radius:9px;padding:9px 11px;font-size:14.5px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--ok-bg);color:#145c2e}
+.fb.no{background:var(--no-bg);color:#8e2a1f}
+.fb.ans{background:var(--info-bg);color:#24406f}
+.fb b{font-weight:800}
+.qbar{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}
+.sticky{position:sticky;bottom:10px;display:flex;justify-content:center;gap:8px;margin-top:6px;z-index:5}
+.sticky .btn{box-shadow:0 4px 14px rgba(59,47,138,.25)}
+/* analysis cards */
+.acard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+.acard .kr{font-size:16px;font-weight:600}
+.acard .kr .no{color:var(--primary);font-weight:800;margin-right:6px}
+.chunks{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.ck{border:1.5px solid var(--border);border-radius:9px;padding:5px 9px;background:#fcfbff;cursor:pointer;font-size:14px;text-align:left;font-family:inherit;color:var(--text)}
+.ck small{display:block;color:var(--primary);font-weight:800;font-size:11px}
+.ck .ce{display:none;color:var(--primary-dk);font-weight:700}
+.ck.open .ce{display:block}
+.ck.open{border-color:var(--primary);background:var(--primary-lt)}
+.aen{display:none;margin-top:9px;background:var(--card2);border-radius:9px;padding:8px 10px}
+.aen.show{display:block}
+.aen .s{font-size:16px;font-weight:700;color:var(--primary-dk)}
+.aen .tp{font-size:14px;color:#6a4a00;margin-top:5px}
+.parahead{background:var(--primary-lt);border-radius:10px;padding:9px 12px;margin:18px 0 9px;font-size:14.5px}
+.parahead b{color:var(--primary-dk);font-size:15.5px}
+/* dialogue script */
+.script{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:10px;box-shadow:var(--shadow)}
+.script .shead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.script .shead b{color:var(--primary-dk);font-size:15.5px}
+.line{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed #ebe8f5}
+.line:last-child{border-bottom:none}
+.line .who{flex:0 0 auto;min-width:24px;font-weight:800;color:var(--primary)}
+.line .tx{flex:1}
+.line .ko{display:none;color:var(--muted);font-size:14px}
+.script.kr .line .ko{display:block}
+/* tapfill */
+.tf{font-size:16px;line-height:2.2}
+.tfb{display:inline-block;min-width:56px;border-bottom:2px solid var(--primary);background:var(--primary-lt);border-radius:6px 6px 0 0;padding:0 7px;text-align:center;cursor:pointer;color:transparent;font-weight:700;user-select:none}
+.tfb.next{animation:pulse 1.4s infinite}
+.tfb.open{color:var(--primary-dk);background:#fff3c9;border-bottom-color:var(--accent);cursor:default}
+.tfb.shake{animation:shake .3s}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(91,79,168,.35)}50%{box-shadow:0 0 0 5px rgba(91,79,168,0)}}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.formula{background:var(--card);border:2px solid var(--primary);border-radius:var(--r);padding:14px;margin-bottom:12px;text-align:center;font-size:18px;font-weight:800;color:var(--primary-dk);line-height:1.8}
+.formula .f{display:inline-block;border-radius:8px;padding:2px 8px;margin:2px}
+.steps{counter-reset:st}
+.step{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;margin-bottom:8px;box-shadow:var(--shadow)}
+.step .h{font-weight:800;color:var(--primary-dk)}
+.step .h .n{display:inline-block;background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:6px}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+@media (max-width:480px){
+  .top h1{font-size:19px}
+  main{padding:12px 12px 80px}
+  .opt,.chip{font-size:14.5px}
+}
+
+</style>
+</head>
+<body>
+<script>
+window.DATA={"file":"saveearthreading.html","brand":"강동미나 중고등부 · 중1 능률(김기택)","title":"Lesson 7 Save Earth, Save Us — 본문","sub":"You're an Environmental Superhero! · 한글 분석 → 어순 → 빈칸 → 순서·삽입 → 내용확인 → 영작","tabs":[{"name":"🔍 한글 분석","intro":"<b>한글을 먼저 읽고</b> ① 버튼으로 영어 어순대로 놓인 한글 덩어리를 본 뒤, 덩어리를 하나씩 눌러 영어를 떠올려 보세요. ② 버튼은 마지막에!","blocks":[{"k":"html","html":"<div class=\"box\"><b>글 전체 구조</b><br>도입(오염 문제, 슈퍼히어로 3명 소개) → ① <b>재활용 마법사</b>(분리배출) → ② <b>패션 똑똑이</b>(헌 옷 재활용) → ③ <b>물 절약가</b>(물 아끼기)<br><span class=\"badge b-amb\">연결어 흐름</span> Luckily(다행히) · But(하지만) · For example(예를 들어) · Then(그렇다면) · and · Also(또한)</div>"},{"k":"analysis","paras":[{"title":"도입 (1~4)","flow":"문제 제기(Pollution) → <b>Luckily</b> 해결사 등장 → 함께하자","items":[{"n":1,"kr":"오염은 큰 문제입니다.","en":"Pollution is a big problem.","ch":[["Pollution","오염은"],["is a big problem.","큰 문제입니다"]],"tip":"한글 끝 \"~입니다\"가 영어에선 주어 바로 뒤 is로 와요."},{"n":2,"kr":"다행히, 세 명의 슈퍼히어로가 환경을 보호하기 위해서 일하고 있습니다.","en":"Luckily, three superheroes are working to protect the environment.","ch":[["Luckily,","다행히"],["three superheroes","세 명의 슈퍼히어로가"],["are working","일하고 있습니다"],["to protect the environment.","환경을 보호하기 위해서"]],"tip":"한글 맨 끝 \"일하고 있다\"가 주어 바로 뒤로! \"~하기 위해서\" = to + 동사원형, 맨 뒤."},{"n":3,"kr":"그들은 세상을 깨끗하게 만들기를 원합니다.","en":"They want to make the world clean.","ch":[["They","그들은"],["want","원합니다"],["to make","만들기를"],["the world","세상을"],["clean.","깨끗하게"]],"tip":"make + 목적어 + 형용사. \"깨끗하게\"지만 cleanly ✗ → clean ✓"},{"n":4,"kr":"여러분도 그들과 함께하시겠어요?","en":"Will you join them?","ch":[["Will you","여러분은 ~하시겠어요?"],["join","함께하다"],["them?","그들과"]],"tip":"\"그들과\"지만 with 없이 join them. (join with them ✗)"}]},{"title":"Recycle Wizard (5~14)","flow":"자원 낭비 → <b>But</b> 재활용으로 절약 → <b>For example</b> 종이 1,000kg → <b>Then</b> 제대로 분리배출","items":[{"n":5,"kr":"안녕하세요! 저는 재활용 마법사예요.","en":"Hi! I'm Recycle Wizard.","ch":null,"tip":""},{"n":6,"kr":"사람들은 너무 많은 자원을 낭비해요.","en":"People waste too many resources.","ch":[["People","사람들은"],["waste","낭비해요"],["too many resources.","너무 많은 자원을"]],"tip":"resources는 복수 → many (much ✗)."},{"n":7,"kr":"하지만 재활용은 그것들을 절약할 수 있어요.","en":"But recycling can save them.","ch":[["But","하지만"],["recycling","재활용은"],["can save","절약할 수 있어요"],["them.","그것들을"]],"tip":"연결어 But: 앞(낭비) ↔ 뒤(절약) 반대. them = resources. 주어 자리 → recycling(동명사)."},{"n":8,"kr":"예를 들어, 종이 1,000kg을 재활용하는 것은 약 19그루의 나무와 29,000리터의 물을 절약할 수 있어요.","en":"For example, recycling 1,000 kilograms of paper can save about 19 trees and 29,000 liters of water.","ch":[["For example,","예를 들어"],["recycling 1,000 kilograms of paper","종이 1,000kg을 재활용하는 것은"],["can save","절약할 수 있어요"],["about 19 trees","약 19그루의 나무"],["and 29,000 liters of water.","와 29,000리터의 물을"]],"tip":"\"종이 1,000kg\" → 1,000 kilograms <b>of</b> paper (순서 뒤집힘). about = 대략."},{"n":9,"kr":"여러분은 재활용의 마법사가 되고 싶나요?","en":"Do you want to be a wizard at recycling?","ch":[["Do you want","여러분은 ~하고 싶나요?"],["to be a wizard","마법사가 되기를"],["at recycling?","재활용에 있어서"]],"tip":"\"재활용의 마법사\" = a wizard <b>at</b> recycling (of ✗). at 뒤 동명사."},{"n":10,"kr":"그렇다면 여러분은 제대로 재활용을 해야 해요!","en":"Then you should recycle properly!","ch":[["Then","그렇다면"],["you","여러분은"],["should recycle","재활용을 해야 해요"],["properly!","제대로"]],"tip":"연결어 Then: 앞 질문(되고 싶다면?)을 받아 \"그렇다면\"."},{"n":11,"kr":"플라스틱, 종이, 음식물 쓰레기, 그리고 유리를 알맞은 쓰레기통에 넣으세요.","en":"Put plastic, paper, food waste, and glass in the correct bins.","ch":[["Put","넣으세요"],["plastic, paper, food waste, and glass","플라스틱, 종이, 음식물 쓰레기, 그리고 유리를"],["in the correct bins.","알맞은 쓰레기통에"]],"tip":"명령문: 한글 맨 끝 \"넣으세요\"가 영어 맨 앞 동사원형 Put."},{"n":12,"kr":"아래 쓰레기를 보세요.","en":"Look at the waste below.","ch":[["Look at","보세요"],["the waste","쓰레기를"],["below.","아래"]],"tip":"\"아래\"는 한글에선 앞, 영어에선 뒤에서 꾸며요."},{"n":13,"kr":"각 쓰레기 조각에서 알맞은 쓰레기통까지 선을 그어보세요.","en":"Draw a line from each piece of waste to the right bin.","ch":[["Draw","그어보세요"],["a line","선을"],["from each piece of waste","각 쓰레기 조각에서"],["to the right bin.","알맞은 쓰레기통까지"]],"tip":"from A to B. each + <b>단수</b> piece (pieces ✗)."},{"n":14,"kr":"잘했어요!","en":"Good job!","ch":null,"tip":""}]},{"title":"Fashion Clever (15~26)","flow":"옷을 자주 버림 → 쓰레기가 되고 <b>and</b> 환경 해침 → 사지 말고 오래 입기 → <b>also</b> 새 물건 만들기","items":[{"n":15,"kr":"저는 패션 똑똑이예요.","en":"I'm Fashion Clever.","ch":null,"tip":""},{"n":16,"kr":"사람들은 옷을 너무 자주 버려요.","en":"People throw away clothes too often.","ch":[["People","사람들은"],["throw away","버려요"],["clothes","옷을"],["too often.","너무 자주"]],"tip":"\"너무 자주\"는 한글 중간, 영어는 맨 뒤."},{"n":17,"kr":"그것들은 쓰레기가 되어 환경을 해쳐요.","en":"They become waste and hurt the environment.","ch":[["They","그것들은"],["become waste","쓰레기가 되고"],["and","그리고"],["hurt the environment.","환경을 해쳐요"]],"tip":"\"되어\"에 숨은 연결어 <b>and</b>! They(=clothes) 복수 → become, hurt (hurts ✗)."},{"n":18,"kr":"여러분은 몇몇 옷들은 분해되는 데 200년이 넘게 걸린다는 것을 알고 있었나요?","en":"Did you know that some clothes take over 200 years to break down?","ch":[["Did you know","여러분은 알고 있었나요"],["that","~라는 것을"],["some clothes","몇몇 옷들은"],["take over 200 years","200년이 넘게 걸린다"],["to break down?","분해되는 데"]],"tip":"know + that절. take + 시간 + to부정사. Did 뒤 know(원형)."},{"n":19,"kr":"너무 많은 옷을 사지 마세요.","en":"Don't buy too many clothes.","ch":[["Don't buy","사지 마세요"],["too many clothes.","너무 많은 옷을"]],"tip":"부정 명령문: Don't + 동사원형."},{"n":20,"kr":"여러분의 옷을 오랫동안 입으세요.","en":"Wear your clothes for a long time.","ch":[["Wear","입으세요"],["your clothes","여러분의 옷을"],["for a long time.","오랫동안"]],"tip":"for a long time (in ✗)."},{"n":21,"kr":"여러분의 헌 옷으로 새로운 물건을 만들 수도 있어요!","en":"You can also create new items from your old clothes!","ch":[["You can also create","여러분은 ~ 만들 수도 있어요"],["new items","새로운 물건을"],["from your old clothes!","여러분의 헌 옷으로"]],"tip":"\"~도\" = also (can 뒤). 재료 \"~으로\" = from."},{"n":22,"kr":"헌 옷을 유용하게 만들어 봅시다.","en":"Let's make old clothes useful.","ch":[["Let's make","만들어 봅시다"],["old clothes","헌 옷을"],["useful.","유용하게"]],"tip":"make + 목적어 + 형용사 → useful (usefully ✗). Let's 뒤 동사원형."},{"n":23,"kr":"아래에 몇 가지 물건들이 있어요.","en":"There are some items below.","ch":[["There are","~이 있어요"],["some items","몇 가지 물건들"],["below.","아래에"]],"tip":"items 복수 → There <b>are</b>."},{"n":24,"kr":"여러분은 이 헌 옷들로 무엇을 만들 수 있나요?","en":"What can you make with these old clothes?","ch":[["What","무엇을"],["can you make","여러분은 만들 수 있나요"],["with these old clothes?","이 헌 옷들로"]],"tip":"의문사 + 조동사 + 주어 + 동사원형. clothes 복수 → these (this ✗)."},{"n":25,"kr":"헌 옷과 알맞은 새 물건들을 연결해 보세요.","en":"Match the old clothes with the correct new items.","ch":[["Match","연결해 보세요"],["the old clothes","헌 옷을"],["with the correct new items.","알맞은 새 물건들과"]],"tip":"match A with B: A를 B와 연결시키다."},{"n":26,"kr":"이제 여러분도 패션에 영리해질 수 있어요!","en":"Now you can be clever at fashion too!","ch":[["Now","이제"],["you can be clever","여러분은 영리해질 수 있어요"],["at fashion","패션에"],["too!","~도"]],"tip":"too(또한)는 문장 끝. can 뒤 be(원형)."}]},{"title":"Water Saver (27~40)","flow":"물은 중요 → <b>But</b> 낭비 → 슬픔 → 절약 방법 3가지(빠른 샤워, 양치할 때 잠그기, <b>Also</b> 완전히 잠갔는지 확인)","items":[{"n":27,"kr":"안녕하세요! 저는 물 절약가예요!","en":"Hi! I'm Water Saver!","ch":null,"tip":""},{"n":28,"kr":"물은 매우 중요해요.","en":"Water is very important.","ch":[["Water","물은"],["is very important.","매우 중요해요"]],"tip":"importance(명사) ✗ → important(형용사)."},{"n":29,"kr":"우리는 그것 없이 살 수 없어요.","en":"We can't live without it.","ch":[["We","우리는"],["can't live","살 수 없어요"],["without it.","그것 없이"]],"tip":"it = water. without(~ 없이) ↔ with."},{"n":30,"kr":"하지만 사람들은 많은 물을 낭비해요.","en":"But people waste a lot of water.","ch":[["But","하지만"],["people","사람들은"],["waste","낭비해요"],["a lot of water.","많은 물을"]],"tip":"연결어 But: 중요한데(앞) ↔ 낭비(뒤). a lot <b>of</b> water."},{"n":31,"kr":"그것이 저를 슬프게 만들어요.","en":"It makes me sad.","ch":[["It","그것이"],["makes","만들어요"],["me","저를"],["sad.","슬프게"]],"tip":"It = 사람들이 많은 물을 낭비하는 것. sadly ✗ → sad."},{"n":32,"kr":"우리는 어떻게 물을 절약할 수 있을까요?","en":"How can we save water?","ch":[["How","어떻게"],["can we save","우리는 절약할 수 있을까요"],["water?","물을"]],"tip":"How + 조동사 + 주어 + 동사원형? (How we can ✗)"},{"n":33,"kr":"샤워를 빨리 하세요.","en":"Take quick showers.","ch":[["Take","하세요"],["quick showers.","빠른 샤워를"]],"tip":"\"빨리\"지만 showers 앞 → 형용사 quick."},{"n":34,"kr":"여러분이 이를 닦는 동안에는 물을 잠그세요.","en":"Turn off the water while you brush your teeth.","ch":[["Turn off","잠그세요"],["the water","물을"],["while","~하는 동안"],["you brush your teeth.","여러분이 이를 닦다"]],"tip":"한글은 \"이를 닦는 동안\"이 앞, 영어는 while절이 뒤. teeth 복수."},{"n":35,"kr":"또한, 여러분이 수도꼭지를 완전히 잠갔는지 확인하세요.","en":"Also, make sure that you turn off the tap completely.","ch":[["Also,","또한"],["make sure","확인하세요"],["that","~인지"],["you turn off the tap","여러분이 수도꼭지를 잠그다"],["completely.","완전히"]],"tip":"연결어 Also: 방법 하나 더 추가. make sure + that절."},{"n":36,"kr":"아래 그림들을 보세요.","en":"Look at the pictures below.","ch":[["Look at","보세요"],["the pictures","그림들을"],["below.","아래"]],"tip":""},{"n":37,"kr":"물을 절약하는 방법들과 그렇지 않은 방법들은 무엇인가요?","en":"Which are ways to save water and which are not?","ch":[["Which are","어느 것이 ~인가요"],["ways to save water","물을 절약하는 방법들"],["and which are not?","그리고 어느 것이 아닌가요"]],"tip":"to save가 ways를 뒤에서 꾸밈. which are not 뒤 ways to save water 생략."},{"n":38,"kr":"각 그림에 ○ 또는 ×를 쓰세요.","en":"Write an ○ or × on each picture.","ch":null,"tip":"each + 단수 picture."},{"n":39,"kr":"저는 여러분이 정답을 맞혔다고 확신해요.","en":"I'm sure that you got the right answers.","ch":[["I'm sure","저는 확신해요"],["that","~라고"],["you got","여러분이 맞혔다"],["the right answers.","정답을"]],"tip":"be sure + that절 (when ✗, what ✗)."},{"n":40,"kr":"여러분은 물을 절약하는 것에 정말 뛰어나요!","en":"You are amazing at saving water!","ch":[["You are amazing","여러분은 정말 뛰어나요"],["at saving water!","물을 절약하는 것에"]],"tip":"at + 동명사 saving (saved ✗)."}]}]}]},{"name":"🧱 어순 배열","intro":"<b>한글 순서 그대로 놓으면 틀려요.</b> \"누가 → 한다 → 무엇을 → 어디에/왜\" 순서로 영어 덩어리를 놓으세요.","blocks":[{"k":"qset","title":"영어 덩어리 순서대로 놓기","qs":[{"t":"ord","q":"[2] 다행히, 세 명의 슈퍼히어로가 환경을 보호하기 위해서 일하고 있습니다.","c":["Luckily","three superheroes","are working","to protect the environment"],"e":"한글 맨 끝 \"일하고 있다\"가 주어 바로 뒤로! \"~하기 위해서\" = to + 동사원형, 맨 뒤."},{"t":"ord","q":"[3] 그들은 세상을 깨끗하게 만들기를 원합니다.","c":["They","want","to make","the world","clean"],"e":"make + 목적어 + 형용사. \"깨끗하게\"지만 cleanly ✗ → clean ✓"},{"t":"ord","q":"[7] 하지만 재활용은 그것들을 절약할 수 있어요.","c":["But","recycling","can save","them"],"e":"연결어 But: 앞(낭비) ↔ 뒤(절약) 반대. them = resources. 주어 자리 → recycling(동명사)."},{"t":"ord","q":"[8] 예를 들어, 종이 1,000kg을 재활용하는 것은 약 19그루의 나무와 29,000리터의 물을 절약할 수 있어요.","c":["For example","recycling 1,000 kilograms of paper","can save","about 19 trees","and 29,000 liters of water"],"e":"\"종이 1,000kg\" → 1,000 kilograms <b>of</b> paper (순서 뒤집힘). about = 대략."},{"t":"ord","q":"[9] 여러분은 재활용의 마법사가 되고 싶나요?","c":["Do you want","to be a wizard","at recycling"],"e":"\"재활용의 마법사\" = a wizard <b>at</b> recycling (of ✗). at 뒤 동명사."},{"t":"ord","q":"[11] 플라스틱, 종이, 음식물 쓰레기, 그리고 유리를 알맞은 쓰레기통에 넣으세요.","c":["Put","plastic, paper, food waste, and glass","in the correct bins"],"e":"명령문: 한글 맨 끝 \"넣으세요\"가 영어 맨 앞 동사원형 Put."},{"t":"ord","q":"[13] 각 쓰레기 조각에서 알맞은 쓰레기통까지 선을 그어보세요.","c":["Draw","a line","from each piece of waste","to the right bin"],"e":"from A to B. each + <b>단수</b> piece (pieces ✗)."},{"t":"ord","q":"[16] 사람들은 옷을 너무 자주 버려요.","c":["People","throw away","clothes","too often"],"e":"\"너무 자주\"는 한글 중간, 영어는 맨 뒤."},{"t":"ord","q":"[17] 그것들은 쓰레기가 되어 환경을 해쳐요.","c":["They","become waste","and","hurt the environment"],"e":"\"되어\"에 숨은 연결어 <b>and</b>! They(=clothes) 복수 → become, hurt (hurts ✗)."},{"t":"ord","q":"[18] 여러분은 몇몇 옷들은 분해되는 데 200년이 넘게 걸린다는 것을 알고 있었나요?","c":["Did you know","that","some clothes","take over 200 years","to break down"],"e":"know + that절. take + 시간 + to부정사. Did 뒤 know(원형)."},{"t":"ord","q":"[21] 여러분의 헌 옷으로 새로운 물건을 만들 수도 있어요!","c":["You can also create","new items","from your old clothes"],"e":"\"~도\" = also (can 뒤). 재료 \"~으로\" = from."},{"t":"ord","q":"[22] 헌 옷을 유용하게 만들어 봅시다.","c":["Let's make","old clothes","useful"],"e":"make + 목적어 + 형용사 → useful (usefully ✗). Let's 뒤 동사원형."},{"t":"ord","q":"[24] 여러분은 이 헌 옷들로 무엇을 만들 수 있나요?","c":["What","can you make","with these old clothes"],"e":"의문사 + 조동사 + 주어 + 동사원형. clothes 복수 → these (this ✗)."},{"t":"ord","q":"[25] 헌 옷과 알맞은 새 물건들을 연결해 보세요.","c":["Match","the old clothes","with the correct new items"],"e":"match A with B: A를 B와 연결시키다."},{"t":"ord","q":"[31] 그것이 저를 슬프게 만들어요.","c":["It","makes","me","sad"],"e":"It = 사람들이 많은 물을 낭비하는 것. sadly ✗ → sad."},{"t":"ord","q":"[34] 여러분이 이를 닦는 동안에는 물을 잠그세요.","c":["Turn off","the water","while","you brush your teeth"],"e":"한글은 \"이를 닦는 동안\"이 앞, 영어는 while절이 뒤. teeth 복수."},{"t":"ord","q":"[35] 또한, 여러분이 수도꼭지를 완전히 잠갔는지 확인하세요.","c":["Also","make sure","that","you turn off the tap","completely"],"e":"연결어 Also: 방법 하나 더 추가. make sure + that절."},{"t":"ord","q":"[37] 물을 절약하는 방법들과 그렇지 않은 방법들은 무엇인가요?","c":["Which are","ways to save water","and which are not"],"e":"to save가 ways를 뒤에서 꾸밈. which are not 뒤 ways to save water 생략."},{"t":"ord","q":"[39] 저는 여러분이 정답을 맞혔다고 확신해요.","c":["I'm sure","that","you got","the right answers"],"e":"be sure + that절 (when ✗, what ✗)."}]}]},{"name":"✏️ 빈칸·어법","intro":"<b>핵심 단어·연결어·어법 포인트</b>를 채우고 고르세요. 시험 단골 함정만 모았어요.","blocks":[{"k":"qset","title":"A. 핵심 표현 빈칸","qs":[{"t":"in","q":"다행히, 세 명의 슈퍼히어로가 환경을 보호하기 위해서 일하고 있습니다.","s":"[], three superheroes are working [] [] the environment.","a":["luckily","to","protect"],"e":"Luckily(문장 전체 수식 부사) / 목적 to부정사"},{"t":"in","q":"하지만 재활용은 그것들을 절약할 수 있어요.","s":"[] [] can save them.","a":["but","recycling"],"e":"But + 동명사 주어 recycling"},{"t":"in","q":"여러분은 재활용의 마법사가 되고 싶나요?","s":"Do you want [] [] a wizard [] recycling?","a":["to","be","at"],"e":"want to be / at + 동명사"},{"t":"in","q":"그렇다면 여러분은 제대로 재활용을 해야 해요!","s":"[] you should recycle []!","a":["then","properly"],"e":"Then: 그렇다면 / properly: 제대로"},{"t":"in","q":"각 쓰레기 조각에서 알맞은 쓰레기통까지 선을 그어보세요.","s":"Draw a line [] [] piece of waste [] the right bin.","a":["from","each","to"],"e":"from A to B, each + 단수"},{"t":"in","q":"사람들은 옷을 너무 자주 버려요.","s":"People [] [] clothes [] often.","a":["throw","away","too"],"e":"throw away / too often"},{"t":"in","q":"몇몇 옷들은 분해되는 데 200년이 넘게 걸린다는 것을 알고 있었나요?","s":"Did you know [] some clothes [] over 200 years to [] down?","a":["that","take","break"],"e":"know that ~ / take + 시간 + to부정사 / break down"},{"t":"in","q":"여러분의 옷을 오랫동안 입으세요.","s":"Wear your clothes [] [] [] [].","a":["for","a","long","time"],"e":"for a long time"},{"t":"in","q":"헌 옷과 알맞은 새 물건들을 연결해 보세요.","s":"[] the old clothes [] the correct new items.","a":["match","with"],"e":"match A with B"},{"t":"in","q":"우리는 그것 없이 살 수 없어요.","s":"We can't live [] it.","a":["without"],"e":"without: ~ 없이"},{"t":"in","q":"여러분이 이를 닦는 동안에는 물을 잠그세요.","s":"Turn [] the water [] you brush your [].","a":["off","while","teeth"],"e":"turn off / while(~하는 동안) / teeth(복수)"},{"t":"in","q":"또한, 여러분이 수도꼭지를 완전히 잠갔는지 확인하세요.","s":"[], make [] that you turn off the [] completely.","a":["also","sure","tap"],"e":"Also / make sure / tap(수도꼭지)"},{"t":"in","q":"여러분은 물을 절약하는 것에 정말 뛰어나요!","s":"You are [] at [] water!","a":["amazing","saving"],"e":"amazing(감정을 일으킴) / at + 동명사"}]},{"k":"qset","title":"B. 어법에 맞는 것 고르기","note":"시험에서 자주 바꿔 내는 자리만 모았어요. <b>이유까지 말할 수 있어야</b> 진짜 아는 거예요.","qs":[{"t":"mc","inline":1,"q":"They want to make the world (clean / cleanly).","o":["clean","cleanly"],"a":0,"e":"make + 목적어 + <b>형용사</b>."},{"t":"mc","inline":1,"q":"Will you join (they / them)?","o":["they","them"],"a":1,"e":"동사 join의 목적어 → 목적격 them."},{"t":"mc","inline":1,"q":"People waste too (much / many) resources.","o":["much","many"],"a":1,"e":"resources 복수 → many."},{"t":"mc","inline":1,"q":"But (recycle / recycling) can save them.","o":["recycle","recycling"],"a":1,"e":"주어 자리 → 동명사 recycling."},{"t":"mc","inline":1,"q":"recycling 1,000 (kilogram / kilograms) of paper","o":["kilogram","kilograms"],"a":1,"e":"1,000 → 복수 kilograms. paper는 셀 수 없으니 papers ✗."},{"t":"mc","inline":1,"q":"Draw a line from each (piece / pieces) of waste to the right bin.","o":["piece","pieces"],"a":0,"e":"each + 단수 명사."},{"t":"mc","inline":1,"q":"They become waste and (hurt / hurts) the environment.","o":["hurt","hurts"],"a":0,"e":"주어 They(복수) → hurt. and로 become과 병렬."},{"t":"mc","inline":1,"q":"some clothes take over 200 years (to break / breaking) down","o":["to break","breaking"],"a":0,"e":"take + 시간 + <b>to부정사</b>."},{"t":"mc","inline":1,"q":"(Not / Don't) buy too many clothes.","o":["Not","Don't"],"a":1,"e":"부정 명령문 = Don't + 동사원형."},{"t":"mc","inline":1,"q":"There (is / are) some items below.","o":["is","are"],"a":1,"e":"some items(복수) → are."},{"t":"mc","inline":1,"q":"What can you make with (this / these) old clothes?","o":["this","these"],"a":1,"e":"clothes 복수 → these."},{"t":"mc","inline":1,"q":"But people waste a lot (of / ×) water.","o":["of","×(없음)"],"a":0,"e":"a lot <b>of</b> + 명사."},{"t":"mc","inline":1,"q":"It makes me (sad / sadly).","o":["sad","sadly"],"a":0,"e":"make + 목적어 + 형용사."},{"t":"mc","inline":1,"q":"(How we can / How can we) save water?","o":["How we can","How can we"],"a":1,"e":"의문문: 의문사 + 조동사 + 주어."},{"t":"mc","inline":1,"q":"Also, make sure (what / that) you turn off the tap completely.","o":["what","that"],"a":1,"e":"뒤가 완전한 문장(주어+동사+목적어) + \"~인지 확인\" → that."},{"t":"mc","inline":1,"q":"I'm sure (when / that) you got the right answers.","o":["when","that"],"a":1,"e":"be sure that ~: ~라고 확신하다."},{"t":"mc","inline":1,"q":"You are (amazing / amazed) at saving water!","o":["amazing","amazed"],"a":0,"e":"여러분이 남을 놀라게 하는(뛰어난) 쪽 → amazing."}]}]},{"name":"🔢 순서·삽입","intro":"<b>연결어·대명사가 단서!</b> But → 앞과 반대, For example → 앞에 큰 말, Then → 앞에 질문, them/They/It → 앞에 가리키는 말.","blocks":[{"k":"qset","title":"A. 문단 속 문장 순서 맞추기","qs":[{"t":"ord","blk":1,"q":"Recycle Wizard — \"Hi! I'm Recycle Wizard.\" 다음 문장들을 순서대로 놓으세요.","c":["People waste too many resources.","But recycling can save them.","For example, recycling 1,000 kilograms of paper can save about 19 trees and 29,000 liters of water.","Do you want to be a wizard at recycling?","Then you should recycle properly!"],"e":"낭비(문제) → But 절약 → For example 구체적 수치 → 질문 → Then 그렇다면"},{"t":"ord","blk":1,"q":"Fashion Clever — \"I'm Fashion Clever.\" 다음 문장들을 순서대로 놓으세요.","c":["People throw away clothes too often.","They become waste and hurt the environment.","Did you know that some clothes take over 200 years to break down?","Don't buy too many clothes.","Wear your clothes for a long time.","You can also create new items from your old clothes!"],"e":"문제(버림) → They(=clothes) 결과 → 놀라운 사실 → 해결①② → also 해결③"},{"t":"ord","blk":1,"q":"Water Saver — \"Hi! I'm Water Saver!\" 다음 문장들을 순서대로 놓으세요.","c":["Water is very important.","We can't live without it.","But people waste a lot of water.","It makes me sad.","How can we save water?","Take quick showers."],"e":"물 중요 → it(=water) 없이 못 삶 → But 낭비 → It(=낭비) 슬픔 → 질문 → 방법"},{"t":"ord","blk":1,"q":"글 전체 — 네 부분을 본문 순서대로 놓으세요.","c":["Pollution is a big problem. Luckily, three superheroes are working ...","Hi! I'm Recycle Wizard. People waste too many resources. ...","I'm Fashion Clever. People throw away clothes too often. ...","Hi! I'm Water Saver! Water is very important. ..."],"e":"도입 → 재활용 마법사 → 패션 똑똑이 → 물 절약가"}]},{"k":"qset","title":"B. 주어진 문장이 들어갈 위치","qs":[{"t":"mc","nonum":1,"inline":1,"q":"다음 문장이 들어갈 위치로 가장 알맞은 곳은?<br><b>For example, recycling 1,000 kilograms of paper can save about 19 trees and 29,000 liters of water.</b>","p":"Hi! I'm Recycle Wizard. People waste too many resources. <span class=\"mark\">( ① )</span> But recycling can save them. <span class=\"mark\">( ② )</span> Do you want to be a wizard at recycling? <span class=\"mark\">( ③ )</span> Then you should recycle properly! <span class=\"mark\">( ④ )</span> Put plastic, paper, food waste, and glass in the correct bins. <span class=\"mark\">( ⑤ )</span>","o":["①","②","③","④","⑤"],"a":1,"e":"\"재활용은 절약할 수 있다\"(큰 말) 바로 뒤에 구체적 예시."},{"t":"mc","nonum":1,"inline":1,"q":"다음 문장이 들어갈 위치로 가장 알맞은 곳은?<br><b>They become waste and hurt the environment.</b>","p":"I'm Fashion Clever. <span class=\"mark\">( ① )</span> People throw away clothes too often. <span class=\"mark\">( ② )</span> Did you know that some clothes take over 200 years to break down? <span class=\"mark\">( ③ )</span> Don't buy too many clothes. <span class=\"mark\">( ④ )</span> Wear your clothes for a long time. <span class=\"mark\">( ⑤ )</span>","o":["①","②","③","④","⑤"],"a":1,"e":"They = clothes. \"옷을 버린다\" 바로 뒤에 \"그것들이 쓰레기가 된다\"."},{"t":"mc","nonum":1,"inline":1,"q":"다음 문장이 들어갈 위치로 가장 알맞은 곳은?<br><b>It makes me sad.</b>","p":"Water is very important. <span class=\"mark\">( ① )</span> We can't live without it. <span class=\"mark\">( ② )</span> But people waste a lot of water. <span class=\"mark\">( ③ )</span> How can we save water? <span class=\"mark\">( ④ )</span> Take quick showers. <span class=\"mark\">( ⑤ )</span>","o":["①","②","③","④","⑤"],"a":2,"e":"It = 사람들이 물을 낭비하는 것 → 슬퍼요."},{"t":"mc","nonum":1,"inline":1,"q":"다음 문장이 들어갈 위치로 가장 알맞은 곳은?<br><b>Then you should recycle properly!</b>","p":"But recycling can save them. <span class=\"mark\">( ① )</span> For example, recycling 1,000 kilograms of paper can save about 19 trees and 29,000 liters of water. <span class=\"mark\">( ② )</span> Do you want to be a wizard at recycling? <span class=\"mark\">( ③ )</span> Put plastic, paper, food waste, and glass in the correct bins. <span class=\"mark\">( ④ )</span> Look at the waste below. <span class=\"mark\">( ⑤ )</span>","o":["①","②","③","④","⑤"],"a":2,"e":"Then(그렇다면)은 질문 \"~되고 싶나요?\" 바로 뒤."},{"t":"mc","q":"다음 글의 흐름과 관계<b>없는</b> 문장은?","p":"Water is very important. ① We can't live without it. ② But people waste a lot of water. ③ How can we save water? ④ We should drink eight glasses of water a day. ⑤ Turn off the water while you brush your teeth.","o":["①","②","③","④","⑤"],"nonum":1,"inline":1,"a":3,"e":"물 <b>절약</b> 글인데 ④는 물을 많이 마시자는 내용."},{"t":"mc","q":"다음 글의 흐름과 관계<b>없는</b> 문장은?","p":"People throw away clothes too often. ① They become waste and hurt the environment. ② Don't buy too many clothes. ③ New clothes are always better than old ones. ④ Wear your clothes for a long time. ⑤ You can also create new items from your old clothes!","o":["①","②","③","④","⑤"],"nonum":1,"inline":1,"a":2,"e":"헌 옷을 오래 입고 활용하자는 글 → ③은 반대 내용."}]}]},{"name":"🧐 내용확인","intro":"<b>본문에 \"있는 말\"만 정답!</b> 그럴듯해도 본문에 없으면 F예요. 대명사는 바로 앞 문장에서 찾으세요.","blocks":[{"k":"qset","title":"A. 대명사가 가리키는 것","qs":[{"t":"in","q":"\"Will you join <u>them</u>?\"의 them이 가리키는 말을 본문에서 찾아 쓰시오. (2단어)","a":"three superheroes","e":"앞 문장의 three superheroes (They도 같은 대상)."},{"t":"in","q":"\"But recycling can save <u>them</u>.\"의 them이 가리키는 말을 본문에서 찾아 쓰시오. (1단어)","a":"resources","e":"앞 문장의 resources."},{"t":"in","q":"\"<u>They</u> become waste and hurt the environment.\"의 They가 가리키는 말을 본문에서 찾아 쓰시오. (1단어)","a":"clothes","e":"앞 문장의 clothes."},{"t":"in","q":"\"We can't live without <u>it</u>.\"의 it이 가리키는 말을 본문에서 찾아 쓰시오. (1단어)","a":"water","e":"앞 문장의 Water."},{"t":"mc","q":"\"<u>It</u> makes me sad.\"의 It이 가리키는 것은?","o":["물이 매우 중요한 것","우리가 물 없이 살 수 없는 것","사람들이 많은 물을 낭비하는 것","물을 절약하는 방법","빠르게 샤워하는 것"],"a":2,"e":"바로 앞 문장 \"But people waste a lot of water.\" 전체."}]},{"k":"qset","title":"B. 본문과 일치하면 T, 아니면 F","qs":[{"t":"mc","inline":1,"q":"Pollution is not a serious problem.","o":["T (일치)","F (불일치)"],"a":1,"e":"\"Pollution is a big problem.\""},{"t":"mc","inline":1,"q":"Three superheroes are working to protect the environment.","o":["T (일치)","F (불일치)"],"a":0,"e":"2번 문장."},{"t":"mc","inline":1,"q":"Recycling 1,000 kilograms of paper can save about 29 trees.","o":["T (일치)","F (불일치)"],"a":1,"tag":"숫자","e":"나무는 약 <b>19</b>그루, 물은 29,000리터."},{"t":"mc","inline":1,"q":"We should put plastic, paper, food waste, and glass in one bin.","o":["T (일치)","F (불일치)"],"a":1,"e":"알맞은 쓰레기통(the correct bins)에 <b>나눠</b> 넣어야 해요."},{"t":"mc","inline":1,"q":"Some clothes take more than 200 years to break down.","o":["T (일치)","F (불일치)"],"a":0,"e":"over 200 years = more than 200 years."},{"t":"mc","inline":1,"q":"Fashion Clever tells us not to buy any clothes.","o":["T (일치)","F (불일치)"],"a":1,"tag":"함정","e":"\"너무 많은(too many)\" 옷을 사지 말라고 했지, 아예 사지 말라는 게 아니에요."},{"t":"mc","inline":1,"q":"We can make new items from our old clothes.","o":["T (일치)","F (불일치)"],"a":0,"e":"21번 문장."},{"t":"mc","inline":1,"q":"Water Saver is sad because of dirty water.","o":["T (일치)","F (불일치)"],"a":1,"tag":"함정","e":"더러운 물이 아니라 <b>물 낭비</b> 때문에 슬퍼요."},{"t":"mc","inline":1,"q":"We should turn off the water while we brush our teeth.","o":["T (일치)","F (불일치)"],"a":0,"e":"34번 문장."},{"t":"mc","inline":1,"q":"All the pictures show good ways to save water.","o":["T (일치)","F (불일치)"],"a":1,"e":"\"Which are ways to save water and which are <b>not</b>?\" — 아닌 것도 있어요."}]},{"k":"qset","title":"C. 객관식 내용확인","qs":[{"t":"mc","q":"Fashion Clever 부분의 내용과 일치하는 것은?","o":["옷을 버리면 환경이 보호된다.","사람들은 옷을 가끔 버린다.","대부분의 옷은 쉽게 분해된다.","헌 옷은 쓸모가 없다.","옷을 오랫동안 입어야 한다."],"a":4,"e":"\"Wear your clothes for a long time.\""},{"t":"multi","q":"Water Saver가 제시한 물 절약 방법을 <b>모두</b> 고르시오.","o":["샤워 빨리 하기","이 닦는 동안 물 잠그기","빨래 모아서 한꺼번에 하기","수도꼭지를 완전히 잠갔는지 확인하기","빗물 모아서 식물에 주기"],"a":[0,1,3],"e":"33·34·35번 문장. ③⑤는 본문에 없어요."},{"t":"mc","q":"본문을 읽고 답할 수 <b>없는</b> 질문은?","o":["What do the three superheroes want?","How many trees can recycling 1,000 kilograms of paper save?","How long do some clothes take to break down?","How much water do people waste every day?","What should we do while we brush our teeth?"],"a":3,"e":"하루에 낭비하는 물의 양은 나오지 않아요."},{"t":"mc","q":"Water Saver 부분의 목적으로 가장 알맞은 것은?","o":["물의 중요성과 절약 방법을 알려 주려고","물 부족의 원인을 분석하려고","올바른 양치 방법을 설명하려고","샤워를 매일 하라고 권하려고","물 오염의 위험을 경고하려고"],"a":0,"e":"중요성(28~29) + 절약 방법(33~35)."}]}]},{"name":"✍️ 영작","intro":"<b>쓰기 전에 순서 3단계</b>: ① 누가(주어) ② 한다(동사) ③ 무엇을·어떻게·왜. 문장부호는 채점에 상관없어요. 틀리면 \"정답 보기\"로 확인!","blocks":[{"k":"qset","title":"핵심 문장 영작","qs":[{"t":"in","q":"[2] 다행히, 세 명의 슈퍼히어로가 환경을 보호하기 위해서 일하고 있습니다. <span class=\"badge b-lav\">luckily, protect</span>","a":"Luckily, three superheroes are working to protect the environment.","e":"한글 맨 끝 \"일하고 있다\"가 주어 바로 뒤로! \"~하기 위해서\" = to + 동사원형, 맨 뒤.","ph":"영어 문장 쓰기"},{"t":"in","q":"[3] 그들은 세상을 깨끗하게 만들기를 원합니다. <span class=\"badge b-lav\">make, clean</span>","a":"They want to make the world clean.","e":"make + 목적어 + 형용사. \"깨끗하게\"지만 cleanly ✗ → clean ✓","ph":"영어 문장 쓰기"},{"t":"in","q":"[7] 하지만 재활용은 그것들을 절약할 수 있어요. <span class=\"badge b-lav\">recycling, save</span>","a":"But recycling can save them.","e":"연결어 But: 앞(낭비) ↔ 뒤(절약) 반대. them = resources. 주어 자리 → recycling(동명사).","ph":"영어 문장 쓰기"},{"t":"in","q":"[9] 여러분은 재활용의 마법사가 되고 싶나요? <span class=\"badge b-lav\">want, wizard, at</span>","a":"Do you want to be a wizard at recycling?","e":"\"재활용의 마법사\" = a wizard <b>at</b> recycling (of ✗). at 뒤 동명사.","ph":"영어 문장 쓰기"},{"t":"in","q":"[10] 그렇다면 여러분은 제대로 재활용을 해야 해요! <span class=\"badge b-lav\">then, properly</span>","a":"Then you should recycle properly!","e":"연결어 Then: 앞 질문(되고 싶다면?)을 받아 \"그렇다면\".","ph":"영어 문장 쓰기"},{"t":"in","q":"[13] 각 쓰레기 조각에서 알맞은 쓰레기통까지 선을 그어보세요. <span class=\"badge b-lav\">draw, from, to</span>","a":"Draw a line from each piece of waste to the right bin.","e":"from A to B. each + <b>단수</b> piece (pieces ✗).","ph":"영어 문장 쓰기"},{"t":"in","q":"[16] 사람들은 옷을 너무 자주 버려요. <span class=\"badge b-lav\">throw away, too</span>","a":"People throw away clothes too often.","e":"\"너무 자주\"는 한글 중간, 영어는 맨 뒤.","ph":"영어 문장 쓰기"},{"t":"in","q":"[17] 그것들은 쓰레기가 되어 환경을 해쳐요. <span class=\"badge b-lav\">become, hurt</span>","a":"They become waste and hurt the environment.","e":"\"되어\"에 숨은 연결어 <b>and</b>! They(=clothes) 복수 → become, hurt (hurts ✗).","ph":"영어 문장 쓰기"},{"t":"in","q":"[18] 여러분은 몇몇 옷들은 분해되는 데 200년이 넘게 걸린다는 것을 알고 있었나요? <span class=\"badge b-lav\">that, take, break down</span>","a":["Did you know (that) some clothes take over 200 years to break down?"],"e":"know + that절. take + 시간 + to부정사. Did 뒤 know(원형).","ph":"영어 문장 쓰기"},{"t":"in","q":"[20] 여러분의 옷을 오랫동안 입으세요. <span class=\"badge b-lav\">wear, for</span>","a":"Wear your clothes for a long time.","e":"for a long time (in ✗).","ph":"영어 문장 쓰기"},{"t":"in","q":"[22] 헌 옷을 유용하게 만들어 봅시다. <span class=\"badge b-lav\">Let's, useful</span>","a":"Let's make old clothes useful.","e":"make + 목적어 + 형용사 → useful (usefully ✗). Let's 뒤 동사원형.","ph":"영어 문장 쓰기"},{"t":"in","q":"[24] 여러분은 이 헌 옷들로 무엇을 만들 수 있나요? <span class=\"badge b-lav\">what, with, these</span>","a":"What can you make with these old clothes?","e":"의문사 + 조동사 + 주어 + 동사원형. clothes 복수 → these (this ✗).","ph":"영어 문장 쓰기"},{"t":"in","q":"[31] 그것이 저를 슬프게 만들어요. <span class=\"badge b-lav\">It, make</span>","a":"It makes me sad.","e":"It = 사람들이 많은 물을 낭비하는 것. sadly ✗ → sad.","ph":"영어 문장 쓰기"},{"t":"in","q":"[34] 여러분이 이를 닦는 동안에는 물을 잠그세요. <span class=\"badge b-lav\">turn off, while</span>","a":"Turn off the water while you brush your teeth.","e":"한글은 \"이를 닦는 동안\"이 앞, 영어는 while절이 뒤. teeth 복수.","ph":"영어 문장 쓰기"},{"t":"in","q":"[35] 또한, 여러분이 수도꼭지를 완전히 잠갔는지 확인하세요. <span class=\"badge b-lav\">Also, make sure, that</span>","a":["Also, make sure (that) you turn off the tap completely."],"e":"연결어 Also: 방법 하나 더 추가. make sure + that절.","ph":"영어 문장 쓰기"},{"t":"in","q":"[39] 저는 여러분이 정답을 맞혔다고 확신해요. <span class=\"badge b-lav\">sure, got</span>","a":["I'm sure (that) you got the right answers."],"e":"be sure + that절 (when ✗, what ✗).","ph":"영어 문장 쓰기"},{"t":"in","q":"[40] 여러분은 물을 절약하는 것에 정말 뛰어나요! <span class=\"badge b-lav\">amazing, at</span>","a":"You are amazing at saving water!","e":"at + 동명사 saving (saved ✗).","ph":"영어 문장 쓰기"}]}]},{"name":"📄 기타 지문","intro":"<b>After You Read C · Think & Write</b> — 본문과 같은 문법(that절, make + 목적어 + 형용사)이 들어 있어요.","blocks":[{"k":"script","title":"After You Read C — Paper Saver","lines":[["📄","Hi, I'm Paper Saver! We can do a lot of things to save paper.","안녕, 나는 종이 절약가야! 우리는 종이를 절약하기 위해서 많은 것들을 할 수 있어."],["📄","For example, we can use both sides of a piece of paper.","예를 들어, 우리는 종이의 양면을 사용할 수 있어."],["📄","I'm sure that small acts can help the environment.","나는 작은 행동들이 환경을 도울 수 있다고 확신해."]]},{"k":"script","title":"Think & Write — 배달 쓰레기","lines":[["📝","Did you know that waste from deliveries is a big problem?","여러분은 배달에서 나오는 쓰레기가 큰 문제라는 것을 알고 있었나요?"],["📝","This is because some stores use too many boxes and plastic containers.","이것은 몇몇 상점들이 너무 많은 상자와 플라스틱 용기를 사용하기 때문입니다."],["📝","I think that we should do something about this.","저는 우리가 이것에 대해 무엇인가를 해야 한다고 생각합니다."],["📝","First, we should recycle boxes and plastic properly.","첫 번째, 우리는 상자와 플라스틱을 제대로 재활용해야 합니다."],["📝","Second, we should visit stores near us to buy items.","두 번째, 우리는 물건들을 사기 위해 우리와 가까운 상점들을 방문해야 합니다."],["📝","We can make a big difference together. Let's make Earth better!","우리는 함께 큰 변화를 만들 수 있습니다. 지구를 더 좋게 만들어 봅시다!"]]},{"k":"qset","title":"기타 지문 문제","qs":[{"t":"in","q":"Paper Saver: 종이를 절약하는 방법은?","s":"We can use [] [] of a piece of paper.","a":["both","sides"],"e":"both + 복수 명사 (side ✗)"},{"t":"mc","q":"\"We can do a lot of things <u>to save</u> paper.\"의 to save와 쓰임이 <b>다른</b> 것은?","o":["I went out to buy some milk.","We hope to visit Europe next year.","He practiced hard to win the race.","She came here to see me.","They got up early to catch the bus."],"a":1,"e":"본문 = 목적(~하기 위해). ②는 hope의 목적어(~하는 것을)."},{"t":"ord","q":"우리말에 맞게 배열하시오: 나는 작은 행동들이 환경을 도울 수 있다고 확신해.","c":["I'm sure","that","small acts","can help","the environment."],"e":"be sure that + 주어 + 동사"},{"t":"mc","inline":1,"q":"waste from deliveries (is / are) a big problem","o":["is","are"],"a":0,"e":"주어는 waste(단수). from deliveries는 꾸며 주는 말."},{"t":"mc","inline":1,"q":"This is (because / because of) some stores use too many boxes.","o":["because","because of"],"a":0,"e":"뒤에 주어+동사(some stores use) → because. because of + 명사."},{"t":"mc","inline":1,"q":"we should visit stores near us (buying / to buy) items","o":["buying","to buy"],"a":1,"e":"목적(~하기 위해) → to buy."},{"t":"mc","q":"\"I think that we should do something about <u>this</u>.\"의 this가 가리키는 것은?","o":["우리가 상점을 방문하는 것","몇몇 상점들이 너무 많은 상자와 플라스틱 용기를 사용하는 것","상자를 재활용하는 것","지구를 더 좋게 만드는 것","배달을 주문하는 것"],"a":1,"e":"앞 문장(배달 쓰레기 문제의 원인)."},{"t":"in","q":"\"지구를 더 좋게 만들어 봅시다!\"를 영작하시오. (Let's, better)","a":"Let's make Earth better!","e":"make + 목적어 + 형용사(비교급 better)","ph":"영어 문장 쓰기"},{"t":"mc","inline":1,"q":"We are already making a big difference now.","o":["T (일치)","F (불일치)"],"a":1,"e":"\"We <b>can</b> make a big difference together.\" — 할 수 있다는 것이지 지금 하고 있다는 게 아니에요."}]}]}]};
+</script>
+<script>
+(function(){
+'use strict';
+var D = window.DATA;
+var REG = [];          // all question objects
+var TABQ = [];         // per tab arrays of questions
+var NUMS = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩'];
+
+/* ---------- utils ---------- */
+function el(tag, cls, html){var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function rng(seed){return function(){seed=(Math.imul(seed^(seed>>>15),2246822507)+0x6D2B79F5)>>>0;return (seed%100000)/100000;};}
+function shuffleIdx(n, seedStr){
+  var idx=[];for(var i=0;i<n;i++)idx.push(i);
+  if(n<2)return idx;
+  var r=rng(hash(seedStr));
+  for(var k=0;k<6;k++){
+    for(var j=n-1;j>0;j--){var x=Math.floor(r()*(j+1));var t=idx[j];idx[j]=idx[x];idx[x]=t;}
+    var same=idx.every(function(v,i){return v===i;});
+    if(!same)return idx;
+  }
+  idx.push(idx.shift()); return idx;
+}
+var CONTR=[[/can't/g,'cannot'],[/won't/g,'will not'],[/n't/g,' not'],[/\bi'm\b/g,'i am'],[/\bit's\b/g,'it is'],[/\bthat's\b/g,'that is'],[/\byou're\b/g,'you are'],[/\bthey're\b/g,'they are'],[/\bwe're\b/g,'we are'],[/\bhe's\b/g,'he is'],[/\bshe's\b/g,'she is'],[/\bwhat's\b/g,'what is'],[/\bthere's\b/g,'there is']];
+function norm(s){
+  s=String(s).toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”"]/g,'');
+  CONTR.forEach(function(c){s=s.replace(c[0],c[1]);});
+  s=s.replace(/[.,!?;:~]/g,' ').replace(/\s+/g,' ').trim();
+  return s;
+}
+function variants(str){ // "(that) " optional words
+  var m=str.match(/\(([^()]+)\)/);
+  if(!m)return [str];
+  var a=str.replace(m[0],m[1]), b=str.replace(m[0],'');
+  return variants(a).concat(variants(b));
+}
+function alts(spec){ // 'a|b' or array -> list of normalized answers
+  var arr=Array.isArray(spec)?spec:String(spec).split('|');
+  var out=[];arr.forEach(function(x){variants(x).forEach(function(v){out.push(norm(v));});});
+  return out;
+}
+function firstShow(spec){var s=Array.isArray(spec)?spec[0]:String(spec).split('|')[0];return s;}
+
+/* ---------- sound ---------- */
+var voices=[];
+function loadV(){try{voices=window.speechSynthesis.getVoices()||[];}catch(e){voices=[];}}
+if('speechSynthesis' in window){loadV();try{window.speechSynthesis.onvoiceschanged=loadV;}catch(e){}}
+function pickVoice(){
+  if(!voices.length)loadV();
+  var v=voices.find(function(x){return /william/i.test(x.name);});
+  if(!v)v=voices.find(function(x){return x.lang==='en-US';});
+  if(!v)v=voices.find(function(x){return /^en/i.test(x.lang);});
+  return v;
+}
+var unlocked=false;
+function unlock(){
+  if(unlocked||!('speechSynthesis' in window))return; unlocked=true;
+  try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;window.speechSynthesis.speak(u);}catch(e){}
+}
+document.addEventListener('touchstart',unlock,{once:true,passive:true});
+document.addEventListener('click',unlock,{once:true});
+function mkUtter(text){
+  var u=new SpeechSynthesisUtterance(text.replace(/[○×]/g,''));
+  var v=pickVoice(); if(v){u.voice=v;u.lang=v.lang;}else{u.lang='en-US';}
+  u.rate=0.9; return u;
+}
+function speak(text,btn){
+  if(!('speechSynthesis' in window))return;
+  try{
+    window.speechSynthesis.cancel();
+    var u=mkUtter(text);
+    if(btn){btn.classList.add('playing');u.onend=u.onerror=function(){btn.classList.remove('playing');};}
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakAll(list,btn){
+  if(!('speechSynthesis' in window))return;
+  try{
+    window.speechSynthesis.cancel();
+    list.forEach(function(t,i){
+      var u=mkUtter(t);
+      if(btn&&i===0)btn.classList.add('playing');
+      if(btn&&i===list.length-1)u.onend=u.onerror=function(){btn.classList.remove('playing');};
+      window.speechSynthesis.speak(u);
+    });
+  }catch(e){}
+}
+var actx=null;
+function pageSound(){
+  try{
+    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    var o=actx.createOscillator(),g=actx.createGain();
+    o.type='sine';o.frequency.setValueAtTime(880,actx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(1320,actx.currentTime+.08);
+    g.gain.setValueAtTime(.05,actx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+.15);
+    o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+.16);
+  }catch(e){}
+}
+function spkBtn(text){
+  var b=el('button','spk','🔊');b.type='button';b.setAttribute('aria-label','듣기');
+  b.addEventListener('click',function(ev){ev.stopPropagation();speak(text,b);});
+  return b;
+}
+
+/* ---------- question engine ---------- */
+function Q(def, num, tabIdx, setObj){
+  var self=this;
+  this.def=def; this.state='idle'; this.tab=tabIdx; this.set=setObj;
+  var card=el('div','q'); this.card=card;
+  var top=el('div','qn');
+  top.appendChild(el('span','num',String(num)));
+  var tt={mc:'객관식',multi:'모두 고르기',in:'쓰기',ord:'배열'}[def.t];
+  var tcls={mc:'b-sky',multi:'b-peach',in:'b-mint',ord:'b-lav'}[def.t];
+  var qt=el('div','qt',(def.tag?'<span class="badge b-amb">'+def.tag+'</span> ':'')+'<span class="badge '+tcls+'">'+tt+'</span> '+def.q);
+  top.appendChild(qt); card.appendChild(top);
+  if(def.p){var p=el('div','pass',def.p);card.appendChild(p);}
+  var body=el('div','qbody'); card.appendChild(body);
+  this.body=body;
+  this['build_'+def.t]();
+  var foot=el('div','qfoot');
+  this.gBtn=el('button','btn fill sm','채점');this.gBtn.type='button';
+  this.rBtn=el('button','btn sm','다시 풀기');this.rBtn.type='button';this.rBtn.style.display='none';
+  this.aBtn=el('button','btn ghost sm','정답 보기');this.aBtn.type='button';this.aBtn.style.display='none';
+  this.gBtn.addEventListener('click',function(){self.grade(true);});
+  this.rBtn.addEventListener('click',function(){self.reset();});
+  this.aBtn.addEventListener('click',function(){self.showAns();});
+  foot.appendChild(this.gBtn);foot.appendChild(this.rBtn);foot.appendChild(this.aBtn);
+  card.appendChild(foot);
+  this.fb=el('div','fb');card.appendChild(this.fb);
+  REG.push(this);
+}
+Q.prototype.build_mc=function(){
+  var self=this,d=this.def; this.sel=null; this.optEls=[];
+  var box=el('div','opts'+(d.inline?' inline':''));
+  d.o.forEach(function(o,i){
+    var b=el('button','opt',(d.nonum?'':NUMS[i]+' ')+o);b.type='button';
+    b.addEventListener('click',function(){
+      if(self.locked)return;
+      self.optEls.forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel');self.sel=i;
+    });
+    self.optEls.push(b);box.appendChild(b);
+  });
+  this.body.appendChild(box);
+};
+Q.prototype.build_multi=function(){
+  var self=this,d=this.def; this.sels={}; this.optEls=[];
+  var box=el('div','opts');
+  d.o.forEach(function(o,i){
+    var b=el('button','opt',NUMS[i]+' '+o);b.type='button';
+    b.addEventListener('click',function(){
+      if(self.locked)return;
+      if(self.sels[i]){delete self.sels[i];b.classList.remove('sel');}else{self.sels[i]=1;b.classList.add('sel');}
+    });
+    self.optEls.push(b);box.appendChild(b);
+  });
+  this.body.appendChild(box);
+};
+Q.prototype.build_in=function(){
+  var self=this,d=this.def; this.inputs=[];
+  if(d.s){
+    var parts=d.s.split('[]');
+    var w=el('div','tmpl');
+    parts.forEach(function(pt,i){
+      w.appendChild(document.createTextNode(''));
+      var sp=el('span','',pt);w.appendChild(sp);
+      if(i<parts.length-1){
+        var inp=el('input','blank');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.spellcheck=false;
+        inp.addEventListener('keydown',function(e){if(e.key==='Enter'){self.grade(true);}});
+        self.inputs.push(inp);w.appendChild(inp);
+      }
+    });
+    this.body.appendChild(w);
+  }else{
+    var inp=el('input','blank wide');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.spellcheck=false;
+    inp.placeholder=d.ph||'여기에 쓰기';
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter'){self.grade(true);}});
+    this.inputs.push(inp);this.body.appendChild(inp);
+  }
+};
+Q.prototype.build_ord=function(){
+  var self=this,d=this.def; this.placed=[];
+  var w=el('div','ordwrap');
+  this.slots=el('div','slots'+(d.blk?' block':''));
+  this.hint=el('span','hint','↓ 아래 조각을 순서대로 누르세요 (다시 누르면 빠짐)');
+  this.slots.appendChild(this.hint);
+  this.pool=el('div','pool'+(d.blk?' block':''));
+  var order=shuffleIdx(d.c.length,d.q+'|'+d.c.join('/'));
+  this.poolBtns=[];
+  order.forEach(function(ci){
+    var b=el('button','chip',esc(d.c[ci]));b.type='button';b.dataset.ci=ci;
+    b.addEventListener('click',function(){
+      if(self.locked||b.classList.contains('used'))return;
+      b.classList.add('used');self.place(ci,b);
+    });
+    self.poolBtns.push(b);self.pool.appendChild(b);
+  });
+  w.appendChild(this.slots);w.appendChild(this.pool);this.body.appendChild(w);
+};
+Q.prototype.place=function(ci,src){
+  var self=this,d=this.def;
+  if(this.hint.parentNode)this.hint.remove();
+  var b=el('button','chip',esc(d.c[ci]));b.type='button';
+  var item={ci:ci,el:b,src:src};
+  b.addEventListener('click',function(){
+    if(self.locked)return;
+    var k=self.placed.indexOf(item);if(k>=0)self.placed.splice(k,1);
+    b.remove();src.classList.remove('used');
+    if(!self.placed.length)self.slots.appendChild(self.hint);
+  });
+  this.placed.push(item);this.slots.appendChild(b);
+};
+Q.prototype.answered=function(){
+  var d=this.def;
+  if(d.t==='mc')return this.sel!=null;
+  if(d.t==='multi')return Object.keys(this.sels).length>0;
+  if(d.t==='in')return this.inputs.every(function(i){return i.value.trim()!=='';});
+  if(d.t==='ord')return this.placed.length===d.c.length;
+};
+Q.prototype.check=function(){
+  var d=this.def,self=this;
+  if(d.t==='mc')return this.sel===d.a;
+  if(d.t==='multi'){var k=Object.keys(this.sels).map(Number).sort();var a=d.a.slice().sort();return k.length===a.length&&k.every(function(v,i){return v===a[i];});}
+  if(d.t==='in'){
+    var A=Array.isArray(d.a)?d.a:[d.a];
+    var ok=true;
+    this.inputs.forEach(function(inp,i){
+      var good=alts(A[i]).indexOf(norm(inp.value))>=0;
+      inp.classList.toggle('right',good);inp.classList.toggle('wrong',!good);
+      if(!good)ok=false;
+    });
+    return ok;
+  }
+  if(d.t==='ord'){
+    var got=this.placed.map(function(p){return norm(d.c[p.ci]);}).join(' ');
+    var want=d.c.map(norm).join(' ');
+    return got===want;
+  }
+};
+Q.prototype.lock=function(v){
+  this.locked=v;
+  (this.optEls||[]).forEach(function(b){b.disabled=v;});
+  (this.inputs||[]).forEach(function(i){i.readOnly=v;});
+};
+Q.prototype.grade=function(manual){
+  if(this.state==='ok')return true;
+  if(!this.answered()){
+    if(manual){this.fb.className='fb show no';this.fb.innerHTML='먼저 답을 고르거나 써 주세요.';}
+    return null;
+  }
+  var ok=this.check();
+  var d=this.def;
+  this.lock(true);
+  this.gBtn.style.display='none';
+  if(ok){
+    this.state='ok';this.card.className='q ok';
+    if(d.t==='mc'){this.optEls[d.a].classList.add('right');}
+    if(d.t==='multi'){var s=this;d.a.forEach(function(i){s.optEls[i].classList.add('right');});}
+    this.fb.className='fb show ok';this.fb.innerHTML='<b>정답!</b> '+(d.e||'');
+    this.rBtn.style.display='none';this.aBtn.style.display='none';
+  }else{
+    this.state='no';this.card.className='q no';
+    if(d.t==='mc'){this.optEls[this.sel].classList.add('wrong');}
+    if(d.t==='multi'){var s2=this;Object.keys(this.sels).forEach(function(i){if(d.a.indexOf(+i)<0)s2.optEls[i].classList.add('wrong');});}
+    this.fb.className='fb show no';this.fb.innerHTML='<b>틀렸어요.</b> 다시 풀어 보거나 정답을 확인하세요.';
+    this.rBtn.style.display='';this.aBtn.style.display='';
+  }
+  updateScores();
+  return ok;
+};
+Q.prototype.ansText=function(){
+  var d=this.def;
+  if(d.t==='mc')return NUMS[d.a]+' '+d.o[d.a];
+  if(d.t==='multi')return d.a.map(function(i){return NUMS[i]+' '+d.o[i];}).join(' / ');
+  if(d.t==='in'){var A=Array.isArray(d.a)?d.a:[d.a];return A.map(firstShow).join(' / ');}
+  if(d.t==='ord')return d.c.join(d.blk?'<br>→ ':' ');
+};
+Q.prototype.showAns=function(){
+  var d=this.def,s=this;
+  if(d.t==='mc')this.optEls[d.a].classList.add('right');
+  if(d.t==='multi')d.a.forEach(function(i){s.optEls[i].classList.add('right');});
+  this.state='shown';
+  this.fb.className='fb show ans';
+  this.fb.innerHTML='<b>정답:</b> '+this.ansText()+(d.e?'<br>'+d.e:'');
+  this.aBtn.style.display='none';
+  updateScores();
+};
+Q.prototype.reset=function(){
+  var d=this.def,self=this;
+  this.state='idle';this.card.className='q';this.lock(false);
+  this.fb.className='fb';this.fb.innerHTML='';
+  this.gBtn.style.display='';this.rBtn.style.display='none';this.aBtn.style.display='none';
+  if(this.optEls)this.optEls.forEach(function(b){b.classList.remove('sel','right','wrong');});
+  if(d.t==='mc')this.sel=null;
+  if(d.t==='multi')this.sels={};
+  if(d.t==='in')this.inputs.forEach(function(i){i.value='';i.classList.remove('right','wrong');});
+  if(d.t==='ord'){
+    this.placed.forEach(function(p){p.el.remove();p.src.classList.remove('used');});
+    this.placed=[];this.slots.appendChild(this.hint);
+  }
+  updateScores();
+};
+
+function QSet(blk, tabIdx){
+  var self=this; this.qs=[];
+  var wrap=el('div','qset');
+  var head=el('div','qhead');
+  head.appendChild(el('h3','',blk.title||'문제'));
+  this.sc=el('span','score','0 / '+blk.qs.length);head.appendChild(this.sc);
+  wrap.appendChild(head);
+  if(blk.note)wrap.appendChild(el('div','tip',blk.note));
+  blk.qs.forEach(function(d,i){
+    var q=new Q(d,i+1,tabIdx,self);self.qs.push(q);TABQ[tabIdx].push(q);wrap.appendChild(q.card);
+  });
+  var bar=el('div','sticky');
+  var g=el('button','btn fill','전체 채점');g.type='button';
+  var r=el('button','btn','틀린 것만 다시');r.type='button';
+  g.addEventListener('click',function(){
+    var un=0;self.qs.forEach(function(q){if(q.state==='idle'){var x=q.grade(false);if(x===null)un++;}});
+    updateScores();
+    var ok=self.qs.filter(function(q){return q.state==='ok';}).length;
+    self.sc.textContent=ok+' / '+self.qs.length+(un?' (미응답 '+un+')':'');
+  });
+  r.addEventListener('click',function(){
+    var first=null;
+    self.qs.forEach(function(q){if(q.state==='no'||q.state==='shown'){q.reset();if(!first)first=q;}});
+    if(first)first.card.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  bar.appendChild(g);bar.appendChild(r);wrap.appendChild(bar);
+  this.el=wrap;
+  SETS.push(this);
+}
+var SETS=[];
+function updateScores(){
+  SETS.forEach(function(s){
+    var ok=s.qs.filter(function(q){return q.state==='ok';}).length;
+    var t=s.sc.textContent;var m=t.match(/\(미응답 \d+\)/);
+    s.sc.textContent=ok+' / '+s.qs.length;
+  });
+  TABQ.forEach(function(arr,i){
+    var pg=document.querySelector('.tab[data-i="'+i+'"] .pg');
+    if(!pg)return;
+    if(!arr.length){pg.textContent='';return;}
+    var ok=arr.filter(function(q){return q.state==='ok';}).length;
+    pg.textContent=ok+'/'+arr.length;
+  });
+}
+
+/* ---------- other blocks ---------- */
+function bWords(blk){
+  var w=el('div','box');
+  if(blk.title)w.appendChild(el('h3','sub',blk.title));
+  var g=el('div','wgrid');
+  blk.items.forEach(function(it){
+    var c=el('button','wchip','<b>'+esc(it[0])+'</b><span>'+esc(it[1])+'</span>');c.type='button';
+    c.addEventListener('click',function(){speak(it[0]);});
+    g.appendChild(c);
+  });
+  w.appendChild(g);
+  return w;
+}
+function bAnalysis(blk){
+  var w=el('div','');
+  blk.paras.forEach(function(pa){
+    w.appendChild(el('div','parahead','<b>'+pa.title+'</b>'+(pa.flow?'<br>'+pa.flow:'')));
+    pa.items.forEach(function(it){
+      var c=el('div','acard');
+      c.appendChild(el('div','kr','<span class="no">'+it.n+'</span>'+esc(it.kr)));
+      var bar=el('div','row');bar.style.marginTop='8px';
+      var b1=null;
+      if(it.ch&&it.ch.length>1){b1=el('button','btn sm','① 영어 어순으로 덩어리 보기');b1.type='button';bar.appendChild(b1);}
+      var b2=el('button','btn sm','② 영어 문장 보기');b2.type='button';bar.appendChild(b2);
+      c.appendChild(bar);
+      var ch=el('div','chunks');ch.style.display='none';
+      if(it.ch&&it.ch.length>1){
+        it.ch.forEach(function(x,i){
+          var k=el('button','ck','<small>'+(i+1)+'</small>'+esc(x[1])+'<span class="ce">'+esc(x[0])+'</span>');k.type='button';
+          k.addEventListener('click',function(){k.classList.add('open');});
+          ch.appendChild(k);
+        });
+        c.appendChild(ch);
+        b1.addEventListener('click',function(){ch.style.display='flex';b1.disabled=true;});
+      }
+      var ae=el('div','aen');
+      var srow=el('div','row');srow.appendChild(el('span','s en',esc(it.en)));srow.appendChild(spkBtn(it.en));
+      ae.appendChild(srow);
+      if(it.tip)ae.appendChild(el('div','tp','💡 '+it.tip));
+      c.appendChild(ae);
+      b2.addEventListener('click',function(){ae.classList.add('show');ch.style.display=it.ch&&it.ch.length>1?'flex':'none';ch.querySelectorAll('.ck').forEach(function(k){k.classList.add('open');});b2.disabled=true;if(b1)b1.disabled=true;speak(it.en);});
+      w.appendChild(c);
+    });
+  });
+  return w;
+}
+function bScript(blk){
+  var w=el('div','script');
+  var h=el('div','shead');h.appendChild(el('b','',blk.title));
+  var r=el('div','row');
+  var all=el('button','btn sm','▶ 전체 듣기');all.type='button';
+  var kr=el('button','btn sm ghost','해석 보기');kr.type='button';
+  all.addEventListener('click',function(){speakAll(blk.lines.map(function(l){return l[1];}),all);});
+  kr.addEventListener('click',function(){w.classList.toggle('kr');kr.textContent=w.classList.contains('kr')?'해석 숨기기':'해석 보기';});
+  r.appendChild(all);r.appendChild(kr);h.appendChild(r);w.appendChild(h);
+  blk.lines.forEach(function(l){
+    var ln=el('div','line');
+    ln.appendChild(el('span','who',esc(l[0])));
+    var tx=el('div','tx','<div class="en">'+esc(l[1])+'</div><div class="ko">'+esc(l[2]||'')+'</div>');
+    ln.appendChild(tx);ln.appendChild(spkBtn(l[1]));w.appendChild(ln);
+  });
+  return w;
+}
+function bTapfill(blk){
+  var w=el('div','box');
+  if(blk.title)w.appendChild(el('h3','sub',blk.title));
+  if(blk.note)w.appendChild(el('div','',blk.note));
+  var idx=0;var spans=[];
+  blk.lines.forEach(function(line){
+    var p=el('div','tf');
+    var html=line.replace(/\[\[([^\]]+)\]\]/g,function(m,a){return '<span class="tfb" data-a="'+esc(a)+'">'+esc(a)+'</span>';});
+    p.innerHTML=html;w.appendChild(p);
+    p.querySelectorAll('.tfb').forEach(function(s){spans.push(s);});
+  });
+  function mark(){spans.forEach(function(s,i){s.classList.toggle('next',i===idx);});}
+  spans.forEach(function(s,i){
+    s.addEventListener('click',function(){
+      if(s.classList.contains('open'))return;
+      if(i!==idx){s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake');return;}
+      s.classList.add('open');idx++;mark();
+    });
+  });
+  mark();
+  var rb=el('button','btn sm ghost','처음부터 다시');rb.type='button';rb.style.marginTop='8px';
+  rb.addEventListener('click',function(){spans.forEach(function(s){s.classList.remove('open');});idx=0;mark();});
+  w.appendChild(rb);
+  return w;
+}
+
+/* ---------- page ---------- */
+function build(){
+  document.title=D.title;
+  var hd=el('header','top');
+  hd.appendChild(el('div','brand',D.brand));
+  hd.appendChild(el('h1','',D.title));
+  hd.appendChild(el('div','sub',D.sub));
+  var nav=el('nav','tabs');hd.appendChild(nav);
+  document.body.appendChild(hd);
+  var main=el('main');document.body.appendChild(main);
+  D.tabs.forEach(function(tb,ti){
+    TABQ.push([]);
+    var t=el('button','tab'+(ti===0?' on':''),esc(tb.name)+'<span class="pg"></span>');t.type='button';t.dataset.i=ti;
+    t.addEventListener('click',function(){go(ti);});
+    nav.appendChild(t);
+    var pn=el('section','panel'+(ti===0?' on':''));pn.dataset.i=ti;
+    if(tb.intro)pn.appendChild(el('div','intro',tb.intro));
+    tb.blocks.forEach(function(b){
+      var node;
+      if(b.k==='html')node=el('div','',b.html);
+      else if(b.k==='h')node=el('h2','sec',b.html);
+      else if(b.k==='words')node=bWords(b);
+      else if(b.k==='qset')node=new QSet(b,ti).el;
+      else if(b.k==='analysis')node=bAnalysis(b);
+      else if(b.k==='script')node=bScript(b);
+      else if(b.k==='tapfill')node=bTapfill(b);
+      if(node)pn.appendChild(node);
+    });
+    if(ti<D.tabs.length-1){
+      var nx=el('div','row');nx.style.justifyContent='center';nx.style.marginTop='20px';
+      var nb=el('button','btn','다음: '+esc(D.tabs[ti+1].name)+' →');nb.type='button';
+      nb.addEventListener('click',function(){go(ti+1);});nx.appendChild(nb);pn.appendChild(nx);
+    }
+    main.appendChild(pn);
+  });
+  main.appendChild(el('div','foot',D.brand+' · '+D.title));
+  updateScores();
+}
+function go(i){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',+t.dataset.i===i);});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',+p.dataset.i===i);});
+  var t=document.querySelector('.tab[data-i="'+i+'"]');if(t&&t.scrollIntoView)try{t.scrollIntoView({inline:'center',block:'nearest'});}catch(e){}
+  window.scrollTo(0,0);pageSound();
+}
+window.__L7={REG:REG,SETS:SETS,go:go,norm:norm,alts:alts};
+build();
+})();
+
+</script>
+</body>
+</html>
