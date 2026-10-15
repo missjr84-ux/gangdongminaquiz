@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Poet Who Loved Stars — 본문</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f4fa;--card:#fff;--card2:#eeecf7;
+  --primary:#5b4fa8;--primary-lt:#ece9f8;--primary-dk:#3b2f8a;
+  --accent:#e8a020;--accent-lt:#fef3dc;
+  --text:#1a1a2e;--muted:#6b6880;--border:#d8d4ee;
+  --ok:#1a7a3c;--ok-bg:#e8f5ec;--no:#c0392b;--no-bg:#fdecea;
+  --info:#3a5fa8;--info-bg:#e8eef8;
+  --mint:#dff5ec;--mint-t:#1d7a55;--sky:#e1effc;--sky-t:#2a64a8;
+  --peach:#fde9df;--peach-t:#b5532a;--lav:#ece9f8;--lav-t:#5b4fa8;
+  --r:12px;--shadow:0 2px 10px rgba(91,79,168,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Noto Sans KR',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.65;-webkit-tap-highlight-color:transparent}
+.en{font-family:'Noto Sans KR',system-ui,sans-serif}
+header.top{background:linear-gradient(135deg,#3b2f8a,#7b6fd0);color:#fff;padding:16px 16px 0}
+.top .brand{font-size:12px;opacity:.85;letter-spacing:.04em}
+.top h1{font-size:21px;font-weight:800;margin:2px 0 2px}
+.top .sub{font-size:13px;opacity:.9;margin-bottom:12px}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:1.5px solid rgba(255,255,255,.45);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:7px 13px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.tab.on{background:#fff;color:var(--primary-dk);border-color:#fff}
+.tab .pg{font-size:11px;font-weight:700;margin-left:5px;opacity:.85}
+main{max-width:780px;margin:0 auto;padding:16px 14px 80px}
+.panel{display:none;animation:pin .25s ease}
+.panel.on{display:block}
+@keyframes pin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.intro{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:var(--r);padding:12px 14px;margin-bottom:14px;font-size:15px}
+.intro b{color:var(--primary-dk)}
+h2.sec{font-size:18px;font-weight:800;color:var(--primary-dk);margin:22px 2px 10px;display:flex;align-items:center;gap:8px}
+h2.sec:first-child{margin-top:4px}
+h3.sub{font-size:15.5px;font-weight:700;margin:14px 2px 8px;color:var(--primary)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.tip{background:var(--accent-lt);border:1px solid #f3d99a;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14.5px}
+.tip b{color:#9a5b00}
+.warn{background:var(--no-bg);border:1px solid #f2c4bd;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14.5px}
+.warn b{color:var(--no)}
+table.t{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--card)}
+table.t th{background:var(--primary-lt);color:var(--primary-dk);font-weight:700;padding:7px 6px;border:1px solid var(--border);text-align:left}
+table.t td{padding:7px 6px;border:1px solid var(--border);vertical-align:top}
+.tw{overflow-x:auto;border-radius:10px;margin-bottom:12px}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 7px;vertical-align:middle}
+.b-mint{background:var(--mint);color:var(--mint-t)}.b-sky{background:var(--sky);color:var(--sky-t)}
+.b-peach{background:var(--peach);color:var(--peach-t)}.b-lav{background:var(--lav);color:var(--lav-t)}
+.b-amb{background:var(--accent-lt);color:#9a5b00}
+.spk{border:none;background:var(--primary-lt);color:var(--primary);border-radius:8px;width:30px;height:30px;font-size:15px;cursor:pointer;flex:0 0 auto;line-height:30px;text-align:center}
+.spk.playing{background:var(--primary);color:#fff}
+.btn{border:1.5px solid var(--primary);background:#fff;color:var(--primary);border-radius:9px;padding:7px 13px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn.fill{background:var(--primary);color:#fff}
+.btn.sm{padding:4px 10px;font-size:13px}
+.btn.ghost{border-color:var(--border);color:var(--muted)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+/* word chips */
+.wgrid{display:flex;flex-wrap:wrap;gap:6px}
+.wchip{border:1px solid var(--border);background:var(--card);border-radius:9px;padding:5px 10px;font-size:14px;cursor:pointer}
+.wchip b{color:var(--primary-dk)}
+.wchip span{color:var(--muted);font-size:13px;margin-left:4px}
+/* qset */
+.qset{margin-bottom:18px}
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:18px 2px 10px}
+.qhead h3{font-size:16.5px;font-weight:800;color:var(--primary-dk)}
+.score{font-size:13px;font-weight:700;color:var(--primary);background:var(--primary-lt);border-radius:999px;padding:3px 10px}
+.q{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:13px 14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.q.ok{border-color:#8fd0a7;background:#fbfffc}
+.q.no{border-color:#eba59c;background:#fffafa}
+.qn{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}
+.qn .num{flex:0 0 auto;background:var(--primary);color:#fff;font-weight:800;font-size:13px;border-radius:7px;min-width:26px;height:24px;line-height:24px;text-align:center;padding:0 5px;margin-top:2px}
+.qn .qt{flex:1;font-weight:600;font-size:15.5px}
+.qt u{text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:var(--primary)}
+.pass{background:var(--card2);border-radius:10px;padding:10px 12px;margin:6px 0 10px;font-size:15px;line-height:1.75}
+.pass .ln{display:block}
+.pass .sp{font-weight:800;color:var(--primary);margin-right:4px}
+.pass u{text-decoration-thickness:2px;text-underline-offset:3px}
+.mark{color:var(--primary);font-weight:800}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{text-align:left;border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:8px 11px;font-size:15px;cursor:pointer;font-family:inherit;color:var(--text);line-height:1.5}
+.opts.inline .opt{flex:0 0 auto}
+.opt.sel{border-color:var(--primary);background:var(--primary-lt);font-weight:600}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.wrong{border-color:var(--no);background:var(--no-bg)}
+.opt:disabled{cursor:default;color:var(--text)}
+.blank{display:inline-block;min-width:70px;border:none;border-bottom:2px solid var(--primary);background:var(--primary-lt);border-radius:6px 6px 0 0;padding:2px 6px;margin:2px 2px;font-size:15px;font-family:inherit;color:var(--text);text-align:center}
+.blank.wide{display:block;width:100%;text-align:left;margin:6px 0;padding:8px 10px;border-radius:8px;border:1.5px solid var(--border);border-bottom:2px solid var(--primary)}
+.blank.right{background:var(--ok-bg);border-bottom-color:var(--ok)}
+.blank.wrong{background:var(--no-bg);border-bottom-color:var(--no)}
+.tmpl{font-size:15.5px;line-height:2.1}
+.ordwrap{display:flex;flex-direction:column;gap:8px}
+.slots{min-height:48px;border:2px dashed var(--border);border-radius:10px;padding:7px;display:flex;flex-wrap:wrap;gap:6px;background:#fcfbff}
+.slots.block{flex-direction:column}
+.slots .hint{color:var(--muted);font-size:13px;align-self:center;padding:4px}
+.pool{display:flex;flex-wrap:wrap;gap:6px}
+.pool.block{flex-direction:column}
+.chip{border:1.5px solid var(--primary);background:#fff;color:var(--primary-dk);border-radius:9px;padding:6px 11px;font-size:15px;cursor:pointer;font-family:inherit;text-align:left;line-height:1.45}
+.chip.used{visibility:hidden}
+.slots .chip{background:var(--primary-lt)}
+.chip:disabled{cursor:default}
+.qfoot{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.fb{margin-top:9px;border-radius:9px;padding:9px 11px;font-size:14.5px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--ok-bg);color:#145c2e}
+.fb.no{background:var(--no-bg);color:#8e2a1f}
+.fb.ans{background:var(--info-bg);color:#24406f}
+.fb b{font-weight:800}
+.qbar{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}
+.sticky{position:sticky;bottom:10px;display:flex;justify-content:center;gap:8px;margin-top:6px;z-index:5}
+.sticky .btn{box-shadow:0 4px 14px rgba(59,47,138,.25)}
+/* analysis cards */
+.acard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+.acard .kr{font-size:16px;font-weight:600}
+.acard .kr .no{color:var(--primary);font-weight:800;margin-right:6px}
+.chunks{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.ck{border:1.5px solid var(--border);border-radius:9px;padding:5px 9px;background:#fcfbff;cursor:pointer;font-size:14px;text-align:left;font-family:inherit;color:var(--text)}
+.ck small{display:block;color:var(--primary);font-weight:800;font-size:11px}
+.ck .ce{display:none;color:var(--primary-dk);font-weight:700}
+.ck.open .ce{display:block}
+.ck.open{border-color:var(--primary);background:var(--primary-lt)}
+.aen{display:none;margin-top:9px;background:var(--card2);border-radius:9px;padding:8px 10px}
+.aen.show{display:block}
+.aen .s{font-size:16px;font-weight:700;color:var(--primary-dk)}
+.aen .tp{font-size:14px;color:#6a4a00;margin-top:5px}
+.parahead{background:var(--primary-lt);border-radius:10px;padding:9px 12px;margin:18px 0 9px;font-size:14.5px}
+.parahead b{color:var(--primary-dk);font-size:15.5px}
+/* dialogue script */
+.script{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:10px;box-shadow:var(--shadow)}
+.script .shead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.script .shead b{color:var(--primary-dk);font-size:15.5px}
+.line{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed #ebe8f5}
+.line:last-child{border-bottom:none}
+.line .who{flex:0 0 auto;min-width:24px;font-weight:800;color:var(--primary)}
+.line .tx{flex:1}
+.line .ko{display:none;color:var(--muted);font-size:14px}
+.script.kr .line .ko{display:block}
+/* tapfill */
+.tf{font-size:16px;line-height:2.2}
+.tfb{display:inline-block;min-width:56px;border-bottom:2px solid var(--primary);background:var(--primary-lt);border-radius:6px 6px 0 0;padding:0 7px;text-align:center;cursor:pointer;color:transparent;font-weight:700;user-select:none}
+.tfb.next{animation:pulse 1.4s infinite}
+.tfb.open{color:var(--primary-dk);background:#fff3c9;border-bottom-color:var(--accent);cursor:default}
+.tfb.shake{animation:shake .3s}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(91,79,168,.35)}50%{box-shadow:0 0 0 5px rgba(91,79,168,0)}}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.formula{background:var(--card);border:2px solid var(--primary);border-radius:var(--r);padding:14px;margin-bottom:12px;text-align:center;font-size:18px;font-weight:800;color:var(--primary-dk);line-height:1.8}
+.formula .f{display:inline-block;border-radius:8px;padding:2px 8px;margin:2px}
+.steps{counter-reset:st}
+.step{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;margin-bottom:8px;box-shadow:var(--shadow)}
+.step .h{font-weight:800;color:var(--primary-dk)}
+.step .h .n{display:inline-block;background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:6px}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+@media (max-width:480px){
+  .top h1{font-size:19px}
+  main{padding:12px 12px 80px}
+  .opt,.chip{font-size:14.5px}
+}
+/* v2 additions */
+.spk.mini{width:24px;height:24px;line-height:24px;font-size:12px;border-radius:6px;vertical-align:middle;margin-left:4px}
+.wl .wrow{border-bottom:1px dashed #e4e0f3;padding:8px 2px}
+.wl .wrow:last-child{border-bottom:none}
+.wtop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wn{font-size:12px;color:var(--muted);min-width:20px}
+.ww{font-size:16.5px;color:var(--primary-dk)}
+.wm{color:var(--text);font-size:15px;border-radius:6px;padding:0 4px}
+.wl.hidem .wm{background:var(--card2);color:transparent;cursor:pointer;min-width:90px;display:inline-block}
+.wl.hidem .wm.on{background:#fff3c9;color:var(--text)}
+.wex{margin:4px 0 0 28px}
+.wen{display:flex;align-items:center;gap:6px;font-size:15px;cursor:pointer}
+.wen .spk{width:26px;height:26px;line-height:26px;font-size:13px}
+.wk{display:none;color:var(--muted);font-size:14px}
+.wl.showk .wk,.wrow.kon .wk{display:block}
+.flip .frow{border-bottom:1px dashed #e4e0f3;padding:7px 2px}
+.flip .frow:last-child{border-bottom:none}
+.fen{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15.5px}
+.fen .en{flex:1;min-width:180px}
+.fkr{display:none;margin-top:4px;background:#fff8e6;border-radius:8px;padding:6px 9px;font-size:14.5px}
+.frow.on .fkr{display:block}
+.fnote{color:#8a5a00;font-size:13.5px;margin-top:2px}
+.rv{background:var(--card2);color:transparent;border-radius:5px;cursor:pointer;padding:0 4px;user-select:none}
+.rv.on{background:#fff3c9;color:inherit}
+.fam{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.fam .fc{border:1px solid var(--border);border-radius:8px;padding:3px 8px;background:#fff;font-size:14px}
+.fam .fc i{font-style:normal;color:var(--muted);font-size:12px;margin-right:3px}
+.anal{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:13px 14px;margin-bottom:12px;box-shadow:var(--shadow);font-size:15px}
+.anal h4{font-size:15.5px;color:var(--primary-dk);margin:10px 0 4px}
+.anal h4:first-child{margin-top:0}
+.anal ol,.anal ul{padding-left:20px}
+.anal li{margin:3px 0}
+details>summary{list-style:none;display:inline-block;cursor:pointer}
+details>summary::-webkit-details-marker{display:none}
+.pass.big{background:#fff;border:1.5px solid var(--border);font-size:15.5px;line-height:1.9;padding:12px 14px;position:sticky;top:0;z-index:3;max-height:42vh;overflow:auto;box-shadow:var(--shadow)}
+
+</style>
+</head>
+<body>
+<script>
+window.DATA={"file":"apoetwholovedstarswriting.html","brand":"강동미나 중고등부 · 중3 Lesson 5 (천재 이재영)","title":"A Poet Who Loved Stars — 본문","sub":"별을 사랑한 시인 · 한글 분석 → 중요 표현 → 거꾸로 영작 → 문법 · 지시어 · 순서 · 내용확인","tabs":[{"name":"🔍 한글 내용 분석","intro":"<b>국어 독해하듯이 먼저 한글로 읽어요.</b> ① 글 전체 분석 → ② 문단별 흐름과 강조점 → ③ 문장별 한글 분석(🔊 작은 버튼 = 영어 소리). 영어는 마지막에!","blocks":[{"k":"h","html":"① 글 전체 분석"},{"k":"html","html":"<div class=\"anal\">\n<h4>📌 어떤 글인가요?</h4>\n<b>시(1~10) + 시인의 일생을 소개하는 전기문(11~37)</b>이 합쳐진 글이에요. 시로 독자의 마음을 먼저 움직인 다음, \"이 시를 쓴 사람이 어떤 삶을 살았을까?\"로 이어 가요.\n<h4>📌 주제</h4>\n일제강점기에 고향과 잃어버린 조국을 그리며 시를 쓴 <b>윤동주의 삶과, 지금도 별처럼 빛나는 그의 시</b>.\n<h4>📌 글쓴이가 이 글을 쓴 이유 · 목적</h4>\n익숙한 시 「별 헤는 밤」 뒤에 숨은 시인의 삶을 알려 주어, 독자가 <b>그 시를 새로운 마음으로 다시 읽게</b> 하려고 썼어요. 그래서 마지막 문장이 다시 \"가을밤 하늘의 별\"로 돌아가요.\n<h4>📌 왜 이 순서로 썼을까?</h4>\n<ol><li><b>시로 시작 → 질문으로 독자 연결</b> — \"이 구절을 읽어 본 적 있나요?\"(11번)로 독자를 글 안으로 끌어들여요.</li>\n<li><b>그다음은 시간 순서</b> — 출생(1917) → 어린 시절 → 중학교 → 대학 → 졸업 → 일본(1942) → 체포(1943) → 죽음(1945) → 독립 → 출판(1948) → 지금. 전기문이라 연도를 따라가요.</li>\n<li><b>시간을 거꾸로 짚는 문장 2개</b> — 29번 \"아버지가 <b>예전에</b> 공부했던 나라\", 36번 \"시인이 <b>수년 전에</b> 생각해 두었던 제목\". 글의 순서보다 더 앞선 일이라 과거완료(had p.p.)를 썼어요. 순서 문제의 핵심!</li>\n<li><b>대조로 삶의 굴곡을 보여 줌</b> — 운동·바느질 ↔ 그래도 가장 사랑한 건 문학(17) / 부모의 바람(의사) ↔ 동주의 선택(문학)(22) / 출판의 꿈 ↔ 교수의 반대와 포기(24~28) / 감옥에서의 죽음 ↔ 불과 몇 달 뒤의 독립(33~34) / 살아서는 못 낸 시집 ↔ 죽은 뒤 출판, 지금은 모두가 사랑(35~37).</li>\n<li><b>처음과 끝이 이어짐(수미상관)</b> — 첫 시의 \"가을·별\" ↔ 마지막 \"가을밤 하늘의 별처럼\". 제목 \"별을 사랑한 시인\"과도 연결돼요.</li></ol>\n<h4>📌 글쓴이가 특히 강조한 곳 (It ~ that 강조 구문)</h4>\n<ul><li><b>17번</b> \"그가 가장 사랑한 것은 (바로) <b>문학</b>이었다\" — 운동도 바느질도 좋아했지만, 결국 문학이 그의 인생이었다는 것을 강조.</li>\n<li><b>34번</b> \"한국이 독립을 이룬 것은 <b>불과 몇 달 후</b>였다\" — 조금만 더 살았다면 독립을 볼 수 있었다는 안타까움을 강조.</li></ul>\n<h4>📌 인물 정리 — 누가 무엇을?</h4>\n<ul><li><b>사촌 송몽규</b>: 함께 문학잡지 만듦 → 함께 일본 유학 → 1943년 7월 10일 먼저 체포 → 1945년 함께 감옥에서 사망</li>\n<li><b>백석</b>: 당대 유명한 시인. 동주가 그의 시집을 빌려 통째로 손으로 베낌</li>\n<li><b>정병욱</b>: 가까운 친구. 시집 한 부를 받음 → 1948년 동주의 시를 동생에게 가져감</li>\n<li><b>교수</b>: 시집 한 부를 받음 → 일본 정부가 허락하지 않을 거라며 출판을 말림</li>\n<li><b>동생</b>: 정병욱에게서 시를 받아 1948년 출판</li>\n<li><b>부모</b>: 동주가 의사가 되길 바람</li></ul>\n<h4>📌 연결어 지도</h4>\n<ul><li><b>그러나(17)</b> — 운동·바느질 → 그래도 문학이 최고</li>\n<li><b>하지만(22)</b> — 부모의 바람 ↔ 동주의 선택</li>\n<li><b>그러나(27)</b> — 출판하고 싶었다 ↔ 교수가 반대했다</li>\n<li><b>그리하여(30)</b> — 일본에서 공부하기로 결정 → 1942년 일본으로</li>\n<li><b>다음 해 / 나흘 뒤 / 몇 달 후</b> — 사건이 짧은 간격으로 몰아치는 비극</li>\n<li><b>마침내(35)</b> — 오래 기다린 출판</li>\n<li><b>따라서(37)</b> — 모두가 사랑한다 → 그래서 지금도 빛난다</li></ul>\n</div>"},{"k":"h","html":"② 문단별 흐름 · ③ 문장별 한글 분석"},{"k":"analysis","paras":[{"title":"시 「별 헤는 밤」 (1~10)","flow":"가을 하늘 → 별을 다 헤아릴 준비가 된 나 → 별 하나하나에 추억·사랑·쓸쓸함·동경·시·어머니<br>💡 분위기: 그리움, 차분함, 쓸쓸함. 별 하나에 소중한 것을 하나씩 붙여 가는 나열 구조(one → another → another …).","items":[{"n":1,"kr":"계절이 지나가는 하늘에는","en":"In the sky where seasons pass in a hurry","ch":[["In the sky","하늘에는"],["where","(그곳에서)"],["seasons pass","계절이 지나가는"],["in a hurry","서둘러"]],"tip":"관계부사 <b>where</b>(= in which): 뒤에 완전한 문장(seasons pass). in a hurry = 서둘러."},{"n":2,"kr":"가을로 가득 차 있습니다.","en":"Autumn fills the air.","ch":[["Autumn","가을이"],["fills the air.","공기를 채운다"]],"tip":"한글 \"가을로 가득 차 있다\" → 영어는 \"가을이 공기를 채운다\". 주어가 바뀌는 지점!"},{"n":3,"kr":"나는 아무 걱정도 없이","en":"And ready I stand, without a worry,","ch":[["And","그리고"],["ready I stand,","나는 준비된 채 서 있다"],["without a worry,","아무 걱정 없이"]],"tip":"<b>도치</b>: I stand ready → ready I stand (ready를 앞으로). 다음 줄 To count와 이어져요(ready to count)."},{"n":4,"kr":"가을 속의 별들을 다 헤일 듯합니다.","en":"To count all the stars there.","ch":[["To count","헤아릴 (준비가 된)"],["all the stars there.","그곳의 모든 별을"]],"tip":"3번의 ready와 연결: ready + to부정사(~할 준비가 된)."},{"n":5,"kr":"별 하나에 추억과","en":"Memory for one star,","ch":[["Memory","추억"],["for one star,","별 하나에"]],"tip":"여러 개를 나열할 때 첫 번째는 <b>one</b>."},{"n":6,"kr":"별 하나에 사랑과","en":"Love for another star,","ch":[["Love","사랑"],["for another star,","또 다른 별 하나에"]],"tip":"그다음은 <b>another</b>(또 하나의)."},{"n":7,"kr":"별 하나에 쓸쓸함과","en":"Loneliness for another star,","ch":[["Loneliness","쓸쓸함"],["for another star,","또 다른 별 하나에"]],"tip":"loneliness: 외로움, 쓸쓸함 (lonely의 명사)."},{"n":8,"kr":"별 하나에 동경과","en":"Longing for another star,","ch":[["Longing","동경"],["for another star,","또 다른 별 하나에"]],"tip":"longing: 동경, 갈망."},{"n":9,"kr":"별 하나에 시와","en":"Poetry for another star,","ch":[["Poetry","시"],["for another star,","또 다른 별 하나에"]],"tip":"poetry: (집합적) 시. a poem: 시 한 편."},{"n":10,"kr":"별 하나에 어머니, 어머니,","en":"And, oh, mother, mother for another star.","ch":[["And, oh, mother, mother","그리고, 아, 어머니, 어머니"],["for another star.","또 다른 별 하나에"]],"tip":"시에서는 마지막도 another — 셋 중 마지막을 the other / the last one으로 쓰는 26번과 비교!"}]},{"title":"시인 소개 (11~13) — 독자에게 말 걸기","flow":"질문(읽어 본 적 있나요?) → 윤동주의 시의 일부 → 오래전에 쓰였지만 지금도 사랑받는 시<br>💡 시에서 전기문으로 넘어가는 다리 역할.","items":[{"n":11,"kr":"당신은 이 시 구절을 읽어 본 적이 있는가?","en":"Have you read these lines before?","ch":[["Have you read","당신은 읽어 본 적이 있는가"],["these lines","이 시 구절을"],["before?","전에"]],"tip":"현재완료 경험. line: (시의) 행, 구절."},{"n":12,"kr":"이것은 윤동주의 시 '별 헤는 밤'의 일부이다.","en":"They are part of the poem \"Counting Stars at Night\" by Yoon Dong-ju.","ch":[["They","이것들은"],["are part of","~의 일부이다"],["the poem \"Counting Stars at Night\"","'별 헤는 밤'이라는 시"],["by Yoon Dong-ju.","윤동주가 쓴"]],"tip":"They = these lines. by = ~가 쓴. 한글 \"윤동주의\"가 영어에선 맨 뒤."},{"n":13,"kr":"시는 오래전에 쓰였지만 여전히 한국이 가장 좋아하는 시 중의 하나로 남아 있다.","en":"The poem was written a long time ago but still remains one of Korea's favorite poems.","ch":[["The poem","그 시는"],["was written","쓰였다"],["a long time ago","오래전에"],["but still remains","하지만 여전히 남아 있다"],["one of Korea's favorite poems.","한국이 가장 좋아하는 시 중 하나로"]],"tip":"수동태 was written. remain + 명사(보어). one of + <b>복수</b> 명사."}]},{"title":"어린 시절과 중학교 (14~21) — 문학을 사랑한 소년","flow":"1917년 출생 → 운동·축구 선수 → 바느질 → <b>\"그러나\"</b> 가장 사랑한 건 문학(강조) → 초등학교 때 시 → 사촌과 문학잡지 → 중학교 때 백석의 시집을 손으로 베낌 → 그 이유(희귀한 책을 갖고 싶어서)<br>💡 21번은 20번의 <b>이유</b>를 덧붙인 문장.","items":[{"n":14,"kr":"동주는 중국 연변 근처에서 1917년에 태어났다.","en":"Dong-ju was born in 1917 near Yanbin, China.","ch":[["Dong-ju","동주는"],["was born","태어났다"],["in 1917","1917년에"],["near Yanbin, China.","중국 연변 근처에서"]],"tip":"한글은 장소가 먼저, 영어는 <b>시간 → 장소</b> 순서로 뒤에."},{"n":15,"kr":"어린 소년이었을 때 그는 운동을 좋아했고, 학교의 축구 선수였다.","en":"As a young boy, he loved sports, and he was a soccer player for his school.","ch":[["As a young boy,","어린 소년이었을 때"],["he loved sports,","그는 운동을 좋아했다"],["and he was a soccer player","그리고 축구 선수였다"],["for his school.","학교의"]],"tip":"as = ~일 때(전치사)."},{"n":16,"kr":"그는 또한 바느질하는 것을 무척 좋아해서 모든 친구들의 축구 유니폼에 번호를 바느질해 주기도 했다.","en":"He also loved sewing so much that he sewed the numbers on all his friends' soccer uniforms.","ch":[["He also loved sewing","그는 또한 바느질을 좋아했다"],["so much that","너무 많이 ~해서"],["he sewed the numbers","그는 번호를 바느질했다"],["on all his friends' soccer uniforms.","모든 친구들의 축구 유니폼에"]],"tip":"<b>so + 부사 + that</b>: 너무 ~해서 …하다. friends'(복수 소유격)."},{"n":17,"kr":"그러나 그가 가장 사랑한 것은 문학이었다.","en":"However, it was literature that he loved most.","ch":[["However,","그러나"],["it was literature","(바로) 문학이었다"],["that he loved most.","그가 가장 사랑한 것은"]],"tip":"<b>It ~ that 강조</b>: 목적어 literature 강조 (= He loved literature most). 앞의 운동·바느질과 대조!"},{"n":18,"kr":"초등학교에 다닐 때 그는 많은 시를 썼다.","en":"In elementary school he wrote a lot of poems.","ch":[["In elementary school","초등학교에 다닐 때"],["he wrote","그는 썼다"],["a lot of poems.","많은 시를"]],"tip":"write-wrote-written."},{"n":19,"kr":"심지어 사촌 송몽규와 문학잡지를 만들기도 했다.","en":"He even made a literary magazine with his cousin, Song Mong-gyu.","ch":[["He even made","그는 심지어 만들었다"],["a literary magazine","문학잡지를"],["with his cousin, Song Mong-gyu.","사촌 송몽규와"]],"tip":"<b>동격 콤마</b>: his cousin = Song Mong-gyu. literary(문학의) ↔ literature(문학)."},{"n":20,"kr":"그가 중학교에 다니던 때 한번은 당대의 유명한 시인, 백석의 시집을 빌려 와서 책 전체를 필사하기도 했다.","en":"In middle school he once borrowed a poetry book by a famous poet of the time, Baek Seok, and copied the whole book by hand.","ch":[["In middle school","중학교에 다닐 때"],["he once borrowed a poetry book","그는 한번은 시집을 빌렸다"],["by a famous poet of the time, Baek Seok,","당대의 유명한 시인 백석이 쓴"],["and copied the whole book","그리고 책 전체를 베꼈다"],["by hand.","손으로"]],"tip":"동격 콤마: a famous poet of the time = Baek Seok. by hand: 손으로(직접)."},{"n":21,"kr":"그는 정말로 그 희귀한 책을 한 부 갖고 싶었던 것이다.","en":"He really wanted to have his own copy of the rare book.","ch":[["He really wanted","그는 정말 원했다"],["to have his own copy","자신의 책 한 부를 갖기를"],["of the rare book.","그 희귀한 책의"]],"tip":"the rare book = 백석의 시집. copy: (책) 한 부. 20번에서 필사한 <b>이유</b>를 설명하는 문장."}]},{"title":"대학과 시집의 꿈 (22~28) — 꺾인 꿈","flow":"부모는 의사를 원함 <b>\"하지만\"</b> 문학 선택 → 대학 시절 고향과 조국을 그리는 시 → 졸업 기념 시집 출판 소망 → 손으로 세 부 → 한 부·또 한 부·마지막 한 부 → <b>\"그러나\"</b> 교수의 반대 → 포기","items":[{"n":22,"kr":"그의 부모는 그가 의사가 되기를 바랐지만 동주는 서울에 있는 대학에서 문학 공부를 하기로 했다.","en":"His parents wanted him to be a doctor, but Dong-ju chose to study literature at a college in Seoul.","ch":[["His parents wanted him","그의 부모는 그가 ~하기를 원했다"],["to be a doctor,","의사가 되기를"],["but Dong-ju chose","하지만 동주는 선택했다"],["to study literature","문학을 공부하는 것을"],["at a college in Seoul.","서울에 있는 대학에서"]],"tip":"<b>want + 목적어 + to부정사</b>. but: 부모의 바람 ↔ 동주의 선택 대조."},{"n":23,"kr":"대학 시절에 그는 종종 다른 젊은 시인들과 어울려 다녔고, 고향과 잃어버린 조국에 대한 심정을 표현하는 시를 썼다.","en":"During his college years, he often hung out with other young poets and wrote poetry where he expressed feelings about his hometown and lost country.","ch":[["During his college years,","대학 시절에"],["he often hung out with other young poets","그는 종종 다른 젊은 시인들과 어울렸다"],["and wrote poetry","그리고 시를 썼다"],["where he expressed feelings","(그 시에서) 그는 감정을 표현했다"],["about his hometown and lost country.","고향과 잃어버린 조국에 대한"]],"tip":"during + 기간 명사. hang out with(hung). 관계부사 <b>where</b> = in which(시 속에서). lost country = 일제강점기의 나라."},{"n":24,"kr":"졸업을 기념하여 그는 〈하늘과 바람과 별과 시〉라는 제목으로 자신의 시 19편을 출판하고 싶어 했다.","en":"To celebrate his graduation, he wished to publish 19 of his poems under the title, Heaven, Wind, Stars, and Poetry.","ch":[["To celebrate his graduation,","졸업을 기념하기 위해"],["he wished to publish","그는 출판하고 싶어 했다"],["19 of his poems","그의 시 19편을"],["under the title, Heaven, Wind, Stars, and Poetry.","〈하늘과 바람과 별과 시〉라는 제목으로"]],"tip":"To celebrate = 목적(~하기 위해). under the title: ~라는 제목으로."},{"n":25,"kr":"그는 책 세 부를 손으로 만들었다.","en":"He made three copies of the book by hand.","ch":[["He made","그는 만들었다"],["three copies of the book","책 세 부를"],["by hand.","손으로"]],"tip":"copy의 복수 copies. 다음 문장의 One / another / the last one이 이 세 부를 가리켜요."},{"n":26,"kr":"한 부는 가까운 친구인 정병욱에게 주었고, 또 하나는 그가 가장 좋아하는 교수에게 선물했으며, 마지막 하나는 자신이 보관했다.","en":"One was given to his close friend, Jeong Byeong-uk, another was presented to his favorite professor, and the last one was kept for himself.","ch":[["One was given","한 부는 주어졌다"],["to his close friend, Jeong Byeong-uk,","가까운 친구 정병욱에게"],["another was presented","또 하나는 선물되었다"],["to his favorite professor,","가장 좋아하는 교수에게"],["and the last one was kept","그리고 마지막 하나는 보관되었다"],["for himself.","자신을 위해"]],"tip":"<b>셋 중</b> One / another / the last one(= the other). 세 동사 모두 <b>수동태</b>(was given / was presented / was kept) — 한글은 능동(\"주었다\")이라 함정!"},{"n":27,"kr":"그러나 그의 교수는 일본 정부가 출판을 허가하지 않으리라 여겨, 그의 계획에 반대하는 충고를 했다.","en":"However, his professor advised against his plan because he thought the Japanese government would not allow the publication.","ch":[["However,","그러나"],["his professor advised against his plan","그의 교수는 그의 계획에 반대하는 충고를 했다"],["because he thought","왜냐하면 그는 생각했기 때문에"],["the Japanese government would not allow","일본 정부가 허락하지 않을 것이라고"],["the publication.","출판을"]],"tip":"against: ~에 반대하여. he = 교수. thought (that) — that 생략. 한글은 이유가 앞, 영어는 because절이 뒤."},{"n":28,"kr":"동주는 그의 충고를 따랐고 그 생각을 포기했다.","en":"Dong-ju followed his advice and gave up the idea.","ch":[["Dong-ju followed his advice","동주는 그의 충고를 따랐다"],["and gave up the idea.","그리고 그 생각을 포기했다"]],"tip":"his advice = 교수의 충고. the idea = 시 19편을 출판하는 것. give up(gave)."}]},{"title":"일본 유학과 비극 (29~34) — 몰아치는 사건","flow":"아버지가 공부했던 나라로 → <b>\"그리하여\"</b> 1942년 일본 → 다음 해 사촌 체포 → 나흘 뒤 동주 체포 → 1945년 감옥에서 사망 → 불과 몇 달 뒤 독립(강조)<br>💡 날짜와 간격(다음 해, 나흘 뒤, 몇 달 후)을 꼭 정확히!","items":[{"n":29,"kr":"동주는 그의 아버지가 예전에 공부했던 나라에서 학업을 이어 가기로 했다.","en":"Dong-ju decided to study further in the country where his father had studied before.","ch":[["Dong-ju decided","동주는 결정했다"],["to study further","더 공부하기로"],["in the country","그 나라에서"],["where his father had studied before.","그의 아버지가 예전에 공부했던"]],"tip":"<b>과거완료</b> had studied: 아버지의 공부가 동주의 결정(decided)보다 <b>더 먼저</b>. 관계부사 where."},{"n":30,"kr":"그리하여 1942년에 동주와 그의 사촌은 일본에서 공부를 시작했다.","en":"So, in 1942, Dong-ju and his cousin began to study in Japan.","ch":[["So,","그리하여"],["in 1942,","1942년에"],["Dong-ju and his cousin","동주와 그의 사촌은"],["began to study in Japan.","일본에서 공부하기 시작했다"]],"tip":"So: 29번 결정의 결과. begin + to부정사 / 동명사 둘 다 가능."},{"n":31,"kr":"다음 해 7월 10일에 그의 사촌은 독립운동에 가담했다는 이유로 일본 경찰에 체포되었다.","en":"On July 10 the following year, his cousin was arrested by the Japanese police for taking part in an independence movement.","ch":[["On July 10 the following year,","다음 해 7월 10일에"],["his cousin was arrested","그의 사촌은 체포되었다"],["by the Japanese police","일본 경찰에 의해"],["for taking part in an independence movement.","독립운동에 가담했다는 이유로"]],"tip":"the following year = <b>1943년</b>. 수동태 was arrested by. for(이유) + 동명사."},{"n":32,"kr":"나흘 뒤 동주 역시 같은 혐의로 체포되었다.","en":"Four days later, Dong-ju was also arrested on the same charges.","ch":[["Four days later,","나흘 뒤"],["Dong-ju was also arrested","동주도 체포되었다"],["on the same charges.","같은 혐의로"]],"tip":"the same charges = 독립운동에 가담한 혐의. on ~ charges: ~ 혐의로."},{"n":33,"kr":"1945년에 동주와 그의 사촌은 경찰의 가혹 행위를 당한 후 감옥에서 사망했다.","en":"In 1945, Dong-ju and his cousin died in prison after harsh treatment by the police.","ch":[["In 1945,","1945년에"],["Dong-ju and his cousin","동주와 그의 사촌은"],["died in prison","감옥에서 죽었다"],["after harsh treatment by the police.","경찰의 가혹한 대우 후에"]],"tip":"after + 명사. harsh: 가혹한. 한글 \"당한 후\"(앞) → 영어 after 구(뒤)."},{"n":34,"kr":"한국이 일본으로부터 독립을 이룬 것은 불과 몇 달 후의 일이었다.","en":"It was just a few months later that Korea achieved independence from Japan.","ch":[["It was just a few months later","(바로) 불과 몇 달 후였다"],["that Korea achieved independence","한국이 독립을 이룬 것은"],["from Japan.","일본으로부터"]],"tip":"<b>It ~ that 강조</b>: 시간 표현 강조 (that 대신 when 가능). 죽음 직후 독립 — 글쓴이가 안타까움을 강조한 문장."}]},{"title":"출판과 지금 (35~37) — 별처럼 빛나는 시","flow":"1948년 정병욱이 시를 동생에게 → <b>\"마침내\"</b> 출판 → 시인이 오래전 생각해 둔 제목 → 모든 세대가 사랑 → <b>\"따라서\"</b> 가을밤 별처럼 빛남<br>💡 첫 시와 이어지는 수미상관 마무리.","items":[{"n":35,"kr":"1948년에 정병욱이 동주의 시를 시인의 동생에게 가져다주었고, 마침내 그것들은 출판되었다.","en":"In 1948, Jeong Byeong-uk brought Dong-ju's poems to the poet's brother, and they were finally published.","ch":[["In 1948,","1948년에"],["Jeong Byeong-uk brought Dong-ju's poems","정병욱이 동주의 시를 가져갔다"],["to the poet's brother,","시인의 동생에게"],["and they were finally published.","그리고 그것들은 마침내 출판되었다"]],"tip":"the poet's brother = 동주의 동생. they = Dong-ju's poems → 수동태 were published."},{"n":36,"kr":"책에는 시인이 수년 전에 생각해 두었던 그 제목이 붙었다.","en":"The book was given the title the poet had thought of many years before.","ch":[["The book was given","그 책은 받았다(붙여졌다)"],["the title","제목을"],["the poet had thought of many years before.","시인이 수년 전에 생각해 두었던"]],"tip":"<b>과거완료</b> had thought of: 제목을 생각한 것이 책에 제목이 붙은 것(was given)보다 먼저. title 뒤 which[that] 생략. was given + 명사(4형식 수동)."},{"n":37,"kr":"그의 시는 모든 세대의 사랑을 받고 있고, 따라서 그것들은 가을밤 하늘의 별처럼 우리 가슴 속에 여전히 밝게 빛나고 있다.","en":"His poems are loved by people of all ages, and thus they still shine brightly in our hearts like the stars in the autumn night sky.","ch":[["His poems are loved","그의 시는 사랑받는다"],["by people of all ages,","모든 연령의 사람들에게"],["and thus they still shine brightly","따라서 그것들은 여전히 밝게 빛난다"],["in our hearts","우리 가슴 속에서"],["like the stars in the autumn night sky.","가을밤 하늘의 별처럼"]],"tip":"수동태 are loved by. thus: 따라서(결과). like: ~처럼. 첫 시의 별·가을과 연결되는 <b>수미상관</b> 마무리."}]}]}]},{"name":"⭐ 중요 표현","intro":"<b>🔊 듣고 → 뜻 떠올리고 → \"뜻 ▾\"로 확인.</b> 뜻을 가린 채로 다 떠올릴 수 있을 때까지 반복하세요. 아래쪽 ⚠️ 시험 주의 포인트는 꼭 읽기!","blocks":[{"k":"flip","title":"시 · 시작 부분","rows":[["in a hurry","서둘러, 급히","seasons pass in a hurry: 계절이 서둘러 지나가다"],["ready I stand","나는 준비된 채 서 있다","<b>도치</b> ← I stand ready"],["without a worry","아무 걱정 없이","without + 명사"],["ready to count all the stars","모든 별을 헤아릴 준비가 된","ready + to부정사 (3·4번 행에 걸쳐 있음)"],["one star / another star","별 하나 / 또 다른 별 하나","나열: 처음 one, 그다음 another"],["loneliness / longing","외로움, 쓸쓸함 / 동경, 갈망",""],["part of the poem by Yoon Dong-ju","윤동주가 쓴 시의 일부","by: ~가 쓴"],["remain one of Korea's favorite poems","한국이 가장 좋아하는 시 중 하나로 남다","one of + 복수 명사"]]},{"k":"flip","title":"어린 시절 · 대학","rows":[["so much that he sewed the numbers","너무 좋아해서 번호를 바느질했다","so + 부사 + that"],["it was literature that he loved most","그가 가장 사랑한 것은 바로 문학이었다","It ~ that 강조 (목적어)"],["a literary magazine","문학잡지","literary(형) ↔ literature(명)"],["a famous poet of the time, Baek Seok","당대의 유명한 시인 백석","동격 콤마"],["copy the whole book by hand","책 전체를 손으로 베끼다","by hand: 손으로"],["have his own copy of the rare book","그 희귀한 책을 한 부 갖다","copy: (책) 한 부"],["want him to be a doctor","그가 의사가 되기를 원하다","want + 목적어 + to부정사"],["hang out with other young poets","다른 젊은 시인들과 어울리다","hang-hung-hung"],["poetry where he expressed feelings","그가 감정을 표현한 시","관계부사 where"],["his hometown and lost country","고향과 잃어버린 조국",""]]},{"k":"flip","title":"시집 · 일본 · 비극","rows":[["to celebrate his graduation","졸업을 기념하기 위해","목적의 to부정사"],["publish 19 of his poems under the title","~라는 제목으로 시 19편을 출판하다","under the title"],["make three copies of the book","책을 세 부 만들다",""],["One ~, another ~, and the last one ~","하나는 ~, 또 하나는 ~, 마지막 하나는 ~","셋 중: the last one = the other"],["was given / was presented / was kept","주어졌다 / 선물되었다 / 보관되었다","모두 수동태"],["advise against his plan","그의 계획에 반대하는 충고를 하다","against: ~에 반대하여"],["allow the publication","출판을 허락하다","publish(동) → publication(명)"],["follow his advice / give up the idea","그의 충고를 따르다 / 그 생각을 포기하다",""],["study further","더 공부하다, 학업을 이어 가다",""],["the country where his father had studied before","아버지가 예전에 공부했던 나라","과거완료 + 관계부사 where"],["the following year","그다음 해 (= 1943년)",""],["be arrested for taking part in an independence movement","독립운동에 가담한 이유로 체포되다","for + 동명사(이유)"],["on the same charges","같은 혐의로",""],["die in prison after harsh treatment","가혹한 대우 끝에 감옥에서 죽다",""],["It was just a few months later that ~","~한 것은 불과 몇 달 후였다","It ~ that 강조 (시간)"],["achieve independence from Japan","일본으로부터 독립을 이루다",""]]},{"k":"flip","title":"출판 · 지금","rows":[["the poet's brother","시인(동주)의 동생",""],["they were finally published","그것들은 마침내 출판되었다","they = Dong-ju's poems"],["was given the title the poet had thought of","시인이 생각해 두었던 제목이 붙었다","과거완료 + 관계대명사 생략"],["people of all ages","모든 연령의 사람들",""],["shine brightly like the stars","별처럼 밝게 빛나다","like: ~처럼"]]},{"k":"h","html":"⚠️ 시험 주의 포인트"},{"k":"html","html":"<div class=\"anal\">\n<h4>1. 도치 — 3번 \"And ready I stand\"</h4>원래 어순 I stand ready. ready는 4번 To count와 이어져 \"헤아릴 준비가 된\". 어순 복원 서술형이 나와요.\n<h4>2. 관계부사 where — 3번 나옴 (1, 23, 29번)</h4>the sky <b>where</b> seasons pass / poetry <b>where</b> he expressed / the country <b>where</b> his father had studied. 뒤가 완전한 문장이면 where(= in which), 빠진 게 있으면 which.\n<h4>3. one / another / the last one</h4>시(5~10)에서는 마지막까지 another(나열이 계속됨). 26번은 <b>세 부</b>라서 마지막이 the last one(= the other). \"부정대명사 쓰기\" 문제 단골.\n<h4>4. 과거완료 — 29번, 36번</h4>had studied(아버지 공부 &lt; 동주 결정), had thought of(제목 생각 &lt; 책에 제목 붙임). \"먼저 일어난 일은?\" 순서 문제와 연결.\n<h4>5. It ~ that 강조 vs 가주어 It</h4>17번(문학), 34번(몇 달 후)은 <b>강조</b>. 판별: It was와 that을 지웠을 때 문장이 되면 강조(Literature he loved most ✓ / He loved literature most). 34번은 that 대신 when도 가능.\n<h4>6. 한글은 능동, 영어는 수동</h4>26번 \"주었다·선물했다·보관했다\" → was given / was presented / was kept. 35번 출판되었다(were published), 36번 제목이 붙었다(was given the title), 13번 쓰였다(was written), 31·32번 체포되었다(was arrested).\n<h4>7. 지시어·대명사</h4>They(12) = these lines / the rare book(21) = 백석의 시집 / his advice(28) = 교수의 충고 / the idea(28) = 시 19편 출판 / the following year(31) = 1943년 / the same charges(32) = 독립운동 가담 혐의 / the poet's brother(35) = 동주의 동생 / they(35·37) = 동주의 시\n<h4>8. 동격 콤마 — 사람 이름 연결</h4>his cousin, Song Mong-gyu / a famous poet of the time, Baek Seok / his close friend, Jeong Byeong-uk. 인물을 섞는 내용확인 함정이 나와요.\n<h4>9. 숫자와 날짜</h4>1917 출생 · 시 19편 · 3부 · 1942 일본 · 다음 해(1943) 7월 10일 사촌 체포 · 나흘 뒤 동주 · 1945 사망 · 몇 달 후 독립 · 1948 출판\n<h4>10. 전치사 짝</h4>in a hurry · without a worry · by Yoon Dong-ju · by hand · under the title · advise against · for taking part in · on the same charges · in prison · after harsh treatment by · from Japan · of all ages · like the stars\n</div>"}]},{"name":"🧱 어순 배열","intro":"<b>한글 순서 그대로 놓으면 틀려요.</b> 누가 → 한다(당했다) → 무엇을 → 어디서·언제·왜. 수동태 문장은 \"당했다/~되었다\"부터 찾기!","blocks":[{"k":"qset","title":"영어 덩어리 순서대로 놓기","qs":[{"t":"ord","q":"[1] 계절이 지나가는 하늘에는","c":["In the sky","where","seasons pass","in a hurry"],"e":"관계부사 <b>where</b>(= in which): 뒤에 완전한 문장(seasons pass). in a hurry = 서둘러."},{"t":"ord","q":"[3] 나는 아무 걱정도 없이","c":["And","ready I stand","without a worry"],"e":"<b>도치</b>: I stand ready → ready I stand (ready를 앞으로). 다음 줄 To count와 이어져요(ready to count)."},{"t":"ord","q":"[12] 이것은 윤동주의 시 '별 헤는 밤'의 일부이다.","c":["They","are part of","the poem \"Counting Stars at Night","by Yoon Dong-ju"],"e":"They = these lines. by = ~가 쓴. 한글 \"윤동주의\"가 영어에선 맨 뒤."},{"t":"ord","q":"[13] 시는 오래전에 쓰였지만 여전히 한국이 가장 좋아하는 시 중의 하나로 남아 있다.","c":["The poem","was written","a long time ago","but still remains","one of Korea's favorite poems"],"e":"수동태 was written. remain + 명사(보어). one of + <b>복수</b> 명사."},{"t":"ord","q":"[14] 동주는 중국 연변 근처에서 1917년에 태어났다.","c":["Dong-ju","was born","in 1917","near Yanbin, China"],"e":"한글은 장소가 먼저, 영어는 <b>시간 → 장소</b> 순서로 뒤에."},{"t":"ord","q":"[16] 그는 또한 바느질하는 것을 무척 좋아해서 모든 친구들의 축구 유니폼에 번호를 바느질해 주기도 했다.","c":["He also loved sewing","so much that","he sewed the numbers","on all his friends' soccer uniforms"],"e":"<b>so + 부사 + that</b>: 너무 ~해서 …하다. friends'(복수 소유격)."},{"t":"ord","q":"[17] 그러나 그가 가장 사랑한 것은 문학이었다.","c":["However","it was literature","that he loved most"],"e":"<b>It ~ that 강조</b>: 목적어 literature 강조 (= He loved literature most). 앞의 운동·바느질과 대조!"},{"t":"ord","q":"[19] 심지어 사촌 송몽규와 문학잡지를 만들기도 했다.","c":["He even made","a literary magazine","with his cousin, Song Mong-gyu"],"e":"<b>동격 콤마</b>: his cousin = Song Mong-gyu. literary(문학의) ↔ literature(문학)."},{"t":"ord","q":"[20] 그가 중학교에 다니던 때 한번은 당대의 유명한 시인, 백석의 시집을 빌려 와서 책 전체를 필사하기도 했다.","c":["In middle school","he once borrowed a poetry book","by a famous poet of the time, Baek Seok","and copied the whole book","by hand"],"e":"동격 콤마: a famous poet of the time = Baek Seok. by hand: 손으로(직접)."},{"t":"ord","q":"[22] 그의 부모는 그가 의사가 되기를 바랐지만 동주는 서울에 있는 대학에서 문학 공부를 하기로 했다.","c":["His parents wanted him","to be a doctor","but Dong-ju chose","to study literature","at a college in Seoul"],"e":"<b>want + 목적어 + to부정사</b>. but: 부모의 바람 ↔ 동주의 선택 대조."},{"t":"ord","q":"[23] 대학 시절에 그는 종종 다른 젊은 시인들과 어울려 다녔고, 고향과 잃어버린 조국에 대한 심정을 표현하는 시를 썼다.","c":["During his college years","he often hung out with other young poets","and wrote poetry","where he expressed feelings","about his hometown and lost country"],"e":"during + 기간 명사. hang out with(hung). 관계부사 <b>where</b> = in which(시 속에서). lost country = 일제강점기의 나라."},{"t":"ord","q":"[24] 졸업을 기념하여 그는 〈하늘과 바람과 별과 시〉라는 제목으로 자신의 시 19편을 출판하고 싶어 했다.","c":["To celebrate his graduation","he wished to publish","19 of his poems","under the title, Heaven, Wind, Stars, and Poetry"],"e":"To celebrate = 목적(~하기 위해). under the title: ~라는 제목으로."},{"t":"ord","q":"[26] 한 부는 가까운 친구인 정병욱에게 주었고, 또 하나는 그가 가장 좋아하는 교수에게 선물했으며, 마지막 하나는 자신이 보관했다.","c":["One was given","to his close friend, Jeong Byeong-uk","another was presented","to his favorite professor","and the last one was kept","for himself"],"e":"<b>셋 중</b> One / another / the last one(= the other). 세 동사 모두 <b>수동태</b>(was given / was presented / was kept) — 한글은 능동(\"주었다\")이라 함정!"},{"t":"ord","q":"[27] 그러나 그의 교수는 일본 정부가 출판을 허가하지 않으리라 여겨, 그의 계획에 반대하는 충고를 했다.","c":["However","his professor advised against his plan","because he thought","the Japanese government would not allow","the publication"],"e":"against: ~에 반대하여. he = 교수. thought (that) — that 생략. 한글은 이유가 앞, 영어는 because절이 뒤."},{"t":"ord","q":"[29] 동주는 그의 아버지가 예전에 공부했던 나라에서 학업을 이어 가기로 했다.","c":["Dong-ju decided","to study further","in the country","where his father had studied before"],"e":"<b>과거완료</b> had studied: 아버지의 공부가 동주의 결정(decided)보다 <b>더 먼저</b>. 관계부사 where."},{"t":"ord","q":"[31] 다음 해 7월 10일에 그의 사촌은 독립운동에 가담했다는 이유로 일본 경찰에 체포되었다.","c":["On July 10 the following year","his cousin was arrested","by the Japanese police","for taking part in an independence movement"],"e":"the following year = <b>1943년</b>. 수동태 was arrested by. for(이유) + 동명사."},{"t":"ord","q":"[33] 1945년에 동주와 그의 사촌은 경찰의 가혹 행위를 당한 후 감옥에서 사망했다.","c":["In 1945","Dong-ju and his cousin","died in prison","after harsh treatment by the police"],"e":"after + 명사. harsh: 가혹한. 한글 \"당한 후\"(앞) → 영어 after 구(뒤)."},{"t":"ord","q":"[34] 한국이 일본으로부터 독립을 이룬 것은 불과 몇 달 후의 일이었다.","c":["It was just a few months later","that Korea achieved independence","from Japan"],"e":"<b>It ~ that 강조</b>: 시간 표현 강조 (that 대신 when 가능). 죽음 직후 독립 — 글쓴이가 안타까움을 강조한 문장."},{"t":"ord","q":"[35] 1948년에 정병욱이 동주의 시를 시인의 동생에게 가져다주었고, 마침내 그것들은 출판되었다.","c":["In 1948","Jeong Byeong-uk brought Dong-ju's poems","to the poet's brother","and they were finally published"],"e":"the poet's brother = 동주의 동생. they = Dong-ju's poems → 수동태 were published."},{"t":"ord","q":"[36] 책에는 시인이 수년 전에 생각해 두었던 그 제목이 붙었다.","c":["The book was given","the title","the poet had thought of many years before"],"e":"<b>과거완료</b> had thought of: 제목을 생각한 것이 책에 제목이 붙은 것(was given)보다 먼저. title 뒤 which[that] 생략. was given + 명사(4형식 수동)."},{"t":"ord","q":"[37] 그의 시는 모든 세대의 사랑을 받고 있고, 따라서 그것들은 가을밤 하늘의 별처럼 우리 가슴 속에 여전히 밝게 빛나고 있다.","c":["His poems are loved","by people of all ages","and thus they still shine brightly","in our hearts","like the stars in the autumn night sky"],"e":"수동태 are loved by. thus: 따라서(결과). like: ~처럼. 첫 시의 별·가을과 연결되는 <b>수미상관</b> 마무리."}]}]},{"name":"✍️ 거꾸로 영작","intro":"<b>쓰기 전에 3단계</b>: ① 뼈대(누가 + 한다/당했다) ② 능동인지 수동인지 ③ 꾸밈 덩어리(관계사·동격·시간·장소)를 뒤에 붙이기. 문장부호는 채점에 상관없어요. 틀리면 \"정답 보기\".","blocks":[{"k":"qset","title":"핵심 문장 거꾸로 영작","qs":[{"t":"in","q":"[3] 나는 아무 걱정도 없이 <span class=\"badge b-lav\">도치, ready</span>","a":"And ready I stand, without a worry,","e":"<b>도치</b>: I stand ready → ready I stand (ready를 앞으로). 다음 줄 To count와 이어져요(ready to count).","ph":"영어 문장 쓰기"},{"t":"in","q":"[13] 시는 오래전에 쓰였지만 여전히 한국이 가장 좋아하는 시 중의 하나로 남아 있다. <span class=\"badge b-lav\">was written, remain, one of</span>","a":"The poem was written a long time ago but still remains one of Korea's favorite poems.","e":"수동태 was written. remain + 명사(보어). one of + <b>복수</b> 명사.","ph":"영어 문장 쓰기"},{"t":"in","q":"[16] 그는 또한 바느질하는 것을 무척 좋아해서 모든 친구들의 축구 유니폼에 번호를 바느질해 주기도 했다. <span class=\"badge b-lav\">so ~ that, sew</span>","a":"He also loved sewing so much that he sewed the numbers on all his friends' soccer uniforms.","e":"<b>so + 부사 + that</b>: 너무 ~해서 …하다. friends'(복수 소유격).","ph":"영어 문장 쓰기"},{"t":"in","q":"[17] 그러나 그가 가장 사랑한 것은 문학이었다. <span class=\"badge b-lav\">It ~ that 강조</span>","a":"However, it was literature that he loved most.","e":"<b>It ~ that 강조</b>: 목적어 literature 강조 (= He loved literature most). 앞의 운동·바느질과 대조!","ph":"영어 문장 쓰기"},{"t":"in","q":"[19] 심지어 사촌 송몽규와 문학잡지를 만들기도 했다. <span class=\"badge b-lav\">literary, 동격</span>","a":"He even made a literary magazine with his cousin, Song Mong-gyu.","e":"<b>동격 콤마</b>: his cousin = Song Mong-gyu. literary(문학의) ↔ literature(문학).","ph":"영어 문장 쓰기"},{"t":"in","q":"[20] 그가 중학교에 다니던 때 한번은 당대의 유명한 시인, 백석의 시집을 빌려 와서 책 전체를 필사하기도 했다. <span class=\"badge b-lav\">borrow, of the time, by hand</span>","a":"In middle school he once borrowed a poetry book by a famous poet of the time, Baek Seok, and copied the whole book by hand.","e":"동격 콤마: a famous poet of the time = Baek Seok. by hand: 손으로(직접).","ph":"영어 문장 쓰기"},{"t":"in","q":"[22] 그의 부모는 그가 의사가 되기를 바랐지만 동주는 서울에 있는 대학에서 문학 공부를 하기로 했다. <span class=\"badge b-lav\">want, choose</span>","a":"His parents wanted him to be a doctor, but Dong-ju chose to study literature at a college in Seoul.","e":"<b>want + 목적어 + to부정사</b>. but: 부모의 바람 ↔ 동주의 선택 대조.","ph":"영어 문장 쓰기"},{"t":"in","q":"[23] 대학 시절에 그는 종종 다른 젊은 시인들과 어울려 다녔고, 고향과 잃어버린 조국에 대한 심정을 표현하는 시를 썼다. <span class=\"badge b-lav\">hang out with, where</span>","a":"During his college years, he often hung out with other young poets and wrote poetry where he expressed feelings about his hometown and lost country.","e":"during + 기간 명사. hang out with(hung). 관계부사 <b>where</b> = in which(시 속에서). lost country = 일제강점기의 나라.","ph":"영어 문장 쓰기"},{"t":"in","q":"[24] 졸업을 기념하여 그는 〈하늘과 바람과 별과 시〉라는 제목으로 자신의 시 19편을 출판하고 싶어 했다. <span class=\"badge b-lav\">to celebrate, under the title</span>","a":"To celebrate his graduation, he wished to publish 19 of his poems under the title, Heaven, Wind, Stars, and Poetry.","e":"To celebrate = 목적(~하기 위해). under the title: ~라는 제목으로.","ph":"영어 문장 쓰기"},{"t":"in","q":"[26] 한 부는 가까운 친구인 정병욱에게 주었고, 또 하나는 그가 가장 좋아하는 교수에게 선물했으며, 마지막 하나는 자신이 보관했다. <span class=\"badge b-lav\">One, another, the last one, 수동태</span>","a":"One was given to his close friend, Jeong Byeong-uk, another was presented to his favorite professor, and the last one was kept for himself.","e":"<b>셋 중</b> One / another / the last one(= the other). 세 동사 모두 <b>수동태</b>(was given / was presented / was kept) — 한글은 능동(\"주었다\")이라 함정!","ph":"영어 문장 쓰기"},{"t":"in","q":"[27] 그러나 그의 교수는 일본 정부가 출판을 허가하지 않으리라 여겨, 그의 계획에 반대하는 충고를 했다. <span class=\"badge b-lav\">advise against, because</span>","a":"However, his professor advised against his plan because he thought the Japanese government would not allow the publication.","e":"against: ~에 반대하여. he = 교수. thought (that) — that 생략. 한글은 이유가 앞, 영어는 because절이 뒤.","ph":"영어 문장 쓰기"},{"t":"in","q":"[29] 동주는 그의 아버지가 예전에 공부했던 나라에서 학업을 이어 가기로 했다. <span class=\"badge b-lav\">further, where, 과거완료</span>","a":"Dong-ju decided to study further in the country where his father had studied before.","e":"<b>과거완료</b> had studied: 아버지의 공부가 동주의 결정(decided)보다 <b>더 먼저</b>. 관계부사 where.","ph":"영어 문장 쓰기"},{"t":"in","q":"[31] 다음 해 7월 10일에 그의 사촌은 독립운동에 가담했다는 이유로 일본 경찰에 체포되었다. <span class=\"badge b-lav\">the following year, be arrested, for</span>","a":"On July 10 the following year, his cousin was arrested by the Japanese police for taking part in an independence movement.","e":"the following year = <b>1943년</b>. 수동태 was arrested by. for(이유) + 동명사.","ph":"영어 문장 쓰기"},{"t":"in","q":"[33] 1945년에 동주와 그의 사촌은 경찰의 가혹 행위를 당한 후 감옥에서 사망했다. <span class=\"badge b-lav\">in prison, harsh treatment</span>","a":"In 1945, Dong-ju and his cousin died in prison after harsh treatment by the police.","e":"after + 명사. harsh: 가혹한. 한글 \"당한 후\"(앞) → 영어 after 구(뒤).","ph":"영어 문장 쓰기"},{"t":"in","q":"[34] 한국이 일본으로부터 독립을 이룬 것은 불과 몇 달 후의 일이었다. <span class=\"badge b-lav\">It ~ that 강조, achieve</span>","a":"It was just a few months later that Korea achieved independence from Japan.","e":"<b>It ~ that 강조</b>: 시간 표현 강조 (that 대신 when 가능). 죽음 직후 독립 — 글쓴이가 안타까움을 강조한 문장.","ph":"영어 문장 쓰기"},{"t":"in","q":"[35] 1948년에 정병욱이 동주의 시를 시인의 동생에게 가져다주었고, 마침내 그것들은 출판되었다. <span class=\"badge b-lav\">brought, the poet's brother, were published</span>","a":"In 1948, Jeong Byeong-uk brought Dong-ju's poems to the poet's brother, and they were finally published.","e":"the poet's brother = 동주의 동생. they = Dong-ju's poems → 수동태 were published.","ph":"영어 문장 쓰기"},{"t":"in","q":"[36] 책에는 시인이 수년 전에 생각해 두었던 그 제목이 붙었다. <span class=\"badge b-lav\">was given, 과거완료</span>","a":[["The book was given the title (that) the poet had thought of many years before.","The book was given the title which the poet had thought of many years before."]],"e":"<b>과거완료</b> had thought of: 제목을 생각한 것이 책에 제목이 붙은 것(was given)보다 먼저. title 뒤 which[that] 생략. was given + 명사(4형식 수동).","ph":"영어 문장 쓰기"},{"t":"in","q":"[37] 그의 시는 모든 세대의 사랑을 받고 있고, 따라서 그것들은 가을밤 하늘의 별처럼 우리 가슴 속에 여전히 밝게 빛나고 있다. <span class=\"badge b-lav\">are loved, thus, like</span>","a":"His poems are loved by people of all ages, and thus they still shine brightly in our hearts like the stars in the autumn night sky.","e":"수동태 are loved by. thus: 따라서(결과). like: ~처럼. 첫 시의 별·가을과 연결되는 <b>수미상관</b> 마무리.","ph":"영어 문장 쓰기"}]}]},{"name":"✏️ 빈칸·핵심 문법","intro":"<b>과거완료 · It ~ that 강조 · 관계부사 where · 수동태 · one/another</b>가 핵심이에요. 이유까지 말할 수 있어야 진짜 아는 거예요.","blocks":[{"k":"qset","title":"A. 핵심 표현 빈칸","qs":[{"t":"in","q":"계절이 지나가는 하늘에는","s":"In the sky [] seasons pass [] a hurry","a":["where","in"],"e":"관계부사 where / in a hurry"},{"t":"in","q":"나는 아무 걱정도 없이 가을 속의 별들을 다 헤일 듯합니다.","s":"And [] I stand, [] a worry, To count all the stars there.","a":["ready","without"],"e":"도치 ready I stand / without a worry"},{"t":"in","q":"별 하나에 추억과 / 별 하나에 사랑과","s":"Memory for [] star, Love for [] star,","a":["one","another"],"e":"나열: one → another"},{"t":"in","q":"그는 바느질하는 것을 무척 좋아해서 친구들의 유니폼에 번호를 바느질해 주었다.","s":"He also loved sewing [] much [] he sewed the numbers on all his friends' soccer uniforms.","a":["so","that"],"e":"so + 부사 + that"},{"t":"in","q":"그러나 그가 가장 사랑한 것은 문학이었다.","s":"However, [] was literature [] he loved most.","a":["it","that"],"e":"It ~ that 강조"},{"t":"in","q":"그의 부모는 그가 의사가 되기를 바랐다.","s":"His parents wanted [] [] be a doctor.","a":["him","to"],"e":"want + 목적격 + to부정사"},{"t":"in","q":"대학 시절에 그는 종종 다른 젊은 시인들과 어울렸다.","s":"[] his college years, he often hung [] [] other young poets.","a":["during","out","with"],"e":"during + 기간 / hang out with"},{"t":"in","q":"졸업을 기념하여 그는 ~라는 제목으로 시 19편을 출판하고 싶어 했다.","s":"[] celebrate his graduation, he wished to publish 19 of his poems [] the title, ...","a":["to","under"],"e":"목적의 to부정사 / under the title"},{"t":"in","q":"한 부는 정병욱에게, 또 하나는 교수에게 주었고, 마지막 하나는 자신이 보관했다.","s":"One was given to his close friend, Jeong Byeong-uk, [] was presented to his favorite professor, and the [] one was kept for himself.","a":["another","last"],"e":"One / another / the last one"},{"t":"in","q":"그의 교수는 그의 계획에 반대하는 충고를 했다.","s":"His professor advised [] his plan.","a":["against"],"e":"advise against: ~에 반대하는 충고를 하다"},{"t":"in","q":"그의 아버지가 예전에 공부했던 나라에서","s":"in the country [] his father [] [] before","a":["where","had","studied"],"e":"관계부사 where + 과거완료"},{"t":"in","q":"그의 사촌은 독립운동에 가담했다는 이유로 체포되었다.","s":"His cousin was arrested by the Japanese police [] taking part [] an independence movement.","a":["for","in"],"e":"for(이유) + 동명사 / take part in"},{"t":"in","q":"나흘 뒤 동주 역시 같은 혐의로 체포되었다.","s":"Four days later, Dong-ju was also arrested [] the same charges.","a":["on"],"e":"on ~ charges: ~ 혐의로"},{"t":"in","q":"한국이 일본으로부터 독립을 이룬 것은 불과 몇 달 후의 일이었다.","s":"It was just a few months later [] Korea achieved independence [] Japan.","a":["that|when","from"],"e":"강조구문 that(시간 강조라 when도 가능) / from Japan"},{"t":"in","q":"책에는 시인이 수년 전에 생각해 두었던 그 제목이 붙었다.","s":"The book was given the title the poet [] [] of many years before.","a":["had","thought"],"e":"과거완료 had thought of"},{"t":"in","q":"그의 시는 모든 세대의 사랑을 받고 있다.","s":"His poems are loved [] people [] all ages.","a":["by","of"],"e":"수동태 by / of all ages"}]},{"k":"qset","title":"B. 어법에 맞는 것 고르기","qs":[{"t":"mc","inline":1,"q":"In the sky (where / which) seasons pass in a hurry","o":["where","which"],"a":0,"e":"뒤가 완전한 문장(seasons pass) → 관계부사 where."},{"t":"mc","inline":1,"q":"He wrote poetry (where / which) he expressed feelings about his hometown.","o":["where","which"],"a":0,"e":"he expressed feelings — 완전한 문장 → where(= in which)."},{"t":"mc","inline":1,"q":"in the country (where / which) his father had studied before","o":["where","which"],"a":0,"e":"study는 여기서 목적어 없이 쓰인 자동사 → 완전한 문장 → where."},{"t":"mc","inline":1,"q":"Dong-ju decided to study further in the country where his father (has studied / had studied) before.","o":["has studied","had studied"],"a":1,"e":"결정(decided)보다 더 먼저 → 과거완료."},{"t":"mc","inline":1,"q":"The book was given the title the poet (had thought / has thought) of many years before.","o":["had thought","has thought"],"a":0,"e":"제목이 붙은 것(was given)보다 먼저 → 과거완료."},{"t":"mc","inline":1,"q":"However, it was literature (that / what) he loved most.","o":["that","what"],"a":0,"e":"It ~ that 강조구문."},{"t":"mc","inline":1,"q":"He loved sewing (so / such) much that he sewed the numbers.","o":["so","such"],"a":0,"e":"so + 부사(much) + that. such는 뒤에 명사."},{"t":"mc","inline":1,"q":"His parents wanted him (to be / be) a doctor.","o":["to be","be"],"a":0,"e":"want + 목적어 + to부정사."},{"t":"mc","inline":1,"q":"One was given to his friend, (another / other) was presented to his professor.","o":["another","other"],"a":0,"e":"또 하나 → another."},{"t":"mc","inline":1,"q":"..., and (the last one / another) was kept for himself.","o":["the last one","another"],"a":0,"e":"셋 중 마지막 하나 → the last one(= the other)."},{"t":"mc","inline":1,"q":"The poem (wrote / was written) a long time ago.","o":["wrote","was written"],"a":1,"e":"시는 \"쓰인\" 것 → 수동태."},{"t":"mc","inline":1,"q":"His cousin (arrested / was arrested) by the Japanese police.","o":["arrested","was arrested"],"a":1,"e":"by + 행위자 → 수동태."},{"t":"mc","inline":1,"q":"... for (taking / take) part in an independence movement.","o":["taking","take"],"a":0,"e":"전치사 for + 동명사."},{"t":"mc","inline":1,"q":"Jeong Byeong-uk brought Dong-ju's poems to the poet's brother, and they were finally (published / publishing).","o":["published","publishing"],"a":0,"e":"시가 \"출판된\" 것 → 수동태 were published."},{"t":"mc","inline":1,"q":"(Celebrate / To celebrate) his graduation, he wished to publish 19 of his poems.","o":["Celebrate","To celebrate"],"a":1,"e":"목적(~하기 위해) → To celebrate."},{"t":"mc","inline":1,"q":"His poems are loved by people of all ages, and thus they still shine (brightly / bright).","o":["brightly","bright"],"a":0,"e":"동사 shine을 꾸밈 → 부사 brightly."}]},{"k":"qset","title":"C. 강조 It? 가주어 It? / 무엇이 먼저?","note":"<b>강조 판별</b>: It + be동사와 that을 지웠을 때 남은 말로 문장이 되면 강조. <b>과거완료</b>: had p.p. 쪽이 더 먼저!","qs":[{"t":"mc","inline":1,"q":"It was literature that he loved most.","o":["강조 구문","가주어 It"],"a":0,"e":"It was / that 지우면 → (He loved) literature most ✓ 강조."},{"t":"mc","inline":1,"q":"It is surprising that he copied the whole book by hand.","o":["강조 구문","가주어 It"],"a":1,"e":"that 뒤가 완전한 문장, \"~라는 것은 놀랍다\" → 가주어(진주어 that절)."},{"t":"mc","inline":1,"q":"It was in 1942 that Dong-ju went to Japan.","o":["강조 구문","가주어 It"],"a":0,"e":"It was / that 지우면 → In 1942 Dong-ju went to Japan ✓ 강조."},{"t":"mc","inline":1,"q":"It is true that his poems are loved by many people.","o":["강조 구문","가주어 It"],"a":1,"e":"\"~라는 것은 사실이다\" → 가주어."},{"t":"mc","inline":1,"q":"It was Jeong Byeong-uk that brought the poems to the poet's brother.","o":["강조 구문","가주어 It"],"a":0,"e":"주어 Jeong Byeong-uk 강조 (that 대신 who도 가능)."},{"t":"mc","q":"Dong-ju decided to study further in the country where his father had studied before.<br>먼저 일어난 일은?","o":["동주가 더 공부하기로 결정한 것","아버지가 그 나라에서 공부한 것"],"a":1,"e":"had studied(과거완료) 쪽이 먼저."},{"t":"mc","q":"The book was given the title the poet had thought of many years before.<br>먼저 일어난 일은?","o":["책에 제목이 붙은 것","시인이 그 제목을 생각해 둔 것"],"a":1,"e":"had thought of(과거완료) 쪽이 먼저."},{"t":"in","q":"다음 문장의 밑줄 친 부분을 강조하는 문장으로 다시 쓰시오.<br>Korea achieved independence from Japan <u>just a few months later</u>.","a":"It was just a few months later that Korea achieved independence from Japan.|It was just a few months later when Korea achieved independence from Japan.","ph":"영어 문장 쓰기","e":"It was + 강조할 말 + that + 나머지. (시간 강조라 when도 가능)"},{"t":"in","q":"다음 문장을 원래 어순으로 고쳐 쓰시오. (3단어)<br>ready I stand","a":"I stand ready","e":"도치 복원: 주어 + 동사 + 보어(ready)."}]}]},{"name":"👉 지시어·연결어","intro":"<b>대명사·지시어는 바로 앞에서 찾기.</b> 인물이 많은 글이라 \"누가 무엇을\"이 시험에 꼭 나와요.","blocks":[{"k":"qset","title":"A. 가리키는 것 찾기","qs":[{"t":"in","q":"\"<u>They</u> are part of the poem ...\"의 They가 가리키는 말을 본문에서 찾아 쓰시오. (2단어)","a":"these lines","e":"앞 문장의 these lines(이 시 구절들)."},{"t":"mc","q":"\"He really wanted to have his own copy of <u>the rare book</u>.\"의 the rare book은?","o":["동주가 만든 문학잡지","백석의 시집","〈하늘과 바람과 별과 시〉","교수가 준 책","송몽규의 시집"],"a":1,"e":"앞 문장의 a poetry book by ... Baek Seok."},{"t":"mc","q":"\"Dong-ju followed <u>his advice</u> and gave up <u>the idea</u>.\"에서 두 밑줄이 가리키는 것은?","o":["부모의 충고 / 의사가 되는 것","교수의 충고 / 시 19편을 시집으로 출판하는 것","정병욱의 충고 / 일본에 가는 것","교수의 충고 / 대학을 졸업하는 것","사촌의 충고 / 독립운동을 하는 것"],"a":1,"e":"his = 27번의 교수. the idea = 24번의 출판 계획."},{"t":"in","q":"\"On July 10 <u>the following year</u>\"가 가리키는 연도를 쓰시오.","a":"1943|1943년","e":"앞 문장의 1942년의 다음 해 → 1943년."},{"t":"mc","q":"\"Dong-ju was also arrested on <u>the same charges</u>.\"의 the same charges는?","o":["일본에서 공부한 혐의","시집을 출판하려 한 혐의","독립운동에 가담한 혐의","책을 베낀 혐의","교수의 충고를 따르지 않은 혐의"],"a":2,"e":"31번: for taking part in an independence movement."},{"t":"mc","q":"\"Jeong Byeong-uk brought Dong-ju's poems to <u>the poet's brother</u>\"의 밑줄은 누구?","o":["백석의 동생","정병욱의 동생","동주의 동생","송몽규의 동생","교수의 동생"],"a":2,"e":"the poet = 동주(Dong-ju)."},{"t":"in","q":"\"..., and <u>they</u> were finally published.\"의 they가 가리키는 말을 본문에서 찾아 쓰시오. (2단어)","a":"dong-ju's poems|dongju's poems","e":"Dong-ju's poems."},{"t":"mc","q":"27번 \"because <u>he</u> thought the Japanese government would not allow the publication\"의 he는?","o":["동주","동주의 교수","정병욱","동주의 아버지","송몽규"],"a":1,"e":"앞의 his professor."}]},{"k":"qset","title":"B. 인물 — 누가 무엇을?","qs":[{"t":"mc","q":"동주와 함께 문학잡지를 만들고, 함께 일본에서 공부한 사람은?","o":["정병욱","백석","송몽규","교수","동생"],"a":2,"e":"his cousin, Song Mong-gyu (19, 30번)."},{"t":"mc","q":"동주가 시집을 빌려 손으로 통째로 베낀 시인은?","o":["정병욱","백석","송몽규","교수","동생"],"a":1,"e":"a famous poet of the time, Baek Seok (20번)."},{"t":"mc","q":"손으로 만든 시집 한 부를 받고, 1948년에 동주의 시를 동생에게 가져간 사람은?","o":["정병욱","백석","송몽규","교수","부모"],"a":0,"e":"his close friend, Jeong Byeong-uk (26, 35번)."},{"t":"mc","q":"시집 출판에 반대하는 충고를 한 사람은?","o":["부모","사촌","정병욱","교수","동생"],"a":3,"e":"27번 his professor."},{"t":"mc","q":"1943년 7월 10일, 동주보다 먼저 체포된 사람은?","o":["정병욱","송몽규","교수","동주의 아버지","백석"],"a":1,"e":"his cousin (31번) → 나흘 뒤 동주."},{"t":"mc","q":"손으로 만든 시집 세 부의 주인이 바르게 짝지어진 것은?","o":["정병욱 – 부모 – 동주","정병욱 – 교수 – 동주","송몽규 – 교수 – 정병욱","교수 – 정병욱 – 동생","정병욱 – 백석 – 동주"],"a":1,"e":"One → 정병욱, another → 교수, the last one → 자신(동주)."}]},{"k":"qset","title":"C. 연결어 · 표현의 역할","qs":[{"t":"mc","q":"17번 \"However, it was literature that he loved most.\"에서 However의 역할은?","o":["앞에 말한 운동·바느질과 달리 문학이 가장 소중했음을 대조","앞 내용의 예를 듦","앞 내용의 결과를 말함","시간의 순서를 나타냄","앞 내용을 다시 말함"],"a":0,"e":"운동·바느질(15~16) ↔ 그래도 가장 사랑한 건 문학."},{"t":"mc","q":"30번 \"So, in 1942, ...\"의 So가 이어 주는 것은?","o":["교수의 반대 → 출판 포기","일본에서 공부하기로 한 결정 → 1942년 일본 유학","체포 → 사망","사망 → 독립","출판 → 사랑받음"],"a":1,"e":"29번 결정의 결과."},{"t":"mc","q":"시(5~10행)의 one star / another star와 26번의 One / another / the last one을 비교한 설명으로 맞는 것은?","o":["둘 다 셋 중 하나를 가리킨다.","시는 여러 개를 계속 나열해서 마지막도 another, 26번은 셋뿐이라 마지막이 the last one이다.","시에서도 마지막은 the other로 써야 한다.","26번의 another는 \"다른 모든 것\"이라는 뜻이다.","두 경우 모두 the last one을 쓸 수 없다."],"a":1,"e":"정해진 개수(셋) 중 마지막 = the last one(= the other)."},{"t":"mc","q":"시의 분위기로 가장 알맞은 것은?","o":["신나고 활기찬","무섭고 긴장된","그립고 쓸쓸한","화나고 억울한","지루하고 무관심한"],"a":2,"e":"추억·사랑·쓸쓸함·동경·어머니 — 그리움과 쓸쓸함."},{"t":"mc","q":"이 글(11~37)과 같은 종류의 글은?","o":["일기","광고문","전기문(인물의 일생)","설명서","초대장"],"a":2,"e":"한 인물의 일생을 시간 순서로 소개 → 전기문."}]}]},{"name":"🔢 순서·내용확인","intro":"<b>연도·시간 표현이 단서!</b> the following year, Four days later, just a few months later, In 1948. 과거완료는 더 앞선 일.","blocks":[{"k":"qset","title":"A. 타임라인 · 순서","qs":[{"t":"ord","blk":1,"q":"동주의 삶 — 실제로 일어난 순서대로 놓으세요.","c":["1917년 중국 연변 근처에서 태어남","중학교 때 백석의 시집을 손으로 베낌","서울의 대학에서 문학 공부","졸업 기념 시집 세 부를 손으로 만듦","교수의 충고로 출판 포기","1942년 사촌과 일본 유학","사촌 체포 → 나흘 뒤 동주 체포","1945년 감옥에서 사망","몇 달 뒤 한국 독립","1948년 시집 출판"],"e":"출생 → 중학 → 대학 → 시집 → 포기 → 일본 → 체포 → 사망 → 독립 → 출판"},{"t":"mc","q":"다음 중 가장 <b>먼저</b> 일어난 일은?","o":["동주가 일본에서 공부를 시작했다.","동주의 아버지가 그 나라에서 공부했다.","동주의 사촌이 체포되었다.","동주가 더 공부하기로 결정했다.","한국이 독립을 이루었다."],"a":1,"e":"29번 had studied(과거완료) — 동주의 결정보다 먼저."},{"t":"mc","q":"다음 중 가장 <b>나중</b>에 일어난 일은?","o":["시인이 책 제목을 생각해 두었다.","정병욱이 시를 동생에게 가져갔다.","책에 그 제목이 붙었다.","동주가 시집 세 부를 만들었다.","교수가 출판에 반대했다."],"a":2,"e":"1948년 시를 가져감 → 출판 → 제목이 붙음. 제목 생각(had thought of)은 훨씬 전."},{"t":"ord","blk":1,"q":"시집의 꿈 — 다음 문장들을 순서대로 놓으세요.","c":["To celebrate his graduation, he wished to publish 19 of his poems under the title, Heaven, Wind, Stars, and Poetry.","He made three copies of the book by hand.","One was given to his close friend, Jeong Byeong-uk, another was presented to his favorite professor, and the last one was kept for himself.","However, his professor advised against his plan because he thought the Japanese government would not allow the publication.","Dong-ju followed his advice and gave up the idea."],"e":"소망 → 세 부 → 셋의 행방(One/another/the last one) → However 반대 → 포기(his advice, the idea)"},{"t":"ord","blk":1,"q":"비극 — 다음 문장들을 순서대로 놓으세요.","c":["So, in 1942, Dong-ju and his cousin began to study in Japan.","On July 10 the following year, his cousin was arrested by the Japanese police for taking part in an independence movement.","Four days later, Dong-ju was also arrested on the same charges.","In 1945, Dong-ju and his cousin died in prison after harsh treatment by the police.","It was just a few months later that Korea achieved independence from Japan."],"e":"1942 → 다음 해 → 나흘 뒤(also, the same) → 1945 → 몇 달 후"}]},{"k":"qset","title":"B. 주어진 문장이 들어갈 위치","qs":[{"t":"mc","nonum":1,"inline":1,"q":"다음 문장이 들어갈 위치로 가장 알맞은 곳은?<br><b>However, it was literature that he loved most.</b>","p":"Dong-ju was born in 1917 near Yanbin, China. <span class=\"mark\">( ① )</span> As a young boy, he loved sports, and he was a soccer player for his school. <span class=\"mark\">( ② )</span> He also loved sewing so much that he sewed the numbers on all his friends' soccer uniforms. <span class=\"mark\">( ③ )</span> In elementary school he wrote a lot of poems. <span class=\"mark\">( ④ )</span> He even made a literary magazine with his cousin, Song Mong-gyu. <span class=\"mark\">( ⑤ )</span>","o":["①","②","③","④","⑤"],"a":2,"e":"운동·바느질(좋아한 것들) 뒤 → However 가장 사랑한 건 문학 → 그 증거(시, 잡지)."},{"t":"mc","nonum":1,"inline":1,"q":"다음 문장이 들어갈 위치로 가장 알맞은 곳은?<br><b>He really wanted to have his own copy of the rare book.</b>","p":"In middle school he once borrowed a poetry book by a famous poet of the time, Baek Seok, and copied the whole book by hand. <span class=\"mark\">( ① )</span> His parents wanted him to be a doctor, but Dong-ju chose to study literature at a college in Seoul. <span class=\"mark\">( ② )</span> During his college years, he often hung out with other young poets. <span class=\"mark\">( ③ )</span> To celebrate his graduation, he wished to publish 19 of his poems. <span class=\"mark\">( ④ )</span> He made three copies of the book by hand. <span class=\"mark\">( ⑤ )</span>","o":["①","②","③","④","⑤"],"a":0,"e":"the rare book = 바로 앞의 백석 시집. 베낀 이유를 덧붙이는 문장."},{"t":"mc","nonum":1,"inline":1,"q":"다음 문장이 들어갈 위치로 가장 알맞은 곳은?<br><b>Four days later, Dong-ju was also arrested on the same charges.</b>","p":"So, in 1942, Dong-ju and his cousin began to study in Japan. <span class=\"mark\">( ① )</span> On July 10 the following year, his cousin was arrested by the Japanese police for taking part in an independence movement. <span class=\"mark\">( ② )</span> In 1945, Dong-ju and his cousin died in prison after harsh treatment by the police. <span class=\"mark\">( ③ )</span> It was just a few months later that Korea achieved independence from Japan. <span class=\"mark\">( ④ )</span> In 1948, Jeong Byeong-uk brought Dong-ju's poems to the poet's brother. <span class=\"mark\">( ⑤ )</span>","o":["①","②","③","④","⑤"],"a":1,"e":"also(역시), the same charges(같은 혐의) → 사촌 체포 바로 뒤."},{"t":"mc","q":"다음 글의 흐름과 관계<b>없는</b> 문장은?","p":"His parents wanted him to be a doctor, but Dong-ju chose to study literature at a college in Seoul. ① During his college years, he often hung out with other young poets. ② Medical school is much harder than literature school. ③ To celebrate his graduation, he wished to publish 19 of his poems. ④ He made three copies of the book by hand. ⑤ However, his professor advised against his plan.","o":["①","②","③","④","⑤"],"nonum":1,"inline":1,"a":1,"e":"동주의 대학 시절과 시집 이야기 → 의대가 더 어렵다는 말은 관계없음."}]},{"k":"qset","title":"C. 내용확인","qs":[{"t":"mc","inline":1,"q":"Dong-ju was born in Seoul in 1917.","o":["T (일치)","F (불일치)"],"a":1,"e":"중국 연변 근처(near Yanbin, China)."},{"t":"mc","inline":1,"q":"Dong-ju was a soccer player for his school.","o":["T (일치)","F (불일치)"],"a":0,"e":"15번."},{"t":"mc","inline":1,"q":"Dong-ju bought a poetry book by Baek Seok in middle school.","o":["T (일치)","F (불일치)"],"a":1,"tag":"함정","e":"산 게 아니라 <b>빌려서(borrowed)</b> 손으로 베꼈어요."},{"t":"mc","inline":1,"q":"Dong-ju's parents wanted him to study literature.","o":["T (일치)","F (불일치)"],"a":1,"e":"부모는 <b>의사</b>가 되길 원했어요."},{"t":"mc","inline":1,"q":"Dong-ju wanted to publish 19 of his poems to celebrate his graduation.","o":["T (일치)","F (불일치)"],"a":0,"e":"24번."},{"t":"mc","inline":1,"q":"Dong-ju gave all three copies of the book to his friends.","o":["T (일치)","F (불일치)"],"a":1,"e":"마지막 한 부는 자신이 보관했어요."},{"t":"mc","inline":1,"q":"Dong-ju was arrested before his cousin.","o":["T (일치)","F (불일치)"],"a":1,"tag":"함정","e":"사촌이 먼저, 동주는 <b>나흘 뒤</b>."},{"t":"mc","inline":1,"q":"Dong-ju died a few months before Korea achieved independence.","o":["T (일치)","F (불일치)"],"a":0,"e":"34번 — 독립은 불과 몇 달 후."},{"t":"mc","inline":1,"q":"Dong-ju's poems were published while he was alive.","o":["T (일치)","F (불일치)"],"a":1,"e":"1948년, 그가 죽은 뒤 출판."},{"t":"mc","inline":1,"q":"The title of the book was decided by Jeong Byeong-uk.","o":["T (일치)","F (불일치)"],"a":1,"e":"시인(동주)이 수년 전에 생각해 둔 제목."},{"t":"mc","q":"본문을 읽고 답할 수 <b>없는</b> 질문은?","o":["Where was Dong-ju born?","Why did Dong-ju copy the poetry book by hand?","How many copies of the book did Dong-ju make?","What did Dong-ju study in Japan?","When were Dong-ju's poems published?"],"a":3,"e":"일본에서 무엇을 공부했는지는 나오지 않아요."},{"t":"mc","q":"Why did Dong-ju copy the poetry book by hand?","o":["Because his professor told him to.","Because he wanted to have his own copy of the rare book.","Because he wanted to publish it.","Because his cousin asked him to.","Because he had to give it to Jeong Byeong-uk."],"a":1,"e":"21번."},{"t":"mc","q":"본문의 내용과 일치하는 것은?","o":["동주는 대학에서 의학을 공부했다.","교수는 일본 정부가 출판을 허락할 것이라고 생각했다.","동주는 교수의 충고를 따르지 않았다.","동주의 사촌은 독립운동에 가담한 이유로 체포되었다.","동주의 시는 1945년에 출판되었다."],"a":3,"e":"31번. ① 문학 ② 허락하지 않을 것 ③ 따랐다 ⑤ 1948년."}]},{"k":"flip","title":"📚 글의 종류 — 영어로 나오는 단어","note":"<b>판단 기준</b>: 실제 인물인가? → biography / autobiography · 지어낸 이야기 + 교훈? → fable · 사실 전달? → article · 의견 주장? → editorial","rows":[["biography","전기 — 다른 사람이 쓴 실존 인물의 일생","5과 윤동주 이야기 ✓ (시간 순서, 연도, 사실)"],["autobiography","자서전 — 자기가 쓴 자기 일생","함정! 주어가 I가 아니면 자서전 아님"],["fable","우화 — 교훈을 주는 짧은 지어낸 이야기 (동물이 말하기도 함)","6과 공유지 이야기 ✓ (Once upon a time + 교훈)"],["folktale / fairy tale","민담·옛이야기 / 동화",""],["poem / poetry","시 (한 편 / 시 전체)","5과 1~10행 ✓"],["novel","소설 (긴 이야기)",""],["play","희곡, 연극",""],["essay","수필, 에세이",""],["diary / journal","일기",""],["article","기사 (사실 전달)",""],["editorial","사설 (신문사의 의견)",""],["review","감상문, 평론",""],["advertisement","광고",""],["brochure","안내 책자",""],["newsletter","소식지",""]]},{"k":"qset","title":"D. 영어로 묻는 글의 종류 · 목적 · 제목","qs":[{"t":"mc","q":"What do you call this kind of passage (lines 11~37)?","o":["journal","editorial","autobiography","biography","fable"],"a":3,"e":"실존 인물(윤동주)의 일생을 다른 사람이 시간 순서로 쓴 글 → <b>biography</b>(전기). 동주 자신이 쓴 게 아니라서 autobiography(자서전) ✗."},{"t":"mc","q":"What kind of writing are lines 1~10?","o":["a play","a novel","a poem","a letter","an advertisement"],"a":2,"e":"「별 헤는 밤」의 일부 → <b>a poem</b>."},{"t":"mc","q":"What is the main purpose of the passage?","o":["to explain how to write poems","to introduce the life of the poet who wrote \"Counting Stars at Night\"","to advertise a new poetry book","to compare two famous poets","to describe the history of Japan"],"a":1,"e":"시를 보여 준 뒤 그 시를 쓴 시인의 삶을 소개."},{"t":"mc","q":"Which is the best title for the passage?","o":["How to Count Stars","Soccer and Sewing","Studying Abroad in Japan","The Life of a Poet Who Still Shines Like a Star","How to Publish a Book"],"a":3,"e":"시인의 일생 + 지금도 별처럼 빛남(37번)."},{"t":"mc","q":"Which best describes the mood of the poem (lines 1~10)?","o":["exciting and cheerful","lonely and full of longing","scary and tense","angry and upset","funny and silly"],"a":1,"e":"추억·사랑·쓸쓸함(loneliness)·동경(longing)·어머니 → 그립고 쓸쓸함."}]}]}]};
+</script>
+<script>
+(function(){
+'use strict';
+var D = window.DATA;
+var REG = [];          // all question objects
+var TABQ = [];         // per tab arrays of questions
+var NUMS = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩'];
+
+/* ---------- utils ---------- */
+function el(tag, cls, html){var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function rng(seed){return function(){seed=(Math.imul(seed^(seed>>>15),2246822507)+0x6D2B79F5)>>>0;return (seed%100000)/100000;};}
+function shuffleIdx(n, seedStr){
+  var idx=[];for(var i=0;i<n;i++)idx.push(i);
+  if(n<2)return idx;
+  var r=rng(hash(seedStr));
+  for(var k=0;k<6;k++){
+    for(var j=n-1;j>0;j--){var x=Math.floor(r()*(j+1));var t=idx[j];idx[j]=idx[x];idx[x]=t;}
+    var same=idx.every(function(v,i){return v===i;});
+    if(!same)return idx;
+  }
+  idx.push(idx.shift()); return idx;
+}
+var CONTR=[[/can't/g,'cannot'],[/won't/g,'will not'],[/n't/g,' not'],[/\bi'm\b/g,'i am'],[/\bit's\b/g,'it is'],[/\bthat's\b/g,'that is'],[/\byou're\b/g,'you are'],[/\bthey're\b/g,'they are'],[/\bwe're\b/g,'we are'],[/\bhe's\b/g,'he is'],[/\bshe's\b/g,'she is'],[/\bwhat's\b/g,'what is'],[/\bthere's\b/g,'there is']];
+function norm(s){
+  s=String(s).toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”"]/g,'');
+  CONTR.forEach(function(c){s=s.replace(c[0],c[1]);});
+  s=s.replace(/[.,!?;:~]/g,' ').replace(/\s+/g,' ').trim();
+  return s;
+}
+function variants(str){ // "(that) " optional words
+  var m=str.match(/\(([^()]+)\)/);
+  if(!m)return [str];
+  var a=str.replace(m[0],m[1]), b=str.replace(m[0],'');
+  return variants(a).concat(variants(b));
+}
+function alts(spec){ // 'a|b' or array -> list of normalized answers
+  var arr=Array.isArray(spec)?spec:String(spec).split('|');
+  var out=[];arr.forEach(function(x){variants(x).forEach(function(v){out.push(norm(v));});});
+  return out;
+}
+function firstShow(spec){var s=Array.isArray(spec)?spec[0]:String(spec).split('|')[0];return s;}
+
+/* ---------- sound ---------- */
+var voices=[];
+function loadV(){try{voices=window.speechSynthesis.getVoices()||[];}catch(e){voices=[];}}
+if('speechSynthesis' in window){loadV();try{window.speechSynthesis.onvoiceschanged=loadV;}catch(e){}}
+function pickVoice(){
+  if(!voices.length)loadV();
+  var v=voices.find(function(x){return /william/i.test(x.name);});
+  if(!v)v=voices.find(function(x){return x.lang==='en-US';});
+  if(!v)v=voices.find(function(x){return /^en/i.test(x.lang);});
+  return v;
+}
+var unlocked=false;
+function unlock(){
+  if(unlocked||!('speechSynthesis' in window))return; unlocked=true;
+  try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;window.speechSynthesis.speak(u);}catch(e){}
+}
+document.addEventListener('touchstart',unlock,{once:true,passive:true});
+document.addEventListener('click',unlock,{once:true});
+function mkUtter(text){
+  var u=new SpeechSynthesisUtterance(text.replace(/[○×]/g,''));
+  var v=pickVoice(); if(v){u.voice=v;u.lang=v.lang;}else{u.lang='en-US';}
+  u.rate=0.9; return u;
+}
+function speak(text,btn){
+  if(!('speechSynthesis' in window))return;
+  try{
+    window.speechSynthesis.cancel();
+    var u=mkUtter(text);
+    if(btn){btn.classList.add('playing');u.onend=u.onerror=function(){btn.classList.remove('playing');};}
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakAll(list,btn){
+  if(!('speechSynthesis' in window))return;
+  try{
+    window.speechSynthesis.cancel();
+    list.forEach(function(t,i){
+      var u=mkUtter(t);
+      if(btn&&i===0)btn.classList.add('playing');
+      if(btn&&i===list.length-1)u.onend=u.onerror=function(){btn.classList.remove('playing');};
+      window.speechSynthesis.speak(u);
+    });
+  }catch(e){}
+}
+var actx=null;
+function pageSound(){
+  try{
+    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    var o=actx.createOscillator(),g=actx.createGain();
+    o.type='sine';o.frequency.setValueAtTime(880,actx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(1320,actx.currentTime+.08);
+    g.gain.setValueAtTime(.05,actx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+.15);
+    o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+.16);
+  }catch(e){}
+}
+function spkBtn(text){
+  var b=el('button','spk','🔊');b.type='button';b.setAttribute('aria-label','듣기');
+  b.addEventListener('click',function(ev){ev.stopPropagation();speak(text,b);});
+  return b;
+}
+
+/* ---------- question engine ---------- */
+function Q(def, num, tabIdx, setObj){
+  var self=this;
+  this.def=def; this.state='idle'; this.tab=tabIdx; this.set=setObj;
+  var card=el('div','q'); this.card=card;
+  var top=el('div','qn');
+  top.appendChild(el('span','num',String(num)));
+  var tt={mc:'객관식',multi:'모두 고르기',in:'쓰기',ord:'배열'}[def.t];
+  var tcls={mc:'b-sky',multi:'b-peach',in:'b-mint',ord:'b-lav'}[def.t];
+  var qt=el('div','qt',(def.tag?'<span class="badge b-amb">'+def.tag+'</span> ':'')+'<span class="badge '+tcls+'">'+tt+'</span> '+def.q);
+  top.appendChild(qt); card.appendChild(top);
+  // 소리: 정답 문장 자동 생성(빈칸·괄호 고르기) 또는 영어 문장 문제엔 바로 듣기
+  var HAN=/[가-힣ⓐ-ⓩ①-⑩]/;
+  this.say=def.say||null;
+  if(!this.say&&def.t==='mc'&&def.o&&!HAN.test(def.o[def.a])&&def.o[def.a]!=='×(없음)'){
+    var segs=def.q.split('<br>');var last=segs[segs.length-1].replace(/<[^>]+>/g,'');
+    var ans=def.o[def.a].replace(/<[^>]+>/g,'');
+    if(/______/.test(last)&&(def.q.match(/______/g)||[]).length===1){var s1=last.replace(/^\s*(?:[A-Z]:|•)\s*/,'').replace('______',ans).replace(/\([^)]*[가-힣][^)]*\)/g,'').trim();if(!HAN.test(s1))this.say=s1;}
+    else if(/\([^()]*\/[^()]*\)/.test(last)){var s2=last.replace(/\([^()]*\/[^()]*\)/,ans).trim();if(!HAN.test(s2))this.say=s2;}
+  }
+  var plain=def.q.replace(/<[^>]+>/g,'');
+  if(!HAN.test(plain)&&!/______|\[|\//.test(plain)&&def.t!=='ord'){
+    var qs=spkBtn(plain);qs.className='spk mini';qt.appendChild(qs);
+  }
+  if(def.p){var p=el('div','pass',def.p);card.appendChild(p);}
+  var body=el('div','qbody'); card.appendChild(body);
+  this.body=body;
+  this['build_'+def.t]();
+  var foot=el('div','qfoot');
+  this.gBtn=el('button','btn fill sm','채점');this.gBtn.type='button';
+  this.rBtn=el('button','btn sm','다시 풀기');this.rBtn.type='button';this.rBtn.style.display='none';
+  this.aBtn=el('button','btn ghost sm','정답 보기');this.aBtn.type='button';this.aBtn.style.display='none';
+  this.gBtn.addEventListener('click',function(){self.grade(true);});
+  this.rBtn.addEventListener('click',function(){self.reset();});
+  this.aBtn.addEventListener('click',function(){self.showAns();});
+  foot.appendChild(this.gBtn);foot.appendChild(this.rBtn);foot.appendChild(this.aBtn);
+  card.appendChild(foot);
+  this.fb=el('div','fb');card.appendChild(this.fb);
+  REG.push(this);
+}
+Q.prototype.build_mc=function(){
+  var self=this,d=this.def; this.sel=null; this.optEls=[];
+  var box=el('div','opts'+(d.inline?' inline':''));
+  d.o.forEach(function(o,i){
+    var b=el('button','opt',(d.nonum?'':NUMS[i]+' ')+o);b.type='button';
+    b.addEventListener('click',function(){
+      if(self.locked)return;
+      self.optEls.forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel');self.sel=i;
+    });
+    self.optEls.push(b);box.appendChild(b);
+  });
+  this.body.appendChild(box);
+};
+Q.prototype.build_multi=function(){
+  var self=this,d=this.def; this.sels={}; this.optEls=[];
+  var box=el('div','opts');
+  d.o.forEach(function(o,i){
+    var b=el('button','opt',NUMS[i]+' '+o);b.type='button';
+    b.addEventListener('click',function(){
+      if(self.locked)return;
+      if(self.sels[i]){delete self.sels[i];b.classList.remove('sel');}else{self.sels[i]=1;b.classList.add('sel');}
+    });
+    self.optEls.push(b);box.appendChild(b);
+  });
+  this.body.appendChild(box);
+};
+Q.prototype.build_in=function(){
+  var self=this,d=this.def; this.inputs=[];
+  if(d.s){
+    var parts=d.s.split('[]');
+    var w=el('div','tmpl');
+    parts.forEach(function(pt,i){
+      w.appendChild(document.createTextNode(''));
+      var sp=el('span','',pt);w.appendChild(sp);
+      if(i<parts.length-1){
+        var inp=el('input','blank');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.spellcheck=false;
+        inp.addEventListener('keydown',function(e){if(e.key==='Enter'){self.grade(true);}});
+        self.inputs.push(inp);w.appendChild(inp);
+      }
+    });
+    this.body.appendChild(w);
+  }else{
+    var inp=el('input','blank wide');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.spellcheck=false;
+    inp.placeholder=d.ph||'여기에 쓰기';
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter'){self.grade(true);}});
+    this.inputs.push(inp);this.body.appendChild(inp);
+  }
+};
+Q.prototype.build_ord=function(){
+  var self=this,d=this.def; this.placed=[];
+  var w=el('div','ordwrap');
+  this.slots=el('div','slots'+(d.blk?' block':''));
+  this.hint=el('span','hint','↓ 아래 조각을 순서대로 누르세요 (다시 누르면 빠짐)');
+  this.slots.appendChild(this.hint);
+  this.pool=el('div','pool'+(d.blk?' block':''));
+  var order=shuffleIdx(d.c.length,d.q+'|'+d.c.join('/'));
+  this.poolBtns=[];
+  order.forEach(function(ci){
+    var b=el('button','chip',esc(d.c[ci]));b.type='button';b.dataset.ci=ci;
+    b.addEventListener('click',function(){
+      if(self.locked||b.classList.contains('used'))return;
+      b.classList.add('used');self.place(ci,b);
+    });
+    self.poolBtns.push(b);self.pool.appendChild(b);
+  });
+  w.appendChild(this.slots);w.appendChild(this.pool);this.body.appendChild(w);
+};
+Q.prototype.place=function(ci,src){
+  var self=this,d=this.def;
+  if(this.hint.parentNode)this.hint.remove();
+  var b=el('button','chip',esc(d.c[ci]));b.type='button';
+  var item={ci:ci,el:b,src:src};
+  b.addEventListener('click',function(){
+    if(self.locked)return;
+    var k=self.placed.indexOf(item);if(k>=0)self.placed.splice(k,1);
+    b.remove();src.classList.remove('used');
+    if(!self.placed.length)self.slots.appendChild(self.hint);
+  });
+  this.placed.push(item);this.slots.appendChild(b);
+};
+Q.prototype.answered=function(){
+  var d=this.def;
+  if(d.t==='mc')return this.sel!=null;
+  if(d.t==='multi')return Object.keys(this.sels).length>0;
+  if(d.t==='in')return this.inputs.every(function(i){return i.value.trim()!=='';});
+  if(d.t==='ord')return this.placed.length===d.c.length;
+};
+Q.prototype.check=function(){
+  var d=this.def,self=this;
+  if(d.t==='mc')return this.sel===d.a;
+  if(d.t==='multi'){var k=Object.keys(this.sels).map(Number).sort();var a=d.a.slice().sort();return k.length===a.length&&k.every(function(v,i){return v===a[i];});}
+  if(d.t==='in'){
+    var A=Array.isArray(d.a)?d.a:[d.a];
+    var ok=true;
+    this.inputs.forEach(function(inp,i){
+      var good=alts(A[i]).indexOf(norm(inp.value))>=0;
+      inp.classList.toggle('right',good);inp.classList.toggle('wrong',!good);
+      if(!good)ok=false;
+    });
+    return ok;
+  }
+  if(d.t==='ord'){
+    var got=this.placed.map(function(p){return norm(d.c[p.ci]);}).join(' ');
+    var want=d.c.map(norm).join(' ');
+    return got===want;
+  }
+};
+Q.prototype.lock=function(v){
+  this.locked=v;
+  (this.optEls||[]).forEach(function(b){b.disabled=v;});
+  (this.inputs||[]).forEach(function(i){i.readOnly=v;});
+};
+Q.prototype.grade=function(manual){
+  if(this.state==='ok')return true;
+  if(!this.answered()){
+    if(manual){this.fb.className='fb show no';this.fb.innerHTML='먼저 답을 고르거나 써 주세요.';}
+    return null;
+  }
+  var ok=this.check();
+  var d=this.def;
+  this.lock(true);
+  this.gBtn.style.display='none';
+  if(ok){
+    this.state='ok';this.card.className='q ok';
+    if(d.t==='mc'){this.optEls[d.a].classList.add('right');}
+    if(d.t==='multi'){var s=this;d.a.forEach(function(i){s.optEls[i].classList.add('right');});}
+    this.fb.className='fb show ok';this.fb.innerHTML='<b>정답!</b> '+(d.e||'')+this.sayHtml();
+    this.rBtn.style.display='none';this.aBtn.style.display='none';
+  }else{
+    this.state='no';this.card.className='q no';
+    if(d.t==='mc'){this.optEls[this.sel].classList.add('wrong');}
+    if(d.t==='multi'){var s2=this;Object.keys(this.sels).forEach(function(i){if(d.a.indexOf(+i)<0)s2.optEls[i].classList.add('wrong');});}
+    this.fb.className='fb show no';this.fb.innerHTML='<b>틀렸어요.</b> 다시 풀어 보거나 정답을 확인하세요.';
+    this.rBtn.style.display='';this.aBtn.style.display='';
+  }
+  updateScores();
+  return ok;
+};
+Q.prototype.sayHtml=function(){
+  var s=this.say;
+  if(!s&&this.def.t==='in'&&!this.def.s){var a=Array.isArray(this.def.a)?this.def.a[0]:this.def.a;a=firstShow(a).replace(/[()]/g,'');if(a.split(' ').length>=3)s=a;}
+  if(!s&&this.def.t==='ord'&&!/[가-힣]/.test(this.def.c.join('')))s=this.def.c.join(' ');
+  if(!s)return '';
+  return '<div style="margin-top:6px" class="row"><button class="spk mini" data-say="'+esc(s).replace(/"/g,'&quot;')+'">🔊</button><span class="en">'+esc(s)+'</span></div>';
+};
+Q.prototype.ansText=function(){
+  var d=this.def;
+  if(d.t==='mc')return NUMS[d.a]+' '+d.o[d.a];
+  if(d.t==='multi')return d.a.map(function(i){return NUMS[i]+' '+d.o[i];}).join(' / ');
+  if(d.t==='in'){var A=Array.isArray(d.a)?d.a:[d.a];return A.map(firstShow).join(' / ');}
+  if(d.t==='ord')return d.c.join(d.blk?'<br>→ ':' ');
+};
+Q.prototype.showAns=function(){
+  var d=this.def,s=this;
+  if(d.t==='mc')this.optEls[d.a].classList.add('right');
+  if(d.t==='multi')d.a.forEach(function(i){s.optEls[i].classList.add('right');});
+  this.state='shown';
+  this.fb.className='fb show ans';
+  this.fb.innerHTML='<b>정답:</b> '+this.ansText()+(d.e?'<br>'+d.e:'')+this.sayHtml();
+  this.aBtn.style.display='none';
+  updateScores();
+};
+Q.prototype.reset=function(){
+  var d=this.def,self=this;
+  this.state='idle';this.card.className='q';this.lock(false);
+  this.fb.className='fb';this.fb.innerHTML='';
+  this.gBtn.style.display='';this.rBtn.style.display='none';this.aBtn.style.display='none';
+  if(this.optEls)this.optEls.forEach(function(b){b.classList.remove('sel','right','wrong');});
+  if(d.t==='mc')this.sel=null;
+  if(d.t==='multi')this.sels={};
+  if(d.t==='in')this.inputs.forEach(function(i){i.value='';i.classList.remove('right','wrong');});
+  if(d.t==='ord'){
+    this.placed.forEach(function(p){p.el.remove();p.src.classList.remove('used');});
+    this.placed=[];this.slots.appendChild(this.hint);
+  }
+  updateScores();
+};
+
+function QSet(blk, tabIdx){
+  var self=this; this.qs=[];
+  var wrap=el('div','qset');
+  var head=el('div','qhead');
+  head.appendChild(el('h3','',blk.title||'문제'));
+  this.sc=el('span','score','0 / '+blk.qs.length);head.appendChild(this.sc);
+  wrap.appendChild(head);
+  if(blk.note)wrap.appendChild(el('div','tip',blk.note));
+  if(blk.pass){var pb=el('div','pass big',blk.pass);wrap.appendChild(pb);}
+  blk.qs.forEach(function(d,i){
+    var q=new Q(d,i+(blk.start||1),tabIdx,self);self.qs.push(q);TABQ[tabIdx].push(q);wrap.appendChild(q.card);
+  });
+  var bar=el('div','sticky');
+  var g=el('button','btn fill','전체 채점');g.type='button';
+  var r=el('button','btn','틀린 것만 다시');r.type='button';
+  g.addEventListener('click',function(){
+    var un=0;self.qs.forEach(function(q){if(q.state==='idle'){var x=q.grade(false);if(x===null)un++;}});
+    updateScores();
+    var ok=self.qs.filter(function(q){return q.state==='ok';}).length;
+    self.sc.textContent=ok+' / '+self.qs.length+(un?' (미응답 '+un+')':'');
+  });
+  r.addEventListener('click',function(){
+    var first=null;
+    self.qs.forEach(function(q){if(q.state==='no'||q.state==='shown'){q.reset();if(!first)first=q;}});
+    if(first)first.card.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  bar.appendChild(g);bar.appendChild(r);wrap.appendChild(bar);
+  this.el=wrap;
+  SETS.push(this);
+}
+var SETS=[];
+function updateScores(){
+  SETS.forEach(function(s){
+    var ok=s.qs.filter(function(q){return q.state==='ok';}).length;
+    var t=s.sc.textContent;var m=t.match(/\(미응답 \d+\)/);
+    s.sc.textContent=ok+' / '+s.qs.length;
+  });
+  TABQ.forEach(function(arr,i){
+    var pg=document.querySelector('.tab[data-i="'+i+'"] .pg');
+    if(!pg)return;
+    if(!arr.length){pg.textContent='';return;}
+    var ok=arr.filter(function(q){return q.state==='ok';}).length;
+    pg.textContent=ok+'/'+arr.length;
+  });
+}
+
+/* ---------- other blocks ---------- */
+function bWords(blk){
+  var w=el('div','box');
+  if(blk.title)w.appendChild(el('h3','sub',blk.title));
+  var g=el('div','wgrid');
+  blk.items.forEach(function(it){
+    var c=el('button','wchip','<b>'+esc(it[0])+'</b><span>'+esc(it[1])+'</span>');c.type='button';
+    c.addEventListener('click',function(){speak(it[0]);});
+    g.appendChild(c);
+  });
+  w.appendChild(g);
+  return w;
+}
+function bAnalysis(blk){
+  var w=el('div','');
+  blk.paras.forEach(function(pa){
+    w.appendChild(el('div','parahead','<b>'+pa.title+'</b>'+(pa.flow?'<br>'+pa.flow:'')));
+    pa.items.forEach(function(it){
+      var c=el('div','acard');
+      var krl=el('div','kr','<span class="no">'+it.n+'</span>'+esc(it.kr)+' ');
+      var mini=spkBtn(it.en);mini.className='spk mini';mini.title='영어 소리 듣기';krl.appendChild(mini);
+      c.appendChild(krl);
+      var bar=el('div','row');bar.style.marginTop='8px';
+      var b1=null;
+      if(it.ch&&it.ch.length>1){b1=el('button','btn sm','① 영어 어순으로 덩어리 보기');b1.type='button';bar.appendChild(b1);}
+      var b2=el('button','btn sm','② 영어 문장 보기');b2.type='button';bar.appendChild(b2);
+      c.appendChild(bar);
+      var ch=el('div','chunks');ch.style.display='none';
+      if(it.ch&&it.ch.length>1){
+        it.ch.forEach(function(x,i){
+          var k=el('button','ck','<small>'+(i+1)+'</small>'+esc(x[1])+'<span class="ce">'+esc(x[0])+'</span>');k.type='button';
+          k.addEventListener('click',function(){k.classList.add('open');});
+          ch.appendChild(k);
+        });
+        c.appendChild(ch);
+        b1.addEventListener('click',function(){ch.style.display='flex';b1.disabled=true;});
+      }
+      var ae=el('div','aen');
+      var srow=el('div','row');srow.appendChild(el('span','s en',esc(it.en)));srow.appendChild(spkBtn(it.en));
+      ae.appendChild(srow);
+      if(it.tip)ae.appendChild(el('div','tp','💡 '+it.tip));
+      c.appendChild(ae);
+      b2.addEventListener('click',function(){ae.classList.add('show');ch.style.display=it.ch&&it.ch.length>1?'flex':'none';ch.querySelectorAll('.ck').forEach(function(k){k.classList.add('open');});b2.disabled=true;if(b1)b1.disabled=true;speak(it.en);});
+      w.appendChild(c);
+    });
+  });
+  return w;
+}
+function bScript(blk){
+  var w=el('div','script');
+  var h=el('div','shead');h.appendChild(el('b','',blk.title));
+  var r=el('div','row');
+  var all=el('button','btn sm','▶ 전체 듣기');all.type='button';
+  var kr=el('button','btn sm ghost','해석 보기');kr.type='button';
+  all.addEventListener('click',function(){speakAll(blk.lines.map(function(l){return l[1];}),all);});
+  kr.addEventListener('click',function(){w.classList.toggle('kr');kr.textContent=w.classList.contains('kr')?'해석 숨기기':'해석 보기';});
+  r.appendChild(all);r.appendChild(kr);h.appendChild(r);w.appendChild(h);
+  blk.lines.forEach(function(l){
+    var ln=el('div','line');
+    ln.appendChild(el('span','who',esc(l[0])));
+    var tx=el('div','tx','<div class="en">'+esc(l[1])+'</div><div class="ko">'+esc(l[2]||'')+'</div>');
+    ln.appendChild(tx);ln.appendChild(spkBtn(l[1]));w.appendChild(ln);
+  });
+  return w;
+}
+function bTapfill(blk){
+  var w=el('div','box');
+  if(blk.title)w.appendChild(el('h3','sub',blk.title));
+  if(blk.note)w.appendChild(el('div','',blk.note));
+  var idx=0;var spans=[];
+  blk.lines.forEach(function(line){
+    var p=el('div','tf');
+    var html=line.replace(/\[\[([^\]]+)\]\]/g,function(m,a){return '<span class="tfb" data-a="'+esc(a)+'">'+esc(a)+'</span>';});
+    p.innerHTML=html;w.appendChild(p);
+    p.querySelectorAll('.tfb').forEach(function(s){spans.push(s);});
+  });
+  function mark(){spans.forEach(function(s,i){s.classList.toggle('next',i===idx);});}
+  spans.forEach(function(s,i){
+    s.addEventListener('click',function(){
+      if(s.classList.contains('open'))return;
+      if(i!==idx){s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake');return;}
+      s.classList.add('open');idx++;mark();
+    });
+  });
+  mark();
+  var rb=el('button','btn sm ghost','처음부터 다시');rb.type='button';rb.style.marginTop='8px';
+  rb.addEventListener('click',function(){spans.forEach(function(s){s.classList.remove('open');});idx=0;mark();});
+  w.appendChild(rb);
+  return w;
+}
+
+function bWordlist(blk){
+  var w=el('div','box wl');
+  var hd=el('div','row');hd.style.justifyContent='space-between';hd.style.marginBottom='6px';
+  hd.appendChild(el('h3','sub',blk.title||''));
+  var tg=el('div','row');
+  var t1=el('button','btn sm','뜻 가리기');t1.type='button';
+  var t2=el('button','btn sm ghost','예문 해석 보기');t2.type='button';
+  t1.addEventListener('click',function(){w.classList.toggle('hidem');w.querySelectorAll('.wm').forEach(function(m){m.classList.remove('on');});t1.textContent=w.classList.contains('hidem')?'뜻 모두 보기':'뜻 가리기';});
+  t2.addEventListener('click',function(){w.classList.toggle('showk');t2.textContent=w.classList.contains('showk')?'예문 해석 숨기기':'예문 해석 보기';});
+  tg.appendChild(t1);tg.appendChild(t2);hd.appendChild(tg);w.appendChild(hd);
+  if(blk.note)w.appendChild(el('div','tip',blk.note));
+  blk.items.forEach(function(it,i){
+    var r=el('div','wrow');
+    var top=el('div','wtop');
+    top.appendChild(el('span','wn',String(i+1)));
+    top.appendChild(el('b','ww en',esc(it[0])));
+    top.appendChild(spkBtn(it[0]));
+    var m=el('span','wm',esc(it[1]));
+    m.addEventListener('click',function(){m.classList.toggle('on');});
+    top.appendChild(m);r.appendChild(top);
+    if(it[2]){
+      var ex=el('div','wex');
+      var line=el('div','wen');line.innerHTML='<span class="en">'+it[2]+'</span>';line.appendChild(spkBtn(it[2].replace(/<[^>]+>/g,'')));
+      ex.appendChild(line);
+      var k=el('div','wk',esc(it[3]||''));
+      ex.appendChild(k);
+      line.addEventListener('click',function(e){if(e.target.closest('.spk'))return;r.classList.toggle('kon');});
+      r.appendChild(ex);
+    }
+    w.appendChild(r);
+  });
+  return w;
+}
+function bFlip(blk){
+  var w=el('div','box flip');
+  var hd=el('div','row');hd.style.justifyContent='space-between';hd.style.marginBottom='6px';
+  hd.appendChild(el('h3','sub',blk.title||''));
+  var t=el('button','btn sm','뜻 모두 보기');t.type='button';
+  t.addEventListener('click',function(){var on=!w.classList.contains('allon');w.classList.toggle('allon',on);w.querySelectorAll('.frow').forEach(function(r){r.classList.toggle('on',on);});t.textContent=on?'뜻 모두 가리기':'뜻 모두 보기';});
+  hd.appendChild(t);w.appendChild(hd);
+  if(blk.note)w.appendChild(el('div','tip',blk.note));
+  blk.rows.forEach(function(rw){
+    var r=el('div','frow');
+    var a=el('div','fen');a.innerHTML='<span class="en">'+rw[0]+'</span>';
+    a.appendChild(spkBtn(rw[0].replace(/<[^>]+>/g,'')));
+    var b=el('button','btn sm ghost fbtn','뜻 ▾');b.type='button';
+    b.addEventListener('click',function(){r.classList.toggle('on');});
+    a.appendChild(b);r.appendChild(a);
+    r.appendChild(el('div','fkr',rw[1]+(rw[2]?'<div class="fnote">'+rw[2]+'</div>':'')));
+    w.appendChild(r);
+  });
+  return w;
+}
+document.addEventListener('click',function(e){
+  var s=e.target.closest&&e.target.closest('[data-say]');
+  if(s){speak(s.getAttribute('data-say'),s);return;}
+  var rv=e.target.closest&&e.target.closest('.rv');
+  if(rv){rv.classList.toggle('on');}
+  var ra=e.target.closest&&e.target.closest('[data-rvall]');
+  if(ra){var box=ra.closest('.box')||document;var list=box.querySelectorAll('.rv');var on=!ra.classList.contains('on');ra.classList.toggle('on',on);list.forEach(function(x){x.classList.toggle('on',on);});ra.textContent=on?'모두 가리기':'모두 보기';}
+});
+
+/* ---------- page ---------- */
+function build(){
+  document.title=D.title;
+  var hd=el('header','top');
+  hd.appendChild(el('div','brand',D.brand));
+  hd.appendChild(el('h1','',D.title));
+  hd.appendChild(el('div','sub',D.sub));
+  var nav=el('nav','tabs');hd.appendChild(nav);
+  document.body.appendChild(hd);
+  var main=el('main');document.body.appendChild(main);
+  D.tabs.forEach(function(tb,ti){
+    TABQ.push([]);
+    var t=el('button','tab'+(ti===0?' on':''),esc(tb.name)+'<span class="pg"></span>');t.type='button';t.dataset.i=ti;
+    t.addEventListener('click',function(){go(ti);});
+    nav.appendChild(t);
+    var pn=el('section','panel'+(ti===0?' on':''));pn.dataset.i=ti;
+    if(tb.intro)pn.appendChild(el('div','intro',tb.intro));
+    tb.blocks.forEach(function(b){
+      var node;
+      if(b.k==='html')node=el('div','',b.html);
+      else if(b.k==='h')node=el('h2','sec',b.html);
+      else if(b.k==='words')node=bWords(b);
+      else if(b.k==='qset')node=new QSet(b,ti).el;
+      else if(b.k==='analysis')node=bAnalysis(b);
+      else if(b.k==='script')node=bScript(b);
+      else if(b.k==='tapfill')node=bTapfill(b);
+      else if(b.k==='wordlist')node=bWordlist(b);
+      else if(b.k==='flip')node=bFlip(b);
+      if(node)pn.appendChild(node);
+    });
+    if(ti<D.tabs.length-1){
+      var nx=el('div','row');nx.style.justifyContent='center';nx.style.marginTop='20px';
+      var nb=el('button','btn','다음: '+esc(D.tabs[ti+1].name)+' →');nb.type='button';
+      nb.addEventListener('click',function(){go(ti+1);});nx.appendChild(nb);pn.appendChild(nx);
+    }
+    main.appendChild(pn);
+  });
+  main.appendChild(el('div','foot',D.brand+' · '+D.title));
+  updateScores();
+}
+function go(i){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',+t.dataset.i===i);});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',+p.dataset.i===i);});
+  var t=document.querySelector('.tab[data-i="'+i+'"]');if(t&&t.scrollIntoView)try{t.scrollIntoView({inline:'center',block:'nearest'});}catch(e){}
+  window.scrollTo(0,0);pageSound();
+}
+window.__L7={REG:REG,SETS:SETS,go:go,norm:norm,alts:alts};
+build();
+})();
+
+</script>
+</body>
+</html>
