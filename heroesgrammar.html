@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lesson 6 Discovering Heroes — 핵심 문법</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f4fa;--card:#fff;--card2:#eeecf7;
+  --primary:#5b4fa8;--primary-lt:#ece9f8;--primary-dk:#3b2f8a;
+  --accent:#e8a020;--accent-lt:#fef3dc;
+  --text:#1a1a2e;--muted:#6b6880;--border:#d8d4ee;
+  --ok:#1a7a3c;--ok-bg:#e8f5ec;--no:#c0392b;--no-bg:#fdecea;
+  --info:#3a5fa8;--info-bg:#e8eef8;
+  --mint:#dff5ec;--mint-t:#1d7a55;--sky:#e1effc;--sky-t:#2a64a8;
+  --peach:#fde9df;--peach-t:#b5532a;--lav:#ece9f8;--lav-t:#5b4fa8;
+  --r:12px;--shadow:0 2px 10px rgba(91,79,168,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Noto Sans KR',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.65;-webkit-tap-highlight-color:transparent}
+.en{font-family:'Noto Sans KR',system-ui,sans-serif}
+header.top{background:linear-gradient(135deg,#3b2f8a,#7b6fd0);color:#fff;padding:16px 16px 0}
+.top .brand{font-size:12px;opacity:.85;letter-spacing:.04em}
+.top h1{font-size:21px;font-weight:800;margin:2px 0 2px}
+.top .sub{font-size:13px;opacity:.9;margin-bottom:12px}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:1.5px solid rgba(255,255,255,.45);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:7px 13px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.tab.on{background:#fff;color:var(--primary-dk);border-color:#fff}
+.tab .pg{font-size:11px;font-weight:700;margin-left:5px;opacity:.85}
+main{max-width:780px;margin:0 auto;padding:16px 14px 80px}
+.panel{display:none;animation:pin .25s ease}
+.panel.on{display:block}
+@keyframes pin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.intro{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:var(--r);padding:12px 14px;margin-bottom:14px;font-size:15px}
+.intro b{color:var(--primary-dk)}
+h2.sec{font-size:18px;font-weight:800;color:var(--primary-dk);margin:22px 2px 10px;display:flex;align-items:center;gap:8px}
+h2.sec:first-child{margin-top:4px}
+h3.sub{font-size:15.5px;font-weight:700;margin:14px 2px 8px;color:var(--primary)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.tip{background:var(--accent-lt);border:1px solid #f3d99a;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14.5px}
+.tip b{color:#9a5b00}
+.warn{background:var(--no-bg);border:1px solid #f2c4bd;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14.5px}
+.warn b{color:var(--no)}
+table.t{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--card)}
+table.t th{background:var(--primary-lt);color:var(--primary-dk);font-weight:700;padding:7px 6px;border:1px solid var(--border);text-align:left}
+table.t td{padding:7px 6px;border:1px solid var(--border);vertical-align:top}
+.tw{overflow-x:auto;border-radius:10px;margin-bottom:12px}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 7px;vertical-align:middle}
+.b-mint{background:var(--mint);color:var(--mint-t)}.b-sky{background:var(--sky);color:var(--sky-t)}
+.b-peach{background:var(--peach);color:var(--peach-t)}.b-lav{background:var(--lav);color:var(--lav-t)}
+.b-amb{background:var(--accent-lt);color:#9a5b00}
+.spk{border:none;background:var(--primary-lt);color:var(--primary);border-radius:8px;width:30px;height:30px;font-size:15px;cursor:pointer;flex:0 0 auto;line-height:30px;text-align:center}
+.spk.playing{background:var(--primary);color:#fff}
+.btn{border:1.5px solid var(--primary);background:#fff;color:var(--primary);border-radius:9px;padding:7px 13px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn.fill{background:var(--primary);color:#fff}
+.btn.sm{padding:4px 10px;font-size:13px}
+.btn.ghost{border-color:var(--border);color:var(--muted)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+/* word chips */
+.wgrid{display:flex;flex-wrap:wrap;gap:6px}
+.wchip{border:1px solid var(--border);background:var(--card);border-radius:9px;padding:5px 10px;font-size:14px;cursor:pointer}
+.wchip b{color:var(--primary-dk)}
+.wchip span{color:var(--muted);font-size:13px;margin-left:4px}
+/* qset */
+.qset{margin-bottom:18px}
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:18px 2px 10px}
+.qhead h3{font-size:16.5px;font-weight:800;color:var(--primary-dk)}
+.score{font-size:13px;font-weight:700;color:var(--primary);background:var(--primary-lt);border-radius:999px;padding:3px 10px}
+.q{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:13px 14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.q.ok{border-color:#8fd0a7;background:#fbfffc}
+.q.no{border-color:#eba59c;background:#fffafa}
+.qn{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}
+.qn .num{flex:0 0 auto;background:var(--primary);color:#fff;font-weight:800;font-size:13px;border-radius:7px;min-width:26px;height:24px;line-height:24px;text-align:center;padding:0 5px;margin-top:2px}
+.qn .qt{flex:1;font-weight:600;font-size:15.5px}
+.qt u{text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:var(--primary)}
+.pass{background:var(--card2);border-radius:10px;padding:10px 12px;margin:6px 0 10px;font-size:15px;line-height:1.75}
+.pass .ln{display:block}
+.pass .sp{font-weight:800;color:var(--primary);margin-right:4px}
+.pass u{text-decoration-thickness:2px;text-underline-offset:3px}
+.mark{color:var(--primary);font-weight:800}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{text-align:left;border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:8px 11px;font-size:15px;cursor:pointer;font-family:inherit;color:var(--text);line-height:1.5}
+.opts.inline .opt{flex:0 0 auto}
+.opt.sel{border-color:var(--primary);background:var(--primary-lt);font-weight:600}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.wrong{border-color:var(--no);background:var(--no-bg)}
+.opt:disabled{cursor:default;color:var(--text)}
+.blank{display:inline-block;min-width:70px;border:none;border-bottom:2px solid var(--primary);background:var(--primary-lt);border-radius:6px 6px 0 0;padding:2px 6px;margin:2px 2px;font-size:15px;font-family:inherit;color:var(--text);text-align:center}
+.blank.wide{display:block;width:100%;text-align:left;margin:6px 0;padding:8px 10px;border-radius:8px;border:1.5px solid var(--border);border-bottom:2px solid var(--primary)}
+.blank.right{background:var(--ok-bg);border-bottom-color:var(--ok)}
+.blank.wrong{background:var(--no-bg);border-bottom-color:var(--no)}
+.tmpl{font-size:15.5px;line-height:2.1}
+.ordwrap{display:flex;flex-direction:column;gap:8px}
+.slots{min-height:48px;border:2px dashed var(--border);border-radius:10px;padding:7px;display:flex;flex-wrap:wrap;gap:6px;background:#fcfbff}
+.slots.block{flex-direction:column}
+.slots .hint{color:var(--muted);font-size:13px;align-self:center;padding:4px}
+.pool{display:flex;flex-wrap:wrap;gap:6px}
+.pool.block{flex-direction:column}
+.chip{border:1.5px solid var(--primary);background:#fff;color:var(--primary-dk);border-radius:9px;padding:6px 11px;font-size:15px;cursor:pointer;font-family:inherit;text-align:left;line-height:1.45}
+.chip.used{visibility:hidden}
+.slots .chip{background:var(--primary-lt)}
+.chip:disabled{cursor:default}
+.qfoot{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.fb{margin-top:9px;border-radius:9px;padding:9px 11px;font-size:14.5px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--ok-bg);color:#145c2e}
+.fb.no{background:var(--no-bg);color:#8e2a1f}
+.fb.ans{background:var(--info-bg);color:#24406f}
+.fb b{font-weight:800}
+.qbar{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}
+.sticky{position:sticky;bottom:10px;display:flex;justify-content:center;gap:8px;margin-top:6px;z-index:5}
+.sticky .btn{box-shadow:0 4px 14px rgba(59,47,138,.25)}
+/* analysis cards */
+.acard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+.acard .kr{font-size:16px;font-weight:600}
+.acard .kr .no{color:var(--primary);font-weight:800;margin-right:6px}
+.chunks{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.ck{border:1.5px solid var(--border);border-radius:9px;padding:5px 9px;background:#fcfbff;cursor:pointer;font-size:14px;text-align:left;font-family:inherit;color:var(--text)}
+.ck small{display:block;color:var(--primary);font-weight:800;font-size:11px}
+.ck .ce{display:none;color:var(--primary-dk);font-weight:700}
+.ck.open .ce{display:block}
+.ck.open{border-color:var(--primary);background:var(--primary-lt)}
+.aen{display:none;margin-top:9px;background:var(--card2);border-radius:9px;padding:8px 10px}
+.aen.show{display:block}
+.aen .s{font-size:16px;font-weight:700;color:var(--primary-dk)}
+.aen .tp{font-size:14px;color:#6a4a00;margin-top:5px}
+.parahead{background:var(--primary-lt);border-radius:10px;padding:9px 12px;margin:18px 0 9px;font-size:14.5px}
+.parahead b{color:var(--primary-dk);font-size:15.5px}
+/* dialogue script */
+.script{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:10px;box-shadow:var(--shadow)}
+.script .shead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.script .shead b{color:var(--primary-dk);font-size:15.5px}
+.line{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed #ebe8f5}
+.line:last-child{border-bottom:none}
+.line .who{flex:0 0 auto;min-width:24px;font-weight:800;color:var(--primary)}
+.line .tx{flex:1}
+.line .ko{display:none;color:var(--muted);font-size:14px}
+.script.kr .line .ko{display:block}
+/* tapfill */
+.tf{font-size:16px;line-height:2.2}
+.tfb{display:inline-block;min-width:56px;border-bottom:2px solid var(--primary);background:var(--primary-lt);border-radius:6px 6px 0 0;padding:0 7px;text-align:center;cursor:pointer;color:transparent;font-weight:700;user-select:none}
+.tfb.next{animation:pulse 1.4s infinite}
+.tfb.open{color:var(--primary-dk);background:#fff3c9;border-bottom-color:var(--accent);cursor:default}
+.tfb.shake{animation:shake .3s}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(91,79,168,.35)}50%{box-shadow:0 0 0 5px rgba(91,79,168,0)}}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.formula{background:var(--card);border:2px solid var(--primary);border-radius:var(--r);padding:14px;margin-bottom:12px;text-align:center;font-size:18px;font-weight:800;color:var(--primary-dk);line-height:1.8}
+.formula .f{display:inline-block;border-radius:8px;padding:2px 8px;margin:2px}
+.steps{counter-reset:st}
+.step{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;margin-bottom:8px;box-shadow:var(--shadow)}
+.step .h{font-weight:800;color:var(--primary-dk)}
+.step .h .n{display:inline-block;background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:6px}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+@media (max-width:480px){
+  .top h1{font-size:19px}
+  main{padding:12px 12px 80px}
+  .opt,.chip{font-size:14.5px}
+}
+/* v2 additions */
+.spk.mini{width:24px;height:24px;line-height:24px;font-size:12px;border-radius:6px;vertical-align:middle;margin-left:4px}
+.wl .wrow{border-bottom:1px dashed #e4e0f3;padding:8px 2px}
+.wl .wrow:last-child{border-bottom:none}
+.wtop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wn{font-size:12px;color:var(--muted);min-width:20px}
+.ww{font-size:16.5px;color:var(--primary-dk)}
+.wm{color:var(--text);font-size:15px;border-radius:6px;padding:0 4px}
+.wl.hidem .wm{background:var(--card2);color:transparent;cursor:pointer;min-width:90px;display:inline-block}
+.wl.hidem .wm.on{background:#fff3c9;color:var(--text)}
+.wex{margin:4px 0 0 28px}
+.wen{display:flex;align-items:center;gap:6px;font-size:15px;cursor:pointer}
+.wen .spk{width:26px;height:26px;line-height:26px;font-size:13px}
+.wk{display:none;color:var(--muted);font-size:14px}
+.wl.showk .wk,.wrow.kon .wk{display:block}
+.flip .frow{border-bottom:1px dashed #e4e0f3;padding:7px 2px}
+.flip .frow:last-child{border-bottom:none}
+.fen{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15.5px}
+.fen .en{flex:1;min-width:180px}
+.fkr{display:none;margin-top:4px;background:#fff8e6;border-radius:8px;padding:6px 9px;font-size:14.5px}
+.frow.on .fkr{display:block}
+.fnote{color:#8a5a00;font-size:13.5px;margin-top:2px}
+.rv{background:var(--card2);color:transparent;border-radius:5px;cursor:pointer;padding:0 4px;user-select:none}
+.rv.on{background:#fff3c9;color:inherit}
+.fam{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.fam .fc{border:1px solid var(--border);border-radius:8px;padding:3px 8px;background:#fff;font-size:14px}
+.fam .fc i{font-style:normal;color:var(--muted);font-size:12px;margin-right:3px}
+.anal{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:13px 14px;margin-bottom:12px;box-shadow:var(--shadow);font-size:15px}
+.anal h4{font-size:15.5px;color:var(--primary-dk);margin:10px 0 4px}
+.anal h4:first-child{margin-top:0}
+.anal ol,.anal ul{padding-left:20px}
+.anal li{margin:3px 0}
+details>summary{list-style:none;display:inline-block;cursor:pointer}
+details>summary::-webkit-details-marker{display:none}
+.pass.big{background:#fff;border:1.5px solid var(--border);font-size:15.5px;line-height:1.9;padding:12px 14px;position:sticky;top:0;z-index:3;max-height:42vh;overflow:auto;box-shadow:var(--shadow)}
+.ref{color:var(--primary);font-weight:700;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;cursor:pointer;background:var(--primary-lt);border-radius:4px;padding:0 3px}
+.refsheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#fff;border-top:2px solid var(--primary);box-shadow:0 -6px 24px rgba(59,47,138,.18);max-height:55vh;display:none;flex-direction:column;border-radius:14px 14px 0 0}
+.refsheet.show{display:flex}
+.refsheet .rhead{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border)}
+.refsheet .rhead b{color:var(--primary-dk)}
+.refsheet .rclose{border:none;background:var(--primary-lt);color:var(--primary);border-radius:8px;width:32px;height:32px;font-size:16px;cursor:pointer}
+.refsheet .rbody{overflow:auto;padding:8px 14px 16px;max-width:780px;width:100%;margin:0 auto}
+.refsheet .rrow{padding:7px 0;border-bottom:1px dashed #e4e0f3}
+.refsheet .rtop{display:flex;gap:8px;align-items:flex-start}
+.refsheet .rn{flex:0 0 auto;background:var(--primary);color:#fff;font-weight:800;font-size:12px;border-radius:6px;padding:1px 7px;margin-top:3px}
+.refsheet .ren{flex:1;font-weight:700;color:var(--primary-dk);font-size:15.5px}
+.refsheet .rkr{color:var(--muted);font-size:14px;margin-left:34px}
+.ref{white-space:nowrap}
+.drill .dact{font-size:16px;font-weight:700;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.drill .dno{background:var(--primary);color:#fff;border-radius:7px;font-size:13px;padding:1px 8px}
+.drill .dkr{flex-basis:100%;color:var(--muted);font-size:14px;font-weight:400}
+.drill .dlabel{margin:10px 0 6px;font-size:14px;color:var(--muted)}
+.dslots{display:flex;flex-wrap:wrap;gap:6px}
+.dslot{border:2px dashed var(--border);border-radius:10px;padding:4px 10px;min-width:70px;text-align:center;background:#fcfbff}
+.dslot small{display:block;font-size:11px;color:var(--muted);font-weight:700}
+.dslot b{font-size:16px;color:#b9b3d6}
+.dslot.on{border-style:solid;border-color:var(--primary);background:var(--primary-lt)}
+.dslot.on b{color:var(--primary-dk)}
+.dtags{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 2px}
+.dstep{margin-top:8px;border-top:1px dashed var(--border);padding-top:10px}
+.dq{font-weight:600;margin-bottom:8px;font-size:15.5px}
+.dq .dn{display:inline-block;background:var(--accent-lt);color:#9a5b00;border-radius:6px;font-size:12px;font-weight:800;padding:1px 7px;margin-right:4px}
+.dfinal{background:var(--ok-bg);border-radius:10px;padding:10px 12px;color:#145c2e}
+.dfinal .tp{color:#6a4a00;font-size:14px;margin-top:5px}
+.rv{display:inline-block;min-width:56px;min-height:1.5em;vertical-align:middle}
+
+</style>
+</head>
+<body>
+<script>
+window.DATA={"file":"discoveringheroesgrammar.html","brand":"강동미나 중고등부 · 중2 Lesson 6 (천재 이상기)","title":"Lesson 6 Discovering Heroes — 핵심 문법","sub":"① 수동태 (be + 과거분사) · ② so ~ that ...","tabs":[{"name":"📐 공식① 수동태","intro":"본문 문장: <b>A leather pilot jacket and goggles were displayed.</b> / <b>Emily was moved by the great life story of Kwon Ki-ok.</b> / <b>The room was filled with many books.</b>","blocks":[{"k":"html","html":"<div class=\"formula\">주어(당하는 것) + <span class=\"f b-lav\">be동사</span> + <span class=\"f b-sky\">과거분사(p.p.)</span> + <span class=\"f b-mint\">(by + 목적격)</span></div>\n<div class=\"box\"><div class=\"row\" style=\"justify-content:space-between\"><b style=\"color:var(--primary-dk)\">🔑 be동사 정하는 표 — 시제 × 수</b><button type=\"button\" class=\"btn sm\" data-rvall>모두 보기</button></div>\n<div style=\"margin:6px 0 8px;font-size:14.5px\">빈칸을 눌러 답을 확인하세요. <b>시제는 원래 동사</b>에서, <b>수는 새 주어</b>(원래 목적어)에서 가져와요!</div>\n<div class=\"tw\"><table class=\"t\" style=\"text-align:center\">\n<tr><th></th><th>새 주어가 단수 (하나)</th><th>새 주어가 복수 (여럿)</th></tr>\n<tr><td style=\"white-space:nowrap\"><b>현재</b></td><td><span class=\"rv\">is</span></td><td><span class=\"rv\">are</span></td></tr>\n<tr><td style=\"white-space:nowrap\"><b>과거</b></td><td><span class=\"rv\">was</span></td><td><span class=\"rv\">were</span></td></tr>\n</table></div></div>\n<div class=\"box\"><div class=\"row\" style=\"justify-content:space-between\"><b style=\"color:var(--primary-dk)\">능동 → 수동, 먼저 머릿속으로 바꿔 보고 눌러서 확인</b><button type=\"button\" class=\"btn sm\" data-rvall>모두 보기</button></div>\n<div class=\"tw\" style=\"margin-top:8px\"><table class=\"t\">\n<tr><th></th><th>능동태 (주어가 한다)</th><th>수동태 (주어가 당한다 · ~되다)</th></tr>\n<tr><td style=\"white-space:nowrap\">현재</td><td>The manager <b>changes</b> the password.</td><td><span class=\"rv\">The password <b>is changed</b> by the manager.</span></td></tr>\n<tr><td style=\"white-space:nowrap\">과거</td><td>King Sejong <b>made</b> Hangeul.</td><td><span class=\"rv\">Hangeul <b>was made</b> by King Sejong.</span></td></tr>\n<tr><td style=\"white-space:nowrap\">복수</td><td>Fabre <b>wrote</b> many books.</td><td><span class=\"rv\">Many books <b>were written</b> by Fabre.</span></td></tr>\n<tr><td style=\"white-space:nowrap\">부정</td><td>She <b>didn't write</b> the letter.</td><td><span class=\"rv\">The letter <b>wasn't written</b> by her.</span></td></tr>\n<tr><td style=\"white-space:nowrap\">의문</td><td><b>Did</b> the police <b>catch</b> the thieves?</td><td><span class=\"rv\"><b>Were</b> the thieves <b>caught</b> by the police?</span></td></tr>\n<tr><td style=\"white-space:nowrap\">조동사</td><td>Tom <b>must clean</b> the window.</td><td><span class=\"rv\">The window <b>must be cleaned</b> by Tom.</span></td></tr>\n</table></div></div>"},{"k":"h","html":"능동 → 수동 바꾸기 4단계"},{"k":"html","html":"<div class=\"steps\">\n<div class=\"step\"><div class=\"h\"><span class=\"n\">STEP 1</span>목적어를 주어 자리로</div>She bought <b>the car</b>. → <b>The car</b> ...</div>\n<div class=\"step\"><div class=\"h\"><span class=\"n\">STEP 2</span>be동사 = <b>원래 동사의 시제</b> × <b>새 주어의 수</b></div><span class=\"badge b-peach\">가장 많이 틀리는 곳</span> 원래 주어의 수를 보면 ✗! The manager <b>changes</b> the passwords. → The passwords <b>are</b> changed (is ✗)<br>The car(단수) + bought(과거) → <b>was</b> / The cars(복수) + 과거 → <b>were</b><br><span class=\"badge b-peach\">함정</span> A leather pilot jacket <b>and</b> goggles → 복수 → <b>were</b> displayed</div>\n<div class=\"step\"><div class=\"h\"><span class=\"n\">STEP 3</span>동사를 과거분사로</div>bought → bought / write → <b>written</b> / make → <b>made</b> / catch → <b>caught</b> / show → <b>shown</b> / build → <b>built</b> / send → <b>sent</b></div>\n<div class=\"step\"><div class=\"h\"><span class=\"n\">STEP 4</span>원래 주어는 by + <b>목적격</b></div>She → by <b>her</b> (by she ✗) / 누가 했는지 중요하지 않으면 생략 (The bridge was built in 1980.)</div>\n</div>\n<div class=\"warn\"><b>수동태로 못 쓰는 동사</b><br>• 목적어가 없는 동사: happen, appear, disappear, arrive → <s>was happened</s> ✗<br>• 소유·상태 동사: have, resemble → <s>A car is had by him</s> ✗<br><b>동사구는 한 덩어리로</b>: take care of → The dogs are <b>taken care of by</b> the old lady. (of 빠뜨리기 ✗)</div>\n<div class=\"tip\"><b>by 말고 다른 전치사</b> — be filled <b>with</b>(~로 가득 차다) · be decorated <b>with</b> · be covered <b>with</b> · be interested <b>in</b> · be invited <b>to</b> · be made <b>of</b>(재료 그대로)/<b>from</b>(재료 변함) · be known <b>for</b>/<b>to</b><br>단, be moved <b>by</b>(~에 감동받다), be guided <b>by</b>는 by!</div>"},{"k":"tapfill","title":"예문 빈칸 — 순서대로 눌러 채우기","note":"반짝이는 빈칸부터 차례로 누르세요. 누르기 전에 머릿속으로 먼저 답해 보기!","lines":["A leather pilot jacket and goggles [[were]] [[displayed]]. (전시되어 있었다)","Emily [[was]] [[moved]] [[by]] the great life story of Kwon Ki-ok. (감동을 받았다)","The room [[was]] [[filled]] [[with]] many books. (가득 차 있었다)","His true love for nature [[was]] [[shown]] clearly. (보여졌다)","Hangeul [[was]] [[made]] [[by]] King Sejong. (만들어졌다)","The window must [[be]] [[cleaned]] by Tom. (닦여야 한다)","[[Were]] the thieves [[caught]] by the police? (잡혔니?)"]}]},{"name":"🪜 단계별 바꾸기","intro":"<b>하위권 필수!</b> 능동태를 수동태로 바꿀 때 <b>① 새 주어 → ② 시제 체크 → ③ 수 체크 → ④ be동사 → ⑤ 과거분사 → ⑥ by + 목적격</b> 순서로 하나씩 골라요. 맞히면 아래 칸에 문장이 조립돼요.","blocks":[{"k":"drill","note":"<b>규칙 두 개만 기억!</b> 시제는 <b>원래 동사</b>에서 · 수는 <b>새 주어</b>에서. 원래 주어의 단수·복수는 be동사와 상관없어요.","items":[{"act":"She bought the car.","kr":"그녀는 그 차를 샀다.","pass":"The car was bought by her.","steps":[{"q":"능동태의 <b>목적어</b>(동작을 당하는 것)는? → 수동태의 <b>주어</b>가 돼요","o":["She","the car","bought"],"a":1,"slot":0,"fill":"The car","h":"동사 바로 뒤에서 \"~을/를\"에 해당하는 말을 찾아요."},{"q":"원래 동사 <b>bought</b>의 시제는?","o":["현재","과거"],"a":1,"tag":"시제: 과거","why":"bought = buy의 과거","h":"원형이나 -s/-es가 붙으면 현재, -ed나 불규칙 과거형이면 과거."},{"q":"새 주어 <b>The car</b>는 단수? 복수?","o":["단수 (하나)","복수 (여럿)"],"a":0,"tag":"수: 단수","why":"the car = 차 한 대","h":"<b>원래 주어가 아니라 새 주어</b>를 봐요! -s가 붙거나 and로 이어지면 복수."},{"q":"be동사는? (시제 과거 × 수 단수)","o":["is","are","was","were"],"a":2,"slot":1,"h":"과거 + 단수 → 위의 \"시제 × 수\" 표에서 찾아요."},{"q":"<b>buy</b>의 과거분사는?","o":["buyed","bought","buying"],"a":1,"slot":2,"h":"불규칙 동사는 3단 변화를 떠올려요."},{"q":"원래 주어 <b>She</b>는 어떻게 쓸까?","o":["by she","by her","by hers"],"a":1,"slot":3,"h":"by 뒤에는 <b>목적격</b> (me, you, him, her, us, them)."}]},{"act":"The manager changes the passwords.","kr":"관리자가 비밀번호들을 바꾼다.","pass":"The passwords are changed by the manager.","note":"원래 동사에 -s가 있어도, 새 주어가 복수면 <b>are</b>!","steps":[{"q":"능동태의 <b>목적어</b>(동작을 당하는 것)는? → 수동태의 <b>주어</b>가 돼요","o":["The manager","changes","the passwords"],"a":2,"slot":0,"fill":"The passwords","h":"동사 바로 뒤에서 \"~을/를\"에 해당하는 말을 찾아요."},{"q":"원래 동사 <b>changes</b>의 시제는?","o":["현재","과거"],"a":0,"tag":"시제: 현재","why":"changes = -s가 붙은 현재형","h":"원형이나 -s/-es가 붙으면 현재, -ed나 불규칙 과거형이면 과거."},{"q":"새 주어 <b>The passwords</b>는 단수? 복수?","o":["단수 (하나)","복수 (여럿)"],"a":1,"tag":"수: 복수","why":"passwords — -s가 붙은 복수","h":"함정! changes의 -s는 <b>원래 주어</b>(manager) 때문이에요. 새 주어 the passwords를 보세요."},{"q":"be동사는? (시제 현재 × 수 복수)","o":["is","are","was","were"],"a":1,"slot":1,"h":"현재 + 복수 → 위의 \"시제 × 수\" 표에서 찾아요."},{"q":"<b>change</b>의 과거분사는?","o":["changing","changed","change"],"a":1,"slot":2,"h":"불규칙 동사는 3단 변화를 떠올려요."},{"q":"원래 주어 <b>The manager</b>는 어떻게 쓸까?","o":["by the manager","the manager","to the manager"],"a":0,"slot":3,"h":"by 뒤에는 <b>목적격</b> (me, you, him, her, us, them)."}]},{"act":"Fabre wrote many books.","kr":"파브르는 많은 책을 썼다.","pass":"Many books were written by Fabre.","note":"write-wrote-<b>written</b>. wrote(과거형)를 쓰면 ✗","steps":[{"q":"능동태의 <b>목적어</b>(동작을 당하는 것)는? → 수동태의 <b>주어</b>가 돼요","o":["Fabre","wrote","many books"],"a":2,"slot":0,"fill":"Many books","h":"동사 바로 뒤에서 \"~을/를\"에 해당하는 말을 찾아요."},{"q":"원래 동사 <b>wrote</b>의 시제는?","o":["현재","과거"],"a":1,"tag":"시제: 과거","why":"wrote = write의 과거","h":"원형이나 -s/-es가 붙으면 현재, -ed나 불규칙 과거형이면 과거."},{"q":"새 주어 <b>Many books</b>는 단수? 복수?","o":["단수 (하나)","복수 (여럿)"],"a":1,"tag":"수: 복수","why":"many books — 복수","h":"<b>원래 주어가 아니라 새 주어</b>를 봐요! -s가 붙거나 and로 이어지면 복수."},{"q":"be동사는? (시제 과거 × 수 복수)","o":["is","are","was","were"],"a":3,"slot":1,"h":"과거 + 복수 → 위의 \"시제 × 수\" 표에서 찾아요."},{"q":"<b>write</b>의 과거분사는?","o":["wrote","writed","written"],"a":2,"slot":2,"h":"불규칙 동사는 3단 변화를 떠올려요."},{"q":"원래 주어 <b>Fabre</b>는 어떻게 쓸까?","o":["by Fabre","with Fabre","Fabre"],"a":0,"slot":3,"h":"by 뒤에는 <b>목적격</b> (me, you, him, her, us, them)."}]},{"act":"The students cleaned the classroom.","kr":"학생들이 교실을 청소했다.","pass":"The classroom was cleaned by the students.","note":"원래 주어가 복수여도 새 주어가 단수면 <b>was</b>!","steps":[{"q":"능동태의 <b>목적어</b>(동작을 당하는 것)는? → 수동태의 <b>주어</b>가 돼요","o":["The students","cleaned","the classroom"],"a":2,"slot":0,"fill":"The classroom","h":"동사 바로 뒤에서 \"~을/를\"에 해당하는 말을 찾아요."},{"q":"원래 동사 <b>cleaned</b>의 시제는?","o":["현재","과거"],"a":1,"tag":"시제: 과거","why":"-ed = 과거","h":"원형이나 -s/-es가 붙으면 현재, -ed나 불규칙 과거형이면 과거."},{"q":"새 주어 <b>The classroom</b>는 단수? 복수?","o":["단수 (하나)","복수 (여럿)"],"a":0,"tag":"수: 단수","why":"the classroom = 교실 하나","h":"함정! students(복수)는 <b>원래 주어</b>예요. 새 주어는 the classroom."},{"q":"be동사는? (시제 과거 × 수 단수)","o":["is","are","was","were"],"a":2,"slot":1,"h":"과거 + 단수 → 위의 \"시제 × 수\" 표에서 찾아요."},{"q":"<b>clean</b>의 과거분사는?","o":["cleaning","cleaned","cleans"],"a":1,"slot":2,"h":"불규칙 동사는 3단 변화를 떠올려요."},{"q":"원래 주어 <b>The students</b>는 어떻게 쓸까?","o":["by the students","by the student","the students"],"a":0,"slot":3,"h":"by 뒤에는 <b>목적격</b> (me, you, him, her, us, them)."}]},{"act":"King Sejong made Hangeul.","kr":"세종대왕이 한글을 만들었다.","pass":"Hangeul was made by King Sejong.","steps":[{"q":"능동태의 <b>목적어</b>(동작을 당하는 것)는? → 수동태의 <b>주어</b>가 돼요","o":["King Sejong","made","Hangeul"],"a":2,"slot":0,"fill":"Hangeul","h":"동사 바로 뒤에서 \"~을/를\"에 해당하는 말을 찾아요."},{"q":"원래 동사 <b>made</b>의 시제는?","o":["현재","과거"],"a":1,"tag":"시제: 과거","why":"made = make의 과거","h":"원형이나 -s/-es가 붙으면 현재, -ed나 불규칙 과거형이면 과거."},{"q":"새 주어 <b>Hangeul</b>는 단수? 복수?","o":["단수 (하나)","복수 (여럿)"],"a":0,"tag":"수: 단수","why":"Hangeul — 하나","h":"<b>원래 주어가 아니라 새 주어</b>를 봐요! -s가 붙거나 and로 이어지면 복수."},{"q":"be동사는? (시제 과거 × 수 단수)","o":["is","are","was","were"],"a":2,"slot":1,"h":"과거 + 단수 → 위의 \"시제 × 수\" 표에서 찾아요."},{"q":"<b>make</b>의 과거분사는?","o":["maked","made","making"],"a":1,"slot":2,"h":"불규칙 동사는 3단 변화를 떠올려요."},{"q":"원래 주어 <b>King Sejong</b>는 어떻게 쓸까?","o":["by King Sejong","for King Sejong","King Sejong"],"a":0,"slot":3,"h":"by 뒤에는 <b>목적격</b> (me, you, him, her, us, them)."}]},{"act":"The museum displays old airplanes.","kr":"그 박물관은 오래된 비행기들을 전시한다.","pass":"Old airplanes are displayed by the museum.","steps":[{"q":"능동태의 <b>목적어</b>(동작을 당하는 것)는? → 수동태의 <b>주어</b>가 돼요","o":["The museum","displays","old airplanes"],"a":2,"slot":0,"fill":"Old airplanes","h":"동사 바로 뒤에서 \"~을/를\"에 해당하는 말을 찾아요."},{"q":"원래 동사 <b>displays</b>의 시제는?","o":["현재","과거"],"a":0,"tag":"시제: 현재","why":"displays = -s가 붙은 현재형","h":"원형이나 -s/-es가 붙으면 현재, -ed나 불규칙 과거형이면 과거."},{"q":"새 주어 <b>Old airplanes</b>는 단수? 복수?","o":["단수 (하나)","복수 (여럿)"],"a":1,"tag":"수: 복수","why":"airplanes — 복수","h":"함정! displays의 -s는 원래 주어(museum) 때문. 새 주어 old airplanes를 보세요."},{"q":"be동사는? (시제 현재 × 수 복수)","o":["is","are","was","were"],"a":1,"slot":1,"h":"현재 + 복수 → 위의 \"시제 × 수\" 표에서 찾아요."},{"q":"<b>display</b>의 과거분사는?","o":["displaying","displays","displayed"],"a":2,"slot":2,"h":"불규칙 동사는 3단 변화를 떠올려요."},{"q":"원래 주어 <b>The museum</b>는 어떻게 쓸까?","o":["by the museum","in the museum","the museum"],"a":0,"slot":3,"h":"by 뒤에는 <b>목적격</b> (me, you, him, her, us, them)."}]},{"act":"Emily caught a drawing.","kr":"Emily는 그림 하나를 잡았다.","pass":"A drawing was caught by Emily.","steps":[{"q":"능동태의 <b>목적어</b>(동작을 당하는 것)는? → 수동태의 <b>주어</b>가 돼요","o":["Emily","caught","a drawing"],"a":2,"slot":0,"fill":"A drawing","h":"동사 바로 뒤에서 \"~을/를\"에 해당하는 말을 찾아요."},{"q":"원래 동사 <b>caught</b>의 시제는?","o":["현재","과거"],"a":1,"tag":"시제: 과거","why":"caught = catch의 과거","h":"원형이나 -s/-es가 붙으면 현재, -ed나 불규칙 과거형이면 과거."},{"q":"새 주어 <b>A drawing</b>는 단수? 복수?","o":["단수 (하나)","복수 (여럿)"],"a":0,"tag":"수: 단수","why":"a drawing — 하나","h":"<b>원래 주어가 아니라 새 주어</b>를 봐요! -s가 붙거나 and로 이어지면 복수."},{"q":"be동사는? (시제 과거 × 수 단수)","o":["is","are","was","were"],"a":2,"slot":1,"h":"과거 + 단수 → 위의 \"시제 × 수\" 표에서 찾아요."},{"q":"<b>catch</b>의 과거분사는?","o":["catched","caught","catching"],"a":1,"slot":2,"h":"불규칙 동사는 3단 변화를 떠올려요."},{"q":"원래 주어 <b>Emily</b>는 어떻게 쓸까?","o":["by Emily","to Emily","Emily"],"a":0,"slot":3,"h":"by 뒤에는 <b>목적격</b> (me, you, him, her, us, them)."}]},{"act":"Many people love his poems.","kr":"많은 사람들이 그의 시를 사랑한다.","pass":"His poems are loved by many people.","steps":[{"q":"능동태의 <b>목적어</b>(동작을 당하는 것)는? → 수동태의 <b>주어</b>가 돼요","o":["Many people","love","his poems"],"a":2,"slot":0,"fill":"His poems","h":"동사 바로 뒤에서 \"~을/를\"에 해당하는 말을 찾아요."},{"q":"원래 동사 <b>love</b>의 시제는?","o":["현재","과거"],"a":0,"tag":"시제: 현재","why":"love = 현재 (주어가 복수라 -s 없음)","h":"love에 -s가 없어도 현재예요! 주어가 복수(Many people)라서 -s가 없는 것."},{"q":"새 주어 <b>His poems</b>는 단수? 복수?","o":["단수 (하나)","복수 (여럿)"],"a":1,"tag":"수: 복수","why":"poems — 복수","h":"<b>원래 주어가 아니라 새 주어</b>를 봐요! -s가 붙거나 and로 이어지면 복수."},{"q":"be동사는? (시제 현재 × 수 복수)","o":["is","are","was","were"],"a":1,"slot":1,"h":"현재 + 복수 → 위의 \"시제 × 수\" 표에서 찾아요."},{"q":"<b>love</b>의 과거분사는?","o":["loving","loved","loves"],"a":1,"slot":2,"h":"불규칙 동사는 3단 변화를 떠올려요."},{"q":"원래 주어 <b>Many people</b>는 어떻게 쓸까?","o":["by many people","by many peoples","many people"],"a":0,"slot":3,"h":"by 뒤에는 <b>목적격</b> (me, you, him, her, us, them)."}]},{"act":"The boy kicked the balls.","kr":"소년이 공들을 찼다.","pass":"The balls were kicked by the boy.","steps":[{"q":"능동태의 <b>목적어</b>(동작을 당하는 것)는? → 수동태의 <b>주어</b>가 돼요","o":["The boy","kicked","the balls"],"a":2,"slot":0,"fill":"The balls","h":"동사 바로 뒤에서 \"~을/를\"에 해당하는 말을 찾아요."},{"q":"원래 동사 <b>kicked</b>의 시제는?","o":["현재","과거"],"a":1,"tag":"시제: 과거","why":"-ed = 과거","h":"원형이나 -s/-es가 붙으면 현재, -ed나 불규칙 과거형이면 과거."},{"q":"새 주어 <b>The balls</b>는 단수? 복수?","o":["단수 (하나)","복수 (여럿)"],"a":1,"tag":"수: 복수","why":"balls — 복수","h":"boy(단수)는 원래 주어! 새 주어 the balls를 보세요."},{"q":"be동사는? (시제 과거 × 수 복수)","o":["is","are","was","were"],"a":3,"slot":1,"h":"과거 + 복수 → 위의 \"시제 × 수\" 표에서 찾아요."},{"q":"<b>kick</b>의 과거분사는?","o":["kicking","kicked","kicks"],"a":1,"slot":2,"h":"불규칙 동사는 3단 변화를 떠올려요."},{"q":"원래 주어 <b>The boy</b>는 어떻게 쓸까?","o":["by the boy","by he","the boy"],"a":0,"slot":3,"h":"by 뒤에는 <b>목적격</b> (me, you, him, her, us, them)."}]},{"act":"They invited me.","kr":"그들은 나를 초대했다.","pass":"I was invited by them.","note":"목적격 me가 주어가 되면 <b>I</b>로! I는 was (am의 과거).","steps":[{"q":"능동태의 <b>목적어</b>(동작을 당하는 것)는? → 수동태의 <b>주어</b>가 돼요","o":["They","invited","me"],"a":2,"slot":0,"fill":"I","h":"동사 바로 뒤에서 \"~을/를\"에 해당하는 말을 찾아요."},{"q":"원래 동사 <b>invited</b>의 시제는?","o":["현재","과거"],"a":1,"tag":"시제: 과거","why":"-ed = 과거","h":"원형이나 -s/-es가 붙으면 현재, -ed나 불규칙 과거형이면 과거."},{"q":"새 주어 <b>I</b>는 단수? 복수?","o":["단수 (하나)","복수 (여럿)"],"a":0,"tag":"수: 단수","why":"me → 수동태 주어가 되면 I (단수)","h":"<b>원래 주어가 아니라 새 주어</b>를 봐요! -s가 붙거나 and로 이어지면 복수."},{"q":"be동사는? (시제 과거 × 수 단수)","o":["is","are","was","were"],"a":2,"slot":1,"h":"과거 + 단수 → 위의 \"시제 × 수\" 표에서 찾아요."},{"q":"<b>invite</b>의 과거분사는?","o":["inviting","invited","invites"],"a":1,"slot":2,"h":"불규칙 동사는 3단 변화를 떠올려요."},{"q":"원래 주어 <b>They</b>는 어떻게 쓸까?","o":["by they","by them","by their"],"a":1,"slot":3,"h":"by 뒤에는 <b>목적격</b> (me, you, him, her, us, them)."}]}]}]},{"name":"✅ 연습A 형태","intro":"<b>STEP 2 · STEP 3 집중</b> — be동사의 수·시제, 과거분사 형태를 고르세요.","blocks":[{"k":"qset","title":"알맞은 말 고르기","qs":[{"t":"mc","inline":1,"q":"The ball (kicked / was kicked) by the boy.","o":["kicked","was kicked"],"a":1,"e":"공이 \"차였다\" + by → 수동태."},{"t":"mc","inline":1,"q":"The password is (change / changed) by the manager.","o":["change","changed"],"a":1,"e":"be + <b>과거분사</b>."},{"t":"mc","inline":1,"q":"A leather pilot jacket and goggles (was / were) displayed.","o":["was","were"],"a":1,"e":"A and B → 복수 → were."},{"t":"mc","inline":1,"q":"The room (was / were) filled with many books.","o":["was","were"],"a":0,"e":"주어 The room(단수) → was. books에 속지 말기!"},{"t":"mc","inline":1,"q":"The book was (wrote / written) by Fabre.","o":["wrote","written"],"a":1,"e":"write-wrote-<b>written</b>."},{"t":"mc","inline":1,"q":"One of the drawings (was / were) caught by Emily.","o":["was","were"],"a":0,"e":"One of + 복수 명사 → 주어는 One(단수)."},{"t":"mc","inline":1,"q":"His love for nature was (showed / shown) clearly.","o":["showed","shown"],"a":1,"e":"show-showed-<b>shown</b>."},{"t":"mc","inline":1,"q":"The bridge was (build / built) in 1980.","o":["build","built"],"a":1,"e":"build-built-built."},{"t":"mc","inline":1,"q":"The letter wasn't written by (she / her).","o":["she","her"],"a":1,"e":"by + <b>목적격</b>."},{"t":"mc","inline":1,"q":"(Did / Were) the thieves caught by the police?","o":["Did","Were"],"a":1,"e":"수동태 의문문: <b>be동사</b> + 주어 + p.p."},{"t":"mc","inline":1,"q":"The window must (is / be) cleaned.","o":["is","be"],"a":1,"e":"조동사 뒤 → <b>be</b> + p.p."},{"t":"mc","inline":1,"q":"These cars (are washed / washed) every day.","o":["are washed","washed"],"a":0,"e":"차는 \"세차되는\" 것 + every day(현재) → are washed."},{"t":"mc","inline":1,"q":"The email (sent / was sent) by him yesterday.","o":["sent","was sent"],"a":1,"e":"이메일은 \"보내지는\" 것."},{"t":"mc","inline":1,"q":"Emily (picked / was picked) up the shining book.","o":["picked","was picked"],"a":0,"tag":"함정","e":"Emily가 직접 집어 든 것 → <b>능동태</b> picked. 목적어(the book)가 뒤에 있으면 능동!"}]}]},{"name":"✅ 연습B 전환·주의","intro":"<b>STEP 1~4 전체 + 수동태 불가 동사 + by 이외의 전치사</b>","blocks":[{"k":"qset","title":"A. 능동 → 수동 바꾸기","qs":[{"t":"in","q":"She bought the car.","s":"The car [] [] by [].","a":["was","bought","her"],"e":"과거 + 단수 → was / by + 목적격 her"},{"t":"in","q":"Mr. Kim teaches English.","s":"English [] [] by Mr. Kim.","a":["is","taught"],"e":"현재 + 단수 → is / teach-taught-taught"},{"t":"in","q":"Fabre wrote many books.","s":"Many books [] [] by Fabre.","a":["were","written"],"e":"과거 + 복수 → were"},{"t":"in","q":"The museum displayed a leather jacket.","s":"A leather jacket [] [] by the museum.","a":["was","displayed"],"e":"과거 + 단수"},{"t":"in","q":"Did Emily catch the drawing?","s":"[] the drawing [] by Emily?","a":["was","caught"],"e":"의문문: Was + 주어 + p.p."},{"t":"in","q":"They didn't invite me.","s":"I [] [] by them.","a":["wasn't|was not","invited"],"e":"부정문: wasn't + p.p."},{"t":"in","q":"We should protect the forest.","s":"The forest [] [] [] by us.","a":["should","be","protected"],"e":"조동사 + be + p.p."},{"t":"in","q":"The old lady takes care of the dogs.","s":"The dogs are [] [] [] by the old lady.","a":["taken","care","of"],"e":"동사구는 한 덩어리: taken care of (of 빠뜨리기 ✗)"}]},{"k":"qset","title":"B. 수동태로 쓸 수 있을까?","qs":[{"t":"mc","inline":1,"q":"A car accident <u>happened</u> last night.","o":["O (수동태 가능)","X (수동태 불가)"],"a":1,"e":"happen은 목적어가 없는 동사 → was happened ✗."},{"t":"mc","inline":1,"q":"He <u>has</u> a nice car.","o":["O (수동태 가능)","X (수동태 불가)"],"a":1,"e":"소유의 have → 수동태 ✗."},{"t":"mc","inline":1,"q":"She <u>resembles</u> her mother.","o":["O (수동태 가능)","X (수동태 불가)"],"a":1,"e":"resemble(닮다) → 수동태 ✗."},{"t":"mc","inline":1,"q":"Emily <u>received</u> an invitation.","o":["O (수동태 가능)","X (수동태 불가)"],"a":0,"e":"An invitation was received by Emily. ✓"},{"t":"mc","inline":1,"q":"The sun <u>disappeared</u> behind the clouds.","o":["O (수동태 가능)","X (수동태 불가)"],"a":1,"e":"disappear는 목적어가 없음 → 수동태 ✗."}]},{"k":"qset","title":"C. by가 아닌 전치사 고르기","qs":[{"t":"mc","inline":1,"q":"The room was filled (with / by) many books.","o":["with","by"],"a":0,"e":"be filled with"},{"t":"mc","inline":1,"q":"The room was decorated (with / of) candles.","o":["with","of"],"a":0,"e":"be decorated with"},{"t":"mc","inline":1,"q":"Tom was invited (to / at) a special party.","o":["to","at"],"a":0,"e":"be invited to"},{"t":"mc","inline":1,"q":"Emily was moved (by / with) her story.","o":["by","with"],"a":0,"e":"be moved <b>by</b> (감동받다)"},{"t":"mc","inline":1,"q":"Minji is interested (in / by) animal behavior.","o":["in","by"],"a":0,"e":"be interested in"},{"t":"mc","inline":1,"q":"This table is made (of / from) wood.","o":["of","from"],"a":0,"e":"재료가 그대로 보임 → of. (치즈는 우유로 만든다 → made from milk)"}]}]},{"name":"🧱 배열·영작①","intro":"<b>주어(당하는 것) → be동사 → 과거분사 → by + 행위자</b> 순서를 손으로 익히세요.","blocks":[{"k":"qset","title":"A. 단어 배열","qs":[{"t":"ord","q":"가죽 비행사 재킷과 고글이 전시되어 있었다.","c":["A","leather","pilot","jacket","and","goggles","were","displayed"],"e":"A leather pilot jacket and goggles were displayed."},{"t":"ord","q":"Emily는 권기옥의 삶의 이야기에 감동을 받았다.","c":["Emily","was","moved","by","the","life","story","of","Kwon","Ki-ok"],"e":"Emily was moved by the life story of Kwon Ki-ok."},{"t":"ord","q":"그 방은 책들로 가득 차 있었다.","c":["The","room","was","filled","with","books"],"e":"The room was filled with books."},{"t":"ord","q":"한글은 세종대왕에 의해 만들어졌다.","c":["Hangeul","was","made","by","King","Sejong"],"e":"Hangeul was made by King Sejong."},{"t":"ord","q":"그 편지는 그녀에 의해 쓰이지 않았다.","c":["The","letter","wasn't","written","by","her"],"e":"The letter wasn't written by her."},{"t":"ord","q":"그 창문은 Tom에 의해 닦여야 한다.","c":["The","window","must","be","cleaned","by","Tom"],"e":"The window must be cleaned by Tom."}]},{"k":"qset","title":"B. 영작 (주어진 단어 활용)","qs":[{"t":"in","q":"자연에 대한 그의 사랑은 분명하게 보여졌다. <span class=\"badge b-lav\">love for nature, show, clearly</span>","a":"His love for nature was shown clearly.","ph":"영어 문장 쓰기","e":"show-showed-shown."},{"t":"in","q":"그 파티는 밤에 열렸다. <span class=\"badge b-lav\">party, hold, at night</span>","a":"The party was held at night.","ph":"영어 문장 쓰기","e":"hold-held-held. be held: 열리다."},{"t":"in","q":"그 방은 초로 장식되어 있었다. <span class=\"badge b-lav\">decorate, candles</span>","a":"The room was decorated with candles.","ph":"영어 문장 쓰기","e":"be decorated with."},{"t":"in","q":"Tom은 특별한 파티에 초대되었다. <span class=\"badge b-lav\">invite, special party</span>","a":"Tom was invited to a special party.","ph":"영어 문장 쓰기","e":"be invited to."},{"t":"in","q":"그 도둑들은 경찰에 의해 잡혔니? <span class=\"badge b-lav\">thieves, catch, police</span>","a":"Were the thieves caught by the police?","ph":"영어 문장 쓰기","e":"의문문: Were + 주어 + p.p."}]}]},{"name":"📐 공식② so ~ that","intro":"본문 문장: <b>It was so detailed that the honeybee looked alive.</b> / <b>She was so excited that she could not wait to tell her friends about her adventure.</b>","blocks":[{"k":"html","html":"<div class=\"formula\"><span class=\"f b-lav\">so</span> + <span class=\"f b-sky\">형용사/부사</span> + <span class=\"f b-mint\">that + 주어 + 동사</span><br><span style=\"font-size:15px\">너무[매우] ~해서 (원인) → …하다 (결과)</span></div>\n<div class=\"tw\"><table class=\"t\">\n<tr><th>형태</th><th>뜻</th><th>바꿔 쓰기</th></tr>\n<tr><td>so ~ that + 주어 + 동사</td><td>너무 ~해서 …하다</td><td>The weather is <b>so cold that</b> we should stay inside.</td></tr>\n<tr><td>so ~ that + 주어 + <b>can</b></td><td>매우 ~해서 …할 수 있다</td><td>= 형용사/부사 + <b>enough to</b> + 동사원형<br>She is so smart that she can solve it. = She is <b>smart enough to</b> solve it.</td></tr>\n<tr><td>so ~ that + 주어 + <b>can't</b></td><td>너무 ~해서 …할 수 없다</td><td>= <b>too</b> + 형용사/부사 + <b>to</b> + 동사원형<br>He is so busy that he can't call. = He is <b>too busy to</b> call.</td></tr>\n</table></div>"},{"k":"h","html":"꼭 지킬 순서 4단계"},{"k":"html","html":"<div class=\"steps\">\n<div class=\"step\"><div class=\"h\"><span class=\"n\">STEP 1</span>so 뒤에는 형용사 · 부사</div>so <b>detailed</b> / so <b>deeply</b> — very를 쓰면 ✗ (He was <s>very</s> hungry that ~)</div>\n<div class=\"step\"><div class=\"h\"><span class=\"n\">STEP 2</span>that 뒤는 완전한 문장(주어 + 동사)</div>that <b>the honeybee looked</b> alive / but · because ✗</div>\n<div class=\"step\"><div class=\"h\"><span class=\"n\">STEP 3</span>시제 맞추기</div>앞이 과거면 뒤도 과거: She was so excited that she <b>could not</b> wait (can't ✗)</div>\n<div class=\"step\"><div class=\"h\"><span class=\"n\">STEP 4</span>too ~ to로 바꿀 때 목적어 지우기</div>The box is so heavy that I can't lift <b>it</b>. → The box is too heavy for me to lift. (<s>lift it</s> ✗ — 주어 the box와 같은 말이라 지움)<br>주어가 다르면 <b>for + 목적격</b>을 넣어요.</div>\n</div>\n<div class=\"warn\"><b>헷갈리는 짝</b><br>• <b>so ~ that</b> = 너무 ~해서 …하다 (결과) / <b>so that</b> = ~하기 위해서 (목적): I opened the door <b>so that</b> they could come in.<br>• <b>such</b> + a(n) + 형용사 + <b>명사</b> + that: Sean is <b>such a brave man</b> that everyone respects him. (so a brave man ✗)</div>"},{"k":"tapfill","title":"예문 빈칸 — 순서대로 눌러 채우기","lines":["It was [[so]] detailed [[that]] the honeybee looked alive.","She was so excited that she [[could]] not wait to tell her friends. (과거 시제!)","He is so busy that he can't call. = He is [[too]] busy [[to]] call.","She is so smart that she can solve it. = She is smart [[enough]] [[to]] solve it.","Sean is [[such]] a brave man that everyone respects him.","I opened the door [[so]] [[that]] they could come in. (목적)"]}]},{"name":"✅ 연습C so~that","intro":"<b>so 자리 · that 자리 · 시제 · 바꿔 쓰기</b>를 점검해요.","blocks":[{"k":"qset","title":"A. 알맞은 말 고르기","qs":[{"t":"mc","inline":1,"q":"He was (so / very) hungry that he ate all the food.","o":["so","very"],"a":0,"e":"~ that 결과 → so."},{"t":"mc","inline":1,"q":"The baby slept so deeply (but / that) we couldn't wake her up.","o":["but","that"],"a":1,"e":"so ~ <b>that</b>."},{"t":"mc","inline":1,"q":"It was so (detail / detailed) that the honeybee looked alive.","o":["detail","detailed"],"a":1,"e":"so + 형용사."},{"t":"mc","inline":1,"q":"She sang so (good / well) that she won the competition.","o":["good","well"],"a":1,"e":"동사 sang을 꾸미는 부사 → well."},{"t":"mc","inline":1,"q":"She was so excited that she (can't / couldn't) wait.","o":["can't","couldn't"],"a":1,"e":"앞이 과거(was) → couldn't."},{"t":"mc","inline":1,"q":"Sean is (so / such) a brave man that everyone respects him.","o":["so","such"],"a":1,"e":"a + 형용사 + 명사 → such."},{"t":"mc","inline":1,"q":"He is (such / so) kind that everyone likes him.","o":["such","so"],"a":1,"e":"형용사만 → so."},{"t":"mc","q":"\"I studied hard <u>so that</u> I could pass the test.\"의 so that의 뜻은?","o":["너무 ~해서","~하기 위해서","그래서 결국","~에도 불구하고"],"a":1,"e":"so that + 주어 + can/could = ~하기 위해서(목적)."}]},{"k":"qset","title":"B. 같은 뜻으로 바꿔 쓰기","qs":[{"t":"in","q":"He is so busy that he can't call his friend.","s":"He is [] busy [] call his friend.","a":["too","to"],"e":"so ~ that can't = too ~ to"},{"t":"in","q":"She is so smart that she can solve the problem.","s":"She is smart [] [] solve the problem.","a":["enough","to"],"e":"so ~ that can = 형용사 + enough to"},{"t":"in","q":"The box is so heavy that I can't lift it.","s":"The box is too heavy [] [] [] lift.","a":["for","me","to"],"e":"주어가 다르면 for + 목적격. 목적어 it은 지워요!"},{"t":"in","q":"The water was too cold to swim in.","s":"The water was [] cold [] we [] swim in it.","a":["so","that","couldn't|could not"],"e":"과거 → couldn't. 문장으로 바꿀 땐 it을 다시 넣어요."},{"t":"in","q":"두 문장을 so ~ that으로 연결: The movie was very funny. + I laughed a lot.","s":"The movie was [] funny [] I laughed a lot.","a":["so","that"],"e":"원인(funny) → 결과(laughed)"},{"t":"in","q":"두 문장을 so ~ that으로 연결: He was very caring. + He helped many people.","s":"He was [] [] [] he helped many people.","a":["so","caring","that"],"e":"so + 형용사 + that"}]}]},{"name":"🛠 어법·영작②","intro":"<b>틀린 곳 찾기 → 고치기 → 영작</b> 순서로 풀어요. 두 문법이 섞여 나와요.","blocks":[{"k":"qset","title":"A. 틀린 단어 고쳐 쓰기 (고친 한 단어만)","qs":[{"t":"in","q":"A leather pilot jacket and goggles <u>was</u> displayed.","a":"were","e":"A and B → 복수."},{"t":"in","q":"The book was <u>wrote</u> by Fabre.","a":"written","e":"p.p. written."},{"t":"in","q":"The accident was <u>happened</u> last night. → The accident ______ last night.","a":"happened","e":"happen은 수동태 ✗ → 능동 happened."},{"t":"in","q":"He was <u>very</u> tired that he went to bed early.","a":"so","e":"so ~ that."},{"t":"in","q":"She was so sad <u>but</u> she cried.","a":"that","e":"so ~ that."},{"t":"in","q":"The room was filled <u>of</u> books.","a":"with","e":"be filled with (= be full of)."},{"t":"in","q":"The letter wasn't written by <u>he</u>.","a":"him","e":"by + 목적격."}]},{"k":"qset","title":"B. 영작","qs":[{"t":"in","q":"그것은 너무 자세해서 꿀벌이 살아 있는 것처럼 보였다. <span class=\"badge b-lav\">so ~ that, detailed, look</span>","a":"It was so detailed that the honeybee looked alive.","ph":"영어 문장 쓰기","e":"so + 형용사 + that + 주어 + 동사."},{"t":"in","q":"그녀는 너무 신이 나서 친구들에게 빨리 이야기하고 싶었다. <span class=\"badge b-lav\">so ~ that, can't wait to, tell her friends</span>","a":"She was so excited that she couldn't wait to tell her friends.|She was so excited that she could not wait to tell her friends.","ph":"영어 문장 쓰기","e":"과거 → couldn't."},{"t":"in","q":"그는 매우 현명해서 항상 좋은 조언을 해 준다. <span class=\"badge b-lav\">so ~ that, wise, always</span>","a":"He is so wise that he always has good advice.","ph":"영어 문장 쓰기","e":"빈도부사 always는 일반동사 앞."},{"t":"in","q":"Emily는 권기옥의 이야기에 감동을 받았다. <span class=\"badge b-lav\">move, story</span>","a":"Emily was moved by the story of Kwon Ki-ok.|Emily was moved by Kwon Ki-ok's story.","ph":"영어 문장 쓰기","e":"be moved by."}]}]},{"name":"🏁 최종 테스트","intro":"<b>두 문법 섞어서 15문항</b> — 공식 4단계를 떠올리며 풀고, 다 끝나면 \"전체 채점\" → \"틀린 것만 다시\".","blocks":[{"k":"qset","title":"최종 테스트","qs":[{"t":"mc","q":"빈칸에 들어갈 말로 알맞은 것은?<br>Many books about insects ______ by Fabre.","o":["wrote","was written","were written","were wrote","written"],"a":2,"e":"책들이 \"쓰인\" 것 + 복수 → were written."},{"t":"mc","q":"다음 능동태 문장을 수동태로 바르게 바꾼 것은?<br>Kwon Ki-ok flew airplanes.","o":["Airplanes flew by Kwon Ki-ok.","Airplanes were flown by Kwon Ki-ok.","Airplanes was flown by Kwon Ki-ok.","Airplanes were flew by Kwon Ki-ok.","Airplanes are flown by Kwon Ki-ok."],"a":1,"e":"fly-flew-<b>flown</b>, 복수 + 과거 → were."},{"t":"mc","q":"다음 중 어법상 <b>틀린</b> 것은?","o":["The car was washed by my dad.","The song was sung by the children.","A strange thing was happened yesterday.","The book was written by Fabre.","The thieves were caught by the police."],"a":2,"e":"happen은 수동태 ✗ → A strange thing happened."},{"t":"mc","q":"빈칸에 들어갈 말로 알맞은 것은?<br>It was ______ cold that we stayed inside.","o":["very","too","so","such","enough"],"a":2,"e":"so ~ that."},{"t":"mc","q":"다음 두 문장의 의미가 같을 때 빈칸에 알맞은 것은?<br>She is so tall that she can reach the shelf.<br>= She is ______ to reach the shelf.","o":["too tall","tall enough","so tall","enough tall","very tall"],"a":1,"e":"형용사 + enough to (enough tall ✗ — 순서 주의!)."},{"t":"in","q":"괄호 안의 단어를 알맞은 형태로 쓰시오.","s":"His true love for nature was [] clearly. (show)","a":["shown"],"e":"show-showed-shown."},{"t":"in","q":"다음 문장을 수동태로 바꿔 쓰시오.<br>Emily received an invitation.","a":"An invitation was received by Emily.","ph":"영어 문장 쓰기","e":"목적어 → 주어, was received, by Emily."},{"t":"ord","q":"그것은 너무 자세해서 꿀벌이 살아 있는 것처럼 보였다.","c":["It","was","so","detailed","that","the","honeybee","looked","alive"],"e":"It was so detailed that the honeybee looked alive."},{"t":"mc","q":"다음 중 어법상 <b>옳은</b> 것은?","o":["He is very busy that he can't come.","She was so tired but she went to bed.","He is such kind that everyone likes him.","The box is too heavy for me to lift.","She was so excited that she can't sleep."],"a":3,"e":"① so ② that ③ so kind ⑤ couldn't. ④ too ~ to에서 목적어 it 없음 ✓"},{"t":"in","q":"다음 두 문장을 「so ~ that ...」으로 연결하시오.<br>She was very caring. She helped many people in India.","a":"She was so caring that she helped many people in India.","ph":"영어 문장 쓰기","e":"so + 형용사 + that + 결과."},{"t":"mc","q":"빈칸에 들어갈 전치사가 <b>나머지와 다른</b> 것은?","o":["The room was filled ______ books.","The cake was decorated ______ candles.","The ground was covered ______ snow.","Emily was moved ______ the story.","The basket was filled ______ cookies."],"a":3,"e":"④ moved <b>by</b>. 나머지는 with."},{"t":"in","q":"틀린 부분을 고쳐 쓰시오. (고친 한 단어만)<br>The dogs are taken care by the old lady. → taken care ______ by","a":"of","e":"동사구 take care of는 of까지 한 덩어리."},{"t":"mc","q":"\"He was so sleepy that he couldn't study.\"와 의미가 같은 것은?","o":["He was too sleepy to study.","He was sleepy enough to study.","He was so sleepy to study.","He was too sleepy that he studied.","He studied because he was sleepy."],"a":0,"e":"so ~ that can't = too ~ to."},{"t":"in","q":"다음 문장을 수동태 의문문으로 바꿔 쓰시오.<br>Did the boy break the window?","a":"Was the window broken by the boy?","ph":"영어 문장 쓰기","e":"Was + 주어 + p.p.(broken) + by ~?"},{"t":"mc","q":"다음 중 밑줄 친 부분의 쓰임이 <b>나머지와 다른</b> 것은?","o":["It was <u>so</u> hot <u>that</u> I opened the window.","She ran <u>so</u> fast <u>that</u> she won.","I got up early <u>so that</u> I could catch the bus.","He was <u>so</u> kind <u>that</u> everyone liked him.","The test was <u>so</u> easy <u>that</u> I passed."],"a":2,"e":"③만 so that(~하기 위해서, 목적). 나머지는 so ~ that(결과)."}]}]}]};
+</script>
+<script>
+(function(){
+'use strict';
+var D = window.DATA;
+var REG = [];          // all question objects
+var TABQ = [];         // per tab arrays of questions
+var NUMS = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩'];
+
+/* ---------- utils ---------- */
+function el(tag, cls, html){var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function rng(seed){return function(){seed=(Math.imul(seed^(seed>>>15),2246822507)+0x6D2B79F5)>>>0;return (seed%100000)/100000;};}
+function shuffleIdx(n, seedStr){
+  var idx=[];for(var i=0;i<n;i++)idx.push(i);
+  if(n<2)return idx;
+  var r=rng(hash(seedStr));
+  for(var k=0;k<6;k++){
+    for(var j=n-1;j>0;j--){var x=Math.floor(r()*(j+1));var t=idx[j];idx[j]=idx[x];idx[x]=t;}
+    var same=idx.every(function(v,i){return v===i;});
+    if(!same)return idx;
+  }
+  idx.push(idx.shift()); return idx;
+}
+var CONTR=[[/can't/g,'cannot'],[/won't/g,'will not'],[/n't/g,' not'],[/\bi'm\b/g,'i am'],[/\bit's\b/g,'it is'],[/\bthat's\b/g,'that is'],[/\byou're\b/g,'you are'],[/\bthey're\b/g,'they are'],[/\bwe're\b/g,'we are'],[/\bhe's\b/g,'he is'],[/\bshe's\b/g,'she is'],[/\bwhat's\b/g,'what is'],[/\bthere's\b/g,'there is']];
+function norm(s){
+  s=String(s).toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”"]/g,'');
+  CONTR.forEach(function(c){s=s.replace(c[0],c[1]);});
+  s=s.replace(/[.,!?;:~]/g,' ').replace(/\s+/g,' ').trim();
+  return s;
+}
+function variants(str){ // "(that) " optional words
+  var m=str.match(/\(([^()]+)\)/);
+  if(!m)return [str];
+  var a=str.replace(m[0],m[1]), b=str.replace(m[0],'');
+  return variants(a).concat(variants(b));
+}
+function alts(spec){ // 'a|b' or array -> list of normalized answers
+  var arr=Array.isArray(spec)?spec:String(spec).split('|');
+  var out=[];arr.forEach(function(x){variants(x).forEach(function(v){out.push(norm(v));});});
+  return out;
+}
+function firstShow(spec){var s=Array.isArray(spec)?spec[0]:String(spec).split('|')[0];return s;}
+
+/* ---------- sound ---------- */
+var voices=[];
+function loadV(){try{voices=window.speechSynthesis.getVoices()||[];}catch(e){voices=[];}}
+if('speechSynthesis' in window){loadV();try{window.speechSynthesis.onvoiceschanged=loadV;}catch(e){}}
+function pickVoice(){
+  if(!voices.length)loadV();
+  var v=voices.find(function(x){return /william/i.test(x.name);});
+  if(!v)v=voices.find(function(x){return x.lang==='en-US';});
+  if(!v)v=voices.find(function(x){return /^en/i.test(x.lang);});
+  return v;
+}
+var unlocked=false;
+function unlock(){
+  if(unlocked||!('speechSynthesis' in window))return; unlocked=true;
+  try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;window.speechSynthesis.speak(u);}catch(e){}
+}
+document.addEventListener('touchstart',unlock,{once:true,passive:true});
+document.addEventListener('click',unlock,{once:true});
+function mkUtter(text){
+  var u=new SpeechSynthesisUtterance(text.replace(/[○×]/g,''));
+  var v=pickVoice(); if(v){u.voice=v;u.lang=v.lang;}else{u.lang='en-US';}
+  u.rate=0.9; return u;
+}
+function speak(text,btn){
+  if(!('speechSynthesis' in window))return;
+  try{
+    window.speechSynthesis.cancel();
+    var u=mkUtter(text);
+    if(btn){btn.classList.add('playing');u.onend=u.onerror=function(){btn.classList.remove('playing');};}
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakAll(list,btn){
+  if(!('speechSynthesis' in window))return;
+  try{
+    window.speechSynthesis.cancel();
+    list.forEach(function(t,i){
+      var u=mkUtter(t);
+      if(btn&&i===0)btn.classList.add('playing');
+      if(btn&&i===list.length-1)u.onend=u.onerror=function(){btn.classList.remove('playing');};
+      window.speechSynthesis.speak(u);
+    });
+  }catch(e){}
+}
+var actx=null;
+function pageSound(){
+  try{
+    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    var o=actx.createOscillator(),g=actx.createGain();
+    o.type='sine';o.frequency.setValueAtTime(880,actx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(1320,actx.currentTime+.08);
+    g.gain.setValueAtTime(.05,actx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+.15);
+    o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+.16);
+  }catch(e){}
+}
+function spkBtn(text){
+  var b=el('button','spk','🔊');b.type='button';b.setAttribute('aria-label','듣기');
+  b.addEventListener('click',function(ev){ev.stopPropagation();speak(text,b);});
+  return b;
+}
+
+/* ---------- question engine ---------- */
+function Q(def, num, tabIdx, setObj){
+  var self=this;
+  this.def=def; this.state='idle'; this.tab=tabIdx; this.set=setObj;
+  var card=el('div','q'); this.card=card;
+  var top=el('div','qn');
+  top.appendChild(el('span','num',String(num)));
+  var tt={mc:'객관식',multi:'모두 고르기',in:'쓰기',ord:'배열'}[def.t];
+  var tcls={mc:'b-sky',multi:'b-peach',in:'b-mint',ord:'b-lav'}[def.t];
+  var qt=el('div','qt',(def.tag?'<span class="badge b-amb">'+def.tag+'</span> ':'')+'<span class="badge '+tcls+'">'+tt+'</span> '+def.q);
+  top.appendChild(qt); card.appendChild(top);
+  // 소리: 정답 문장 자동 생성(빈칸·괄호 고르기) 또는 영어 문장 문제엔 바로 듣기
+  var HAN=/[가-힣ⓐ-ⓩ①-⑩]/;
+  this.say=def.say||null;
+  if(!this.say&&def.t==='mc'&&def.o&&!HAN.test(def.o[def.a])&&def.o[def.a]!=='×(없음)'){
+    var segs=def.q.split('<br>');var last=segs[segs.length-1].replace(/<[^>]+>/g,'');
+    var ans=def.o[def.a].replace(/<[^>]+>/g,'');
+    if(/______/.test(last)&&(def.q.match(/______/g)||[]).length===1){var s1=last.replace(/^\s*(?:[A-Z]:|•)\s*/,'').replace('______',ans).replace(/\([^)]*[가-힣][^)]*\)/g,'').trim();if(!HAN.test(s1))this.say=s1;}
+    else if(/\([^()]*\/[^()]*\)/.test(last)){var s2=last.replace(/\([^()]*\/[^()]*\)/,ans).trim();if(!HAN.test(s2))this.say=s2;}
+  }
+  var plain=def.q.replace(/<[^>]+>/g,'');
+  if(!HAN.test(plain)&&!/______|\[|\//.test(plain)&&def.t!=='ord'){
+    var qs=spkBtn(plain);qs.className='spk mini';qt.appendChild(qs);
+  }
+  if(def.p){var p=el('div','pass',def.p);card.appendChild(p);}
+  var body=el('div','qbody'); card.appendChild(body);
+  this.body=body;
+  this['build_'+def.t]();
+  var foot=el('div','qfoot');
+  this.gBtn=el('button','btn fill sm','채점');this.gBtn.type='button';
+  this.rBtn=el('button','btn sm','다시 풀기');this.rBtn.type='button';this.rBtn.style.display='none';
+  this.aBtn=el('button','btn ghost sm','정답 보기');this.aBtn.type='button';this.aBtn.style.display='none';
+  this.gBtn.addEventListener('click',function(){self.grade(true);});
+  this.rBtn.addEventListener('click',function(){self.reset();});
+  this.aBtn.addEventListener('click',function(){self.showAns();});
+  foot.appendChild(this.gBtn);foot.appendChild(this.rBtn);foot.appendChild(this.aBtn);
+  card.appendChild(foot);
+  this.fb=el('div','fb');card.appendChild(this.fb);
+  REG.push(this);
+}
+Q.prototype.build_mc=function(){
+  var self=this,d=this.def; this.sel=null; this.optEls=[];
+  var box=el('div','opts'+(d.inline?' inline':''));
+  d.o.forEach(function(o,i){
+    var b=el('button','opt',(d.nonum?'':NUMS[i]+' ')+o);b.type='button';
+    b.addEventListener('click',function(){
+      if(self.locked)return;
+      self.optEls.forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel');self.sel=i;
+    });
+    self.optEls.push(b);box.appendChild(b);
+  });
+  this.body.appendChild(box);
+};
+Q.prototype.build_multi=function(){
+  var self=this,d=this.def; this.sels={}; this.optEls=[];
+  var box=el('div','opts');
+  d.o.forEach(function(o,i){
+    var b=el('button','opt',NUMS[i]+' '+o);b.type='button';
+    b.addEventListener('click',function(){
+      if(self.locked)return;
+      if(self.sels[i]){delete self.sels[i];b.classList.remove('sel');}else{self.sels[i]=1;b.classList.add('sel');}
+    });
+    self.optEls.push(b);box.appendChild(b);
+  });
+  this.body.appendChild(box);
+};
+Q.prototype.build_in=function(){
+  var self=this,d=this.def; this.inputs=[];
+  if(d.s){
+    var parts=d.s.split('[]');
+    var w=el('div','tmpl');
+    parts.forEach(function(pt,i){
+      w.appendChild(document.createTextNode(''));
+      var sp=el('span','',pt);w.appendChild(sp);
+      if(i<parts.length-1){
+        var inp=el('input','blank');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.spellcheck=false;
+        inp.addEventListener('keydown',function(e){if(e.key==='Enter'){self.grade(true);}});
+        self.inputs.push(inp);w.appendChild(inp);
+      }
+    });
+    this.body.appendChild(w);
+  }else{
+    var inp=el('input','blank wide');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.spellcheck=false;
+    inp.placeholder=d.ph||'여기에 쓰기';
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter'){self.grade(true);}});
+    this.inputs.push(inp);this.body.appendChild(inp);
+  }
+};
+Q.prototype.build_ord=function(){
+  var self=this,d=this.def; this.placed=[];
+  var w=el('div','ordwrap');
+  this.slots=el('div','slots'+(d.blk?' block':''));
+  this.hint=el('span','hint','↓ 아래 조각을 순서대로 누르세요 (다시 누르면 빠짐)');
+  this.slots.appendChild(this.hint);
+  this.pool=el('div','pool'+(d.blk?' block':''));
+  var order=shuffleIdx(d.c.length,d.q+'|'+d.c.join('/'));
+  this.poolBtns=[];
+  order.forEach(function(ci){
+    var b=el('button','chip',esc(d.c[ci]));b.type='button';b.dataset.ci=ci;
+    b.addEventListener('click',function(){
+      if(self.locked||b.classList.contains('used'))return;
+      b.classList.add('used');self.place(ci,b);
+    });
+    self.poolBtns.push(b);self.pool.appendChild(b);
+  });
+  w.appendChild(this.slots);w.appendChild(this.pool);this.body.appendChild(w);
+};
+Q.prototype.place=function(ci,src){
+  var self=this,d=this.def;
+  if(this.hint.parentNode)this.hint.remove();
+  var b=el('button','chip',esc(d.c[ci]));b.type='button';
+  var item={ci:ci,el:b,src:src};
+  b.addEventListener('click',function(){
+    if(self.locked)return;
+    var k=self.placed.indexOf(item);if(k>=0)self.placed.splice(k,1);
+    b.remove();src.classList.remove('used');
+    if(!self.placed.length)self.slots.appendChild(self.hint);
+  });
+  this.placed.push(item);this.slots.appendChild(b);
+};
+Q.prototype.answered=function(){
+  var d=this.def;
+  if(d.t==='mc')return this.sel!=null;
+  if(d.t==='multi')return Object.keys(this.sels).length>0;
+  if(d.t==='in')return this.inputs.every(function(i){return i.value.trim()!=='';});
+  if(d.t==='ord')return this.placed.length===d.c.length;
+};
+Q.prototype.check=function(){
+  var d=this.def,self=this;
+  if(d.t==='mc')return this.sel===d.a;
+  if(d.t==='multi'){var k=Object.keys(this.sels).map(Number).sort();var a=d.a.slice().sort();return k.length===a.length&&k.every(function(v,i){return v===a[i];});}
+  if(d.t==='in'){
+    var A=Array.isArray(d.a)?d.a:[d.a];
+    var ok=true;
+    this.inputs.forEach(function(inp,i){
+      var good=alts(A[i]).indexOf(norm(inp.value))>=0;
+      inp.classList.toggle('right',good);inp.classList.toggle('wrong',!good);
+      if(!good)ok=false;
+    });
+    return ok;
+  }
+  if(d.t==='ord'){
+    var got=this.placed.map(function(p){return norm(d.c[p.ci]);}).join(' ');
+    var want=d.c.map(norm).join(' ');
+    return got===want;
+  }
+};
+Q.prototype.lock=function(v){
+  this.locked=v;
+  (this.optEls||[]).forEach(function(b){b.disabled=v;});
+  (this.inputs||[]).forEach(function(i){i.readOnly=v;});
+};
+Q.prototype.grade=function(manual){
+  if(this.state==='ok')return true;
+  if(!this.answered()){
+    if(manual){this.fb.className='fb show no';this.fb.innerHTML='먼저 답을 고르거나 써 주세요.';}
+    return null;
+  }
+  var ok=this.check();
+  var d=this.def;
+  this.lock(true);
+  this.gBtn.style.display='none';
+  if(ok){
+    this.state='ok';this.card.className='q ok';
+    if(d.t==='mc'){this.optEls[d.a].classList.add('right');}
+    if(d.t==='multi'){var s=this;d.a.forEach(function(i){s.optEls[i].classList.add('right');});}
+    this.fb.className='fb show ok';this.fb.innerHTML='<b>정답!</b> '+(d.e||'')+this.sayHtml();
+    this.rBtn.style.display='none';this.aBtn.style.display='none';
+  }else{
+    this.state='no';this.card.className='q no';
+    if(d.t==='mc'){this.optEls[this.sel].classList.add('wrong');}
+    if(d.t==='multi'){var s2=this;Object.keys(this.sels).forEach(function(i){if(d.a.indexOf(+i)<0)s2.optEls[i].classList.add('wrong');});}
+    this.fb.className='fb show no';this.fb.innerHTML='<b>틀렸어요.</b> 다시 풀어 보거나 정답을 확인하세요.';
+    this.rBtn.style.display='';this.aBtn.style.display='';
+  }
+  updateScores();
+  return ok;
+};
+Q.prototype.sayHtml=function(){
+  var s=this.say;
+  if(!s&&this.def.t==='in'&&!this.def.s){var a=Array.isArray(this.def.a)?this.def.a[0]:this.def.a;a=firstShow(a).replace(/[()]/g,'');if(a.split(' ').length>=3)s=a;}
+  if(!s&&this.def.t==='ord'&&!/[가-힣]/.test(this.def.c.join('')))s=this.def.c.join(' ');
+  if(!s)return '';
+  return '<div style="margin-top:6px" class="row"><button class="spk mini" data-say="'+esc(s).replace(/"/g,'&quot;')+'">🔊</button><span class="en">'+esc(s)+'</span></div>';
+};
+Q.prototype.ansText=function(){
+  var d=this.def;
+  if(d.t==='mc')return NUMS[d.a]+' '+d.o[d.a];
+  if(d.t==='multi')return d.a.map(function(i){return NUMS[i]+' '+d.o[i];}).join(' / ');
+  if(d.t==='in'){var A=Array.isArray(d.a)?d.a:[d.a];return A.map(firstShow).join(' / ');}
+  if(d.t==='ord')return d.c.join(d.blk?'<br>→ ':' ');
+};
+Q.prototype.showAns=function(){
+  var d=this.def,s=this;
+  if(d.t==='mc')this.optEls[d.a].classList.add('right');
+  if(d.t==='multi')d.a.forEach(function(i){s.optEls[i].classList.add('right');});
+  this.state='shown';
+  this.fb.className='fb show ans';
+  this.fb.innerHTML='<b>정답:</b> '+this.ansText()+(d.e?'<br>'+d.e:'')+this.sayHtml();
+  this.aBtn.style.display='none';
+  updateScores();
+};
+Q.prototype.reset=function(){
+  var d=this.def,self=this;
+  this.state='idle';this.card.className='q';this.lock(false);
+  this.fb.className='fb';this.fb.innerHTML='';
+  this.gBtn.style.display='';this.rBtn.style.display='none';this.aBtn.style.display='none';
+  if(this.optEls)this.optEls.forEach(function(b){b.classList.remove('sel','right','wrong');});
+  if(d.t==='mc')this.sel=null;
+  if(d.t==='multi')this.sels={};
+  if(d.t==='in')this.inputs.forEach(function(i){i.value='';i.classList.remove('right','wrong');});
+  if(d.t==='ord'){
+    this.placed.forEach(function(p){p.el.remove();p.src.classList.remove('used');});
+    this.placed=[];this.slots.appendChild(this.hint);
+  }
+  updateScores();
+};
+
+function QSet(blk, tabIdx){
+  var self=this; this.qs=[];
+  var wrap=el('div','qset');
+  var head=el('div','qhead');
+  head.appendChild(el('h3','',blk.title||'문제'));
+  this.sc=el('span','score','0 / '+blk.qs.length);head.appendChild(this.sc);
+  wrap.appendChild(head);
+  if(blk.note)wrap.appendChild(el('div','tip',blk.note));
+  if(blk.pass){var pb=el('div','pass big',blk.pass);wrap.appendChild(pb);}
+  blk.qs.forEach(function(d,i){
+    var q=new Q(d,i+(blk.start||1),tabIdx,self);self.qs.push(q);TABQ[tabIdx].push(q);wrap.appendChild(q.card);
+  });
+  var bar=el('div','sticky');
+  var g=el('button','btn fill','전체 채점');g.type='button';
+  var r=el('button','btn','틀린 것만 다시');r.type='button';
+  g.addEventListener('click',function(){
+    var un=0;self.qs.forEach(function(q){if(q.state==='idle'){var x=q.grade(false);if(x===null)un++;}});
+    updateScores();
+    var ok=self.qs.filter(function(q){return q.state==='ok';}).length;
+    self.sc.textContent=ok+' / '+self.qs.length+(un?' (미응답 '+un+')':'');
+  });
+  r.addEventListener('click',function(){
+    var first=null;
+    self.qs.forEach(function(q){if(q.state==='no'||q.state==='shown'){q.reset();if(!first)first=q;}});
+    if(first)first.card.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  bar.appendChild(g);bar.appendChild(r);wrap.appendChild(bar);
+  this.el=wrap;
+  SETS.push(this);
+}
+var SETS=[];
+function updateScores(){
+  SETS.forEach(function(s){
+    var ok=s.qs.filter(function(q){return q.state==='ok';}).length;
+    var t=s.sc.textContent;var m=t.match(/\(미응답 \d+\)/);
+    s.sc.textContent=ok+' / '+s.qs.length;
+  });
+  TABQ.forEach(function(arr,i){
+    var pg=document.querySelector('.tab[data-i="'+i+'"] .pg');
+    if(!pg)return;
+    if(!arr.length){pg.textContent='';return;}
+    var ok=arr.filter(function(q){return q.state==='ok';}).length;
+    pg.textContent=ok+'/'+arr.length;
+  });
+}
+
+/* ---------- other blocks ---------- */
+function bWords(blk){
+  var w=el('div','box');
+  if(blk.title)w.appendChild(el('h3','sub',blk.title));
+  var g=el('div','wgrid');
+  blk.items.forEach(function(it){
+    var c=el('button','wchip','<b>'+esc(it[0])+'</b><span>'+esc(it[1])+'</span>');c.type='button';
+    c.addEventListener('click',function(){speak(it[0]);});
+    g.appendChild(c);
+  });
+  w.appendChild(g);
+  return w;
+}
+function bAnalysis(blk){
+  var w=el('div','');
+  blk.paras.forEach(function(pa){
+    w.appendChild(el('div','parahead','<b>'+pa.title+'</b>'+(pa.flow?'<br>'+pa.flow:'')));
+    pa.items.forEach(function(it){
+      var c=el('div','acard');
+      var krl=el('div','kr','<span class="no">'+it.n+'</span>'+esc(it.kr)+' ');
+      var mini=spkBtn(it.en);mini.className='spk mini';mini.title='영어 소리 듣기';krl.appendChild(mini);
+      c.appendChild(krl);
+      var bar=el('div','row');bar.style.marginTop='8px';
+      var b1=null;
+      if(it.ch&&it.ch.length>1){b1=el('button','btn sm','① 영어 어순으로 덩어리 보기');b1.type='button';bar.appendChild(b1);}
+      var b2=el('button','btn sm','② 영어 문장 보기');b2.type='button';bar.appendChild(b2);
+      c.appendChild(bar);
+      var ch=el('div','chunks');ch.style.display='none';
+      if(it.ch&&it.ch.length>1){
+        it.ch.forEach(function(x,i){
+          var k=el('button','ck','<small>'+(i+1)+'</small>'+esc(x[1])+'<span class="ce">'+esc(x[0])+'</span>');k.type='button';
+          k.addEventListener('click',function(){k.classList.add('open');});
+          ch.appendChild(k);
+        });
+        c.appendChild(ch);
+        b1.addEventListener('click',function(){ch.style.display='flex';b1.disabled=true;});
+      }
+      var ae=el('div','aen');
+      var srow=el('div','row');srow.appendChild(el('span','s en',esc(it.en)));srow.appendChild(spkBtn(it.en));
+      ae.appendChild(srow);
+      if(it.tip)ae.appendChild(el('div','tp','💡 '+it.tip));
+      c.appendChild(ae);
+      b2.addEventListener('click',function(){ae.classList.add('show');ch.style.display=it.ch&&it.ch.length>1?'flex':'none';ch.querySelectorAll('.ck').forEach(function(k){k.classList.add('open');});b2.disabled=true;if(b1)b1.disabled=true;speak(it.en);});
+      w.appendChild(c);
+    });
+  });
+  return w;
+}
+function bScript(blk){
+  var w=el('div','script');
+  var h=el('div','shead');h.appendChild(el('b','',blk.title));
+  var r=el('div','row');
+  var all=el('button','btn sm','▶ 전체 듣기');all.type='button';
+  var kr=el('button','btn sm ghost','해석 보기');kr.type='button';
+  all.addEventListener('click',function(){speakAll(blk.lines.map(function(l){return l[1];}),all);});
+  kr.addEventListener('click',function(){w.classList.toggle('kr');kr.textContent=w.classList.contains('kr')?'해석 숨기기':'해석 보기';});
+  r.appendChild(all);r.appendChild(kr);h.appendChild(r);w.appendChild(h);
+  blk.lines.forEach(function(l){
+    var ln=el('div','line');
+    ln.appendChild(el('span','who',esc(l[0])));
+    var tx=el('div','tx','<div class="en">'+esc(l[1])+'</div><div class="ko">'+esc(l[2]||'')+'</div>');
+    ln.appendChild(tx);ln.appendChild(spkBtn(l[1]));w.appendChild(ln);
+  });
+  return w;
+}
+function bTapfill(blk){
+  var w=el('div','box');
+  if(blk.title)w.appendChild(el('h3','sub',blk.title));
+  if(blk.note)w.appendChild(el('div','',blk.note));
+  var idx=0;var spans=[];
+  blk.lines.forEach(function(line){
+    var p=el('div','tf');
+    var html=line.replace(/\[\[([^\]]+)\]\]/g,function(m,a){return '<span class="tfb" data-a="'+esc(a)+'">'+esc(a)+'</span>';});
+    p.innerHTML=html;w.appendChild(p);
+    p.querySelectorAll('.tfb').forEach(function(s){spans.push(s);});
+  });
+  function mark(){spans.forEach(function(s,i){s.classList.toggle('next',i===idx);});}
+  spans.forEach(function(s,i){
+    s.addEventListener('click',function(){
+      if(s.classList.contains('open'))return;
+      if(i!==idx){s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake');return;}
+      s.classList.add('open');idx++;mark();
+    });
+  });
+  mark();
+  var rb=el('button','btn sm ghost','처음부터 다시');rb.type='button';rb.style.marginTop='8px';
+  rb.addEventListener('click',function(){spans.forEach(function(s){s.classList.remove('open');});idx=0;mark();});
+  w.appendChild(rb);
+  return w;
+}
+
+function bWordlist(blk){
+  var w=el('div','box wl');
+  var hd=el('div','row');hd.style.justifyContent='space-between';hd.style.marginBottom='6px';
+  hd.appendChild(el('h3','sub',blk.title||''));
+  var tg=el('div','row');
+  var t1=el('button','btn sm','뜻 가리기');t1.type='button';
+  var t2=el('button','btn sm ghost','예문 해석 보기');t2.type='button';
+  t1.addEventListener('click',function(){w.classList.toggle('hidem');w.querySelectorAll('.wm').forEach(function(m){m.classList.remove('on');});t1.textContent=w.classList.contains('hidem')?'뜻 모두 보기':'뜻 가리기';});
+  t2.addEventListener('click',function(){w.classList.toggle('showk');t2.textContent=w.classList.contains('showk')?'예문 해석 숨기기':'예문 해석 보기';});
+  tg.appendChild(t1);tg.appendChild(t2);hd.appendChild(tg);w.appendChild(hd);
+  if(blk.note)w.appendChild(el('div','tip',blk.note));
+  blk.items.forEach(function(it,i){
+    var r=el('div','wrow');
+    var top=el('div','wtop');
+    top.appendChild(el('span','wn',String(i+1)));
+    top.appendChild(el('b','ww en',esc(it[0])));
+    top.appendChild(spkBtn(it[0]));
+    var m=el('span','wm',esc(it[1]));
+    m.addEventListener('click',function(){m.classList.toggle('on');});
+    top.appendChild(m);r.appendChild(top);
+    if(it[2]){
+      var ex=el('div','wex');
+      var line=el('div','wen');line.innerHTML='<span class="en">'+it[2]+'</span>';line.appendChild(spkBtn(it[2].replace(/<[^>]+>/g,'')));
+      ex.appendChild(line);
+      var k=el('div','wk',esc(it[3]||''));
+      ex.appendChild(k);
+      line.addEventListener('click',function(e){if(e.target.closest('.spk'))return;r.classList.toggle('kon');});
+      r.appendChild(ex);
+    }
+    w.appendChild(r);
+  });
+  return w;
+}
+function bFlip(blk){
+  var w=el('div','box flip');
+  var hd=el('div','row');hd.style.justifyContent='space-between';hd.style.marginBottom='6px';
+  hd.appendChild(el('h3','sub',blk.title||''));
+  var t=el('button','btn sm','뜻 모두 보기');t.type='button';
+  t.addEventListener('click',function(){var on=!w.classList.contains('allon');w.classList.toggle('allon',on);w.querySelectorAll('.frow').forEach(function(r){r.classList.toggle('on',on);});t.textContent=on?'뜻 모두 가리기':'뜻 모두 보기';});
+  hd.appendChild(t);w.appendChild(hd);
+  if(blk.note)w.appendChild(el('div','tip',blk.note));
+  blk.rows.forEach(function(rw){
+    var r=el('div','frow');
+    var a=el('div','fen');a.innerHTML='<span class="en">'+rw[0]+'</span>';
+    a.appendChild(spkBtn(rw[0].replace(/<[^>]+>/g,'')));
+    var b=el('button','btn sm ghost fbtn','뜻 ▾');b.type='button';
+    b.addEventListener('click',function(){r.classList.toggle('on');});
+    a.appendChild(b);r.appendChild(a);
+    r.appendChild(el('div','fkr',rw[1]+(rw[2]?'<div class="fnote">'+rw[2]+'</div>':'')));
+    w.appendChild(r);
+  });
+  return w;
+}
+/* 단계별 전환 훈련 (drill): 한 단계씩 맞혀야 다음 단계, 슬롯에 문장이 조립됨 */
+var DRILLS=[];
+function bDrill(blk){
+  var w=el('div','');
+  if(blk.note)w.appendChild(el('div','tip',blk.note));
+  blk.items.forEach(function(it,ii){
+    var c=el('div','drill box');
+    c.appendChild(el('div','dact','<span class="dno">'+(ii+1)+'</span><span class="badge b-sky">능동</span> <span class="en">'+it.act+'</span>'+(it.kr?'<div class="dkr">'+esc(it.kr)+'</div>':'')));
+    var labels=blk.labels||['주어','be동사','과거분사','by + 행위자'];
+    var sw=el('div','dslots');
+    var slotEls=labels.map(function(l){var s=el('span','dslot','<small>'+l+'</small><b>?</b>');sw.appendChild(s);return s;});
+    c.appendChild(el('div','dlabel','<span class="badge b-mint">수동</span> 문장 만들기'));
+    c.appendChild(sw);
+    var tw=el('div','dtags');c.appendChild(tw);
+    var box=el('div','dstep');c.appendChild(box);
+    var st={idx:0,done:false,miss:0};
+    function reset(){st.idx=0;st.done=false;st.miss=0;slotEls.forEach(function(s){s.classList.remove('on');s.querySelector('b').textContent='?';});tw.innerHTML='';render();}
+    function render(){
+      box.innerHTML='';
+      if(st.idx>=it.steps.length){finish();return;}
+      var sp=it.steps[st.idx];
+      box.appendChild(el('div','dq','<span class="dn">STEP '+(st.idx+1)+' / '+it.steps.length+'</span> '+sp.q));
+      var ob=el('div','opts inline');var fb=el('div','fb');
+      sp.o.forEach(function(o,oi){
+        var b=el('button','opt',o);b.type='button';
+        b.addEventListener('click',function(){
+          if(st.done)return;
+          if(oi===sp.a){
+            b.classList.add('right');ob.querySelectorAll('.opt').forEach(function(x){x.disabled=true;});
+            if(sp.slot!=null){var s=slotEls[sp.slot];s.querySelector('b').textContent=sp.fill||o.replace(/<[^>]+>/g,'');s.classList.add('on');}
+            if(sp.tag)tw.appendChild(el('span','badge b-amb',sp.tag));
+            fb.className='fb show ok';fb.innerHTML='<b>맞아요!</b> '+(sp.why||'');
+            st.idx++;setTimeout(render,sp.why?900:450);
+          }else{
+            st.miss++;b.classList.add('wrong');b.disabled=true;
+            fb.className='fb show no';fb.innerHTML='<b>다시!</b> '+(sp.h||'');
+          }
+        });
+        ob.appendChild(b);
+      });
+      box.appendChild(ob);box.appendChild(fb);
+    }
+    function finish(){
+      st.done=true;
+      var r=el('div','dfinal');
+      var line=el('div','row');line.appendChild(el('span','en','<b>'+esc(it.pass)+'</b>'));line.appendChild(spkBtn(it.pass));
+      r.appendChild(el('div','',st.miss?'<b>완성!</b> (틀린 단계 '+st.miss+'번 — 한 번 더 해 보면 좋아요)':'<b>완성! 한 번에 성공 👏</b>'));
+      r.appendChild(line);
+      if(it.note)r.appendChild(el('div','tp','💡 '+it.note));
+      var rb=el('button','btn sm ghost','다시 하기');rb.type='button';rb.style.marginTop='8px';rb.addEventListener('click',reset);
+      r.appendChild(rb);box.appendChild(r);
+    }
+    render();
+    DRILLS.push({it:it,st:st,el:c,reset:reset});
+    w.appendChild(c);
+  });
+  return w;
+}
+document.addEventListener('click',function(e){
+  var s=e.target.closest&&e.target.closest('[data-say]');
+  if(s){speak(s.getAttribute('data-say'),s);return;}
+  var rv=e.target.closest&&e.target.closest('.rv');
+  if(rv){rv.classList.toggle('on');}
+  var ra=e.target.closest&&e.target.closest('[data-rvall]');
+  if(ra){var box=ra.closest('.box')||document;var list=box.querySelectorAll('.rv');var on=!ra.classList.contains('on');ra.classList.toggle('on',on);list.forEach(function(x){x.classList.toggle('on',on);});ra.textContent=on?'모두 가리기':'모두 보기';}
+});
+
+/* ---------- page ---------- */
+function build(){
+  document.title=D.title;
+  var hd=el('header','top');
+  hd.appendChild(el('div','brand',D.brand));
+  hd.appendChild(el('h1','',D.title));
+  hd.appendChild(el('div','sub',D.sub));
+  var nav=el('nav','tabs');hd.appendChild(nav);
+  document.body.appendChild(hd);
+  var main=el('main');document.body.appendChild(main);
+  D.tabs.forEach(function(tb,ti){
+    TABQ.push([]);
+    var t=el('button','tab'+(ti===0?' on':''),esc(tb.name)+'<span class="pg"></span>');t.type='button';t.dataset.i=ti;
+    t.addEventListener('click',function(){go(ti);});
+    nav.appendChild(t);
+    var pn=el('section','panel'+(ti===0?' on':''));pn.dataset.i=ti;
+    if(tb.intro)pn.appendChild(el('div','intro',tb.intro));
+    tb.blocks.forEach(function(b){
+      var node;
+      if(b.k==='html')node=el('div','',b.html);
+      else if(b.k==='h')node=el('h2','sec',b.html);
+      else if(b.k==='words')node=bWords(b);
+      else if(b.k==='qset')node=new QSet(b,ti).el;
+      else if(b.k==='analysis')node=bAnalysis(b);
+      else if(b.k==='script')node=bScript(b);
+      else if(b.k==='tapfill')node=bTapfill(b);
+      else if(b.k==='wordlist')node=bWordlist(b);
+      else if(b.k==='flip')node=bFlip(b);
+      else if(b.k==='drill')node=bDrill(b);
+      if(node)pn.appendChild(node);
+    });
+    if(ti<D.tabs.length-1){
+      var nx=el('div','row');nx.style.justifyContent='center';nx.style.marginTop='20px';
+      var nb=el('button','btn','다음: '+esc(D.tabs[ti+1].name)+' →');nb.type='button';
+      nb.addEventListener('click',function(){go(ti+1);});nx.appendChild(nb);pn.appendChild(nx);
+    }
+    main.appendChild(pn);
+  });
+  main.appendChild(el('div','foot',D.brand+' · '+D.title));
+  updateScores();
+}
+function go(i){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',+t.dataset.i===i);});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',+p.dataset.i===i);});
+  var t=document.querySelector('.tab[data-i="'+i+'"]');if(t&&t.scrollIntoView)try{t.scrollIntoView({inline:'center',block:'nearest'});}catch(e){}
+  window.scrollTo(0,0);pageSound();
+}
+/* ---------- 문장 번호 → 실제 문장 보기 ---------- */
+var sheet=null;
+function openRef(a,b){
+  var S=D.sents;if(!S)return;
+  if(!sheet){
+    sheet=el('div','refsheet');
+    sheet.innerHTML='<div class="rhead"><b></b><button type="button" class="rclose" aria-label="닫기">✕</button></div><div class="rbody"></div>';
+    sheet.querySelector('.rclose').addEventListener('click',function(){sheet.classList.remove('show');});
+    document.body.appendChild(sheet);
+  }
+  var body=sheet.querySelector('.rbody');body.innerHTML='';
+  for(var n=a;n<=b;n++){
+    var s=S[n];if(!s)continue;
+    var r=el('div','rrow');
+    var top=el('div','rtop','<span class="rn">'+n+'</span><span class="ren en">'+esc(s[0])+'</span>');
+    top.appendChild(spkBtn(s[0]));
+    r.appendChild(top);r.appendChild(el('div','rkr',esc(s[1])));
+    body.appendChild(r);
+  }
+  sheet.querySelector('.rhead b').textContent='본문 '+(a===b?a+'번':a+'~'+b+'번');
+  sheet.classList.add('show');body.scrollTop=0;
+}
+function linkRefs(root){
+  var S=D.sents;if(!S)return;
+  var max=Object.keys(S).length;
+  var re=/(^|[^\d])(\((\d{1,2}(?:\s*~\s*\d{1,2})?)\)|(\d{1,2}(?:\s*~\s*\d{1,2})?(?:\s*[,·]\s*\d{1,2}(?:\s*~\s*\d{1,2})?)*)\s*번)/g;
+  function mk(tok){
+    var m=tok.match(/(\d{1,2})(?:\s*~\s*(\d{1,2}))?/);var a=+m[1],b=m[2]?+m[2]:a;
+    if(a<1||b>max||b<a)return document.createTextNode(tok);
+    var s=el('span','ref',esc(tok));s.dataset.a=a;s.dataset.b=b;return s;
+  }
+  root.querySelectorAll('.anal, .parahead').forEach(function(box){
+    var walker=document.createTreeWalker(box,NodeFilter.SHOW_TEXT,null);
+    var nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+    nodes.forEach(function(tn){
+      if(tn.parentNode.closest('.ref'))return;
+      var t=tn.nodeValue;re.lastIndex=0;if(!re.test(t))return;re.lastIndex=0;
+      var frag=document.createDocumentFragment(),last=0,m;
+      while((m=re.exec(t))){
+        var start=m.index+m[1].length;
+        frag.appendChild(document.createTextNode(t.slice(last,start)));
+        if(m[3]!==undefined){ // (N) or (N~M)
+          frag.appendChild(document.createTextNode('('));frag.appendChild(mk(m[3]));frag.appendChild(document.createTextNode(')'));
+        }else{
+          var parts=m[4].split(/(\s*[,·]\s*)/);var lastEl=null;
+          parts.forEach(function(p){if(/^\s*[,·]\s*$/.test(p))frag.appendChild(document.createTextNode(p));else{lastEl=mk(p);frag.appendChild(lastEl);}});
+          var suf=m[2].slice(m[4].length);
+          if(lastEl&&lastEl.nodeType===1)lastEl.textContent+=suf;else frag.appendChild(document.createTextNode(suf));
+        }
+        last=start+m[2].length;
+      }
+      frag.appendChild(document.createTextNode(t.slice(last)));
+      tn.parentNode.replaceChild(frag,tn);
+    });
+  });
+  root.addEventListener('click',function(e){var r=e.target.closest&&e.target.closest('.ref');if(r){e.stopPropagation();openRef(+r.dataset.a,+r.dataset.b);}});
+}
+window.__L7={REG:REG,SETS:SETS,DRILLS:DRILLS,go:go,norm:norm,alts:alts,openRef:openRef};
+build();
+linkRefs(document);
+})();
+
+</script>
+</body>
+</html>
