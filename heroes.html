@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exploring Greatness — 본문</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f4fa;--card:#fff;--card2:#eeecf7;
+  --primary:#5b4fa8;--primary-lt:#ece9f8;--primary-dk:#3b2f8a;
+  --accent:#e8a020;--accent-lt:#fef3dc;
+  --text:#1a1a2e;--muted:#6b6880;--border:#d8d4ee;
+  --ok:#1a7a3c;--ok-bg:#e8f5ec;--no:#c0392b;--no-bg:#fdecea;
+  --info:#3a5fa8;--info-bg:#e8eef8;
+  --mint:#dff5ec;--mint-t:#1d7a55;--sky:#e1effc;--sky-t:#2a64a8;
+  --peach:#fde9df;--peach-t:#b5532a;--lav:#ece9f8;--lav-t:#5b4fa8;
+  --r:12px;--shadow:0 2px 10px rgba(91,79,168,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Noto Sans KR',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.65;-webkit-tap-highlight-color:transparent}
+.en{font-family:'Noto Sans KR',system-ui,sans-serif}
+header.top{background:linear-gradient(135deg,#3b2f8a,#7b6fd0);color:#fff;padding:16px 16px 0}
+.top .brand{font-size:12px;opacity:.85;letter-spacing:.04em}
+.top h1{font-size:21px;font-weight:800;margin:2px 0 2px}
+.top .sub{font-size:13px;opacity:.9;margin-bottom:12px}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:1.5px solid rgba(255,255,255,.45);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;padding:7px 13px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.tab.on{background:#fff;color:var(--primary-dk);border-color:#fff}
+.tab .pg{font-size:11px;font-weight:700;margin-left:5px;opacity:.85}
+main{max-width:780px;margin:0 auto;padding:16px 14px 80px}
+.panel{display:none;animation:pin .25s ease}
+.panel.on{display:block}
+@keyframes pin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.intro{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:var(--r);padding:12px 14px;margin-bottom:14px;font-size:15px}
+.intro b{color:var(--primary-dk)}
+h2.sec{font-size:18px;font-weight:800;color:var(--primary-dk);margin:22px 2px 10px;display:flex;align-items:center;gap:8px}
+h2.sec:first-child{margin-top:4px}
+h3.sub{font-size:15.5px;font-weight:700;margin:14px 2px 8px;color:var(--primary)}
+.box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.tip{background:var(--accent-lt);border:1px solid #f3d99a;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14.5px}
+.tip b{color:#9a5b00}
+.warn{background:var(--no-bg);border:1px solid #f2c4bd;border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14.5px}
+.warn b{color:var(--no)}
+table.t{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--card)}
+table.t th{background:var(--primary-lt);color:var(--primary-dk);font-weight:700;padding:7px 6px;border:1px solid var(--border);text-align:left}
+table.t td{padding:7px 6px;border:1px solid var(--border);vertical-align:top}
+.tw{overflow-x:auto;border-radius:10px;margin-bottom:12px}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 7px;vertical-align:middle}
+.b-mint{background:var(--mint);color:var(--mint-t)}.b-sky{background:var(--sky);color:var(--sky-t)}
+.b-peach{background:var(--peach);color:var(--peach-t)}.b-lav{background:var(--lav);color:var(--lav-t)}
+.b-amb{background:var(--accent-lt);color:#9a5b00}
+.spk{border:none;background:var(--primary-lt);color:var(--primary);border-radius:8px;width:30px;height:30px;font-size:15px;cursor:pointer;flex:0 0 auto;line-height:30px;text-align:center}
+.spk.playing{background:var(--primary);color:#fff}
+.btn{border:1.5px solid var(--primary);background:#fff;color:var(--primary);border-radius:9px;padding:7px 13px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn.fill{background:var(--primary);color:#fff}
+.btn.sm{padding:4px 10px;font-size:13px}
+.btn.ghost{border-color:var(--border);color:var(--muted)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+/* word chips */
+.wgrid{display:flex;flex-wrap:wrap;gap:6px}
+.wchip{border:1px solid var(--border);background:var(--card);border-radius:9px;padding:5px 10px;font-size:14px;cursor:pointer}
+.wchip b{color:var(--primary-dk)}
+.wchip span{color:var(--muted);font-size:13px;margin-left:4px}
+/* qset */
+.qset{margin-bottom:18px}
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:18px 2px 10px}
+.qhead h3{font-size:16.5px;font-weight:800;color:var(--primary-dk)}
+.score{font-size:13px;font-weight:700;color:var(--primary);background:var(--primary-lt);border-radius:999px;padding:3px 10px}
+.q{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:13px 14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.q.ok{border-color:#8fd0a7;background:#fbfffc}
+.q.no{border-color:#eba59c;background:#fffafa}
+.qn{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}
+.qn .num{flex:0 0 auto;background:var(--primary);color:#fff;font-weight:800;font-size:13px;border-radius:7px;min-width:26px;height:24px;line-height:24px;text-align:center;padding:0 5px;margin-top:2px}
+.qn .qt{flex:1;font-weight:600;font-size:15.5px}
+.qt u{text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:var(--primary)}
+.pass{background:var(--card2);border-radius:10px;padding:10px 12px;margin:6px 0 10px;font-size:15px;line-height:1.75}
+.pass .ln{display:block}
+.pass .sp{font-weight:800;color:var(--primary);margin-right:4px}
+.pass u{text-decoration-thickness:2px;text-underline-offset:3px}
+.mark{color:var(--primary);font-weight:800}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{text-align:left;border:1.5px solid var(--border);background:#fff;border-radius:10px;padding:8px 11px;font-size:15px;cursor:pointer;font-family:inherit;color:var(--text);line-height:1.5}
+.opts.inline .opt{flex:0 0 auto}
+.opt.sel{border-color:var(--primary);background:var(--primary-lt);font-weight:600}
+.opt.right{border-color:var(--ok);background:var(--ok-bg)}
+.opt.wrong{border-color:var(--no);background:var(--no-bg)}
+.opt:disabled{cursor:default;color:var(--text)}
+.blank{display:inline-block;min-width:70px;border:none;border-bottom:2px solid var(--primary);background:var(--primary-lt);border-radius:6px 6px 0 0;padding:2px 6px;margin:2px 2px;font-size:15px;font-family:inherit;color:var(--text);text-align:center}
+.blank.wide{display:block;width:100%;text-align:left;margin:6px 0;padding:8px 10px;border-radius:8px;border:1.5px solid var(--border);border-bottom:2px solid var(--primary)}
+.blank.right{background:var(--ok-bg);border-bottom-color:var(--ok)}
+.blank.wrong{background:var(--no-bg);border-bottom-color:var(--no)}
+.tmpl{font-size:15.5px;line-height:2.1}
+.ordwrap{display:flex;flex-direction:column;gap:8px}
+.slots{min-height:48px;border:2px dashed var(--border);border-radius:10px;padding:7px;display:flex;flex-wrap:wrap;gap:6px;background:#fcfbff}
+.slots.block{flex-direction:column}
+.slots .hint{color:var(--muted);font-size:13px;align-self:center;padding:4px}
+.pool{display:flex;flex-wrap:wrap;gap:6px}
+.pool.block{flex-direction:column}
+.chip{border:1.5px solid var(--primary);background:#fff;color:var(--primary-dk);border-radius:9px;padding:6px 11px;font-size:15px;cursor:pointer;font-family:inherit;text-align:left;line-height:1.45}
+.chip.used{visibility:hidden}
+.slots .chip{background:var(--primary-lt)}
+.chip:disabled{cursor:default}
+.qfoot{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.fb{margin-top:9px;border-radius:9px;padding:9px 11px;font-size:14.5px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--ok-bg);color:#145c2e}
+.fb.no{background:var(--no-bg);color:#8e2a1f}
+.fb.ans{background:var(--info-bg);color:#24406f}
+.fb b{font-weight:800}
+.qbar{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 6px}
+.sticky{position:sticky;bottom:10px;display:flex;justify-content:center;gap:8px;margin-top:6px;z-index:5}
+.sticky .btn{box-shadow:0 4px 14px rgba(59,47,138,.25)}
+/* analysis cards */
+.acard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+.acard .kr{font-size:16px;font-weight:600}
+.acard .kr .no{color:var(--primary);font-weight:800;margin-right:6px}
+.chunks{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.ck{border:1.5px solid var(--border);border-radius:9px;padding:5px 9px;background:#fcfbff;cursor:pointer;font-size:14px;text-align:left;font-family:inherit;color:var(--text)}
+.ck small{display:block;color:var(--primary);font-weight:800;font-size:11px}
+.ck .ce{display:none;color:var(--primary-dk);font-weight:700}
+.ck.open .ce{display:block}
+.ck.open{border-color:var(--primary);background:var(--primary-lt)}
+.aen{display:none;margin-top:9px;background:var(--card2);border-radius:9px;padding:8px 10px}
+.aen.show{display:block}
+.aen .s{font-size:16px;font-weight:700;color:var(--primary-dk)}
+.aen .tp{font-size:14px;color:#6a4a00;margin-top:5px}
+.parahead{background:var(--primary-lt);border-radius:10px;padding:9px 12px;margin:18px 0 9px;font-size:14.5px}
+.parahead b{color:var(--primary-dk);font-size:15.5px}
+/* dialogue script */
+.script{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:10px;box-shadow:var(--shadow)}
+.script .shead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.script .shead b{color:var(--primary-dk);font-size:15.5px}
+.line{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed #ebe8f5}
+.line:last-child{border-bottom:none}
+.line .who{flex:0 0 auto;min-width:24px;font-weight:800;color:var(--primary)}
+.line .tx{flex:1}
+.line .ko{display:none;color:var(--muted);font-size:14px}
+.script.kr .line .ko{display:block}
+/* tapfill */
+.tf{font-size:16px;line-height:2.2}
+.tfb{display:inline-block;min-width:56px;border-bottom:2px solid var(--primary);background:var(--primary-lt);border-radius:6px 6px 0 0;padding:0 7px;text-align:center;cursor:pointer;color:transparent;font-weight:700;user-select:none}
+.tfb.next{animation:pulse 1.4s infinite}
+.tfb.open{color:var(--primary-dk);background:#fff3c9;border-bottom-color:var(--accent);cursor:default}
+.tfb.shake{animation:shake .3s}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(91,79,168,.35)}50%{box-shadow:0 0 0 5px rgba(91,79,168,0)}}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.formula{background:var(--card);border:2px solid var(--primary);border-radius:var(--r);padding:14px;margin-bottom:12px;text-align:center;font-size:18px;font-weight:800;color:var(--primary-dk);line-height:1.8}
+.formula .f{display:inline-block;border-radius:8px;padding:2px 8px;margin:2px}
+.steps{counter-reset:st}
+.step{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;margin-bottom:8px;box-shadow:var(--shadow)}
+.step .h{font-weight:800;color:var(--primary-dk)}
+.step .h .n{display:inline-block;background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:6px}
+.foot{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+@media (max-width:480px){
+  .top h1{font-size:19px}
+  main{padding:12px 12px 80px}
+  .opt,.chip{font-size:14.5px}
+}
+/* v2 additions */
+.spk.mini{width:24px;height:24px;line-height:24px;font-size:12px;border-radius:6px;vertical-align:middle;margin-left:4px}
+.wl .wrow{border-bottom:1px dashed #e4e0f3;padding:8px 2px}
+.wl .wrow:last-child{border-bottom:none}
+.wtop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wn{font-size:12px;color:var(--muted);min-width:20px}
+.ww{font-size:16.5px;color:var(--primary-dk)}
+.wm{color:var(--text);font-size:15px;border-radius:6px;padding:0 4px}
+.wl.hidem .wm{background:var(--card2);color:transparent;cursor:pointer;min-width:90px;display:inline-block}
+.wl.hidem .wm.on{background:#fff3c9;color:var(--text)}
+.wex{margin:4px 0 0 28px}
+.wen{display:flex;align-items:center;gap:6px;font-size:15px;cursor:pointer}
+.wen .spk{width:26px;height:26px;line-height:26px;font-size:13px}
+.wk{display:none;color:var(--muted);font-size:14px}
+.wl.showk .wk,.wrow.kon .wk{display:block}
+.flip .frow{border-bottom:1px dashed #e4e0f3;padding:7px 2px}
+.flip .frow:last-child{border-bottom:none}
+.fen{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15.5px}
+.fen .en{flex:1;min-width:180px}
+.fkr{display:none;margin-top:4px;background:#fff8e6;border-radius:8px;padding:6px 9px;font-size:14.5px}
+.frow.on .fkr{display:block}
+.fnote{color:#8a5a00;font-size:13.5px;margin-top:2px}
+.rv{background:var(--card2);color:transparent;border-radius:5px;cursor:pointer;padding:0 4px;user-select:none}
+.rv.on{background:#fff3c9;color:inherit}
+.fam{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.fam .fc{border:1px solid var(--border);border-radius:8px;padding:3px 8px;background:#fff;font-size:14px}
+.fam .fc i{font-style:normal;color:var(--muted);font-size:12px;margin-right:3px}
+.anal{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:13px 14px;margin-bottom:12px;box-shadow:var(--shadow);font-size:15px}
+.anal h4{font-size:15.5px;color:var(--primary-dk);margin:10px 0 4px}
+.anal h4:first-child{margin-top:0}
+.anal ol,.anal ul{padding-left:20px}
+.anal li{margin:3px 0}
+details>summary{list-style:none;display:inline-block;cursor:pointer}
+details>summary::-webkit-details-marker{display:none}
+.pass.big{background:#fff;border:1.5px solid var(--border);font-size:15.5px;line-height:1.9;padding:12px 14px;position:sticky;top:0;z-index:3;max-height:42vh;overflow:auto;box-shadow:var(--shadow)}
+.ref{color:var(--primary);font-weight:700;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;cursor:pointer;background:var(--primary-lt);border-radius:4px;padding:0 3px}
+.refsheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#fff;border-top:2px solid var(--primary);box-shadow:0 -6px 24px rgba(59,47,138,.18);max-height:55vh;display:none;flex-direction:column;border-radius:14px 14px 0 0}
+.refsheet.show{display:flex}
+.refsheet .rhead{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border)}
+.refsheet .rhead b{color:var(--primary-dk)}
+.refsheet .rclose{border:none;background:var(--primary-lt);color:var(--primary);border-radius:8px;width:32px;height:32px;font-size:16px;cursor:pointer}
+.refsheet .rbody{overflow:auto;padding:8px 14px 16px;max-width:780px;width:100%;margin:0 auto}
+.refsheet .rrow{padding:7px 0;border-bottom:1px dashed #e4e0f3}
+.refsheet .rtop{display:flex;gap:8px;align-items:flex-start}
+.refsheet .rn{flex:0 0 auto;background:var(--primary);color:#fff;font-weight:800;font-size:12px;border-radius:6px;padding:1px 7px;margin-top:3px}
+.refsheet .ren{flex:1;font-weight:700;color:var(--primary-dk);font-size:15.5px}
+.refsheet .rkr{color:var(--muted);font-size:14px;margin-left:34px}
+.ref{white-space:nowrap}
+.drill .dact{font-size:16px;font-weight:700;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.drill .dno{background:var(--primary);color:#fff;border-radius:7px;font-size:13px;padding:1px 8px}
+.drill .dkr{flex-basis:100%;color:var(--muted);font-size:14px;font-weight:400}
+.drill .dlabel{margin:10px 0 6px;font-size:14px;color:var(--muted)}
+.dslots{display:flex;flex-wrap:wrap;gap:6px}
+.dslot{border:2px dashed var(--border);border-radius:10px;padding:4px 10px;min-width:70px;text-align:center;background:#fcfbff}
+.dslot small{display:block;font-size:11px;color:var(--muted);font-weight:700}
+.dslot b{font-size:16px;color:#b9b3d6}
+.dslot.on{border-style:solid;border-color:var(--primary);background:var(--primary-lt)}
+.dslot.on b{color:var(--primary-dk)}
+.dtags{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 2px}
+.dstep{margin-top:8px;border-top:1px dashed var(--border);padding-top:10px}
+.dq{font-weight:600;margin-bottom:8px;font-size:15.5px}
+.dq .dn{display:inline-block;background:var(--accent-lt);color:#9a5b00;border-radius:6px;font-size:12px;font-weight:800;padding:1px 7px;margin-right:4px}
+.dfinal{background:var(--ok-bg);border-radius:10px;padding:10px 12px;color:#145c2e}
+.dfinal .tp{color:#6a4a00;font-size:14px;margin-top:5px}
+.rv{display:inline-block;min-width:56px;min-height:1.5em;vertical-align:middle}
+input.blank:not(.wide){width:7.5em;max-width:60vw}
+
+.scene{border-left:4px solid var(--primary);background:var(--primary-lt);border-radius:0 10px 10px 0;padding:10px 12px;margin:10px 0}
+.scene .sch{font-weight:800;color:var(--primary-dk);font-size:15.5px;margin-bottom:4px}
+.scene .sno{display:inline-block;background:var(--primary);color:#fff;border-radius:50%;width:22px;height:22px;line-height:22px;text-align:center;font-size:12.5px;margin-right:6px}
+.scene .srng{font-weight:500;font-size:13px;color:var(--muted)}
+.scene p{font-size:15.5px;line-height:1.85}
+.scene .skw{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}
+.scene .kw{font-size:12.5px;color:var(--muted);background:#fff;border:1px solid var(--border);border-radius:999px;padding:1px 8px}
+
+</style>
+</head>
+<body>
+<script>
+window.DATA={"file":"exploringgreatnesswriting.html","brand":"강동미나 중고등부 · 중2 Lesson 6 (천재 이상기)","title":"Exploring Greatness — 본문","sub":"위대함 탐험하기 · 한글 분석 → 중요 표현 → 거꾸로 영작 → 문법 · 지시어 · 순서 · 내용확인","sents":{"1":["One day, Emily received an invitation from a museum.","어느 날, Emily는 박물관으로부터 초대장을 받았습니다."],"2":["This museum wasn't any ordinary museum.","이 박물관은 평범한 박물관이 아니었습니다."],"3":["It had rooms that celebrated great people.","그곳에는 위대한 사람들을 기념하는 방들이 있었습니다."],"4":["She was excited to begin her exploration.","그녀는 그녀의 탐험을 시작하게 되어 들떠 있었습니다."],"5":["Her first stop was a room that looked like an old airplane garage.","그녀의 첫 방문지는 오래된 비행기 격납고처럼 보이는 방이었습니다."],"6":["Model airplanes were hanging from the ceiling.","모형 비행기들이 천장에 매달려 있었습니다."],"7":["A leather pilot jacket and goggles were displayed.","가죽 비행사 재킷과 고글이 전시되어 있었습니다."],"8":["When Emily put them on, she could hear the sounds of airplane engines.","Emily가 그것들을 착용했을 때, 그녀는 비행기 엔진 소리를 들을 수 있었습니다."],"9":["She looked around the room in surprise.","그녀는 놀라서 방을 둘러보았습니다."],"10":["On the wall, there was a picture of a woman.","벽에는 한 여성의 사진이 있었습니다."],"11":["She looked brave and strong.","그녀는 용감하고 강해 보였습니다."],"12":["Her name was Kwon Ki-ok.","그녀의 이름은 권기옥이었습니다."],"13":["She was the first female pilot in Korea.","그녀는 한국 최초의 여성 비행사였습니다."],"14":["Emily also found an old newspaper on the desk.","Emily는 책상 위에서 오래된 신문도 발견했습니다."],"15":["It read, \"At that time, women couldn't enter flight schools.\"","그것에는 이렇게 쓰여 있었습니다. \"당시에 여성들은 비행 학교에 들어갈 수 없었다.\""],"16":["\"However, Kwon Ki-ok didn't give up and worked hard to achieve her dream.\"","\"하지만 권기옥은 포기하지 않았고 꿈을 이루기 위해 열심히 노력했다.\""],"17":["Kwon Ki-ok did not just fly airplanes.","권기옥은 단지 비행기만 조종한 것이 아니었습니다."],"18":["She also fought against Japan for Korea's independence.","그녀는 한국의 독립을 위해 일본에 맞서 싸우기도 했습니다."],"19":["Emily was moved by the great life story of Kwon Ki-ok.","Emily는 권기옥의 위대한 삶의 이야기에 감동을 받았습니다."],"20":["Emily stepped into the next room.","Emily는 다음 방으로 들어갔습니다."],"21":["The room was filled with many books and drawings of insects and plants.","그 방은 많은 책들과 곤충과 식물의 그림들로 가득 차 있었습니다."],"22":["It looked like a small forest.","그곳은 작은 숲처럼 보였습니다."],"23":["When she closed the door, drawings on the desk suddenly started to fly around the room.","그녀가 문을 닫았을 때, 책상 위의 그림들이 갑자기 방 안 여기저기를 날아다니기 시작했습니다."],"24":["She caught one of them.","그녀는 그것들 중 하나를 잡았습니다."],"25":["It was a drawing of a honeybee.","그것은 꿀벌의 그림이었습니다."],"26":["It was so detailed that the honeybee looked alive.","그것은 너무 자세해서 꿀벌이 살아 있는 것처럼 보였습니다."],"27":["From one of the bookshelves, Emily found a shining book.","책장 중 하나에서, Emily는 빛나는 책을 발견했습니다."],"28":["She picked it up.","그녀는 그것을 집어 들었습니다."],"29":["She saw the name Jean-Henri Fabre on its cover.","그녀는 표지에서 Jean-Henri Fabre라는 이름을 보았습니다."],"30":["When she opened the book, she found an old letter from Charles Darwin.","그녀는 책을 열었을 때, Charles Darwin에게서 온 오래된 편지를 발견했습니다."],"31":["It said, \"Thank you for sending me your book.\"","그것에는 이렇게 쓰여 있었습니다. \"저에게 당신의 책을 보내 주셔서 감사합니다.\""],"32":["\"I truly love your work about insects.\"","\"저는 곤충에 관한 당신의 연구를 진심으로 사랑합니다.\""],"33":["Emily learned that Fabre wrote many books about insects for more than thirty years.","Emily는 Fabre가 30년 넘게 곤충에 관한 많은 책들을 썼다는 것을 알게 되었습니다."],"34":["His true love for nature was shown clearly in every corner of the room.","자연에 대한 그의 진정한 사랑은 방의 모든 구석에서 분명하게 보여졌습니다."],"35":["Emily stepped out of the last room.","Emily는 마지막 방에서 나왔습니다."],"36":["She was so excited that she could not wait to tell her friends about her adventure.","그녀는 너무 신이 나서 친구들에게 자신의 모험에 대해 빨리 이야기하고 싶었습니다."]},"tabs":[{"name":"🔍 한글 분석","intro":"<b>먼저 📖 이야기로 쭉 읽고</b>, 국어 독해하듯이 분석해요. ① 글의 구조(서론·본론·결론) → ② 주제 찾기 → ③ 근거 문장 → ④ 두 방 비교와 대비 → ⑤ Emily의 감정 변화 → ⑥ 연결어 → ⑦ 핵심 문법 → ⑧ 문장별 한글 분석. <b>번호(예: 19번)를 누르면 영어 원문이 아래에 떠요.</b>","blocks":[{"k":"h","html":"📖 먼저 이야기로 읽기 — 장면 6개"},{"k":"html","html":"<div class=\"anal\"><div class=\"tip\" style=\"margin-top:0\"><b>한 줄로 말하면</b> — Emily가 신기한 박물관에서 <b>권기옥</b>과 <b>파브르</b>를 만나, 위대한 사람이 어떤 사람인지 느끼는 이야기예요.</div><div class=\"scene\"><div class=\"sch\"><span class=\"sno\">1</span>🎟️ 초대장 한 장 <span class=\"srng\">1~4번</span></div><p>어느 날 Emily에게 박물관 초대장이 날아와요. 그런데 이곳은 <b>그냥 박물관이 아니에요.</b> 위대한 사람들을 기념하는 방들이 있는 특별한 곳이거든요. Emily는 어떤 사람을 만나게 될지 <b>설레는 마음</b>으로 탐험을 시작해요.</p><div class=\"skw\"><span class=\"kw\">invitation</span><span class=\"kw\">ordinary</span><span class=\"kw\">celebrate</span><span class=\"kw\">excited</span></div></div><div class=\"scene\"><div class=\"sch\"><span class=\"sno\">2</span>✈️ 첫 번째 방 — 비행기 격납고 <span class=\"srng\">5~13번</span></div><p>첫 번째 방에 들어서니 오래된 비행기 격납고 같아요. 천장에는 모형 비행기가 매달려 있고, 가죽 비행사 재킷과 고글이 전시되어 있어요. Emily가 그걸 입고 쓰는 순간, <b>부웅— 비행기 엔진 소리</b>가 들려요! 깜짝 놀라 둘러보니 벽에 용감하고 강해 보이는 여성의 사진이 있어요. 바로 <b>한국 최초의 여성 비행사, 권기옥</b>이에요.</p><div class=\"skw\"><span class=\"kw\">stop</span><span class=\"kw\">garage</span><span class=\"kw\">display</span><span class=\"kw\">put on</span><span class=\"kw\">in surprise</span><span class=\"kw\">female pilot</span></div></div><div class=\"scene\"><div class=\"sch\"><span class=\"sno\">3</span>📰 권기옥은 왜 위대할까? <span class=\"srng\">14~19번</span></div><p>책상 위 오래된 신문에 이렇게 쓰여 있어요. \"그 시절 여성은 비행 학교에 들어갈 수조차 없었다.\" <b>하지만</b> 권기옥은 포기하지 않고 열심히 노력해서 꿈을 이뤘어요. 게다가 비행기만 몬 게 아니라 한국의 독립을 위해 일본에 맞서 싸우기<b>까지</b> 했어요. Emily는 그녀의 삶에 <b>깊이 감동</b>해요.</p><div class=\"skw\"><span class=\"kw\">read</span><span class=\"kw\">enter</span><span class=\"kw\">However</span><span class=\"kw\">give up</span><span class=\"kw\">achieve</span><span class=\"kw\">independence</span><span class=\"kw\">be moved by</span></div></div><div class=\"scene\"><div class=\"sch\"><span class=\"sno\">4</span>🌳 두 번째 방 — 작은 숲 <span class=\"srng\">20~29번</span></div><p>다음 방은 책과 곤충·식물 그림으로 가득해서 <b>작은 숲</b> 같아요. Emily가 문을 닫자, 책상 위 그림들이 <b>갑자기 방 안을 날아다녀요!</b> 하나를 잡아 보니 꿀벌 그림인데, 너무 자세해서 진짜 살아 있는 벌 같아요. 책장에서 반짝이는 책 한 권을 꺼내 보니, 표지에 <b>Fabre(파브르)</b>라는 이름이 있어요.</p><div class=\"skw\"><span class=\"kw\">step into</span><span class=\"kw\">be filled with</span><span class=\"kw\">look like</span><span class=\"kw\">suddenly</span><span class=\"kw\">so ~ that</span><span class=\"kw\">shining</span><span class=\"kw\">pick up</span></div></div><div class=\"scene\"><div class=\"sch\"><span class=\"sno\">5</span>✉️ 파브르는 왜 위대할까? <span class=\"srng\">30~34번</span></div><p>책을 펼치자 <b>다윈이 보낸 편지</b>가 나와요. \"책을 보내 줘서 고마워요. 곤충에 관한 당신의 연구를 정말 좋아해요.\" 그 유명한 다윈도 인정한 사람이었던 거예요. 파브르는 <b>30년 넘게</b> 곤충 책을 썼고, 자연을 사랑하는 그의 마음이 방 구석구석에 그대로 보여요.</p><div class=\"skw\"><span class=\"kw\">letter from</span><span class=\"kw\">Thank you for -ing</span><span class=\"kw\">truly</span><span class=\"kw\">more than</span><span class=\"kw\">be shown</span></div></div><div class=\"scene\"><div class=\"sch\"><span class=\"sno\">6</span>🚪 다시 현실로 <span class=\"srng\">35~36번</span></div><p>마지막 방에서 나온 Emily는 <b>너무 신이 나서</b>, 오늘의 모험을 친구들에게 빨리 이야기하고 싶어 못 견딜 지경이에요. 처음(4번)의 설렘이 끝에서 더 큰 신남으로 돌아온 거예요.</p><div class=\"skw\"><span class=\"kw\">step out of</span><span class=\"kw\">so excited that</span><span class=\"kw\">can't wait to</span><span class=\"kw\">adventure</span></div></div><div class=\"tip\"><b>두 방은 똑같은 순서로 흘러가요.</b> 방에 들어가면 신기한 일이 생기고, 물건(사진·신문 / 책·편지)을 통해 인물을 알게 되고, 마지막에 그 사람의 위대함을 느껴요. 이 순서만 기억하면 문장 순서 문제가 쉬워져요.</div><div style=\"font-size:13px;color:var(--muted);margin-top:6px\">회색 글씨 = 그 장면에 나오는 영어 표현 · 번호를 누르면 영어 원문</div></div>"},{"k":"h","html":"① 글의 구조 — 서론 · 본론 · 결론"},{"k":"html","html":"<div class=\"anal\">\n<div class=\"tw\"><table class=\"t\">\n<tr><th style=\"white-space:nowrap\">구분</th><th style=\"white-space:nowrap\">문장</th><th>내용</th><th>역할</th></tr>\n<tr><td><b>서론</b></td><td>1~4번</td><td>Emily가 특별한 박물관의 초대장을 받고, 설레는 마음으로 탐험을 시작한다.</td><td><b>소재 제시</b> (위대한 사람들) + 기대감</td></tr>\n<tr><td rowspan=\"2\"><b>본론 1</b><br>첫 번째 방</td><td>5~13번</td><td>비행기 격납고 같은 방에서 재킷과 고글을 착용하자 엔진 소리가 들리고, 사진 속 권기옥을 만난다.</td><td>인물을 <b>신기한 체험</b>으로 만남</td></tr>\n<tr><td>14~19번</td><td>신문을 보고 권기옥이 여성은 비행 학교에 갈 수 없던 시대에도 포기하지 않았고, 독립운동까지 했다는 것을 알게 되어 감동한다.</td><td>권기옥의 <b>위대함</b></td></tr>\n<tr><td rowspan=\"2\"><b>본론 2</b><br>두 번째 방</td><td>20~26번</td><td>작은 숲 같은 방에서 문을 닫자 그림들이 날아다니고, 살아 있는 것 같은 꿀벌 그림을 잡는다.</td><td>인물을 <b>신기한 체험</b>으로 만남</td></tr>\n<tr><td>27~34번</td><td>빛나는 책과 다윈의 편지를 통해 파브르가 30년 넘게 곤충을 연구했고 자연을 진심으로 사랑했다는 것을 안다.</td><td>파브르의 <b>위대함</b></td></tr>\n<tr><td><b>결론</b></td><td>35~36번</td><td>마지막 방에서 나온 Emily는 너무 신이 나서 친구들에게 빨리 이야기하고 싶어 한다.</td><td>탐험의 <b>감동</b>으로 마무리 (4번과 수미상관)</td></tr>\n</table></div>\n<div class=\"tip\"><b>이 글은 판타지 이야기(fantasy story)</b> — 주인공 Emily + 현실에서 불가능한 일(재킷을 입자 엔진 소리 8번, 그림이 날아다님 23번). 실제 위인 두 명의 이야기가 들어 있지만, 글 전체는 전기문(biography)이 아니에요.<br><b>본론 1과 본론 2가 똑같은 틀</b>로 되어 있어요 → ④ 두 방 비교 표 참고!</div>\n</div>"},{"k":"h","html":"② 주제 찾기"},{"k":"html","html":"<div class=\"anal\">\n<h4>📌 이야기 글은 주제문이 \"딱 한 문장\"으로 없을 수 있어요</h4>\n설명문처럼 \"교훈은 ~이다\"라고 직접 말하지 않아요. 그래서 <b>제목 + 각 방의 마지막 문장 + 결말</b>을 보고 주제를 찾아요.\n<div class=\"tw\"><table class=\"t\">\n<tr><th style=\"white-space:nowrap\">단서</th><th style=\"white-space:nowrap\">문장</th><th>알 수 있는 것</th></tr>\n<tr><td>제목</td><td>Exploring Greatness</td><td>위대함을 <b>탐험하는</b> 이야기</td></tr>\n<tr><td>소재 제시</td><td>3번</td><td>위대한 사람들을 <b>기념하는</b> 방들</td></tr>\n<tr><td>첫 번째 방의 마무리</td><td>19번</td><td>Emily는 권기옥의 위대한 삶에 <b>감동</b>받았다</td></tr>\n<tr><td>두 번째 방의 마무리</td><td>34번</td><td>파브르의 자연에 대한 <b>진정한 사랑</b>이 분명하게 보였다</td></tr>\n<tr><td>결말</td><td>36번</td><td>너무 신나서 친구들에게 모험을 <b>빨리 이야기하고 싶었다</b></td></tr>\n</table></div>\n<h4>📌 주제</h4>\nEmily가 특별한 박물관을 탐험하며 <b>위인들의 삶에서 위대함을 발견하고 감동받는 경험</b>.<br>\n위대함이란? → 권기옥: 어려움 속에서도 <b>포기하지 않은 용기</b> / 파브르: 자연을 <b>진심으로 사랑하고 오래 연구한 열정</b>\n</div>"},{"k":"flip","title":"주제 영어로 바꿔 쓰기 — 시험에 이렇게 나와요","note":"주제·제목 선택지는 본문 문장 그대로가 아니라 <b>다른 표현으로 바꿔서</b> 나와요. 🔊 듣고 뜻 떠올리기!","rows":[["Emily discovers the greatness of famous people by exploring a special museum.","Emily는 특별한 박물관을 탐험하며 위인들의 위대함을 발견한다.","글 전체 요약"],["Great people never give up and truly love their work.","위대한 사람들은 포기하지 않고 자신의 일을 진심으로 사랑한다.","두 인물의 공통점"],["Kwon Ki-ok didn't give up her dream even in hard times.","권기옥은 어려운 시기에도 꿈을 포기하지 않았다.","첫 번째 방의 핵심"],["Fabre's true love for nature can be seen in his work.","파브르의 자연에 대한 진정한 사랑은 그의 연구에서 볼 수 있다.","두 번째 방의 핵심 (34번 바꿔 쓰기)"],["Emily was moved by the stories of great people.","Emily는 위인들의 이야기에 감동받았다.","19번 확장"],["Exploring Greatness","위대함 탐험하기","원래 제목"],["Emily's Amazing Adventure in a Special Museum","특별한 박물관에서의 Emily의 놀라운 모험","제목 후보"],["Meeting Great People in a Museum","박물관에서 위인을 만나다","제목 후보"]]},{"k":"h","html":"③ 근거 문장 찾기 — 왜 \"위대한\" 사람일까?"},{"k":"html","html":"<div class=\"anal\">\n<div class=\"tw\"><table class=\"t\">\n<tr><th style=\"white-space:nowrap\">인물</th><th>위대함의 근거</th><th style=\"white-space:nowrap\">문장</th></tr>\n<tr><td rowspan=\"3\"><b>권기옥</b></td><td>한국 <b>최초의</b> 여성 비행사</td><td>13번</td></tr>\n<tr><td>여성은 비행 학교에 들어갈 수 없던 시대에 <b>포기하지 않고</b> 열심히 노력함</td><td>15, 16번</td></tr>\n<tr><td>비행기만 조종한 게 아니라 한국의 <b>독립</b>을 위해 일본에 맞서 싸움</td><td>17, 18번</td></tr>\n<tr><td rowspan=\"3\"><b>파브르</b></td><td>그림이 살아 있는 듯 <b>자세함</b> (관찰력)</td><td>26번</td></tr>\n<tr><td>유명한 과학자 <b>다윈</b>도 그의 곤충 연구를 사랑함 (인정받음)</td><td>30, 31, 32번</td></tr>\n<tr><td><b>30년 넘게</b> 곤충 책을 씀 + 자연에 대한 진정한 사랑</td><td>33, 34번</td></tr>\n</table></div>\n<div class=\"warn\"><b>함정!</b> 30년 넘게 곤충 책을 쓴 사람은 <b>파브르</b>예요. 다윈은 편지를 쓴 사람(30번). 또 그림이 날아다닌 건 문을 <b>열었을 때</b>가 아니라 <b>닫았을 때</b>(23번)!</div>\n</div>"},{"k":"h","html":"④ 두 방 비교 — 같은 틀, 다른 인물"},{"k":"html","html":"<div class=\"anal\">\n<div class=\"tw\"><table class=\"t\">\n<tr><th>틀</th><th>첫 번째 방 (권기옥)</th><th>두 번째 방 (파브르)</th></tr>\n<tr><td>방에 들어감</td><td>5번 Her <b>first stop</b></td><td>20번 stepped into the <b>next room</b></td></tr>\n<tr><td>방의 모습</td><td>5번 격납고처럼 <b>보이는</b> 방 (look like)</td><td>22번 작은 숲처럼 <b>보임</b> (look like)</td></tr>\n<tr><td>신기한 일</td><td>8번 재킷·고글을 <b>착용했을 때</b> → 엔진 소리</td><td>23번 문을 <b>닫았을 때</b> → 그림이 날아다님</td></tr>\n<tr><td>발견한 물건</td><td>10번 사진, 14번 오래된 신문</td><td>27번 빛나는 책, 30번 다윈의 편지</td></tr>\n<tr><td>\"~라고 쓰여 있었다\"</td><td>15번 It <b>read</b>, \"...\"</td><td>31번 It <b>said</b>, \"...\"</td></tr>\n<tr><td>인물의 위대함</td><td>16~18번 포기 X + 독립운동</td><td>33, 34번 30년 연구 + 자연 사랑</td></tr>\n<tr><td>방의 마무리</td><td>19번 Emily가 <b>감동</b>받음 (수동태)</td><td>34번 사랑이 <b>보여짐</b> (수동태)</td></tr>\n</table></div>\n<h4>📌 대비되는 표현</h4>\n<div class=\"tw\"><table class=\"t\">\n<tr><th>앞</th><th>뒤</th><th>무엇이 대비되나</th></tr>\n<tr><td>15번 여성들은 비행 학교에 <b>들어갈 수 없었다</b></td><td>16번 <b>However</b>, 포기하지 않고 노력했다</td><td>어려운 상황 ↔ 포기하지 않음</td></tr>\n<tr><td>17번 <b>not just</b> 비행기만 조종</td><td>18번 <b>also</b> 독립운동</td><td>하나만이 아니라 하나 더</td></tr>\n<tr><td>2번 <b>평범한</b> 박물관이 아니었다</td><td>8, 23번 엔진 소리, 날아다니는 그림</td><td>평범 ↔ 신기함</td></tr>\n<tr><td>20번 step <b>into</b> (들어감)</td><td>35번 step <b>out of</b> (나옴)</td><td>탐험의 시작 ↔ 끝</td></tr>\n<tr><td>4번 탐험을 시작하게 되어 <b>들뜸</b></td><td>36번 <b>너무 신나서</b> 빨리 말하고 싶음</td><td>수미상관 (설렘 → 감동)</td></tr>\n</table></div>\n</div>"},{"k":"h","html":"⑤ Emily의 감정 변화"},{"k":"html","html":"<div class=\"anal\">\n<div class=\"tw\"><table class=\"t\">\n<tr><th style=\"white-space:nowrap\">문장</th><th>감정</th><th>표현</th><th>이유</th></tr>\n<tr><td>4번</td><td>설렘</td><td>was <b>excited</b> to begin</td><td>탐험을 시작하게 되어</td></tr>\n<tr><td>9번</td><td>놀람</td><td>in <b>surprise</b></td><td>재킷을 입자 엔진 소리가 들려서</td></tr>\n<tr><td>19번</td><td>감동</td><td>was <b>moved</b> by</td><td>권기옥의 위대한 삶의 이야기</td></tr>\n<tr><td>36번</td><td>매우 신남</td><td><b>so excited</b> that ~ could not wait to</td><td>모험을 친구들에게 빨리 말하고 싶어서</td></tr>\n</table></div>\n<div class=\"tip\"><b>감정 형용사는 -ed</b> — Emily(사람)가 감정을 <b>느끼면</b> excited, moved. exciting ✗. 심경 변화 문제: <b>excited → surprised → moved → excited</b></div>\n</div>"},{"k":"h","html":"⑥ 연결어 — 앞 문장과 뒤 문장을 어떻게 잇나"},{"k":"html","html":"<div class=\"anal\">\n<div class=\"tw\"><table class=\"t\">\n<tr><th style=\"white-space:nowrap\">연결어</th><th style=\"white-space:nowrap\">문장</th><th>앞 내용</th><th>뒤 내용</th><th style=\"white-space:nowrap\">관계</th></tr>\n<tr><td>One day 어느 날</td><td>1번</td><td>—</td><td>초대장을 받음</td><td>이야기 시작</td></tr>\n<tr><td>When ~했을 때</td><td>8번</td><td>재킷과 고글을 착용</td><td>엔진 소리가 들림</td><td>시간 → 신기한 일</td></tr>\n<tr><td>also ~도</td><td>14번</td><td>벽의 사진을 봄</td><td>오래된 신문도 발견</td><td>추가</td></tr>\n<tr><td>However 하지만</td><td>16번</td><td>여성은 비행 학교 입학 불가</td><td>포기하지 않고 노력</td><td><b>대조</b></td></tr>\n<tr><td>not just ~ also</td><td>17, 18번</td><td>비행기만 조종한 게 아니라</td><td>독립운동도 함</td><td>추가</td></tr>\n<tr><td>When / suddenly</td><td>23번</td><td>문을 닫음</td><td>갑자기 그림이 날아다님</td><td>시간 → 신기한 일</td></tr>\n<tr><td>so ~ that 너무 ~해서</td><td>26번</td><td>그림이 너무 자세함</td><td>꿀벌이 살아 있는 듯</td><td>원인 → 결과</td></tr>\n<tr><td>When ~했을 때</td><td>30번</td><td>책을 엶</td><td>다윈의 편지 발견</td><td>시간 → 발견</td></tr>\n<tr><td>so ~ that 너무 ~해서</td><td>36번</td><td>너무 신남</td><td>빨리 말하고 싶음</td><td>원인 → 결과</td></tr>\n</table></div>\n<div class=\"tip\"><b>순서·삽입 문제 푸는 법</b> — also가 있으면 앞에 비슷한 일이 먼저(14번 also ← 10번 사진), However 앞에는 반대 상황(16번 ← 15번), not just 다음에는 also(17번 → 18번)!</div>\n</div>"},{"k":"h","html":"⑦ 핵심 문법이 들어간 표현"},{"k":"html","html":"<div class=\"anal\">\n<div class=\"tw\"><table class=\"t\">\n<tr><th>문법</th><th style=\"white-space:nowrap\">문장</th><th>표현</th><th>포인트</th></tr>\n<tr><td>수동태</td><td>7, 19, 21, 34번</td><td><b>were displayed</b> / <b>was moved by</b> / <b>was filled with</b> / <b>was shown</b></td><td>be동사는 진짜 주어의 수·시제에 맞추기 (A and B → were)</td></tr>\n<tr><td>so ~ that</td><td>26, 36번</td><td><b>so</b> detailed <b>that</b> ~ / <b>so</b> excited <b>that</b> she could not wait to ~</td><td>과거라 could not</td></tr>\n<tr><td>주격 관계대명사 that</td><td>3, 5번</td><td>rooms <b>that</b> celebrated / a room <b>that</b> looked like</td><td>명사 뒤에서 꾸밈</td></tr>\n<tr><td>look + 형용사 / look like + 명사</td><td>5, 11, 22, 26번</td><td>looked <b>brave</b> / looked <b>alive</b> / looked <b>like</b> a garage / a forest</td><td>형용사면 like ✗, 명사면 like ✓</td></tr>\n<tr><td>감정 + to부정사</td><td>4번</td><td>excited <b>to begin</b></td><td>감정의 원인</td></tr>\n<tr><td>과거진행</td><td>6번</td><td><b>were hanging</b> from</td><td>복수 주어 + were + -ing</td></tr>\n<tr><td>대명사 + 동사구</td><td>8, 28번</td><td>put <b>them</b> on / picked <b>it</b> up</td><td>대명사는 가운데</td></tr>\n<tr><td>read / say (쓰여 있다)</td><td>15, 31번</td><td>It <b>read</b>, \"...\" / It <b>said</b>, \"...\"</td><td>사물 주어</td></tr>\n<tr><td>enter + 목적어</td><td>15번</td><td>couldn't <b>enter</b> flight schools</td><td>enter into ✗</td></tr>\n<tr><td>목적의 to부정사</td><td>16번</td><td>worked hard <b>to achieve</b></td><td>~하기 위해</td></tr>\n<tr><td>one of + 복수 명사</td><td>24, 27번</td><td><b>one of</b> them / <b>one of</b> the bookshelves</td><td>복수 명사!</td></tr>\n<tr><td>Thank you for + -ing / send A B</td><td>31번</td><td>Thank you for <b>sending me your book</b></td><td>= sending your book <b>to</b> me</td></tr>\n<tr><td>접속사 that</td><td>33번</td><td>learned <b>that</b> Fabre wrote ~</td><td>생략 가능</td></tr>\n<tr><td>every + 단수</td><td>34번</td><td>in <b>every corner</b></td><td>corners ✗</td></tr>\n</table></div>\n</div>"},{"k":"qset","title":"분석 확인 문제","note":"위 분석을 읽었으면 바로 확인! 번호를 눌러 원문을 다시 봐도 돼요.","qs":[{"t":"mc","q":"이 글의 본론은 어떻게 나뉘는가?","o":["시간 순서로 4단계","두 개의 방(권기옥 / 파브르)","장점과 단점","문제와 해결책","질문과 대답"],"a":1,"e":"첫 번째 방(5~19번)과 두 번째 방(20~34번)이 같은 틀로 이어져요."},{"t":"mc","q":"글의 주제와 가장 가까운 것은?","o":["How to become a pilot","Insects are dangerous.","Museums are boring places.","Emily discovers the greatness of famous people by exploring a special museum.","Darwin wrote many books about insects."],"a":3,"e":"제목·19번·34번·36번을 종합한 주제."},{"t":"mc","q":"권기옥이 위대한 이유로 본문에 나오지 <b>않은</b> 것은?","o":["한국 최초의 여성 비행사였다.","어려움 속에서도 포기하지 않았다.","한국의 독립을 위해 싸웠다.","비행 학교를 직접 세웠다.","꿈을 이루기 위해 열심히 노력했다."],"a":3,"e":"비행 학교를 세웠다는 말은 없어요."},{"t":"mc","q":"첫 번째 방의 \"재킷·고글을 착용하자 엔진 소리\"와 같은 역할을 하는 두 번째 방의 장면은?","o":["책장에서 빛나는 책을 발견했다.","문을 닫자 그림들이 날아다녔다.","표지에서 파브르의 이름을 보았다.","다윈의 편지를 읽었다.","마지막 방에서 나왔다."],"a":1,"e":"둘 다 \"When ~\"으로 시작하는 신기한 일(판타지 장면)."},{"t":"mc","q":"Emily의 감정 변화로 알맞은 것은?","o":["bored → scared → angry","sad → happy → sad","excited → surprised → moved → excited","angry → calm → bored","scared → excited → tired"],"a":2,"e":"4번 → 9번 → 19번 → 36번."},{"t":"mc","q":"30년 넘게 곤충에 관한 책을 쓴 사람은?","o":["Emily","권기옥","Charles Darwin","Jean-Henri Fabre","박물관 관장"],"a":3,"tag":"함정","e":"33번. 다윈은 편지를 쓴 사람."}]},{"k":"h","html":"⑧ 문단별 흐름 · 문장별 한글 분석"},{"k":"analysis","paras":[{"title":"도입 (1~4) — 초대장과 탐험의 시작","flow":"Emily가 위인들을 기념하는 특별한 박물관에 초대받고, 설레며 탐험을 시작해요.<br>💡 4번의 \"들떠 있었다(excited)\"가 36번 마무리와 이어져요.","items":[{"n":1,"kr":"어느 날, Emily는 박물관으로부터 초대장을 받았습니다.","en":"One day, Emily received an invitation from a museum.","ch":[["One day,","어느 날"],["Emily received","Emily는 받았다"],["an invitation","초대장을"],["from a museum.","박물관으로부터"]],"tip":"한글 끝 \"받았다\"가 영어에선 주어 바로 뒤."},{"n":2,"kr":"이 박물관은 평범한 박물관이 아니었습니다.","en":"This museum wasn't any ordinary museum.","ch":[["This museum","이 박물관은"],["wasn't","~이 아니었다"],["any ordinary museum.","평범한 박물관"]],"tip":"not any = 전혀 ~아닌. ordinary = 평범한."},{"n":3,"kr":"그곳에는 위대한 사람들을 기념하는 방들이 있었습니다.","en":"It had rooms that celebrated great people.","ch":[["It had rooms","그곳에는 방들이 있었다"],["that celebrated great people.","위대한 사람들을 기념하는"]],"tip":"주격 관계대명사 <b>that</b>: 한글 \"기념하는 방\"(꾸밈이 앞) → 영어는 rooms <b>뒤</b>."},{"n":4,"kr":"그녀는 그녀의 탐험을 시작하게 되어 들떠 있었습니다.","en":"She was excited to begin her exploration.","ch":[["She was excited","그녀는 들떠 있었다"],["to begin her exploration.","그녀의 탐험을 시작하게 되어"]],"tip":"감정 형용사 + to부정사(감정의 원인). 사람이 느끼는 감정 → excit<b>ed</b>."}]},{"title":"첫 번째 방 (5~13) — 비행기 격납고 같은 방","flow":"격납고 같은 방에서 재킷과 고글을 <b>착용했을 때</b> 엔진 소리가 들려 깜짝 놀라요. 벽의 사진 속 용감해 보이는 여성이 바로 한국 최초의 여성 비행사 권기옥이에요.","items":[{"n":5,"kr":"그녀의 첫 방문지는 오래된 비행기 격납고처럼 보이는 방이었습니다.","en":"Her first stop was a room that looked like an old airplane garage.","ch":[["Her first stop","그녀의 첫 방문지는"],["was a room","방이었다"],["that looked like","~처럼 보이는"],["an old airplane garage.","오래된 비행기 격납고"]],"tip":"stop = 방문지(다의어). look <b>like</b> + 명사."},{"n":6,"kr":"모형 비행기들이 천장에 매달려 있었습니다.","en":"Model airplanes were hanging from the ceiling.","ch":[["Model airplanes","모형 비행기들이"],["were hanging","매달려 있었다"],["from the ceiling.","천장에"]],"tip":"과거진행 were + -ing. hang <b>from</b>: ~에 매달리다."},{"n":7,"kr":"가죽 비행사 재킷과 고글이 전시되어 있었습니다.","en":"A leather pilot jacket and goggles were displayed.","ch":[["A leather pilot jacket and goggles","가죽 비행사 재킷과 고글이"],["were displayed.","전시되어 있었다"]],"tip":"<b>수동태</b> be + p.p. A and B = 복수 → were."},{"n":8,"kr":"Emily가 그것들을 착용했을 때, 그녀는 비행기 엔진 소리를 들을 수 있었습니다.","en":"When Emily put them on, she could hear the sounds of airplane engines.","ch":[["When Emily put them on,","Emily가 그것들을 착용했을 때"],["she could hear","그녀는 들을 수 있었다"],["the sounds of airplane engines.","비행기 엔진 소리를"]],"tip":"them = 재킷과 고글. 대명사는 put과 on <b>사이</b> (put on them ✗)."},{"n":9,"kr":"그녀는 놀라서 방을 둘러보았습니다.","en":"She looked around the room in surprise.","ch":[["She looked around","그녀는 둘러보았다"],["the room","방을"],["in surprise.","놀라서"]],"tip":"한글 \"놀라서\"(앞) → 영어 in surprise(맨 뒤)."},{"n":10,"kr":"벽에는 한 여성의 사진이 있었습니다.","en":"On the wall, there was a picture of a woman.","ch":[["On the wall,","벽에는"],["there was","~이 있었다"],["a picture of a woman.","한 여성의 사진"]],"tip":"There was + 단수 명사. \"한 여성의 사진\" → a picture <b>of</b> a woman (순서 뒤집힘)."},{"n":11,"kr":"그녀는 용감하고 강해 보였습니다.","en":"She looked brave and strong.","ch":[["She","그녀는"],["looked","보였다"],["brave and strong.","용감하고 강해"]],"tip":"look + <b>형용사</b> (bravely ✗)."},{"n":12,"kr":"그녀의 이름은 권기옥이었습니다.","en":"Her name was Kwon Ki-ok.","ch":[["Her name","그녀의 이름은"],["was Kwon Ki-ok.","권기옥이었다"]],"tip":""},{"n":13,"kr":"그녀는 한국 최초의 여성 비행사였습니다.","en":"She was the first female pilot in Korea.","ch":[["She was","그녀는 ~였다"],["the first female pilot","최초의 여성 비행사"],["in Korea.","한국의"]],"tip":"\"한국 최초의\" → 영어는 in Korea가 맨 뒤."}]},{"title":"권기옥의 삶 (14~19) — 포기하지 않은 꿈","flow":"신문에는 여성은 비행 학교에 들어갈 수 없던 시절 이야기가 있어요. <b>하지만</b> 권기옥은 포기하지 않았고, 비행기 조종<b>뿐 아니라</b> 독립운동<b>까지</b> 해서 Emily를 감동시켜요.<br>💡 15번 It read = 신문에 ~라고 쓰여 있었다.","items":[{"n":14,"kr":"Emily는 책상 위에서 오래된 신문도 발견했습니다.","en":"Emily also found an old newspaper on the desk.","ch":[["Emily also found","Emily는 또한 발견했다"],["an old newspaper","오래된 신문을"],["on the desk.","책상 위에서"]],"tip":"also(~도)는 일반동사 앞. find-found-found."},{"n":15,"kr":"그것에는 이렇게 쓰여 있었습니다. \"당시에 여성들은 비행 학교에 들어갈 수 없었다.\"","en":"It read, \"At that time, women couldn't enter flight schools.\"","ch":[["It read,","그것에는 ~라고 쓰여 있었다"],["\"At that time,","당시에"],["women couldn't enter","여성들은 들어갈 수 없었다"],["flight schools.\"","비행 학교에"]],"tip":"read = <b>~라고 쓰여 있다</b>(사물 주어). enter는 전치사 없이 바로 목적어 (enter <s>into</s> ✗)."},{"n":16,"kr":"\"하지만 권기옥은 포기하지 않았고 꿈을 이루기 위해 열심히 노력했다.\"","en":"\"However, Kwon Ki-ok didn't give up and worked hard to achieve her dream.\"","ch":[["\"However,","하지만"],["Kwon Ki-ok didn't give up","권기옥은 포기하지 않았다"],["and worked hard","그리고 열심히 노력했다"],["to achieve her dream.\"","꿈을 이루기 위해"]],"tip":"연결어 However: 앞(입학 불가) ↔ 뒤(포기 안 함). to achieve = 목적(~하기 위해). hard = 열심히."},{"n":17,"kr":"권기옥은 단지 비행기만 조종한 것이 아니었습니다.","en":"Kwon Ki-ok did not just fly airplanes.","ch":[["Kwon Ki-ok did not just fly","권기옥은 단지 조종한 것이 아니었다"],["airplanes.","비행기를"]],"tip":"fly = (비행기를) <b>조종하다</b>. not just ~ = 단지 ~만 한 게 아니다 → 다음 문장에 \"또 다른 일\"이 나와요."},{"n":18,"kr":"그녀는 한국의 독립을 위해 일본에 맞서 싸우기도 했습니다.","en":"She also fought against Japan for Korea's independence.","ch":[["She also fought against Japan","그녀는 일본에 맞서 싸우기도 했다"],["for Korea's independence.","한국의 독립을 위해"]],"tip":"also = 17번 not just와 짝. fight-fought-fought / fight against."},{"n":19,"kr":"Emily는 권기옥의 위대한 삶의 이야기에 감동을 받았습니다.","en":"Emily was moved by the great life story of Kwon Ki-ok.","ch":[["Emily was moved","Emily는 감동을 받았다"],["by the great life story","위대한 삶의 이야기에"],["of Kwon Ki-ok.","권기옥의"]],"tip":"<b>수동태</b> be moved by. 한글 \"권기옥의\"(앞) → of Kwon Ki-ok(뒤)."}]},{"title":"두 번째 방 (20~30) — 작은 숲 같은 방","flow":"작은 숲 같은 방에서 문을 <b>닫았을 때 갑자기</b> 그림들이 날아다녀요. 꿀벌 그림이 <b>너무 자세해서</b> 살아 있는 것 같고, 빛나는 책에서 파브르의 이름과 다윈의 편지를 발견해요.","items":[{"n":20,"kr":"Emily는 다음 방으로 들어갔습니다.","en":"Emily stepped into the next room.","ch":[["Emily stepped into","Emily는 ~로 들어갔다"],["the next room.","다음 방"]],"tip":"step into ↔ step out of (35번)."},{"n":21,"kr":"그 방은 많은 책들과 곤충과 식물의 그림들로 가득 차 있었습니다.","en":"The room was filled with many books and drawings of insects and plants.","ch":[["The room","그 방은"],["was filled with","~로 가득 차 있었다"],["many books and drawings","많은 책들과 그림들"],["of insects and plants.","곤충과 식물의"]],"tip":"<b>수동태</b> be filled with (= be full of). 주어 The room(단수) → was."},{"n":22,"kr":"그곳은 작은 숲처럼 보였습니다.","en":"It looked like a small forest.","ch":[["It","그곳은"],["looked like","~처럼 보였다"],["a small forest.","작은 숲"]],"tip":"look like + <b>명사</b> / look + 형용사 (11번과 비교!)."},{"n":23,"kr":"그녀가 문을 닫았을 때, 책상 위의 그림들이 갑자기 방 안 여기저기를 날아다니기 시작했습니다.","en":"When she closed the door, drawings on the desk suddenly started to fly around the room.","ch":[["When she closed the door,","그녀가 문을 닫았을 때"],["drawings on the desk","책상 위의 그림들이"],["suddenly started","갑자기 시작했다"],["to fly around the room.","방 안 여기저기를 날아다니기"]],"tip":"start + to부정사 = start + -ing. 주어는 drawings(복수)."},{"n":24,"kr":"그녀는 그것들 중 하나를 잡았습니다.","en":"She caught one of them.","ch":[["She caught","그녀는 잡았다"],["one of them.","그것들 중 하나를"]],"tip":"them = drawings. catch-caught-caught. one of + 복수."},{"n":25,"kr":"그것은 꿀벌의 그림이었습니다.","en":"It was a drawing of a honeybee.","ch":[["It was","그것은 ~이었다"],["a drawing of a honeybee.","꿀벌의 그림"]],"tip":"It = 잡은 그림 하나."},{"n":26,"kr":"그것은 너무 자세해서 꿀벌이 살아 있는 것처럼 보였습니다.","en":"It was so detailed that the honeybee looked alive.","ch":[["It was so detailed","그것은 너무 자세했다"],["that the honeybee looked alive.","그래서 꿀벌이 살아 있는 것처럼 보였다"]],"tip":"<b>so + 형용사 + that</b>: 원인(자세함) → 결과(살아 보임). look + 형용사 alive."},{"n":27,"kr":"책장 중 하나에서, Emily는 빛나는 책을 발견했습니다.","en":"From one of the bookshelves, Emily found a shining book.","ch":[["From one of the bookshelves,","책장 중 하나에서"],["Emily found","Emily는 발견했다"],["a shining book.","빛나는 책을"]],"tip":"one of + 복수 명사(bookshelves). shining: 형용사."},{"n":28,"kr":"그녀는 그것을 집어 들었습니다.","en":"She picked it up.","ch":[["She","그녀는"],["picked it up.","그것을 집어 들었다"]],"tip":"대명사 it은 picked와 up <b>사이</b>. it = the shining book."},{"n":29,"kr":"그녀는 표지에서 Jean-Henri Fabre라는 이름을 보았습니다.","en":"She saw the name Jean-Henri Fabre on its cover.","ch":[["She saw","그녀는 보았다"],["the name Jean-Henri Fabre","Jean-Henri Fabre라는 이름을"],["on its cover.","그것의 표지에서"]],"tip":"the name = Jean-Henri Fabre (동격). its = 그 책의 (it's ✗)."},{"n":30,"kr":"그녀는 책을 열었을 때, Charles Darwin에게서 온 오래된 편지를 발견했습니다.","en":"When she opened the book, she found an old letter from Charles Darwin.","ch":[["When she opened the book,","그녀가 책을 열었을 때"],["she found","그녀는 발견했다"],["an old letter","오래된 편지를"],["from Charles Darwin.","Charles Darwin에게서 온"]],"tip":"한글 \"Darwin에게서 온 편지\"(앞) → a letter from Darwin(뒤)."}]},{"title":"파브르의 삶과 마무리 (31~36) — 자연에 대한 사랑","flow":"다윈까지 파브르의 곤충 연구를 사랑했고, 파브르는 30년 넘게 곤충 책을 썼어요. 그의 자연 사랑을 느낀 Emily는 마지막 방을 나와 <b>너무 신이 나서</b> 친구들에게 빨리 말하고 싶어 해요.<br>💡 4번과 36번이 수미상관.","items":[{"n":31,"kr":"그것에는 이렇게 쓰여 있었습니다. \"저에게 당신의 책을 보내 주셔서 감사합니다.\"","en":"It said, \"Thank you for sending me your book.\"","ch":[["It said,","그것에는 ~라고 쓰여 있었다"],["\"Thank you","감사합니다"],["for sending me your book.\"","저에게 당신의 책을 보내 주셔서"]],"tip":"say = ~라고 쓰여 있다 (15번 read와 같은 뜻). Thank you for + <b>-ing</b>. send me your book = send your book <b>to</b> me."},{"n":32,"kr":"\"저는 곤충에 관한 당신의 연구를 진심으로 사랑합니다.\"","en":"\"I truly love your work about insects.\"","ch":[["\"I truly love","저는 진심으로 사랑합니다"],["your work","당신의 연구를"],["about insects.\"","곤충에 관한"]],"tip":"truly(진심으로) — true + ly에서 e 빠짐. work = 연구, 작품."},{"n":33,"kr":"Emily는 Fabre가 30년 넘게 곤충에 관한 많은 책들을 썼다는 것을 알게 되었습니다.","en":"Emily learned that Fabre wrote many books about insects for more than thirty years.","ch":[["Emily learned","Emily는 알게 되었다"],["that Fabre wrote many books","Fabre가 많은 책들을 썼다는 것을"],["about insects","곤충에 관한"],["for more than thirty years.","30년 넘게"]],"tip":"접속사 that(생략 가능). more than = over."},{"n":34,"kr":"자연에 대한 그의 진정한 사랑은 방의 모든 구석에서 분명하게 보여졌습니다.","en":"His true love for nature was shown clearly in every corner of the room.","ch":[["His true love for nature","자연에 대한 그의 진정한 사랑은"],["was shown clearly","분명하게 보여졌다"],["in every corner of the room.","방의 모든 구석에서"]],"tip":"<b>수동태</b> was shown(show-showed-shown). every + <b>단수</b> corner. 주어 love(단수) → was."},{"n":35,"kr":"Emily는 마지막 방에서 나왔습니다.","en":"Emily stepped out of the last room.","ch":[["Emily stepped out of","Emily는 ~에서 나왔다"],["the last room.","마지막 방"]],"tip":"step out of ↔ step into(20번)."},{"n":36,"kr":"그녀는 너무 신이 나서 친구들에게 자신의 모험에 대해 빨리 이야기하고 싶었습니다.","en":"She was so excited that she could not wait to tell her friends about her adventure.","ch":[["She was so excited","그녀는 너무 신이 났다"],["that she could not wait","그래서 기다릴 수 없었다(빨리 ~하고 싶었다)"],["to tell her friends","친구들에게 이야기하는 것을"],["about her adventure.","자신의 모험에 대해"]],"tip":"<b>so ~ that</b> + can't wait to(빨리 ~하고 싶다). 과거라 could not. 4번(excited to begin)과 수미상관!"}]}]}]},{"name":"⭐ 중요 표현","intro":"<b>빈칸을 채우고 → 우리말 해석을 직접 쓰고 → 채점.</b> 해석은 핵심 뜻이 들어 있으면 정답이에요 (토씨까지 똑같을 필요 없음). 다 맞히면 🔊로 문장을 들어 보세요.","blocks":[{"k":"qset","title":"A. 도입 · 첫 번째 방 (1~13번)","qs":[{"t":"ex","q":"<span class=\"badge b-lav\">1번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"receive an [] from a museum","a":["invitation"],"kr":"박물관으로부터 초대장을 받다","keys":["박물관","초대"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">2번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"This museum wasn't any [] museum.","a":["ordinary"],"kr":"이 박물관은 평범한 박물관이 아니었다.","keys":["평범|보통","박물관","아니|아님"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">3번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"rooms [] celebrated great people","a":["that|which"],"kr":"위대한 사람들을 기념하는 방들","keys":["위대","사람","기념|축하","방"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">4번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"She was [] [] begin her exploration.","a":["excited","to"],"kr":"그녀는 탐험을 시작하게 되어 들떠 있었다.","keys":["탐험","시작","들뜨|들떠|신나|신이|설레|기대|흥분"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">5번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"Her first [] was a room.","a":["stop"],"kr":"그녀의 첫 방문지는 방이었다.","keys":["첫|처음","방문|장소|목적지|들른|멈춘"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">5번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"a room that looked [] an old airplane garage","a":["like"],"kr":"오래된 비행기 격납고처럼 보이는 방","keys":["오래|낡은","비행기","격납고|차고","처럼|같"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">6번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"Model airplanes were hanging [] the ceiling.","a":["from"],"kr":"모형 비행기들이 천장에 매달려 있었다.","keys":["모형|모델","비행기","천장","매달"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">7번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"A leather pilot jacket and goggles [] [].","a":["were","displayed"],"kr":"가죽 비행사 재킷과 고글이 전시되어 있었다.","keys":["가죽","재킷|자켓","고글","전시"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">8번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"When Emily put [] [], she could hear the sounds of airplane engines.","a":["them","on"],"kr":"Emily가 그것들을 착용했을 때, 비행기 엔진 소리를 들을 수 있었다.","keys":["착용|입|쓰|걸치","엔진","소리","들"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">9번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"She looked around the room [] [].","a":["in","surprise"],"kr":"그녀는 놀라서 방을 둘러보았다.","keys":["놀라","방","둘러|살펴|돌아"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">11번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"She looked [] and strong.","a":["brave"],"kr":"그녀는 용감하고 강해 보였다.","keys":["용감","강","보"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">13번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"She was the [] [] pilot in Korea.","a":["first","female"],"kr":"그녀는 한국 최초의 여성 비행사였다.","keys":["한국","최초|첫","여성|여자","비행사|조종사"],"e":""}]},{"k":"qset","title":"B. 권기옥의 삶 (15~19번)","qs":[{"t":"ex","q":"<span class=\"badge b-lav\">15번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"It [], \"At that time, women couldn't enter flight schools.\"","a":["read"],"kr":"그것에는 \"당시에 여성들은 비행 학교에 들어갈 수 없었다\"라고 쓰여 있었다.","keys":["쓰여|적혀","당시|그때","여성|여자","비행","학교","들어|입학"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">15번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"[] [] [], women couldn't [] flight schools.","a":["at","that","time","enter"],"kr":"그 당시에 여성들은 비행 학교에 입학할 수 없었다.","keys":["당시|그때","여성|여자","비행","학교","입학|들어"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">16번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"Kwon Ki-ok didn't [] [] and worked [] to achieve her dream.","a":["give","up","hard"],"kr":"권기옥은 포기하지 않았고 꿈을 이루기 위해 열심히 노력했다.","keys":["포기","열심히","꿈","이루|성취"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">17번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"Kwon Ki-ok did not just [] airplanes.","a":["fly"],"kr":"권기옥은 단지 비행기만 조종한 것이 아니었다.","keys":["비행기","조종|운전|몰|날"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">18번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"She also fought [] Japan for Korea's [].","a":["against","independence"],"kr":"그녀는 한국의 독립을 위해 일본에 맞서 싸우기도 했다.","keys":["독립","일본","싸우|싸웠|싸움|맞서"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">19번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"Emily [] [] [] the great life story of Kwon Ki-ok.","a":["was","moved","by"],"kr":"Emily는 권기옥의 위대한 삶의 이야기에 감동을 받았다.","keys":["위대","삶|인생","이야기","감동"],"e":""}]},{"k":"qset","title":"C. 두 번째 방 · 파브르 · 마무리 (20~36번)","qs":[{"t":"ex","q":"<span class=\"badge b-lav\">20번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"Emily stepped [] the next room.","a":["into"],"kr":"Emily는 다음 방으로 들어갔다.","keys":["다음","방","들어"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">21번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"The room [] [] [] many books and drawings of insects and plants.","a":["was","filled","with"],"kr":"그 방은 많은 책들과 곤충과 식물의 그림들로 가득 차 있었다.","keys":["책","곤충","식물","그림","가득"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">22번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"It looked [] a small forest.","a":["like"],"kr":"그곳은 작은 숲처럼 보였다.","keys":["작은","숲","처럼|같"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">23번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"Drawings on the desk suddenly started [] [] around the room.","a":["to","fly"],"kr":"책상 위의 그림들이 갑자기 방 안을 날아다니기 시작했다.","keys":["그림","갑자기","날","시작"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">24번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"She caught [] [] them.","a":["one","of"],"kr":"그녀는 그것들 중 하나를 잡았다.","keys":["중","하나|한","잡"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">26번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"It was [] detailed [] the honeybee looked alive.","a":["so","that"],"kr":"그것은 너무 자세해서 꿀벌이 살아 있는 것처럼 보였다.","keys":["자세|세밀|정교|섬세","꿀벌|벌","살아|살아있"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">27번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"From [] [] the bookshelves, Emily found a [] book.","a":["one","of","shining"],"kr":"책장 중 하나에서 Emily는 빛나는 책을 발견했다.","keys":["책장|책꽂이","빛나|반짝","책","발견|찾"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">28번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"She picked [] [].","a":["it","up"],"kr":"그녀는 그것을 집어 들었다.","keys":["그것|그걸|책","집|들"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">29번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"She saw the name Jean-Henri Fabre on [] cover.","a":["its"],"kr":"그녀는 표지에서 Jean-Henri Fabre라는 이름을 보았다.","keys":["표지","이름","보"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">30번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"She found an old letter [] Charles Darwin.","a":["from"],"kr":"그녀는 Charles Darwin에게서 온 오래된 편지를 발견했다.","keys":["오래|낡은","편지","다윈|darwin|찰스","발견|찾"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">31번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"It said, \"Thank you [] [] me your book.\"","a":["for","sending"],"kr":"그것에는 \"저에게 당신의 책을 보내 주셔서 감사합니다\"라고 쓰여 있었다.","keys":["책","보내","감사|고맙"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">32번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"\"I [] love your work about insects.\"","a":["truly"],"kr":"\"저는 곤충에 관한 당신의 연구를 진심으로 사랑합니다.\"","keys":["곤충","연구|작품|일|업적","진심|정말|진짜","사랑|좋아"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">33번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"Fabre wrote many books about insects for [] [] thirty years.","a":["more","than"],"kr":"Fabre는 30년 넘게 곤충에 관한 많은 책들을 썼다.","keys":["30|삼십","넘|이상","곤충","책"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">34번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"His true love [] nature [] [] clearly in [] corner of the room.","a":["for","was","shown","every"],"kr":"자연에 대한 그의 진정한 사랑은 방의 모든 구석에서 분명하게 보여졌다.","keys":["자연","사랑","모든","구석","분명|확실|명확|뚜렷","보"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">35번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"Emily stepped [] [] the last room.","a":["out","of"],"kr":"Emily는 마지막 방에서 나왔다.","keys":["마지막","방","나오|나왔|나감"],"e":""},{"t":"ex","q":"<span class=\"badge b-lav\">36번</span> 빈칸을 채우고, 우리말 해석을 쓰세요.","s":"She was so excited that she could not [] [] tell her friends about her adventure.","a":["wait","to"],"kr":"그녀는 너무 신이 나서 친구들에게 자신의 모험에 대해 빨리 이야기하고 싶었다.","keys":["신나|신이|들뜨|흥분|설레","빨리|기다릴","친구","모험","이야기|말"],"e":""}]},{"k":"h","html":"📝 시험 포인트 문장 모음"},{"k":"html","html":"<div class=\"tip\">시험에 나오는 포인트별로 <b>본문 문장 전체</b>를 모았어요. 🔊로 듣고 소리 내어 읽어 보세요. 이 포인트를 묻는 시험지는 선생님이 따로 나눠 줘요.</div><div class=\"box wl\"><h3 class=\"sub\">1. 수동태 (be + 과거분사 + 전치사)</h3><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">7</span><span class=\"en\">A leather pilot jacket and goggles were displayed.</span><button class=\"spk mini\" data-say=\"A leather pilot jacket and goggles were displayed.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">가죽 비행사 재킷과 고글이 전시되어 있었습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">19</span><span class=\"en\">Emily was moved by the great life story of Kwon Ki-ok.</span><button class=\"spk mini\" data-say=\"Emily was moved by the great life story of Kwon Ki-ok.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">Emily는 권기옥의 위대한 삶의 이야기에 감동을 받았습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">21</span><span class=\"en\">The room was filled with many books and drawings of insects and plants.</span><button class=\"spk mini\" data-say=\"The room was filled with many books and drawings of insects and plants.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그 방은 많은 책들과 곤충과 식물의 그림들로 가득 차 있었습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">34</span><span class=\"en\">His true love for nature was shown clearly in every corner of the room.</span><button class=\"spk mini\" data-say=\"His true love for nature was shown clearly in every corner of the room.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">자연에 대한 그의 진정한 사랑은 방의 모든 구석에서 분명하게 보여졌습니다.</div></div><h3 class=\"sub\">2. so ~ that (너무 ~해서 …하다)</h3><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">26</span><span class=\"en\">It was so detailed that the honeybee looked alive.</span><button class=\"spk mini\" data-say=\"It was so detailed that the honeybee looked alive.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그것은 너무 자세해서 꿀벌이 살아 있는 것처럼 보였습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">36</span><span class=\"en\">She was so excited that she could not wait to tell her friends about her adventure.</span><button class=\"spk mini\" data-say=\"She was so excited that she could not wait to tell her friends about her adventure.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그녀는 너무 신이 나서 친구들에게 자신의 모험에 대해 빨리 이야기하고 싶었습니다.</div></div><h3 class=\"sub\">3. look + 형용사 / look like + 명사</h3><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">5</span><span class=\"en\">Her first stop was a room that looked like an old airplane garage.</span><button class=\"spk mini\" data-say=\"Her first stop was a room that looked like an old airplane garage.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그녀의 첫 방문지는 오래된 비행기 격납고처럼 보이는 방이었습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">11</span><span class=\"en\">She looked brave and strong.</span><button class=\"spk mini\" data-say=\"She looked brave and strong.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그녀는 용감하고 강해 보였습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">22</span><span class=\"en\">It looked like a small forest.</span><button class=\"spk mini\" data-say=\"It looked like a small forest.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그곳은 작은 숲처럼 보였습니다.</div></div><h3 class=\"sub\">4. 대명사는 동사구 가운데에</h3><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">8</span><span class=\"en\">When Emily put them on, she could hear the sounds of airplane engines.</span><button class=\"spk mini\" data-say=\"When Emily put them on, she could hear the sounds of airplane engines.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">Emily가 그것들을 착용했을 때, 그녀는 비행기 엔진 소리를 들을 수 있었습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">28</span><span class=\"en\">She picked it up.</span><button class=\"spk mini\" data-say=\"She picked it up.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그녀는 그것을 집어 들었습니다.</div></div><h3 class=\"sub\">5. read · say = ~라고 쓰여 있다</h3><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">15</span><span class=\"en\">It read, \"At that time, women couldn't enter flight schools.\"</span><button class=\"spk mini\" data-say=\"It read, &quot;At that time, women couldn't enter flight schools.&quot;\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그것에는 이렇게 쓰여 있었습니다. \"당시에 여성들은 비행 학교에 들어갈 수 없었다.\"</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">31</span><span class=\"en\">It said, \"Thank you for sending me your book.\"</span><button class=\"spk mini\" data-say=\"It said, &quot;Thank you for sending me your book.&quot;\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그것에는 이렇게 쓰여 있었습니다. \"저에게 당신의 책을 보내 주셔서 감사합니다.\"</div></div><h3 class=\"sub\">6. 다의어 stop(방문지) · fly(조종하다) · hard(열심히) · step(발을 내딛다)</h3><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">5</span><span class=\"en\">Her first stop was a room that looked like an old airplane garage.</span><button class=\"spk mini\" data-say=\"Her first stop was a room that looked like an old airplane garage.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그녀의 첫 방문지는 오래된 비행기 격납고처럼 보이는 방이었습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">17</span><span class=\"en\">Kwon Ki-ok did not just fly airplanes.</span><button class=\"spk mini\" data-say=\"Kwon Ki-ok did not just fly airplanes.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">권기옥은 단지 비행기만 조종한 것이 아니었습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">16</span><span class=\"en\">\"However, Kwon Ki-ok didn't give up and worked hard to achieve her dream.\"</span><button class=\"spk mini\" data-say=\"&quot;However, Kwon Ki-ok didn't give up and worked hard to achieve her dream.&quot;\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">\"하지만 권기옥은 포기하지 않았고 꿈을 이루기 위해 열심히 노력했다.\"</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">20</span><span class=\"en\">Emily stepped into the next room.</span><button class=\"spk mini\" data-say=\"Emily stepped into the next room.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">Emily는 다음 방으로 들어갔습니다.</div></div><h3 class=\"sub\">7. 감정 형용사 excited (사람이 느끼는 감정)</h3><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">4</span><span class=\"en\">She was excited to begin her exploration.</span><button class=\"spk mini\" data-say=\"She was excited to begin her exploration.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그녀는 그녀의 탐험을 시작하게 되어 들떠 있었습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">36</span><span class=\"en\">She was so excited that she could not wait to tell her friends about her adventure.</span><button class=\"spk mini\" data-say=\"She was so excited that she could not wait to tell her friends about her adventure.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그녀는 너무 신이 나서 친구들에게 자신의 모험에 대해 빨리 이야기하고 싶었습니다.</div></div><h3 class=\"sub\">8. However · not just ~ also</h3><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">16</span><span class=\"en\">\"However, Kwon Ki-ok didn't give up and worked hard to achieve her dream.\"</span><button class=\"spk mini\" data-say=\"&quot;However, Kwon Ki-ok didn't give up and worked hard to achieve her dream.&quot;\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">\"하지만 권기옥은 포기하지 않았고 꿈을 이루기 위해 열심히 노력했다.\"</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">17</span><span class=\"en\">Kwon Ki-ok did not just fly airplanes.</span><button class=\"spk mini\" data-say=\"Kwon Ki-ok did not just fly airplanes.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">권기옥은 단지 비행기만 조종한 것이 아니었습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">18</span><span class=\"en\">She also fought against Japan for Korea's independence.</span><button class=\"spk mini\" data-say=\"She also fought against Japan for Korea's independence.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그녀는 한국의 독립을 위해 일본에 맞서 싸우기도 했습니다.</div></div><h3 class=\"sub\">9. send me your book = send your book to me</h3><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">31</span><span class=\"en\">It said, \"Thank you for sending me your book.\"</span><button class=\"spk mini\" data-say=\"It said, &quot;Thank you for sending me your book.&quot;\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그것에는 이렇게 쓰여 있었습니다. \"저에게 당신의 책을 보내 주셔서 감사합니다.\"</div></div><h3 class=\"sub\">10. one of + 복수 명사 · every + 단수 명사</h3><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">24</span><span class=\"en\">She caught one of them.</span><button class=\"spk mini\" data-say=\"She caught one of them.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그녀는 그것들 중 하나를 잡았습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">27</span><span class=\"en\">From one of the bookshelves, Emily found a shining book.</span><button class=\"spk mini\" data-say=\"From one of the bookshelves, Emily found a shining book.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">책장 중 하나에서, Emily는 빛나는 책을 발견했습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">34</span><span class=\"en\">His true love for nature was shown clearly in every corner of the room.</span><button class=\"spk mini\" data-say=\"His true love for nature was shown clearly in every corner of the room.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">자연에 대한 그의 진정한 사랑은 방의 모든 구석에서 분명하게 보여졌습니다.</div></div><h3 class=\"sub\">11. 전치사 짝꿍</h3><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">1</span><span class=\"en\">One day, Emily received an invitation from a museum.</span><button class=\"spk mini\" data-say=\"One day, Emily received an invitation from a museum.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">어느 날, Emily는 박물관으로부터 초대장을 받았습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">6</span><span class=\"en\">Model airplanes were hanging from the ceiling.</span><button class=\"spk mini\" data-say=\"Model airplanes were hanging from the ceiling.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">모형 비행기들이 천장에 매달려 있었습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">9</span><span class=\"en\">She looked around the room in surprise.</span><button class=\"spk mini\" data-say=\"She looked around the room in surprise.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그녀는 놀라서 방을 둘러보았습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">10</span><span class=\"en\">On the wall, there was a picture of a woman.</span><button class=\"spk mini\" data-say=\"On the wall, there was a picture of a woman.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">벽에는 한 여성의 사진이 있었습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">30</span><span class=\"en\">When she opened the book, she found an old letter from Charles Darwin.</span><button class=\"spk mini\" data-say=\"When she opened the book, she found an old letter from Charles Darwin.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">그녀는 책을 열었을 때, Charles Darwin에게서 온 오래된 편지를 발견했습니다.</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">32</span><span class=\"en\">\"I truly love your work about insects.\"</span><button class=\"spk mini\" data-say=\"&quot;I truly love your work about insects.&quot;\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">\"저는 곤충에 관한 당신의 연구를 진심으로 사랑합니다.\"</div></div><div class=\"wrow\"><div class=\"wen\"><span class=\"dno\" style=\"background:var(--primary);color:#fff;border-radius:6px;font-size:12px;padding:1px 7px;margin-right:4px\">33</span><span class=\"en\">Emily learned that Fabre wrote many books about insects for more than thirty years.</span><button class=\"spk mini\" data-say=\"Emily learned that Fabre wrote many books about insects for more than thirty years.\">🔊</button></div><div class=\"wk\" style=\"display:block;margin-left:34px\">Emily는 Fabre가 30년 넘게 곤충에 관한 많은 책들을 썼다는 것을 알게 되었습니다.</div></div></div>"}]},{"name":"🧱 어순 배열","intro":"<b>한글 순서 그대로 놓으면 틀려요.</b> 누가 → 한다(당했다) → 무엇을 → 어디서·왜. 꾸밈말(관계사·of·from)은 명사 뒤!","blocks":[{"k":"qset","title":"영어 덩어리 순서대로 놓기","qs":[{"t":"ord","q":"[1] 어느 날, Emily는 박물관으로부터 초대장을 받았습니다.","c":["One day","Emily received","an invitation","from a museum"],"e":"한글 끝 \"받았다\"가 영어에선 주어 바로 뒤."},{"t":"ord","q":"[3] 그곳에는 위대한 사람들을 기념하는 방들이 있었습니다.","c":["It had rooms","that celebrated great people"],"e":"주격 관계대명사 <b>that</b>: 한글 \"기념하는 방\"(꾸밈이 앞) → 영어는 rooms <b>뒤</b>."},{"t":"ord","q":"[4] 그녀는 그녀의 탐험을 시작하게 되어 들떠 있었습니다.","c":["She was excited","to begin her exploration"],"e":"감정 형용사 + to부정사(감정의 원인). 사람이 느끼는 감정 → excit<b>ed</b>."},{"t":"ord","q":"[5] 그녀의 첫 방문지는 오래된 비행기 격납고처럼 보이는 방이었습니다.","c":["Her first stop","was a room","that looked like","an old airplane garage"],"e":"stop = 방문지(다의어). look <b>like</b> + 명사."},{"t":"ord","q":"[6] 모형 비행기들이 천장에 매달려 있었습니다.","c":["Model airplanes","were hanging","from the ceiling"],"e":"과거진행 were + -ing. hang <b>from</b>: ~에 매달리다."},{"t":"ord","q":"[8] Emily가 그것들을 착용했을 때, 그녀는 비행기 엔진 소리를 들을 수 있었습니다.","c":["When Emily put them on","she could hear","the sounds of airplane engines"],"e":"them = 재킷과 고글. 대명사는 put과 on <b>사이</b> (put on them ✗)."},{"t":"ord","q":"[9] 그녀는 놀라서 방을 둘러보았습니다.","c":["She looked around","the room","in surprise"],"e":"한글 \"놀라서\"(앞) → 영어 in surprise(맨 뒤)."},{"t":"ord","q":"[10] 벽에는 한 여성의 사진이 있었습니다.","c":["On the wall","there was","a picture of a woman"],"e":"There was + 단수 명사. \"한 여성의 사진\" → a picture <b>of</b> a woman (순서 뒤집힘)."},{"t":"ord","q":"[13] 그녀는 한국 최초의 여성 비행사였습니다.","c":["She was","the first female pilot","in Korea"],"e":"\"한국 최초의\" → 영어는 in Korea가 맨 뒤."},{"t":"ord","q":"[15] 그것에는 이렇게 쓰여 있었습니다. \"당시에 여성들은 비행 학교에 들어갈 수 없었다.\"","c":["It read","At that time","women couldn't enter","flight schools"],"e":"read = <b>~라고 쓰여 있다</b>(사물 주어). enter는 전치사 없이 바로 목적어 (enter <s>into</s> ✗)."},{"t":"ord","q":"[16] \"하지만 권기옥은 포기하지 않았고 꿈을 이루기 위해 열심히 노력했다.\"","c":["However","Kwon Ki-ok didn't give up","and worked hard","to achieve her dream"],"e":"연결어 However: 앞(입학 불가) ↔ 뒤(포기 안 함). to achieve = 목적(~하기 위해). hard = 열심히."},{"t":"ord","q":"[18] 그녀는 한국의 독립을 위해 일본에 맞서 싸우기도 했습니다.","c":["She also fought against Japan","for Korea's independence"],"e":"also = 17번 not just와 짝. fight-fought-fought / fight against."},{"t":"ord","q":"[19] Emily는 권기옥의 위대한 삶의 이야기에 감동을 받았습니다.","c":["Emily was moved","by the great life story","of Kwon Ki-ok"],"e":"<b>수동태</b> be moved by. 한글 \"권기옥의\"(앞) → of Kwon Ki-ok(뒤)."},{"t":"ord","q":"[21] 그 방은 많은 책들과 곤충과 식물의 그림들로 가득 차 있었습니다.","c":["The room","was filled with","many books and drawings","of insects and plants"],"e":"<b>수동태</b> be filled with (= be full of). 주어 The room(단수) → was."},{"t":"ord","q":"[23] 그녀가 문을 닫았을 때, 책상 위의 그림들이 갑자기 방 안 여기저기를 날아다니기 시작했습니다.","c":["When she closed the door","drawings on the desk","suddenly started","to fly around the room"],"e":"start + to부정사 = start + -ing. 주어는 drawings(복수)."},{"t":"ord","q":"[26] 그것은 너무 자세해서 꿀벌이 살아 있는 것처럼 보였습니다.","c":["It was so detailed","that the honeybee looked alive"],"e":"<b>so + 형용사 + that</b>: 원인(자세함) → 결과(살아 보임). look + 형용사 alive."},{"t":"ord","q":"[27] 책장 중 하나에서, Emily는 빛나는 책을 발견했습니다.","c":["From one of the bookshelves","Emily found","a shining book"],"e":"one of + 복수 명사(bookshelves). shining: 형용사."},{"t":"ord","q":"[29] 그녀는 표지에서 Jean-Henri Fabre라는 이름을 보았습니다.","c":["She saw","the name Jean-Henri Fabre","on its cover"],"e":"the name = Jean-Henri Fabre (동격). its = 그 책의 (it's ✗)."},{"t":"ord","q":"[30] 그녀는 책을 열었을 때, Charles Darwin에게서 온 오래된 편지를 발견했습니다.","c":["When she opened the book","she found","an old letter","from Charles Darwin"],"e":"한글 \"Darwin에게서 온 편지\"(앞) → a letter from Darwin(뒤)."},{"t":"ord","q":"[31] 그것에는 이렇게 쓰여 있었습니다. \"저에게 당신의 책을 보내 주셔서 감사합니다.\"","c":["It said","Thank you","for sending me your book"],"e":"say = ~라고 쓰여 있다 (15번 read와 같은 뜻). Thank you for + <b>-ing</b>. send me your book = send your book <b>to</b> me."},{"t":"ord","q":"[33] Emily는 Fabre가 30년 넘게 곤충에 관한 많은 책들을 썼다는 것을 알게 되었습니다.","c":["Emily learned","that Fabre wrote many books","about insects","for more than thirty years"],"e":"접속사 that(생략 가능). more than = over."},{"t":"ord","q":"[34] 자연에 대한 그의 진정한 사랑은 방의 모든 구석에서 분명하게 보여졌습니다.","c":["His true love for nature","was shown clearly","in every corner of the room"],"e":"<b>수동태</b> was shown(show-showed-shown). every + <b>단수</b> corner. 주어 love(단수) → was."},{"t":"ord","q":"[36] 그녀는 너무 신이 나서 친구들에게 자신의 모험에 대해 빨리 이야기하고 싶었습니다.","c":["She was so excited","that she could not wait","to tell her friends","about her adventure"],"e":"<b>so ~ that</b> + can't wait to(빨리 ~하고 싶다). 과거라 could not. 4번(excited to begin)과 수미상관!"}]}]},{"name":"✍️ 거꾸로 영작","intro":"<b>쓰기 전에 3단계</b>: ① 뼈대(누가 + 한다/당했다) ② 능동인지 수동인지 ③ 꾸밈 덩어리를 뒤에 붙이기. 문장부호는 채점에 상관없어요. 틀리면 \"정답 보기\".","blocks":[{"k":"qset","title":"핵심 문장 거꾸로 영작","qs":[{"t":"in","q":"[1] 어느 날, Emily는 박물관으로부터 초대장을 받았습니다. <span class=\"badge b-lav\">one day, receive, invitation</span>","a":"One day, Emily received an invitation from a museum.","e":"한글 끝 \"받았다\"가 영어에선 주어 바로 뒤.","ph":"영어 문장 쓰기"},{"t":"in","q":"[3] 그곳에는 위대한 사람들을 기념하는 방들이 있었습니다. <span class=\"badge b-lav\">have, that, celebrate</span>","a":"It had rooms that celebrated great people.","e":"주격 관계대명사 <b>that</b>: 한글 \"기념하는 방\"(꾸밈이 앞) → 영어는 rooms <b>뒤</b>.","ph":"영어 문장 쓰기"},{"t":"in","q":"[4] 그녀는 그녀의 탐험을 시작하게 되어 들떠 있었습니다. <span class=\"badge b-lav\">excited, to begin, exploration</span>","a":"She was excited to begin her exploration.","e":"감정 형용사 + to부정사(감정의 원인). 사람이 느끼는 감정 → excit<b>ed</b>.","ph":"영어 문장 쓰기"},{"t":"in","q":"[5] 그녀의 첫 방문지는 오래된 비행기 격납고처럼 보이는 방이었습니다. <span class=\"badge b-lav\">stop, that, look like, garage</span>","a":"Her first stop was a room that looked like an old airplane garage.","e":"stop = 방문지(다의어). look <b>like</b> + 명사.","ph":"영어 문장 쓰기"},{"t":"in","q":"[6] 모형 비행기들이 천장에 매달려 있었습니다. <span class=\"badge b-lav\">hang from, ceiling</span>","a":"Model airplanes were hanging from the ceiling.","e":"과거진행 were + -ing. hang <b>from</b>: ~에 매달리다.","ph":"영어 문장 쓰기"},{"t":"in","q":"[7] 가죽 비행사 재킷과 고글이 전시되어 있었습니다. <span class=\"badge b-lav\">수동태, display</span>","a":"A leather pilot jacket and goggles were displayed.","e":"<b>수동태</b> be + p.p. A and B = 복수 → were.","ph":"영어 문장 쓰기"},{"t":"in","q":"[8] Emily가 그것들을 착용했을 때, 그녀는 비행기 엔진 소리를 들을 수 있었습니다. <span class=\"badge b-lav\">when, put on, could</span>","a":"When Emily put them on, she could hear the sounds of airplane engines.","e":"them = 재킷과 고글. 대명사는 put과 on <b>사이</b> (put on them ✗).","ph":"영어 문장 쓰기"},{"t":"in","q":"[13] 그녀는 한국 최초의 여성 비행사였습니다. <span class=\"badge b-lav\">first, female, pilot</span>","a":"She was the first female pilot in Korea.","e":"\"한국 최초의\" → 영어는 in Korea가 맨 뒤.","ph":"영어 문장 쓰기"},{"t":"in","q":"[15] 그것에는 이렇게 쓰여 있었습니다. \"당시에 여성들은 비행 학교에 들어갈 수 없었다.\" <span class=\"badge b-lav\">read, at that time, enter</span>","a":"It read, \"At that time, women couldn't enter flight schools.\"","e":"read = <b>~라고 쓰여 있다</b>(사물 주어). enter는 전치사 없이 바로 목적어 (enter <s>into</s> ✗).","ph":"영어 문장 쓰기"},{"t":"in","q":"[16] \"하지만 권기옥은 포기하지 않았고 꿈을 이루기 위해 열심히 노력했다.\" <span class=\"badge b-lav\">however, give up, hard, achieve</span>","a":"\"However, Kwon Ki-ok didn't give up and worked hard to achieve her dream.\"","e":"연결어 However: 앞(입학 불가) ↔ 뒤(포기 안 함). to achieve = 목적(~하기 위해). hard = 열심히.","ph":"영어 문장 쓰기"},{"t":"in","q":"[18] 그녀는 한국의 독립을 위해 일본에 맞서 싸우기도 했습니다. <span class=\"badge b-lav\">also, fight against, independence</span>","a":"She also fought against Japan for Korea's independence.","e":"also = 17번 not just와 짝. fight-fought-fought / fight against.","ph":"영어 문장 쓰기"},{"t":"in","q":"[19] Emily는 권기옥의 위대한 삶의 이야기에 감동을 받았습니다. <span class=\"badge b-lav\">수동태, move</span>","a":"Emily was moved by the great life story of Kwon Ki-ok.","e":"<b>수동태</b> be moved by. 한글 \"권기옥의\"(앞) → of Kwon Ki-ok(뒤).","ph":"영어 문장 쓰기"},{"t":"in","q":"[21] 그 방은 많은 책들과 곤충과 식물의 그림들로 가득 차 있었습니다. <span class=\"badge b-lav\">수동태, fill</span>","a":"The room was filled with many books and drawings of insects and plants.","e":"<b>수동태</b> be filled with (= be full of). 주어 The room(단수) → was.","ph":"영어 문장 쓰기"},{"t":"in","q":"[23] 그녀가 문을 닫았을 때, 책상 위의 그림들이 갑자기 방 안 여기저기를 날아다니기 시작했습니다. <span class=\"badge b-lav\">when, suddenly, start to</span>","a":"When she closed the door, drawings on the desk suddenly started to fly around the room.","e":"start + to부정사 = start + -ing. 주어는 drawings(복수).","ph":"영어 문장 쓰기"},{"t":"in","q":"[26] 그것은 너무 자세해서 꿀벌이 살아 있는 것처럼 보였습니다. <span class=\"badge b-lav\">so ~ that, detailed, alive</span>","a":"It was so detailed that the honeybee looked alive.","e":"<b>so + 형용사 + that</b>: 원인(자세함) → 결과(살아 보임). look + 형용사 alive.","ph":"영어 문장 쓰기"},{"t":"in","q":"[31] 그것에는 이렇게 쓰여 있었습니다. \"저에게 당신의 책을 보내 주셔서 감사합니다.\" <span class=\"badge b-lav\">say, thank you for, send</span>","a":"It said, \"Thank you for sending me your book.\"","e":"say = ~라고 쓰여 있다 (15번 read와 같은 뜻). Thank you for + <b>-ing</b>. send me your book = send your book <b>to</b> me.","ph":"영어 문장 쓰기"},{"t":"in","q":"[33] Emily는 Fabre가 30년 넘게 곤충에 관한 많은 책들을 썼다는 것을 알게 되었습니다. <span class=\"badge b-lav\">learn, that, more than</span>","a":"Emily learned that Fabre wrote many books about insects for more than thirty years.","e":"접속사 that(생략 가능). more than = over.","ph":"영어 문장 쓰기"},{"t":"in","q":"[34] 자연에 대한 그의 진정한 사랑은 방의 모든 구석에서 분명하게 보여졌습니다. <span class=\"badge b-lav\">수동태, show, every</span>","a":"His true love for nature was shown clearly in every corner of the room.","e":"<b>수동태</b> was shown(show-showed-shown). every + <b>단수</b> corner. 주어 love(단수) → was.","ph":"영어 문장 쓰기"},{"t":"in","q":"[36] 그녀는 너무 신이 나서 친구들에게 자신의 모험에 대해 빨리 이야기하고 싶었습니다. <span class=\"badge b-lav\">so ~ that, can't wait to, adventure</span>","a":[["She was so excited that she could not wait to tell her friends about her adventure.","She was so excited that she couldn't wait to tell her friends about her adventure."]],"e":"<b>so ~ that</b> + can't wait to(빨리 ~하고 싶다). 과거라 could not. 4번(excited to begin)과 수미상관!","ph":"영어 문장 쓰기"}]}]},{"name":"✏️ 빈칸·핵심 문법","intro":"<b>수동태 · so ~ that · look/look like · 대명사 동사구</b>가 핵심이에요. 이유까지 말할 수 있어야 진짜 아는 거예요.","blocks":[{"k":"qset","title":"A. 핵심 표현 빈칸","qs":[{"t":"in","q":"그곳에는 위대한 사람들을 기념하는 방들이 있었다.","s":"It had rooms [] celebrated great people.","a":["that|which"],"e":"주격 관계대명사 that(= which)"},{"t":"in","q":"그녀의 첫 방문지는 오래된 비행기 격납고처럼 보이는 방이었다.","s":"Her first [] was a room that looked [] an old airplane garage.","a":["stop","like"],"e":"stop(방문지) / look like + 명사"},{"t":"in","q":"모형 비행기들이 천장에 매달려 있었다.","s":"Model airplanes were [] [] the ceiling.","a":["hanging","from"],"e":"hang from"},{"t":"in","q":"가죽 비행사 재킷과 고글이 전시되어 있었다.","s":"A leather pilot jacket and goggles [] [].","a":["were","displayed"],"e":"수동태, 복수 주어"},{"t":"in","q":"Emily가 그것들을 착용했을 때","s":"When Emily [] [] [],","a":["put","them","on"],"e":"대명사는 가운데"},{"t":"in","q":"그녀는 놀라서 방을 둘러보았다.","s":"She looked [] the room [] surprise.","a":["around","in"],"e":"look around / in surprise"},{"t":"in","q":"그것에는 \"당시에 여성들은 비행 학교에 들어갈 수 없었다\"라고 쓰여 있었다.","s":"It [], \"At that time, women couldn't [] flight schools.\"","a":["read","enter"],"e":"read(쓰여 있다) / enter + 목적어"},{"t":"in","q":"하지만 권기옥은 포기하지 않았고 꿈을 이루기 위해 열심히 노력했다.","s":"However, Kwon Ki-ok didn't [] [] and worked [] to achieve her dream.","a":["give","up","hard"],"e":"give up / hard(열심히)"},{"t":"in","q":"Emily는 권기옥의 위대한 삶의 이야기에 감동을 받았다.","s":"Emily [] [] [] the great life story of Kwon Ki-ok.","a":["was","moved","by"],"e":"be moved by"},{"t":"in","q":"그 방은 많은 책들과 그림들로 가득 차 있었다.","s":"The room [] [] [] many books and drawings.","a":["was","filled","with"],"e":"be filled with"},{"t":"in","q":"그것은 너무 자세해서 꿀벌이 살아 있는 것처럼 보였다.","s":"It was [] detailed [] the honeybee looked [].","a":["so","that","alive"],"e":"so ~ that / look + 형용사"},{"t":"in","q":"\"저에게 당신의 책을 보내 주셔서 감사합니다.\"","s":"\"Thank you [] [] me your book.\"","a":["for","sending"],"e":"Thank you for + -ing"},{"t":"in","q":"Fabre가 30년 넘게 곤충에 관한 책들을 썼다","s":"Fabre wrote many books about insects [] [] [] thirty years","a":["for","more","than"],"e":"for more than = for over"},{"t":"in","q":"자연에 대한 그의 진정한 사랑은 방의 모든 구석에서 분명하게 보여졌다.","s":"His true love for nature [] [] clearly in [] corner of the room.","a":["was","shown","every"],"e":"수동태 / every + 단수"},{"t":"in","q":"그녀는 너무 신이 나서 친구들에게 빨리 이야기하고 싶었다.","s":"She was so excited that she could not [] [] tell her friends about her adventure.","a":["wait","to"],"e":"can't wait to"}]},{"k":"qset","title":"B. 어법에 맞는 것 고르기","qs":[{"t":"mc","inline":1,"q":"She was (excited / exciting) to begin her exploration.","o":["excited","exciting"],"a":0,"e":"사람이 느끼는 감정 → excited."},{"t":"mc","inline":1,"q":"It had rooms that (celebrated / celebrating) great people.","o":["celebrated","celebrating"],"a":0,"e":"관계대명사 that 뒤 → 동사."},{"t":"mc","inline":1,"q":"Her first stop was a room that looked (like / ×) an old airplane garage.","o":["like","× (없음)"],"a":0,"e":"명사 앞 → look like."},{"t":"mc","inline":1,"q":"A leather pilot jacket and goggles (was / were) displayed.","o":["was","were"],"a":1,"e":"A and B → 복수."},{"t":"mc","inline":1,"q":"When Emily (put them on / put on them), she could hear the sounds.","o":["put them on","put on them"],"a":0,"e":"대명사는 가운데."},{"t":"mc","inline":1,"q":"She looked (brave / bravely) and strong.","o":["brave","bravely"],"a":0,"e":"look + 형용사."},{"t":"mc","inline":1,"q":"At that time, women couldn't (enter / enter into) flight schools.","o":["enter","enter into"],"a":0,"e":"enter는 바로 목적어 (into ✗)."},{"t":"mc","inline":1,"q":"Emily was moved (by / with) the great life story.","o":["by","with"],"a":0,"e":"be moved by."},{"t":"mc","inline":1,"q":"The room (was / were) filled with many books and drawings.","o":["was","were"],"a":0,"e":"주어 The room(단수)."},{"t":"mc","inline":1,"q":"Drawings suddenly started (to fly / fly) around the room.","o":["to fly","fly"],"a":0,"e":"start + to부정사 / -ing."},{"t":"mc","inline":1,"q":"It was (so / very) detailed that the honeybee looked alive.","o":["so","very"],"a":0,"e":"so ~ that."},{"t":"mc","inline":1,"q":"It was so detailed that the honeybee looked (alive / alively).","o":["alive","alively"],"a":0,"e":"look + 형용사 alive."},{"t":"mc","inline":1,"q":"She saw the name Jean-Henri Fabre on (its / it's) cover.","o":["its","it's"],"a":0,"e":"its = 그것의. it's = it is."},{"t":"mc","inline":1,"q":"Thank you for (sending / send) me your book.","o":["sending","send"],"a":0,"e":"전치사 for + 동명사."},{"t":"mc","inline":1,"q":"His true love for nature was (showed / shown) clearly.","o":["showed","shown"],"a":1,"e":"be + p.p. → shown."},{"t":"mc","inline":1,"q":"... in every (corner / corners) of the room.","o":["corner","corners"],"a":0,"e":"every + 단수."},{"t":"mc","inline":1,"q":"She was so excited that she (could not / cannot) wait to tell her friends.","o":["could not","cannot"],"a":0,"e":"과거 → could not."}]},{"k":"qset","title":"C. 바꿔 쓰기 · 서술형","qs":[{"t":"in","q":"send를 이용하여 같은 뜻으로 바꿔 쓰시오.<br>Thank you for sending me your book.","s":"Thank you for sending your book [] me.","a":["to"],"e":"send A B = send B to A."},{"t":"in","q":"다음 문장을 수동태로 바꿔 쓰시오.<br>The museum displayed a leather pilot jacket and goggles.","a":"A leather pilot jacket and goggles were displayed by the museum.","ph":"영어 문장 쓰기","e":"복수 주어 + were displayed + by the museum."},{"t":"in","q":"다음 두 문장을 「so ~ that ...」으로 연결하시오.<br>It was very detailed. The honeybee looked alive.","a":"It was so detailed that the honeybee looked alive.","ph":"영어 문장 쓰기","e":"원인(detailed) → 결과(looked alive)."},{"t":"in","q":"같은 뜻이 되도록 빈칸을 채우시오.<br>The room was filled with many books.","s":"The room was [] [] many books.","a":["full","of"],"e":"be filled with = be full of."},{"t":"in","q":"같은 뜻이 되도록 빈칸을 채우시오.<br>Fabre wrote books for more than thirty years.","s":"Fabre wrote books for [] thirty years.","a":["over"],"e":"more than = over."}]}]},{"name":"👉 지시어·연결어","intro":"<b>대명사·지시어는 바로 앞에서 찾기.</b> It이 많이 나오는 글이라 시험에 꼭 나와요.","blocks":[{"k":"qset","title":"A. 가리키는 것 찾기","qs":[{"t":"mc","q":"\"<u>It</u> had rooms that celebrated great people.\"의 It은?","o":["초대장","방","Emily","위대한 사람","박물관"],"a":4,"e":"앞 문장의 This museum."},{"t":"in","q":"\"When Emily put <u>them</u> on\"의 them이 가리키는 것을 본문에서 찾아 쓰시오.","a":"a leather pilot jacket and goggles","e":"앞 문장의 a leather pilot jacket and goggles."},{"t":"mc","q":"\"<u>It</u> read, 'At that time, women couldn't enter flight schools.'\"의 It은?","o":["책상","오래된 신문","사진","비행 학교","재킷"],"a":1,"e":"앞 문장의 an old newspaper."},{"t":"in","q":"\"She caught one of <u>them</u>.\"의 them이 가리키는 말을 본문에서 찾아 쓰시오. (1단어)","a":"drawings","e":"앞 문장의 drawings (on the desk)."},{"t":"mc","q":"\"She picked <u>it</u> up.\"의 it은?","o":["꿀벌 그림","책장","빛나는 책","다윈의 편지","표지"],"a":2,"e":"앞 문장의 a shining book."},{"t":"mc","q":"\"Thank you for sending me <u>your</u> book.\" / \"I truly love <u>your</u> work about insects.\"의 your는 누구?","o":["Emily","권기옥","Charles Darwin","Jean-Henri Fabre","박물관"],"a":3,"e":"다윈이 파브르에게 쓴 편지 → your = 파브르."},{"t":"mc","q":"\"<u>His</u> true love for nature was shown clearly\"의 His는?","o":["Charles Darwin","Jean-Henri Fabre","Emily의 아버지","박물관 관장","권기옥"],"a":1,"e":"파브르의 방이므로 파브르."}]},{"k":"qset","title":"B. 연결어 · 표현의 역할","qs":[{"t":"mc","q":"16번 \"However, Kwon Ki-ok didn't give up ...\"에서 However의 역할은?","o":["앞에 말한 어려운 상황(여성은 입학 불가)과 반대되는 행동을 이어 줌","앞 내용의 예를 듦","앞 내용의 결과를 말함","시간 순서를 나타냄","앞 내용을 다시 말함"],"a":0,"e":"어려운 상황 ↔ 포기하지 않음."},{"t":"mc","q":"17번 \"did not just fly airplanes\"와 18번 \"She also fought against Japan\"의 관계로 알맞은 것은?","o":["17번의 이유가 18번이다.","17번과 반대되는 내용이 18번이다.","비행 외에 독립운동이라는 업적을 하나 더 덧붙인다.","18번은 17번의 예시이다.","두 문장은 관계가 없다."],"a":2,"e":"not just ~ also: ~뿐만 아니라 …도."},{"t":"mc","q":"Emily가 방을 옮겨 가는 순서를 나타내는 표현이 <b>아닌</b> 것은?","o":["Her first stop","the next room","the last room","in every corner","stepped into"],"a":3,"e":"in every corner는 방의 \"모든 구석\"(위치)."},{"t":"mc","q":"4번(excited to begin)과 36번(so excited that ...)의 관계로 알맞은 것은?","o":["둘 다 Emily의 실망을 나타낸다.","4번은 권기옥, 36번은 파브르의 감정이다.","두 문장의 excited는 뜻이 다르다.","36번은 4번의 이유이다.","탐험 시작의 설렘이 끝의 신남으로 이어지는 수미상관이다."],"a":4,"e":"처음과 끝이 같은 감정으로 연결."}]}]},{"name":"🔢 순서·내용확인","intro":"<b>방 이동 표현(first stop → next room → last room)과 When 문장이 순서의 단서!</b>","blocks":[{"k":"qset","title":"A. 순서","qs":[{"t":"ord","blk":1,"q":"첫 번째 방 — 다음 문장들을 순서대로 놓으세요.","c":["Her first stop was a room that looked like an old airplane garage.","Model airplanes were hanging from the ceiling.","A leather pilot jacket and goggles were displayed.","When Emily put them on, she could hear the sounds of airplane engines.","She looked around the room in surprise."],"e":"방 → 천장 → 전시물 → them(=전시물)을 착용 → 놀라서 둘러봄"},{"t":"ord","blk":1,"q":"권기옥 — 다음 문장들을 순서대로 놓으세요.","c":["Emily also found an old newspaper on the desk.","It read, \"At that time, women couldn't enter flight schools.\"","\"However, Kwon Ki-ok didn't give up and worked hard to achieve her dream.\"","Kwon Ki-ok did not just fly airplanes.","She also fought against Japan for Korea's independence."],"e":"신문 → It read → However → not just → also"},{"t":"ord","blk":1,"q":"두 번째 방 — 다음 문장들을 순서대로 놓으세요.","c":["When she closed the door, drawings on the desk suddenly started to fly around the room.","She caught one of them.","It was a drawing of a honeybee.","It was so detailed that the honeybee looked alive."],"e":"날아다님 → them(=그림) 중 하나를 잡음 → 꿀벌 그림 → 너무 자세함"},{"t":"ord","blk":1,"q":"파브르 — 다음 문장들을 순서대로 놓으세요.","c":["From one of the bookshelves, Emily found a shining book.","She picked it up.","She saw the name Jean-Henri Fabre on its cover.","When she opened the book, she found an old letter from Charles Darwin.","It said, \"Thank you for sending me your book.\""],"e":"빛나는 책 → it을 집음 → 표지의 이름 → 책을 열자 편지 → It said"}]},{"k":"qset","title":"B. 주어진 문장이 들어갈 위치","qs":[{"t":"mc","nonum":1,"inline":1,"q":"다음 문장이 들어갈 위치로 가장 알맞은 곳은?<br><b>She also fought against Japan for Korea's independence.</b>","p":"Emily also found an old newspaper on the desk. <span class=\"mark\">( ① )</span> It read, \"At that time, women couldn't enter flight schools.\" <span class=\"mark\">( ② )</span> \"However, Kwon Ki-ok didn't give up and worked hard to achieve her dream.\" <span class=\"mark\">( ③ )</span> Kwon Ki-ok did not just fly airplanes. <span class=\"mark\">( ④ )</span> Emily was moved by the great life story of Kwon Ki-ok. <span class=\"mark\">( ⑤ )</span>","o":["①","②","③","④","⑤"],"a":3,"e":"not just fly airplanes(단지 조종만 한 게 아니다) → also(~도) 바로 뒤."},{"t":"mc","nonum":1,"inline":1,"q":"다음 문장이 들어갈 위치로 가장 알맞은 곳은?<br><b>It looked like a small forest.</b>","p":"Emily stepped into the next room. <span class=\"mark\">( ① )</span> The room was filled with many books and drawings of insects and plants. <span class=\"mark\">( ② )</span> When she closed the door, drawings on the desk suddenly started to fly around the room. <span class=\"mark\">( ③ )</span> She caught one of them. <span class=\"mark\">( ④ )</span> It was a drawing of a honeybee. <span class=\"mark\">( ⑤ )</span>","o":["①","②","③","④","⑤"],"a":1,"e":"곤충과 식물 그림으로 가득 → 그래서 작은 숲처럼 보임."},{"t":"mc","q":"다음 글의 흐름과 관계<b>없는</b> 문장은?","p":"Emily stepped into the next room. ① The room was filled with many books and drawings of insects and plants. ② It looked like a small forest. ③ Many people visit forests on weekends. ④ When she closed the door, drawings on the desk suddenly started to fly around the room. ⑤ She caught one of them.","o":["①","②","③","④","⑤"],"nonum":1,"inline":1,"a":2,"e":"박물관 방 이야기 → 사람들이 주말에 숲에 간다는 말은 관계없음."}]},{"k":"qset","title":"C. 내용확인","qs":[{"t":"mc","inline":1,"q":"Emily received an invitation from a museum.","o":["T (일치)","F (불일치)"],"a":0,"e":"1번."},{"t":"mc","inline":1,"q":"The museum was an ordinary museum.","o":["T (일치)","F (불일치)"],"a":1,"e":"wasn't any ordinary museum."},{"t":"mc","inline":1,"q":"Emily heard the sounds of airplane engines when she put on the jacket and goggles.","o":["T (일치)","F (불일치)"],"a":0,"e":"8번."},{"t":"mc","inline":1,"q":"Kwon Ki-ok was the first female pilot in Korea.","o":["T (일치)","F (불일치)"],"a":0,"e":"13번."},{"t":"mc","inline":1,"q":"At that time, women could enter flight schools easily.","o":["T (일치)","F (불일치)"],"a":1,"e":"couldn't enter."},{"t":"mc","inline":1,"q":"Kwon Ki-ok only flew airplanes.","o":["T (일치)","F (불일치)"],"a":1,"tag":"함정","e":"not just — 독립운동도 했어요."},{"t":"mc","inline":1,"q":"The drawings started to fly when Emily opened the door.","o":["T (일치)","F (불일치)"],"a":1,"tag":"함정","e":"문을 <b>닫았을(closed)</b> 때."},{"t":"mc","inline":1,"q":"Emily found a letter from Charles Darwin in the book.","o":["T (일치)","F (불일치)"],"a":0,"e":"30번."},{"t":"mc","inline":1,"q":"Charles Darwin wrote many books about insects for more than thirty years.","o":["T (일치)","F (불일치)"],"a":1,"tag":"함정","e":"30년 넘게 곤충 책을 쓴 사람은 <b>파브르</b>."},{"t":"mc","q":"본문을 읽고 답할 수 <b>없는</b> 질문은?","o":["Where did Emily get the invitation from?","Who was the first female pilot in Korea?","What did Emily catch in the second room?","How many rooms did the museum have?","Whose name was on the cover of the shining book?"],"a":3,"e":"박물관에 방이 몇 개였는지는 나오지 않아요."},{"t":"mc","q":"본문의 내용과 일치하는 것은?","o":["Emily는 박물관에서 일한다.","권기옥은 비행 학교에 쉽게 입학했다.","Emily가 잡은 그림은 나비 그림이었다.","다윈은 파브르의 곤충 연구를 진심으로 사랑했다.","Emily는 마지막 방에서 실망했다."],"a":3,"e":"32번. ① 초대받음 ② 입학 불가 ③ 꿀벌 ⑤ 너무 신남."}]},{"k":"flip","title":"📚 글의 종류 — 영어로 나오는 단어","note":"<b>판단 기준</b>: 지어낸 이야기 + 현실에서 불가능한 일 → fantasy / 실제 인물의 일생 → biography","rows":[["story","이야기","이 글 ✓ (주인공 Emily의 이야기)"],["fantasy","판타지, 공상 이야기","이 글 ✓ (그림이 날아다님, 재킷을 입으니 엔진 소리)"],["biography","전기 — 실존 인물의 일생","이 글 전체는 아님 (권기옥·파브르 소개가 일부 들어 있을 뿐)"],["invitation","초대장","Understand Visuals의 박물관 초대장"],["diary / journal","일기",""],["article","기사",""],["advertisement","광고",""],["letter","편지","31~32번의 다윈 편지"]]},{"k":"qset","title":"D. 영어로 묻는 글의 종류 · 목적 · 제목","qs":[{"t":"mc","q":"What kind of writing is the passage?","o":["a news article","a recipe","an advertisement","a diary","a fantasy story"],"a":4,"e":"Emily의 이야기 + 그림이 날아다니는 등 현실에서 불가능한 일 → fantasy story."},{"t":"mc","q":"Which is the best title for the passage?","o":["How to Fly an Airplane","The Life of Charles Darwin","How to Draw Insects","A Trip to a Forest","Emily's Journey Through the Rooms of Great People"],"a":4,"e":"위인들의 방을 탐험하는 Emily의 여정."},{"t":"mc","q":"How did Emily feel at the end of the story?","o":["bored","scared","excited","angry","tired"],"a":2,"e":"She was so excited that ~"},{"t":"mc","q":"Why couldn't Kwon Ki-ok enter a flight school easily?","o":["Because she was too young.","Because she was afraid of flying.","Because she didn't have money.","Because women couldn't enter flight schools at that time.","Because she lived in Japan."],"a":3,"e":"15번."},{"t":"mc","q":"What did Darwin write in the letter?","o":["He wanted to visit Fabre.","He asked Fabre to stop studying insects.","He thanked Fabre for sending his book.","He sent Fabre a drawing of a honeybee.","He invited Fabre to a museum."],"a":2,"e":"31번."}]}]}]};
+</script>
+<script>
+(function(){
+'use strict';
+var D = window.DATA;
+var REG = [];          // all question objects
+var TABQ = [];         // per tab arrays of questions
+var NUMS = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩'];
+
+/* ---------- utils ---------- */
+function el(tag, cls, html){var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e;}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function rng(seed){return function(){seed=(Math.imul(seed^(seed>>>15),2246822507)+0x6D2B79F5)>>>0;return (seed%100000)/100000;};}
+function shuffleIdx(n, seedStr){
+  var idx=[];for(var i=0;i<n;i++)idx.push(i);
+  if(n<2)return idx;
+  var r=rng(hash(seedStr));
+  for(var k=0;k<6;k++){
+    for(var j=n-1;j>0;j--){var x=Math.floor(r()*(j+1));var t=idx[j];idx[j]=idx[x];idx[x]=t;}
+    var same=idx.every(function(v,i){return v===i;});
+    if(!same)return idx;
+  }
+  idx.push(idx.shift()); return idx;
+}
+var CONTR=[[/can't/g,'cannot'],[/won't/g,'will not'],[/n't/g,' not'],[/\bi'm\b/g,'i am'],[/\bit's\b/g,'it is'],[/\bthat's\b/g,'that is'],[/\byou're\b/g,'you are'],[/\bthey're\b/g,'they are'],[/\bwe're\b/g,'we are'],[/\bhe's\b/g,'he is'],[/\bshe's\b/g,'she is'],[/\bwhat's\b/g,'what is'],[/\bthere's\b/g,'there is']];
+function norm(s){
+  s=String(s).toLowerCase().replace(/[’‘`´]/g,"'").replace(/[“”"]/g,'');
+  CONTR.forEach(function(c){s=s.replace(c[0],c[1]);});
+  s=s.replace(/[.,!?;:~]/g,' ').replace(/\s+/g,' ').trim();
+  return s;
+}
+function variants(str){ // "(that) " optional words
+  var m=str.match(/\(([^()]+)\)/);
+  if(!m)return [str];
+  var a=str.replace(m[0],m[1]), b=str.replace(m[0],'');
+  return variants(a).concat(variants(b));
+}
+function alts(spec){ // 'a|b' or array -> list of normalized answers
+  var arr=Array.isArray(spec)?spec:String(spec).split('|');
+  var out=[];arr.forEach(function(x){variants(x).forEach(function(v){out.push(norm(v));});});
+  return out;
+}
+function firstShow(spec){var s=Array.isArray(spec)?spec[0]:String(spec).split('|')[0];return s;}
+
+/* ---------- sound ---------- */
+var voices=[];
+function loadV(){try{voices=window.speechSynthesis.getVoices()||[];}catch(e){voices=[];}}
+if('speechSynthesis' in window){loadV();try{window.speechSynthesis.onvoiceschanged=loadV;}catch(e){}}
+function pickVoice(){
+  if(!voices.length)loadV();
+  var v=voices.find(function(x){return /william/i.test(x.name);});
+  if(!v)v=voices.find(function(x){return x.lang==='en-US';});
+  if(!v)v=voices.find(function(x){return /^en/i.test(x.lang);});
+  return v;
+}
+var unlocked=false;
+function unlock(){
+  if(unlocked||!('speechSynthesis' in window))return; unlocked=true;
+  try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;window.speechSynthesis.speak(u);}catch(e){}
+}
+document.addEventListener('touchstart',unlock,{once:true,passive:true});
+document.addEventListener('click',unlock,{once:true});
+function mkUtter(text){
+  var u=new SpeechSynthesisUtterance(text.replace(/[○×]/g,''));
+  var v=pickVoice(); if(v){u.voice=v;u.lang=v.lang;}else{u.lang='en-US';}
+  u.rate=0.9; return u;
+}
+function speak(text,btn){
+  if(!('speechSynthesis' in window))return;
+  try{
+    window.speechSynthesis.cancel();
+    var u=mkUtter(text);
+    if(btn){btn.classList.add('playing');u.onend=u.onerror=function(){btn.classList.remove('playing');};}
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function speakAll(list,btn){
+  if(!('speechSynthesis' in window))return;
+  try{
+    window.speechSynthesis.cancel();
+    list.forEach(function(t,i){
+      var u=mkUtter(t);
+      if(btn&&i===0)btn.classList.add('playing');
+      if(btn&&i===list.length-1)u.onend=u.onerror=function(){btn.classList.remove('playing');};
+      window.speechSynthesis.speak(u);
+    });
+  }catch(e){}
+}
+var actx=null;
+function pageSound(){
+  try{
+    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    var o=actx.createOscillator(),g=actx.createGain();
+    o.type='sine';o.frequency.setValueAtTime(880,actx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(1320,actx.currentTime+.08);
+    g.gain.setValueAtTime(.05,actx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+.15);
+    o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+.16);
+  }catch(e){}
+}
+function spkBtn(text){
+  var b=el('button','spk','🔊');b.type='button';b.setAttribute('aria-label','듣기');
+  b.addEventListener('click',function(ev){ev.stopPropagation();speak(text,b);});
+  return b;
+}
+
+/* ---------- question engine ---------- */
+function Q(def, num, tabIdx, setObj){
+  var self=this;
+  this.def=def; this.state='idle'; this.tab=tabIdx; this.set=setObj;
+  var card=el('div','q'); this.card=card;
+  var top=el('div','qn');
+  top.appendChild(el('span','num',String(num)));
+  var tt={mc:'객관식',multi:'모두 고르기',in:'쓰기',ord:'배열',ex:'빈칸 + 해석'}[def.t];
+  var tcls={mc:'b-sky',multi:'b-peach',in:'b-mint',ord:'b-lav',ex:'b-amb'}[def.t];
+  var qt=el('div','qt',(def.tag?'<span class="badge b-amb">'+def.tag+'</span> ':'')+'<span class="badge '+tcls+'">'+tt+'</span> '+def.q);
+  top.appendChild(qt); card.appendChild(top);
+  // 소리: 정답 문장 자동 생성(빈칸·괄호 고르기) 또는 영어 문장 문제엔 바로 듣기
+  var HAN=/[가-힣ⓐ-ⓩ①-⑩]/;
+  this.say=def.say||null;
+  if(!this.say&&def.t==='mc'&&def.o&&!HAN.test(def.o[def.a])&&def.o[def.a]!=='×(없음)'){
+    var segs=def.q.split('<br>');var last=segs[segs.length-1].replace(/<[^>]+>/g,'');
+    var ans=def.o[def.a].replace(/<[^>]+>/g,'');
+    if(/______/.test(last)&&(def.q.match(/______/g)||[]).length===1){var s1=last.replace(/^\s*(?:[A-Z]:|•)\s*/,'').replace('______',ans).replace(/\([^)]*[가-힣][^)]*\)/g,'').trim();if(!HAN.test(s1))this.say=s1;}
+    else if(/\([^()]*\/[^()]*\)/.test(last)){var s2=last.replace(/\([^()]*\/[^()]*\)/,ans).trim();if(!HAN.test(s2))this.say=s2;}
+  }
+  var plain=def.q.replace(/<[^>]+>/g,'');
+  if(!HAN.test(plain)&&!/______|\[|\//.test(plain)&&def.t!=='ord'){
+    var qs=spkBtn(plain);qs.className='spk mini';qt.appendChild(qs);
+  }
+  if(def.p){var p=el('div','pass',def.p);card.appendChild(p);}
+  var body=el('div','qbody'); card.appendChild(body);
+  this.body=body;
+  this['build_'+def.t]();
+  var foot=el('div','qfoot');
+  this.gBtn=el('button','btn fill sm','채점');this.gBtn.type='button';
+  this.rBtn=el('button','btn sm','다시 풀기');this.rBtn.type='button';this.rBtn.style.display='none';
+  this.aBtn=el('button','btn ghost sm','정답 보기');this.aBtn.type='button';this.aBtn.style.display='none';
+  this.gBtn.addEventListener('click',function(){self.grade(true);});
+  this.rBtn.addEventListener('click',function(){self.reset();});
+  this.aBtn.addEventListener('click',function(){self.showAns();});
+  foot.appendChild(this.gBtn);foot.appendChild(this.rBtn);foot.appendChild(this.aBtn);
+  card.appendChild(foot);
+  this.fb=el('div','fb');card.appendChild(this.fb);
+  REG.push(this);
+}
+Q.prototype.build_mc=function(){
+  var self=this,d=this.def; this.sel=null; this.optEls=[];
+  var box=el('div','opts'+(d.inline?' inline':''));
+  d.o.forEach(function(o,i){
+    var b=el('button','opt',(d.nonum?'':NUMS[i]+' ')+o);b.type='button';
+    b.addEventListener('click',function(){
+      if(self.locked)return;
+      self.optEls.forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel');self.sel=i;
+    });
+    self.optEls.push(b);box.appendChild(b);
+  });
+  this.body.appendChild(box);
+};
+Q.prototype.build_multi=function(){
+  var self=this,d=this.def; this.sels={}; this.optEls=[];
+  var box=el('div','opts');
+  d.o.forEach(function(o,i){
+    var b=el('button','opt',NUMS[i]+' '+o);b.type='button';
+    b.addEventListener('click',function(){
+      if(self.locked)return;
+      if(self.sels[i]){delete self.sels[i];b.classList.remove('sel');}else{self.sels[i]=1;b.classList.add('sel');}
+    });
+    self.optEls.push(b);box.appendChild(b);
+  });
+  this.body.appendChild(box);
+};
+Q.prototype.build_in=function(){
+  var self=this,d=this.def; this.inputs=[];
+  if(d.s){
+    var parts=d.s.split('[]');
+    var w=el('div','tmpl');
+    parts.forEach(function(pt,i){
+      w.appendChild(document.createTextNode(''));
+      var sp=el('span','',pt);w.appendChild(sp);
+      if(i<parts.length-1){
+        var inp=el('input','blank');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.spellcheck=false;
+        inp.addEventListener('keydown',function(e){if(e.key==='Enter'){self.grade(true);}});
+        self.inputs.push(inp);w.appendChild(inp);
+      }
+    });
+    this.body.appendChild(w);
+  }else{
+    var inp=el('input','blank wide');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.spellcheck=false;
+    inp.placeholder=d.ph||'여기에 쓰기';
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter'){self.grade(true);}});
+    this.inputs.push(inp);this.body.appendChild(inp);
+  }
+};
+Q.prototype.build_ex=function(){
+  this.build_in();
+  var self=this;
+  var k=el('input','blank wide krin');k.type='text';k.autocomplete='off';k.placeholder='우리말 해석 쓰기 (비슷하면 정답)';
+  k.addEventListener('keydown',function(e){if(e.key==='Enter'){self.grade(true);}});
+  this.krInput=k;this.body.appendChild(k);
+};
+function fullEx(d){var A=Array.isArray(d.a)?d.a:[d.a];var i=0;return d.s.replace(/\[\]/g,function(){return firstShow(A[i++]);}).replace(/<[^>]+>/g,'');}
+function krNorm(s){return String(s).toLowerCase().replace(/[\s.,!?~'"“”‘’·…()\-]/g,'');}
+function dice(a,b){if(a.length<2||b.length<2)return a===b?1:0;var m={},n=0,i;for(i=0;i<a.length-1;i++){var g=a.substr(i,2);m[g]=(m[g]||0)+1;}for(i=0;i<b.length-1;i++){var h=b.substr(i,2);if(m[h]>0){m[h]--;n++;}}return 2*n/(a.length+b.length-2);}
+function krOK(ans,d){
+  var x=krNorm(ans);if(!x)return false;
+  var keys=d.keys||[];var hit=0;
+  keys.forEach(function(k){if(String(k).split('|').some(function(v){return x.indexOf(krNorm(v))>=0;}))hit++;});
+  var need=Math.max(1,Math.ceil(keys.length*0.6));
+  if(keys.length&&hit>=need)return true;
+  return dice(x,krNorm(d.kr||''))>=0.5;
+}
+Q.prototype.build_ord=function(){
+  var self=this,d=this.def; this.placed=[];
+  var w=el('div','ordwrap');
+  this.slots=el('div','slots'+(d.blk?' block':''));
+  this.hint=el('span','hint','↓ 아래 조각을 순서대로 누르세요 (다시 누르면 빠짐)');
+  this.slots.appendChild(this.hint);
+  this.pool=el('div','pool'+(d.blk?' block':''));
+  var order=shuffleIdx(d.c.length,d.q+'|'+d.c.join('/'));
+  this.poolBtns=[];
+  order.forEach(function(ci){
+    var b=el('button','chip',esc(d.c[ci]));b.type='button';b.dataset.ci=ci;
+    b.addEventListener('click',function(){
+      if(self.locked||b.classList.contains('used'))return;
+      b.classList.add('used');self.place(ci,b);
+    });
+    self.poolBtns.push(b);self.pool.appendChild(b);
+  });
+  w.appendChild(this.slots);w.appendChild(this.pool);this.body.appendChild(w);
+};
+Q.prototype.place=function(ci,src){
+  var self=this,d=this.def;
+  if(this.hint.parentNode)this.hint.remove();
+  var b=el('button','chip',esc(d.c[ci]));b.type='button';
+  var item={ci:ci,el:b,src:src};
+  b.addEventListener('click',function(){
+    if(self.locked)return;
+    var k=self.placed.indexOf(item);if(k>=0)self.placed.splice(k,1);
+    b.remove();src.classList.remove('used');
+    if(!self.placed.length)self.slots.appendChild(self.hint);
+  });
+  this.placed.push(item);this.slots.appendChild(b);
+};
+Q.prototype.answered=function(){
+  var d=this.def;
+  if(d.t==='mc')return this.sel!=null;
+  if(d.t==='multi')return Object.keys(this.sels).length>0;
+  if(d.t==='in')return this.inputs.every(function(i){return i.value.trim()!=='';});
+  if(d.t==='ord')return this.placed.length===d.c.length;
+  if(d.t==='ex')return this.inputs.every(function(i){return i.value.trim()!=='';})&&this.krInput.value.trim()!=='';
+};
+Q.prototype.check=function(){
+  var d=this.def,self=this;
+  if(d.t==='mc')return this.sel===d.a;
+  if(d.t==='multi'){var k=Object.keys(this.sels).map(Number).sort();var a=d.a.slice().sort();return k.length===a.length&&k.every(function(v,i){return v===a[i];});}
+  if(d.t==='in'){
+    var A=Array.isArray(d.a)?d.a:[d.a];
+    var ok=true;
+    this.inputs.forEach(function(inp,i){
+      var good=alts(A[i]).indexOf(norm(inp.value))>=0;
+      inp.classList.toggle('right',good);inp.classList.toggle('wrong',!good);
+      if(!good)ok=false;
+    });
+    return ok;
+  }
+  if(d.t==='ex'){
+    var A2=Array.isArray(d.a)?d.a:[d.a];var okb=true;
+    this.inputs.forEach(function(inp,i){var g=alts(A2[i]).indexOf(norm(inp.value))>=0;inp.classList.toggle('right',g);inp.classList.toggle('wrong',!g);if(!g)okb=false;});
+    var okk=krOK(this.krInput.value,d);this.krInput.classList.toggle('right',okk);this.krInput.classList.toggle('wrong',!okk);
+    this.partMsg=okb&&!okk?'빈칸은 맞았어요. <b>해석</b>을 다시 써 보세요.':(!okb&&okk?'해석은 좋아요. <b>빈칸</b>을 다시 확인하세요.':'');
+    return okb&&okk;
+  }
+  if(d.t==='ord'){
+    var got=this.placed.map(function(p){return norm(d.c[p.ci]);}).join(' ');
+    var want=d.c.map(norm).join(' ');
+    return got===want;
+  }
+};
+Q.prototype.lock=function(v){
+  this.locked=v;
+  (this.optEls||[]).forEach(function(b){b.disabled=v;});
+  (this.inputs||[]).forEach(function(i){i.readOnly=v;});
+  if(this.krInput)this.krInput.readOnly=v;
+};
+Q.prototype.grade=function(manual){
+  if(this.state==='ok')return true;
+  if(!this.answered()){
+    if(manual){this.fb.className='fb show no';this.fb.innerHTML='먼저 답을 고르거나 써 주세요.';}
+    return null;
+  }
+  var ok=this.check();
+  var d=this.def;
+  this.lock(true);
+  this.gBtn.style.display='none';
+  if(ok){
+    this.state='ok';this.card.className='q ok';
+    if(d.t==='mc'){this.optEls[d.a].classList.add('right');}
+    if(d.t==='multi'){var s=this;d.a.forEach(function(i){s.optEls[i].classList.add('right');});}
+    this.fb.className='fb show ok';this.fb.innerHTML='<b>정답!</b> '+(d.e||'')+this.sayHtml();
+    this.rBtn.style.display='none';this.aBtn.style.display='none';
+  }else{
+    this.state='no';this.card.className='q no';
+    if(d.t==='mc'){this.optEls[this.sel].classList.add('wrong');}
+    if(d.t==='multi'){var s2=this;Object.keys(this.sels).forEach(function(i){if(d.a.indexOf(+i)<0)s2.optEls[i].classList.add('wrong');});}
+    this.fb.className='fb show no';this.fb.innerHTML='<b>틀렸어요.</b> '+(this.partMsg||'다시 풀어 보거나 정답을 확인하세요.');
+    this.rBtn.style.display='';this.aBtn.style.display='';
+  }
+  updateScores();
+  return ok;
+};
+Q.prototype.sayHtml=function(){
+  var s=this.say;
+  if(!s&&this.def.t==='ex')s=fullEx(this.def);
+  if(!s&&this.def.t==='in'&&!this.def.s){var a=Array.isArray(this.def.a)?this.def.a[0]:this.def.a;a=firstShow(a).replace(/[()]/g,'');if(a.split(' ').length>=3)s=a;}
+  if(!s&&this.def.t==='ord'&&!/[가-힣]/.test(this.def.c.join('')))s=this.def.c.join(' ');
+  if(!s)return '';
+  return '<div style="margin-top:6px" class="row"><button class="spk mini" data-say="'+esc(s).replace(/"/g,'&quot;')+'">🔊</button><span class="en">'+esc(s)+'</span></div>';
+};
+Q.prototype.ansText=function(){
+  var d=this.def;
+  if(d.t==='mc')return NUMS[d.a]+' '+d.o[d.a];
+  if(d.t==='multi')return d.a.map(function(i){return NUMS[i]+' '+d.o[i];}).join(' / ');
+  if(d.t==='in'){var A=Array.isArray(d.a)?d.a:[d.a];return A.map(firstShow).join(' / ');}
+  if(d.t==='ord')return d.c.join(d.blk?'<br>→ ':' ');
+  if(d.t==='ex')return (Array.isArray(d.a)?d.a:[d.a]).map(firstShow).join(' / ')+'<br><b>해석 예시:</b> '+esc(d.kr||'');
+};
+Q.prototype.showAns=function(){
+  var d=this.def,s=this;
+  if(d.t==='mc')this.optEls[d.a].classList.add('right');
+  if(d.t==='multi')d.a.forEach(function(i){s.optEls[i].classList.add('right');});
+  this.state='shown';
+  this.fb.className='fb show ans';
+  this.fb.innerHTML='<b>정답:</b> '+this.ansText()+(d.e?'<br>'+d.e:'')+this.sayHtml();
+  this.aBtn.style.display='none';
+  updateScores();
+};
+Q.prototype.reset=function(){
+  var d=this.def,self=this;
+  this.state='idle';this.card.className='q';this.lock(false);
+  this.fb.className='fb';this.fb.innerHTML='';
+  this.gBtn.style.display='';this.rBtn.style.display='none';this.aBtn.style.display='none';
+  if(this.optEls)this.optEls.forEach(function(b){b.classList.remove('sel','right','wrong');});
+  if(d.t==='mc')this.sel=null;
+  if(d.t==='multi')this.sels={};
+  if(d.t==='in'||d.t==='ex')this.inputs.forEach(function(i){i.value='';i.classList.remove('right','wrong');});
+  if(this.krInput){this.krInput.value='';this.krInput.classList.remove('right','wrong');}
+  this.partMsg='';
+  if(d.t==='ord'){
+    this.placed.forEach(function(p){p.el.remove();p.src.classList.remove('used');});
+    this.placed=[];this.slots.appendChild(this.hint);
+  }
+  updateScores();
+};
+
+function QSet(blk, tabIdx){
+  var self=this; this.qs=[];
+  var wrap=el('div','qset');
+  var head=el('div','qhead');
+  head.appendChild(el('h3','',blk.title||'문제'));
+  this.sc=el('span','score','0 / '+blk.qs.length);head.appendChild(this.sc);
+  wrap.appendChild(head);
+  if(blk.note)wrap.appendChild(el('div','tip',blk.note));
+  if(blk.pass){var pb=el('div','pass big',blk.pass);wrap.appendChild(pb);}
+  blk.qs.forEach(function(d,i){
+    var q=new Q(d,i+(blk.start||1),tabIdx,self);self.qs.push(q);TABQ[tabIdx].push(q);wrap.appendChild(q.card);
+  });
+  var bar=el('div','sticky');
+  var g=el('button','btn fill','전체 채점');g.type='button';
+  var r=el('button','btn','틀린 것만 다시');r.type='button';
+  g.addEventListener('click',function(){
+    var un=0;self.qs.forEach(function(q){if(q.state==='idle'){var x=q.grade(false);if(x===null)un++;}});
+    updateScores();
+    var ok=self.qs.filter(function(q){return q.state==='ok';}).length;
+    self.sc.textContent=ok+' / '+self.qs.length+(un?' (미응답 '+un+')':'');
+  });
+  r.addEventListener('click',function(){
+    var first=null;
+    self.qs.forEach(function(q){if(q.state==='no'||q.state==='shown'){q.reset();if(!first)first=q;}});
+    if(first)first.card.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  bar.appendChild(g);bar.appendChild(r);wrap.appendChild(bar);
+  this.el=wrap;
+  SETS.push(this);
+}
+var SETS=[];
+function updateScores(){
+  SETS.forEach(function(s){
+    var ok=s.qs.filter(function(q){return q.state==='ok';}).length;
+    var t=s.sc.textContent;var m=t.match(/\(미응답 \d+\)/);
+    s.sc.textContent=ok+' / '+s.qs.length;
+  });
+  TABQ.forEach(function(arr,i){
+    var pg=document.querySelector('.tab[data-i="'+i+'"] .pg');
+    if(!pg)return;
+    if(!arr.length){pg.textContent='';return;}
+    var ok=arr.filter(function(q){return q.state==='ok';}).length;
+    pg.textContent=ok+'/'+arr.length;
+  });
+}
+
+/* ---------- other blocks ---------- */
+function bWords(blk){
+  var w=el('div','box');
+  if(blk.title)w.appendChild(el('h3','sub',blk.title));
+  var g=el('div','wgrid');
+  blk.items.forEach(function(it){
+    var c=el('button','wchip','<b>'+esc(it[0])+'</b><span>'+esc(it[1])+'</span>');c.type='button';
+    c.addEventListener('click',function(){speak(it[0]);});
+    g.appendChild(c);
+  });
+  w.appendChild(g);
+  return w;
+}
+function bAnalysis(blk){
+  var w=el('div','');
+  blk.paras.forEach(function(pa){
+    w.appendChild(el('div','parahead','<b>'+pa.title+'</b>'+(pa.flow?'<br>'+pa.flow:'')));
+    pa.items.forEach(function(it){
+      var c=el('div','acard');
+      var krl=el('div','kr','<span class="no">'+it.n+'</span>'+esc(it.kr)+' ');
+      var mini=spkBtn(it.en);mini.className='spk mini';mini.title='영어 소리 듣기';krl.appendChild(mini);
+      c.appendChild(krl);
+      var bar=el('div','row');bar.style.marginTop='8px';
+      var b1=null;
+      if(it.ch&&it.ch.length>1){b1=el('button','btn sm','① 영어 어순으로 덩어리 보기');b1.type='button';bar.appendChild(b1);}
+      var b2=el('button','btn sm','② 영어 문장 보기');b2.type='button';bar.appendChild(b2);
+      c.appendChild(bar);
+      var ch=el('div','chunks');ch.style.display='none';
+      if(it.ch&&it.ch.length>1){
+        it.ch.forEach(function(x,i){
+          var k=el('button','ck','<small>'+(i+1)+'</small>'+esc(x[1])+'<span class="ce">'+esc(x[0])+'</span>');k.type='button';
+          k.addEventListener('click',function(){k.classList.add('open');});
+          ch.appendChild(k);
+        });
+        c.appendChild(ch);
+        b1.addEventListener('click',function(){ch.style.display='flex';b1.disabled=true;});
+      }
+      var ae=el('div','aen');
+      var srow=el('div','row');srow.appendChild(el('span','s en',esc(it.en)));srow.appendChild(spkBtn(it.en));
+      ae.appendChild(srow);
+      if(it.tip)ae.appendChild(el('div','tp','💡 '+it.tip));
+      c.appendChild(ae);
+      b2.addEventListener('click',function(){ae.classList.add('show');ch.style.display=it.ch&&it.ch.length>1?'flex':'none';ch.querySelectorAll('.ck').forEach(function(k){k.classList.add('open');});b2.disabled=true;if(b1)b1.disabled=true;speak(it.en);});
+      w.appendChild(c);
+    });
+  });
+  return w;
+}
+function bScript(blk){
+  var w=el('div','script');
+  var h=el('div','shead');h.appendChild(el('b','',blk.title));
+  var r=el('div','row');
+  var all=el('button','btn sm','▶ 전체 듣기');all.type='button';
+  var kr=el('button','btn sm ghost','해석 보기');kr.type='button';
+  all.addEventListener('click',function(){speakAll(blk.lines.map(function(l){return l[1];}),all);});
+  kr.addEventListener('click',function(){w.classList.toggle('kr');kr.textContent=w.classList.contains('kr')?'해석 숨기기':'해석 보기';});
+  r.appendChild(all);r.appendChild(kr);h.appendChild(r);w.appendChild(h);
+  blk.lines.forEach(function(l){
+    var ln=el('div','line');
+    ln.appendChild(el('span','who',esc(l[0])));
+    var tx=el('div','tx','<div class="en">'+esc(l[1])+'</div><div class="ko">'+esc(l[2]||'')+'</div>');
+    ln.appendChild(tx);ln.appendChild(spkBtn(l[1]));w.appendChild(ln);
+  });
+  return w;
+}
+function bTapfill(blk){
+  var w=el('div','box');
+  if(blk.title)w.appendChild(el('h3','sub',blk.title));
+  if(blk.note)w.appendChild(el('div','',blk.note));
+  var idx=0;var spans=[];
+  blk.lines.forEach(function(line){
+    var p=el('div','tf');
+    var html=line.replace(/\[\[([^\]]+)\]\]/g,function(m,a){return '<span class="tfb" data-a="'+esc(a)+'">'+esc(a)+'</span>';});
+    p.innerHTML=html;w.appendChild(p);
+    p.querySelectorAll('.tfb').forEach(function(s){spans.push(s);});
+  });
+  function mark(){spans.forEach(function(s,i){s.classList.toggle('next',i===idx);});}
+  spans.forEach(function(s,i){
+    s.addEventListener('click',function(){
+      if(s.classList.contains('open'))return;
+      if(i!==idx){s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake');return;}
+      s.classList.add('open');idx++;mark();
+    });
+  });
+  mark();
+  var rb=el('button','btn sm ghost','처음부터 다시');rb.type='button';rb.style.marginTop='8px';
+  rb.addEventListener('click',function(){spans.forEach(function(s){s.classList.remove('open');});idx=0;mark();});
+  w.appendChild(rb);
+  return w;
+}
+
+function bWordlist(blk){
+  var w=el('div','box wl');
+  var hd=el('div','row');hd.style.justifyContent='space-between';hd.style.marginBottom='6px';
+  hd.appendChild(el('h3','sub',blk.title||''));
+  var tg=el('div','row');
+  var t1=el('button','btn sm','뜻 가리기');t1.type='button';
+  var t2=el('button','btn sm ghost','예문 해석 보기');t2.type='button';
+  t1.addEventListener('click',function(){w.classList.toggle('hidem');w.querySelectorAll('.wm').forEach(function(m){m.classList.remove('on');});t1.textContent=w.classList.contains('hidem')?'뜻 모두 보기':'뜻 가리기';});
+  t2.addEventListener('click',function(){w.classList.toggle('showk');t2.textContent=w.classList.contains('showk')?'예문 해석 숨기기':'예문 해석 보기';});
+  tg.appendChild(t1);tg.appendChild(t2);hd.appendChild(tg);w.appendChild(hd);
+  if(blk.note)w.appendChild(el('div','tip',blk.note));
+  blk.items.forEach(function(it,i){
+    var r=el('div','wrow');
+    var top=el('div','wtop');
+    top.appendChild(el('span','wn',String(i+1)));
+    top.appendChild(el('b','ww en',esc(it[0])));
+    top.appendChild(spkBtn(it[0]));
+    var m=el('span','wm',esc(it[1]));
+    m.addEventListener('click',function(){m.classList.toggle('on');});
+    top.appendChild(m);r.appendChild(top);
+    if(it[2]){
+      var ex=el('div','wex');
+      var line=el('div','wen');line.innerHTML='<span class="en">'+it[2]+'</span>';line.appendChild(spkBtn(it[2].replace(/<[^>]+>/g,'')));
+      ex.appendChild(line);
+      var k=el('div','wk',esc(it[3]||''));
+      ex.appendChild(k);
+      line.addEventListener('click',function(e){if(e.target.closest('.spk'))return;r.classList.toggle('kon');});
+      r.appendChild(ex);
+    }
+    w.appendChild(r);
+  });
+  return w;
+}
+function bFlip(blk){
+  var w=el('div','box flip');
+  var hd=el('div','row');hd.style.justifyContent='space-between';hd.style.marginBottom='6px';
+  hd.appendChild(el('h3','sub',blk.title||''));
+  var t=el('button','btn sm','뜻 모두 보기');t.type='button';
+  t.addEventListener('click',function(){var on=!w.classList.contains('allon');w.classList.toggle('allon',on);w.querySelectorAll('.frow').forEach(function(r){r.classList.toggle('on',on);});t.textContent=on?'뜻 모두 가리기':'뜻 모두 보기';});
+  hd.appendChild(t);w.appendChild(hd);
+  if(blk.note)w.appendChild(el('div','tip',blk.note));
+  blk.rows.forEach(function(rw){
+    var r=el('div','frow');
+    var a=el('div','fen');a.innerHTML='<span class="en">'+rw[0]+'</span>';
+    a.appendChild(spkBtn(rw[0].replace(/<[^>]+>/g,'')));
+    var b=el('button','btn sm ghost fbtn','뜻 ▾');b.type='button';
+    b.addEventListener('click',function(){r.classList.toggle('on');});
+    a.appendChild(b);r.appendChild(a);
+    r.appendChild(el('div','fkr',rw[1]+(rw[2]?'<div class="fnote">'+rw[2]+'</div>':'')));
+    w.appendChild(r);
+  });
+  return w;
+}
+/* 단계별 전환 훈련 (drill): 한 단계씩 맞혀야 다음 단계, 슬롯에 문장이 조립됨 */
+var DRILLS=[];
+function bDrill(blk){
+  var w=el('div','');
+  if(blk.note)w.appendChild(el('div','tip',blk.note));
+  blk.items.forEach(function(it,ii){
+    var c=el('div','drill box');
+    c.appendChild(el('div','dact','<span class="dno">'+(ii+1)+'</span><span class="badge b-sky">능동</span> <span class="en">'+it.act+'</span>'+(it.kr?'<div class="dkr">'+esc(it.kr)+'</div>':'')));
+    var labels=blk.labels||['주어','be동사','과거분사','by + 행위자'];
+    var sw=el('div','dslots');
+    var slotEls=labels.map(function(l){var s=el('span','dslot','<small>'+l+'</small><b>?</b>');sw.appendChild(s);return s;});
+    c.appendChild(el('div','dlabel','<span class="badge b-mint">수동</span> 문장 만들기'));
+    c.appendChild(sw);
+    var tw=el('div','dtags');c.appendChild(tw);
+    var box=el('div','dstep');c.appendChild(box);
+    var st={idx:0,done:false,miss:0};
+    function reset(){st.idx=0;st.done=false;st.miss=0;slotEls.forEach(function(s){s.classList.remove('on');s.querySelector('b').textContent='?';});tw.innerHTML='';render();}
+    function render(){
+      box.innerHTML='';
+      if(st.idx>=it.steps.length){finish();return;}
+      var sp=it.steps[st.idx];
+      box.appendChild(el('div','dq','<span class="dn">STEP '+(st.idx+1)+' / '+it.steps.length+'</span> '+sp.q));
+      var ob=el('div','opts inline');var fb=el('div','fb');
+      sp.o.forEach(function(o,oi){
+        var b=el('button','opt',o);b.type='button';
+        b.addEventListener('click',function(){
+          if(st.done)return;
+          if(oi===sp.a){
+            b.classList.add('right');ob.querySelectorAll('.opt').forEach(function(x){x.disabled=true;});
+            if(sp.slot!=null){var s=slotEls[sp.slot];s.querySelector('b').textContent=sp.fill||o.replace(/<[^>]+>/g,'');s.classList.add('on');}
+            if(sp.tag)tw.appendChild(el('span','badge b-amb',sp.tag));
+            fb.className='fb show ok';fb.innerHTML='<b>맞아요!</b> '+(sp.why||'');
+            st.idx++;setTimeout(render,sp.why?900:450);
+          }else{
+            st.miss++;b.classList.add('wrong');b.disabled=true;
+            fb.className='fb show no';fb.innerHTML='<b>다시!</b> '+(sp.h||'');
+          }
+        });
+        ob.appendChild(b);
+      });
+      box.appendChild(ob);box.appendChild(fb);
+    }
+    function finish(){
+      st.done=true;
+      var r=el('div','dfinal');
+      var line=el('div','row');line.appendChild(el('span','en','<b>'+esc(it.pass)+'</b>'));line.appendChild(spkBtn(it.pass));
+      r.appendChild(el('div','',st.miss?'<b>완성!</b> (틀린 단계 '+st.miss+'번 — 한 번 더 해 보면 좋아요)':'<b>완성! 한 번에 성공 👏</b>'));
+      r.appendChild(line);
+      if(it.note)r.appendChild(el('div','tp','💡 '+it.note));
+      var rb=el('button','btn sm ghost','다시 하기');rb.type='button';rb.style.marginTop='8px';rb.addEventListener('click',reset);
+      r.appendChild(rb);box.appendChild(r);
+    }
+    render();
+    DRILLS.push({it:it,st:st,el:c,reset:reset});
+    w.appendChild(c);
+  });
+  return w;
+}
+document.addEventListener('click',function(e){
+  var s=e.target.closest&&e.target.closest('[data-say]');
+  if(s){speak(s.getAttribute('data-say'),s);return;}
+  var rv=e.target.closest&&e.target.closest('.rv');
+  if(rv){rv.classList.toggle('on');}
+  var ra=e.target.closest&&e.target.closest('[data-rvall]');
+  if(ra){var box=ra.closest('.box')||document;var list=box.querySelectorAll('.rv');var on=!ra.classList.contains('on');ra.classList.toggle('on',on);list.forEach(function(x){x.classList.toggle('on',on);});ra.textContent=on?'모두 가리기':'모두 보기';}
+});
+
+/* ---------- page ---------- */
+function build(){
+  document.title=D.title;
+  var hd=el('header','top');
+  hd.appendChild(el('div','brand',D.brand));
+  hd.appendChild(el('h1','',D.title));
+  hd.appendChild(el('div','sub',D.sub));
+  var nav=el('nav','tabs');hd.appendChild(nav);
+  document.body.appendChild(hd);
+  var main=el('main');document.body.appendChild(main);
+  D.tabs.forEach(function(tb,ti){
+    TABQ.push([]);
+    var t=el('button','tab'+(ti===0?' on':''),esc(tb.name)+'<span class="pg"></span>');t.type='button';t.dataset.i=ti;
+    t.addEventListener('click',function(){go(ti);});
+    nav.appendChild(t);
+    var pn=el('section','panel'+(ti===0?' on':''));pn.dataset.i=ti;
+    if(tb.intro)pn.appendChild(el('div','intro',tb.intro));
+    tb.blocks.forEach(function(b){
+      var node;
+      if(b.k==='html')node=el('div','',b.html);
+      else if(b.k==='h')node=el('h2','sec',b.html);
+      else if(b.k==='words')node=bWords(b);
+      else if(b.k==='qset')node=new QSet(b,ti).el;
+      else if(b.k==='analysis')node=bAnalysis(b);
+      else if(b.k==='script')node=bScript(b);
+      else if(b.k==='tapfill')node=bTapfill(b);
+      else if(b.k==='wordlist')node=bWordlist(b);
+      else if(b.k==='flip')node=bFlip(b);
+      else if(b.k==='drill')node=bDrill(b);
+      if(node)pn.appendChild(node);
+    });
+    if(ti<D.tabs.length-1){
+      var nx=el('div','row');nx.style.justifyContent='center';nx.style.marginTop='20px';
+      var nb=el('button','btn','다음: '+esc(D.tabs[ti+1].name)+' →');nb.type='button';
+      nb.addEventListener('click',function(){go(ti+1);});nx.appendChild(nb);pn.appendChild(nx);
+    }
+    main.appendChild(pn);
+  });
+  main.appendChild(el('div','foot',D.brand+' · '+D.title));
+  updateScores();
+}
+function go(i){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',+t.dataset.i===i);});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',+p.dataset.i===i);});
+  var t=document.querySelector('.tab[data-i="'+i+'"]');if(t&&t.scrollIntoView)try{t.scrollIntoView({inline:'center',block:'nearest'});}catch(e){}
+  window.scrollTo(0,0);pageSound();
+}
+/* ---------- 문장 번호 → 실제 문장 보기 ---------- */
+var sheet=null;
+function openRef(a,b){
+  var S=D.sents;if(!S)return;
+  if(!sheet){
+    sheet=el('div','refsheet');
+    sheet.innerHTML='<div class="rhead"><b></b><button type="button" class="rclose" aria-label="닫기">✕</button></div><div class="rbody"></div>';
+    sheet.querySelector('.rclose').addEventListener('click',function(){sheet.classList.remove('show');});
+    document.body.appendChild(sheet);
+  }
+  var body=sheet.querySelector('.rbody');body.innerHTML='';
+  for(var n=a;n<=b;n++){
+    var s=S[n];if(!s)continue;
+    var r=el('div','rrow');
+    var top=el('div','rtop','<span class="rn">'+n+'</span><span class="ren en">'+esc(s[0])+'</span>');
+    top.appendChild(spkBtn(s[0]));
+    r.appendChild(top);r.appendChild(el('div','rkr',esc(s[1])));
+    body.appendChild(r);
+  }
+  sheet.querySelector('.rhead b').textContent='본문 '+(a===b?a+'번':a+'~'+b+'번');
+  sheet.classList.add('show');body.scrollTop=0;
+}
+function linkRefs(root){
+  var S=D.sents;if(!S)return;
+  var max=Object.keys(S).length;
+  var re=/(^|[^\d])(\((\d{1,2}(?:\s*~\s*\d{1,2})?)\)|(\d{1,2}(?:\s*~\s*\d{1,2})?(?:\s*[,·]\s*\d{1,2}(?:\s*~\s*\d{1,2})?)*)\s*번)/g;
+  function mk(tok){
+    var m=tok.match(/(\d{1,2})(?:\s*~\s*(\d{1,2}))?/);var a=+m[1],b=m[2]?+m[2]:a;
+    if(a<1||b>max||b<a)return document.createTextNode(tok);
+    var s=el('span','ref',esc(tok));s.dataset.a=a;s.dataset.b=b;return s;
+  }
+  root.querySelectorAll('.anal, .parahead').forEach(function(box){
+    var walker=document.createTreeWalker(box,NodeFilter.SHOW_TEXT,null);
+    var nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+    nodes.forEach(function(tn){
+      if(tn.parentNode.closest('.ref'))return;
+      var t=tn.nodeValue;re.lastIndex=0;if(!re.test(t))return;re.lastIndex=0;
+      var frag=document.createDocumentFragment(),last=0,m;
+      while((m=re.exec(t))){
+        var start=m.index+m[1].length;
+        frag.appendChild(document.createTextNode(t.slice(last,start)));
+        if(m[3]!==undefined){ // (N) or (N~M)
+          frag.appendChild(document.createTextNode('('));frag.appendChild(mk(m[3]));frag.appendChild(document.createTextNode(')'));
+        }else{
+          var parts=m[4].split(/(\s*[,·]\s*)/);var lastEl=null;
+          parts.forEach(function(p){if(/^\s*[,·]\s*$/.test(p))frag.appendChild(document.createTextNode(p));else{lastEl=mk(p);frag.appendChild(lastEl);}});
+          var suf=m[2].slice(m[4].length);
+          if(lastEl&&lastEl.nodeType===1)lastEl.textContent+=suf;else frag.appendChild(document.createTextNode(suf));
+        }
+        last=start+m[2].length;
+      }
+      frag.appendChild(document.createTextNode(t.slice(last)));
+      tn.parentNode.replaceChild(frag,tn);
+    });
+  });
+  root.addEventListener('click',function(e){var r=e.target.closest&&e.target.closest('.ref');if(r){e.stopPropagation();openRef(+r.dataset.a,+r.dataset.b);}});
+}
+window.__L7={REG:REG,SETS:SETS,DRILLS:DRILLS,go:go,norm:norm,alts:alts,openRef:openRef};
+build();
+linkRefs(document);
+})();
+
+</script>
+</body>
+</html>
