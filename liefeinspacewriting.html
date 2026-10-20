@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lesson 7 The Best New Thing — 본문</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--p:#5b4fa8;--pd:#3b2f8a;--pl:#ece9f8;--bg:#f5f4fa;--ink:#24213a;--mut:#6b6788;--ok:#1f8a5b;--okl:#e3f5ec;--no:#c4423a;--nol:#fbe9e7;--ye:#fff6d6;--line:#dcd8ee}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:17px;line-height:1.7}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+.top{max-width:740px;margin:0 auto;padding:22px 16px 10px}
+.brand{font-size:13px;color:var(--p);font-weight:700;letter-spacing:.02em}
+.top h1{font-size:23px;margin:4px 0 2px;color:var(--pd);line-height:1.35}
+.sub{font-size:14px;color:var(--mut)}
+.hint{margin-top:8px;font-size:13px;color:var(--mut);background:#fff;border:1px dashed var(--line);border-radius:10px;padding:6px 10px}
+.tabs{position:sticky;top:0;z-index:20;background:rgba(245,244,250,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;padding:8px 12px;-webkit-overflow-scrolling:touch}
+.tab{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:15px;font-weight:600;color:var(--mut)}
+.tab.on{background:var(--p);border-color:var(--p);color:#fff}
+.wrap{max-width:740px;margin:0 auto;padding:12px 16px 80px}
+.intro{background:#fff;border-left:4px solid var(--p);border-radius:10px;padding:12px 14px;margin:6px 0 14px;font-size:15.5px}
+.bh{font-size:19px;color:var(--pd);margin:26px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--pl)}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.ct{margin:0 0 8px;font-size:17px;color:var(--pd)}
+.note{font-size:14.5px;background:var(--pl);border-radius:10px;padding:8px 12px;margin:6px 0 10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.btn{border:none;background:var(--p);color:#fff;border-radius:10px;padding:10px 16px;font-weight:600;min-height:44px}
+.btn.ghost{background:#fff;color:var(--p);border:1.5px solid var(--p)}
+.btn.sm{padding:6px 12px;font-size:14.5px;min-height:38px}
+.mini{border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 6px;font-size:13px;line-height:24px;vertical-align:middle}
+.mini.playing,.sw.playing,.wen.playing{background:var(--ye)}
+.sw{border:none;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px;font-weight:600;font-size:inherit}
+.sw::after{content:' 🔊';font-size:.75em}
+.ref{border:1px solid var(--p);background:#fff;color:var(--p);border-radius:6px;padding:0 6px;font-size:.9em;font-weight:700}
+.ref.on{background:var(--p);color:#fff}
+.refbox{display:block;margin:6px 0;padding:8px 10px;background:#faf9ff;border:1px dashed var(--p);border-radius:8px;font-family:Lora,Georgia,serif;font-size:16px}
+.rich p{margin:6px 0}
+.anal{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.anal h4{margin:14px 0 6px;color:var(--pd);font-size:16px}
+.anal h4:first-child{margin-top:0}
+.tw{overflow-x:auto}
+table.t{border-collapse:collapse;width:100%;font-size:15px;margin:8px 0}
+table.t th,table.t td{border:1px solid var(--line);padding:7px 8px;vertical-align:top;text-align:left}
+table.t th{background:var(--pl);color:var(--pd);font-weight:700}
+.tip{background:var(--ye);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.warnbox{background:var(--nol);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.en{font-family:Lora,Georgia,serif}
+.rp{padding:8px 0;border-bottom:1px dashed var(--line)}
+.rp:last-child{border-bottom:none}
+.gl{display:inline-block;font-size:12.5px;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px;margin:2px 4px 0 0}
+/* 단어 */
+.wl.hideko .wko{color:transparent;background:#eeecf6;border-radius:6px;min-width:90px;display:inline-block}
+.wl.hideko .wko.peek{color:inherit;background:var(--ye)}
+.wi{padding:10px 0;border-bottom:1px dashed var(--line)}
+.wtop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.no{color:var(--mut);font-size:13px;min-width:20px}
+.wen{border:none;background:none;font-family:Lora,Georgia,serif;font-size:19px;font-weight:700;color:var(--pd);padding:0}
+.wen i{font-style:normal;font-size:14px}
+.pos{font-size:12.5px;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px}
+.wko{font-size:16px}
+.wex{margin:4px 0 0 28px;font-size:15.5px}
+.exen{font-family:Lora,Georgia,serif;cursor:pointer;margin-left:6px}
+.exko{display:none;color:var(--mut);font-size:14.5px}
+.exko.show{display:block}
+/* 토글 */
+.fl{border-bottom:1px dashed var(--line);padding:8px 0}
+.flen{display:flex;align-items:center;gap:8px;font-family:Lora,Georgia,serif;font-size:17px}
+.flen span{flex:1}
+.tg{border:1.5px solid var(--p);color:var(--p);background:#fff;border-radius:8px;padding:2px 10px;font-size:14px;white-space:nowrap;font-family:'Noto Sans KR',sans-serif}
+.flko{display:none;margin:4px 0 0 34px;font-size:15.5px}
+.fl.open .flko{display:block}
+.fltip{font-size:14px;color:var(--p);margin-top:2px}
+/* 대화 */
+.dl{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.dl.now{background:var(--ye)}
+.spk{flex:0 0 auto;min-width:34px;font-weight:700;color:var(--p);font-size:15px}
+.dtx{flex:1}
+.den{font-family:Lora,Georgia,serif;font-size:17px;cursor:pointer}
+.dko{display:none;color:var(--mut);font-size:15px}
+.dl.open .dko{display:block}
+/* 채우기 */
+.tp{padding:10px 0;border-bottom:1px dashed var(--line)}
+.tps{font-family:Lora,Georgia,serif;font-size:18px;line-height:2.1}
+.blank{border:2px dashed var(--line);background:#fff;border-radius:8px;padding:0 10px;color:var(--mut);font-size:15px;font-family:'Noto Sans KR',sans-serif}
+.blank.next{border-color:var(--p);color:var(--p);background:var(--pl)}
+.blank.fill{border:2px solid var(--ok);background:var(--okl);color:var(--ok);font-weight:700;font-family:Lora,Georgia,serif;font-size:18px}
+.blank.shake{animation:sh .35s}
+@keyframes sh{0%,100%{transform:translateX(0)}30%{transform:translateX(-5px)}70%{transform:translateX(5px)}}
+.tpko{font-size:15px;color:var(--mut)}
+.tptip{display:none;font-size:14.5px;color:var(--p)}
+.tp.done .tptip{display:block}
+/* 문제 */
+.psg{position:sticky;top:58px;z-index:5;max-height:42vh;overflow-y:auto;background:#fdfcff;border:1.5px solid var(--p);border-radius:12px;padding:10px 12px;margin:6px 0 12px;font-family:Lora,Georgia,serif;font-size:16px;line-height:1.75;box-shadow:0 4px 12px rgba(59,47,138,.08)}
+.psg b,.psg u{font-family:inherit}
+.q{border-top:1px solid var(--line);padding:14px 0 10px}
+.q:first-of-type{border-top:none}
+.q.ok .qno{background:var(--ok)}
+.q.no .qno{background:var(--no)}
+.qq{font-size:16.5px;margin-bottom:8px}
+.qno{display:inline-block;min-width:26px;height:26px;line-height:26px;text-align:center;border-radius:13px;background:var(--p);color:#fff;font-size:13.5px;font-weight:700;margin-right:6px}
+.qtag{display:inline-block;font-size:12px;background:var(--no);color:#fff;border-radius:6px;padding:0 6px;margin-right:6px;vertical-align:middle}
+.ctx{background:#faf9ff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:8px;font-family:Lora,Georgia,serif;font-size:16px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;font-size:16px;min-height:44px}
+.opts.inline .opt{font-family:Lora,Georgia,serif;font-weight:600;min-width:120px;text-align:center}
+.opt .mk{color:var(--p);margin-right:6px;font-weight:700}
+.opt.pick{border-color:var(--p);background:var(--pl)}
+.opt.right{border-color:var(--ok);background:var(--okl)}
+.multi{font-size:13.5px;color:var(--no);margin-bottom:4px}
+.inw{display:flex;align-items:center;gap:6px;margin:4px 0}
+.inl{font-size:14px;color:var(--mut);white-space:nowrap}
+.inp{flex:1;width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:17px;font-family:Lora,Georgia,serif;background:#fff}
+.inp:focus{outline:none;border-color:var(--p)}
+.inp.good{border-color:var(--ok);background:var(--okl)}
+.inp.bad{border-color:var(--no);background:var(--nol)}
+.ta{resize:vertical;min-height:60px}
+.rwh{font-size:14px;color:var(--mut);margin-bottom:4px}
+.diff{font-family:Lora,Georgia,serif;font-size:16px;margin-top:4px}
+.dg{color:var(--ok)}.db{color:var(--no);text-decoration:underline}
+.ordp{font-size:15.5px;margin-bottom:6px}
+.oslot{min-height:52px;border:2px dashed var(--p);border-radius:10px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:#fdfcff}
+.oh{font-size:13.5px;color:var(--mut)}
+.opool{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-family:Lora,Georgia,serif;font-size:16.5px;min-height:44px}
+.oslot .chip{border-color:var(--p);background:var(--pl)}
+.chip.cn{border-color:#d9a400;background:#fffbea}
+.qbtn{display:flex;gap:8px;margin-top:10px}
+.fb{display:none;margin-top:8px;border-radius:10px;padding:8px 12px;font-size:15.5px}
+.fb.good,.fb.bad,.fb.warn{display:block}
+.fb.good{background:var(--okl)}
+.fb.bad{background:var(--nol)}
+.fb.warn{background:var(--ye)}
+.fb .ans{margin-top:2px}
+.fb .ans b{font-family:Lora,Georgia,serif}
+.fb .ex{margin-top:4px;color:#3d3a55;font-size:15px}
+.alt{color:var(--mut);font-size:14px}
+.qfoot{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:2px solid var(--pl)}
+.score{margin-top:8px;font-size:16px;color:var(--pd)}
+.pnav{display:flex;justify-content:space-between;gap:8px;margin-top:26px;flex-wrap:wrap}
+details.sum{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:12px 0}
+details.sum summary{font-weight:700;color:var(--p);cursor:pointer}
+@media (max-width:480px){body{font-size:16px}.top h1{font-size:20px}.wex{margin-left:0}.flko{margin-left:0}}
+</style></head>
+<body><div id="app"></div>
+<script>
+/* ===== DATA START ===== */
+var CFG={"brand":"강동미나 중고등부 · 중2 Lesson 7 (동아 윤정미)","title":"Lesson 7 The Best New Thing — 본문","sub":"한글 분석 → 중요 표현 → 어순 배열 → 거꾸로 영작 → 전체 이야기 → 실전 문제 → 총 시험","tabs":[{"name":"🔍 한글 분석","intro":"<b>국어 독해하듯이 먼저 분석해요.</b> ① 글의 구조 → ② 주제 → ③ 근거(우주와 지구) → ④ 마음 변화 → ⑤ 연결어 → ⑥ 지시어 → ⑦ 핵심 문법 → ⑧ 문장별 분석. <b>번호(예: 12번)를 누르면 영어 원문이 아래에 떠요.</b>","blocks":[{"k":"h","html":"① 글의 구조 — 서론 · 본론 · 결론"},{"k":"html","html":"<div class=\"anal\"><div class=\"tw\"><table class=\"t\">\n<tr><th style=\"white-space:nowrap\">구분</th><th style=\"white-space:nowrap\">문장</th><th>내용</th><th>역할</th></tr>\n<tr><td><b>서론</b></td><td>1~4번</td><td>먼 우주의 작은 세계에 Rada 가족이 살고, 아이는 우주에서 태어난 Rada와 Jonny 둘뿐이다.</td><td>인물과 배경 소개</td></tr>\n<tr><td rowspan=\"2\"><b>본론 1</b><br>들은 지구</td><td>5~16번</td><td>지구로 돌아간다는 소식을 듣고, 엄마 아빠에게 지구가 어떤 곳인지 묻는다.</td><td>지구와 우주의 <b>차이</b>를 말로 설명</td></tr>\n<tr><td>17~19번</td><td>목마른 Jonny가 공중에 뜬 우유 방울을 삼키고, 엄마가 지구에서는 젖는다고 말한다.</td><td>우주 생활을 <b>장면으로</b> 보여 줌</td></tr>\n<tr><td><b>본론 2</b><br>비밀</td><td>20~26번</td><td>그날 밤 둘만의 비밀을 정하고, 다음 날 우주선을 탄다.</td><td><b>궁금증</b>을 만듦 (비밀이 뭘까?)</td></tr>\n<tr><td><b>본론 3</b><br>겪은 지구</td><td>27~35번</td><td>착륙 후 떠다닐 수 없고, 새소리를 듣고, 바람을 느낀다.</td><td>들었던 것을 <b>직접 경험</b></td></tr>\n<tr><td><b>결론</b></td><td>36~41번</td><td>언덕을 굴러 내려가는 것이 비밀이었고, 그것이 최고의 새로운 것이다.</td><td><b>비밀 공개</b> + 주제</td></tr>\n</table></div>\n<div class=\"tip\"><b>이 글은 이야기 글(소설)</b>이에요. Isaac Asimov가 쓴 SF 이야기로, 시간 순서(어느 날 → 그날 밤 → 다음 날 → 착륙)대로 흘러가요. 시간을 나타내는 말 {{5}} One day, {{20}} Later that night, {{24}} The next day, {{27}} finally가 장면을 나누는 신호예요.</div></div>"},{"k":"h","html":"② 주제 찾기"},{"k":"html","html":"<div class=\"anal\">\n<h4>📌 이야기 글은 \"주제문\"이 한 문장으로 딱 나오지 않아요</h4>\n그래서 <b>제목</b>, <b>비밀이 처음 나온 곳</b>, <b>비밀이 밝혀지는 곳</b>을 이어서 읽어요. 제목이 \"The Best New Thing(최고의 새로운 것)\"이니까, 글은 결국 \"무엇이 최고의 새로운 것인가?\"에 답하는 이야기예요.\n<div class=\"tw\"><table class=\"t\">\n<tr><th>단서</th><th>문장</th><th>알 수 있는 것</th></tr>\n<tr><td>제목</td><td>The Best New Thing</td><td>새로운 것들 중 <b>최고</b>를 찾는 이야기</td></tr>\n<tr><td>복선</td><td>{{14}} {{15}} {{16}}</td><td>엄마가 언덕을 굴러 내려갈 수 있다고 하고, 아빠도 정말 굉장하다고 해요. 여기서 아이들의 마음이 움직여요.</td></tr>\n<tr><td>비밀</td><td>{{22}} {{23}}</td><td>정말 하고 싶은 일 하나를 엄마 아빠에게 말하지 않아요. 무엇인지는 일부러 숨겨요.</td></tr>\n<tr><td>비밀 공개</td><td>{{38}} {{39}}</td><td>언덕을 굴러 내려가는 것이 비밀이었어요.</td></tr>\n<tr><td>주제</td><td>{{40}}</td><td>그것이 모든 것 중 최고의 새로운 것이에요.</td></tr>\n</table></div>\n<h4>📌 주제</h4>\n우주에서만 살던 Rada와 Jonny가 지구에 와서 처음 겪는 일들을 하나씩 즐기는데, 그중 둘이 몰래 꿈꿔 온 <b>언덕 굴러 내려가기</b>가 가장 신나는 새로운 경험이었다는 이야기예요. 우리에게는 너무 평범한 일(파란 하늘, 새소리, 바람, 잔디밭)이 누군가에게는 놀랍고 특별한 경험이 될 수 있다는 것을 보여 줘요.\n</div>"},{"k":"flip","title":"주제·제목 영어로 바꿔 쓰기 — 시험에 이렇게 나와요","note":"주제·제목 선지는 본문 문장 그대로가 아니라 <b>다른 표현으로 바꿔서</b> 나와요. 🔊 듣고 뜻 떠올리기!","rows":[["This is the best new thing of all!","이게 모든 것 중에서 최고의 새로운 것이에요!","본문 40번 원문"],["Rolling down a hill was the best new experience for Rada and Jonny.","언덕을 굴러 내려가는 것이 Rada와 Jonny에게 최고의 새로운 경험이었다.","동명사 주어"],["Two children born in space enjoy new things on Earth.","우주에서 태어난 두 아이가 지구에서 새로운 것들을 즐긴다.","글 전체 요약"],["Things that are ordinary on Earth can be very special to someone.","지구에서 평범한 것들이 누군가에게는 아주 특별할 수 있다.","글이 주는 생각"],["Rada and Jonny's Secret Wish","Rada와 Jonny의 비밀 소원","제목으로 알맞은 것"],["A Family Trip from Space to Earth","우주에서 지구로 가는 가족 여행","제목 — 너무 넓으면 오답이 되기도 해요"]]},{"k":"h","html":"③ 근거 — 우주와 지구는 어떻게 다를까?"},{"k":"html","html":"<div class=\"anal\">\n글의 앞부분에서는 엄마 아빠가 지구를 <b>말로</b> 설명하고, 뒷부분에서는 아이들이 그것을 <b>직접</b> 겪어요. 같은 내용이 두 번 나오니까 짝을 지어 읽으면 순서가 쉽게 기억돼요.\n<div class=\"tw\"><table class=\"t\">\n<tr><th>우주 (여기)</th><th>지구 (그곳) — 들은 것</th><th>지구 — 직접 겪은 것</th></tr>\n<tr><td>하늘이 항상 까맣다 {{10}}</td><td>하늘이 파랗다 {{8}}</td><td>-</td></tr>\n<tr><td>크고 무거운 우주복을 입어야 한다</td><td>공기가 어디에나 있어서 우주복이 필요 없다 {{11}}</td><td>-</td></tr>\n<tr><td>둥둥 떠다닌다 {{6}}</td><td>지구가 끌어당겨서 점프가 어렵다 {{12}}</td><td>걷기가 어렵고 더 이상 떠다닐 수 없다 {{28}} {{30}}</td></tr>\n<tr><td>우유가 공중에서 방울이 된다 {{18}}</td><td>그렇게 마시면 젖는다 {{19}}</td><td>-</td></tr>\n<tr><td>-</td><td>언덕을 굴러 내려갈 수 있다 {{14}}</td><td>언덕을 굴러 내려간다 {{38}}</td></tr>\n<tr><td>새도 바람도 없다</td><td>-</td><td>새소리를 듣고 바람을 느낀다 {{33}} {{34}}</td></tr>\n</table></div>\n<div class=\"tip\">시험 포인트: \"Earth pulls you down\"이 가리키는 힘은 <b>중력(gravity)</b>이에요. 12번과 29번에 두 번 나와요.</div></div>"},{"k":"h","html":"④ 아이들의 마음 변화"},{"k":"html","html":"<div class=\"anal\">\n아빠가 지구로 돌아간다고 하자 아이들은 <b>깜짝 놀라요</b>({{6}} in surprise). 곧 지구가 어떤 곳인지 <b>궁금해서</b> 계속 물어보고({{7}} {{13}} {{15}}), 그날 밤에는 새로운 일들을 생각하며 <b>들떠요</b>({{21}} exciting). 긴 여행이라는 말에도 괜찮다며 <b>신나 하고</b>({{26}} excited), 마지막에 비밀을 이루고는 <b>기뻐서 외쳐요</b>({{40}} shouted).\n<div class=\"tip\">분위기를 묻는 문제의 답: <b>lively(활기찬), exciting</b> / 마음을 묻는 문제의 답: <b>curiosity(호기심), expectation(기대)</b>. fear·anxiety·nervousness·gloomy는 이 글과 반대예요.</div></div>"},{"k":"h","html":"⑤ 연결어 — 왜 거기에 들어갔을까?"},{"k":"html","html":"<div class=\"anal\"><div class=\"tw\"><table class=\"t\">\n<tr><th>연결어</th><th>문장</th><th>하는 일</th></tr>\n<tr><td><b>For example,</b></td><td>{{8}}</td><td>\"모든 것이 다르다\"의 <b>예시</b>로 파란 하늘을 들어요.</td></tr>\n<tr><td><b>because</b></td><td>{{11}} {{12}}</td><td>우주복이 필요 없는 <b>이유</b>(공기), 점프가 어려운 <b>이유</b>(중력)</td></tr>\n<tr><td><b>also</b></td><td>{{12}}</td><td>11번에 이어 지구가 다른 점을 <b>하나 더</b> 말해요.</td></tr>\n<tr><td><b>so</b></td><td>{{17}}</td><td>목이 말랐다 → <b>그래서</b> 우유를 열었다 (결과)</td></tr>\n<tr><td><b>if</b></td><td>{{19}}</td><td>그런 식으로 마신다면 (조건) → 젖을 것이다</td></tr>\n<tr><td><b>Later that night / The next day / finally</b></td><td>{{20}} {{24}} {{27}}</td><td>시간이 흐르며 <b>장면이 바뀌는</b> 곳</td></tr>\n<tr><td><b>Then</b></td><td>{{38}}</td><td>꼭대기에서 웃은 <b>다음에</b> 굴러 내려가요.</td></tr>\n<tr><td><b>And … again</b></td><td>{{41}}</td><td>한 번으로는 부족해서 <b>또</b> 뛰어 올라가요. 그만큼 좋았다는 뜻!</td></tr>\n</table></div></div>"},{"k":"h","html":"⑥ 지시어 — 무엇을 가리킬까?"},{"k":"html","html":"<div class=\"anal\"><div class=\"tw\"><table class=\"t\">\n<tr><th>문장</th><th>지시어</th><th>가리키는 것</th></tr>\n<tr><td>{{2}}</td><td>there</td><td>먼 우주의 작은 세계</td></tr>\n<tr><td>{{8}}</td><td>there</td><td>지구 (on Earth)</td></tr>\n<tr><td>{{14}}</td><td>they</td><td>hills (언덕들)</td></tr>\n<tr><td>{{17}}</td><td>it</td><td>a milk container (우유 용기)</td></tr>\n<tr><td>{{23}}</td><td>it (두 번), It</td><td>one new thing = 그들이 정말 하고 싶은 한 가지 (= 비밀)</td></tr>\n<tr><td>{{30}}</td><td>That</td><td>더 이상 떠다닐 수 없는 것</td></tr>\n<tr><td>{{35}}</td><td>These</td><td>새가 노래하는 것을 들은 것, 바람을 느낀 것</td></tr>\n<tr><td>{{39}}</td><td>That</td><td>잔디에 누워 언덕을 굴러 내려간 것</td></tr>\n<tr><td>{{40}}</td><td>This</td><td>언덕을 굴러 내려가는 것</td></tr>\n</table></div>\n<div class=\"warnbox\">헷갈림 주의: <b>{{21}}의 It</b>은 가리키는 말이 아니라 <b>가주어</b>예요. 뒤의 to think about ~가 진짜 주어!</div></div>"},{"k":"h","html":"⑦ 핵심 문법 — 문장 통째로 보기"},{"k":"html","html":"<div class=\"anal\">\n<div class=\"rp\">{{9}} {{33}} {{34}} <span class=\"gl\">현재완료 경험</span> I've never + p.p. — 한 번도 ~해 본 적 없다</div>\n<div class=\"rp\">{{15}} <span class=\"gl\">현재완료 의문</span> Have you ever + p.p.? → 대답 Yes(, I have).</div>\n<div class=\"rp\">{{12}} {{21}} {{28}} <span class=\"gl\">가주어 It ~ 진주어 to부정사</span> It's hard to jump / It was exciting to think / it's difficult to walk</div>\n<div class=\"rp\">{{33}} <span class=\"gl\">지각동사</span> heard + a bird + <b>sing</b>(동사원형)</div>\n<div class=\"rp\">{{12}} {{29}} <span class=\"gl\">이어동사</span> pulls <b>you</b> down — 대명사는 가운데</div>\n<div class=\"rp\">{{19}} <span class=\"gl\">조건 if</span> if you <b>drink</b> (현재) → you'll get wet</div>\n<div class=\"rp\">{{11}} <span class=\"gl\">불필요</span> don't have to = don't need to</div>\n<div class=\"rp\">{{21}} {{22}} <span class=\"gl\">목적격 관계대명사 생략</span> things (that) they were going to see / thing (that) Rada and Jonny wanted to do</div>\n<div class=\"rp\">{{38}} <span class=\"gl\">lie의 과거 lay</span> lay down과 rolled down이 and로 병렬</div>\n<div class=\"rp\">{{26}} <span class=\"gl\">감정 형용사</span> I'm so excited (내가 느낌) ↔ {{21}} It was exciting (일이 신나게 함)</div>\n</div>"},{"k":"h","html":"⑧ 문장별 한글 분석"},{"k":"html","html":"<div class=\"anal\"><h4>① 우주에 사는 가족 (1~4번)</h4><div class=\"rp\"><b>1.</b> Rada는 저 멀리 우주에 있는 작은 세계에서 살았다. <button class=\"ref\" data-n=\"1\">영어</button><br><span class=\"gl\">far out in space = a little world를 다시 설명</span></div><div class=\"rp\"><b>2.</b> 그녀는 그곳에서 아빠, 엄마, 그리고 남동생 Jonny와 함께 살았다. <button class=\"ref\" data-n=\"2\">영어</button><br><span class=\"gl\">there = on a little world</span></div><div class=\"rp\"><b>3.</b> Rada의 아빠와 다른 사람들은 우주선에서 일했다. <button class=\"ref\" data-n=\"3\">영어</button></div><div class=\"rp\"><b>4.</b> Rada와 Jonny만 아이였고, 그들은 우주에서 태어났다. <button class=\"ref\" data-n=\"4\">영어</button><br><span class=\"gl\">be born in = ~에서 태어나다</span></div></div>"},{"k":"html","html":"<div class=\"anal\"><h4>② 지구로 돌아간다는 소식 (5~7번)</h4><div class=\"rp\"><b>5.</b> 어느 날 아빠가 Rada와 Jonny에게 \"우리는 내일 지구로 돌아갈 거야.\"라고 말했다. <button class=\"ref\" data-n=\"5\">영어</button><br><span class=\"gl\">현재진행형 + tomorrow = 가까운 미래</span></div><div class=\"rp\"><b>6.</b> Rada와 Jonny는 놀라서 아빠를 쳐다보았고, 아빠 쪽으로 둥둥 떠서 갔다. <button class=\"ref\" data-n=\"6\">영어</button><br><span class=\"gl\">looked와 floated가 and로 병렬</span></div><div class=\"rp\"><b>7.</b> Rada가 아빠에게 \"지구는 어떤 곳이에요?\"라고 물었다. <button class=\"ref\" data-n=\"7\">영어</button><br><span class=\"gl\">What's it like? = ~은 어때? (like는 전치사)</span></div></div>"},{"k":"html","html":"<div class=\"anal\"><h4>③ 엄마 아빠가 말해 준 지구 (8~16번)</h4><div class=\"rp\"><b>8.</b> \"그곳은 모든 것이 다르단다. 예를 들어, 하늘이 파랗지.\"라고 아빠가 대답했다. <button class=\"ref\" data-n=\"8\">영어</button><br><span class=\"gl\">Everything + 단수 동사 is</span></div><div class=\"rp\"><b>9.</b> \"저는 파란 하늘을 한 번도 본 적이 없어요.\"라고 Jonny가 말했다. <button class=\"ref\" data-n=\"9\">영어</button><br><span class=\"gl\">현재완료 경험</span></div><div class=\"rp\"><b>10.</b> \"여기는 하늘이 항상 까맣잖아요.\"라고 Rada가 말했다. <button class=\"ref\" data-n=\"10\">영어</button><br><span class=\"gl\">빈도부사는 be동사 뒤</span></div><div class=\"rp\"><b>11.</b> \"어디에나 공기가 있기 때문에 너희는 크고 무거운 우주복을 입을 필요가 없단다. <button class=\"ref\" data-n=\"11\">영어</button><br><span class=\"gl\">don't have to = ~할 필요 없다 / air는 셀 수 없음 → is</span></div><div class=\"rp\"><b>12.</b> 또 지구가 너희를 끌어당기기 때문에 그곳에서는 점프하는 것도 어렵단다.\"라고 아빠가 말했다. <button class=\"ref\" data-n=\"12\">영어</button><br><span class=\"gl\">가주어 It ~ 진주어 to jump / pulls you down</span></div><div class=\"rp\"><b>13.</b> \"또 뭐가 있어요?\"라고 Rada가 물었다. <button class=\"ref\" data-n=\"13\">영어</button></div><div class=\"rp\"><b>14.</b> \"언덕들이 있는데, 그 언덕들은 부드러운 초록 잔디로 덮여 있어. 언덕을 굴러 내려갈 수도 있단다.\"라고 엄마가 대답했다. <button class=\"ref\" data-n=\"14\">영어</button><br><span class=\"gl\">they = hills / be covered with</span></div><div class=\"rp\"><b>15.</b> \"아빠, 언덕을 굴러 내려가 본 적 있어요?\"라고 Rada가 물었다. <button class=\"ref\" data-n=\"15\">영어</button><br><span class=\"gl\">Have you ever + p.p.? (경험)</span></div><div class=\"rp\"><b>16.</b> \"그럼, 정말 굉장하단다!\"라고 아빠가 대답했다. <button class=\"ref\" data-n=\"16\">영어</button></div></div>"},{"k":"html","html":"<div class=\"anal\"><h4>④ 우유 방울 (17~19번)</h4><div class=\"rp\"><b>17.</b> Jonny는 목이 말라서 우유 용기를 열고 그것을 흔들었다. <button class=\"ref\" data-n=\"17\">영어</button><br><span class=\"gl\">so = 그래서 (결과) / shake-shook-shaken</span></div><div class=\"rp\"><b>18.</b> 우유가 공중에 떠다니며 방울들을 만들었다. Jonny는 그 방울들을 삼켰다. <button class=\"ref\" data-n=\"18\">영어</button><br><span class=\"gl\">form = make</span></div><div class=\"rp\"><b>19.</b> \"Jonny, 지구에서 그런 식으로 우유를 마시면 너는 젖을 거야.\"라고 엄마가 말했다. <button class=\"ref\" data-n=\"19\">영어</button><br><span class=\"gl\">조건 if절은 현재시제</span></div></div>"},{"k":"html","html":"<div class=\"anal\"><h4>⑤ 그날 밤의 비밀 (20~23번)</h4><div class=\"rp\"><b>20.</b> 그날 밤 늦게, Rada와 Jonny는 지구에 대해 오랫동안 이야기했다. <button class=\"ref\" data-n=\"20\">영어</button></div><div class=\"rp\"><b>21.</b> 그들이 보고 하게 될 모든 새로운 것들에 대해 생각하는 것은 신나는 일이었다. <button class=\"ref\" data-n=\"21\">영어</button><br><span class=\"gl\">가주어 It / things 뒤 목적격 관계대명사 생략</span></div><div class=\"rp\"><b>22.</b> Rada와 Jonny가 정말로 하고 싶은 새로운 일이 하나 있었다. <button class=\"ref\" data-n=\"22\">영어</button><br><span class=\"gl\">thing 뒤 목적격 관계대명사 생략</span></div><div class=\"rp\"><b>23.</b> 그들은 밤새 그것에 대해 생각했고 엄마와 아빠에게는 그것에 대해 말하지 않았다. 그것은 그들의 비밀이었다. <button class=\"ref\" data-n=\"23\">영어</button><br><span class=\"gl\">it = one new thing</span></div></div>"},{"k":"html","html":"<div class=\"anal\"><h4>⑥ 우주선을 타고 (24~26번)</h4><div class=\"rp\"><b>24.</b> 다음 날, Rada의 가족은 우주선에 올라탔다. <button class=\"ref\" data-n=\"24\">영어</button><br><span class=\"gl\">get on ↔ get off</span></div><div class=\"rp\"><b>25.</b> \"긴 여행이 될 거야.\"라고 엄마가 말했다. <button class=\"ref\" data-n=\"25\">영어</button></div><div class=\"rp\"><b>26.</b> \"괜찮아요. 너무 신나요!\"라고 Rada가 말했다. <button class=\"ref\" data-n=\"26\">영어</button><br><span class=\"gl\">감정을 느낌 → excited</span></div></div>"},{"k":"html","html":"<div class=\"anal\"><h4>⑦ 지구 도착 — 첫 번째 새로운 것 (27~30번)</h4><div class=\"rp\"><b>27.</b> 우주선이 마침내 착륙했다. <button class=\"ref\" data-n=\"27\">영어</button></div><div class=\"rp\"><b>28.</b> \"아빠, 지구에서는 걷는 게 어려워요.\"라고 Rada가 말했다. <button class=\"ref\" data-n=\"28\">영어</button><br><span class=\"gl\">가주어 it ~ 진주어 to walk</span></div><div class=\"rp\"><b>29.</b> \"그렇지. 지구가 너를 끌어당기고 있거든.\"이라고 아빠가 말했다. <button class=\"ref\" data-n=\"29\">영어</button><br><span class=\"gl\">중력(gravity) 설명</span></div><div class=\"rp\"><b>30.</b> Rada와 Jonny는 더 이상 떠다닐 수 없었다. 그것이 첫 번째 새로운 것이었다. <button class=\"ref\" data-n=\"30\">영어</button><br><span class=\"gl\">not ~ anymore / That = 떠다닐 수 없는 것</span></div></div>"},{"k":"html","html":"<div class=\"anal\"><h4>⑧ 새소리와 바람 (31~35번)</h4><div class=\"rp\"><b>31.</b> \"저건 무슨 소리예요?\"라고 Rada가 물었다. <button class=\"ref\" data-n=\"31\">영어</button></div><div class=\"rp\"><b>32.</b> \"새가 노래하고 있구나.\"라고 엄마가 말했다. <button class=\"ref\" data-n=\"32\">영어</button></div><div class=\"rp\"><b>33.</b> \"저는 새가 노래하는 것을 한 번도 들어 본 적이 없어요.\"라고 Rada가 말했다. <button class=\"ref\" data-n=\"33\">영어</button><br><span class=\"gl\">hear + 목적어 + 동사원형</span></div><div class=\"rp\"><b>34.</b> \"그리고 저는 바람을 한 번도 느껴 본 적이 없어요.\"라고 Jonny가 말했다. <button class=\"ref\" data-n=\"34\">영어</button><br><span class=\"gl\">feel-felt-felt</span></div><div class=\"rp\"><b>35.</b> 이것들은 모두 새로운 것들이었다. <button class=\"ref\" data-n=\"35\">영어</button><br><span class=\"gl\">These = 새소리 듣기, 바람 느끼기</span></div></div>"},{"k":"html","html":"<div class=\"anal\"><h4>⑨ 비밀이 밝혀지다 (36~41번)</h4><div class=\"rp\"><b>36.</b> Rada와 Jonny는 가장 가까운 언덕을 뛰어 올라갔다. <button class=\"ref\" data-n=\"36\">영어</button><br><span class=\"gl\">near의 최상급 nearest</span></div><div class=\"rp\"><b>37.</b> 꼭대기에서 그들은 서로를 쳐다보며 웃었다. <button class=\"ref\" data-n=\"37\">영어</button></div><div class=\"rp\"><b>38.</b> 그러고 나서 그들은 부드러운 초록 잔디 위에 누워 언덕 아래로 굴러 내려갔다. <button class=\"ref\" data-n=\"38\">영어</button><br><span class=\"gl\">lie-lay-lain / lay와 rolled 병렬</span></div><div class=\"rp\"><b>39.</b> 그것이 그들의 비밀이었다! <button class=\"ref\" data-n=\"39\">영어</button><br><span class=\"gl\">That = 언덕을 굴러 내려가는 것</span></div><div class=\"rp\"><b>40.</b> \"이게 모든 것 중에서 최고의 새로운 것이에요!\"라고 Rada와 Jonny가 외쳤다. <button class=\"ref\" data-n=\"40\">영어</button><br><span class=\"gl\">good-better-best / of all</span></div><div class=\"rp\"><b>41.</b> 그리고 그들은 다시 언덕 꼭대기로 뛰어 올라갔다. <button class=\"ref\" data-n=\"41\">영어</button></div></div>"},{"k":"qset","title":"분석 확인","qs":[{"t":"mc","q":"이 글의 종류로 알맞은 것은?","o":["실존 인물의 일생을 쓴 전기문","과학 원리를 설명하는 설명문","우주 가족이 지구에 오는 이야기 글","주장을 펴는 논설문"],"a":2},{"t":"mc","q":"아이들의 \"비밀\"이 무엇인지 글쓴이가 처음 알려 주는 곳은?","o":["14번","23번","30번","38~39번","41번"],"a":3,"e":"23번에서는 비밀이 있다고만 하고, 38~39번에서 밝혀요."},{"t":"mc","q":"14~16번(언덕을 굴러 내려갈 수 있다, 정말 굉장하다)이 글에서 하는 역할은?","o":["결말을 미리 알려 주는 복선","지구의 날씨 설명","아빠의 직업 소개","우유를 마시는 법 설명"],"a":0},{"t":"mc","q":"\"Earth pulls you down\"에서 말하는 힘은?","o":["gravity","pressure","elasticity","friction","magnetism"],"a":0},{"t":"mc","q":"23번 \"It was their secret.\"의 It이 가리키는 것은?","o":["the spaceship","Earth","one new thing they really wanted to do","the milk balls"],"a":2},{"t":"mc","q":"글 전체의 분위기로 알맞은 것은?","o":["gloomy","lively","scary","boring","urgent"],"a":1}]}]},{"name":"✨ 중요 표현","intro":"영작하기 전에 <b>덩어리 표현</b>부터 입에 붙여요.","blocks":[{"k":"flip","title":"본문 중요 표현 20","note":"🔊 듣고 → 뜻 ▾ 확인. 굵은 부분이 시험에 빈칸·어법으로 나와요.","rows":[["live <b>on</b> a little world, <b>far out in space</b>","먼 우주의 작은 세계에 살다"],["<b>be born in</b> space","우주에서 태어나다"],["We're <b>going back to</b> Earth tomorrow.","우리는 내일 지구로 돌아갈 거야.","현재진행 = 가까운 미래"],["look at Dad <b>in surprise</b>","놀라서 아빠를 보다"],["float <b>towards</b> him","그를 향해 떠가다"],["<b>What's it like</b> on Earth?","지구는 어떤 곳이에요?"],["<b>For example</b>, the sky is blue.","예를 들어, 하늘이 파랗다."],["You <b>don't have to</b> wear space suits.","우주복을 입을 필요가 없다."],["Earth <b>pulls you down</b>.","지구가 너를 끌어당긴다."],["<b>What else?</b>","또 뭐가 있어요?"],["be <b>covered with</b> soft green grass","부드러운 초록 잔디로 덮여 있다"],["<b>roll down</b> the hills","언덕을 굴러 내려가다"],["drink milk <b>that way</b>","그런 식으로 우유를 마시다"],["you'll <b>get wet</b>","너는 젖을 거야"],["<b>Later that night</b>, they talked <b>a long time</b> about Earth.","그날 밤 늦게 그들은 지구에 대해 오래 이야기했다."],["think about it <b>all night</b>","밤새 그것에 대해 생각하다"],["<b>The next day</b>, they <b>got on</b> a spaceship.","다음 날 그들은 우주선에 탔다."],["They <b>couldn't</b> float <b>anymore</b>.","그들은 더 이상 떠다닐 수 없었다."],["<b>At the top</b>, they looked at <b>each other</b>.","꼭대기에서 그들은 서로를 보았다."],["the best new thing <b>of all</b>","모든 것 중 최고의 새로운 것"]]},{"k":"qset","title":"표현 빈칸","qs":[{"t":"in","q":"Rada lived on a little world, ______ out in space.","a":"far"},{"t":"in","q":"Rada and Jonny looked at Dad in ______ and floated towards him.","a":"surprise"},{"t":"in","q":"\"What's it ______ on Earth?\"","a":"like"},{"t":"in","q":"There are hills, and they are covered ______ soft green grass.","a":"with"},{"t":"in","q":"Jonny, if you drink milk that ______ on Earth, you'll get wet.","a":"way"},{"t":"in","q":"They thought about it ______ night.","a":"all"},{"t":"in","q":"The next day, Rada's family got ______ a spaceship.","a":"on"},{"t":"in","q":"Rada and Jonny couldn't float ______.","a":"anymore"},{"t":"in","q":"At the top, they looked at ______ ______ and laughed.","a":"each other"},{"t":"in","q":"\"This is the best new thing ______ all!\"","a":"of"}]}]},{"name":"🧩 어순 배열","intro":"<b>한글을 보고 영어 조각을 순서대로 누르세요.</b> 노란 조각은 연결어예요 — 뜻에 맞는 것만 골라 넣고 함정 연결어는 남겨 두세요. 놓은 조각을 다시 누르면 빠져요.","blocks":[{"k":"qset","title":"① 우주에 사는 가족 (1~4번)","start":1,"qs":[{"t":"ord","q":"Rada는 저 멀리 우주에 있는 작은 세계에서 살았다.","c":["Rada lived","on a little world,","far out in space."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> far out in space = a little world를 다시 설명"},{"t":"ord","q":"그녀는 그곳에서 아빠, 엄마, 그리고 남동생 Jonny와 함께 살았다.","c":["She lived there","with her father, mother,","and brother Jonny."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> there = on a little world"},{"t":"ord","q":"Rada의 아빠와 다른 사람들은 우주선에서 일했다.","c":["Rada's father and other people","worked","on spaceships."],"cn":[],"x":[],"e":""},{"t":"ord","q":"Rada와 Jonny만 아이였고, 그들은 우주에서 태어났다.","c":["Only Rada and Jonny","were children,","and","they were born","in space."],"cn":[2],"x":["but"],"e":"노란 조각은 연결어예요. 뜻에 맞는 연결어를 골라 넣어야 해요. <span class=\"gl\">포인트</span> be born in = ~에서 태어나다"}]},{"k":"qset","title":"② 지구로 돌아간다는 소식 (5~7번)","start":5,"qs":[{"t":"ord","q":"어느 날 아빠가 Rada와 Jonny에게 \"우리는 내일 지구로 돌아갈 거야.\"라고 말했다.","c":["One day,","Dad told Rada and Jonny,","\"We're going back","to Earth","tomorrow.\""],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> 현재진행형 + tomorrow = 가까운 미래"},{"t":"ord","q":"Rada와 Jonny는 놀라서 아빠를 쳐다보았고, 아빠 쪽으로 둥둥 떠서 갔다.","c":["Rada and Jonny","looked at Dad","in surprise","and","floated towards him."],"cn":[3],"x":["but"],"e":"노란 조각은 연결어예요. 뜻에 맞는 연결어를 골라 넣어야 해요. <span class=\"gl\">포인트</span> looked와 floated가 and로 병렬"},{"t":"ord","q":"Rada가 아빠에게 \"지구는 어떤 곳이에요?\"라고 물었다.","c":["Rada asked Dad,","\"What's it like","on Earth?\""],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> What's it like? = ~은 어때? (like는 전치사)"}]},{"k":"qset","title":"③ 엄마 아빠가 말해 준 지구 (8~16번)","start":8,"qs":[{"t":"ord","q":"\"그곳은 모든 것이 다르단다. 예를 들어, 하늘이 파랗지.\"라고 아빠가 대답했다.","c":["\"Everything is different","there.","For example,","the sky is blue,\"","answered Dad."],"cn":[2],"x":["However,"],"e":"노란 조각은 연결어예요. 뜻에 맞는 연결어를 골라 넣어야 해요. <span class=\"gl\">포인트</span> Everything + 단수 동사 is"},{"t":"ord","q":"\"저는 파란 하늘을 한 번도 본 적이 없어요.\"라고 Jonny가 말했다.","c":["\"I've never seen","a blue sky,\"","said Jonny."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> 현재완료 경험"},{"t":"ord","q":"\"여기는 하늘이 항상 까맣잖아요.\"라고 Rada가 말했다.","c":["\"The sky","is always black","here,\"","said Rada."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> 빈도부사는 be동사 뒤"},{"t":"ord","q":"\"어디에나 공기가 있기 때문에 너희는 크고 무거운 우주복을 입을 필요가 없단다.","c":["\"You don't have to wear","your big heavy space suits","because","there is air","everywhere."],"cn":[2],"x":["so"],"e":"노란 조각은 연결어예요. 뜻에 맞는 연결어를 골라 넣어야 해요. <span class=\"gl\">포인트</span> don't have to = ~할 필요 없다 / air는 셀 수 없음 → is"},{"t":"ord","q":"또 지구가 너희를 끌어당기기 때문에 그곳에서는 점프하는 것도 어렵단다.\"라고 아빠가 말했다.","c":["It's also hard","to jump there","because","Earth pulls you down,\"","said Dad."],"cn":[2],"x":["so"],"e":"노란 조각은 연결어예요. 뜻에 맞는 연결어를 골라 넣어야 해요. <span class=\"gl\">포인트</span> 가주어 It ~ 진주어 to jump / pulls you down"},{"t":"ord","q":"\"또 뭐가 있어요?\"라고 Rada가 물었다.","c":["\"What else?\"","asked Rada."],"cn":[],"x":[],"e":""},{"t":"ord","q":"\"언덕들이 있는데, 그 언덕들은 부드러운 초록 잔디로 덮여 있어. 언덕을 굴러 내려갈 수도 있단다.\"라고 엄마가 대답했다.","c":["\"There are hills,","and","they are covered","with soft green grass.","You can roll down","the hills,\"","answered Mom."],"cn":[1],"x":["but"],"e":"노란 조각은 연결어예요. 뜻에 맞는 연결어를 골라 넣어야 해요. <span class=\"gl\">포인트</span> they = hills / be covered with"},{"t":"ord","q":"\"아빠, 언덕을 굴러 내려가 본 적 있어요?\"라고 Rada가 물었다.","c":["\"Dad,","have you ever rolled","down a hill?\"","asked Rada."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> Have you ever + p.p.? (경험)"},{"t":"ord","q":"\"그럼, 정말 굉장하단다!\"라고 아빠가 대답했다.","c":["\"Yes,","it's really amazing!\"","answered Dad."],"cn":[],"x":[],"e":""}]},{"k":"qset","title":"④ 우유 방울 (17~19번)","start":17,"qs":[{"t":"ord","q":"Jonny는 목이 말라서 우유 용기를 열고 그것을 흔들었다.","c":["Jonny was thirsty,","so","he opened a milk container","and","shook it."],"cn":[1,3],"x":["because","but"],"e":"노란 조각은 연결어예요. 뜻에 맞는 연결어를 골라 넣어야 해요. <span class=\"gl\">포인트</span> so = 그래서 (결과) / shake-shook-shaken"},{"t":"ord","q":"우유가 공중에 떠다니며 방울들을 만들었다. Jonny는 그 방울들을 삼켰다.","c":["The milk floated","in the air","and","formed balls.","Jonny swallowed the balls."],"cn":[2],"x":["but"],"e":"노란 조각은 연결어예요. 뜻에 맞는 연결어를 골라 넣어야 해요. <span class=\"gl\">포인트</span> form = make"},{"t":"ord","q":"\"Jonny, 지구에서 그런 식으로 우유를 마시면 너는 젖을 거야.\"라고 엄마가 말했다.","c":["\"Jonny,","if","you drink milk","that way","on Earth,","you'll get wet,\"","said Mom."],"cn":[1],"x":["but"],"e":"노란 조각은 연결어예요. 뜻에 맞는 연결어를 골라 넣어야 해요. <span class=\"gl\">포인트</span> 조건 if절은 현재시제"}]},{"k":"qset","title":"⑤ 그날 밤의 비밀 (20~23번)","start":20,"qs":[{"t":"ord","q":"그날 밤 늦게, Rada와 Jonny는 지구에 대해 오랫동안 이야기했다.","c":["Later that night,","Rada and Jonny talked","a long time","about Earth."],"cn":[],"x":[],"e":""},{"t":"ord","q":"그들이 보고 하게 될 모든 새로운 것들에 대해 생각하는 것은 신나는 일이었다.","c":["It was exciting","to think about","all the new things","they were going to","see and do."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> 가주어 It / things 뒤 목적격 관계대명사 생략"},{"t":"ord","q":"Rada와 Jonny가 정말로 하고 싶은 새로운 일이 하나 있었다.","c":["There was","one new thing","Rada and Jonny","really wanted to do."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> thing 뒤 목적격 관계대명사 생략"},{"t":"ord","q":"그들은 밤새 그것에 대해 생각했고 엄마와 아빠에게는 그것에 대해 말하지 않았다. 그것은 그들의 비밀이었다.","c":["They thought about it","all night","and","didn't tell Mom and Dad","about it.","It was their secret."],"cn":[2],"x":["but"],"e":"노란 조각은 연결어예요. 뜻에 맞는 연결어를 골라 넣어야 해요. <span class=\"gl\">포인트</span> it = one new thing"}]},{"k":"qset","title":"⑥ 우주선을 타고 (24~26번)","start":24,"qs":[{"t":"ord","q":"다음 날, Rada의 가족은 우주선에 올라탔다.","c":["The next day,","Rada's family","got on","a spaceship."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> get on ↔ get off"},{"t":"ord","q":"\"긴 여행이 될 거야.\"라고 엄마가 말했다.","c":["\"It's going to be","a long trip,\"","said Mom."],"cn":[],"x":[],"e":""},{"t":"ord","q":"\"괜찮아요. 너무 신나요!\"라고 Rada가 말했다.","c":["\"That's alright.","I'm so excited!\"","said Rada."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> 감정을 느낌 → excited"}]},{"k":"qset","title":"⑦ 지구 도착 — 첫 번째 새로운 것 (27~30번)","start":27,"qs":[{"t":"ord","q":"우주선이 마침내 착륙했다.","c":["The spaceship","finally","landed."],"cn":[],"x":[],"e":""},{"t":"ord","q":"\"아빠, 지구에서는 걷는 게 어려워요.\"라고 Rada가 말했다.","c":["\"Dad,","it's difficult","to walk","on Earth,\"","said Rada."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> 가주어 it ~ 진주어 to walk"},{"t":"ord","q":"\"그렇지. 지구가 너를 끌어당기고 있거든.\"이라고 아빠가 말했다.","c":["\"I know.","Earth is pulling you down,\"","said Dad."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> 중력(gravity) 설명"},{"t":"ord","q":"Rada와 Jonny는 더 이상 떠다닐 수 없었다. 그것이 첫 번째 새로운 것이었다.","c":["Rada and Jonny","couldn't float","anymore.","That was","the first new thing."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> not ~ anymore / That = 떠다닐 수 없는 것"}]},{"k":"qset","title":"⑧ 새소리와 바람 (31~35번)","start":31,"qs":[{"t":"ord","q":"\"저건 무슨 소리예요?\"라고 Rada가 물었다.","c":["\"What's","that sound?\"","asked Rada."],"cn":[],"x":[],"e":""},{"t":"ord","q":"\"새가 노래하고 있구나.\"라고 엄마가 말했다.","c":["\"A bird","is singing,\"","said Mom."],"cn":[],"x":[],"e":""},{"t":"ord","q":"\"저는 새가 노래하는 것을 한 번도 들어 본 적이 없어요.\"라고 Rada가 말했다.","c":["\"I've never heard","a bird","sing,\"","said Rada."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> hear + 목적어 + 동사원형"},{"t":"ord","q":"\"그리고 저는 바람을 한 번도 느껴 본 적이 없어요.\"라고 Jonny가 말했다.","c":["\"And","I've never felt","the wind,\"","said Jonny."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> feel-felt-felt"},{"t":"ord","q":"이것들은 모두 새로운 것들이었다.","c":["These were","all","new things."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> These = 새소리 듣기, 바람 느끼기"}]},{"k":"qset","title":"⑨ 비밀이 밝혀지다 (36~41번)","start":36,"qs":[{"t":"ord","q":"Rada와 Jonny는 가장 가까운 언덕을 뛰어 올라갔다.","c":["Rada and Jonny","ran up","the nearest hill."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> near의 최상급 nearest"},{"t":"ord","q":"꼭대기에서 그들은 서로를 쳐다보며 웃었다.","c":["At the top,","they looked at","each other","and","laughed."],"cn":[3],"x":["but"],"e":"노란 조각은 연결어예요. 뜻에 맞는 연결어를 골라 넣어야 해요. "},{"t":"ord","q":"그러고 나서 그들은 부드러운 초록 잔디 위에 누워 언덕 아래로 굴러 내려갔다.","c":["Then","they lay down","on the soft green grass","and","rolled down the hill."],"cn":[0,3],"x":["But","but"],"e":"노란 조각은 연결어예요. 뜻에 맞는 연결어를 골라 넣어야 해요. <span class=\"gl\">포인트</span> lie-lay-lain / lay와 rolled 병렬"},{"t":"ord","q":"그것이 그들의 비밀이었다!","c":["That was","their secret!"],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> That = 언덕을 굴러 내려가는 것"},{"t":"ord","q":"\"이게 모든 것 중에서 최고의 새로운 것이에요!\"라고 Rada와 Jonny가 외쳤다.","c":["\"This is","the best new thing","of all!\"","shouted Rada and Jonny."],"cn":[],"x":[],"e":"<span class=\"gl\">포인트</span> good-better-best / of all"},{"t":"ord","q":"그리고 그들은 다시 언덕 꼭대기로 뛰어 올라갔다.","c":["And","they ran up","to the top of the hill","again."],"cn":[0],"x":["But"],"e":"노란 조각은 연결어예요. 뜻에 맞는 연결어를 골라 넣어야 해요. "}]}]},{"name":"✍️ 거꾸로 영작","intro":"<b>한글만 보고 영어로 쓰세요.</b> 확인을 누르면 틀린 단어가 빨간 밑줄로 표시돼요. 막히면 \"정답 보기\" → 🔊로 듣고 다시 써 보기! (따옴표·쉼표는 채점하지 않아요)","blocks":[{"k":"qset","title":"① 우주에 사는 가족 (1~4번)","start":1,"qs":[{"t":"rw","q":"Rada는 저 멀리 우주에 있는 작은 세계에서 살았다.","hint":"단어 10개 · 첫 단어: <b>Rada</b> · <span class=\"gl\">포인트</span> far out in space = a little world를 다시 설명","a":"Rada lived on a little world, far out in space.","e":""},{"t":"rw","q":"그녀는 그곳에서 아빠, 엄마, 그리고 남동생 Jonny와 함께 살았다.","hint":"단어 10개 · 첫 단어: <b>She</b> · <span class=\"gl\">포인트</span> there = on a little world","a":"She lived there with her father, mother, and brother Jonny.","e":""},{"t":"rw","q":"Rada의 아빠와 다른 사람들은 우주선에서 일했다.","hint":"단어 8개 · 첫 단어: <b>Rada's</b>","a":"Rada's father and other people worked on spaceships.","e":""},{"t":"rw","q":"Rada와 Jonny만 아이였고, 그들은 우주에서 태어났다.","hint":"단어 12개 · 첫 단어: <b>Only</b> · <span class=\"gl\">포인트</span> be born in = ~에서 태어나다","a":"Only Rada and Jonny were children, and they were born in space.","e":""}]},{"k":"qset","title":"② 지구로 돌아간다는 소식 (5~7번)","start":5,"qs":[{"t":"rw","q":"어느 날 아빠가 Rada와 Jonny에게 \"우리는 내일 지구로 돌아갈 거야.\"라고 말했다.","hint":"단어 13개 · 첫 단어: <b>One</b> · <span class=\"gl\">포인트</span> 현재진행형 + tomorrow = 가까운 미래","a":"One day, Dad told Rada and Jonny, We're going back to Earth tomorrow.","e":""},{"t":"rw","q":"Rada와 Jonny는 놀라서 아빠를 쳐다보았고, 아빠 쪽으로 둥둥 떠서 갔다.","hint":"단어 12개 · 첫 단어: <b>Rada</b> · <span class=\"gl\">포인트</span> looked와 floated가 and로 병렬","a":"Rada and Jonny looked at Dad in surprise and floated towards him.","e":""},{"t":"rw","q":"Rada가 아빠에게 \"지구는 어떤 곳이에요?\"라고 물었다.","hint":"단어 8개 · 첫 단어: <b>Rada</b> · <span class=\"gl\">포인트</span> What's it like? = ~은 어때? (like는 전치사)","a":"Rada asked Dad, What's it like on Earth?","e":""}]},{"k":"qset","title":"③ 엄마 아빠가 말해 준 지구 (8~16번)","start":8,"qs":[{"t":"rw","q":"\"그곳은 모든 것이 다르단다. 예를 들어, 하늘이 파랗지.\"라고 아빠가 대답했다.","hint":"단어 12개 · 첫 단어: <b>Everything</b> · <span class=\"gl\">포인트</span> Everything + 단수 동사 is","a":"Everything is different there. For example, the sky is blue, answered Dad.","e":""},{"t":"rw","q":"\"저는 파란 하늘을 한 번도 본 적이 없어요.\"라고 Jonny가 말했다.","hint":"단어 8개 · 첫 단어: <b>I've</b> · <span class=\"gl\">포인트</span> 현재완료 경험","a":"I've never seen a blue sky, said Jonny.","e":""},{"t":"rw","q":"\"여기는 하늘이 항상 까맣잖아요.\"라고 Rada가 말했다.","hint":"단어 8개 · 첫 단어: <b>The</b> · <span class=\"gl\">포인트</span> 빈도부사는 be동사 뒤","a":"The sky is always black here, said Rada.","e":""},{"t":"rw","q":"\"어디에나 공기가 있기 때문에 너희는 크고 무거운 우주복을 입을 필요가 없단다.","hint":"단어 15개 · 첫 단어: <b>You</b> · <span class=\"gl\">포인트</span> don't have to = ~할 필요 없다 / air는 셀 수 없음 → is","a":"You don't have to wear your big heavy space suits because there is air everywhere.","e":""},{"t":"rw","q":"또 지구가 너희를 끌어당기기 때문에 그곳에서는 점프하는 것도 어렵단다.\"라고 아빠가 말했다.","hint":"단어 13개 · 첫 단어: <b>It's</b> · <span class=\"gl\">포인트</span> 가주어 It ~ 진주어 to jump / pulls you down","a":"It's also hard to jump there because Earth pulls you down, said Dad.","e":""},{"t":"rw","q":"\"또 뭐가 있어요?\"라고 Rada가 물었다.","hint":"단어 4개 · 첫 단어: <b>What</b>","a":"What else? asked Rada.","e":""},{"t":"rw","q":"\"언덕들이 있는데, 그 언덕들은 부드러운 초록 잔디로 덮여 있어. 언덕을 굴러 내려갈 수도 있단다.\"라고 엄마가 대답했다.","hint":"단어 19개 · 첫 단어: <b>There</b> · <span class=\"gl\">포인트</span> they = hills / be covered with","a":"There are hills, and they are covered with soft green grass. You can roll down the hills, answered Mom.","e":""},{"t":"rw","q":"\"아빠, 언덕을 굴러 내려가 본 적 있어요?\"라고 Rada가 물었다.","hint":"단어 10개 · 첫 단어: <b>Dad,</b> · <span class=\"gl\">포인트</span> Have you ever + p.p.? (경험)","a":"Dad, have you ever rolled down a hill? asked Rada.","e":""},{"t":"rw","q":"\"그럼, 정말 굉장하단다!\"라고 아빠가 대답했다.","hint":"단어 6개 · 첫 단어: <b>Yes,</b>","a":"Yes, it's really amazing! answered Dad.","e":""}]},{"k":"qset","title":"④ 우유 방울 (17~19번)","start":17,"qs":[{"t":"rw","q":"Jonny는 목이 말라서 우유 용기를 열고 그것을 흔들었다.","hint":"단어 12개 · 첫 단어: <b>Jonny</b> · <span class=\"gl\">포인트</span> so = 그래서 (결과) / shake-shook-shaken","a":"Jonny was thirsty, so he opened a milk container and shook it.","e":""},{"t":"rw","q":"우유가 공중에 떠다니며 방울들을 만들었다. Jonny는 그 방울들을 삼켰다.","hint":"단어 13개 · 첫 단어: <b>The</b> · <span class=\"gl\">포인트</span> form = make","a":"The milk floated in the air and formed balls. Jonny swallowed the balls.","e":""},{"t":"rw","q":"\"Jonny, 지구에서 그런 식으로 우유를 마시면 너는 젖을 거야.\"라고 엄마가 말했다.","hint":"단어 14개 · 첫 단어: <b>Jonny,</b> · <span class=\"gl\">포인트</span> 조건 if절은 현재시제","a":"Jonny, if you drink milk that way on Earth, you'll get wet, said Mom.","e":""}]},{"k":"qset","title":"⑤ 그날 밤의 비밀 (20~23번)","start":20,"qs":[{"t":"rw","q":"그날 밤 늦게, Rada와 Jonny는 지구에 대해 오랫동안 이야기했다.","hint":"단어 12개 · 첫 단어: <b>Later</b>","a":"Later that night, Rada and Jonny talked a long time about Earth.","e":""},{"t":"rw","q":"그들이 보고 하게 될 모든 새로운 것들에 대해 생각하는 것은 신나는 일이었다.","hint":"단어 17개 · 첫 단어: <b>It</b> · <span class=\"gl\">포인트</span> 가주어 It / things 뒤 목적격 관계대명사 생략","a":"It was exciting to think about all the new things they were going to see and do.","e":""},{"t":"rw","q":"Rada와 Jonny가 정말로 하고 싶은 새로운 일이 하나 있었다.","hint":"단어 12개 · 첫 단어: <b>There</b> · <span class=\"gl\">포인트</span> thing 뒤 목적격 관계대명사 생략","a":"There was one new thing Rada and Jonny really wanted to do.","e":""},{"t":"rw","q":"그들은 밤새 그것에 대해 생각했고 엄마와 아빠에게는 그것에 대해 말하지 않았다. 그것은 그들의 비밀이었다.","hint":"단어 18개 · 첫 단어: <b>They</b> · <span class=\"gl\">포인트</span> it = one new thing","a":"They thought about it all night and didn't tell Mom and Dad about it. It was their secret.","e":""}]},{"k":"qset","title":"⑥ 우주선을 타고 (24~26번)","start":24,"qs":[{"t":"rw","q":"다음 날, Rada의 가족은 우주선에 올라탔다.","hint":"단어 9개 · 첫 단어: <b>The</b> · <span class=\"gl\">포인트</span> get on ↔ get off","a":"The next day, Rada's family got on a spaceship.","e":""},{"t":"rw","q":"\"긴 여행이 될 거야.\"라고 엄마가 말했다.","hint":"단어 9개 · 첫 단어: <b>It's</b>","a":"It's going to be a long trip, said Mom.","e":""},{"t":"rw","q":"\"괜찮아요. 너무 신나요!\"라고 Rada가 말했다.","hint":"단어 7개 · 첫 단어: <b>That's</b> · <span class=\"gl\">포인트</span> 감정을 느낌 → excited","a":"That's alright. I'm so excited! said Rada.","e":""}]},{"k":"qset","title":"⑦ 지구 도착 — 첫 번째 새로운 것 (27~30번)","start":27,"qs":[{"t":"rw","q":"우주선이 마침내 착륙했다.","hint":"단어 4개 · 첫 단어: <b>The</b>","a":"The spaceship finally landed.","e":""},{"t":"rw","q":"\"아빠, 지구에서는 걷는 게 어려워요.\"라고 Rada가 말했다.","hint":"단어 9개 · 첫 단어: <b>Dad,</b> · <span class=\"gl\">포인트</span> 가주어 it ~ 진주어 to walk","a":"Dad, it's difficult to walk on Earth, said Rada.","e":""},{"t":"rw","q":"\"그렇지. 지구가 너를 끌어당기고 있거든.\"이라고 아빠가 말했다.","hint":"단어 9개 · 첫 단어: <b>I</b> · <span class=\"gl\">포인트</span> 중력(gravity) 설명","a":"I know. Earth is pulling you down, said Dad.","e":""},{"t":"rw","q":"Rada와 Jonny는 더 이상 떠다닐 수 없었다. 그것이 첫 번째 새로운 것이었다.","hint":"단어 12개 · 첫 단어: <b>Rada</b> · <span class=\"gl\">포인트</span> not ~ anymore / That = 떠다닐 수 없는 것","a":"Rada and Jonny couldn't float anymore. That was the first new thing.","e":""}]},{"k":"qset","title":"⑧ 새소리와 바람 (31~35번)","start":31,"qs":[{"t":"rw","q":"\"저건 무슨 소리예요?\"라고 Rada가 물었다.","hint":"단어 5개 · 첫 단어: <b>What's</b>","a":"What's that sound? asked Rada.","e":""},{"t":"rw","q":"\"새가 노래하고 있구나.\"라고 엄마가 말했다.","hint":"단어 6개 · 첫 단어: <b>A</b>","a":"A bird is singing, said Mom.","e":""},{"t":"rw","q":"\"저는 새가 노래하는 것을 한 번도 들어 본 적이 없어요.\"라고 Rada가 말했다.","hint":"단어 8개 · 첫 단어: <b>I've</b> · <span class=\"gl\">포인트</span> hear + 목적어 + 동사원형","a":"I've never heard a bird sing, said Rada.","e":""},{"t":"rw","q":"\"그리고 저는 바람을 한 번도 느껴 본 적이 없어요.\"라고 Jonny가 말했다.","hint":"단어 8개 · 첫 단어: <b>And</b> · <span class=\"gl\">포인트</span> feel-felt-felt","a":"And I've never felt the wind, said Jonny.","e":""},{"t":"rw","q":"이것들은 모두 새로운 것들이었다.","hint":"단어 5개 · 첫 단어: <b>These</b> · <span class=\"gl\">포인트</span> These = 새소리 듣기, 바람 느끼기","a":"These were all new things.","e":""}]},{"k":"qset","title":"⑨ 비밀이 밝혀지다 (36~41번)","start":36,"qs":[{"t":"rw","q":"Rada와 Jonny는 가장 가까운 언덕을 뛰어 올라갔다.","hint":"단어 8개 · 첫 단어: <b>Rada</b> · <span class=\"gl\">포인트</span> near의 최상급 nearest","a":"Rada and Jonny ran up the nearest hill.","e":""},{"t":"rw","q":"꼭대기에서 그들은 서로를 쳐다보며 웃었다.","hint":"단어 10개 · 첫 단어: <b>At</b>","a":"At the top, they looked at each other and laughed.","e":""},{"t":"rw","q":"그러고 나서 그들은 부드러운 초록 잔디 위에 누워 언덕 아래로 굴러 내려갔다.","hint":"단어 14개 · 첫 단어: <b>Then</b> · <span class=\"gl\">포인트</span> lie-lay-lain / lay와 rolled 병렬","a":"Then they lay down on the soft green grass and rolled down the hill.","e":""},{"t":"rw","q":"그것이 그들의 비밀이었다!","hint":"단어 4개 · 첫 단어: <b>That</b> · <span class=\"gl\">포인트</span> That = 언덕을 굴러 내려가는 것","a":"That was their secret!","e":""},{"t":"rw","q":"\"이게 모든 것 중에서 최고의 새로운 것이에요!\"라고 Rada와 Jonny가 외쳤다.","hint":"단어 12개 · 첫 단어: <b>This</b> · <span class=\"gl\">포인트</span> good-better-best / of all","a":"This is the best new thing of all! shouted Rada and Jonny.","e":""},{"t":"rw","q":"그리고 그들은 다시 언덕 꼭대기로 뛰어 올라갔다.","hint":"단어 11개 · 첫 단어: <b>And</b>","a":"And they ran up to the top of the hill again.","e":""}]}]},{"name":"📖 전체 이야기","intro":"<b>① 문단 순서 맞추기 → ② 연결어 채우기.</b> 이야기 흐름이 머릿속에 그려지는지 확인해요.","blocks":[{"k":"qset","title":"① 문단 순서 맞추기","qs":[{"t":"ord","q":"이야기 순서대로 문단을 놓으세요.","sep":" ▶ ","sayAns":false,"c":["Rada lived on a little world, far out in space.","One day, Dad told Rada and Jonny, \"We're going back to Earth tomorrow.\"","Jonny was thirsty, so he opened a milk container and shook it.","Later that night, Rada and Jonny talked a long time about Earth.","The next day, Rada's family got on a spaceship.","The spaceship finally landed.","Rada and Jonny ran up the nearest hill."],"e":"우주 생활 → 소식 → 우유 방울 → 그날 밤 → 다음 날 → 착륙 → 언덕"},{"t":"ord","q":"지구에 도착한 뒤 일어난 일을 순서대로 놓으세요.","sep":" ▶ ","sayAns":false,"c":["Rada and Jonny couldn't float anymore.","Rada heard a bird sing.","Jonny felt the wind.","They ran up the nearest hill.","They looked at each other and laughed.","They rolled down the hill.","They ran up to the top again."]}]},{"k":"qset","title":"② 연결어 채우기","note":"시간·이유·결과·예시를 나타내는 말이 빠졌어요. 뜻을 생각하며 채우세요.","qs":[{"t":"in","q":"\"Everything is different there. ①______, the sky is blue.\" … \"You don't have to wear your big heavy space suits ②______ there is air everywhere.\"","a":["For example|For instance","because"],"lb":["①","②"]},{"t":"in","q":"Jonny was thirsty, ①______ he opened a milk container and shook it. … \"Jonny, ②______ you drink milk that way on Earth, you'll get wet.\"","a":["so","if"],"lb":["①","②"]},{"t":"in","q":"①______ ______ ______, Rada and Jonny talked a long time about Earth. … ②______ ______ ______, Rada's family got on a spaceship. … The spaceship ③______ landed.","a":["Later that night","The next day","finally"],"lb":["①","②","③"]},{"t":"in","q":"At the top, they looked at each other and laughed. ①______ they lay down on the soft green grass and rolled down the hill. … ②______ they ran up to the top of the hill ③______.","a":["Then","And","again"],"lb":["①","②","③"]}]}]},{"name":"🎯 실전 문제","intro":"<b>내신 빈출 유형</b> — 내용 일치, 지시어, 문장 넣기, 연결어, 확인 가능/불가능, 서술형, 기타 지문.","blocks":[{"k":"qset","title":"A. 내용 일치 (T / F)","note":"고르면 바로 채점돼요.","qs":[{"t":"mc","auto":1,"q":"Rada had a sister.","o":["T","F"],"a":1,"e":"2번: brother Jonny — 남동생"},{"t":"mc","auto":1,"q":"Rada and Jonny were born on Earth.","o":["T","F"],"a":1,"e":"4번: born in space"},{"t":"mc","auto":1,"q":"Dad has rolled down a hill before.","o":["T","F"],"a":0,"e":"15~16번"},{"t":"mc","auto":1,"q":"People need space suits on Earth.","o":["T","F"],"a":1,"e":"11번: don't have to"},{"t":"mc","auto":1,"q":"Jonny shook the milk container before he opened it.","o":["T","F"],"a":1,"e":"17번: opened → shook (연 다음 흔들었다)"},{"t":"mc","auto":1,"q":"Rada and Jonny told their parents about their secret.","o":["T","F"],"a":1,"e":"23번: didn't tell"},{"t":"mc","auto":1,"q":"The trip to Earth was long.","o":["T","F"],"a":0,"e":"25번"},{"t":"mc","auto":1,"q":"Rada and Jonny could float on Earth.","o":["T","F"],"a":1,"e":"30번: couldn't float anymore"},{"t":"mc","auto":1,"q":"Jonny had never felt the wind before.","o":["T","F"],"a":0,"e":"34번"},{"t":"mc","auto":1,"q":"Rada and Jonny rolled down the hill only once.","o":["T","F"],"a":1,"e":"41번: ran up … again"}]},{"k":"qset","title":"B. 지시어·대명사","qs":[{"t":"mc","q":"\"Rada and Jonny looked at Dad in surprise and floated towards <u>him</u>.\" him은?","o":["Jonny","Dad","Rada's brother","a man on a spaceship"],"a":1},{"t":"mc","q":"\"There are hills, and <u>they</u> are covered with soft green grass.\" they는?","o":["Rada and Jonny","Mom and Dad","hills","people on Earth"],"a":2},{"t":"mc","q":"\"Jonny was thirsty, so he opened a milk container and shook <u>it</u>.\" it은?","o":["the milk ball","a milk container","the air","the spaceship"],"a":1},{"t":"mc","q":"\"<u>That</u> was the first new thing.\" (30번) That은?","o":["착륙한 것","걷는 것","더 이상 떠다닐 수 없는 것","새소리를 들은 것"],"a":2},{"t":"mc","q":"\"<u>These</u> were all new things.\" (35번) These가 가리키는 것은?","o":["파란 하늘을 본 것과 잔디에 누운 것","새가 노래하는 것을 들은 것과 바람을 느낀 것","걷기 어려운 것과 떠다닐 수 없는 것","언덕을 오른 것과 굴러 내려간 것"],"a":1,"e":"바로 앞 33~34번"},{"t":"mc","q":"밑줄 친 It 중 쓰임이 <b>다른</b> 하나는?","o":["<u>It</u>'s also hard to jump there.","<u>It</u> was exciting to think about all the new things.","<u>It</u> was their secret.","<u>It</u>'s difficult to walk on Earth."],"a":2,"e":"③ 대명사(= one new thing), 나머지는 가주어"}]},{"k":"qset","title":"C. 문장 넣기 · 순서","qs":[{"t":"mc","q":"\"It was their secret.\"가 들어갈 위치는?<br>Later that night, Rada and Jonny talked a long time about Earth. (①) It was exciting to think about all the new things they were going to see and do. (②) There was one new thing Rada and Jonny really wanted to do. (③) They thought about it all night and didn't tell Mom and Dad about it. (④) The next day, Rada's family got on a spaceship. (⑤)","o":["①","②","③","④","⑤"],"a":3,"e":"부모님께 말하지 않았다 → 그것이 비밀이었다"},{"t":"mc","q":"\"At the top, they looked at each other and laughed.\"가 들어갈 위치는?<br>Rada and Jonny ran up the nearest hill. (①) Then they lay down on the soft green grass and rolled down the hill. (②) That was their secret! (③) \"This is the best new thing of all!\" shouted Rada and Jonny. (④) And they ran up to the top of the hill again. (⑤)","o":["①","②","③","④","⑤"],"a":0,"e":"뛰어 올라감 → 꼭대기에서(At the top) → 그러고 나서(Then) 굴러 내려감"},{"t":"mc","q":"\"For example, the sky is blue.\"가 들어갈 위치는?<br>Rada asked Dad, \"What's it like on Earth?\" \"Everything is different there. (①)\" answered Dad. \"(②) I've never seen a blue sky,\" said Jonny. (③) \"The sky is always black here,\" said Rada. (④)","o":["①","②","③","④"],"a":0,"e":"모든 것이 다르다 → 예를 들어 하늘이 파랗다 → 파란 하늘을 본 적 없다"},{"t":"mc","q":"흐름상 <b>관계없는</b> 문장은?<br>The spaceship finally landed. ⓐ \"Dad, it's difficult to walk on Earth,\" said Rada. ⓑ \"I know. Earth is pulling you down,\" said Dad. ⓒ Rada and Jonny couldn't float anymore. ⓓ The spaceship was made in Russia in 1971. ⓔ That was the first new thing.","o":["ⓐ","ⓑ","ⓒ","ⓓ","ⓔ"],"a":3}]},{"k":"qset","title":"D. 빈칸 · 연결어","qs":[{"t":"mc","q":"빈칸에 공통으로 알맞은 것은?<br>You don't have to wear your big heavy space suits ______ there is air everywhere. It's also hard to jump there ______ Earth pulls you down.","o":["if","so","because","when","but"],"a":2},{"t":"mc","q":"빈칸에 알맞은 것은?<br>Jonny was thirsty, ______ he opened a milk container and shook it.","o":["because","so","but","if","or"],"a":1},{"t":"mc","q":"빈칸에 알맞은 것은?<br>\"Everything is different there. ______, the sky is blue,\" answered Dad.","o":["However","In contrast","For example","In the end","Therefore"],"a":2},{"t":"mc","q":"빈칸에 알맞은 것은?<br>\"This is the ______ new thing of all!\" shouted Rada and Jonny.","o":["good","better","best","most","last"],"a":2},{"t":"mc","q":"Rada와 Jonny의 마음으로 알맞은 것을 <b>모두</b> 고르면?<br>(Later that night ~ \"I'm so excited!\" said Rada.)","o":["fear","anxiety","curiosity","expectation","nervousness"],"a":[2,3]}]},{"k":"qset","title":"E. 확인할 수 있는 것 / 없는 것","qs":[{"t":"mc","q":"본문을 읽고 답할 수 <b>없는</b> 것은?","o":["Why couldn't Rada float on Earth?","What was Rada and Jonny's secret?","How did Rada's family get to Earth?","How did Rada's parents like the bird's singing?","Has Rada's father rolled down a hill?"],"a":3},{"t":"mc","q":"본문을 읽고 답할 수 <b>없는</b> 것은?","o":["How does Jonny drink milk in space?","Why don't they need space suits on Earth?","What do hills on Earth look like?","How long did the trip to Earth take?","What was the first new thing on Earth?"],"a":3,"e":"\"긴 여행\"이라고만 했고 얼마나 걸렸는지는 안 나와요."},{"t":"mc","q":"Rada에 관한 내용으로 옳지 <b>않은</b> 것은?","o":["우주에서 태어났다.","남동생이 있다.","가족이 4명이다.","우주선에서 일한다.","지구에 대해 궁금해한다."],"a":3,"e":"우주선에서 일한 것은 아빠와 다른 사람들 (3번)"}]},{"k":"qset","title":"F. 서술형 — 인물·이유·상황","qs":[{"t":"in","q":"Q. How many children were there in Rada's little world? — There were ______ children.","a":"two"},{"t":"in","q":"Q. Why don't people have to wear space suits on Earth? — Because there is ______ everywhere.","a":"air"},{"t":"in","q":"Q. What happened to the milk when Jonny shook the container? — It floated in the air and ______ ______.","a":"formed balls"},{"t":"in","q":"Q. Why couldn't Rada and Jonny float on Earth? — Because Earth was ______ them ______.","a":["pulling","down"],"lb":["①","②"]},{"t":"in","q":"Q. What did Rada and Jonny do at the top of the hill? — They looked at each other and ______.","a":"laughed"},{"t":"in","q":"Q. What was Rada and Jonny's secret? — Rolling ______ the hill. (한 단어)","a":"down"}]},{"k":"qset","title":"G. 기타 지문 (After You Read · Around the World · Review)","qs":[{"t":"mc","ctx":"(a) Rada heard a bird sing. (b) Jonny felt the wind. (c) Rada and Jonny floated towards Dad. (d) The milk formed balls, and Jonny swallowed the balls. (e) Rada and Jonny couldn't float anymore.","q":"일어난 순서대로 바르게 배열한 것은?","o":["(c)-(d)-(e)-(a)-(b)","(c)-(e)-(d)-(a)-(b)","(d)-(c)-(e)-(b)-(a)","(c)-(d)-(a)-(e)-(b)"],"a":0},{"t":"in","ctx":"ⓐ 1957: Russia sent first dog into space. ⓑ 1961: Yuri Gagarin went into space to the first time. ⓒ 1969: The USA sent the first human on the moon. ⓓ 1971: Russia built the first space station. It flied around the Earth almost 3,000 times.","q":"ⓐ~ⓓ에서 틀린 것을 하나씩 고쳐 쓰세요.","a":["the first dog|the first","for the first time|for","to the moon|to","flew"],"lb":["ⓐ","ⓑ","ⓒ","ⓓ"],"e":"ⓐ 서수 앞 the → the first dog / ⓑ for the first time / ⓒ send A to B → to the moon / ⓓ fly - flew - flown"},{"t":"in","ctx":"Have you ever <u>gone</u> to Jeju-do? There are many things you can do there. For example, <u>that</u> is fun to ride horses. If you <u>never have</u> visited Jeju-do, you should go there.","q":"밑줄 친 세 곳을 바르게 고치세요.","a":["been","it","have never"],"lb":["⑴","⑵","⑶"]}]}]},{"name":"📝 총 시험","intro":"<b>총 40문항.</b> 지문은 위에 고정돼서 스크롤해도 보여요. 다 풀고 각 지문마다 <b>전체 채점</b> → <b>틀린 것만 다시</b>!","blocks":[{"k":"qset","title":"[1~10] 지문 1 (1~10번 문장)","psg":"Rada lived on a little world, far out in space. She lived there with her father, mother, and brother Jonny. Rada's father and other people worked on spaceships. Only Rada and Jonny were children, and they were born in space. One day, Dad told Rada and Jonny, \"We're going back to Earth tomorrow.\" Rada and Jonny looked at Dad in surprise and floated towards him. Rada asked Dad, \"ⓐ<u>What's it like</u> on Earth?\" \"ⓑ<u>Everything is</u> different there. (A) ______, the sky is blue,\" answered Dad. \"(B) ________________,\"  said Jonny. \"The sky ⓒ<u>is always</u> black here,\" said Rada.","qs":[{"t":"mc","q":"Rada에 대한 설명으로 옳지 <b>않은</b> 것은?","o":["She lived far out in space.","She had a younger brother.","She worked on spaceships.","She was born in space.","She had never been to Earth."],"a":2},{"t":"mc","q":"빈칸 (A)에 알맞은 것은?","o":["However","Therefore","For example","In contrast","In the end"],"a":2},{"t":"mc","q":"ⓐ와 같은 뜻으로 바르게 바꿔 쓴 것은?","o":["What does it like on Earth?","How is it like on Earth?","How is it on Earth?","What is it on Earth?","Who is it like on Earth?"],"a":2,"e":"What's it like? = How is it? / What does it like ✗, How is it like ✗"},{"t":"mc","q":"ⓑ에서 is 대신 are를 쓸 수 없는 이유는?","o":["과거의 일이라서","everything은 항상 단수 취급해서","there가 주어라서","형용사가 와서"],"a":1},{"t":"in","q":"(B)에 \"나는 파란 하늘을 한 번도 본 적이 없어\"를 영어로 쓰세요. (현재완료)","a":"I've never seen a blue sky.|I have never seen a blue sky."},{"t":"mc","q":"ⓒ와 같은 어순 규칙이 적용된 것은?","o":["He always is late.","She is often tired.","I go usually to school by bus.","They never are angry."],"a":1,"e":"빈도부사는 be동사 뒤, 일반동사 앞"},{"t":"mc","q":"Rada와 Jonny가 아빠의 말을 듣고 한 행동은?","o":["They cried.","They floated towards Dad.","They got on a spaceship.","They ran up a hill."],"a":1},{"t":"mc","q":"\"We're going back to Earth tomorrow.\"의 밑줄 친 부분과 쓰임이 같은 것은?","o":["What are you doing now?","She is reading a book.","I'm meeting Tom tomorrow.","They are playing soccer."],"a":2,"e":"현재진행 + 미래 시간 = 가까운 미래"},{"t":"in","q":"Q. How many children lived in Rada's little world? (영어 한 단어)","a":"two|2"},{"t":"in","q":"Rada와 Jonny가 태어난 곳을 영어 두 단어로 쓰세요.","a":"in space"}]},{"k":"qset","title":"[11~20] 지문 2 (11~19번 문장)","start":11,"psg":"\"You don't have to wear your big heavy space suits (A) ______ there is air everywhere. ⓐ<u>It</u>'s also hard to jump there (B) ______ Earth ⓑ<u>pulls you down</u>,\" said Dad. \"What else?\" asked Rada. \"There are hills, and ⓒ<u>they</u> are covered with soft green grass. You can roll down the hills,\" answered Mom. \"Dad, ⓓ<u>have you ever rolled</u> down a hill?\" asked Rada. \"Yes, it's really amazing!\" answered Dad. Jonny was thirsty, so he opened a milk container and shook it. The milk floated in the air and formed balls. Jonny swallowed the balls. \"Jonny, if you drink milk that way on Earth, you (C) ______ (get) wet,\" said Mom.","qs":[{"t":"mc","q":"빈칸 (A), (B)에 공통으로 알맞은 것은?","o":["if","so","because","when","though"],"a":2},{"t":"mc","q":"ⓐ It과 쓰임이 같은 것은?","o":["It is raining now.","It is my book.","It is fun to ride a bike.","It is 3 o'clock."],"a":2},{"t":"mc","q":"ⓑ의 you를 the children으로 바꿀 때 가능한 형태를 <b>모두</b> 고르면?","o":["pulls the children down","pulls down the children","pulls the down children","pulls children down the"],"a":[0,1],"e":"명사 목적어는 가운데·뒤 둘 다 OK. 대명사(you)만 반드시 가운데"},{"t":"mc","q":"ⓒ they가 가리키는 것은?","o":["Rada and Jonny","Mom and Dad","hills","space suits"],"a":2},{"t":"mc","q":"ⓓ와 현재완료의 쓰임이 같은 것은?","o":["I have just eaten lunch.","She has lived here for 3 years.","Have you ever been to Japan?","He has lost his key."],"a":2},{"t":"in","q":"(C)에 get을 알맞은 형태로 쓰세요. (조동사 포함)","a":"will get|'ll get"},{"t":"mc","q":"\"You don't have to wear your space suits.\"와 뜻이 같은 것은?","o":["You must not wear your space suits.","You don't need to wear your space suits.","You should wear your space suits.","You can't wear your space suits."],"a":1},{"t":"mc","q":"우주에서 Jonny가 우유를 마신 방법은?","o":["컵에 따라 마셨다.","빨대로 마셨다.","용기를 흔들어 떠오른 우유 방울을 삼켰다.","엄마가 먹여 주었다."],"a":2},{"t":"mc","q":"글의 내용과 일치하는 것은?","o":["Dad has never rolled down a hill.","The hills on Earth are covered with snow.","Jonny opened the container because he was hungry.","It is hard to jump on Earth because of gravity.","Mom said the milk was not good."],"a":3},{"t":"rw","q":"본문 내용에 맞게 영작하세요. (11단어, 축약형 쓰지 말 것)<br>지구가 너희를 끌어당기기 때문에 그곳에서는 점프하는 것이 어렵다.","a":"It is hard to jump there because Earth pulls you down."}]},{"k":"qset","title":"[21~30] 지문 3 (20~30번 문장)","start":21,"psg":"Later that night, Rada and Jonny talked a long time about Earth. ⓐ<u>It</u> was (A) ______ (excite) to think about all the new things they were going to see and do. There was ⓑ<u>one new thing</u> Rada and Jonny really wanted to do. They thought about it all night and didn't tell Mom and Dad about it. [ X ] The next day, Rada's family got ⓒ ______ a spaceship. \"It's going to be a long trip,\" said Mom. \"That's alright. I'm so (B) ______ (excite)!\" said Rada. The spaceship ⓓ<u>finally</u> landed. \"Dad, it's difficult to walk on Earth,\" said Rada. \"I know. Earth is pulling you down,\" said Dad. Rada and Jonny couldn't float ⓔ<u>anymore</u>. That was the first new thing.","qs":[{"t":"mc","q":"(A), (B)에 excite를 알맞게 바꾼 것은?","o":["excited - exciting","exciting - excited","exciting - exciting","excited - excited","excite - excited"],"a":1},{"t":"mc","q":"ⓐ It과 쓰임이 <b>다른</b> 것은?","o":["It is fun to go on a picnic.","It is the umbrella which I lost.","It is true that he passed the test.","It is healthy to exercise every day."],"a":1},{"t":"mc","q":"ⓑ one new thing 뒤에 생략된 말로 알맞은 것은?","o":["who","what","that","whose"],"a":2},{"t":"mc","q":"[ X ]에 들어갈 문장으로 알맞은 것은?","o":["It was their secret.","It was a long trip.","They were very tired.","They told Mom about it."],"a":0},{"t":"in","q":"ⓒ에 알맞은 전치사를 쓰세요.","a":"on"},{"t":"mc","q":"ⓓ finally와 바꿔 쓸 수 있는 것은?","o":["at first","at last","at once","at all"],"a":1},{"t":"mc","q":"ⓔ anymore를 넣어 바르게 해석한 것은?","o":["그들은 다시 떠다닐 수 있었다.","그들은 아직 떠다니지 않았다.","그들은 더 이상 떠다닐 수 없었다.","그들은 결코 떠다닌 적이 없다."],"a":2},{"t":"mc","q":"\"That's alright.\" 대신 쓸 수 <b>없는</b> 것을 모두 고르면?","o":["That's it.","That's OK.","That's fine.","That's all right.","That's right."],"a":[0,4],"e":"That's it.(바로 그거야/끝) · That's right.(맞아)는 뜻이 달라요."},{"t":"mc","q":"글의 내용과 일치하지 <b>않는</b> 것은?","o":["Rada and Jonny had a secret.","They talked about Earth all day long.","The trip to Earth was long.","Rada was excited about the trip.","Walking on Earth was difficult for Rada."],"a":1,"e":"그날 밤 늦게(Later that night) 이야기했어요."},{"t":"mc","q":"\"Earth is pulling you down.\"이 설명하는 것은?","o":["wind","gravity","air","light"],"a":1}]},{"k":"qset","title":"[31~40] 지문 4 (31~41번 문장)","start":31,"psg":"\"What's that sound?\" asked Rada. \"A bird is singing,\" said Mom. \"I've never heard a bird (A) ______ (sing),\" said Rada. \"And I've never felt the wind,\" said Jonny. ⓐ<u>These</u> were all new things. Rada and Jonny ran up the ⓑ ______ (near) hill. At the top, they looked at ⓒ<u>each other</u> and laughed. Then they ⓓ<u>lay</u> down on the soft green grass and rolled down the hill. ⓔ<u>That</u> was their secret! \"This is the best new thing (B) ______ all!\" shouted Rada and Jonny. And they ran up to the top of the hill again.","qs":[{"t":"mc","q":"(A)에 들어갈 수 있는 형태를 <b>모두</b> 고르면?","o":["sing","to sing","singing","sang","sung"],"a":[0,2],"e":"지각동사 hear + 목적어 + 동사원형/-ing"},{"t":"in","q":"ⓐ These가 가리키는 것 두 가지를 본문에서 찾아 쓰세요. (hearing ~ / feeling ~)","a":["hearing a bird sing|hearing a bird singing","feeling the wind"],"lb":["①","②"]},{"t":"in","q":"ⓑ에 near를 알맞은 형태로 쓰세요.","a":"nearest"},{"t":"mc","q":"ⓓ lay와 같은 뜻으로 쓰인 것은?","o":["The hen lays eggs every day.","She lay on the sofa and slept.","He laid the book on the desk.","Don't lie to me."],"a":1},{"t":"mc","q":"ⓔ That이 가리키는 것은?","o":["떠다니는 것","새소리를 듣는 것","언덕을 굴러 내려가는 것","언덕 꼭대기에서 웃는 것"],"a":2},{"t":"in","q":"(B)에 알맞은 전치사를 쓰세요.","a":"of"},{"t":"mc","q":"글의 제목으로 가장 알맞은 것은?","o":["Rada and Jonny","A Bird Is Singing","The Best New Thing","Life in a Space Station","How to Float in Space"],"a":2},{"t":"mc","q":"글을 읽고 알 수 <b>없는</b> 것은?","o":["The wind was blowing.","A bird was singing.","Rada and Jonny ran up a hill.","Rolling down the hill was their favorite.","It was raining that day."],"a":4},{"t":"mc","q":"Rada와 Jonny가 언덕 꼭대기로 다시 뛰어 올라간 이유로 알맞은 것은?","o":["They were tired.","They wanted to roll down again.","They lost something.","They wanted to see a bird."],"a":1},{"t":"rw","q":"본문 41번 문장을 영작하세요: 그리고 그들은 다시 언덕 꼭대기로 뛰어 올라갔다.","a":"And they ran up to the top of the hill again."}]}]}],"sents":[{"n":1,"en":"Rada lived on a little world, far out in space."},{"n":2,"en":"She lived there with her father, mother, and brother Jonny."},{"n":3,"en":"Rada's father and other people worked on spaceships."},{"n":4,"en":"Only Rada and Jonny were children, and they were born in space."},{"n":5,"en":"One day, Dad told Rada and Jonny, \"We're going back to Earth tomorrow.\""},{"n":6,"en":"Rada and Jonny looked at Dad in surprise and floated towards him."},{"n":7,"en":"Rada asked Dad, \"What's it like on Earth?\""},{"n":8,"en":"\"Everything is different there. For example, the sky is blue,\" answered Dad."},{"n":9,"en":"\"I've never seen a blue sky,\" said Jonny."},{"n":10,"en":"\"The sky is always black here,\" said Rada."},{"n":11,"en":"\"You don't have to wear your big heavy space suits because there is air everywhere."},{"n":12,"en":"It's also hard to jump there because Earth pulls you down,\" said Dad."},{"n":13,"en":"\"What else?\" asked Rada."},{"n":14,"en":"\"There are hills, and they are covered with soft green grass. You can roll down the hills,\" answered Mom."},{"n":15,"en":"\"Dad, have you ever rolled down a hill?\" asked Rada."},{"n":16,"en":"\"Yes, it's really amazing!\" answered Dad."},{"n":17,"en":"Jonny was thirsty, so he opened a milk container and shook it."},{"n":18,"en":"The milk floated in the air and formed balls. Jonny swallowed the balls."},{"n":19,"en":"\"Jonny, if you drink milk that way on Earth, you'll get wet,\" said Mom."},{"n":20,"en":"Later that night, Rada and Jonny talked a long time about Earth."},{"n":21,"en":"It was exciting to think about all the new things they were going to see and do."},{"n":22,"en":"There was one new thing Rada and Jonny really wanted to do."},{"n":23,"en":"They thought about it all night and didn't tell Mom and Dad about it. It was their secret."},{"n":24,"en":"The next day, Rada's family got on a spaceship."},{"n":25,"en":"\"It's going to be a long trip,\" said Mom."},{"n":26,"en":"\"That's alright. I'm so excited!\" said Rada."},{"n":27,"en":"The spaceship finally landed."},{"n":28,"en":"\"Dad, it's difficult to walk on Earth,\" said Rada."},{"n":29,"en":"\"I know. Earth is pulling you down,\" said Dad."},{"n":30,"en":"Rada and Jonny couldn't float anymore. That was the first new thing."},{"n":31,"en":"\"What's that sound?\" asked Rada."},{"n":32,"en":"\"A bird is singing,\" said Mom."},{"n":33,"en":"\"I've never heard a bird sing,\" said Rada."},{"n":34,"en":"\"And I've never felt the wind,\" said Jonny."},{"n":35,"en":"These were all new things."},{"n":36,"en":"Rada and Jonny ran up the nearest hill."},{"n":37,"en":"At the top, they looked at each other and laughed."},{"n":38,"en":"Then they lay down on the soft green grass and rolled down the hill."},{"n":39,"en":"That was their secret!"},{"n":40,"en":"\"This is the best new thing of all!\" shouted Rada and Jonny."},{"n":41,"en":"And they ran up to the top of the hill again."}]};
+/* ===== DATA END ===== */
+</script>
+<script>/* ===== 강동미나 인터랙티브 엔진 (DATA는 CFG) ===== */
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+/* [[word]] → 발음 칩, {{12}} → 문장 번호 버튼 */
+function rich(s){
+  if(s==null)return '';
+  return String(s)
+    .replace(/\[\[([^\]]+)\]\]/g,function(m,w){return '<button class="sw" data-say="'+esc(w.replace(/<[^>]+>/g,''))+'">'+w+'</button>';})
+    .replace(/\{\{(\d+)\}\}/g,function(m,n){return '<button class="ref" data-n="'+n+'">'+n+'번</button>';});
+}
+/* ---------- TTS ---------- */
+var VOICE=null,ttsOK=('speechSynthesis' in window);
+function pickVoice(){
+  if(!ttsOK)return;
+  var vs=speechSynthesis.getVoices()||[];
+  VOICE=null;
+  for(var i=0;i<vs.length;i++){if(/william/i.test(vs[i].name)&&/^en/i.test(vs[i].lang)){VOICE=vs[i];break;}}
+  if(!VOICE){for(i=0;i<vs.length;i++){if(/^en[-_]US/i.test(vs[i].lang)){VOICE=vs[i];break;}}}
+}
+if(ttsOK){pickVoice();try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){}}
+var unlocked=false;
+function unlock(){
+  if(unlocked||!ttsOK)return;unlocked=true;
+  try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}catch(e){}
+  var h=$('#ttsHint');if(h)h.style.display='none';
+}
+['touchstart','mousedown','click'].forEach(function(ev){document.addEventListener(ev,unlock,{passive:true,capture:true});});
+function say(text,slow,onend){
+  if(!ttsOK){if(onend)onend();return;}
+  try{
+    speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(String(text).replace(/[“”]/g,'"'));
+    if(!VOICE)pickVoice();
+    if(VOICE){u.voice=VOICE;u.lang=VOICE.lang;}else u.lang='en-US';
+    u.rate=slow?0.7:0.92;
+    if(onend)u.onend=onend;
+    speechSynthesis.speak(u);
+  }catch(e){if(onend)onend();}
+}
+window.__say=say;
+/* ---------- 채점 정규화 ---------- */
+function norm(s){
+  return String(s).replace(/[’‘`]/g,"'").replace(/[“”]/g,'"').toLowerCase()
+    .replace(/[^a-z0-9\-\s가-힣]/g,' ').replace(/\s+/g,' ').trim();
+}
+function alts(a){return String(a).split('|').map(function(x){return x.trim();});}
+function okText(input,ans){var n=norm(input);if(!n)return false;return alts(ans).some(function(a){return norm(a)===n;});}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* ---------- 상단 ---------- */
+var app=$('#app');
+var head=el('header','top');
+head.innerHTML='<div class="brand">'+esc(CFG.brand)+'</div><h1>'+esc(CFG.title)+'</h1><div class="sub">'+esc(CFG.sub||'')+'</div>'+
+ '<div id="ttsHint" class="hint">🔊 소리가 안 나면 화면을 한 번 눌러 주세요.</div>';
+app.appendChild(head);
+var bar=el('nav','tabs');app.appendChild(bar);
+var main=el('main','wrap');app.appendChild(main);
+var ALLQ=[];window.__Q=ALLQ;
+var SENTS={};(CFG.sents||[]).forEach(function(s){SENTS[s.n]=s;});
+
+/* ---------- 공통 클릭 ---------- */
+document.addEventListener('click',function(ev){
+  var s=ev.target.closest('[data-say]');
+  if(s){ev.stopPropagation();say(s.getAttribute('data-say'),s.classList.contains('slow'));s.classList.add('playing');setTimeout(function(){s.classList.remove('playing');},700);return;}
+  var r=ev.target.closest('.ref');
+  if(r){
+    var n=r.getAttribute('data-n'),host=r.closest('li,td,p,.rp,.tip,.warnbox,.anal,.intro')||r.parentNode;
+    var ex=host.querySelector('.refbox[data-n="'+n+'"]');
+    if(ex){ex.remove();r.classList.remove('on');return;}
+    var st=SENTS[n];if(!st)return;
+    var bx=el('div','refbox','<b>'+n+'.</b> '+esc(st.en)+' <button class="mini" data-say="'+esc(st.en)+'">🔊</button>');
+    bx.setAttribute('data-n',n);host.appendChild(bx);r.classList.add('on');
+  }
+});
+
+/* ---------- 블록 ---------- */
+function renderBlock(b){
+  var f=R[b.k];if(!f){console.error('unknown block',b.k);return null;}
+  return f(b);
+}
+var R={};
+R.h=function(b){return el('h2','bh',rich(b.html));};
+R.html=function(b){return el('div','rich',rich(b.html));};
+R.wordlist=function(b){
+  var box=el('div','card');
+  box.appendChild(el('h3','ct',rich(b.title||'')));
+  var tg=el('div','row');
+  var hide=el('button','btn sm','뜻 가리기');var showAll=el('button','btn sm ghost','예문 해석 모두 보기');
+  tg.appendChild(hide);tg.appendChild(showAll);box.appendChild(tg);
+  var list=el('div','wl');
+  b.items.forEach(function(w,i){
+    // [en,pos,ko,ex,exKo]
+    var r=el('div','wi');
+    r.innerHTML='<div class="wtop"><span class="no">'+(i+1)+'</span><button class="wen" data-say="'+esc(w[0])+'">'+esc(w[0])+' <i>🔊</i></button>'+
+      (w[1]?'<span class="pos">'+esc(w[1])+'</span>':'')+'<span class="wko">'+rich(w[2])+'</span></div>'+
+      (w[3]?'<div class="wex"><button class="mini" data-say="'+esc(w[3])+'">🔊</button><span class="exen">'+rich(w[3])+'</span><div class="exko">'+esc(w[4]||'')+'</div></div>':'');
+    var exen=r.querySelector('.exen');if(exen)exen.onclick=function(){r.querySelector('.exko').classList.toggle('show');};
+    var ko=r.querySelector('.wko');ko.onclick=function(){if(list.classList.contains('hideko'))ko.classList.toggle('peek');};
+    list.appendChild(r);
+  });
+  hide.onclick=function(){var on=list.classList.toggle('hideko');hide.textContent=on?'뜻 보이기':'뜻 가리기';$$('.wko',list).forEach(function(k){k.classList.remove('peek');});};
+  showAll.onclick=function(){var any=$$('.exko:not(.show)',list).length>0;$$('.exko',list).forEach(function(k){k.classList.toggle('show',any);});};
+  box.appendChild(list);
+  return box;
+};
+R.flip=function(b){
+  var box=el('div','card');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  var all=el('button','btn sm ghost','뜻 모두 펼치기');box.appendChild(all);
+  b.rows.forEach(function(r){
+    var it=el('div','fl');
+    it.innerHTML='<div class="flen"><button class="mini" data-say="'+esc(r[0].replace(/<[^>]+>/g,''))+'">🔊</button><span>'+rich(r[0])+'</span><button class="tg">뜻 ▾</button></div>'+
+      '<div class="flko">'+rich(r[1])+(r[2]?'<div class="fltip">'+rich(r[2])+'</div>':'')+'</div>';
+    it.querySelector('.tg').onclick=function(){var o=it.classList.toggle('open');this.textContent=o?'뜻 ▴':'뜻 ▾';};
+    box.appendChild(it);
+  });
+  all.onclick=function(){var cl=$$('.fl:not(.open)',box).length>0;$$('.fl',box).forEach(function(x){x.classList.toggle('open',cl);x.querySelector('.tg').textContent=cl?'뜻 ▴':'뜻 ▾';});all.textContent=cl?'뜻 모두 접기':'뜻 모두 펼치기';};
+  return box;
+};
+R.dlg=function(b){
+  var box=el('div','card dlg');
+  box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  var row=el('div','row');var play=el('button','btn sm','▶ 전체 듣기');var tr=el('button','btn sm ghost','해석 모두 보기');row.appendChild(play);row.appendChild(tr);box.appendChild(row);
+  b.lines.forEach(function(l){
+    var it=el('div','dl');
+    it.innerHTML='<span class="spk">'+esc(l[0])+'</span><div class="dtx"><div class="den">'+rich(l[1])+' <button class="mini" data-say="'+esc(l[1].replace(/<[^>]+>/g,''))+'">🔊</button></div><div class="dko">'+esc(l[2]||'')+'</div></div>';
+    it.querySelector('.den').onclick=function(e){if(e.target.closest('[data-say]'))return;it.classList.toggle('open');};
+    box.appendChild(it);
+  });
+  tr.onclick=function(){var cl=$$('.dl:not(.open)',box).length>0;$$('.dl',box).forEach(function(x){x.classList.toggle('open',cl);});};
+  play.onclick=function(){var i=0,ls=b.lines,its=$$('.dl',box);(function nx(){its.forEach(function(x){x.classList.remove('now');});if(i>=ls.length)return;its[i].classList.add('now');say(ls[i][1].replace(/<[^>]+>/g,''),false,function(){i++;setTimeout(nx,250);});})();};
+  return box;
+};
+/* 순서대로 눌러 채우기: s 안의 {답} */
+R.tap=function(b){
+  var box=el('div','card');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  b.rows.forEach(function(r){
+    var it=el('div','tp');
+    var k=0;
+    var html=esc(r.s).replace(/\{([^}]+)\}/g,function(m,a){return '<button class="blank" data-i="'+(k++)+'" data-a="'+a+'">'+(k===1?'①':'')+'</button>';});
+    it.innerHTML='<div class="tps">'+html+' <button class="mini" data-say="'+esc(r.s.replace(/[{}]/g,''))+'">🔊</button></div>'+(r.ko?'<div class="tpko">'+rich(r.ko)+'</div>':'')+(r.tip?'<div class="tptip">'+rich(r.tip)+'</div>':'');
+    var bl=$$('.blank',it);
+    bl.forEach(function(x,i){x.textContent='▢ '+(i+1);});
+    var nextI=0;
+    function mark(){bl.forEach(function(x,i){x.classList.toggle('next',i===nextI);});if(nextI>=bl.length)it.classList.add('done');}
+    bl.forEach(function(x,i){x.onclick=function(){
+      if(i!==nextI){x.classList.add('shake');setTimeout(function(){x.classList.remove('shake');},400);return;}
+      x.textContent=x.getAttribute('data-a');x.classList.add('fill');nextI++;mark();
+    };});
+    mark();
+    box.appendChild(it);
+  });
+  var rs=el('button','btn sm ghost','다시 가리기');rs.onclick=function(){box.parentNode.replaceChild(R.tap(b),box);};box.appendChild(rs);
+  return box;
+};
+/* ---------- 문제 세트 ---------- */
+R.qset=function(b){
+  var box=el('div','card qset');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  if(b.psg){var ps=el('div','psg',rich(b.psg));box.appendChild(ps);}
+  var qs=[];
+  b.qs.forEach(function(q,i){var Q=makeQ(q,(b.start||1)+i);qs.push(Q);ALLQ.push(Q);box.appendChild(Q.node);});
+  var foot=el('div','qfoot');
+  var all=el('button','btn','전체 채점');var retry=el('button','btn ghost','틀린 것만 다시');var reset=el('button','btn ghost','처음부터');
+  var sc=el('div','score');
+  foot.appendChild(all);foot.appendChild(retry);foot.appendChild(reset);box.appendChild(foot);box.appendChild(sc);
+  function upd(){var ok=qs.filter(function(Q){return Q.state==='ok';}).length;var done=qs.filter(function(Q){return Q.state;}).length;
+    sc.innerHTML=done?('<b>'+ok+' / '+qs.length+'</b> 정답'+(done<qs.length?' · 안 푼 문제 '+(qs.length-done)+'개':'')+(ok===qs.length?' 🎉 모두 정답!':'')):'';}
+  qs.forEach(function(Q){Q.onchange=upd;});
+  all.onclick=function(){qs.forEach(function(Q){if(!Q.state&&Q.node.style.display!=='none')Q.check(true);});upd();var w=qs.filter(function(Q){return Q.state!=='ok';})[0];};
+  retry.onclick=function(){qs.forEach(function(Q){if(Q.state==='ok'){Q.node.style.display='none';}else{Q.node.style.display='';Q.reset();}});upd();try{box.scrollIntoView({block:'start'});}catch(e){}};
+  reset.onclick=function(){qs.forEach(function(Q){Q.node.style.display='';Q.reset();});upd();};
+  box.__qs=qs;
+  return box;
+};
+function makeQ(q,no){
+  var Q={q:q,state:null,node:el('div','q')};
+  var n=Q.node;
+  var tag=q.tag?'<span class="qtag">'+esc(q.tag)+'</span>':'';
+  if(q.ctx)n.appendChild(el('div','ctx',rich(q.ctx)));
+  n.appendChild(el('div','qq','<span class="qno">'+no+'</span>'+tag+rich(q.q||'')));
+  var body=el('div','qb');n.appendChild(body);
+  var btns=el('div','qbtn');var ck=el('button','btn sm','확인');var sh=el('button','btn sm ghost','정답 보기');btns.appendChild(ck);btns.appendChild(sh);n.appendChild(btns);
+  var fb=el('div','fb');n.appendChild(fb);
+  var T=TYPES[q.t];if(!T)throw new Error('bad type '+q.t);
+  T.build(Q,body);
+  Q.check=function(force){
+    var r=T.grade(Q);
+    if(r===null&&!force){fb.className='fb warn';fb.innerHTML='답을 먼저 골라 주세요.';return;}
+    Q.state=r?'ok':'no';
+    n.classList.remove('ok','no');n.classList.add(Q.state);
+    fb.className='fb '+(r?'good':'bad');
+    fb.innerHTML=(r?'⭕ 정답!':'❌ 다시 확인해요.')+'<div class="ans">정답: '+T.answer(Q)+'</div>'+(q.e?'<div class="ex">'+rich(q.e)+'</div>':'');
+    if(T.after)T.after(Q,r);
+    if(Q.onchange)Q.onchange();
+  };
+  Q.reset=function(){Q.state=null;n.classList.remove('ok','no');fb.className='fb';fb.innerHTML='';T.reset(Q);if(Q.onchange)Q.onchange();};
+  ck.onclick=function(){Q.check(false);};
+  sh.onclick=function(){if(!Q.state)Q.state='no';n.classList.add('no');fb.className='fb bad';fb.innerHTML='👀 정답 확인<div class="ans">정답: '+T.answer(Q)+'</div>'+(q.e?'<div class="ex">'+rich(q.e)+'</div>':'');if(T.after)T.after(Q,false);if(Q.onchange)Q.onchange();};
+  Q.T=T;
+  return Q;
+}
+var TYPES={};
+/* 객관식: a = 번호(0부터) 또는 배열(모두 고르기) */
+TYPES.mc={
+  build:function(Q,body){
+    var q=Q.q,multi=Array.isArray(q.a);
+    Q.sel=multi?[]:null;
+    var wrap=el('div','opts'+(q.inline?' inline':''));
+    var MK=['①','②','③','④','⑤','⑥','⑦'];
+    Q.order=q.o.map(function(x,i){return i;});
+    q.o.forEach(function(o,i){
+      var b=el('button','opt',(q.inline?'':'<span class="mk">'+MK[i]+'</span>')+rich(o));
+      b.onclick=function(e){if(e.target.closest('[data-say]'))return;
+        if(multi){var k=Q.sel.indexOf(i);if(k>=0)Q.sel.splice(k,1);else Q.sel.push(i);b.classList.toggle('pick');}
+        else{Q.sel=i;$$('.opt',wrap).forEach(function(x){x.classList.remove('pick');});b.classList.add('pick');if(q.inline||q.auto)Q.check(false);}
+      };
+      wrap.appendChild(b);
+    });
+    if(multi)body.appendChild(el('div','multi','※ 알맞은 것을 <b>모두</b> 고르세요.'));
+    body.appendChild(wrap);Q.wrap=wrap;
+  },
+  grade:function(Q){var q=Q.q;
+    if(Array.isArray(q.a)){if(!Q.sel.length)return null;var a=q.a.slice().sort().join(),s=Q.sel.slice().sort().join();return a===s;}
+    if(Q.sel===null)return null;return Q.sel===q.a;},
+  answer:function(Q){var q=Q.q,MK=['①','②','③','④','⑤','⑥','⑦'];var a=Array.isArray(q.a)?q.a:[q.a];
+    return a.map(function(i){return (q.inline?'':MK[i]+' ')+rich(q.o[i]);}).join(', ');},
+  after:function(Q){var q=Q.q,a=Array.isArray(q.a)?q.a:[q.a];$$('.opt',Q.wrap).forEach(function(b,i){b.classList.toggle('right',a.indexOf(i)>=0);});},
+  reset:function(Q){Q.sel=Array.isArray(Q.q.a)?[]:null;$$('.opt',Q.wrap).forEach(function(b){b.classList.remove('pick','right');});}
+};
+/* 주관식: a = '정답|다른정답' 또는 배열(빈칸 여러 개) */
+TYPES.in={
+  build:function(Q,body){
+    var q=Q.q,arr=Array.isArray(q.a)?q.a:[q.a];
+    Q.inputs=arr.map(function(a,i){
+      var w=el('div','inw');
+      if(arr.length>1)w.appendChild(el('span','inl',(q.lb&&q.lb[i])||('('+(i+1)+')')));
+      var inp=el('input','inp');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.setAttribute('spellcheck','false');
+      if(q.ph)inp.placeholder=q.ph;
+      inp.onkeydown=function(e){if(e.key==='Enter')Q.check(false);};
+      w.appendChild(inp);body.appendChild(w);return inp;});
+  },
+  grade:function(Q){var arr=Array.isArray(Q.q.a)?Q.q.a:[Q.q.a];
+    if(Q.inputs.every(function(i){return !i.value.trim();}))return null;
+    var ok=true;Q.inputs.forEach(function(inp,i){var g=okText(inp.value,arr[i]);inp.classList.toggle('good',g);inp.classList.toggle('bad',!g);if(!g)ok=false;});return ok;},
+  answer:function(Q){var arr=Array.isArray(Q.q.a)?Q.q.a:[Q.q.a];
+    return arr.map(function(a,i){var x=alts(a);return (arr.length>1?((Q.q.lb&&Q.q.lb[i])||'('+(i+1)+')')+' ':'')+'<b>'+esc(x[0])+'</b>'+(x.length>1?' <span class="alt">(= '+x.slice(1).map(esc).join(' / ')+')</span>':'');}).join(' &nbsp; ');},
+  reset:function(Q){Q.inputs.forEach(function(i){i.value='';i.classList.remove('good','bad');});}
+};
+/* 배열: c = 정답 순서 조각, x = 함정 조각 */
+TYPES.ord={
+  build:function(Q,body){
+    var q=Q.q;
+    if(q.p)body.appendChild(el('div','ordp',rich(q.p)));
+    var slot=el('div','oslot');slot.innerHTML='<span class="oh">아래 조각을 순서대로 누르세요</span>';
+    var pool=el('div','opool');
+    body.appendChild(slot);body.appendChild(pool);
+    Q.slot=slot;Q.pool=pool;Q.picked=[];
+    TYPES.ord.fill(Q);
+  },
+  fill:function(Q){
+    var q=Q.q;Q.pool.innerHTML='';Q.picked=[];
+    $$('.chip',Q.slot).forEach(function(c){c.remove();});
+    var oh=$('.oh',Q.slot);if(oh)oh.style.display='';
+    var items=q.c.map(function(t,i){return {t:t,cn:(q.cn||[]).indexOf(i)>=0};}).concat((q.x||[]).map(function(t){return {t:t,trap:1,cn:/^(and|but|so|because|if|then|or|when)$/i.test(t)};}));
+    var sh=shuffle(items),guard=0;
+    while(items.length>1&&sh.map(function(x){return x.t;}).join('␟')===items.map(function(x){return x.t;}).join('␟')&&guard++<10)sh=shuffle(items);
+    sh.forEach(function(it){
+      var c=el('button','chip'+(it.cn?' cn':''),esc(it.t));c.__t=it.t;
+      c.onclick=function(){
+        if(c.parentNode===Q.pool){Q.slot.appendChild(c);Q.picked.push(c);}
+        else{Q.pool.appendChild(c);Q.picked.splice(Q.picked.indexOf(c),1);}
+        var oh=$('.oh',Q.slot);if(oh)oh.style.display=Q.picked.length?'none':'';
+      };
+      Q.pool.appendChild(c);
+    });
+  },
+  grade:function(Q){if(!Q.picked.length)return null;
+    var got=Q.picked.map(function(c){return c.__t;});return got.join('␟')===Q.q.c.join('␟');},
+  answer:function(Q){return '<b>'+esc(Q.q.c.join(Q.q.sep!=null?Q.q.sep:' '))+'</b>'+(Q.q.sayAns!==false?' <button class="mini" data-say="'+esc(Q.q.c.join(' ').replace(/[“”]/g,''))+'">🔊</button>':'');},
+  reset:function(Q){TYPES.ord.fill(Q);}
+};
+/* 거꾸로 영작: a = 영어 문장 */
+TYPES.rw={
+  build:function(Q,body){
+    var q=Q.q;
+    if(q.hint)body.appendChild(el('div','rwh',rich(q.hint)));
+    var ta=el('textarea','inp ta');ta.rows=2;ta.setAttribute('autocapitalize','off');ta.setAttribute('spellcheck','false');ta.placeholder='영어로 쓰세요';
+    body.appendChild(ta);Q.ta=ta;Q.diff=el('div','diff');body.appendChild(Q.diff);
+  },
+  grade:function(Q){if(!Q.ta.value.trim())return null;
+    var ok=okText(Q.ta.value,Q.q.a);
+    var want=norm(alts(Q.q.a)[0]).split(' '),got=norm(Q.ta.value).split(' ');
+    Q.diff.innerHTML=want.map(function(w,i){return '<span class="'+(got[i]===w?'dg':'db')+'">'+esc(got[i]||'＿')+'</span>';}).join(' ')+(got.length>want.length?' <span class="db">+'+esc(got.slice(want.length).join(' '))+'</span>':'');
+    return ok;},
+  answer:function(Q){var a=alts(Q.q.a)[0];return '<b>'+esc(a)+'</b> <button class="mini" data-say="'+esc(a)+'">🔊</button>';},
+  reset:function(Q){Q.ta.value='';Q.diff.innerHTML='';}
+};
+
+CFG.tabs.forEach(function(t,ti){
+  var b=el('button','tab',esc(t.name));b.dataset.i=ti;
+  b.onclick=function(){showTab(ti);};bar.appendChild(b);
+  var sec=el('section','pane');sec.id='pane'+ti;
+  if(t.intro)sec.appendChild(el('div','intro',rich(t.intro)));
+  (t.blocks||[]).forEach(function(bk){var n=renderBlock(bk);if(n)sec.appendChild(n);});
+  var nav=el('div','pnav');
+  if(ti>0){var pv=el('button','btn ghost','← '+esc(CFG.tabs[ti-1].name));pv.onclick=function(){showTab(ti-1);};nav.appendChild(pv);}
+  if(ti<CFG.tabs.length-1){var nx=el('button','btn','다음: '+esc(CFG.tabs[ti+1].name)+' →');nx.onclick=function(){showTab(ti+1);};nav.appendChild(nx);}
+  sec.appendChild(nav);
+  main.appendChild(sec);
+});
+function showTab(i){
+  $$('.pane').forEach(function(p,k){p.style.display=(k===i)?'block':'none';});
+  $$('.tab').forEach(function(b,k){b.classList.toggle('on',k===i);});
+  var tb=$$('.tab')[i];if(tb&&tb.scrollIntoView){try{tb.scrollIntoView({block:'nearest',inline:'center'});}catch(e){}}
+  try{window.scrollTo(0,0);}catch(e){}
+}
+window.__showTab=showTab;
+showTab(0);
+
+
+/* ---------- 검사용 훅 ---------- */
+window.__test={
+  fillCorrect:function(Q){var q=Q.q;
+    if(q.t==='mc'){Q.T.reset(Q);var a=Array.isArray(q.a)?q.a:[q.a];a.forEach(function(i){$$('.opt',Q.wrap)[i].click();});if(!(q.inline||q.auto)||Array.isArray(q.a))Q.check(false);}
+    else if(q.t==='in'){var arr=Array.isArray(q.a)?q.a:[q.a];Q.inputs.forEach(function(inp,i){inp.value=alts(arr[i])[0];});Q.check(false);}
+    else if(q.t==='rw'){Q.ta.value=alts(q.a)[0];Q.check(false);}
+    else if(q.t==='ord'){Q.T.reset(Q);var pool=$$('.chip',Q.pool),used=[];q.c.forEach(function(t){for(var i=0;i<pool.length;i++){if(used.indexOf(i)<0&&pool[i].__t===t){used.push(i);pool[i].click();break;}}});Q.check(false);}
+  },
+  fillWrong:function(Q){var q=Q.q;
+    if(q.t==='mc'){Q.T.reset(Q);var a=Array.isArray(q.a)?q.a:[q.a];var w=-1;for(var i=0;i<q.o.length;i++)if(a.indexOf(i)<0){w=i;break;}$$('.opt',Q.wrap)[w].click();if(!(q.inline||q.auto)||Array.isArray(q.a))Q.check(false);}
+    else if(q.t==='in'){Q.inputs.forEach(function(inp){inp.value='zzzz';});Q.check(false);}
+    else if(q.t==='rw'){Q.ta.value='zzz zzz';Q.check(false);}
+    else if(q.t==='ord'){Q.T.reset(Q);var pool=$$('.chip',Q.pool);pool.slice().reverse().forEach(function(c){c.click();});
+      if(Q.picked.map(function(c){return c.__t;}).join('␟')===q.c.join('␟')){Q.picked[0].click();}
+      Q.check(false);}
+  }
+};
+})();
+</script>
+</body></html>
