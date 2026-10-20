@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lesson 7 Life in Space — 단어</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--p:#5b4fa8;--pd:#3b2f8a;--pl:#ece9f8;--bg:#f5f4fa;--ink:#24213a;--mut:#6b6788;--ok:#1f8a5b;--okl:#e3f5ec;--no:#c4423a;--nol:#fbe9e7;--ye:#fff6d6;--line:#dcd8ee}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:17px;line-height:1.7}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+.top{max-width:740px;margin:0 auto;padding:22px 16px 10px}
+.brand{font-size:13px;color:var(--p);font-weight:700;letter-spacing:.02em}
+.top h1{font-size:23px;margin:4px 0 2px;color:var(--pd);line-height:1.35}
+.sub{font-size:14px;color:var(--mut)}
+.hint{margin-top:8px;font-size:13px;color:var(--mut);background:#fff;border:1px dashed var(--line);border-radius:10px;padding:6px 10px}
+.tabs{position:sticky;top:0;z-index:20;background:rgba(245,244,250,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;padding:8px 12px;-webkit-overflow-scrolling:touch}
+.tab{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:15px;font-weight:600;color:var(--mut)}
+.tab.on{background:var(--p);border-color:var(--p);color:#fff}
+.wrap{max-width:740px;margin:0 auto;padding:12px 16px 80px}
+.intro{background:#fff;border-left:4px solid var(--p);border-radius:10px;padding:12px 14px;margin:6px 0 14px;font-size:15.5px}
+.bh{font-size:19px;color:var(--pd);margin:26px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--pl)}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.ct{margin:0 0 8px;font-size:17px;color:var(--pd)}
+.note{font-size:14.5px;background:var(--pl);border-radius:10px;padding:8px 12px;margin:6px 0 10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.btn{border:none;background:var(--p);color:#fff;border-radius:10px;padding:10px 16px;font-weight:600;min-height:44px}
+.btn.ghost{background:#fff;color:var(--p);border:1.5px solid var(--p)}
+.btn.sm{padding:6px 12px;font-size:14.5px;min-height:38px}
+.mini{border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 6px;font-size:13px;line-height:24px;vertical-align:middle}
+.mini.playing,.sw.playing,.wen.playing{background:var(--ye)}
+.sw{border:none;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px;font-weight:600;font-size:inherit}
+.sw::after{content:' 🔊';font-size:.75em}
+.ref{border:1px solid var(--p);background:#fff;color:var(--p);border-radius:6px;padding:0 6px;font-size:.9em;font-weight:700}
+.ref.on{background:var(--p);color:#fff}
+.refbox{display:block;margin:6px 0;padding:8px 10px;background:#faf9ff;border:1px dashed var(--p);border-radius:8px;font-family:Lora,Georgia,serif;font-size:16px}
+.rich p{margin:6px 0}
+.anal{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.anal h4{margin:14px 0 6px;color:var(--pd);font-size:16px}
+.anal h4:first-child{margin-top:0}
+.tw{overflow-x:auto}
+table.t{border-collapse:collapse;width:100%;font-size:15px;margin:8px 0}
+table.t th,table.t td{border:1px solid var(--line);padding:7px 8px;vertical-align:top;text-align:left}
+table.t th{background:var(--pl);color:var(--pd);font-weight:700}
+.tip{background:var(--ye);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.warnbox{background:var(--nol);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.en{font-family:Lora,Georgia,serif}
+.rp{padding:8px 0;border-bottom:1px dashed var(--line)}
+.rp:last-child{border-bottom:none}
+.gl{display:inline-block;font-size:12.5px;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px;margin:2px 4px 0 0}
+/* 단어 */
+.wl.hideko .wko{color:transparent;background:#eeecf6;border-radius:6px;min-width:90px;display:inline-block}
+.wl.hideko .wko.peek{color:inherit;background:var(--ye)}
+.wi{padding:10px 0;border-bottom:1px dashed var(--line)}
+.wtop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.no{color:var(--mut);font-size:13px;min-width:20px}
+.wen{border:none;background:none;font-family:Lora,Georgia,serif;font-size:19px;font-weight:700;color:var(--pd);padding:0}
+.wen i{font-style:normal;font-size:14px}
+.pos{font-size:12.5px;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px}
+.wko{font-size:16px}
+.wex{margin:4px 0 0 28px;font-size:15.5px}
+.exen{font-family:Lora,Georgia,serif;cursor:pointer;margin-left:6px}
+.exko{display:none;color:var(--mut);font-size:14.5px}
+.exko.show{display:block}
+/* 토글 */
+.fl{border-bottom:1px dashed var(--line);padding:8px 0}
+.flen{display:flex;align-items:center;gap:8px;font-family:Lora,Georgia,serif;font-size:17px}
+.flen span{flex:1}
+.tg{border:1.5px solid var(--p);color:var(--p);background:#fff;border-radius:8px;padding:2px 10px;font-size:14px;white-space:nowrap;font-family:'Noto Sans KR',sans-serif}
+.flko{display:none;margin:4px 0 0 34px;font-size:15.5px}
+.fl.open .flko{display:block}
+.fltip{font-size:14px;color:var(--p);margin-top:2px}
+/* 대화 */
+.dl{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.dl.now{background:var(--ye)}
+.spk{flex:0 0 auto;min-width:34px;font-weight:700;color:var(--p);font-size:15px}
+.dtx{flex:1}
+.den{font-family:Lora,Georgia,serif;font-size:17px;cursor:pointer}
+.dko{display:none;color:var(--mut);font-size:15px}
+.dl.open .dko{display:block}
+/* 채우기 */
+.tp{padding:10px 0;border-bottom:1px dashed var(--line)}
+.tps{font-family:Lora,Georgia,serif;font-size:18px;line-height:2.1}
+.blank{border:2px dashed var(--line);background:#fff;border-radius:8px;padding:0 10px;color:var(--mut);font-size:15px;font-family:'Noto Sans KR',sans-serif}
+.blank.next{border-color:var(--p);color:var(--p);background:var(--pl)}
+.blank.fill{border:2px solid var(--ok);background:var(--okl);color:var(--ok);font-weight:700;font-family:Lora,Georgia,serif;font-size:18px}
+.blank.shake{animation:sh .35s}
+@keyframes sh{0%,100%{transform:translateX(0)}30%{transform:translateX(-5px)}70%{transform:translateX(5px)}}
+.tpko{font-size:15px;color:var(--mut)}
+.tptip{display:none;font-size:14.5px;color:var(--p)}
+.tp.done .tptip{display:block}
+/* 문제 */
+.psg{position:sticky;top:58px;z-index:5;max-height:42vh;overflow-y:auto;background:#fdfcff;border:1.5px solid var(--p);border-radius:12px;padding:10px 12px;margin:6px 0 12px;font-family:Lora,Georgia,serif;font-size:16px;line-height:1.75;box-shadow:0 4px 12px rgba(59,47,138,.08)}
+.psg b,.psg u{font-family:inherit}
+.q{border-top:1px solid var(--line);padding:14px 0 10px}
+.q:first-of-type{border-top:none}
+.q.ok .qno{background:var(--ok)}
+.q.no .qno{background:var(--no)}
+.qq{font-size:16.5px;margin-bottom:8px}
+.qno{display:inline-block;min-width:26px;height:26px;line-height:26px;text-align:center;border-radius:13px;background:var(--p);color:#fff;font-size:13.5px;font-weight:700;margin-right:6px}
+.qtag{display:inline-block;font-size:12px;background:var(--no);color:#fff;border-radius:6px;padding:0 6px;margin-right:6px;vertical-align:middle}
+.ctx{background:#faf9ff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:8px;font-family:Lora,Georgia,serif;font-size:16px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;font-size:16px;min-height:44px}
+.opts.inline .opt{font-family:Lora,Georgia,serif;font-weight:600;min-width:120px;text-align:center}
+.opt .mk{color:var(--p);margin-right:6px;font-weight:700}
+.opt.pick{border-color:var(--p);background:var(--pl)}
+.opt.right{border-color:var(--ok);background:var(--okl)}
+.multi{font-size:13.5px;color:var(--no);margin-bottom:4px}
+.inw{display:flex;align-items:center;gap:6px;margin:4px 0}
+.inl{font-size:14px;color:var(--mut);white-space:nowrap}
+.inp{flex:1;width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:17px;font-family:Lora,Georgia,serif;background:#fff}
+.inp:focus{outline:none;border-color:var(--p)}
+.inp.good{border-color:var(--ok);background:var(--okl)}
+.inp.bad{border-color:var(--no);background:var(--nol)}
+.ta{resize:vertical;min-height:60px}
+.rwh{font-size:14px;color:var(--mut);margin-bottom:4px}
+.diff{font-family:Lora,Georgia,serif;font-size:16px;margin-top:4px}
+.dg{color:var(--ok)}.db{color:var(--no);text-decoration:underline}
+.ordp{font-size:15.5px;margin-bottom:6px}
+.oslot{min-height:52px;border:2px dashed var(--p);border-radius:10px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:#fdfcff}
+.oh{font-size:13.5px;color:var(--mut)}
+.opool{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-family:Lora,Georgia,serif;font-size:16.5px;min-height:44px}
+.oslot .chip{border-color:var(--p);background:var(--pl)}
+.chip.cn{border-color:#d9a400;background:#fffbea}
+.qbtn{display:flex;gap:8px;margin-top:10px}
+.fb{display:none;margin-top:8px;border-radius:10px;padding:8px 12px;font-size:15.5px}
+.fb.good,.fb.bad,.fb.warn{display:block}
+.fb.good{background:var(--okl)}
+.fb.bad{background:var(--nol)}
+.fb.warn{background:var(--ye)}
+.fb .ans{margin-top:2px}
+.fb .ans b{font-family:Lora,Georgia,serif}
+.fb .ex{margin-top:4px;color:#3d3a55;font-size:15px}
+.alt{color:var(--mut);font-size:14px}
+.qfoot{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:2px solid var(--pl)}
+.score{margin-top:8px;font-size:16px;color:var(--pd)}
+.pnav{display:flex;justify-content:space-between;gap:8px;margin-top:26px;flex-wrap:wrap}
+details.sum{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:12px 0}
+details.sum summary{font-weight:700;color:var(--p);cursor:pointer}
+@media (max-width:480px){body{font-size:16px}.top h1{font-size:20px}.wex{margin-left:0}.flko{margin-left:0}}
+</style></head>
+<body><div id="app"></div>
+<script>
+/* ===== DATA START ===== */
+var CFG={"brand":"강동미나 중고등부 · 중2 Lesson 7 (동아 윤정미)","title":"Lesson 7 Life in Space — 단어","sub":"단어 익히기 → 품사 묶음 → 품사 자리·구별 → 동사 변화 → 다의어 → 영영풀이 → 유의어·반의어 → 숙어 → 총 시험","tabs":[{"name":"📒 단어 익히기","intro":"<b>단어 🔊 → 뜻 → 예문 🔊</b> 순서로 익히세요. 예문을 누르면 해석이 나와요. 다 외웠으면 <b>\"뜻 가리기\"</b>를 누르고 스스로 확인! (가린 뜻을 누르면 하나씩 보여요)","blocks":[{"k":"wordlist","title":"교과서 단어 40개","items":[["container","명","그릇, 용기","Jonny opened a milk container.","Jonny는 우유 용기를 열었다."],["Earth","명","지구","We're going back to Earth tomorrow.","우리는 내일 지구로 돌아갈 거야."],["grass","명","잔디, 풀","They lay down on the soft green grass.","그들은 부드러운 초록 잔디 위에 누웠다."],["hill","명","언덕","Rada and Jonny ran up the nearest hill.","Rada와 Jonny는 가장 가까운 언덕을 뛰어 올라갔다."],["life","명","생활, 삶, 생명","They talked about life on Earth.","그들은 지구에서의 생활에 대해 이야기했다."],["marathon","명","마라톤","It's a marathon on a space station.","그것은 우주 정거장에서 하는 마라톤이야."],["Mars","명","화성","It's about Mars and its moons.","그것은 화성과 화성의 위성들에 관한 거야."],["moon","명","달, 위성","Mars has two moons.","화성에는 위성이 두 개 있다."],["secret","명/형","비밀 / 비밀의","It was their secret.","그것은 그들의 비밀이었다."],["space","명","우주, 공간","Rada and Jonny were born in space.","Rada와 Jonny는 우주에서 태어났다."],["space station","명","우주 정거장","Astronauts work on a space station.","우주 비행사들은 우주 정거장에서 일한다."],["space suit","명","우주복","You don't have to wear your big heavy space suits.","너희는 크고 무거운 우주복을 입을 필요가 없어."],["spaceship","명","우주선","Rada's family got on a spaceship.","Rada의 가족은 우주선에 탔다."],["taste","명/동","맛 / ~한 맛이 나다","I'm really curious about the taste.","나는 그 맛이 정말 궁금해."],["trip","명/동","여행 / 걸려 넘어지다","It's going to be a long trip.","긴 여행이 될 거야."],["type","명/동","유형, 종류 / 타자를 치다","It's a type of ice cream.","그것은 아이스크림의 한 종류야."],["float","동","(물 위나 공중에) 뜨다, 떠가다","The milk floated in the air.","우유가 공중에 떠다녔다."],["form","동/명","형성하다, 만들다 / 형태, 종류, 서식","The milk formed balls.","우유가 방울을 만들었다."],["land","동/명","착륙하다 / 땅, 육지","The spaceship finally landed.","우주선이 마침내 착륙했다."],["laugh","동/명","웃다 / 웃음","They looked at each other and laughed.","그들은 서로를 보며 웃었다."],["lie","동","눕다, 놓여 있다 (lie-lay-lain)","They lay down on the grass.","그들은 잔디 위에 누웠다."],["play","동/명","(영화 등이) 상영되다, 놀다, 연주하다 / 연극","The movie is playing at the Space Theater.","그 영화는 우주 극장에서 상영 중이야."],["roll","동/명","구르다, 굴러가다 / 두루마리, 롤빵","You can roll down the hills.","너는 언덕을 굴러 내려갈 수 있어."],["shake","동","흔들다 (shake-shook-shaken)","He opened a milk container and shook it.","그는 우유 용기를 열어서 흔들었다."],["swallow","동/명","삼키다 / 제비(새)","Jonny swallowed the balls.","Jonny는 그 방울들을 삼켰다."],["wear","동","입다 (wear-wore-worn)","People wear space suits in space.","사람들은 우주에서 우주복을 입는다."],["alright","형","괜찮은 (= all right)","That's alright. I'm so excited!","괜찮아요. 정말 신나요!"],["curious","형","호기심이 많은, 궁금한","I'm really curious about it.","나는 그게 정말 궁금해."],["far","형/부","먼 / 멀리","Rada lived far out in space.","Rada는 먼 우주에 살았다."],["hard","형/부","어려운, 단단한 / 열심히","It's hard to jump there.","그곳에서는 점프하기가 어렵다."],["soft","형","부드러운","The hills are covered with soft green grass.","언덕은 부드러운 초록 잔디로 덮여 있다."],["thirsty","형","목이 마른","Jonny was thirsty.","Jonny는 목이 말랐다."],["wet","형/동","젖은 / 적시다","You'll get wet.","너는 젖게 될 거야."],["anymore","부","(부정문에서) 더 이상","Rada and Jonny couldn't float anymore.","Rada와 Jonny는 더 이상 떠다닐 수 없었다."],["else","부","그 밖에, 또 다른","\"What else?\" asked Rada.","\"또 뭐가 있어요?\"라고 Rada가 물었다."],["ever","부","언제든, 지금까지 (한 번이라도)","Have you ever rolled down a hill?","언덕을 굴러 내려가 본 적 있어요?"],["everywhere","부","어디나, 도처에","There is air everywhere.","어디에나 공기가 있다."],["finally","부","마침내","The spaceship finally landed.","우주선이 마침내 착륙했다."],["later","부/형","나중에, 후에 / 더 늦은","Later that night, they talked about Earth.","그날 밤 늦게 그들은 지구에 대해 이야기했다."],["towards","전","~ 쪽으로, ~을 향하여","They floated towards Dad.","그들은 아빠 쪽으로 떠서 갔다."]]},{"k":"wordlist","title":"대화문·기타 지문 단어 12개","items":[["poster","명","포스터","This is a poster of the spaceship.","이것이 그 우주선의 포스터야."],["theater","명","극장","The movie is playing at the Space Theater.","그 영화는 우주 극장에서 상영 중이야."],["foreign","형","외국의","Living in a Foreign Country","외국에서 살기"],["adventure","명","모험","This book is about his adventures in the woods.","이 책은 숲속에서의 그의 모험에 관한 것이다."],["main character","명","주인공","The main characters are Dave and a big bear.","주인공은 Dave와 큰 곰이다."],["dessert","명","디저트, 후식","Did you hear about the new dessert?","새로 나온 디저트에 대해 들었니?"],["soft drink","명","청량음료","It is a soft drink.","그것은 청량음료야."],["character","명","등장인물","The characters are Rada, Jonny, Dad, and Mom.","등장인물은 Rada, Jonny, 아빠, 엄마이다."],["decide","동","결정하다","One day, they decide to go back to Earth.","어느 날, 그들은 지구로 돌아가기로 결정한다."],["arrive","동","도착하다","When they arrived on Earth, they ran up a hill.","지구에 도착했을 때 그들은 언덕을 뛰어 올라갔다."],["human","명","인간, 사람","The USA sent the first human to the moon.","미국은 최초의 인간을 달에 보냈다."],["almost","부","거의","It flew around the Earth almost 3,000 times.","그것은 지구 둘레를 거의 3,000번 돌았다."]]},{"k":"qset","title":"바로 확인 — 뜻 보고 단어 쓰기","note":"철자까지 정확하게!","qs":[{"t":"in","q":"삼키다","a":"swallow"},{"t":"in","q":"목이 마른","a":"thirsty"},{"t":"in","q":"착륙하다","a":"land"},{"t":"in","q":"(공중에) 떠가다","a":"float"},{"t":"in","q":"그릇, 용기","a":"container"},{"t":"in","q":"~ 쪽으로","a":"towards|toward"},{"t":"in","q":"호기심이 많은, 궁금한","a":"curious"},{"t":"in","q":"어디나, 도처에","a":"everywhere"},{"t":"in","q":"(부정문에서) 더 이상","a":"anymore"},{"t":"in","q":"우주선","a":"spaceship"}]}]},{"name":"🧬 품사 묶음","intro":"<b>뿌리 단어를 보고 알맞은 형태를 고르세요.</b> 맞히든 틀리든 확인을 누르면 그 묶음 전체가 🔊과 함께 나와요. 철자가 비슷한 함정이 섞여 있어요!","blocks":[{"k":"qset","title":"알맞은 형태 고르기","note":"<b>꼬리말로 품사 찾기</b> — 명사: -ity · -ness · -ence · -ment · -ter · -y / 동사: -en / 형용사: -y · -ed · -ing · -ous / 부사: 형용사 + ly","qs":[{"t":"mc","q":"curious (궁금한, 형) → <b>명사</b> \"호기심\"","o":["curiousity","curiosity","curiousness","curioment"],"a":1,"e":"[[curious]] 형 · [[curiosity]] 명 · [[curiously]] 부 — 철자 주의: curi<b>o</b>sity (u가 빠져요!)"},{"t":"mc","q":"curious → <b>부사</b> \"궁금해하며\"","o":["curiousely","curiusly","curiously","curiosly"],"a":2,"e":"형용사 + ly → [[curiously]]"},{"t":"mc","q":"thirsty (목마른, 형) ← <b>명사</b> \"갈증\"","o":["thirstness","thirsting","thirst","thirstment"],"a":2,"e":"[[thirst]] 명 → [[thirsty]] 형 (명사 + y = 형용사)"},{"t":"mc","q":"soft (부드러운, 형) → <b>명사</b> \"부드러움\"","o":["softness","softment","soften","softity"],"a":0,"e":"[[soft]] 형 · [[softness]] 명 · [[softly]] 부 · [[soften]] 동(부드럽게 하다)"},{"t":"mc","q":"soft → <b>동사</b> \"부드럽게 하다\"","o":["softize","ensoft","soften","softly"],"a":2,"e":"형용사 + en = 동사 → [[soften]] (t는 소리 안 남)"},{"t":"mc","q":"final (마지막의, 형) → <b>부사</b> \"마침내\"","o":["finaly","finally","finalily","finelly"],"a":1,"e":"final + ly → [[finally]] (l이 두 개!)"},{"t":"mc","q":"live (살다, 동) → <b>명사</b> \"삶, 생활\"","o":["lively","liveness","life","lifes"],"a":2,"e":"[[live]] 동 · [[life]] 명 · [[alive]] 형(살아 있는) · [[lively]] 형(활기찬) — lively는 \"생생한, 활기찬\"이라 함정!"},{"t":"mc","q":"live → <b>형용사</b> \"살아 있는\"","o":["alive","lifely","lifeful","lived"],"a":0,"e":"The honeybee looked [[alive]]. 처럼 보어 자리에 써요."},{"t":"mc","q":"secret (비밀, 명) → <b>부사</b> \"몰래, 비밀리에\"","o":["secretely","secretly","secretlly","secrety"],"a":1,"e":"[[secret]] 명·형 → [[secretly]] 부"},{"t":"mc","q":"different (다른, 형) → <b>명사</b> \"차이\"","o":["differance","differentness","difference","differentment"],"a":2,"e":"[[different]] 형 · [[difference]] 명 · [[differently]] 부 — -ent → -ence"},{"t":"mc","q":"contain (담다, 동) → <b>명사</b> \"그릇, 용기\"","o":["containor","container","containter","contain"],"a":1,"e":"동사 + er = 물건/사람 → [[container]]"},{"t":"mc","q":"excite (흥분시키다) → <b>감정을 느끼는</b> \"신이 난\" (사람이 주어)","o":["exciting","excited","excitement","excite"],"a":1,"e":"\"I'm so [[excited]]!\" — 사람이 느끼면 -ed, 무언가가 감정을 일으키면 -ing (\"It was [[exciting]]\")"},{"t":"mc","q":"excite → <b>명사</b> \"흥분, 신남\"","o":["excitment","excitness","excitement","excitemant"],"a":2,"e":"[[excitement]] — e를 빼지 않아요!"},{"t":"mc","q":"laugh (웃다, 동) → <b>명사</b> \"웃음\"","o":["laughter","laughment","laughness","laughful"],"a":0,"e":"[[laugh]] 동 → [[laughter]] 명"},{"t":"mc","q":"heavy (무거운, 형) → <b>부사</b> \"무겁게, 심하게\"","o":["heavyly","heavly","heavily","heaviely"],"a":2,"e":"자음 + y → y를 i로 바꾸고 ly: [[heavily]], [[easily]], [[happily]]"},{"t":"mc","q":"difficult (어려운, 형) → <b>명사</b> \"어려움\"","o":["difficultness","difficulty","difficultly","difficultity"],"a":1,"e":"[[difficulty]] — \"It's [[difficult]] to walk on Earth.\"의 명사형"},{"t":"mc","q":"amaze (놀라게 하다) → 본문 \"Yes, it's really ____!\" (그것이 놀라움을 줌)","o":["amazed","amazing","amazement","amaze"],"a":1,"e":"주어 it(언덕 굴러 내려가기)이 놀라움을 <b>주는</b> 쪽 → [[amazing]]"},{"t":"mc","q":"near (가까운) → <b>최상급</b> \"가장 가까운\"","o":["nearly","most near","nearest","nearer"],"a":2,"e":"\"the [[nearest]] hill\" — [[nearly]]는 \"거의\"라는 다른 단어! (함정)"}]},{"k":"html","html":"<details class=\"sum\"><summary>📋 품사 묶음 정리표 (펼치기)</summary><div class=\"tw\"><table class=\"t\">\n<tr><th>명사</th><th>동사</th><th>형용사</th><th>부사</th></tr>\n<tr><td>curiosity</td><td>-</td><td>curious</td><td>curiously</td></tr>\n<tr><td>thirst</td><td>-</td><td>thirsty</td><td>thirstily</td></tr>\n<tr><td>softness</td><td>soften</td><td>soft</td><td>softly</td></tr>\n<tr><td>life</td><td>live</td><td>alive · lively</td><td>-</td></tr>\n<tr><td>difference</td><td>differ</td><td>different</td><td>differently</td></tr>\n<tr><td>excitement</td><td>excite</td><td>excited · exciting</td><td>excitedly</td></tr>\n<tr><td>amazement</td><td>amaze</td><td>amazed · amazing</td><td>amazingly</td></tr>\n<tr><td>container</td><td>contain</td><td>-</td><td>-</td></tr>\n<tr><td>laughter</td><td>laugh</td><td>-</td><td>-</td></tr>\n<tr><td>difficulty</td><td>-</td><td>difficult</td><td>-</td></tr>\n<tr><td>secret</td><td>-</td><td>secret</td><td>secretly</td></tr>\n<tr><td>-</td><td>-</td><td>final</td><td>finally</td></tr>\n</table></div></details>"}]},{"name":"🔤 품사 자리·구별","intro":"<b>자리를 보고 품사를 고르세요.</b> the·소유격 뒤는 명사, 명사 앞은 형용사, be동사·look·sound·get 뒤 보어는 형용사, 동사를 꾸미면 부사예요. 고르면 바로 채점돼요. 아래에는 <b>한 단어가 여러 품사로 쓰이는 것</b>을 모아 두었어요.","blocks":[{"k":"qset","title":"문장에 맞는 형태 고르기","qs":[{"t":"mc","inline":1,"q":"I'm really curious about the ______.","o":["taste","tasty"],"a":0,"e":"the 뒤 = 명사 자리 → <b>taste</b>(맛)"},{"t":"mc","inline":1,"q":"The new space food looks ______.","o":["good","well"],"a":0,"e":"look + <b>형용사</b> (~하게 보이다) → good. well은 부사라서 ✗"},{"t":"mc","inline":1,"q":"That sounds ______.","o":["interesting","interestingly"],"a":0,"e":"sound + <b>형용사</b> → interesting"},{"t":"mc","inline":1,"q":"The spaceship ______ landed.","o":["final","finally"],"a":1,"e":"동사 landed를 꾸밈 → 부사 <b>finally</b>"},{"t":"mc","inline":1,"q":"\"That's alright. I'm so ______!\" said Rada.","o":["excited","exciting"],"a":0,"e":"I(사람)가 신이 난 감정을 <b>느낌</b> → excited"},{"t":"mc","inline":1,"q":"It was ______ to think about all the new things.","o":["excited","exciting"],"a":1,"e":"생각하는 것(to think …)이 신나게 <b>만듦</b> → exciting"},{"t":"mc","inline":1,"q":"Jonny was ______, so he opened a milk container.","o":["thirst","thirsty"],"a":1,"e":"be동사 뒤 보어 → 형용사 <b>thirsty</b>"},{"t":"mc","inline":1,"q":"They lay down on the ______ green grass.","o":["soft","softly"],"a":0,"e":"명사 grass 앞 → 형용사 <b>soft</b>"},{"t":"mc","inline":1,"q":"If you drink milk that way, you'll get ______.","o":["wet","wetly"],"a":0,"e":"get + 형용사 (~하게 되다) → <b>wet</b>"},{"t":"mc","inline":1,"q":"Her ______ made her open the old book.","o":["curious","curiosity"],"a":1,"e":"소유격 Her 뒤 → 명사 <b>curiosity</b>"},{"t":"mc","inline":1,"q":"Everything is ______ on Earth.","o":["different","difference"],"a":0,"e":"be동사 뒤 \"다른\" → 형용사 <b>different</b>"},{"t":"mc","inline":1,"q":"He walked ______ because of gravity.","o":["heavy","heavily"],"a":1,"e":"동사 walked를 꾸밈 → 부사 <b>heavily</b>"}]},{"k":"flip","title":"한 단어 · 여러 품사 — 자리로 구별하기","note":"<b>판단 순서</b> — ① 단어 바로 앞을 본다 (a·the·소유격 → 명사 / 주어 → 동사) ② 단어 바로 뒤를 본다 (명사가 오면 형용사) ③ 동사·문장 전체를 꾸미면 부사","rows":[["I'm really curious about the <b>taste</b>.","명사 — 맛 (the 뒤)","↔ The ice cream <b>tastes</b> sweet. 동사 — ~한 맛이 나다 (주어 뒤, -s · 뒤에 형용사)"],["\"What's that <b>sound</b>?\" asked Rada.","명사 — 소리 (that 뒤)","↔ That <b>sounds</b> interesting. 동사 — ~하게 들리다 (뒤에 형용사)"],["The spaceship finally <b>landed</b>.","동사 — 착륙하다 (주어 뒤, -ed)","↔ Frogs live on <b>land</b> and in water. 명사 — 땅, 육지 (전치사 뒤)"],["The milk floated in the air and <b>formed</b> balls.","동사 — 만들다, 형성하다","↔ Movies are a <b>form</b> of art. 명사 — 형태, 종류 (a 뒤) / Fill out this <b>form</b>. 서식"],["It's also <b>hard</b> to jump there.","형용사 — 어려운 (be동사 뒤)","↔ He studies <b>hard</b>. 부사 — 열심히 (동사 꾸밈) · 함정: <b>hardly</b> = 거의 ~않다 (다른 단어!)"],["Rada lived on a little world, <b>far</b> out in space.","부사 — 멀리 (out in space를 꾸밈)","↔ They traveled to a <b>far</b> country. 형용사 — 먼 (명사 앞)"],["It was their <b>secret</b>.","명사 — 비밀 (소유격 their 뒤)","↔ They found a <b>secret</b> room. 형용사 — 비밀의 (명사 앞) · 부사는 secretly"],["At the top, they looked at each other and <b>laughed</b>.","동사 — 웃다","↔ She gave a big <b>laugh</b>. 명사 — 웃음 (a big 뒤) · laughter도 명사"],["They <b>rolled</b> down the hill.","동사 — 구르다","↔ a <b>roll</b> of paper 명사 — 두루마리 / a bread <b>roll</b> 롤빵"],["Jonny <b>swallowed</b> the balls.","동사 — 삼키다","↔ A <b>swallow</b> is a small bird. 명사 — 제비"],["If you drink milk that way on Earth, you'll get <b>wet</b>.","형용사 — 젖은 (get 뒤 보어)","↔ Don't <b>wet</b> your shoes. 동사 — 적시다 (wet-wet-wet)"],["It's going to be a long <b>trip</b>.","명사 — 여행 (a long 뒤)","↔ Don't <b>trip</b> over the rock. 동사 — 걸려 넘어지다"],["It's a <b>type</b> of ice cream.","명사 — 종류 (a 뒤)","↔ Can you <b>type</b> fast? 동사 — 타자를 치다 (can 뒤)"],["The movie is <b>playing</b> at the Space Theater.","동사 — 상영되다","↔ We watched a school <b>play</b>. 명사 — 연극 (a school 뒤)"],["<b>Later</b> that night, Rada and Jonny talked a long time about Earth.","부사 — 나중에, 그 후에","↔ Let's take a <b>later</b> train. 형용사 — 더 늦은 (명사 앞)"],["At the <b>top</b>, they looked at each other.","명사 — 꼭대기 (the 뒤)","↔ the <b>top</b> floor 형용사 — 맨 위의 (명사 앞)"],["\"What's it <b>like</b> on Earth?\"","전치사 — ~ 같은 (What is it like? = 어떠니?)","↔ I <b>like</b> space movies. 동사 — 좋아하다 · 대답에 like를 쓰지 않음 (Yes, I like ✗)"],["<b>Well</b>, I heard it's really good.","감탄사 — 음, 글쎄 (문장 맨 앞 + 쉼표)","↔ She sings <b>well</b>. 부사 — 잘 / I'm <b>well</b>. 형용사 — 건강한"],["Look. It's <b>right</b> here.","부사 — 바로 (here를 꾸밈)","↔ You're <b>right</b>. 형용사 — 옳은 / on the <b>right</b> 명사 — 오른쪽"],["Jonny was thirsty, <b>so</b> he opened a milk container.","접속사 — 그래서 (쉼표 뒤, 문장 + 문장)","↔ I'm <b>so</b> excited! 부사 — 아주 (형용사 앞)"],["If you drink milk <b>that</b> way, you'll get wet.","형용사(지시) — 그런, 저 (명사 way 앞)","↔ <b>That</b> was the first new thing. 대명사 — 그것 (주어) / I heard (<b>that</b>) it's good. 접속사 — 생략 가능"]]},{"k":"qset","title":"밑줄 친 단어의 품사 고르기","note":"고르면 바로 채점! 앞뒤 단어를 먼저 보세요.","qs":[{"t":"mc","inline":1,"q":"I'm really curious about the <u>taste</u>.","o":["명사","동사","형용사","부사"],"a":0,"e":"the 뒤 → 명사 (맛)"},{"t":"mc","inline":1,"q":"This soup <u>tastes</u> salty.","o":["명사","동사","형용사","부사"],"a":1,"e":"주어 This soup 뒤 + -s → 동사 (~한 맛이 나다)"},{"t":"mc","inline":1,"q":"It's also <u>hard</u> to jump there.","o":["명사","동사","형용사","부사"],"a":2,"e":"It's 뒤 보어 → 형용사 (어려운)"},{"t":"mc","inline":1,"q":"Everyone worked <u>hard</u> on the spaceship.","o":["명사","동사","형용사","부사"],"a":3,"e":"동사 worked를 꾸밈 → 부사 (열심히)"},{"t":"mc","inline":1,"q":"Rada lived on a little world, <u>far</u> out in space.","o":["명사","동사","형용사","부사"],"a":3,"e":"out in space를 꾸밈 → 부사 (멀리)"},{"t":"mc","inline":1,"q":"They traveled to a <u>far</u> country.","o":["명사","동사","형용사","부사"],"a":2,"e":"명사 country 앞 → 형용사 (먼)"},{"t":"mc","inline":1,"q":"It was their <u>secret</u>.","o":["명사","동사","형용사","부사"],"a":0,"e":"소유격 their 뒤 → 명사 (비밀)"},{"t":"mc","inline":1,"q":"They found a <u>secret</u> room.","o":["명사","동사","형용사","부사"],"a":2,"e":"명사 room 앞 → 형용사 (비밀의)"},{"t":"mc","inline":1,"q":"What's that <u>sound</u>?","o":["명사","동사","형용사","부사"],"a":0,"e":"that 뒤 → 명사 (소리)"},{"t":"mc","inline":1,"q":"That <u>sounds</u> interesting.","o":["명사","동사","형용사","부사"],"a":1,"e":"주어 That 뒤 + -s, 뒤에 형용사 → 동사 (~하게 들리다)"},{"t":"mc","inline":1,"q":"\"What's it <u>like</u> on Earth?\"","o":["동사","전치사","접속사","감탄사"],"a":1,"e":"What is it like? → like는 전치사 (~ 같은). \"좋아하다\"가 아니에요!"},{"t":"mc","inline":1,"q":"<u>Well</u>, I heard it's really good.","o":["형용사","부사","접속사","감탄사"],"a":3,"e":"문장 맨 앞 + 쉼표 → 감탄사 (음, 글쎄)"},{"t":"mc","inline":1,"q":"Jonny was thirsty, <u>so</u> he opened a milk container.","o":["형용사","부사","접속사","전치사"],"a":2,"e":"문장과 문장을 이어 줌 → 접속사 (그래서)"},{"t":"mc","inline":1,"q":"\"That's alright. I'm <u>so</u> excited!\"","o":["형용사","부사","접속사","전치사"],"a":1,"e":"형용사 excited를 꾸밈 → 부사 (아주)"},{"t":"mc","inline":1,"q":"<u>Later</u> that night, Rada and Jonny talked a long time about Earth.","o":["명사","동사","형용사","부사"],"a":3,"e":"문장 전체의 시간을 꾸밈 → 부사 (나중에)"},{"t":"mc","inline":1,"q":"If you drink milk that way on Earth, you'll get <u>wet</u>.","o":["명사","동사","형용사","부사"],"a":2,"e":"get 뒤 보어 → 형용사 (젖은). get wet = 젖다"}]},{"k":"qset","title":"시험처럼 — 같은 품사 · 다른 품사 찾기","qs":[{"t":"mc","q":"밑줄 친 단어의 품사가 나머지와 <b>다른</b> 것은?","o":["The spaceship finally <u>landed</u>.","The milk <u>formed</u> balls.","Jonny <u>swallowed</u> the balls.","You'll get <u>wet</u>.","They <u>rolled</u> down the hill."],"a":3,"e":"④ wet은 형용사 (get 뒤 보어). 나머지는 모두 동사"},{"t":"mc","q":"밑줄 친 단어가 <b>명사</b>로 쓰인 것은?","o":["The plane will <u>land</u> soon.","Frogs live on <u>land</u> and in water.","Can you <u>type</u> fast?","Don't <u>trip</u> over the rock.","The cake <u>tastes</u> good."],"a":1,"e":"② 전치사 on 뒤 → 명사 (땅). 나머지는 동사"},{"t":"mc","q":"밑줄 친 that의 쓰임이 〈보기〉와 같은 것은?<br>〈보기〉 I heard <u>that</u> it's really good.","o":["<u>That</u> was the first new thing.","If you drink milk <u>that</u> way, you'll get wet.","I think <u>that</u> the book is fun.","What's <u>that</u> sound?","<u>That</u>'s alright."],"a":2,"e":"〈보기〉와 ③은 접속사 that (생략 가능). ① ⑤ 대명사, ② ④ 지시형용사"},{"t":"mc","q":"밑줄 친 so의 쓰임이 〈보기〉와 같은 것은?<br>〈보기〉 Jonny was thirsty, <u>so</u> he opened a milk container.","o":["I'm <u>so</u> excited!","It was <u>so</u> hot today.","It was late, <u>so</u> we went home.","She is <u>so</u> kind.","Thank you <u>so</u> much."],"a":2,"e":"③ 접속사 (그래서). 나머지는 부사 (아주)"},{"t":"mc","q":"밑줄 친 hard의 품사와 뜻이 바르게 짝지어진 것은?","o":["It's <u>hard</u> to walk on Earth. — 부사, 열심히","The ground was <u>hard</u>. — 형용사, 단단한","He studied <u>hard</u>. — 형용사, 어려운","I <u>hardly</u> slept. — 부사, 열심히","Math is <u>hard</u> for me. — 부사, 단단하게"],"a":1,"e":"① 형용사·어려운 ③ 부사·열심히 ④ hardly = 거의 ~않다 ⑤ 형용사·어려운"},{"t":"mc","q":"밑줄 친 like의 쓰임이 나머지와 <b>다른</b> 것은?","o":["What's it <u>like</u> on Earth?","What's the weather <u>like</u> today?","I <u>like</u> space movies.","She looks <u>like</u> her mom.","It's soft <u>like</u> a cloud."],"a":2,"e":"③ 동사 (좋아하다). 나머지는 전치사 (~ 같은, ~처럼)"},{"t":"in","q":"빈칸에 공통으로 들어갈 말을 쓰세요. (한 단어, 필요하면 형태 변화)<br>• What's that ______? A bird is singing.<br>• That ______s interesting.","a":"sound","e":"명사 sound (소리) / 동사 sound (~하게 들리다)"},{"t":"in","q":"빈칸에 공통으로 들어갈 말을 쓰세요.<br>• Rada and Jonny looked at each other and ______ed.<br>• She has a big, happy ______.","a":"laugh","e":"동사 laugh (웃다) / 명사 laugh (웃음)"}]}]},{"name":"🔁 동사 변화","intro":"<b>현재완료(have + p.p.)를 쓰려면 p.p.를 알아야 해요!</b> 원형 🔊 → 과거 → 과거분사 순서로 눌러 채우고, 아래 문제로 확인해요.","blocks":[{"k":"tap","title":"순서대로 눌러 채우기","note":"▢ 1 → ▢ 2 순서로 누르세요.","rows":[{"s":"see - {saw} - {seen}"},{"s":"hear - {heard} - {heard}"},{"s":"feel - {felt} - {felt}"},{"s":"shake - {shook} - {shaken}"},{"s":"lie(눕다) - {lay} - {lain}"},{"s":"lay(놓다) - {laid} - {laid}"},{"s":"wear - {wore} - {worn}"},{"s":"fly - {flew} - {flown}"},{"s":"run - {ran} - {run}"},{"s":"tell - {told} - {told}"},{"s":"think - {thought} - {thought}"},{"s":"drink - {drank} - {drunk}"},{"s":"eat - {ate} - {eaten}"},{"s":"go - {went} - {gone}"},{"s":"be - {was/were} - {been}"},{"s":"get - {got} - {got(ten)}"}]},{"k":"qset","title":"과거분사(p.p.) 쓰기","note":"본문에 나온 동사들이에요.","qs":[{"t":"in","q":"I've never ______ a blue sky. (see)","a":"seen","e":"see - saw - <b>seen</b>"},{"t":"in","q":"I've never ______ a bird sing. (hear)","a":"heard","e":"hear - heard - <b>heard</b>"},{"t":"in","q":"I've never ______ the wind. (feel)","a":"felt","e":"feel - felt - <b>felt</b>"},{"t":"in","q":"Have you ever ______ down a hill? (roll)","a":"rolled","e":"규칙 동사 → <b>rolled</b>"},{"t":"in","q":"He has ______ the milk container. (shake)","a":"shaken","e":"shake - shook - <b>shaken</b>"},{"t":"in","q":"She has never ______ a space suit. (wear)","a":"worn","e":"wear - wore - <b>worn</b>"},{"t":"in","q":"Then they ______ down on the soft green grass. (lie, 과거)","a":"lay","e":"lie(눕다) - <b>lay</b> - lain. lied는 \"거짓말했다\"!"},{"t":"in","q":"She ______ her books on the desk. (lay, 과거)","a":"laid","e":"lay(놓다) - <b>laid</b> - laid"},{"t":"mc","q":"다음 중 동사 변화가 <b>틀린</b> 것은?","o":["fly - flew - flown","drink - drank - drunk","run - ran - run","shake - shaked - shaked","think - thought - thought"],"a":3,"tag":"함정","e":"shake - <b>shook - shaken</b>"}]}]},{"name":"🎯 다의어","intro":"<b>한 단어, 여러 뜻!</b> 카드의 \"뜻 ▾\"로 확인한 다음 문제를 풀어요. 시험에는 \"같은 뜻으로 쓰인 것\"을 고르는 문제로 나와요.","blocks":[{"k":"flip","title":"다의어 카드","rows":[["The spaceship finally <b>landed</b>.","착륙하다 (동사)","↔ This <b>land</b> is good for farming. 땅, 육지 (명사)"],["They were born in <b>space</b>.","우주","↔ There is no more <b>space</b> in my bag. 공간"],["The milk <b>formed</b> balls.","만들다, 형성하다 (동사)","↔ Fill out this <b>form</b>. 서식 / Movies are a <b>form</b> of art. 종류, 형태"],["The movie is <b>playing</b> at the Space Theater.","상영되다","↔ <b>play</b> the piano 연주하다 / <b>play</b> soccer 경기하다"],["It's <b>hard</b> to jump there.","어려운","↔ The ground was <b>hard</b>. 단단한 / He studies <b>hard</b>. 열심히(부사)"],["I'm curious about the <b>taste</b>.","맛 (명사)","↔ This sauce <b>tastes</b> sweet. ~한 맛이 나다 (동사)"],["Mars has two <b>moons</b>.","위성","↔ the full <b>moon</b> 달"],["They <b>lay</b> down on the grass.","누웠다 (lie의 과거)","↔ The hen <b>lays</b> eggs. 알을 낳다 (lay) / Don't <b>lie</b> to me. 거짓말하다 (lie-lied-lied)"],["Look. It's <b>right</b> here.","바로","↔ You're <b>right</b>. 맞는 / Turn <b>right</b>. 오른쪽으로"]]},{"k":"qset","title":"같은 뜻 찾기","qs":[{"t":"mc","q":"밑줄 친 <u>land</u>의 뜻이 나머지와 <b>다른</b> 것은?","o":["The plane will <u>land</u> soon.","Butterflies <u>land</u> on flowers.","Frogs can live on <u>land</u>.","The spaceship didn't <u>land</u> safely.","A bird <u>landed</u> on the roof."],"a":2,"e":"③만 명사 \"땅, 육지\". 나머지는 동사 \"착륙하다, 내려앉다\""},{"t":"mc","q":"<u>space</u>가 \"공간\"의 뜻으로 쓰인 것은?","o":["Rada was born in <u>space</u>.","Can people live in <u>space</u>?","Is there enough <u>space</u> for my bike?","He wants to travel to <u>space</u>.","We saw many stars in <u>space</u>."],"a":2,"e":"③ \"자전거 놓을 공간이 충분하니?\" 나머지는 \"우주\""},{"t":"mc","q":"본문 \"The milk floated in the air and <u>formed</u> balls.\"의 formed와 같은 뜻은?","o":["Please fill out this <u>form</u>.","Ice is a <u>form</u> of water.","They <u>formed</u> a dance club.","What <u>form</u> of music do you like?","Write your name on the <u>form</u>."],"a":2,"e":"\"만들다, 형성하다\" → ③ 동아리를 만들었다. ①⑤ 서식, ②④ 형태·종류"},{"t":"mc","q":"\"The movie is <u>playing</u> at the Space Theater.\"의 playing과 같은 뜻은?","o":["She is <u>playing</u> the violin.","A new film is <u>playing</u> at the theater.","The kids are <u>playing</u> outside.","He is <u>playing</u> soccer now.","They are <u>playing</u> a game."],"a":1,"e":"\"상영되다\" → ②"},{"t":"mc","q":"<u>hard</u>가 \"어려운\"의 뜻으로 쓰인 것은?","o":["He worked <u>hard</u> all day.","This bread is too <u>hard</u>.","It's <u>hard</u> to walk on Earth.","Study <u>hard</u> for the test.","The chair is <u>hard</u> and cold."],"a":2,"e":"③ 가주어 문장의 \"어려운\". ①④ 열심히(부사), ②⑤ 단단한"},{"t":"mc","q":"<u>taste</u>가 <b>동사</b>로 쓰인 것은?","o":["I love the <u>taste</u> of apples.","The ice cream <u>tastes</u> sweet.","I'm curious about the <u>taste</u>.","It has a strange <u>taste</u>.","What is the <u>taste</u> like?"],"a":1,"e":"② taste + 형용사 = ~한 맛이 나다. 나머지는 명사 \"맛\""},{"t":"mc","q":"빈칸에 공통으로 들어갈 단어는?<br>• Movies are one important ______ of culture.<br>• Water drops ______ balls in space.","o":["type","land","form","float","play"],"a":2,"e":"종류(명사) / 만들다(동사) → <b>form</b>"},{"t":"mc","q":"빈칸에 공통으로 들어갈 단어는?<br>• The plane will ______ at 3 p.m.<br>• This ______ is not good for farming.","o":["space","land","form","hill","trip"],"a":1,"e":"착륙하다 / 땅 → <b>land</b>"}]}]},{"name":"📖 영영풀이","intro":"<b>풀이 속 핵심 단어</b>를 먼저 찾으세요. 예: \"move … by turning over and over\" → 구르다(roll)","blocks":[{"k":"flip","title":"영영풀이 카드","note":"굵은 글씨가 정답을 찾는 열쇠예요.","rows":[["<b>container</b>: something such as a box or bowl that you use to <b>keep things in</b>","용기, 그릇"],["<b>moon</b>: a round object that <b>moves around a planet</b> other than Earth","위성"],["<b>float</b>: to stay or move on the surface of a liquid <b>without sinking</b>","뜨다, 떠가다"],["<b>roll</b>: to move across the ground by <b>turning over and over</b>","구르다"],["<b>swallow</b>: to make food or drink <b>go down your throat</b>","삼키다"],["<b>curious</b>: <b>wanting to know</b> about something","궁금한"],["<b>thirsty</b>: feeling that you <b>need a drink</b>","목마른"],["<b>towards</b>: <b>in the direction of</b> something or someone","~ 쪽으로"],["<b>secret</b>: something that you <b>do not tell</b> other people","비밀"],["<b>land</b>: to <b>come down</b> to the ground after flying","착륙하다"],["<b>spaceship</b>: a vehicle that <b>travels in space</b>","우주선"],["<b>shake</b>: to move something <b>quickly up and down</b> or from side to side","흔들다"],["<b>wet</b>: covered with <b>water or another liquid</b>","젖은"],["<b>hill</b>: an area of land that is <b>higher</b> than the land around it, but not as high as a mountain","언덕"]]},{"k":"qset","title":"풀이 보고 단어 쓰기","qs":[{"t":"in","q":"to make food or drink go down your throat","a":"swallow"},{"t":"in","q":"to move across the ground by turning over and over","a":"roll"},{"t":"in","q":"wanting to know about something","a":"curious"},{"t":"in","q":"something such as a box or bowl that you use to keep things in","a":"container"},{"t":"in","q":"to stay or move on the surface of a liquid without sinking","a":"float"},{"t":"in","q":"feeling that you need a drink","a":"thirsty"},{"t":"in","q":"a round object that moves around a planet other than Earth","a":"moon"},{"t":"in","q":"in the direction of something or someone","a":"towards|toward"},{"t":"in","q":"something that you do not tell other people","a":"secret"},{"t":"in","q":"to come down to the ground after flying","a":"land"}]},{"k":"qset","title":"단어 보고 풀이 고르기","qs":[{"t":"mc","q":"<b>float</b>","o":["to move across the ground by turning over and over","to stay or move on the surface of a liquid without sinking","to make food go down your throat","to come down to the ground after flying"],"a":1},{"t":"mc","q":"<b>swallow</b>","o":["to move something quickly up and down","to make food or drink go down your throat","feeling that you need a drink","wanting to know about something"],"a":1},{"t":"mc","q":"다음 영영풀이에 해당하는 단어가 <b>아닌</b> 것은?<br>(a) feeling that you need a drink (b) in the direction of something (c) to move across the ground by turning over and over","o":["thirsty","towards","roll","float"],"a":3,"e":"(a) thirsty (b) towards (c) roll — float는 없어요."}]}]},{"name":"↔ 유의어·반의어","intro":"<b>짝으로 외우기!</b> 시험에는 \"짝지어진 관계가 다른 것\" 고르기로 자주 나와요.","blocks":[{"k":"flip","title":"유의어 (=)","rows":[["moon = satellite","위성"],["space = universe = cosmos","우주"],["spaceship = spacecraft = space shuttle","우주선"],["form = make = produce","만들다"],["type = kind = sort","종류"],["finally = at last = in the end = eventually","마침내"],["alright = all right = OK","괜찮은"],["don't have to = don't need to = need not","~할 필요가 없다"],["hard = difficult","어려운"],["For example = For instance","예를 들어"],["The next day = The following day","다음 날"]]},{"k":"flip","title":"반의어 (↔)","rows":[["wet ↔ dry","젖은 ↔ 마른"],["float ↔ sink","뜨다 ↔ 가라앉다"],["land ↔ take off","착륙하다 ↔ 이륙하다"],["get on ↔ get off","타다 ↔ 내리다"],["soft ↔ hard","부드러운 ↔ 단단한"],["far ↔ near","먼 ↔ 가까운"],["laugh ↔ cry","웃다 ↔ 울다"],["wear ↔ take off","입다 ↔ 벗다"],["pull ↔ push","당기다 ↔ 밀다"],["top ↔ bottom","꼭대기 ↔ 바닥"],["everywhere ↔ nowhere","어디나 ↔ 아무 데도 ~않다"]]},{"k":"qset","title":"짝 찾기","qs":[{"t":"mc","q":"짝지어진 단어의 관계가 나머지와 <b>다른</b> 것은?","o":["wet : dry","float : sink","finally : at last","land : take off","get on : get off"],"a":2,"e":"③만 유의어, 나머지는 반의어"},{"t":"mc","q":"짝지어진 단어의 관계가 나머지와 <b>다른</b> 것은?","o":["type : kind","moon : satellite","space : universe","soft : hard","form : make"],"a":3,"e":"④만 반의어"},{"t":"mc","q":"밑줄 친 부분과 바꿔 쓸 수 있는 것은?<br>The spaceship <u>finally</u> landed.","o":["at first","at last","at once","at least","at all"],"a":1,"e":"finally = at last = in the end"},{"t":"mc","q":"밑줄 친 부분과 바꿔 쓸 수 있는 것을 <b>모두</b> 고르면?<br>You <u>don't have to</u> wear space suits.","o":["must not","don't need to","need not","can't","have not to"],"a":[1,2],"e":"don't have to = <b>don't need to = need not</b> (~할 필요 없다). must not은 \"~하면 안 된다\" (금지)! need not 뒤에는 to 없이 동사원형."},{"t":"in","q":"반의어 쓰기: land ↔ take ______","a":"off"},{"t":"in","q":"반의어 쓰기: float ↔ ______","a":"sink"},{"t":"in","q":"유의어 쓰기: type = k______","a":"kind"},{"t":"in","q":"유의어 쓰기: moon = s______","a":"satellite"}]}]},{"name":"🔗 숙어·표현","intro":"<b>전치사·부사별로 묶어서 외우기!</b> 🔊 듣고 → 뜻 ▾ 확인.","blocks":[{"k":"flip","title":"교과서 숙어 8개","rows":[["be born (in) — Rada and Jonny were born in space.","태어나다","Rada와 Jonny는 우주에서 태어났다."],["in surprise — They looked at Dad in surprise.","놀라서","그들은 놀라서 아빠를 바라보았다."],["pull down — Earth pulls you down.","~을 끌어내리다","지구가 너를 끌어당긴다."],["be covered with — The hills are covered with grass.","~로 덮여 있다","언덕은 잔디로 덮여 있다."],["get on — Rada's family got on a spaceship.","~에 타다 (↔ get off)","Rada의 가족은 우주선에 탔다."],["each other — They looked at each other and laughed.","서로","그들은 서로를 보며 웃었다."],["don't have to — You don't have to wear space suits.","~할 필요가 없다 (= don't need to)","너희는 우주복을 입을 필요가 없어."],["go back to — We're going back to Earth.","~로 돌아가다","우리는 지구로 돌아갈 거야."]]},{"k":"flip","title":"전치사·부사별로 묶기","note":"같은 단어끼리 묶으면 잘 안 헷갈려요.","rows":[["<b>about</b>: hear about · be curious about · talk about · think about · tell A about B","~에 대해 듣다 · 궁금하다 · 이야기하다 · 생각하다 · A에게 B에 대해 말하다"],["<b>down</b>: pull down · roll down · lie down","끌어내리다 · 굴러 내려가다 · 눕다"],["<b>up</b>: run up · run up to the top","뛰어 올라가다 · 꼭대기까지 뛰어 올라가다"],["<b>in</b>: in surprise · in space · in the air · be born in","놀라서 · 우주에서 · 공중에 · ~에서 태어나다"],["<b>on</b>: get on · on Earth · work on spaceships","타다 · 지구에서 · 우주선에서 일하다"],["<b>with</b>: be covered with · live with","~로 덮여 있다 · ~와 함께 살다"],["<b>of</b>: a type of · a poster of · the best ~ of all · the top of the hill","~의 한 종류 · ~의 포스터 · 모든 것 중 최고의 ~ · 언덕 꼭대기"],["<b>at</b>: at the top · look at · at 2:30","꼭대기에서 · ~을 보다 · 2시 30분에"],["<b>시간</b>: one day · later that night · all night · the next day","어느 날 · 그날 밤 늦게 · 밤새 · 다음 날"],["<b>기타</b>: What's it like? · that way · not ~ anymore · for example · each other","~은 어때? · 그런 식으로 · 더 이상 ~않다 · 예를 들어 · 서로"]]},{"k":"qset","title":"빈칸에 알맞은 말 쓰기","qs":[{"t":"in","q":"Rada and Jonny looked at Dad ______ surprise.","a":"in"},{"t":"in","q":"The hills are covered ______ soft green grass.","a":"with"},{"t":"in","q":"Rada's family got ______ a spaceship.","a":"on"},{"t":"in","q":"They looked at each ______ and laughed.","a":"other"},{"t":"in","q":"Rada and Jonny were ______ in space.","a":"born"},{"t":"in","q":"We're going ______ to Earth tomorrow.","a":"back"},{"t":"in","q":"\"What's it ______ on Earth?\" (지구는 어떤 곳이에요?)","a":"like"},{"t":"in","q":"They couldn't float ______. (더 이상)","a":"anymore"},{"t":"in","q":"Did you hear ______ the new movie?","a":"about"},{"t":"in","q":"This is the best new thing ______ all!","a":"of"},{"t":"mc","q":"어법상 <b>바른</b> 것은?","o":["Earth pulls down you.","Earth pulls you down.","Earth pulls down it.","Earth pull you down."],"a":1,"tag":"함정","e":"이어동사(pull down)의 목적어가 <b>대명사</b>면 반드시 가운데: pull <b>you</b> down. 명사면 둘 다 가능: pull down the shade / pull the shade down. ④ Earth는 3인칭 단수 → pulls"},{"t":"mc","q":"빈칸에 들어갈 말이 바르게 짝지어진 것은?<br>• The hill was covered ______ snow.<br>• Please get ______ the bus here.","o":["with - off","in - on","with - on","by - in","of - off"],"a":2,"e":"be covered <b>with</b> / get <b>on</b> (버스에 타다)"}]}]},{"name":"📝 총 시험","intro":"<b>총 30문항</b> (객관식 20 + 서술형 10). 다 푼 다음 <b>전체 채점</b> → <b>틀린 것만 다시</b>!","blocks":[{"k":"qset","title":"객관식 (1~20)","qs":[{"t":"mc","q":"다음 영영풀이에 해당하는 단어는?<br><i>to make food or drink go down your throat</i>","o":["float","bite","roll","shake","swallow"],"a":4},{"t":"mc","q":"짝지어진 단어의 관계가 〈보기〉와 같은 것은?<br>〈보기〉 curious : curiosity","o":["thirst : thirsty","soft : soften","different : difference","final : finally","live : alive"],"a":2,"e":"형용사 : 명사 → different : difference. ①명:형 ②형:동 ④형:부 ⑤동:형"},{"t":"mc","q":"빈칸에 들어갈 말이 바르게 짝지어진 것은?<br>• The hills are covered ______ flowers.<br>• It's too bright. Please pull ______ the blinds.","o":["with - up","with - down","in - down","by - up","of - down"],"a":1},{"t":"mc","q":"밑줄 친 단어의 뜻이 나머지와 <b>다른</b> 것은?","o":["This <u>land</u> is too dry.","Most <u>land</u> here is poor.","When will the plane <u>land</u>?","Thirty percent of Earth is <u>land</u>.","They bought some <u>land</u>."],"a":2,"e":"③만 동사 \"착륙하다\""},{"t":"mc","q":"\"space\"와 결합하여 복합 명사를 만들 수 <b>없는</b> 것은?","o":["food","suit","station","moon","travel"],"a":3,"e":"space food, space suit, space station, space travel ✓ / space moon ✗"},{"t":"mc","q":"빈칸에 들어갈 말이 순서대로 바르게 짝지어진 것은?<br>• Don't ______ in the sun for too long.<br>• The cat ______ down on the sofa and slept.<br>• The hen ______ an egg every morning.","o":["lie - lay - lays","lay - lied - lays","lie - lied - lies","lay - laid - lies","lie - lay - lies"],"a":0,"e":"눕다 lie(원형) / 누웠다 lay(lie의 과거) / 알을 낳다 lays(lay의 3인칭)"},{"t":"mc","q":"밑줄 친 부분과 의미가 같은 것은?<br>You <u>don't have to</u> bring your lunch.","o":["must not","should","need not","can't","have not to"],"a":2},{"t":"mc","q":"빈칸에 공통으로 들어갈 말은?<br>• Ice cream is a ______ of dessert.<br>• What ______ of music do you like?","o":["taste","type","trip","life","secret"],"a":1},{"t":"mc","q":"우리말과 같도록 할 때 빈칸에 알맞은 것은?<br>그들은 서로를 보며 웃었다. → They looked at ______ and laughed.","o":["each another","one other","each other","other each","the other"],"a":2},{"t":"mc","q":"밑줄 친 단어의 쓰임이 <b>틀린</b> 것은?","o":["He is <u>lying</u> on his back.","She <u>lay</u> down on the bed.","I <u>laid</u> my bag on the desk.","I <u>lay</u> to her yesterday, so she is angry.","The town <u>lies</u> near the sea."],"a":3,"tag":"함정","e":"\"거짓말했다\"는 lie - <b>lied</b> - lied → I <b>lied</b> to her."},{"t":"mc","q":"빈칸에 알맞은 것은?<br>The spaceship ______ landed after a long trip.","o":["final","finally","finish","finished","first"],"a":1},{"t":"mc","q":"짝지어진 단어의 관계가 나머지와 <b>다른</b> 것은?","o":["get on : get off","float : sink","wet : dry","type : kind","land : take off"],"a":3},{"t":"mc","q":"빈칸에 알맞은 것은?<br>I'm so ______ about the trip to Earth!","o":["exciting","excite","excited","excitement","excites"],"a":2,"e":"I가 감정을 느낌 → excited"},{"t":"mc","q":"밑줄 친 부분과 바꿔 쓸 수 있는 것은?<br><u>For example</u>, the sky is blue.","o":["For instance","For a while","In fact","By the way","At last"],"a":0},{"t":"mc","q":"밑줄 친 <u>space</u>의 뜻이 나머지와 <b>다른</b> 것은?","o":["They were born in <u>space</u>.","He wants to travel to <u>space</u>.","There is not enough <u>space</u> in the car.","The sky is black in <u>space</u>.","Astronauts eat special food in <u>space</u>."],"a":2,"e":"③ \"공간\". 나머지는 \"우주\""},{"t":"mc","q":"다음 영영풀이에 해당하는 단어를 순서대로 짝지은 것은?<br>(A) wanting to know about something<br>(B) in the direction of something or someone","o":["thirsty - towards","curious - towards","curious - everywhere","secret - towards","curious - else"],"a":1},{"t":"mc","q":"밑줄 친 부분의 뜻으로 알맞은 것은?<br>They <u>couldn't</u> float <u>anymore</u>.","o":["아직 ~않다","다시 ~하다","더 이상 ~할 수 없었다","결코 ~한 적 없다","곧 ~할 것이다"],"a":2},{"t":"mc","q":"빈칸에 알맞은 것은?<br>\"What ______?\" asked Rada. (그 밖에 또 뭐가 있어요?)","o":["else","other","another","more","ever"],"a":0},{"t":"mc","q":"밑줄 친 <u>right</u>의 뜻이 나머지와 <b>다른</b> 것은?","o":["Look. It's <u>right</u> here.","The book is <u>right</u> behind you.","He was standing <u>right</u> in front of me.","I think you are <u>right</u>.","The store is <u>right</u> next to the bank."],"a":3,"e":"④ \"옳은, 맞는\". 나머지는 \"바로\""},{"t":"mc","q":"어법상 <b>바른</b> 것은?","o":["Earth pulls down you.","He shaked the bottle.","They lay down on the grass yesterday.","Have you ever rolling down a hill?","She has wore a space suit."],"a":2,"e":"① pulls you down ② shook ④ rolled ⑤ worn"}]},{"k":"qset","title":"서술형 (21~30)","start":21,"qs":[{"t":"in","q":"빈칸에 알맞은 한 단어 (형태 주의)<br>He ______ off his bed while he was sleeping. (roll, 과거)","a":"rolled"},{"t":"in","q":"우리말에 맞게 쓰기: 그의 차는 먼지로 덮여 있었다.<br>His car ______ ______ ______ dust.","a":"was covered with","ph":"세 단어","e":"be covered with — 과거이므로 was"},{"t":"in","q":"유의어 쓰기: produce = f______ = m______ (두 단어를 순서대로)","a":["form","make"],"lb":["f","m"]},{"t":"in","q":"lie를 알맞은 형태로: My mother is ______ in bed because of a bad cold.","a":"lying","e":"lie → lying (ie → y + ing)"},{"t":"in","q":"lie를 알맞은 형태로: We ______ down on the grass last night and saw many stars.","a":"lay"},{"t":"in","q":"우리말에 맞게 두 단어로: 그녀는 놀라서 소리를 질렀다.<br>She shouted ______.","a":"in surprise"},{"t":"in","q":"반의어 쓰기: The plane will take off soon. ↔ The plane will ______ soon.","a":"land"},{"t":"in","q":"영영풀이에 맞는 단어: something such as a box or bowl that you use to keep things in","a":"container"},{"t":"in","q":"curious의 명사형을 쓰시오. (철자 주의)","a":"curiosity"},{"t":"in","q":"우리말에 맞게 쓰기: 우리는 다음 주에 서울로 돌아갈 거야.<br>We are ______ ______ ______ Seoul next week.","a":"going back to","ph":"세 단어"}]}]}],"sents":[]};
+/* ===== DATA END ===== */
+</script>
+<script>/* ===== 강동미나 인터랙티브 엔진 (DATA는 CFG) ===== */
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+/* [[word]] → 발음 칩, {{12}} → 문장 번호 버튼 */
+function rich(s){
+  if(s==null)return '';
+  return String(s)
+    .replace(/\[\[([^\]]+)\]\]/g,function(m,w){return '<button class="sw" data-say="'+esc(w.replace(/<[^>]+>/g,''))+'">'+w+'</button>';})
+    .replace(/\{\{(\d+)\}\}/g,function(m,n){return '<button class="ref" data-n="'+n+'">'+n+'번</button>';});
+}
+/* ---------- TTS ---------- */
+var VOICE=null,ttsOK=('speechSynthesis' in window);
+function pickVoice(){
+  if(!ttsOK)return;
+  var vs=speechSynthesis.getVoices()||[];
+  VOICE=null;
+  for(var i=0;i<vs.length;i++){if(/william/i.test(vs[i].name)&&/^en/i.test(vs[i].lang)){VOICE=vs[i];break;}}
+  if(!VOICE){for(i=0;i<vs.length;i++){if(/^en[-_]US/i.test(vs[i].lang)){VOICE=vs[i];break;}}}
+}
+if(ttsOK){pickVoice();try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){}}
+var unlocked=false;
+function unlock(){
+  if(unlocked||!ttsOK)return;unlocked=true;
+  try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}catch(e){}
+  var h=$('#ttsHint');if(h)h.style.display='none';
+}
+['touchstart','mousedown','click'].forEach(function(ev){document.addEventListener(ev,unlock,{passive:true,capture:true});});
+function say(text,slow,onend){
+  if(!ttsOK){if(onend)onend();return;}
+  try{
+    speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(String(text).replace(/[“”]/g,'"'));
+    if(!VOICE)pickVoice();
+    if(VOICE){u.voice=VOICE;u.lang=VOICE.lang;}else u.lang='en-US';
+    u.rate=slow?0.7:0.92;
+    if(onend)u.onend=onend;
+    speechSynthesis.speak(u);
+  }catch(e){if(onend)onend();}
+}
+window.__say=say;
+/* ---------- 채점 정규화 ---------- */
+function norm(s){
+  return String(s).replace(/[’‘`]/g,"'").replace(/[“”]/g,'"').toLowerCase()
+    .replace(/[^a-z0-9\-\s가-힣]/g,' ').replace(/\s+/g,' ').trim();
+}
+function alts(a){return String(a).split('|').map(function(x){return x.trim();});}
+function okText(input,ans){var n=norm(input);if(!n)return false;return alts(ans).some(function(a){return norm(a)===n;});}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* ---------- 상단 ---------- */
+var app=$('#app');
+var head=el('header','top');
+head.innerHTML='<div class="brand">'+esc(CFG.brand)+'</div><h1>'+esc(CFG.title)+'</h1><div class="sub">'+esc(CFG.sub||'')+'</div>'+
+ '<div id="ttsHint" class="hint">🔊 소리가 안 나면 화면을 한 번 눌러 주세요.</div>';
+app.appendChild(head);
+var bar=el('nav','tabs');app.appendChild(bar);
+var main=el('main','wrap');app.appendChild(main);
+var ALLQ=[];window.__Q=ALLQ;
+var SENTS={};(CFG.sents||[]).forEach(function(s){SENTS[s.n]=s;});
+
+/* ---------- 공통 클릭 ---------- */
+document.addEventListener('click',function(ev){
+  var s=ev.target.closest('[data-say]');
+  if(s){ev.stopPropagation();say(s.getAttribute('data-say'),s.classList.contains('slow'));s.classList.add('playing');setTimeout(function(){s.classList.remove('playing');},700);return;}
+  var r=ev.target.closest('.ref');
+  if(r){
+    var n=r.getAttribute('data-n'),host=r.closest('li,td,p,.rp,.tip,.warnbox,.anal,.intro')||r.parentNode;
+    var ex=host.querySelector('.refbox[data-n="'+n+'"]');
+    if(ex){ex.remove();r.classList.remove('on');return;}
+    var st=SENTS[n];if(!st)return;
+    var bx=el('div','refbox','<b>'+n+'.</b> '+esc(st.en)+' <button class="mini" data-say="'+esc(st.en)+'">🔊</button>');
+    bx.setAttribute('data-n',n);host.appendChild(bx);r.classList.add('on');
+  }
+});
+
+/* ---------- 블록 ---------- */
+function renderBlock(b){
+  var f=R[b.k];if(!f){console.error('unknown block',b.k);return null;}
+  return f(b);
+}
+var R={};
+R.h=function(b){return el('h2','bh',rich(b.html));};
+R.html=function(b){return el('div','rich',rich(b.html));};
+R.wordlist=function(b){
+  var box=el('div','card');
+  box.appendChild(el('h3','ct',rich(b.title||'')));
+  var tg=el('div','row');
+  var hide=el('button','btn sm','뜻 가리기');var showAll=el('button','btn sm ghost','예문 해석 모두 보기');
+  tg.appendChild(hide);tg.appendChild(showAll);box.appendChild(tg);
+  var list=el('div','wl');
+  b.items.forEach(function(w,i){
+    // [en,pos,ko,ex,exKo]
+    var r=el('div','wi');
+    r.innerHTML='<div class="wtop"><span class="no">'+(i+1)+'</span><button class="wen" data-say="'+esc(w[0])+'">'+esc(w[0])+' <i>🔊</i></button>'+
+      (w[1]?'<span class="pos">'+esc(w[1])+'</span>':'')+'<span class="wko">'+rich(w[2])+'</span></div>'+
+      (w[3]?'<div class="wex"><button class="mini" data-say="'+esc(w[3])+'">🔊</button><span class="exen">'+rich(w[3])+'</span><div class="exko">'+esc(w[4]||'')+'</div></div>':'');
+    var exen=r.querySelector('.exen');if(exen)exen.onclick=function(){r.querySelector('.exko').classList.toggle('show');};
+    var ko=r.querySelector('.wko');ko.onclick=function(){if(list.classList.contains('hideko'))ko.classList.toggle('peek');};
+    list.appendChild(r);
+  });
+  hide.onclick=function(){var on=list.classList.toggle('hideko');hide.textContent=on?'뜻 보이기':'뜻 가리기';$$('.wko',list).forEach(function(k){k.classList.remove('peek');});};
+  showAll.onclick=function(){var any=$$('.exko:not(.show)',list).length>0;$$('.exko',list).forEach(function(k){k.classList.toggle('show',any);});};
+  box.appendChild(list);
+  return box;
+};
+R.flip=function(b){
+  var box=el('div','card');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  var all=el('button','btn sm ghost','뜻 모두 펼치기');box.appendChild(all);
+  b.rows.forEach(function(r){
+    var it=el('div','fl');
+    it.innerHTML='<div class="flen"><button class="mini" data-say="'+esc(r[0].replace(/<[^>]+>/g,''))+'">🔊</button><span>'+rich(r[0])+'</span><button class="tg">뜻 ▾</button></div>'+
+      '<div class="flko">'+rich(r[1])+(r[2]?'<div class="fltip">'+rich(r[2])+'</div>':'')+'</div>';
+    it.querySelector('.tg').onclick=function(){var o=it.classList.toggle('open');this.textContent=o?'뜻 ▴':'뜻 ▾';};
+    box.appendChild(it);
+  });
+  all.onclick=function(){var cl=$$('.fl:not(.open)',box).length>0;$$('.fl',box).forEach(function(x){x.classList.toggle('open',cl);x.querySelector('.tg').textContent=cl?'뜻 ▴':'뜻 ▾';});all.textContent=cl?'뜻 모두 접기':'뜻 모두 펼치기';};
+  return box;
+};
+R.dlg=function(b){
+  var box=el('div','card dlg');
+  box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  var row=el('div','row');var play=el('button','btn sm','▶ 전체 듣기');var tr=el('button','btn sm ghost','해석 모두 보기');row.appendChild(play);row.appendChild(tr);box.appendChild(row);
+  b.lines.forEach(function(l){
+    var it=el('div','dl');
+    it.innerHTML='<span class="spk">'+esc(l[0])+'</span><div class="dtx"><div class="den">'+rich(l[1])+' <button class="mini" data-say="'+esc(l[1].replace(/<[^>]+>/g,''))+'">🔊</button></div><div class="dko">'+esc(l[2]||'')+'</div></div>';
+    it.querySelector('.den').onclick=function(e){if(e.target.closest('[data-say]'))return;it.classList.toggle('open');};
+    box.appendChild(it);
+  });
+  tr.onclick=function(){var cl=$$('.dl:not(.open)',box).length>0;$$('.dl',box).forEach(function(x){x.classList.toggle('open',cl);});};
+  play.onclick=function(){var i=0,ls=b.lines,its=$$('.dl',box);(function nx(){its.forEach(function(x){x.classList.remove('now');});if(i>=ls.length)return;its[i].classList.add('now');say(ls[i][1].replace(/<[^>]+>/g,''),false,function(){i++;setTimeout(nx,250);});})();};
+  return box;
+};
+/* 순서대로 눌러 채우기: s 안의 {답} */
+R.tap=function(b){
+  var box=el('div','card');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  b.rows.forEach(function(r){
+    var it=el('div','tp');
+    var k=0;
+    var html=esc(r.s).replace(/\{([^}]+)\}/g,function(m,a){return '<button class="blank" data-i="'+(k++)+'" data-a="'+a+'">'+(k===1?'①':'')+'</button>';});
+    it.innerHTML='<div class="tps">'+html+' <button class="mini" data-say="'+esc(r.s.replace(/[{}]/g,''))+'">🔊</button></div>'+(r.ko?'<div class="tpko">'+rich(r.ko)+'</div>':'')+(r.tip?'<div class="tptip">'+rich(r.tip)+'</div>':'');
+    var bl=$$('.blank',it);
+    bl.forEach(function(x,i){x.textContent='▢ '+(i+1);});
+    var nextI=0;
+    function mark(){bl.forEach(function(x,i){x.classList.toggle('next',i===nextI);});if(nextI>=bl.length)it.classList.add('done');}
+    bl.forEach(function(x,i){x.onclick=function(){
+      if(i!==nextI){x.classList.add('shake');setTimeout(function(){x.classList.remove('shake');},400);return;}
+      x.textContent=x.getAttribute('data-a');x.classList.add('fill');nextI++;mark();
+    };});
+    mark();
+    box.appendChild(it);
+  });
+  var rs=el('button','btn sm ghost','다시 가리기');rs.onclick=function(){box.parentNode.replaceChild(R.tap(b),box);};box.appendChild(rs);
+  return box;
+};
+/* ---------- 문제 세트 ---------- */
+R.qset=function(b){
+  var box=el('div','card qset');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  if(b.psg){var ps=el('div','psg',rich(b.psg));box.appendChild(ps);}
+  var qs=[];
+  b.qs.forEach(function(q,i){var Q=makeQ(q,(b.start||1)+i);qs.push(Q);ALLQ.push(Q);box.appendChild(Q.node);});
+  var foot=el('div','qfoot');
+  var all=el('button','btn','전체 채점');var retry=el('button','btn ghost','틀린 것만 다시');var reset=el('button','btn ghost','처음부터');
+  var sc=el('div','score');
+  foot.appendChild(all);foot.appendChild(retry);foot.appendChild(reset);box.appendChild(foot);box.appendChild(sc);
+  function upd(){var ok=qs.filter(function(Q){return Q.state==='ok';}).length;var done=qs.filter(function(Q){return Q.state;}).length;
+    sc.innerHTML=done?('<b>'+ok+' / '+qs.length+'</b> 정답'+(done<qs.length?' · 안 푼 문제 '+(qs.length-done)+'개':'')+(ok===qs.length?' 🎉 모두 정답!':'')):'';}
+  qs.forEach(function(Q){Q.onchange=upd;});
+  all.onclick=function(){qs.forEach(function(Q){if(!Q.state&&Q.node.style.display!=='none')Q.check(true);});upd();var w=qs.filter(function(Q){return Q.state!=='ok';})[0];};
+  retry.onclick=function(){qs.forEach(function(Q){if(Q.state==='ok'){Q.node.style.display='none';}else{Q.node.style.display='';Q.reset();}});upd();try{box.scrollIntoView({block:'start'});}catch(e){}};
+  reset.onclick=function(){qs.forEach(function(Q){Q.node.style.display='';Q.reset();});upd();};
+  box.__qs=qs;
+  return box;
+};
+function makeQ(q,no){
+  var Q={q:q,state:null,node:el('div','q')};
+  var n=Q.node;
+  var tag=q.tag?'<span class="qtag">'+esc(q.tag)+'</span>':'';
+  if(q.ctx)n.appendChild(el('div','ctx',rich(q.ctx)));
+  n.appendChild(el('div','qq','<span class="qno">'+no+'</span>'+tag+rich(q.q||'')));
+  var body=el('div','qb');n.appendChild(body);
+  var btns=el('div','qbtn');var ck=el('button','btn sm','확인');var sh=el('button','btn sm ghost','정답 보기');btns.appendChild(ck);btns.appendChild(sh);n.appendChild(btns);
+  var fb=el('div','fb');n.appendChild(fb);
+  var T=TYPES[q.t];if(!T)throw new Error('bad type '+q.t);
+  T.build(Q,body);
+  Q.check=function(force){
+    var r=T.grade(Q);
+    if(r===null&&!force){fb.className='fb warn';fb.innerHTML='답을 먼저 골라 주세요.';return;}
+    Q.state=r?'ok':'no';
+    n.classList.remove('ok','no');n.classList.add(Q.state);
+    fb.className='fb '+(r?'good':'bad');
+    fb.innerHTML=(r?'⭕ 정답!':'❌ 다시 확인해요.')+'<div class="ans">정답: '+T.answer(Q)+'</div>'+(q.e?'<div class="ex">'+rich(q.e)+'</div>':'');
+    if(T.after)T.after(Q,r);
+    if(Q.onchange)Q.onchange();
+  };
+  Q.reset=function(){Q.state=null;n.classList.remove('ok','no');fb.className='fb';fb.innerHTML='';T.reset(Q);if(Q.onchange)Q.onchange();};
+  ck.onclick=function(){Q.check(false);};
+  sh.onclick=function(){if(!Q.state)Q.state='no';n.classList.add('no');fb.className='fb bad';fb.innerHTML='👀 정답 확인<div class="ans">정답: '+T.answer(Q)+'</div>'+(q.e?'<div class="ex">'+rich(q.e)+'</div>':'');if(T.after)T.after(Q,false);if(Q.onchange)Q.onchange();};
+  Q.T=T;
+  return Q;
+}
+var TYPES={};
+/* 객관식: a = 번호(0부터) 또는 배열(모두 고르기) */
+TYPES.mc={
+  build:function(Q,body){
+    var q=Q.q,multi=Array.isArray(q.a);
+    Q.sel=multi?[]:null;
+    var wrap=el('div','opts'+(q.inline?' inline':''));
+    var MK=['①','②','③','④','⑤','⑥','⑦'];
+    Q.order=q.o.map(function(x,i){return i;});
+    q.o.forEach(function(o,i){
+      var b=el('button','opt',(q.inline?'':'<span class="mk">'+MK[i]+'</span>')+rich(o));
+      b.onclick=function(e){if(e.target.closest('[data-say]'))return;
+        if(multi){var k=Q.sel.indexOf(i);if(k>=0)Q.sel.splice(k,1);else Q.sel.push(i);b.classList.toggle('pick');}
+        else{Q.sel=i;$$('.opt',wrap).forEach(function(x){x.classList.remove('pick');});b.classList.add('pick');if(q.inline||q.auto)Q.check(false);}
+      };
+      wrap.appendChild(b);
+    });
+    if(multi)body.appendChild(el('div','multi','※ 알맞은 것을 <b>모두</b> 고르세요.'));
+    body.appendChild(wrap);Q.wrap=wrap;
+  },
+  grade:function(Q){var q=Q.q;
+    if(Array.isArray(q.a)){if(!Q.sel.length)return null;var a=q.a.slice().sort().join(),s=Q.sel.slice().sort().join();return a===s;}
+    if(Q.sel===null)return null;return Q.sel===q.a;},
+  answer:function(Q){var q=Q.q,MK=['①','②','③','④','⑤','⑥','⑦'];var a=Array.isArray(q.a)?q.a:[q.a];
+    return a.map(function(i){return (q.inline?'':MK[i]+' ')+rich(q.o[i]);}).join(', ');},
+  after:function(Q){var q=Q.q,a=Array.isArray(q.a)?q.a:[q.a];$$('.opt',Q.wrap).forEach(function(b,i){b.classList.toggle('right',a.indexOf(i)>=0);});},
+  reset:function(Q){Q.sel=Array.isArray(Q.q.a)?[]:null;$$('.opt',Q.wrap).forEach(function(b){b.classList.remove('pick','right');});}
+};
+/* 주관식: a = '정답|다른정답' 또는 배열(빈칸 여러 개) */
+TYPES.in={
+  build:function(Q,body){
+    var q=Q.q,arr=Array.isArray(q.a)?q.a:[q.a];
+    Q.inputs=arr.map(function(a,i){
+      var w=el('div','inw');
+      if(arr.length>1)w.appendChild(el('span','inl',(q.lb&&q.lb[i])||('('+(i+1)+')')));
+      var inp=el('input','inp');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.setAttribute('spellcheck','false');
+      if(q.ph)inp.placeholder=q.ph;
+      inp.onkeydown=function(e){if(e.key==='Enter')Q.check(false);};
+      w.appendChild(inp);body.appendChild(w);return inp;});
+  },
+  grade:function(Q){var arr=Array.isArray(Q.q.a)?Q.q.a:[Q.q.a];
+    if(Q.inputs.every(function(i){return !i.value.trim();}))return null;
+    var ok=true;Q.inputs.forEach(function(inp,i){var g=okText(inp.value,arr[i]);inp.classList.toggle('good',g);inp.classList.toggle('bad',!g);if(!g)ok=false;});return ok;},
+  answer:function(Q){var arr=Array.isArray(Q.q.a)?Q.q.a:[Q.q.a];
+    return arr.map(function(a,i){var x=alts(a);return (arr.length>1?((Q.q.lb&&Q.q.lb[i])||'('+(i+1)+')')+' ':'')+'<b>'+esc(x[0])+'</b>'+(x.length>1?' <span class="alt">(= '+x.slice(1).map(esc).join(' / ')+')</span>':'');}).join(' &nbsp; ');},
+  reset:function(Q){Q.inputs.forEach(function(i){i.value='';i.classList.remove('good','bad');});}
+};
+/* 배열: c = 정답 순서 조각, x = 함정 조각 */
+TYPES.ord={
+  build:function(Q,body){
+    var q=Q.q;
+    if(q.p)body.appendChild(el('div','ordp',rich(q.p)));
+    var slot=el('div','oslot');slot.innerHTML='<span class="oh">아래 조각을 순서대로 누르세요</span>';
+    var pool=el('div','opool');
+    body.appendChild(slot);body.appendChild(pool);
+    Q.slot=slot;Q.pool=pool;Q.picked=[];
+    TYPES.ord.fill(Q);
+  },
+  fill:function(Q){
+    var q=Q.q;Q.pool.innerHTML='';Q.picked=[];
+    $$('.chip',Q.slot).forEach(function(c){c.remove();});
+    var oh=$('.oh',Q.slot);if(oh)oh.style.display='';
+    var items=q.c.map(function(t,i){return {t:t,cn:(q.cn||[]).indexOf(i)>=0};}).concat((q.x||[]).map(function(t){return {t:t,trap:1,cn:/^(and|but|so|because|if|then|or|when)$/i.test(t)};}));
+    var sh=shuffle(items),guard=0;
+    while(items.length>1&&sh.map(function(x){return x.t;}).join('␟')===items.map(function(x){return x.t;}).join('␟')&&guard++<10)sh=shuffle(items);
+    sh.forEach(function(it){
+      var c=el('button','chip'+(it.cn?' cn':''),esc(it.t));c.__t=it.t;
+      c.onclick=function(){
+        if(c.parentNode===Q.pool){Q.slot.appendChild(c);Q.picked.push(c);}
+        else{Q.pool.appendChild(c);Q.picked.splice(Q.picked.indexOf(c),1);}
+        var oh=$('.oh',Q.slot);if(oh)oh.style.display=Q.picked.length?'none':'';
+      };
+      Q.pool.appendChild(c);
+    });
+  },
+  grade:function(Q){if(!Q.picked.length)return null;
+    var got=Q.picked.map(function(c){return c.__t;});return got.join('␟')===Q.q.c.join('␟');},
+  answer:function(Q){return '<b>'+esc(Q.q.c.join(Q.q.sep!=null?Q.q.sep:' '))+'</b>'+(Q.q.sayAns!==false?' <button class="mini" data-say="'+esc(Q.q.c.join(' ').replace(/[“”]/g,''))+'">🔊</button>':'');},
+  reset:function(Q){TYPES.ord.fill(Q);}
+};
+/* 거꾸로 영작: a = 영어 문장 */
+TYPES.rw={
+  build:function(Q,body){
+    var q=Q.q;
+    if(q.hint)body.appendChild(el('div','rwh',rich(q.hint)));
+    var ta=el('textarea','inp ta');ta.rows=2;ta.setAttribute('autocapitalize','off');ta.setAttribute('spellcheck','false');ta.placeholder='영어로 쓰세요';
+    body.appendChild(ta);Q.ta=ta;Q.diff=el('div','diff');body.appendChild(Q.diff);
+  },
+  grade:function(Q){if(!Q.ta.value.trim())return null;
+    var ok=okText(Q.ta.value,Q.q.a);
+    var want=norm(alts(Q.q.a)[0]).split(' '),got=norm(Q.ta.value).split(' ');
+    Q.diff.innerHTML=want.map(function(w,i){return '<span class="'+(got[i]===w?'dg':'db')+'">'+esc(got[i]||'＿')+'</span>';}).join(' ')+(got.length>want.length?' <span class="db">+'+esc(got.slice(want.length).join(' '))+'</span>':'');
+    return ok;},
+  answer:function(Q){var a=alts(Q.q.a)[0];return '<b>'+esc(a)+'</b> <button class="mini" data-say="'+esc(a)+'">🔊</button>';},
+  reset:function(Q){Q.ta.value='';Q.diff.innerHTML='';}
+};
+
+CFG.tabs.forEach(function(t,ti){
+  var b=el('button','tab',esc(t.name));b.dataset.i=ti;
+  b.onclick=function(){showTab(ti);};bar.appendChild(b);
+  var sec=el('section','pane');sec.id='pane'+ti;
+  if(t.intro)sec.appendChild(el('div','intro',rich(t.intro)));
+  (t.blocks||[]).forEach(function(bk){var n=renderBlock(bk);if(n)sec.appendChild(n);});
+  var nav=el('div','pnav');
+  if(ti>0){var pv=el('button','btn ghost','← '+esc(CFG.tabs[ti-1].name));pv.onclick=function(){showTab(ti-1);};nav.appendChild(pv);}
+  if(ti<CFG.tabs.length-1){var nx=el('button','btn','다음: '+esc(CFG.tabs[ti+1].name)+' →');nx.onclick=function(){showTab(ti+1);};nav.appendChild(nx);}
+  sec.appendChild(nav);
+  main.appendChild(sec);
+});
+function showTab(i){
+  $$('.pane').forEach(function(p,k){p.style.display=(k===i)?'block':'none';});
+  $$('.tab').forEach(function(b,k){b.classList.toggle('on',k===i);});
+  var tb=$$('.tab')[i];if(tb&&tb.scrollIntoView){try{tb.scrollIntoView({block:'nearest',inline:'center'});}catch(e){}}
+  try{window.scrollTo(0,0);}catch(e){}
+}
+window.__showTab=showTab;
+showTab(0);
+
+
+/* ---------- 검사용 훅 ---------- */
+window.__test={
+  fillCorrect:function(Q){var q=Q.q;
+    if(q.t==='mc'){Q.T.reset(Q);var a=Array.isArray(q.a)?q.a:[q.a];a.forEach(function(i){$$('.opt',Q.wrap)[i].click();});if(!(q.inline||q.auto)||Array.isArray(q.a))Q.check(false);}
+    else if(q.t==='in'){var arr=Array.isArray(q.a)?q.a:[q.a];Q.inputs.forEach(function(inp,i){inp.value=alts(arr[i])[0];});Q.check(false);}
+    else if(q.t==='rw'){Q.ta.value=alts(q.a)[0];Q.check(false);}
+    else if(q.t==='ord'){Q.T.reset(Q);var pool=$$('.chip',Q.pool),used=[];q.c.forEach(function(t){for(var i=0;i<pool.length;i++){if(used.indexOf(i)<0&&pool[i].__t===t){used.push(i);pool[i].click();break;}}});Q.check(false);}
+  },
+  fillWrong:function(Q){var q=Q.q;
+    if(q.t==='mc'){Q.T.reset(Q);var a=Array.isArray(q.a)?q.a:[q.a];var w=-1;for(var i=0;i<q.o.length;i++)if(a.indexOf(i)<0){w=i;break;}$$('.opt',Q.wrap)[w].click();if(!(q.inline||q.auto)||Array.isArray(q.a))Q.check(false);}
+    else if(q.t==='in'){Q.inputs.forEach(function(inp){inp.value='zzzz';});Q.check(false);}
+    else if(q.t==='rw'){Q.ta.value='zzz zzz';Q.check(false);}
+    else if(q.t==='ord'){Q.T.reset(Q);var pool=$$('.chip',Q.pool);pool.slice().reverse().forEach(function(c){c.click();});
+      if(Q.picked.map(function(c){return c.__t;}).join('␟')===q.c.join('␟')){Q.picked[0].click();}
+      Q.check(false);}
+  }
+};
+})();
+</script>
+</body></html>
