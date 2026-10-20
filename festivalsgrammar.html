@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lesson 7 Let's Enjoy Festivals — 문법</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--p:#5b4fa8;--pd:#3b2f8a;--pl:#ece9f8;--bg:#f5f4fa;--ink:#24213a;--mut:#6b6788;--ok:#1f8a5b;--okl:#e3f5ec;--no:#c4423a;--nol:#fbe9e7;--ye:#fff6d6;--line:#dcd8ee}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:17px;line-height:1.7}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+.top{max-width:740px;margin:0 auto;padding:22px 16px 10px}
+.brand{font-size:13px;color:var(--p);font-weight:700;letter-spacing:.02em}
+.top h1{font-size:23px;margin:4px 0 2px;color:var(--pd);line-height:1.35}
+.sub{font-size:14px;color:var(--mut)}
+.hint{margin-top:8px;font-size:13px;color:var(--mut);background:#fff;border:1px dashed var(--line);border-radius:10px;padding:6px 10px}
+.tabs{position:sticky;top:0;z-index:20;background:rgba(245,244,250,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;padding:8px 12px;-webkit-overflow-scrolling:touch}
+.tab{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:15px;font-weight:600;color:var(--mut)}
+.tab.on{background:var(--p);border-color:var(--p);color:#fff}
+.wrap{max-width:740px;margin:0 auto;padding:12px 16px 80px}
+.intro{background:#fff;border-left:4px solid var(--p);border-radius:10px;padding:12px 14px;margin:6px 0 14px;font-size:15.5px}
+.bh{font-size:19px;color:var(--pd);margin:26px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--pl)}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.ct{margin:0 0 8px;font-size:17px;color:var(--pd)}
+.note{font-size:14.5px;background:var(--pl);border-radius:10px;padding:8px 12px;margin:6px 0 10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.btn{border:none;background:var(--p);color:#fff;border-radius:10px;padding:10px 16px;font-weight:600;min-height:44px}
+.btn.ghost{background:#fff;color:var(--p);border:1.5px solid var(--p)}
+.btn.sm{padding:6px 12px;font-size:14.5px;min-height:38px}
+.mini{border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 6px;font-size:13px;line-height:24px;vertical-align:middle}
+.mini.playing,.sw.playing,.wen.playing{background:var(--ye)}
+.sw{border:none;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px;font-weight:600;font-size:inherit}
+.sw::after{content:' 🔊';font-size:.75em}
+.ref{border:1px solid var(--p);background:#fff;color:var(--p);border-radius:6px;padding:0 6px;font-size:.9em;font-weight:700}
+.ref.on{background:var(--p);color:#fff}
+.refbox{display:block;margin:6px 0;padding:8px 10px;background:#faf9ff;border:1px dashed var(--p);border-radius:8px;font-family:Lora,Georgia,serif;font-size:16px}
+.rich p{margin:6px 0}
+.anal{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.anal h4{margin:14px 0 6px;color:var(--pd);font-size:16px}
+.anal h4:first-child{margin-top:0}
+.tw{overflow-x:auto}
+table.t{border-collapse:collapse;width:100%;font-size:15px;margin:8px 0}
+table.t th,table.t td{border:1px solid var(--line);padding:7px 8px;vertical-align:top;text-align:left}
+table.t th{background:var(--pl);color:var(--pd);font-weight:700}
+.tip{background:var(--ye);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.warnbox{background:var(--nol);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.en{font-family:Lora,Georgia,serif}
+.rp{padding:8px 0;border-bottom:1px dashed var(--line)}
+.rp:last-child{border-bottom:none}
+.gl{display:inline-block;font-size:12.5px;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px;margin:2px 4px 0 0}
+/* 단어 */
+.wl.hideko .wko{color:transparent;background:#eeecf6;border-radius:6px;min-width:90px;display:inline-block}
+.wl.hideko .wko.peek{color:inherit;background:var(--ye)}
+.wi{padding:10px 0;border-bottom:1px dashed var(--line)}
+.wtop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.no{color:var(--mut);font-size:13px;min-width:20px}
+.wen{border:none;background:none;font-family:Lora,Georgia,serif;font-size:19px;font-weight:700;color:var(--pd);padding:0}
+.wen i{font-style:normal;font-size:14px}
+.pos{font-size:12.5px;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px}
+.wko{font-size:16px}
+.wex{margin:4px 0 0 28px;font-size:15.5px}
+.exen{font-family:Lora,Georgia,serif;cursor:pointer;margin-left:6px}
+.exko{display:none;color:var(--mut);font-size:14.5px}
+.exko.show{display:block}
+/* 토글 */
+.fl{border-bottom:1px dashed var(--line);padding:8px 0}
+.flen{display:flex;align-items:center;gap:8px;font-family:Lora,Georgia,serif;font-size:17px}
+.flen span{flex:1}
+.tg{border:1.5px solid var(--p);color:var(--p);background:#fff;border-radius:8px;padding:2px 10px;font-size:14px;white-space:nowrap;font-family:'Noto Sans KR',sans-serif}
+.flko{display:none;margin:4px 0 0 34px;font-size:15.5px}
+.fl.open .flko{display:block}
+.fltip{font-size:14px;color:var(--p);margin-top:2px}
+/* 대화 */
+.dl{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.dl.now{background:var(--ye)}
+.spk{flex:0 0 auto;min-width:34px;font-weight:700;color:var(--p);font-size:15px}
+.dtx{flex:1}
+.den{font-family:Lora,Georgia,serif;font-size:17px;cursor:pointer}
+.dko{display:none;color:var(--mut);font-size:15px}
+.dl.open .dko{display:block}
+/* 채우기 */
+.tp{padding:10px 0;border-bottom:1px dashed var(--line)}
+.tps{font-family:Lora,Georgia,serif;font-size:18px;line-height:2.1}
+.blank{border:2px dashed var(--line);background:#fff;border-radius:8px;padding:0 10px;color:var(--mut);font-size:15px;font-family:'Noto Sans KR',sans-serif}
+.blank.next{border-color:var(--p);color:var(--p);background:var(--pl)}
+.blank.fill{border:2px solid var(--ok);background:var(--okl);color:var(--ok);font-weight:700;font-family:Lora,Georgia,serif;font-size:18px}
+.blank.shake{animation:sh .35s}
+@keyframes sh{0%,100%{transform:translateX(0)}30%{transform:translateX(-5px)}70%{transform:translateX(5px)}}
+.tpko{font-size:15px;color:var(--mut)}
+.tptip{display:none;font-size:14.5px;color:var(--p)}
+.tp.done .tptip{display:block}
+/* 문제 */
+.psg{position:sticky;top:58px;z-index:5;max-height:42vh;overflow-y:auto;background:#fdfcff;border:1.5px solid var(--p);border-radius:12px;padding:10px 12px;margin:6px 0 12px;font-family:Lora,Georgia,serif;font-size:16px;line-height:1.75;box-shadow:0 4px 12px rgba(59,47,138,.08)}
+.psg b,.psg u{font-family:inherit}
+.q{border-top:1px solid var(--line);padding:14px 0 10px}
+.q:first-of-type{border-top:none}
+.q.ok .qno{background:var(--ok)}
+.q.no .qno{background:var(--no)}
+.qq{font-size:16.5px;margin-bottom:8px}
+.qno{display:inline-block;min-width:26px;height:26px;line-height:26px;text-align:center;border-radius:13px;background:var(--p);color:#fff;font-size:13.5px;font-weight:700;margin-right:6px}
+.qtag{display:inline-block;font-size:12px;background:var(--no);color:#fff;border-radius:6px;padding:0 6px;margin-right:6px;vertical-align:middle}
+.ctx{background:#faf9ff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:8px;font-family:Lora,Georgia,serif;font-size:16px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;font-size:16px;min-height:44px}
+.opts.inline .opt{font-family:Lora,Georgia,serif;font-weight:600;min-width:120px;text-align:center}
+.opt .mk{color:var(--p);margin-right:6px;font-weight:700}
+.opt.pick{border-color:var(--p);background:var(--pl)}
+.opt.right{border-color:var(--ok);background:var(--okl)}
+.multi{font-size:13.5px;color:var(--no);margin-bottom:4px}
+.inw{display:flex;align-items:center;gap:6px;margin:4px 0}
+.inl{font-size:14px;color:var(--mut);white-space:nowrap}
+.inp{flex:1;width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:17px;font-family:Lora,Georgia,serif;background:#fff}
+.inp:focus{outline:none;border-color:var(--p)}
+.inp.good{border-color:var(--ok);background:var(--okl)}
+.inp.bad{border-color:var(--no);background:var(--nol)}
+.ta{resize:vertical;min-height:60px}
+.rwh{font-size:14px;color:var(--mut);margin-bottom:4px}
+.diff{font-family:Lora,Georgia,serif;font-size:16px;margin-top:4px}
+.dg{color:var(--ok)}.db{color:var(--no);text-decoration:underline}
+.ordp{font-size:15.5px;margin-bottom:6px}
+.oslot{min-height:52px;border:2px dashed var(--p);border-radius:10px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:#fdfcff}
+.oh{font-size:13.5px;color:var(--mut)}
+.opool{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-family:Lora,Georgia,serif;font-size:16.5px;min-height:44px}
+.oslot .chip{border-color:var(--p);background:var(--pl)}
+.chip.cn{border-color:#d9a400;background:#fffbea}
+.qbtn{display:flex;gap:8px;margin-top:10px}
+.fb{display:none;margin-top:8px;border-radius:10px;padding:8px 12px;font-size:15.5px}
+.fb.good,.fb.bad,.fb.warn{display:block}
+.fb.good{background:var(--okl)}
+.fb.bad{background:var(--nol)}
+.fb.warn{background:var(--ye)}
+.fb .ans{margin-top:2px}
+.fb .ans b{font-family:Lora,Georgia,serif}
+.fb .ex{margin-top:4px;color:#3d3a55;font-size:15px}
+.alt{color:var(--mut);font-size:14px}
+.qfoot{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:2px solid var(--pl)}
+.score{margin-top:8px;font-size:16px;color:var(--pd)}
+.pnav{display:flex;justify-content:space-between;gap:8px;margin-top:26px;flex-wrap:wrap}
+details.sum{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:12px 0}
+details.sum summary{font-weight:700;color:var(--p);cursor:pointer}
+@media (max-width:480px){body{font-size:16px}.top h1{font-size:20px}.wex{margin-left:0}.flko{margin-left:0}}
+</style></head>
+<body><div id="app"></div>
+<script>
+/* ===== DATA START ===== */
+var CFG={"brand":"강동미나 중고등부 · 중2 Lesson 7 (동아 윤정미)","title":"Lesson 7 Let's Enjoy Festivals — 문법","sub":"가주어 It ~ to부정사 · for/of 의미상 주어 · call A B (A를 B라고 부르다)","tabs":[{"name":"① 가주어 It","intro":"<b>주어가 길면 뒤로!</b> 3단계 순서대로 바꾸는 연습을 해요. 예문 빈칸은 ▢1 → ▢2 순서로 눌러 채워요.","blocks":[{"k":"html","html":"<div class=\"anal\"><h4>📌 공식: To ~ is 형용사 → It is 형용사 to ~</h4><ol><li><b>주어 덩어리 찾기</b> — 동사(is/was) 앞까지: [To remember dead people] is important.</li><li><b>덩어리를 문장 맨 뒤로</b> — … is important [to remember dead people].</li><li><b>빈 주어 자리에 It</b> — <b>It</b> is important to remember dead people.</li></ol><div class=\"tip\">해석: It은 해석하지 않아요. <b>to부터 \"~하는 것은\"</b>으로 읽기 → 죽은 사람들을 기억하는 것은 중요하다.<br>It = <b>가주어</b>, to ~ = <b>진주어</b>. that절(that + 주어 + 동사)도 진주어가 될 수 있어요: It is true <b>that</b> the sun hardly sets.</div></div>"},{"k":"tap","title":"순서대로 채우기 — 본문 문장","note":"다 채우면 아래에 확인 포인트가 나와요.","rows":[{"s":"They believe {it} is important {to} {remember} dead people.","ko":"그들은 죽은 사람들을 기억하는 것이 중요하다고 믿는다.","tip":"= They believe (that) to remember dead people is important. / believe 뒤 that 생략"},{"s":"Is {it} possible {to} {do} so?","ko":"그렇게 하는 것이 가능할까?","tip":"의문문: Is + it + 형용사 + to ~? (진주어 = 순록보다 빨리 달리기)"},{"s":"{It} will be fun {to} {make} gimchi together.","ko":"함께 김치를 담그는 것은 재미있을 것이다.","tip":"Think and Write 문장 — 미래면 It will be"},{"s":"{It} is exciting {to} {watch} the fireworks.","ko":"불꽃놀이를 보는 것은 신난다."},{"s":"{It} was hard {to} {find} a souvenir for my sister.","ko":"여동생에게 줄 기념품을 찾는 것은 어려웠다.","tip":"과거면 It was"},{"s":"{It} isn't easy {to} {stay} up all night long.","ko":"밤새도록 깨어 있는 것은 쉽지 않다.","tip":"부정: It isn't + 형용사 + to ~"},{"s":"{It} is true {that} the sun hardly sets in Sweden in June.","ko":"6월에 스웨덴에서 해가 거의 지지 않는다는 것은 사실이다.","tip":"that절 진주어"}]},{"k":"qset","title":"바꿔 쓰기 연습","qs":[{"t":"in","q":"To decorate the pole with flowers is fun.<br>→ It is fun ______ ______ the pole with flowers.","a":"to decorate"},{"t":"in","q":"To dress up like skeletons was interesting.<br>→ ______ was interesting to dress up like skeletons.","a":"It"},{"t":"rw","q":"가주어 It으로 바꿔 쓰기: To run faster than reindeer is impossible.","a":"It is impossible to run faster than reindeer.|It's impossible to run faster than reindeer."},{"t":"rw","q":"가주어 It으로 바꿔 쓰기: To burn the giant statues is surprising.","a":"It is surprising to burn the giant statues.|It's surprising to burn the giant statues."},{"t":"rw","q":"가주어 It으로 바꿔 쓰기: To learn about other cultures is important.","a":"It is important to learn about other cultures.|It's important to learn about other cultures."},{"t":"mc","inline":1,"q":"It is important ______ remember dead people.","o":["to","that"],"a":0},{"t":"mc","inline":1,"q":"It's not easy ______ a giant wooden statue.","o":["making","to make"],"a":1,"e":"가주어 It → 진주어는 <b>to부정사</b>"},{"t":"mc","inline":1,"q":"______ is fun to throw tomatoes at each other.","o":["That","It"],"a":1,"e":"가주어는 항상 It"},{"t":"mc","inline":1,"q":"It was great ______ the parade.","o":["to see","see"],"a":0,"e":"to + 동사원형"},{"t":"ord","q":"배열하기: 축제 동안 전통 춤을 추는 것은 즐겁다.","c":["It","is","fun","to","enjoy traditional dances","during the festival."]},{"t":"ord","q":"배열하기 (본문): 그들은 죽은 사람들을 기억하는 것이 중요하다고 믿는다.","c":["They","believe","it","is","important","to","remember dead people."]},{"t":"mc","q":"다음 우리말을 바르게 영작한 것을 <b>모두</b> 고르면?<br>순록보다 더 빨리 달리는 것은 불가능하다.","o":["To run faster than reindeer is impossible.","It is impossible to run faster than reindeer.","Running faster than reindeer is impossible.","It is impossible run faster than reindeer.","That is impossible to run faster than reindeer."],"a":[0,1,2],"e":"④ to가 빠짐 ⑤ 가주어는 That이 아니라 It"}]}]},{"name":"② for / of","intro":"<b>\"누가\" 하는지 말하려면 to 앞에 for/of + 목적격!</b> 형용사 종류에 따라 갈래가 나뉘어요.","blocks":[{"k":"html","html":"<div class=\"anal\"><h4>📌 갈래 1: 보통 형용사 → for + 목적격</h4><ol><li>hard · easy · difficult · important · necessary · dangerous · possible · impossible · fun · exciting · safe</li><li>It is not possible <b>for people</b> to run faster than reindeer. (사람들이 순록보다 빨리 달리는 것은 가능하지 않다)</li></ol></div><div class=\"anal\"><h4>📌 갈래 2: 사람의 성격·태도 형용사 → of + 목적격</h4><ol><li>kind · nice · wise · foolish · silly · careless · brave · rude · polite · generous · smart · clever</li><li>It is very kind <b>of you</b> to invite me to the festival. (나를 축제에 초대해 주다니 너는 정말 친절하구나)</li></ol><div class=\"tip\">판별법: 형용사가 <b>사람을 칭찬·비난하는 말</b>인가? \"너 친절하다 / 너 어리석다\"가 말이 되면 → of<br>기본 점검: for/of 뒤는 <b>목적격</b> — me · you · him · her · us · them (for <s>they</s> ✗)</div></div>"},{"k":"qset","title":"for? of?","qs":[{"t":"mc","inline":1,"q":"It is important ______ us to remember our history.","o":["for","of"],"a":0},{"t":"mc","inline":1,"q":"It's very nice ______ you to help the visitors.","o":["for","of"],"a":1},{"t":"mc","inline":1,"q":"It is hard ______ children to stay up all night.","o":["for","of"],"a":0},{"t":"mc","inline":1,"q":"It's wise ______ him to book the tickets early.","o":["for","of"],"a":1},{"t":"mc","inline":1,"q":"It was brave ______ her to run with the reindeer.","o":["for","of"],"a":1},{"t":"mc","inline":1,"q":"It is exciting ______ them to watch the fireworks.","o":["for","of"],"a":0},{"t":"mc","inline":1,"q":"It was careless ______ me to lose my costume.","o":["for","of"],"a":1},{"t":"mc","inline":1,"q":"It is easy for ______ to make a souvenir.","o":["they","them"],"a":1,"e":"목적격 them"},{"t":"mc","q":"빈칸에 들어갈 수 <b>없는</b> 말은? It is ______ for visitors to enjoy the winter sports.","o":["easy","possible","polite","fun","safe"],"a":2,"e":"polite는 of와 함께"},{"t":"in","q":"틀린 곳 고치기: It is dangerous of children to play near the fire. → 고친 한 단어","a":"for"},{"t":"in","q":"두 문장 합치기: She was kind. She gave me a souvenir.<br>→ It was kind ______ ______ to give me a souvenir.","a":"of her"},{"t":"in","q":"같은 뜻: You were very generous to share your food.<br>→ It was very generous ______ ______ to share your food.","a":"of you"}]}]},{"name":"③ it 구별","intro":"<b>It이라고 다 가주어가 아니에요!</b> 뒤에 <b>to ~ / that ~ 진주어가 있는지</b>부터 확인하세요.","blocks":[{"k":"html","html":"<div class=\"anal\"><div class=\"tw\"><table class=\"t\">\n<tr><th>종류</th><th>알아보는 법</th><th>예문</th></tr>\n<tr><td><b>가주어</b></td><td>뒤에 to ~ / that ~ 진주어</td><td>They believe it is important <b>to remember dead people</b>.</td></tr>\n<tr><td><b>비인칭</b></td><td>날씨 · 시간 · 날짜 · 요일 · 거리 · 명암</td><td>It is November 1 today. / It gets dark early in winter.</td></tr>\n<tr><td><b>대명사</b></td><td>앞에 나온 것을 가리킴 (그것)</td><td>They have a special festival. They call <b>it</b> the Midsummer festival.</td></tr>\n</table></div>\n<div class=\"tip\">함정: It is two hours <b>to the festival</b>. — to 뒤가 <b>명사</b>(the festival)라서 to부정사가 아니에요! → 비인칭(거리·시간)</div></div>"},{"k":"qset","title":"쓰임이 다른 것 찾기","qs":[{"t":"mc","q":"밑줄 친 It의 쓰임이 <b>다른</b> 하나는?","o":["<u>It</u>'s difficult to make a wooden statue.","<u>It</u> is far from here to the cemetery.","<u>It</u> is nice of you to invite me.","<u>It</u>'s fun to watch the parade.","<u>It</u> is good to try new food."],"a":1,"e":"② 비인칭(거리). 나머지는 가주어"},{"t":"mc","q":"〈보기〉와 쓰임이 같은 것은?<br>〈보기〉 <u>It</u> is important to remember dead people.","o":["<u>It</u> is my favorite festival.","<u>It</u> is too dark outside.","<u>It</u> would be helpful to bring a map.","<u>It</u> has snowed since last night.","<u>It</u> is on the table."],"a":2},{"t":"mc","q":"밑줄 친 It의 쓰임이 나머지와 <b>다른</b> 것은?","o":["<u>It</u> is Friday evening.","<u>It</u> is 7 p.m. now.","<u>It</u> is cold in February.","<u>It</u>'s getting dark.","<u>It</u> is possible to see reindeer here."],"a":4,"e":"⑤만 가주어, 나머지는 비인칭"},{"t":"mc","q":"본문에서 밑줄 친 it의 쓰임이 <b>다른</b> 것은?","o":["They believe <u>it</u> is important to remember dead people.","Is <u>it</u> possible to do so?","They call <u>it</u> the Midsummer festival.","<u>It</u> will be fun to make gimchi together."],"a":2,"e":"③ it = a special festival (대명사). 나머지는 가주어"},{"t":"mc","q":"\"Not really, but <u>it</u> doesn't matter.\"의 it은?","o":["가주어","비인칭 주어","앞의 내용(순록보다 빨리 달리기)을 가리키는 대명사","날씨를 나타내는 말"],"a":2}]}]},{"name":"④ call A B","intro":"<b>A를 B라고 부르다!</b> call 뒤에 <b>두 명사</b>가 나란히 오고, <b>A = B</b>예요.","blocks":[{"k":"html","html":"<div class=\"anal\"><h4>📌 공식: 주어 + call + A(목적어) + B(명사)</h4><ol><li><b>call 바로 뒤에 A</b> — 부르는 대상 (them, it, this day, the festival)</li><li><b>그 뒤에 B</b> — 부르는 이름 (명사): the Midsummer festival, the Day of the Dead</li><li><b>A = B 확인</b> — it = the Midsummer festival ✓ / this day = the Day of the Dead ✓</li></ol><div class=\"tip\">함정 3가지: ① A가 대명사면 <b>목적격</b> — call <b>him</b> (he ✗) ② A와 B 사이에 <b>as, to, for를 넣지 않아요</b> — call it <s>as</s> the Midsummer festival ✗ ③ 순서를 바꾸면 뜻이 바뀌어요 — call the Day of the Dead this day ✗</div></div>"},{"k":"tap","title":"순서대로 채우기 — 본문 문장","rows":[{"s":"They {call} {it} {the Midsummer festival}.","ko":"그들은 그것을 Midsummer 축제라고 부른다.","tip":"it(= a special festival) = the Midsummer festival"},{"s":"They {call} {this day} {the Day of the Dead}.","ko":"그들은 이날을 죽은 자들의 날이라고 부른다.","tip":"this day = the Day of the Dead"},{"s":"People {call} {the race} {the Running of the Reindeer}.","ko":"사람들은 그 경주를 순록 달리기라고 부른다."},{"s":"My friends {call} {me} {Little Chef}.","ko":"내 친구들은 나를 꼬마 요리사라고 부른다.","tip":"대명사는 목적격 me (I ✗)"},{"s":"People in Valencia {call} {the statues} {fallas}.","ko":"발렌시아 사람들은 그 조각상들을 fallas라고 부른다."}]},{"k":"qset","title":"call A B 연습","qs":[{"t":"mc","inline":1,"q":"We call ______ Mina.","o":["she","her"],"a":1,"e":"call 뒤 A는 목적격"},{"t":"mc","inline":1,"q":"They call the festival ______.","o":["Fur Rondy","as Fur Rondy"],"a":0,"e":"as를 넣지 않아요"},{"t":"mc","inline":1,"q":"People call ______.","o":["the City of Fire Valencia","Valencia the City of Fire"],"a":1,"e":"call + A(대상) + B(이름)"},{"t":"mc","inline":1,"q":"Please don't call ______.","o":["me a kid","a kid me"],"a":0},{"t":"in","q":"우리말에 맞게: 우리는 그 개를 Max라고 부른다. → We ______ ______ ______ Max.","a":"call the dog"},{"t":"in","q":"우리말에 맞게: 사람들은 그 도시를 꽃의 도시라고 부른다. → People call the city ______ ______ ______ ______.","a":"the City of Flowers","ph":"네 단어"},{"t":"ord","q":"배열하기 (본문): 그들은 그것을 Midsummer 축제라고 부른다.","c":["They","call","it","the Midsummer festival."]},{"t":"ord","q":"배열하기 (본문): 그들은 이날을 죽은 자들의 날이라고 부른다.","c":["They","call","this day","the Day of the Dead."]},{"t":"mc","q":"어법상 <b>틀린</b> 것을 모두 고르면?","o":["They call it the Midsummer festival.","They call it as the Midsummer festival.","My friends call I Jun.","We call this day the Day of the Dead.","People call him a hero."],"a":[1,2],"e":"② as ✗ ③ 목적격 me"},{"t":"mc","q":"\"They call this day the Day of the Dead.\"와 문장 구조가 같은 것은?","o":["They gave me a gift.","She called me last night.","We named our cat Coco.","He bought a cap for me.","I sent her a letter."],"a":2,"tag":"함정","e":"③ A를 B라고 이름 짓다 (A = B). ① ⑤ A에게 B를 주다 (A ≠ B) ② called = 전화했다"}]}]},{"name":"⑤ 명사 보어 동사","intro":"<b>call처럼 \"A를 B로 ~하다\"로 쓰는 동사들!</b> 갈래를 나누고, A = B인지 꼭 확인해요.","blocks":[{"k":"html","html":"<div class=\"anal\"><div class=\"tw\"><table class=\"t\">\n<tr><th>동사</th><th>뜻</th><th>예문 (A = B)</th></tr>\n<tr><td><b>call</b> A B</td><td>A를 B라고 부르다</td><td>They call it the Midsummer festival.</td></tr>\n<tr><td><b>name</b> A B</td><td>A를 B라고 이름 짓다</td><td>They named the festival Fur Rondy.</td></tr>\n<tr><td><b>make</b> A B</td><td>A를 B로 만들다</td><td>The festival made the town a popular place.</td></tr>\n<tr><td><b>elect</b> A B</td><td>A를 B로 선출하다</td><td>The club elected Jina president.</td></tr>\n<tr><td><b>consider</b> A B</td><td>A를 B라고 여기다</td><td>People consider Fallas a special festival.</td></tr>\n</table></div>\n<div class=\"warnbox\">갈래 나누기: <b>A = B</b>면 \"A를 B로/라고\" (5형식) — made <b>the town</b> = <b>a popular place</b> ✓<br><b>A ≠ B</b>면 \"A에게 B를\" (4형식) — made <b>me</b> <b>a cake</b> (me ≠ a cake) → 나에게 케이크를 만들어 주었다</div>\n<div class=\"tip\">elect 뒤의 직책(president, class leader, captain)에는 <b>a/the를 보통 쓰지 않아요</b>: elected him <b>class leader</b></div></div>"},{"k":"qset","title":"갈래 나누기","qs":[{"t":"mc","auto":1,"q":"The festival made the town <u>a popular place</u>. (A = B?)","o":["A = B (5형식)","A ≠ B (4형식)"],"a":0},{"t":"mc","auto":1,"q":"Mom made me <u>a costume</u>. (A = B?)","o":["A = B (5형식)","A ≠ B (4형식)"],"a":1,"e":"me ≠ a costume → 나에게 의상을 만들어 주었다"},{"t":"mc","auto":1,"q":"The team elected her <u>captain</u>. (A = B?)","o":["A = B (5형식)","A ≠ B (4형식)"],"a":0},{"t":"mc","auto":1,"q":"He gave his friend <u>a souvenir</u>. (A = B?)","o":["A = B (5형식)","A ≠ B (4형식)"],"a":1},{"t":"mc","auto":1,"q":"We named the reindeer <u>Rudy</u>. (A = B?)","o":["A = B (5형식)","A ≠ B (4형식)"],"a":0},{"t":"mc","auto":1,"q":"The chef made us <u>a delicious meal</u>. (A = B?)","o":["A = B (5형식)","A ≠ B (4형식)"],"a":1}]},{"k":"qset","title":"어순 · 형태","qs":[{"t":"mc","inline":1,"q":"The festival made ______ close friends.","o":["they","them"],"a":1,"e":"목적격 them"},{"t":"mc","inline":1,"q":"They named ______.","o":["the bakery Sweet Day","Sweet Day the bakery"],"a":0,"e":"name + A(대상) + B(이름)"},{"t":"mc","inline":1,"q":"The club elected ______ leader.","o":["she","her"],"a":1},{"t":"mc","inline":1,"q":"We consider ______ our best helper.","o":["he is","him"],"a":1,"e":"consider + A + B — 사이에 동사(is)를 넣지 않아요"},{"t":"in","q":"괄호 안의 말을 바르게 배열: The festival made ______. (a famous city, Valencia)","a":"Valencia a famous city"},{"t":"in","q":"괄호 안의 말을 바르게 배열: The team elected ______. (captain, him)","a":"him captain"},{"t":"rw","q":"우리말에 맞게 영작: 우리는 그 조각상을 Big Joe라고 이름 지었다. (name, the statue, 과거)","a":"We named the statue Big Joe."},{"t":"mc","q":"밑줄 친 made의 뜻이 나머지와 <b>다른</b> 것은?","o":["The song <u>made</u> him a famous singer.","The festival <u>made</u> the town a popular place.","The coach <u>made</u> her the captain.","Grandma <u>made</u> me a warm sweater.","Hard work <u>made</u> him a great chef."],"a":3,"tag":"함정","e":"④ 나에게 스웨터를 만들어 주었다 (4형식, me ≠ sweater). 나머지는 A를 B로 만들었다 (5형식)"}]}]},{"name":"⑥ 본문 속 문법","intro":"<b>본문 문장 그대로 시험에 나와요.</b> 문장을 통째로 보면서 포인트를 확인해요.","blocks":[{"k":"html","html":"<div class=\"anal\">\n<div class=\"rp\"><span class=\"en\"><b>To celebrate</b> the longest day of the year, they have a special festival.</span><br><span class=\"gl\">to부정사 목적</span> ~하기 위해 — To welcome dead people, / come back home <b>to meet</b> their family도 같아요</div>\n<div class=\"rp\"><span class=\"en\"><b>Burning them symbolizes</b> saying goodbye to old things.</span><br><span class=\"gl\">동명사 주어</span> 동명사 주어는 <b>단수</b> → symbolizes (them 때문에 symbolize ✗)</div>\n<div class=\"rp\"><span class=\"en\">Surprisingly, the fallas <b>are burned</b> on the last day of the festival.</span><br><span class=\"gl\">수동태</span> be + p.p. — 태워진다 (fallas가 스스로 타는 게 아님)</div>\n<div class=\"rp\"><span class=\"en\">… the Fur Rondy festival, <b>one of the biggest winter festivals</b> in the world.</span><br><span class=\"gl\">one of the + 최상급 + 복수 명사</span> festival ✗ → festivals</div>\n<div class=\"rp\"><span class=\"en\">People <b>who</b> participate in this race <b>wear</b> fun costumes.</span><br><span class=\"gl\">주격 관계대명사</span> who = that / 주어는 People → wear (wears ✗)</div>\n<div class=\"rp\"><span class=\"en\">… and <b>try to run</b> faster than reindeer.</span><br><span class=\"gl\">try to vs try -ing</span> try to run = 달리려고 애쓰다 / try running = 시험 삼아 달려 보다</div>\n<div class=\"rp\"><span class=\"en\">Because the sun <b>hardly sets</b> at this time of year …</span><br><span class=\"gl\">hardly</span> 이미 부정 — <s>doesn't hardly</s> ✗ / hard(열심히)와 다른 단어</div>\n<div class=\"rp\"><span class=\"en\">During the festival, people <b>decorate</b> a tall pole <b>with</b> flowers.</span><br><span class=\"gl\">decorate A with B</span> A를 B로 장식하다</div>\n<div class=\"rp\"><span class=\"en\">They call this day the Day of <b>the Dead</b>.</span><br><span class=\"gl\">the + 형용사</span> = dead people (복수 취급)</div>\n<div class=\"rp\"><span class=\"en\"><b>Everyone is</b> just having fun!</span><br><span class=\"gl\">수 일치</span> everyone · everything · someone은 단수 → is</div>\n<div class=\"rp\"><span class=\"en\"><b>During</b> the festival, … / You can find <b>hundreds of</b> them.</span><br><span class=\"gl\">during vs for</span> during + 특정 기간 / for + 시간의 길이 · hundreds of (수백의) ↔ two hundred (정확한 수)</div>\n</div>"},{"k":"qset","title":"본문 문법 확인","qs":[{"t":"mc","inline":1,"q":"Burning them ______ saying goodbye to old things.","o":["symbolize","symbolizes"],"a":1},{"t":"mc","inline":1,"q":"The fallas ______ on the last day of the festival.","o":["burn","are burned"],"a":1},{"t":"mc","inline":1,"q":"It is one of the biggest winter ______ in the world.","o":["festival","festivals"],"a":1},{"t":"mc","inline":1,"q":"People who participate in this race ______ fun costumes.","o":["wear","wears"],"a":0},{"t":"mc","inline":1,"q":"Because the sun ______ at this time of year …","o":["doesn't hardly set","hardly sets"],"a":1},{"t":"mc","inline":1,"q":"Everyone ______ just having fun!","o":["is","are"],"a":0},{"t":"mc","inline":1,"q":"______ the festival, people enjoy parades.","o":["For","During"],"a":1},{"t":"mc","q":"본문의 밑줄 친 부분 중 어법상 <b>틀린</b> 것은?<br>Winter in Sweden is long and dark, so the people there ⓐ<u>especially welcome</u> summer. ⓑ<u>To celebrate</u> the ⓒ<u>longest</u> day of the year, they have a special festival. They ⓓ<u>call it as</u> the Midsummer festival. The festival starts ⓔ<u>on</u> the Friday evening.","o":["ⓐ","ⓑ","ⓒ","ⓓ","ⓔ"],"a":3,"e":"call A B — as를 쓰지 않아요: call it the Midsummer festival"},{"t":"in","q":"\"To welcome dead people, Mexicans hold a festival.\" — To welcome의 뜻을 우리말로 쓰세요. (죽은 사람들을 ~)","a":"맞이하기 위해|환영하기 위해|맞이하려고|환영하려고"}]}]},{"name":"📝 최종 테스트","intro":"<b>20문항.</b> 다 풀고 전체 채점 → 틀린 것만 다시!","blocks":[{"k":"qset","title":"최종 테스트","qs":[{"t":"mc","q":"빈칸에 알맞은 것은?<br>It is fun ______ in the festival.","o":["participate","participates","to participate","participated","participating"],"a":2},{"t":"mc","q":"빈칸에 알맞은 것은?<br>They call ______ the Midsummer festival.","o":["its","it","as it","to it","it as"],"a":1},{"t":"mc","q":"밑줄 친 It의 쓰임이 나머지와 <b>다른</b> 것은?","o":["<u>It</u> is fun to wear costumes.","<u>It</u> is possible to do so.","<u>It</u> is hard to find the pole.","<u>It</u> is on the last day of the festival.","<u>It</u> is exciting to see fireworks."],"a":3,"e":"④ 대명사(그것은 ~에 있다). 나머지는 가주어"},{"t":"mc","q":"빈칸에 들어갈 말이 나머지와 <b>다른</b> 것은?","o":["It is easy ______ me to make gimchi.","It is kind ______ you to help us.","It is hard ______ them to wake up early.","It is safe ______ kids to play here.","It is fun ______ us to ride bikes."],"a":1,"e":"② of (성격 형용사 kind). 나머지는 for"},{"t":"mc","q":"우리말을 바르게 영작한 것은?<br>사람들은 그를 영웅이라고 부른다.","o":["People call he a hero.","People call him as a hero.","People call a hero him.","People call him a hero.","People are called him a hero."],"a":3},{"t":"mc","q":"\"They named the festival Fur Rondy.\"와 문장 구조가 <b>다른</b> 것은?","o":["They elected her captain.","The prize made her a famous artist.","My uncle bought me a cap.","We call our teacher Ms. Kim.","People consider him a genius."],"a":2,"e":"③ A에게 B를 사 주었다 (4형식). 나머지는 A = B (5형식)"},{"t":"mc","q":"어법상 <b>바른</b> 것을 모두 고르면?","o":["It is dangerous to swim in the river.","That is important to save water.","It was nice for you to call me.","To watch the parade was exciting.","It is necessary to wearing a helmet."],"a":[0,3],"e":"② That → It ③ for → of ⑤ wearing → wear"},{"t":"mc","q":"두 문장의 뜻이 같도록 할 때 빈칸에 알맞은 것은?<br>To find a good souvenir is not easy. = ______ is not easy to find a good souvenir.","o":["That","This","It","There","What"],"a":2},{"t":"mc","q":"밑줄 친 부분을 바르게 고친 것은?<br>Everyone calls <u>I</u> Little Chef.","o":["my","me","mine","myself","to me"],"a":1},{"t":"mc","q":"빈칸에 공통으로 알맞은 것은?<br>• It is wise ______ him to save money.<br>• It was careless ______ her to forget the key.","o":["for","of","to","with","by"],"a":1},{"t":"in","q":"가주어 It을 이용해 다시 쓰세요: To make a giant statue takes a long time. → ______ takes a long time to make a giant statue.","a":"It"},{"t":"in","q":"빈칸에 for와 of 중 알맞은 것: It was brave ______ him to go into the dark cemetery.","a":"of"},{"t":"in","q":"빈칸에 for와 of 중 알맞은 것: It is impossible ______ people to run faster than reindeer.","a":"for"},{"t":"in","q":"우리말에 맞게: 그들은 그 축제를 Fallas라고 부른다. → They ______ ______ ______ Fallas.","a":"call the festival"},{"t":"in","q":"틀린 곳을 고친 한 단어를 쓰세요: Burning the fallas symbolize a new start.","a":"symbolizes|symbolises"},{"t":"in","q":"틀린 곳을 고친 한 단어를 쓰세요: Fur Rondy is one of the biggest winter festival in the world.","a":"festivals"},{"t":"rw","q":"괄호 안의 단어를 이용해 영작 (가주어 It, 8단어): 함께 김치를 담그는 것은 재미있을 것이다. (fun, make, together)","a":"It will be fun to make gimchi together."},{"t":"rw","q":"영작 (call 사용, 본문): 그들은 이날을 죽은 자들의 날이라고 부른다.","a":"They call this day the Day of the Dead."},{"t":"rw","q":"영작 (의미상 주어 for 사용, 9단어): 내가 그 문제를 푸는 것은 어려웠다. (hard, solve, problem)","a":"It was hard for me to solve the problem."},{"t":"rw","q":"영작 (elect 사용, 과거): 우리 반은 Mina를 반장으로 선출했다. (our class, class leader)","a":"Our class elected Mina class leader."}]}]}],"sents":[]};
+/* ===== DATA END ===== */
+</script>
+<script>/* ===== 강동미나 인터랙티브 엔진 (DATA는 CFG) ===== */
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+/* [[word]] → 발음 칩, {{12}} → 문장 번호 버튼 */
+function rich(s){
+  if(s==null)return '';
+  return String(s)
+    .replace(/\[\[([^\]]+)\]\]/g,function(m,w){return '<button class="sw" data-say="'+esc(w.replace(/<[^>]+>/g,''))+'">'+w+'</button>';})
+    .replace(/\{\{(\d+)\}\}/g,function(m,n){return '<button class="ref" data-n="'+n+'">'+n+'번</button>';});
+}
+/* ---------- TTS ---------- */
+var VOICE=null,ttsOK=('speechSynthesis' in window);
+function pickVoice(){
+  if(!ttsOK)return;
+  var vs=speechSynthesis.getVoices()||[];
+  VOICE=null;
+  for(var i=0;i<vs.length;i++){if(/william/i.test(vs[i].name)&&/^en/i.test(vs[i].lang)){VOICE=vs[i];break;}}
+  if(!VOICE){for(i=0;i<vs.length;i++){if(/^en[-_]US/i.test(vs[i].lang)){VOICE=vs[i];break;}}}
+}
+if(ttsOK){pickVoice();try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){}}
+var unlocked=false;
+function unlock(){
+  if(unlocked||!ttsOK)return;unlocked=true;
+  try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}catch(e){}
+  var h=$('#ttsHint');if(h)h.style.display='none';
+}
+['touchstart','mousedown','click'].forEach(function(ev){document.addEventListener(ev,unlock,{passive:true,capture:true});});
+function say(text,slow,onend){
+  if(!ttsOK){if(onend)onend();return;}
+  try{
+    speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(String(text).replace(/[“”]/g,'"'));
+    if(!VOICE)pickVoice();
+    if(VOICE){u.voice=VOICE;u.lang=VOICE.lang;}else u.lang='en-US';
+    u.rate=slow?0.7:0.92;
+    if(onend)u.onend=onend;
+    speechSynthesis.speak(u);
+  }catch(e){if(onend)onend();}
+}
+window.__say=say;
+/* ---------- 채점 정규화 ---------- */
+function norm(s){
+  return String(s).replace(/[’‘`]/g,"'").replace(/[“”]/g,'"').toLowerCase()
+    .replace(/[^a-z0-9\-\s가-힣]/g,' ').replace(/\s+/g,' ').trim();
+}
+function alts(a){return String(a).split('|').map(function(x){return x.trim();});}
+function okText(input,ans){var n=norm(input);if(!n)return false;return alts(ans).some(function(a){return norm(a)===n;});}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* ---------- 상단 ---------- */
+var app=$('#app');
+var head=el('header','top');
+head.innerHTML='<div class="brand">'+esc(CFG.brand)+'</div><h1>'+esc(CFG.title)+'</h1><div class="sub">'+esc(CFG.sub||'')+'</div>'+
+ '<div id="ttsHint" class="hint">🔊 소리가 안 나면 화면을 한 번 눌러 주세요.</div>';
+app.appendChild(head);
+var bar=el('nav','tabs');app.appendChild(bar);
+var main=el('main','wrap');app.appendChild(main);
+var ALLQ=[];window.__Q=ALLQ;
+var SENTS={};(CFG.sents||[]).forEach(function(s){SENTS[s.n]=s;});
+
+/* ---------- 공통 클릭 ---------- */
+document.addEventListener('click',function(ev){
+  var s=ev.target.closest('[data-say]');
+  if(s){ev.stopPropagation();say(s.getAttribute('data-say'),s.classList.contains('slow'));s.classList.add('playing');setTimeout(function(){s.classList.remove('playing');},700);return;}
+  var r=ev.target.closest('.ref');
+  if(r){
+    var n=r.getAttribute('data-n'),host=r.closest('li,td,p,.rp,.tip,.warnbox,.anal,.intro')||r.parentNode;
+    var ex=host.querySelector('.refbox[data-n="'+n+'"]');
+    if(ex){ex.remove();r.classList.remove('on');return;}
+    var st=SENTS[n];if(!st)return;
+    var bx=el('div','refbox','<b>'+n+'.</b> '+esc(st.en)+' <button class="mini" data-say="'+esc(st.en)+'">🔊</button>');
+    bx.setAttribute('data-n',n);host.appendChild(bx);r.classList.add('on');
+  }
+});
+
+/* ---------- 블록 ---------- */
+function renderBlock(b){
+  var f=R[b.k];if(!f){console.error('unknown block',b.k);return null;}
+  return f(b);
+}
+var R={};
+R.h=function(b){return el('h2','bh',rich(b.html));};
+R.html=function(b){return el('div','rich',rich(b.html));};
+R.wordlist=function(b){
+  var box=el('div','card');
+  box.appendChild(el('h3','ct',rich(b.title||'')));
+  var tg=el('div','row');
+  var hide=el('button','btn sm','뜻 가리기');var showAll=el('button','btn sm ghost','예문 해석 모두 보기');
+  tg.appendChild(hide);tg.appendChild(showAll);box.appendChild(tg);
+  var list=el('div','wl');
+  b.items.forEach(function(w,i){
+    // [en,pos,ko,ex,exKo]
+    var r=el('div','wi');
+    r.innerHTML='<div class="wtop"><span class="no">'+(i+1)+'</span><button class="wen" data-say="'+esc(w[0])+'">'+esc(w[0])+' <i>🔊</i></button>'+
+      (w[1]?'<span class="pos">'+esc(w[1])+'</span>':'')+'<span class="wko">'+rich(w[2])+'</span></div>'+
+      (w[3]?'<div class="wex"><button class="mini" data-say="'+esc(w[3])+'">🔊</button><span class="exen">'+rich(w[3])+'</span><div class="exko">'+esc(w[4]||'')+'</div></div>':'');
+    var exen=r.querySelector('.exen');if(exen)exen.onclick=function(){r.querySelector('.exko').classList.toggle('show');};
+    var ko=r.querySelector('.wko');ko.onclick=function(){if(list.classList.contains('hideko'))ko.classList.toggle('peek');};
+    list.appendChild(r);
+  });
+  hide.onclick=function(){var on=list.classList.toggle('hideko');hide.textContent=on?'뜻 보이기':'뜻 가리기';$$('.wko',list).forEach(function(k){k.classList.remove('peek');});};
+  showAll.onclick=function(){var any=$$('.exko:not(.show)',list).length>0;$$('.exko',list).forEach(function(k){k.classList.toggle('show',any);});};
+  box.appendChild(list);
+  return box;
+};
+R.flip=function(b){
+  var box=el('div','card');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  var all=el('button','btn sm ghost','뜻 모두 펼치기');box.appendChild(all);
+  b.rows.forEach(function(r){
+    var it=el('div','fl');
+    it.innerHTML='<div class="flen"><button class="mini" data-say="'+esc(r[0].replace(/<[^>]+>/g,''))+'">🔊</button><span>'+rich(r[0])+'</span><button class="tg">뜻 ▾</button></div>'+
+      '<div class="flko">'+rich(r[1])+(r[2]?'<div class="fltip">'+rich(r[2])+'</div>':'')+'</div>';
+    it.querySelector('.tg').onclick=function(){var o=it.classList.toggle('open');this.textContent=o?'뜻 ▴':'뜻 ▾';};
+    box.appendChild(it);
+  });
+  all.onclick=function(){var cl=$$('.fl:not(.open)',box).length>0;$$('.fl',box).forEach(function(x){x.classList.toggle('open',cl);x.querySelector('.tg').textContent=cl?'뜻 ▴':'뜻 ▾';});all.textContent=cl?'뜻 모두 접기':'뜻 모두 펼치기';};
+  return box;
+};
+R.dlg=function(b){
+  var box=el('div','card dlg');
+  box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  var row=el('div','row');var play=el('button','btn sm','▶ 전체 듣기');var tr=el('button','btn sm ghost','해석 모두 보기');row.appendChild(play);row.appendChild(tr);box.appendChild(row);
+  b.lines.forEach(function(l){
+    var it=el('div','dl');
+    it.innerHTML='<span class="spk">'+esc(l[0])+'</span><div class="dtx"><div class="den">'+rich(l[1])+' <button class="mini" data-say="'+esc(l[1].replace(/<[^>]+>/g,''))+'">🔊</button></div><div class="dko">'+esc(l[2]||'')+'</div></div>';
+    it.querySelector('.den').onclick=function(e){if(e.target.closest('[data-say]'))return;it.classList.toggle('open');};
+    box.appendChild(it);
+  });
+  tr.onclick=function(){var cl=$$('.dl:not(.open)',box).length>0;$$('.dl',box).forEach(function(x){x.classList.toggle('open',cl);});};
+  play.onclick=function(){var i=0,ls=b.lines,its=$$('.dl',box);(function nx(){its.forEach(function(x){x.classList.remove('now');});if(i>=ls.length)return;its[i].classList.add('now');say(ls[i][1].replace(/<[^>]+>/g,''),false,function(){i++;setTimeout(nx,250);});})();};
+  return box;
+};
+/* 순서대로 눌러 채우기: s 안의 {답} */
+R.tap=function(b){
+  var box=el('div','card');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  b.rows.forEach(function(r){
+    var it=el('div','tp');
+    var k=0;
+    var html=esc(r.s).replace(/\{([^}]+)\}/g,function(m,a){return '<button class="blank" data-i="'+(k++)+'" data-a="'+a+'">'+(k===1?'①':'')+'</button>';});
+    it.innerHTML='<div class="tps">'+html+' <button class="mini" data-say="'+esc(r.s.replace(/[{}]/g,''))+'">🔊</button></div>'+(r.ko?'<div class="tpko">'+rich(r.ko)+'</div>':'')+(r.tip?'<div class="tptip">'+rich(r.tip)+'</div>':'');
+    var bl=$$('.blank',it);
+    bl.forEach(function(x,i){x.textContent='▢ '+(i+1);});
+    var nextI=0;
+    function mark(){bl.forEach(function(x,i){x.classList.toggle('next',i===nextI);});if(nextI>=bl.length)it.classList.add('done');}
+    bl.forEach(function(x,i){x.onclick=function(){
+      if(i!==nextI){x.classList.add('shake');setTimeout(function(){x.classList.remove('shake');},400);return;}
+      x.textContent=x.getAttribute('data-a');x.classList.add('fill');nextI++;mark();
+    };});
+    mark();
+    box.appendChild(it);
+  });
+  var rs=el('button','btn sm ghost','다시 가리기');rs.onclick=function(){box.parentNode.replaceChild(R.tap(b),box);};box.appendChild(rs);
+  return box;
+};
+/* ---------- 문제 세트 ---------- */
+R.qset=function(b){
+  var box=el('div','card qset');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  if(b.psg){var ps=el('div','psg',rich(b.psg));box.appendChild(ps);}
+  var qs=[];
+  b.qs.forEach(function(q,i){var Q=makeQ(q,(b.start||1)+i);qs.push(Q);ALLQ.push(Q);box.appendChild(Q.node);});
+  var foot=el('div','qfoot');
+  var all=el('button','btn','전체 채점');var retry=el('button','btn ghost','틀린 것만 다시');var reset=el('button','btn ghost','처음부터');
+  var sc=el('div','score');
+  foot.appendChild(all);foot.appendChild(retry);foot.appendChild(reset);box.appendChild(foot);box.appendChild(sc);
+  function upd(){var ok=qs.filter(function(Q){return Q.state==='ok';}).length;var done=qs.filter(function(Q){return Q.state;}).length;
+    sc.innerHTML=done?('<b>'+ok+' / '+qs.length+'</b> 정답'+(done<qs.length?' · 안 푼 문제 '+(qs.length-done)+'개':'')+(ok===qs.length?' 🎉 모두 정답!':'')):'';}
+  qs.forEach(function(Q){Q.onchange=upd;});
+  all.onclick=function(){qs.forEach(function(Q){if(!Q.state&&Q.node.style.display!=='none')Q.check(true);});upd();var w=qs.filter(function(Q){return Q.state!=='ok';})[0];};
+  retry.onclick=function(){qs.forEach(function(Q){if(Q.state==='ok'){Q.node.style.display='none';}else{Q.node.style.display='';Q.reset();}});upd();try{box.scrollIntoView({block:'start'});}catch(e){}};
+  reset.onclick=function(){qs.forEach(function(Q){Q.node.style.display='';Q.reset();});upd();};
+  box.__qs=qs;
+  return box;
+};
+function makeQ(q,no){
+  var Q={q:q,state:null,node:el('div','q')};
+  var n=Q.node;
+  var tag=q.tag?'<span class="qtag">'+esc(q.tag)+'</span>':'';
+  if(q.ctx)n.appendChild(el('div','ctx',rich(q.ctx)));
+  n.appendChild(el('div','qq','<span class="qno">'+no+'</span>'+tag+rich(q.q||'')));
+  var body=el('div','qb');n.appendChild(body);
+  var btns=el('div','qbtn');var ck=el('button','btn sm','확인');var sh=el('button','btn sm ghost','정답 보기');btns.appendChild(ck);btns.appendChild(sh);n.appendChild(btns);
+  var fb=el('div','fb');n.appendChild(fb);
+  var T=TYPES[q.t];if(!T)throw new Error('bad type '+q.t);
+  T.build(Q,body);
+  Q.check=function(force){
+    var r=T.grade(Q);
+    if(r===null&&!force){fb.className='fb warn';fb.innerHTML='답을 먼저 골라 주세요.';return;}
+    Q.state=r?'ok':'no';
+    n.classList.remove('ok','no');n.classList.add(Q.state);
+    fb.className='fb '+(r?'good':'bad');
+    fb.innerHTML=(r?'⭕ 정답!':'❌ 다시 확인해요.')+'<div class="ans">정답: '+T.answer(Q)+'</div>'+(q.e?'<div class="ex">'+rich(q.e)+'</div>':'');
+    if(T.after)T.after(Q,r);
+    if(Q.onchange)Q.onchange();
+  };
+  Q.reset=function(){Q.state=null;n.classList.remove('ok','no');fb.className='fb';fb.innerHTML='';T.reset(Q);if(Q.onchange)Q.onchange();};
+  ck.onclick=function(){Q.check(false);};
+  sh.onclick=function(){if(!Q.state)Q.state='no';n.classList.add('no');fb.className='fb bad';fb.innerHTML='👀 정답 확인<div class="ans">정답: '+T.answer(Q)+'</div>'+(q.e?'<div class="ex">'+rich(q.e)+'</div>':'');if(T.after)T.after(Q,false);if(Q.onchange)Q.onchange();};
+  Q.T=T;
+  return Q;
+}
+var TYPES={};
+/* 객관식: a = 번호(0부터) 또는 배열(모두 고르기) */
+TYPES.mc={
+  build:function(Q,body){
+    var q=Q.q,multi=Array.isArray(q.a);
+    Q.sel=multi?[]:null;
+    var wrap=el('div','opts'+(q.inline?' inline':''));
+    var MK=['①','②','③','④','⑤','⑥','⑦'];
+    Q.order=q.o.map(function(x,i){return i;});
+    q.o.forEach(function(o,i){
+      var b=el('button','opt',(q.inline?'':'<span class="mk">'+MK[i]+'</span>')+rich(o));
+      b.onclick=function(e){if(e.target.closest('[data-say]'))return;
+        if(multi){var k=Q.sel.indexOf(i);if(k>=0)Q.sel.splice(k,1);else Q.sel.push(i);b.classList.toggle('pick');}
+        else{Q.sel=i;$$('.opt',wrap).forEach(function(x){x.classList.remove('pick');});b.classList.add('pick');if(q.inline||q.auto)Q.check(false);}
+      };
+      wrap.appendChild(b);
+    });
+    if(multi)body.appendChild(el('div','multi','※ 알맞은 것을 <b>모두</b> 고르세요.'));
+    body.appendChild(wrap);Q.wrap=wrap;
+  },
+  grade:function(Q){var q=Q.q;
+    if(Array.isArray(q.a)){if(!Q.sel.length)return null;var a=q.a.slice().sort().join(),s=Q.sel.slice().sort().join();return a===s;}
+    if(Q.sel===null)return null;return Q.sel===q.a;},
+  answer:function(Q){var q=Q.q,MK=['①','②','③','④','⑤','⑥','⑦'];var a=Array.isArray(q.a)?q.a:[q.a];
+    return a.map(function(i){return (q.inline?'':MK[i]+' ')+rich(q.o[i]);}).join(', ');},
+  after:function(Q){var q=Q.q,a=Array.isArray(q.a)?q.a:[q.a];$$('.opt',Q.wrap).forEach(function(b,i){b.classList.toggle('right',a.indexOf(i)>=0);});},
+  reset:function(Q){Q.sel=Array.isArray(Q.q.a)?[]:null;$$('.opt',Q.wrap).forEach(function(b){b.classList.remove('pick','right');});}
+};
+/* 주관식: a = '정답|다른정답' 또는 배열(빈칸 여러 개) */
+TYPES.in={
+  build:function(Q,body){
+    var q=Q.q,arr=Array.isArray(q.a)?q.a:[q.a];
+    Q.inputs=arr.map(function(a,i){
+      var w=el('div','inw');
+      if(arr.length>1)w.appendChild(el('span','inl',(q.lb&&q.lb[i])||('('+(i+1)+')')));
+      var inp=el('input','inp');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.setAttribute('spellcheck','false');
+      if(q.ph)inp.placeholder=q.ph;
+      inp.onkeydown=function(e){if(e.key==='Enter')Q.check(false);};
+      w.appendChild(inp);body.appendChild(w);return inp;});
+  },
+  grade:function(Q){var arr=Array.isArray(Q.q.a)?Q.q.a:[Q.q.a];
+    if(Q.inputs.every(function(i){return !i.value.trim();}))return null;
+    var ok=true;Q.inputs.forEach(function(inp,i){var g=okText(inp.value,arr[i]);inp.classList.toggle('good',g);inp.classList.toggle('bad',!g);if(!g)ok=false;});return ok;},
+  answer:function(Q){var arr=Array.isArray(Q.q.a)?Q.q.a:[Q.q.a];
+    return arr.map(function(a,i){var x=alts(a);return (arr.length>1?((Q.q.lb&&Q.q.lb[i])||'('+(i+1)+')')+' ':'')+'<b>'+esc(x[0])+'</b>'+(x.length>1?' <span class="alt">(= '+x.slice(1).map(esc).join(' / ')+')</span>':'');}).join(' &nbsp; ');},
+  reset:function(Q){Q.inputs.forEach(function(i){i.value='';i.classList.remove('good','bad');});}
+};
+/* 배열: c = 정답 순서 조각, x = 함정 조각 */
+TYPES.ord={
+  build:function(Q,body){
+    var q=Q.q;
+    if(q.p)body.appendChild(el('div','ordp',rich(q.p)));
+    var slot=el('div','oslot');slot.innerHTML='<span class="oh">아래 조각을 순서대로 누르세요</span>';
+    var pool=el('div','opool');
+    body.appendChild(slot);body.appendChild(pool);
+    Q.slot=slot;Q.pool=pool;Q.picked=[];
+    TYPES.ord.fill(Q);
+  },
+  fill:function(Q){
+    var q=Q.q;Q.pool.innerHTML='';Q.picked=[];
+    $$('.chip',Q.slot).forEach(function(c){c.remove();});
+    var oh=$('.oh',Q.slot);if(oh)oh.style.display='';
+    var items=q.c.map(function(t,i){return {t:t,cn:(q.cn||[]).indexOf(i)>=0};}).concat((q.x||[]).map(function(t){return {t:t,trap:1,cn:/^(and|but|so|because|if|then|or|when)$/i.test(t)};}));
+    var sh=shuffle(items),guard=0;
+    while(items.length>1&&sh.map(function(x){return x.t;}).join('␟')===items.map(function(x){return x.t;}).join('␟')&&guard++<10)sh=shuffle(items);
+    sh.forEach(function(it){
+      var c=el('button','chip'+(it.cn?' cn':''),esc(it.t));c.__t=it.t;
+      c.onclick=function(){
+        if(c.parentNode===Q.pool){Q.slot.appendChild(c);Q.picked.push(c);}
+        else{Q.pool.appendChild(c);Q.picked.splice(Q.picked.indexOf(c),1);}
+        var oh=$('.oh',Q.slot);if(oh)oh.style.display=Q.picked.length?'none':'';
+      };
+      Q.pool.appendChild(c);
+    });
+  },
+  grade:function(Q){if(!Q.picked.length)return null;
+    var got=Q.picked.map(function(c){return c.__t;});return got.join('␟')===Q.q.c.join('␟');},
+  answer:function(Q){return '<b>'+esc(Q.q.c.join(Q.q.sep!=null?Q.q.sep:' '))+'</b>'+(Q.q.sayAns!==false?' <button class="mini" data-say="'+esc(Q.q.c.join(' ').replace(/[“”]/g,''))+'">🔊</button>':'');},
+  reset:function(Q){TYPES.ord.fill(Q);}
+};
+/* 거꾸로 영작: a = 영어 문장 */
+TYPES.rw={
+  build:function(Q,body){
+    var q=Q.q;
+    if(q.hint)body.appendChild(el('div','rwh',rich(q.hint)));
+    var ta=el('textarea','inp ta');ta.rows=2;ta.setAttribute('autocapitalize','off');ta.setAttribute('spellcheck','false');ta.placeholder='영어로 쓰세요';
+    body.appendChild(ta);Q.ta=ta;Q.diff=el('div','diff');body.appendChild(Q.diff);
+  },
+  grade:function(Q){if(!Q.ta.value.trim())return null;
+    var ok=okText(Q.ta.value,Q.q.a);
+    var want=norm(alts(Q.q.a)[0]).split(' '),got=norm(Q.ta.value).split(' ');
+    Q.diff.innerHTML=want.map(function(w,i){return '<span class="'+(got[i]===w?'dg':'db')+'">'+esc(got[i]||'＿')+'</span>';}).join(' ')+(got.length>want.length?' <span class="db">+'+esc(got.slice(want.length).join(' '))+'</span>':'');
+    return ok;},
+  answer:function(Q){var a=alts(Q.q.a)[0];return '<b>'+esc(a)+'</b> <button class="mini" data-say="'+esc(a)+'">🔊</button>';},
+  reset:function(Q){Q.ta.value='';Q.diff.innerHTML='';}
+};
+
+CFG.tabs.forEach(function(t,ti){
+  var b=el('button','tab',esc(t.name));b.dataset.i=ti;
+  b.onclick=function(){showTab(ti);};bar.appendChild(b);
+  var sec=el('section','pane');sec.id='pane'+ti;
+  if(t.intro)sec.appendChild(el('div','intro',rich(t.intro)));
+  (t.blocks||[]).forEach(function(bk){var n=renderBlock(bk);if(n)sec.appendChild(n);});
+  var nav=el('div','pnav');
+  if(ti>0){var pv=el('button','btn ghost','← '+esc(CFG.tabs[ti-1].name));pv.onclick=function(){showTab(ti-1);};nav.appendChild(pv);}
+  if(ti<CFG.tabs.length-1){var nx=el('button','btn','다음: '+esc(CFG.tabs[ti+1].name)+' →');nx.onclick=function(){showTab(ti+1);};nav.appendChild(nx);}
+  sec.appendChild(nav);
+  main.appendChild(sec);
+});
+function showTab(i){
+  $$('.pane').forEach(function(p,k){p.style.display=(k===i)?'block':'none';});
+  $$('.tab').forEach(function(b,k){b.classList.toggle('on',k===i);});
+  var tb=$$('.tab')[i];if(tb&&tb.scrollIntoView){try{tb.scrollIntoView({block:'nearest',inline:'center'});}catch(e){}}
+  try{window.scrollTo(0,0);}catch(e){}
+}
+window.__showTab=showTab;
+showTab(0);
+
+
+/* ---------- 검사용 훅 ---------- */
+window.__test={
+  fillCorrect:function(Q){var q=Q.q;
+    if(q.t==='mc'){Q.T.reset(Q);var a=Array.isArray(q.a)?q.a:[q.a];a.forEach(function(i){$$('.opt',Q.wrap)[i].click();});if(!(q.inline||q.auto)||Array.isArray(q.a))Q.check(false);}
+    else if(q.t==='in'){var arr=Array.isArray(q.a)?q.a:[q.a];Q.inputs.forEach(function(inp,i){inp.value=alts(arr[i])[0];});Q.check(false);}
+    else if(q.t==='rw'){Q.ta.value=alts(q.a)[0];Q.check(false);}
+    else if(q.t==='ord'){Q.T.reset(Q);var pool=$$('.chip',Q.pool),used=[];q.c.forEach(function(t){for(var i=0;i<pool.length;i++){if(used.indexOf(i)<0&&pool[i].__t===t){used.push(i);pool[i].click();break;}}});Q.check(false);}
+  },
+  fillWrong:function(Q){var q=Q.q;
+    if(q.t==='mc'){Q.T.reset(Q);var a=Array.isArray(q.a)?q.a:[q.a];var w=-1;for(var i=0;i<q.o.length;i++)if(a.indexOf(i)<0){w=i;break;}$$('.opt',Q.wrap)[w].click();if(!(q.inline||q.auto)||Array.isArray(q.a))Q.check(false);}
+    else if(q.t==='in'){Q.inputs.forEach(function(inp){inp.value='zzzz';});Q.check(false);}
+    else if(q.t==='rw'){Q.ta.value='zzz zzz';Q.check(false);}
+    else if(q.t==='ord'){Q.T.reset(Q);var pool=$$('.chip',Q.pool);pool.slice().reverse().forEach(function(c){c.click();});
+      if(Q.picked.map(function(c){return c.__t;}).join('␟')===q.c.join('␟')){Q.picked[0].click();}
+      Q.check(false);}
+  }
+};
+})();
+</script>
+</body></html>
