@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lesson 7 Life in Space — 대화문</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--p:#5b4fa8;--pd:#3b2f8a;--pl:#ece9f8;--bg:#f5f4fa;--ink:#24213a;--mut:#6b6788;--ok:#1f8a5b;--okl:#e3f5ec;--no:#c4423a;--nol:#fbe9e7;--ye:#fff6d6;--line:#dcd8ee}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:17px;line-height:1.7}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+.top{max-width:740px;margin:0 auto;padding:22px 16px 10px}
+.brand{font-size:13px;color:var(--p);font-weight:700;letter-spacing:.02em}
+.top h1{font-size:23px;margin:4px 0 2px;color:var(--pd);line-height:1.35}
+.sub{font-size:14px;color:var(--mut)}
+.hint{margin-top:8px;font-size:13px;color:var(--mut);background:#fff;border:1px dashed var(--line);border-radius:10px;padding:6px 10px}
+.tabs{position:sticky;top:0;z-index:20;background:rgba(245,244,250,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;padding:8px 12px;-webkit-overflow-scrolling:touch}
+.tab{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:15px;font-weight:600;color:var(--mut)}
+.tab.on{background:var(--p);border-color:var(--p);color:#fff}
+.wrap{max-width:740px;margin:0 auto;padding:12px 16px 80px}
+.intro{background:#fff;border-left:4px solid var(--p);border-radius:10px;padding:12px 14px;margin:6px 0 14px;font-size:15.5px}
+.bh{font-size:19px;color:var(--pd);margin:26px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--pl)}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.ct{margin:0 0 8px;font-size:17px;color:var(--pd)}
+.note{font-size:14.5px;background:var(--pl);border-radius:10px;padding:8px 12px;margin:6px 0 10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.btn{border:none;background:var(--p);color:#fff;border-radius:10px;padding:10px 16px;font-weight:600;min-height:44px}
+.btn.ghost{background:#fff;color:var(--p);border:1.5px solid var(--p)}
+.btn.sm{padding:6px 12px;font-size:14.5px;min-height:38px}
+.mini{border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 6px;font-size:13px;line-height:24px;vertical-align:middle}
+.mini.playing,.sw.playing,.wen.playing{background:var(--ye)}
+.sw{border:none;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px;font-weight:600;font-size:inherit}
+.sw::after{content:' 🔊';font-size:.75em}
+.ref{border:1px solid var(--p);background:#fff;color:var(--p);border-radius:6px;padding:0 6px;font-size:.9em;font-weight:700}
+.ref.on{background:var(--p);color:#fff}
+.refbox{display:block;margin:6px 0;padding:8px 10px;background:#faf9ff;border:1px dashed var(--p);border-radius:8px;font-family:Lora,Georgia,serif;font-size:16px}
+.rich p{margin:6px 0}
+.anal{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.anal h4{margin:14px 0 6px;color:var(--pd);font-size:16px}
+.anal h4:first-child{margin-top:0}
+.tw{overflow-x:auto}
+table.t{border-collapse:collapse;width:100%;font-size:15px;margin:8px 0}
+table.t th,table.t td{border:1px solid var(--line);padding:7px 8px;vertical-align:top;text-align:left}
+table.t th{background:var(--pl);color:var(--pd);font-weight:700}
+.tip{background:var(--ye);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.warnbox{background:var(--nol);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.en{font-family:Lora,Georgia,serif}
+.rp{padding:8px 0;border-bottom:1px dashed var(--line)}
+.rp:last-child{border-bottom:none}
+.gl{display:inline-block;font-size:12.5px;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px;margin:2px 4px 0 0}
+/* 단어 */
+.wl.hideko .wko{color:transparent;background:#eeecf6;border-radius:6px;min-width:90px;display:inline-block}
+.wl.hideko .wko.peek{color:inherit;background:var(--ye)}
+.wi{padding:10px 0;border-bottom:1px dashed var(--line)}
+.wtop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.no{color:var(--mut);font-size:13px;min-width:20px}
+.wen{border:none;background:none;font-family:Lora,Georgia,serif;font-size:19px;font-weight:700;color:var(--pd);padding:0}
+.wen i{font-style:normal;font-size:14px}
+.pos{font-size:12.5px;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px}
+.wko{font-size:16px}
+.wex{margin:4px 0 0 28px;font-size:15.5px}
+.exen{font-family:Lora,Georgia,serif;cursor:pointer;margin-left:6px}
+.exko{display:none;color:var(--mut);font-size:14.5px}
+.exko.show{display:block}
+/* 토글 */
+.fl{border-bottom:1px dashed var(--line);padding:8px 0}
+.flen{display:flex;align-items:center;gap:8px;font-family:Lora,Georgia,serif;font-size:17px}
+.flen span{flex:1}
+.tg{border:1.5px solid var(--p);color:var(--p);background:#fff;border-radius:8px;padding:2px 10px;font-size:14px;white-space:nowrap;font-family:'Noto Sans KR',sans-serif}
+.flko{display:none;margin:4px 0 0 34px;font-size:15.5px}
+.fl.open .flko{display:block}
+.fltip{font-size:14px;color:var(--p);margin-top:2px}
+/* 대화 */
+.dl{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.dl.now{background:var(--ye)}
+.spk{flex:0 0 auto;min-width:34px;font-weight:700;color:var(--p);font-size:15px}
+.dtx{flex:1}
+.den{font-family:Lora,Georgia,serif;font-size:17px;cursor:pointer}
+.dko{display:none;color:var(--mut);font-size:15px}
+.dl.open .dko{display:block}
+/* 채우기 */
+.tp{padding:10px 0;border-bottom:1px dashed var(--line)}
+.tps{font-family:Lora,Georgia,serif;font-size:18px;line-height:2.1}
+.blank{border:2px dashed var(--line);background:#fff;border-radius:8px;padding:0 10px;color:var(--mut);font-size:15px;font-family:'Noto Sans KR',sans-serif}
+.blank.next{border-color:var(--p);color:var(--p);background:var(--pl)}
+.blank.fill{border:2px solid var(--ok);background:var(--okl);color:var(--ok);font-weight:700;font-family:Lora,Georgia,serif;font-size:18px}
+.blank.shake{animation:sh .35s}
+@keyframes sh{0%,100%{transform:translateX(0)}30%{transform:translateX(-5px)}70%{transform:translateX(5px)}}
+.tpko{font-size:15px;color:var(--mut)}
+.tptip{display:none;font-size:14.5px;color:var(--p)}
+.tp.done .tptip{display:block}
+/* 문제 */
+.psg{position:sticky;top:58px;z-index:5;max-height:42vh;overflow-y:auto;background:#fdfcff;border:1.5px solid var(--p);border-radius:12px;padding:10px 12px;margin:6px 0 12px;font-family:Lora,Georgia,serif;font-size:16px;line-height:1.75;box-shadow:0 4px 12px rgba(59,47,138,.08)}
+.psg b,.psg u{font-family:inherit}
+.q{border-top:1px solid var(--line);padding:14px 0 10px}
+.q:first-of-type{border-top:none}
+.q.ok .qno{background:var(--ok)}
+.q.no .qno{background:var(--no)}
+.qq{font-size:16.5px;margin-bottom:8px}
+.qno{display:inline-block;min-width:26px;height:26px;line-height:26px;text-align:center;border-radius:13px;background:var(--p);color:#fff;font-size:13.5px;font-weight:700;margin-right:6px}
+.qtag{display:inline-block;font-size:12px;background:var(--no);color:#fff;border-radius:6px;padding:0 6px;margin-right:6px;vertical-align:middle}
+.ctx{background:#faf9ff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:8px;font-family:Lora,Georgia,serif;font-size:16px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;font-size:16px;min-height:44px}
+.opts.inline .opt{font-family:Lora,Georgia,serif;font-weight:600;min-width:120px;text-align:center}
+.opt .mk{color:var(--p);margin-right:6px;font-weight:700}
+.opt.pick{border-color:var(--p);background:var(--pl)}
+.opt.right{border-color:var(--ok);background:var(--okl)}
+.multi{font-size:13.5px;color:var(--no);margin-bottom:4px}
+.inw{display:flex;align-items:center;gap:6px;margin:4px 0}
+.inl{font-size:14px;color:var(--mut);white-space:nowrap}
+.inp{flex:1;width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:17px;font-family:Lora,Georgia,serif;background:#fff}
+.inp:focus{outline:none;border-color:var(--p)}
+.inp.good{border-color:var(--ok);background:var(--okl)}
+.inp.bad{border-color:var(--no);background:var(--nol)}
+.ta{resize:vertical;min-height:60px}
+.rwh{font-size:14px;color:var(--mut);margin-bottom:4px}
+.diff{font-family:Lora,Georgia,serif;font-size:16px;margin-top:4px}
+.dg{color:var(--ok)}.db{color:var(--no);text-decoration:underline}
+.ordp{font-size:15.5px;margin-bottom:6px}
+.oslot{min-height:52px;border:2px dashed var(--p);border-radius:10px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:#fdfcff}
+.oh{font-size:13.5px;color:var(--mut)}
+.opool{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-family:Lora,Georgia,serif;font-size:16.5px;min-height:44px}
+.oslot .chip{border-color:var(--p);background:var(--pl)}
+.chip.cn{border-color:#d9a400;background:#fffbea}
+.qbtn{display:flex;gap:8px;margin-top:10px}
+.fb{display:none;margin-top:8px;border-radius:10px;padding:8px 12px;font-size:15.5px}
+.fb.good,.fb.bad,.fb.warn{display:block}
+.fb.good{background:var(--okl)}
+.fb.bad{background:var(--nol)}
+.fb.warn{background:var(--ye)}
+.fb .ans{margin-top:2px}
+.fb .ans b{font-family:Lora,Georgia,serif}
+.fb .ex{margin-top:4px;color:#3d3a55;font-size:15px}
+.alt{color:var(--mut);font-size:14px}
+.qfoot{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:2px solid var(--pl)}
+.score{margin-top:8px;font-size:16px;color:var(--pd)}
+.pnav{display:flex;justify-content:space-between;gap:8px;margin-top:26px;flex-wrap:wrap}
+details.sum{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:12px 0}
+details.sum summary{font-weight:700;color:var(--p);cursor:pointer}
+@media (max-width:480px){body{font-size:16px}.top h1{font-size:20px}.wex{margin-left:0}.flko{margin-left:0}}
+</style></head>
+<body><div id="app"></div>
+<script>
+/* ===== DATA START ===== */
+var CFG={"brand":"강동미나 중고등부 · 중2 Lesson 7 (동아 윤정미)","title":"Lesson 7 Life in Space — 대화문","sub":"알고 있는지 묻기 · 궁금증 표현하기 · 대화 10개 실전","tabs":[{"name":"💬 핵심 표현","intro":"<b>표현 🔊 듣고 → 뜻 떠올리고 → \"뜻 ▾\" 눌러 확인.</b> 그다음 아래 <b>대답 고르기</b>를 시험처럼 풀어요.","blocks":[{"k":"h","html":"1. 알고 있는지 묻기"},{"k":"flip","title":"질문과 대답은 \"같은 동사\"로 짝!","note":"<b>질문의 동사를 그대로 받아서 대답해요.</b> Did → did / Have → have / Do → do / Are → am","rows":[["Did you hear about the new musical?","너는 새 뮤지컬에 대해 들었니?","대답: Yes, I <b>did</b>. / No, I <b>didn't</b>."],["Have you heard about[of] the new musical?","새 뮤지컬에 대해 들어 본 적 있니?","대답: Yes, I <b>have</b>. / No, I <b>haven't</b>. (현재완료)"],["Do you know (about) the new musical?","새 뮤지컬을 아니?","대답: Yes, I <b>do</b>. / No, I <b>don't</b>."],["Are you aware of the new musical?","새 뮤지컬을 알고 있니?","대답: Yes, I <b>am</b>. / No, I'm <b>not</b>. (be aware of = ~을 알다)"],["Yes, I heard about it. It begins next Monday.","응, 들었어. 다음 주 월요일에 시작해.","Yes 뒤에는 들은 정보를 덧붙여요."]]},{"k":"h","html":"2. 궁금증 표현하기"},{"k":"flip","title":"궁금해!","note":"<b>about 뒤에는 명사</b>, 문장(주어+동사)이 오면 <b>if / whether</b>","rows":[["I'm (really) curious about it.","나는 그게 (정말) 궁금해.","be curious about + 명사"],["I'm curious if[whether] you can come.","네가 올 수 있는지 궁금해.","about 대신 if/whether + 주어 + 동사"],["I wonder what it is.","나는 그게 뭔지 궁금해.","wonder = 궁금하다"],["I want to know about the movie.","나는 그 영화에 대해 알고 싶어.",""],["Can you tell me about your picture?","네 그림에 대해 말해 줄 수 있니?","궁금한 것을 직접 물어보는 말"]]},{"k":"h","html":"3. 함께 나오는 표현"},{"k":"flip","title":"대화 속 짝 표현","rows":[["What's it about? — It's about a father who saves his son.","무슨 내용이야? — 아들을 구하는 아빠에 관한 거야.","about 뒤 내용"],["I heard (that) it's really good.","정말 좋다고 들었어.","heard 뒤에 접속사 that 생략"],["That sounds interesting.","그거 재미있겠다.","sound + 형용사"],["What time is the movie? — It begins at 2:30.","영화 몇 시야? — 2시 30분에 시작해.","정해진 일정은 현재시제!"],["Here it is. It looks good.","여기 있네. 맛있어 보인다.","look + 형용사"],["Me, too. (= So am I.)","나도 그래.","앞 문장이 I'm curious → So <b>am</b> I"],["I think I'll buy the book.","그 책 사야겠어.","think 뒤 that 생략"],["Let's eat lunch first and then see the movie.","먼저 점심 먹고 그다음에 영화 보자.","first → then 순서"]]},{"k":"qset","title":"대답 고르기 — 시험처럼!","qs":[{"t":"mc","q":"A: Did you hear about the space marathon?<br>B: ______","o":["No, I haven't.","No, I didn't.","No, I don't.","No, I'm not."],"a":1,"e":"Did로 물으면 did로 대답"},{"t":"mc","q":"A: Have you heard of the new musical?<br>B: ______ I heard it has great songs.","o":["Yes, I did.","Yes, I do.","Yes, I have.","Yes, I am."],"a":2,"e":"Have로 물으면 have로 대답"},{"t":"mc","q":"A: Are you aware of the new space food?<br>B: ______","o":["Yes, I am.","Yes, I do.","Yes, I have.","Yes, I aware."],"a":0,"e":"Are로 물으면 am으로"},{"t":"mc","q":"A: Do you know the book, Dave's Adventures?<br>B: ______ What is it about?","o":["No, I didn't.","No, I don't.","No, I haven't.","No, I'm not."],"a":1},{"t":"mc","q":"A: I'm really curious about the movie. What's it about?<br>B: ______","o":["It begins at 2:30.","It's playing at the Space Theater.","It's about a father who saves his son.","I heard it's really good."],"a":2,"tag":"함정","e":"What's it about? = 무슨 <b>내용</b>? → It's about ~"},{"t":"mc","q":"A: What time is the movie?<br>B: ______","o":["It's 2:30 now.","It begins at 2:30.","It's about a man on the moon.","It took two hours."],"a":1,"tag":"함정","e":"영화 시작 시각을 물음 → It begins at 2:30. \"지금 2시 30분이야\"는 엉뚱한 대답!"},{"t":"mc","q":"A: I'm really curious about this book.<br>B: Me, too.<br>→ Me, too.와 바꿔 쓸 수 있는 것은?","o":["So do I.","So am I.","Neither am I.","So I am."],"a":1,"e":"I'm(be동사) 문장에 동의 → So <b>am</b> I. (So do I는 일반동사 문장일 때)"},{"t":"mc","q":"A: Did you hear about the new book about Mars?<br>B: No, I didn't. ______","o":["I'm really curious about Mars.","Yes, I read it last week.","I already bought it.","I heard it is boring."],"a":0,"e":"못 들었다고 했으므로 → 궁금증 표현이 자연스러워요."},{"t":"mc","q":"A: Did you hear about the new student from Canada?<br>B: ______","o":["Yes, I did. I heard she plays the piano well.","Yes, I've never heard about her.","No, I did.","Yes, I didn't."],"a":0,"e":"Yes 뒤에 \"들어 본 적 없다\"는 모순!"},{"t":"mc","q":"다음 중 질문의 의도가 나머지와 <b>다른</b> 것은?","o":["Do you know about that?","Did you hear about that?","Are you sure about that?","Have you heard of that?","Are you aware of that?"],"a":2,"e":"Are you sure ~? = 확실하니? (확신 묻기)"},{"t":"mc","q":"궁금증을 나타내는 표현이 <b>아닌</b> 것은?","o":["I wonder what it is.","I want to know about it.","I'm curious about it.","I'm not interested in it.","Can you tell me about it?"],"a":3},{"t":"mc","q":"A: Do you know what it is?<br>B: No. ______","o":["This is mine.","May I use it?","I wonder what it is.","I'm good at it."],"a":2}]}]},{"name":"🎧 A 1~4","intro":"<b>대화 줄을 누르면 해석이 나와요.</b> 🔊로 한 줄씩, ▶로 전체를 들은 다음 문제를 풀어요.","blocks":[{"k":"dlg","title":"Listen and Talk A-1","lines":[["B","Did you hear about the first spaceship that went into space?","우주로 간 최초의 우주선에 대해 들었니?"],["G","No, I didn't. I'm curious about it.","아니, 못 들었어. 그게 궁금하다."],["B","This is a poster of the spaceship.","이게 그 우주선의 포스터야."],["G","Really? I want to buy it.","정말? 그거 사고 싶다."]]},{"k":"qset","title":"A-1 문제","qs":[{"t":"ord","q":"첫 줄 다음에 이어질 말을 순서대로 놓으세요.","p":"<b>B</b>: Did you hear about the first spaceship that went into space?","c":["No, I didn't. I'm curious about it.","This is a poster of the spaceship.","Really? I want to buy it."],"sep":" / ","sayAns":false,"e":"알고 있는지 묻기 → 대답(Yes/No) → 궁금증 표현 → 정보 주기 흐름!"},{"t":"mc","q":"밑줄 친 <u>that</u>과 바꿔 쓸 수 있는 것은?<br>the first spaceship <u>that</u> went into space","o":["who","which","what","whom"],"a":1,"e":"사물을 꾸미는 주격 관계대명사 → which"},{"t":"mc","q":"G가 사고 싶은 것은?","o":["우주선","우주선 포스터","우주 책","우주 음식"],"a":1,"e":"I want to buy <b>it</b> — it = a poster of the spaceship"},{"t":"mc","q":"\"I want to buy it.\"과 뜻이 같은 것은?","o":["I'd like to buy it.","I have to buy it.","I bought it.","I don't need it."],"a":0,"e":"want to = would like to"}]},{"k":"dlg","title":"Listen and Talk A-2","lines":[["G","Did you hear about the new book about Mars?","화성에 관한 새 책에 대해 들었니?"],["B","No, I didn't. I'm really curious about Mars.","아니, 못 들었어. 나 화성이 정말 궁금해."],["G","Look. It's right here. It's about Mars and its moons.","봐. 바로 여기 있어. 화성과 화성의 위성들에 관한 책이야."],["B","Great. I think I'll buy the book.","좋다. 그 책 사야겠어."]]},{"k":"qset","title":"A-2 문제","qs":[{"t":"ord","q":"첫 줄 다음에 이어질 말을 순서대로 놓으세요.","p":"<b>G</b>: Did you hear about the new book about Mars?","c":["No, I didn't. I'm really curious about Mars.","Look. It's right here. It's about Mars and its moons.","Great. I think I'll buy the book."],"sep":" / ","sayAns":false,"e":"알고 있는지 묻기 → 대답(Yes/No) → 궁금증 표현 → 정보 주기 흐름!"},{"t":"mc","q":"\"It's about Mars and <u>its</u> moons.\"에서 its가 가리키는 것은?","o":["the book","Mars","the moon","Earth"],"a":1,"e":"its = Mars'(화성의)"},{"t":"mc","q":"ⓐ(It's / Its) right here. ⓑ(It's / Its) about Mars and ⓒ(it's / its) moons.","o":["It's - It's - its","Its - It's - its","It's - Its - it's","It's - It's - it's"],"a":0,"e":"It is → It's / 소유격(그것의) → its"},{"t":"mc","q":"B가 하려고 하는 일은?","o":["화성 영화 보기","책 사기","도서관 가기","화성 사진 찍기"],"a":1}]},{"k":"dlg","title":"Listen and Talk A-3","lines":[["G","Did you hear about the space marathon?","우주 마라톤에 대해 들었니?"],["B","No, I didn't.","아니, 못 들었어."],["G","It's a marathon on a space station. Look at this video.","우주 정거장에서 하는 마라톤이야. 이 영상 봐."],["B","OK. I'm really curious about it.","알았어. 정말 궁금하다."]]},{"k":"qset","title":"A-3 문제","qs":[{"t":"ord","q":"첫 줄 다음에 이어질 말을 순서대로 놓으세요.","p":"<b>G</b>: Did you hear about the space marathon?","c":["No, I didn't.","It's a marathon on a space station. Look at this video.","OK. I'm really curious about it."],"sep":" / ","sayAns":false,"e":"알고 있는지 묻기 → 대답(Yes/No) → 궁금증 표현 → 정보 주기 흐름!"},{"t":"mc","q":"\"I'm really curious about <u>it</u>.\"에서 it이 가리키는 것은?","o":["the video","the space marathon","a space station","space food"],"a":1},{"t":"mc","q":"우주 마라톤은 어디에서 열리나요?","o":["on the moon","on Mars","on a space station","on a spaceship"],"a":2}]},{"k":"dlg","title":"Listen and Talk A-4","lines":[["G","Did you hear about the new space food?","새로 나온 우주 음식에 대해 들었니?"],["B","Yes, I did. It's a type of ice cream.","응, 들었어. 아이스크림의 한 종류야."],["G","Yes, and here it is. It looks good.","맞아, 그리고 여기 있네. 맛있어 보인다."],["B","I'm really curious about the taste.","맛이 정말 궁금해."]]},{"k":"qset","title":"A-4 문제","qs":[{"t":"ord","q":"첫 줄 다음에 이어질 말을 순서대로 놓으세요.","p":"<b>G</b>: Did you hear about the new space food?","c":["Yes, I did. It's a type of ice cream.","Yes, and here it is. It looks good.","I'm really curious about the taste."],"sep":" / ","sayAns":false,"e":"알고 있는지 묻기 → 대답(Yes/No) → 궁금증 표현 → 정보 주기 흐름!"},{"t":"mc","q":"\"here it is\"의 뜻은?","o":["여기가 어디야?","여기 있네.","여기서 먹자.","이게 뭐야?"],"a":1,"e":"부사 here가 앞으로 나간 형태"},{"t":"mc","q":"대화의 내용과 일치하지 <b>않는</b> 것은?","o":["B는 새 우주 음식에 대해 이미 들었다.","우주 음식은 아이스크림의 한 종류이다.","G는 우주 음식이 맛있어 보인다고 했다.","B는 우주 음식을 이미 먹어 봤다."],"a":3,"e":"B는 맛이 <b>궁금하다</b>(curious about the taste)고 했으니 아직 안 먹어 봤어요."},{"t":"in","q":"빈칸에 알맞은 한 단어: It's a ______ of ice cream. (아이스크림의 한 종류)","a":"type|kind|sort"}]}]},{"name":"🎬 대화 C","intro":"<b>가장 긴 대화 — 시험에 가장 많이 나와요!</b> 줄마다 눌러 해석을 확인하고 문제를 풀어요.","blocks":[{"k":"dlg","title":"Listen and Talk C","lines":[["B","Subin, did you hear about the new movie, Life on the Moon?","수빈아, 새 영화 〈달에서의 삶〉에 대해 들었니?"],["G","No, I didn't.","아니, 못 들었어."],["B","I heard it's really good.","정말 재미있대."],["G","I'm really curious about the movie. What's it about?","그 영화 정말 궁금하다. 무슨 내용이야?"],["B","It's about a man who is trying to live on the moon.","달에서 살려고 애쓰는 한 남자에 관한 거야."],["G","That sounds interesting.","재미있겠다."],["B","Look. The movie is playing at the Space Theater here.","봐. 그 영화가 여기 우주 극장에서 상영 중이야."],["G","What time is the movie?","영화가 몇 시에 해?"],["B","It begins at 2:30.","2시 30분에 시작해."],["G","Let's eat lunch first and then see the movie.","먼저 점심 먹고 그다음에 영화 보자."],["B","OK. I'm hungry. Let's go!","좋아. 배고프다. 가자!"]]},{"k":"qset","title":"대화 C 문제","qs":[{"t":"ord","q":"G: \"That sounds interesting.\" 다음에 이어질 말을 순서대로 놓으세요.","c":["Look. The movie is playing at the Space Theater here.","What time is the movie?","It begins at 2:30.","Let's eat lunch first and then see the movie.","OK. I'm hungry. Let's go!"],"sep":" / ","sayAns":false,"e":"상영 장소 → 시간 묻기 → 시작 시각 → 점심 먼저 → 가자"},{"t":"mc","q":"\"What's it about?\"이 들어갈 위치로 알맞은 곳은?<br>B: Subin, did you hear about the new movie, Life on the Moon? (①) G: No, I didn't. (②) B: I heard it's really good. (③) G: I'm really curious about the movie. (④) B: It's about a man who is trying to live on the moon. (⑤)","o":["①","②","③","④","⑤"],"a":3,"e":"\"무슨 내용이야?\" 뒤에 It's about ~ 대답이 와야 해요."},{"t":"mc","q":"\"I'm really curious about the movie.\"와 바꿔 쓸 수 있는 것은?","o":["I'd like to watch the movie.","I'm interested in movies.","I want to know about the movie.","I hope the movie will be good."],"a":2},{"t":"in","q":"\"It's about a man <u>who is</u> trying to live on the moon.\" — 밑줄 친 두 단어는 생략할 수 있어요. 생략하면?<br>It's about a man ______ to live on the moon.","a":"trying","e":"주격 관계대명사 + be동사는 함께 생략 가능"},{"t":"mc","q":"\"The movie is <u>playing</u> at the Space Theater.\"의 playing과 같은 뜻은?","o":["He is playing the guitar.","The film is now playing in many theaters.","The kids are playing in the park.","She is playing tennis."],"a":1,"e":"상영되다"},{"t":"mc","q":"\"It <u>begins</u> at 2:30.\"에서 will begin이 아니라 begins를 쓴 이유는?","o":["과거의 일이라서","정해진 일정은 현재시제로 나타내서","주어가 복수라서","습관이라서"],"a":1},{"t":"mc","q":"\"Let's eat lunch first and then see the movie.\"의 의미는?","o":["영화를 보고 점심을 먹는다.","점심을 먹고 영화를 본다.","점심과 영화를 동시에 한다.","영화를 보지 않는다."],"a":1,"tag":"함정","e":"first(먼저) → then(그다음에). 순서를 바꾼 문장이 \"어색한 문장\"으로 자주 나와요."},{"t":"mc","q":"대화를 읽고 알 수 <b>없는</b> 것은?","o":["영화의 제목","영화의 내용","영화가 상영되는 곳","영화의 시작 시각","두 사람의 관계"],"a":4},{"t":"mc","q":"대화의 내용과 일치하지 <b>않는</b> 것은?","o":["Subin hasn't heard about the movie before.","Somebody told the boy the movie was good.","The movie is about a man on the moon.","They will see the movie before lunch.","The boy is hungry."],"a":3},{"t":"mc","q":"흐름상 <b>어색한</b> 것은?<br>B: Did you hear about the new movie? G: ⓐ No, I didn't. B: ⓑ I heard it's really good. G: ⓒ I'm really curious about the movie. B: ⓓ It's about a man on the moon. G: ⓔ That sounds boring. I want to see it now!","o":["ⓐ","ⓑ","ⓒ","ⓓ","ⓔ"],"a":4,"e":"boring(지루한)인데 지금 보고 싶다는 건 모순 → interesting"}]}]},{"name":"📚 B · D · Review","intro":"<b>짧은 대화와 글</b>도 시험에 나와요. 같은 표현이 계속 반복되는 것을 확인하세요!","blocks":[{"k":"dlg","title":"Listen and Talk B ① (Yes)","lines":[["A","Look at this. Did you hear about the new musical?","이것 봐. 새 뮤지컬에 대해 들었니?"],["B","Yes, I did. I heard it has great songs.","응, 들었어. 노래가 아주 좋대."],["A","Oh, I'm really curious about it.","오, 정말 궁금하다."]]},{"k":"dlg","title":"Listen and Talk B ② (No)","lines":[["A","Look at this. Did you hear about the new musical?","이것 봐. 새 뮤지컬에 대해 들었니?"],["B","No, I didn't.","아니, 못 들었어."],["A","I heard it has great songs.","노래가 아주 좋대."],["B","Oh, I'm really curious about it.","오, 정말 궁금하다."]]},{"k":"qset","title":"B 문제","qs":[{"t":"mc","q":"B①과 B②에서 \"I heard it has great songs.\"를 말한 사람이 다른 이유는?","o":["B①에서는 B가 이미 들어서 정보를 알려 주고, B②에서는 B가 못 들어서 A가 알려 준다.","B①에서는 A가 거짓말을 해서","두 대화는 다른 뮤지컬이라서","B②에서 B가 뮤지컬을 이미 봐서"],"a":0,"e":"대답이 Yes냐 No냐에 따라 정보를 주는 사람이 바뀌어요."}]},{"k":"dlg","title":"Listen and Talk D (책 소개)","lines":[["","Did you hear about the new book, Dave's Adventures?","새 책 〈Dave의 모험〉에 대해 들었나요?"],["","This book is about Dave and his adventures in the woods.","이 책은 Dave와 그가 숲에서 겪는 모험에 관한 거예요."],["","The main characters are Dave and a big bear.","주인공은 Dave와 큰 곰이에요."],["","The story is fun.","이야기가 재미있어요."],["","Are you curious about the book?","그 책이 궁금한가요?"],["","Then you should read it!","그렇다면 꼭 읽어 보세요!"]]},{"k":"qset","title":"D 문제","qs":[{"t":"in","q":"괄호 안의 단어를 써서 빈칸의 질문을 완성하세요. (curious)<br>The story is fun. ______ Then you should read it!","a":"Are you curious about the book?|Are you curious about it?","ph":"Are you ...","e":"Are you curious about the book?"},{"t":"mc","q":"Dave's Adventures의 주인공은?","o":["Dave and his dog","Dave and a big bear","Dave and his father","a bear and a bird"],"a":1}]},{"k":"dlg","title":"Talk and Play","lines":[["A","Did you hear about the new dessert, Strawberry Bubbles?","새 디저트 〈Strawberry Bubbles〉에 대해 들었니?"],["B","No, I didn't, but I'm curious about it.","아니, 못 들었는데 궁금하다."],["A","It is a soft drink.","그건 청량음료야."]]},{"k":"dlg","title":"Review 1","lines":[["G","Tony, did you hear about the movie, My Hero?","Tony, 영화 〈My Hero〉에 대해 들었니?"],["B","No, I didn't.","아니, 못 들었어."],["G","Well, I heard it's really good.","음, 정말 재미있대."],["B","I'm really curious about the movie. What's it about?","그 영화 정말 궁금하다. 무슨 내용이야?"],["G","It's about a father who saves his son.","아들을 구하는 아빠에 관한 거야."]]},{"k":"qset","title":"Review 1 문제","qs":[{"t":"mc","q":"흐름상 <b>어색한</b> 것은?<br>G: ⓐ Tony, did you hear about the movie, My Hero? B: ⓑ No, I didn't. G: ⓒ Well, I heard it's really good. B: ⓓ I'm not curious about the movie. ⓔ What's it about?","o":["ⓐ","ⓑ","ⓒ","ⓓ","ⓔ"],"a":3,"e":"궁금하지 않다면서 무슨 내용이냐고 묻는 건 모순 → I'm really curious"},{"t":"mc","q":"\"It's about a father <u>who</u> saves his son.\"의 who와 바꿔 쓸 수 있는 것은?","o":["which","that","what","whose"],"a":1},{"t":"mc","q":"내용과 일치하지 <b>않는</b> 것은?","o":["The girl knows about the movie.","Tony has never heard of the movie.","Tony wants to know the story.","My Hero is about a mother and her son."],"a":3}]},{"k":"dlg","title":"Review 2","lines":[["G","Did you hear about the new book, Living in a Foreign Country?","새 책 〈외국에서 살기〉에 대해 들었니?"],["B","No, I didn't.","아니, 못 들었어."],["G","Look. It's right here. It's about living in New York.","봐. 바로 여기 있어. 뉴욕에서 사는 것에 관한 거야."],["B","Great. I'm really curious about this book.","좋다. 이 책 정말 궁금해."],["G","Me, too.","나도 그래."]]},{"k":"qset","title":"Review 2 문제","qs":[{"t":"mc","q":"\"It's about <u>living</u> in New York.\"에서 living을 쓴 이유는?","o":["진행형이라서","전치사 about 뒤라서 동명사","과거라서","형용사라서"],"a":1},{"t":"in","q":"\"Me, too.\"를 바꿔 쓰기: So ______ ______.","a":["am","I"],"lb":["①","②"],"e":"I'm really curious → So am I."},{"t":"mc","q":"빈칸에 들어갈 말이 바르게 짝지어진 것은?<br>G: (A) ______ you hear about the new book? B: No, I (B) ______.","o":["Do - don't","Did - didn't","Have - haven't","Are - am not"],"a":1}]}]},{"name":"📝 대화 종합","intro":"<b>대화문 종합 문제 15개.</b> 다 푼 다음 전체 채점 → 틀린 것만 다시!","blocks":[{"k":"qset","title":"종합 문제","qs":[{"t":"mc","q":"짝지어진 대화 중 <b>어색한</b> 것은?","o":["A: Did you hear the news? B: No, what is it?","A: I'm really curious about the puzzle. B: I wonder about it, too.","A: Have you heard that Minho got hurt? B: No, I haven't. What happened?","A: Are you aware of this song? B: Yes, I do. It's my favorite.","A: What's the book about? B: It's about a boy and his dog."],"a":3,"e":"Are → Yes, I <b>am</b>."},{"t":"mc","q":"짝지어진 대화 중 가장 <b>자연스러운</b> 것은?","o":["A: What time is the movie? B: It's 3:30 now.","A: Did you hear about the new dessert? B: No, I didn't. It's from Spain.","A: Have you ever been to Jeju-do? B: No, I haven't. I hope I can go there someday.","A: I'm curious about the game. B: Me, too. I'm not interested in it."],"a":2},{"t":"mc","q":"빈칸에 들어갈 말로 알맞지 <b>않은</b> 것은?<br>A: Did you hear about the new student? B: ______","o":["No, I didn't.","No. What is she like?","Yes, I've never heard about her.","Yes, I did. I heard she's from Canada."],"a":2},{"t":"mc","q":"우리말과 같은 뜻이 되도록 바르게 배열하면?<br>나는 이 신발에 대해 궁금하다. (about / am / these / curious / I / shoes)","o":["I am curious these shoes about.","I am curious about these shoes.","I curious am about these shoes.","About these shoes I curious am."],"a":1},{"t":"mc","q":"ⓐ~ⓔ 중 쓰임이 나머지와 다른 하나는?<br>G: Tony, did you hear ⓐ___ the movie? G: I heard ⓑ___ it's really good. B: I'm curious ⓒ___ the movie. What's it ⓓ___? G: It's ⓔ___ a father who saves his son.","o":["ⓐ","ⓑ","ⓒ","ⓓ","ⓔ"],"a":1,"e":"ⓑ는 접속사 that, 나머지는 about"},{"t":"in","q":"대화를 읽고 영어로 답하기: Q. Has Subin heard about the movie, Life on the Moon?<br>(대화 C 참고, 세 단어)","a":"No, she hasn't.|No she has not|No, she has not.","e":"Has로 물으면 has로: No, she hasn't."},{"t":"in","q":"Q. When will they see the movie? (대화 C) — They will see it after ______.","a":"lunch|eating lunch|they eat lunch|having lunch"},{"t":"in","q":"Q. Who is the main character of Life on the Moon? — It is a man who is trying to ______ ______ ______ ______.","a":"live on the moon","ph":"네 단어"},{"t":"in","q":"Did you hear about the new sci-fi movie?<br>= Have you ______ of the new sci-fi movie?","a":"heard"},{"t":"in","q":"Did you hear about the new sci-fi movie?<br>= Are you ______ of the new sci-fi movie?","a":"aware"},{"t":"in","q":"Did you hear about the new sci-fi movie?<br>= ______ you know the new sci-fi movie?","a":"Do"},{"t":"in","q":"I'm curious about the result. = I ______ about the result.","a":"wonder","e":"curious about = wonder about"},{"t":"mc","q":"대화의 순서로 알맞은 것은?<br>(A) No, I didn't. I'm really curious about Mars.<br>(B) Did you hear about the new book about Mars?<br>(C) Great. I think I'll buy the book.<br>(D) Look. It's right here. It's about Mars and its moons.","o":["(B)-(A)-(D)-(C)","(B)-(D)-(A)-(C)","(A)-(B)-(D)-(C)","(B)-(C)-(A)-(D)"],"a":0},{"t":"mc","q":"A-4 대화에서 B가 궁금해하는 것은?","o":["the price","the taste","the shape","the color"],"a":1,"e":"I'm really curious about the <b>taste</b>. (shape로 바꾼 문제가 자주 나와요)"},{"t":"mc","q":"\"I heard it's really good.\"에서 생략된 단어는?","o":["what","which","that","who"],"a":2}]}]}],"sents":[]};
+/* ===== DATA END ===== */
+</script>
+<script>/* ===== 강동미나 인터랙티브 엔진 (DATA는 CFG) ===== */
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+/* [[word]] → 발음 칩, {{12}} → 문장 번호 버튼 */
+function rich(s){
+  if(s==null)return '';
+  return String(s)
+    .replace(/\[\[([^\]]+)\]\]/g,function(m,w){return '<button class="sw" data-say="'+esc(w.replace(/<[^>]+>/g,''))+'">'+w+'</button>';})
+    .replace(/\{\{(\d+)\}\}/g,function(m,n){return '<button class="ref" data-n="'+n+'">'+n+'번</button>';});
+}
+/* ---------- TTS ---------- */
+var VOICE=null,ttsOK=('speechSynthesis' in window);
+function pickVoice(){
+  if(!ttsOK)return;
+  var vs=speechSynthesis.getVoices()||[];
+  VOICE=null;
+  for(var i=0;i<vs.length;i++){if(/william/i.test(vs[i].name)&&/^en/i.test(vs[i].lang)){VOICE=vs[i];break;}}
+  if(!VOICE){for(i=0;i<vs.length;i++){if(/^en[-_]US/i.test(vs[i].lang)){VOICE=vs[i];break;}}}
+}
+if(ttsOK){pickVoice();try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){}}
+var unlocked=false;
+function unlock(){
+  if(unlocked||!ttsOK)return;unlocked=true;
+  try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}catch(e){}
+  var h=$('#ttsHint');if(h)h.style.display='none';
+}
+['touchstart','mousedown','click'].forEach(function(ev){document.addEventListener(ev,unlock,{passive:true,capture:true});});
+function say(text,slow,onend){
+  if(!ttsOK){if(onend)onend();return;}
+  try{
+    speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(String(text).replace(/[“”]/g,'"'));
+    if(!VOICE)pickVoice();
+    if(VOICE){u.voice=VOICE;u.lang=VOICE.lang;}else u.lang='en-US';
+    u.rate=slow?0.7:0.92;
+    if(onend)u.onend=onend;
+    speechSynthesis.speak(u);
+  }catch(e){if(onend)onend();}
+}
+window.__say=say;
+/* ---------- 채점 정규화 ---------- */
+function norm(s){
+  return String(s).replace(/[’‘`]/g,"'").replace(/[“”]/g,'"').toLowerCase()
+    .replace(/[^a-z0-9\-\s가-힣]/g,' ').replace(/\s+/g,' ').trim();
+}
+function alts(a){return String(a).split('|').map(function(x){return x.trim();});}
+function okText(input,ans){var n=norm(input);if(!n)return false;return alts(ans).some(function(a){return norm(a)===n;});}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* ---------- 상단 ---------- */
+var app=$('#app');
+var head=el('header','top');
+head.innerHTML='<div class="brand">'+esc(CFG.brand)+'</div><h1>'+esc(CFG.title)+'</h1><div class="sub">'+esc(CFG.sub||'')+'</div>'+
+ '<div id="ttsHint" class="hint">🔊 소리가 안 나면 화면을 한 번 눌러 주세요.</div>';
+app.appendChild(head);
+var bar=el('nav','tabs');app.appendChild(bar);
+var main=el('main','wrap');app.appendChild(main);
+var ALLQ=[];window.__Q=ALLQ;
+var SENTS={};(CFG.sents||[]).forEach(function(s){SENTS[s.n]=s;});
+
+/* ---------- 공통 클릭 ---------- */
+document.addEventListener('click',function(ev){
+  var s=ev.target.closest('[data-say]');
+  if(s){ev.stopPropagation();say(s.getAttribute('data-say'),s.classList.contains('slow'));s.classList.add('playing');setTimeout(function(){s.classList.remove('playing');},700);return;}
+  var r=ev.target.closest('.ref');
+  if(r){
+    var n=r.getAttribute('data-n'),host=r.closest('li,td,p,.rp,.tip,.warnbox,.anal,.intro')||r.parentNode;
+    var ex=host.querySelector('.refbox[data-n="'+n+'"]');
+    if(ex){ex.remove();r.classList.remove('on');return;}
+    var st=SENTS[n];if(!st)return;
+    var bx=el('div','refbox','<b>'+n+'.</b> '+esc(st.en)+' <button class="mini" data-say="'+esc(st.en)+'">🔊</button>');
+    bx.setAttribute('data-n',n);host.appendChild(bx);r.classList.add('on');
+  }
+});
+
+/* ---------- 블록 ---------- */
+function renderBlock(b){
+  var f=R[b.k];if(!f){console.error('unknown block',b.k);return null;}
+  return f(b);
+}
+var R={};
+R.h=function(b){return el('h2','bh',rich(b.html));};
+R.html=function(b){return el('div','rich',rich(b.html));};
+R.wordlist=function(b){
+  var box=el('div','card');
+  box.appendChild(el('h3','ct',rich(b.title||'')));
+  var tg=el('div','row');
+  var hide=el('button','btn sm','뜻 가리기');var showAll=el('button','btn sm ghost','예문 해석 모두 보기');
+  tg.appendChild(hide);tg.appendChild(showAll);box.appendChild(tg);
+  var list=el('div','wl');
+  b.items.forEach(function(w,i){
+    // [en,pos,ko,ex,exKo]
+    var r=el('div','wi');
+    r.innerHTML='<div class="wtop"><span class="no">'+(i+1)+'</span><button class="wen" data-say="'+esc(w[0])+'">'+esc(w[0])+' <i>🔊</i></button>'+
+      (w[1]?'<span class="pos">'+esc(w[1])+'</span>':'')+'<span class="wko">'+rich(w[2])+'</span></div>'+
+      (w[3]?'<div class="wex"><button class="mini" data-say="'+esc(w[3])+'">🔊</button><span class="exen">'+rich(w[3])+'</span><div class="exko">'+esc(w[4]||'')+'</div></div>':'');
+    var exen=r.querySelector('.exen');if(exen)exen.onclick=function(){r.querySelector('.exko').classList.toggle('show');};
+    var ko=r.querySelector('.wko');ko.onclick=function(){if(list.classList.contains('hideko'))ko.classList.toggle('peek');};
+    list.appendChild(r);
+  });
+  hide.onclick=function(){var on=list.classList.toggle('hideko');hide.textContent=on?'뜻 보이기':'뜻 가리기';$$('.wko',list).forEach(function(k){k.classList.remove('peek');});};
+  showAll.onclick=function(){var any=$$('.exko:not(.show)',list).length>0;$$('.exko',list).forEach(function(k){k.classList.toggle('show',any);});};
+  box.appendChild(list);
+  return box;
+};
+R.flip=function(b){
+  var box=el('div','card');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  var all=el('button','btn sm ghost','뜻 모두 펼치기');box.appendChild(all);
+  b.rows.forEach(function(r){
+    var it=el('div','fl');
+    it.innerHTML='<div class="flen"><button class="mini" data-say="'+esc(r[0].replace(/<[^>]+>/g,''))+'">🔊</button><span>'+rich(r[0])+'</span><button class="tg">뜻 ▾</button></div>'+
+      '<div class="flko">'+rich(r[1])+(r[2]?'<div class="fltip">'+rich(r[2])+'</div>':'')+'</div>';
+    it.querySelector('.tg').onclick=function(){var o=it.classList.toggle('open');this.textContent=o?'뜻 ▴':'뜻 ▾';};
+    box.appendChild(it);
+  });
+  all.onclick=function(){var cl=$$('.fl:not(.open)',box).length>0;$$('.fl',box).forEach(function(x){x.classList.toggle('open',cl);x.querySelector('.tg').textContent=cl?'뜻 ▴':'뜻 ▾';});all.textContent=cl?'뜻 모두 접기':'뜻 모두 펼치기';};
+  return box;
+};
+R.dlg=function(b){
+  var box=el('div','card dlg');
+  box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  var row=el('div','row');var play=el('button','btn sm','▶ 전체 듣기');var tr=el('button','btn sm ghost','해석 모두 보기');row.appendChild(play);row.appendChild(tr);box.appendChild(row);
+  b.lines.forEach(function(l){
+    var it=el('div','dl');
+    it.innerHTML='<span class="spk">'+esc(l[0])+'</span><div class="dtx"><div class="den">'+rich(l[1])+' <button class="mini" data-say="'+esc(l[1].replace(/<[^>]+>/g,''))+'">🔊</button></div><div class="dko">'+esc(l[2]||'')+'</div></div>';
+    it.querySelector('.den').onclick=function(e){if(e.target.closest('[data-say]'))return;it.classList.toggle('open');};
+    box.appendChild(it);
+  });
+  tr.onclick=function(){var cl=$$('.dl:not(.open)',box).length>0;$$('.dl',box).forEach(function(x){x.classList.toggle('open',cl);});};
+  play.onclick=function(){var i=0,ls=b.lines,its=$$('.dl',box);(function nx(){its.forEach(function(x){x.classList.remove('now');});if(i>=ls.length)return;its[i].classList.add('now');say(ls[i][1].replace(/<[^>]+>/g,''),false,function(){i++;setTimeout(nx,250);});})();};
+  return box;
+};
+/* 순서대로 눌러 채우기: s 안의 {답} */
+R.tap=function(b){
+  var box=el('div','card');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  b.rows.forEach(function(r){
+    var it=el('div','tp');
+    var k=0;
+    var html=esc(r.s).replace(/\{([^}]+)\}/g,function(m,a){return '<button class="blank" data-i="'+(k++)+'" data-a="'+a+'">'+(k===1?'①':'')+'</button>';});
+    it.innerHTML='<div class="tps">'+html+' <button class="mini" data-say="'+esc(r.s.replace(/[{}]/g,''))+'">🔊</button></div>'+(r.ko?'<div class="tpko">'+rich(r.ko)+'</div>':'')+(r.tip?'<div class="tptip">'+rich(r.tip)+'</div>':'');
+    var bl=$$('.blank',it);
+    bl.forEach(function(x,i){x.textContent='▢ '+(i+1);});
+    var nextI=0;
+    function mark(){bl.forEach(function(x,i){x.classList.toggle('next',i===nextI);});if(nextI>=bl.length)it.classList.add('done');}
+    bl.forEach(function(x,i){x.onclick=function(){
+      if(i!==nextI){x.classList.add('shake');setTimeout(function(){x.classList.remove('shake');},400);return;}
+      x.textContent=x.getAttribute('data-a');x.classList.add('fill');nextI++;mark();
+    };});
+    mark();
+    box.appendChild(it);
+  });
+  var rs=el('button','btn sm ghost','다시 가리기');rs.onclick=function(){box.parentNode.replaceChild(R.tap(b),box);};box.appendChild(rs);
+  return box;
+};
+/* ---------- 문제 세트 ---------- */
+R.qset=function(b){
+  var box=el('div','card qset');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  if(b.psg){var ps=el('div','psg',rich(b.psg));box.appendChild(ps);}
+  var qs=[];
+  b.qs.forEach(function(q,i){var Q=makeQ(q,(b.start||1)+i);qs.push(Q);ALLQ.push(Q);box.appendChild(Q.node);});
+  var foot=el('div','qfoot');
+  var all=el('button','btn','전체 채점');var retry=el('button','btn ghost','틀린 것만 다시');var reset=el('button','btn ghost','처음부터');
+  var sc=el('div','score');
+  foot.appendChild(all);foot.appendChild(retry);foot.appendChild(reset);box.appendChild(foot);box.appendChild(sc);
+  function upd(){var ok=qs.filter(function(Q){return Q.state==='ok';}).length;var done=qs.filter(function(Q){return Q.state;}).length;
+    sc.innerHTML=done?('<b>'+ok+' / '+qs.length+'</b> 정답'+(done<qs.length?' · 안 푼 문제 '+(qs.length-done)+'개':'')+(ok===qs.length?' 🎉 모두 정답!':'')):'';}
+  qs.forEach(function(Q){Q.onchange=upd;});
+  all.onclick=function(){qs.forEach(function(Q){if(!Q.state&&Q.node.style.display!=='none')Q.check(true);});upd();var w=qs.filter(function(Q){return Q.state!=='ok';})[0];};
+  retry.onclick=function(){qs.forEach(function(Q){if(Q.state==='ok'){Q.node.style.display='none';}else{Q.node.style.display='';Q.reset();}});upd();try{box.scrollIntoView({block:'start'});}catch(e){}};
+  reset.onclick=function(){qs.forEach(function(Q){Q.node.style.display='';Q.reset();});upd();};
+  box.__qs=qs;
+  return box;
+};
+function makeQ(q,no){
+  var Q={q:q,state:null,node:el('div','q')};
+  var n=Q.node;
+  var tag=q.tag?'<span class="qtag">'+esc(q.tag)+'</span>':'';
+  if(q.ctx)n.appendChild(el('div','ctx',rich(q.ctx)));
+  n.appendChild(el('div','qq','<span class="qno">'+no+'</span>'+tag+rich(q.q||'')));
+  var body=el('div','qb');n.appendChild(body);
+  var btns=el('div','qbtn');var ck=el('button','btn sm','확인');var sh=el('button','btn sm ghost','정답 보기');btns.appendChild(ck);btns.appendChild(sh);n.appendChild(btns);
+  var fb=el('div','fb');n.appendChild(fb);
+  var T=TYPES[q.t];if(!T)throw new Error('bad type '+q.t);
+  T.build(Q,body);
+  Q.check=function(force){
+    var r=T.grade(Q);
+    if(r===null&&!force){fb.className='fb warn';fb.innerHTML='답을 먼저 골라 주세요.';return;}
+    Q.state=r?'ok':'no';
+    n.classList.remove('ok','no');n.classList.add(Q.state);
+    fb.className='fb '+(r?'good':'bad');
+    fb.innerHTML=(r?'⭕ 정답!':'❌ 다시 확인해요.')+'<div class="ans">정답: '+T.answer(Q)+'</div>'+(q.e?'<div class="ex">'+rich(q.e)+'</div>':'');
+    if(T.after)T.after(Q,r);
+    if(Q.onchange)Q.onchange();
+  };
+  Q.reset=function(){Q.state=null;n.classList.remove('ok','no');fb.className='fb';fb.innerHTML='';T.reset(Q);if(Q.onchange)Q.onchange();};
+  ck.onclick=function(){Q.check(false);};
+  sh.onclick=function(){if(!Q.state)Q.state='no';n.classList.add('no');fb.className='fb bad';fb.innerHTML='👀 정답 확인<div class="ans">정답: '+T.answer(Q)+'</div>'+(q.e?'<div class="ex">'+rich(q.e)+'</div>':'');if(T.after)T.after(Q,false);if(Q.onchange)Q.onchange();};
+  Q.T=T;
+  return Q;
+}
+var TYPES={};
+/* 객관식: a = 번호(0부터) 또는 배열(모두 고르기) */
+TYPES.mc={
+  build:function(Q,body){
+    var q=Q.q,multi=Array.isArray(q.a);
+    Q.sel=multi?[]:null;
+    var wrap=el('div','opts'+(q.inline?' inline':''));
+    var MK=['①','②','③','④','⑤','⑥','⑦'];
+    Q.order=q.o.map(function(x,i){return i;});
+    q.o.forEach(function(o,i){
+      var b=el('button','opt',(q.inline?'':'<span class="mk">'+MK[i]+'</span>')+rich(o));
+      b.onclick=function(e){if(e.target.closest('[data-say]'))return;
+        if(multi){var k=Q.sel.indexOf(i);if(k>=0)Q.sel.splice(k,1);else Q.sel.push(i);b.classList.toggle('pick');}
+        else{Q.sel=i;$$('.opt',wrap).forEach(function(x){x.classList.remove('pick');});b.classList.add('pick');if(q.inline||q.auto)Q.check(false);}
+      };
+      wrap.appendChild(b);
+    });
+    if(multi)body.appendChild(el('div','multi','※ 알맞은 것을 <b>모두</b> 고르세요.'));
+    body.appendChild(wrap);Q.wrap=wrap;
+  },
+  grade:function(Q){var q=Q.q;
+    if(Array.isArray(q.a)){if(!Q.sel.length)return null;var a=q.a.slice().sort().join(),s=Q.sel.slice().sort().join();return a===s;}
+    if(Q.sel===null)return null;return Q.sel===q.a;},
+  answer:function(Q){var q=Q.q,MK=['①','②','③','④','⑤','⑥','⑦'];var a=Array.isArray(q.a)?q.a:[q.a];
+    return a.map(function(i){return (q.inline?'':MK[i]+' ')+rich(q.o[i]);}).join(', ');},
+  after:function(Q){var q=Q.q,a=Array.isArray(q.a)?q.a:[q.a];$$('.opt',Q.wrap).forEach(function(b,i){b.classList.toggle('right',a.indexOf(i)>=0);});},
+  reset:function(Q){Q.sel=Array.isArray(Q.q.a)?[]:null;$$('.opt',Q.wrap).forEach(function(b){b.classList.remove('pick','right');});}
+};
+/* 주관식: a = '정답|다른정답' 또는 배열(빈칸 여러 개) */
+TYPES.in={
+  build:function(Q,body){
+    var q=Q.q,arr=Array.isArray(q.a)?q.a:[q.a];
+    Q.inputs=arr.map(function(a,i){
+      var w=el('div','inw');
+      if(arr.length>1)w.appendChild(el('span','inl',(q.lb&&q.lb[i])||('('+(i+1)+')')));
+      var inp=el('input','inp');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.setAttribute('spellcheck','false');
+      if(q.ph)inp.placeholder=q.ph;
+      inp.onkeydown=function(e){if(e.key==='Enter')Q.check(false);};
+      w.appendChild(inp);body.appendChild(w);return inp;});
+  },
+  grade:function(Q){var arr=Array.isArray(Q.q.a)?Q.q.a:[Q.q.a];
+    if(Q.inputs.every(function(i){return !i.value.trim();}))return null;
+    var ok=true;Q.inputs.forEach(function(inp,i){var g=okText(inp.value,arr[i]);inp.classList.toggle('good',g);inp.classList.toggle('bad',!g);if(!g)ok=false;});return ok;},
+  answer:function(Q){var arr=Array.isArray(Q.q.a)?Q.q.a:[Q.q.a];
+    return arr.map(function(a,i){var x=alts(a);return (arr.length>1?((Q.q.lb&&Q.q.lb[i])||'('+(i+1)+')')+' ':'')+'<b>'+esc(x[0])+'</b>'+(x.length>1?' <span class="alt">(= '+x.slice(1).map(esc).join(' / ')+')</span>':'');}).join(' &nbsp; ');},
+  reset:function(Q){Q.inputs.forEach(function(i){i.value='';i.classList.remove('good','bad');});}
+};
+/* 배열: c = 정답 순서 조각, x = 함정 조각 */
+TYPES.ord={
+  build:function(Q,body){
+    var q=Q.q;
+    if(q.p)body.appendChild(el('div','ordp',rich(q.p)));
+    var slot=el('div','oslot');slot.innerHTML='<span class="oh">아래 조각을 순서대로 누르세요</span>';
+    var pool=el('div','opool');
+    body.appendChild(slot);body.appendChild(pool);
+    Q.slot=slot;Q.pool=pool;Q.picked=[];
+    TYPES.ord.fill(Q);
+  },
+  fill:function(Q){
+    var q=Q.q;Q.pool.innerHTML='';Q.picked=[];
+    $$('.chip',Q.slot).forEach(function(c){c.remove();});
+    var oh=$('.oh',Q.slot);if(oh)oh.style.display='';
+    var items=q.c.map(function(t,i){return {t:t,cn:(q.cn||[]).indexOf(i)>=0};}).concat((q.x||[]).map(function(t){return {t:t,trap:1,cn:/^(and|but|so|because|if|then|or|when)$/i.test(t)};}));
+    var sh=shuffle(items),guard=0;
+    while(items.length>1&&sh.map(function(x){return x.t;}).join('␟')===items.map(function(x){return x.t;}).join('␟')&&guard++<10)sh=shuffle(items);
+    sh.forEach(function(it){
+      var c=el('button','chip'+(it.cn?' cn':''),esc(it.t));c.__t=it.t;
+      c.onclick=function(){
+        if(c.parentNode===Q.pool){Q.slot.appendChild(c);Q.picked.push(c);}
+        else{Q.pool.appendChild(c);Q.picked.splice(Q.picked.indexOf(c),1);}
+        var oh=$('.oh',Q.slot);if(oh)oh.style.display=Q.picked.length?'none':'';
+      };
+      Q.pool.appendChild(c);
+    });
+  },
+  grade:function(Q){if(!Q.picked.length)return null;
+    var got=Q.picked.map(function(c){return c.__t;});return got.join('␟')===Q.q.c.join('␟');},
+  answer:function(Q){return '<b>'+esc(Q.q.c.join(Q.q.sep!=null?Q.q.sep:' '))+'</b>'+(Q.q.sayAns!==false?' <button class="mini" data-say="'+esc(Q.q.c.join(' ').replace(/[“”]/g,''))+'">🔊</button>':'');},
+  reset:function(Q){TYPES.ord.fill(Q);}
+};
+/* 거꾸로 영작: a = 영어 문장 */
+TYPES.rw={
+  build:function(Q,body){
+    var q=Q.q;
+    if(q.hint)body.appendChild(el('div','rwh',rich(q.hint)));
+    var ta=el('textarea','inp ta');ta.rows=2;ta.setAttribute('autocapitalize','off');ta.setAttribute('spellcheck','false');ta.placeholder='영어로 쓰세요';
+    body.appendChild(ta);Q.ta=ta;Q.diff=el('div','diff');body.appendChild(Q.diff);
+  },
+  grade:function(Q){if(!Q.ta.value.trim())return null;
+    var ok=okText(Q.ta.value,Q.q.a);
+    var want=norm(alts(Q.q.a)[0]).split(' '),got=norm(Q.ta.value).split(' ');
+    Q.diff.innerHTML=want.map(function(w,i){return '<span class="'+(got[i]===w?'dg':'db')+'">'+esc(got[i]||'＿')+'</span>';}).join(' ')+(got.length>want.length?' <span class="db">+'+esc(got.slice(want.length).join(' '))+'</span>':'');
+    return ok;},
+  answer:function(Q){var a=alts(Q.q.a)[0];return '<b>'+esc(a)+'</b> <button class="mini" data-say="'+esc(a)+'">🔊</button>';},
+  reset:function(Q){Q.ta.value='';Q.diff.innerHTML='';}
+};
+
+CFG.tabs.forEach(function(t,ti){
+  var b=el('button','tab',esc(t.name));b.dataset.i=ti;
+  b.onclick=function(){showTab(ti);};bar.appendChild(b);
+  var sec=el('section','pane');sec.id='pane'+ti;
+  if(t.intro)sec.appendChild(el('div','intro',rich(t.intro)));
+  (t.blocks||[]).forEach(function(bk){var n=renderBlock(bk);if(n)sec.appendChild(n);});
+  var nav=el('div','pnav');
+  if(ti>0){var pv=el('button','btn ghost','← '+esc(CFG.tabs[ti-1].name));pv.onclick=function(){showTab(ti-1);};nav.appendChild(pv);}
+  if(ti<CFG.tabs.length-1){var nx=el('button','btn','다음: '+esc(CFG.tabs[ti+1].name)+' →');nx.onclick=function(){showTab(ti+1);};nav.appendChild(nx);}
+  sec.appendChild(nav);
+  main.appendChild(sec);
+});
+function showTab(i){
+  $$('.pane').forEach(function(p,k){p.style.display=(k===i)?'block':'none';});
+  $$('.tab').forEach(function(b,k){b.classList.toggle('on',k===i);});
+  var tb=$$('.tab')[i];if(tb&&tb.scrollIntoView){try{tb.scrollIntoView({block:'nearest',inline:'center'});}catch(e){}}
+  try{window.scrollTo(0,0);}catch(e){}
+}
+window.__showTab=showTab;
+showTab(0);
+
+
+/* ---------- 검사용 훅 ---------- */
+window.__test={
+  fillCorrect:function(Q){var q=Q.q;
+    if(q.t==='mc'){Q.T.reset(Q);var a=Array.isArray(q.a)?q.a:[q.a];a.forEach(function(i){$$('.opt',Q.wrap)[i].click();});if(!(q.inline||q.auto)||Array.isArray(q.a))Q.check(false);}
+    else if(q.t==='in'){var arr=Array.isArray(q.a)?q.a:[q.a];Q.inputs.forEach(function(inp,i){inp.value=alts(arr[i])[0];});Q.check(false);}
+    else if(q.t==='rw'){Q.ta.value=alts(q.a)[0];Q.check(false);}
+    else if(q.t==='ord'){Q.T.reset(Q);var pool=$$('.chip',Q.pool),used=[];q.c.forEach(function(t){for(var i=0;i<pool.length;i++){if(used.indexOf(i)<0&&pool[i].__t===t){used.push(i);pool[i].click();break;}}});Q.check(false);}
+  },
+  fillWrong:function(Q){var q=Q.q;
+    if(q.t==='mc'){Q.T.reset(Q);var a=Array.isArray(q.a)?q.a:[q.a];var w=-1;for(var i=0;i<q.o.length;i++)if(a.indexOf(i)<0){w=i;break;}$$('.opt',Q.wrap)[w].click();if(!(q.inline||q.auto)||Array.isArray(q.a))Q.check(false);}
+    else if(q.t==='in'){Q.inputs.forEach(function(inp){inp.value='zzzz';});Q.check(false);}
+    else if(q.t==='rw'){Q.ta.value='zzz zzz';Q.check(false);}
+    else if(q.t==='ord'){Q.T.reset(Q);var pool=$$('.chip',Q.pool);pool.slice().reverse().forEach(function(c){c.click();});
+      if(Q.picked.map(function(c){return c.__t;}).join('␟')===q.c.join('␟')){Q.picked[0].click();}
+      Q.check(false);}
+  }
+};
+})();
+</script>
+</body></html>
