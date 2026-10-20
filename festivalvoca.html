@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lesson 7 Let's Enjoy Festivals — 단어</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--p:#5b4fa8;--pd:#3b2f8a;--pl:#ece9f8;--bg:#f5f4fa;--ink:#24213a;--mut:#6b6788;--ok:#1f8a5b;--okl:#e3f5ec;--no:#c4423a;--nol:#fbe9e7;--ye:#fff6d6;--line:#dcd8ee}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:17px;line-height:1.7}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+.top{max-width:740px;margin:0 auto;padding:22px 16px 10px}
+.brand{font-size:13px;color:var(--p);font-weight:700;letter-spacing:.02em}
+.top h1{font-size:23px;margin:4px 0 2px;color:var(--pd);line-height:1.35}
+.sub{font-size:14px;color:var(--mut)}
+.hint{margin-top:8px;font-size:13px;color:var(--mut);background:#fff;border:1px dashed var(--line);border-radius:10px;padding:6px 10px}
+.tabs{position:sticky;top:0;z-index:20;background:rgba(245,244,250,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;padding:8px 12px;-webkit-overflow-scrolling:touch}
+.tab{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:15px;font-weight:600;color:var(--mut)}
+.tab.on{background:var(--p);border-color:var(--p);color:#fff}
+.wrap{max-width:740px;margin:0 auto;padding:12px 16px 80px}
+.intro{background:#fff;border-left:4px solid var(--p);border-radius:10px;padding:12px 14px;margin:6px 0 14px;font-size:15.5px}
+.bh{font-size:19px;color:var(--pd);margin:26px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--pl)}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.ct{margin:0 0 8px;font-size:17px;color:var(--pd)}
+.note{font-size:14.5px;background:var(--pl);border-radius:10px;padding:8px 12px;margin:6px 0 10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.btn{border:none;background:var(--p);color:#fff;border-radius:10px;padding:10px 16px;font-weight:600;min-height:44px}
+.btn.ghost{background:#fff;color:var(--p);border:1.5px solid var(--p)}
+.btn.sm{padding:6px 12px;font-size:14.5px;min-height:38px}
+.mini{border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 6px;font-size:13px;line-height:24px;vertical-align:middle}
+.mini.playing,.sw.playing,.wen.playing{background:var(--ye)}
+.sw{border:none;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px;font-weight:600;font-size:inherit}
+.sw::after{content:' 🔊';font-size:.75em}
+.ref{border:1px solid var(--p);background:#fff;color:var(--p);border-radius:6px;padding:0 6px;font-size:.9em;font-weight:700}
+.ref.on{background:var(--p);color:#fff}
+.refbox{display:block;margin:6px 0;padding:8px 10px;background:#faf9ff;border:1px dashed var(--p);border-radius:8px;font-family:Lora,Georgia,serif;font-size:16px}
+.rich p{margin:6px 0}
+.anal{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.anal h4{margin:14px 0 6px;color:var(--pd);font-size:16px}
+.anal h4:first-child{margin-top:0}
+.tw{overflow-x:auto}
+table.t{border-collapse:collapse;width:100%;font-size:15px;margin:8px 0}
+table.t th,table.t td{border:1px solid var(--line);padding:7px 8px;vertical-align:top;text-align:left}
+table.t th{background:var(--pl);color:var(--pd);font-weight:700}
+.tip{background:var(--ye);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.warnbox{background:var(--nol);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.en{font-family:Lora,Georgia,serif}
+.rp{padding:8px 0;border-bottom:1px dashed var(--line)}
+.rp:last-child{border-bottom:none}
+.gl{display:inline-block;font-size:12.5px;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px;margin:2px 4px 0 0}
+/* 단어 */
+.wl.hideko .wko{color:transparent;background:#eeecf6;border-radius:6px;min-width:90px;display:inline-block}
+.wl.hideko .wko.peek{color:inherit;background:var(--ye)}
+.wi{padding:10px 0;border-bottom:1px dashed var(--line)}
+.wtop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.no{color:var(--mut);font-size:13px;min-width:20px}
+.wen{border:none;background:none;font-family:Lora,Georgia,serif;font-size:19px;font-weight:700;color:var(--pd);padding:0}
+.wen i{font-style:normal;font-size:14px}
+.pos{font-size:12.5px;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px}
+.wko{font-size:16px}
+.wex{margin:4px 0 0 28px;font-size:15.5px}
+.exen{font-family:Lora,Georgia,serif;cursor:pointer;margin-left:6px}
+.exko{display:none;color:var(--mut);font-size:14.5px}
+.exko.show{display:block}
+/* 토글 */
+.fl{border-bottom:1px dashed var(--line);padding:8px 0}
+.flen{display:flex;align-items:center;gap:8px;font-family:Lora,Georgia,serif;font-size:17px}
+.flen span{flex:1}
+.tg{border:1.5px solid var(--p);color:var(--p);background:#fff;border-radius:8px;padding:2px 10px;font-size:14px;white-space:nowrap;font-family:'Noto Sans KR',sans-serif}
+.flko{display:none;margin:4px 0 0 34px;font-size:15.5px}
+.fl.open .flko{display:block}
+.fltip{font-size:14px;color:var(--p);margin-top:2px}
+/* 대화 */
+.dl{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.dl.now{background:var(--ye)}
+.spk{flex:0 0 auto;min-width:34px;font-weight:700;color:var(--p);font-size:15px}
+.dtx{flex:1}
+.den{font-family:Lora,Georgia,serif;font-size:17px;cursor:pointer}
+.dko{display:none;color:var(--mut);font-size:15px}
+.dl.open .dko{display:block}
+/* 채우기 */
+.tp{padding:10px 0;border-bottom:1px dashed var(--line)}
+.tps{font-family:Lora,Georgia,serif;font-size:18px;line-height:2.1}
+.blank{border:2px dashed var(--line);background:#fff;border-radius:8px;padding:0 10px;color:var(--mut);font-size:15px;font-family:'Noto Sans KR',sans-serif}
+.blank.next{border-color:var(--p);color:var(--p);background:var(--pl)}
+.blank.fill{border:2px solid var(--ok);background:var(--okl);color:var(--ok);font-weight:700;font-family:Lora,Georgia,serif;font-size:18px}
+.blank.shake{animation:sh .35s}
+@keyframes sh{0%,100%{transform:translateX(0)}30%{transform:translateX(-5px)}70%{transform:translateX(5px)}}
+.tpko{font-size:15px;color:var(--mut)}
+.tptip{display:none;font-size:14.5px;color:var(--p)}
+.tp.done .tptip{display:block}
+/* 문제 */
+.psg{position:sticky;top:58px;z-index:5;max-height:42vh;overflow-y:auto;background:#fdfcff;border:1.5px solid var(--p);border-radius:12px;padding:10px 12px;margin:6px 0 12px;font-family:Lora,Georgia,serif;font-size:16px;line-height:1.75;box-shadow:0 4px 12px rgba(59,47,138,.08)}
+.psg b,.psg u{font-family:inherit}
+.q{border-top:1px solid var(--line);padding:14px 0 10px}
+.q:first-of-type{border-top:none}
+.q.ok .qno{background:var(--ok)}
+.q.no .qno{background:var(--no)}
+.qq{font-size:16.5px;margin-bottom:8px}
+.qno{display:inline-block;min-width:26px;height:26px;line-height:26px;text-align:center;border-radius:13px;background:var(--p);color:#fff;font-size:13.5px;font-weight:700;margin-right:6px}
+.qtag{display:inline-block;font-size:12px;background:var(--no);color:#fff;border-radius:6px;padding:0 6px;margin-right:6px;vertical-align:middle}
+.ctx{background:#faf9ff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:8px;font-family:Lora,Georgia,serif;font-size:16px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;font-size:16px;min-height:44px}
+.opts.inline .opt{font-family:Lora,Georgia,serif;font-weight:600;min-width:120px;text-align:center}
+.opt .mk{color:var(--p);margin-right:6px;font-weight:700}
+.opt.pick{border-color:var(--p);background:var(--pl)}
+.opt.right{border-color:var(--ok);background:var(--okl)}
+.multi{font-size:13.5px;color:var(--no);margin-bottom:4px}
+.inw{display:flex;align-items:center;gap:6px;margin:4px 0}
+.inl{font-size:14px;color:var(--mut);white-space:nowrap}
+.inp{flex:1;width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:17px;font-family:Lora,Georgia,serif;background:#fff}
+.inp:focus{outline:none;border-color:var(--p)}
+.inp.good{border-color:var(--ok);background:var(--okl)}
+.inp.bad{border-color:var(--no);background:var(--nol)}
+.ta{resize:vertical;min-height:60px}
+.rwh{font-size:14px;color:var(--mut);margin-bottom:4px}
+.diff{font-family:Lora,Georgia,serif;font-size:16px;margin-top:4px}
+.dg{color:var(--ok)}.db{color:var(--no);text-decoration:underline}
+.ordp{font-size:15.5px;margin-bottom:6px}
+.oslot{min-height:52px;border:2px dashed var(--p);border-radius:10px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:#fdfcff}
+.oh{font-size:13.5px;color:var(--mut)}
+.opool{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-family:Lora,Georgia,serif;font-size:16.5px;min-height:44px}
+.oslot .chip{border-color:var(--p);background:var(--pl)}
+.chip.cn{border-color:#d9a400;background:#fffbea}
+.qbtn{display:flex;gap:8px;margin-top:10px}
+.fb{display:none;margin-top:8px;border-radius:10px;padding:8px 12px;font-size:15.5px}
+.fb.good,.fb.bad,.fb.warn{display:block}
+.fb.good{background:var(--okl)}
+.fb.bad{background:var(--nol)}
+.fb.warn{background:var(--ye)}
+.fb .ans{margin-top:2px}
+.fb .ans b{font-family:Lora,Georgia,serif}
+.fb .ex{margin-top:4px;color:#3d3a55;font-size:15px}
+.alt{color:var(--mut);font-size:14px}
+.qfoot{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:2px solid var(--pl)}
+.score{margin-top:8px;font-size:16px;color:var(--pd)}
+.pnav{display:flex;justify-content:space-between;gap:8px;margin-top:26px;flex-wrap:wrap}
+details.sum{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:12px 0}
+details.sum summary{font-weight:700;color:var(--p);cursor:pointer}
+@media (max-width:480px){body{font-size:16px}.top h1{font-size:20px}.wex{margin-left:0}.flko{margin-left:0}}
+</style></head>
+<body><div id="app"></div>
+<script>
+/* ===== DATA START ===== */
+var CFG={"brand":"강동미나 중고등부 · 중2 Lesson 7 (동아 윤정미)","title":"Lesson 7 Let's Enjoy Festivals — 단어","sub":"단어 익히기 → 품사 묶음 → 품사 자리·구별 → 비교급·최상급 → 다의어 → 영영풀이 → 유의어·반의어 → 숙어 → 총 시험","tabs":[{"name":"📒 단어 익히기","intro":"<b>단어 🔊 → 뜻 → 예문 🔊</b> 순서로 익히세요. 예문을 누르면 해석이 나와요. 다 외웠으면 <b>\"뜻 가리기\"</b>를 누르고 스스로 확인! (가린 뜻을 누르면 하나씩 보여요)","blocks":[{"k":"wordlist","title":"교과서 단어 50개","items":[["altar","명","제단","People set up altars in their homes.","사람들은 집에 제단을 차린다."],["area","명","지역 (= region)","In some areas, people dress up like skeletons.","어떤 지역에서는 사람들이 해골처럼 분장한다."],["cemetery","명","묘지 (= graveyard)","People have big parties in cemeteries.","사람들은 묘지에서 큰 파티를 연다."],["costume","명","의상, 복장 (= outfit)","People who participate in this race wear fun costumes.","이 경주에 참가하는 사람들은 재미있는 의상을 입는다."],["firework","명","(-s) 불꽃놀이","During the festival, people enjoy parades and fireworks.","축제 동안 사람들은 퍼레이드와 불꽃놀이를 즐긴다."],["fur","명","모피, (동물의) 털","People in Alaska hold the Fur Rondy festival.","알래스카 사람들은 Fur Rondy 축제를 연다."],["midsummer","명","한여름","They call it the Midsummer festival.","그들은 그것을 Midsummer(한여름) 축제라고 부른다."],["parade","명","퍼레이드, 행진","People dress up like skeletons and hold big parades.","사람들은 해골처럼 분장하고 큰 퍼레이드를 연다."],["pole","명","기둥, 막대기 (= post)","People decorate a tall pole with flowers and green leaves.","사람들은 키 큰 기둥을 꽃과 초록 잎으로 장식한다."],["recipe book","명","요리책 (= cookbook)","You can also get his recipe book for free.","그의 요리책도 무료로 받을 수 있다."],["reindeer","명","순록 (복수도 reindeer)","People try to run faster than reindeer.","사람들은 순록보다 더 빨리 달리려고 애쓴다."],["skeleton","명","해골","In some areas, people dress up like skeletons.","어떤 지역에서는 사람들이 해골처럼 분장한다."],["souvenir","명","기념품","Let's get a souvenir.","기념품을 사자."],["spring","명","봄","People in Valencia celebrate the coming of spring.","발렌시아 사람들은 봄이 오는 것을 기념한다."],["star","명","별; 주인공","The stars of the festival are fallas.","축제의 주인공은 fallas이다."],["statue","명","조각상","The stars of the festival are fallas, giant wooden statues.","축제의 주인공은 거대한 나무 조각상인 fallas이다."],["visitor","명","방문객","During this festival, visitors can enjoy various winter sports.","이 축제 동안 방문객들은 다양한 겨울 스포츠를 즐길 수 있다."],["matter","명/동","문제, 물질 / 중요하다","Not really, but it doesn't matter.","사실 그렇지 않지만, 그건 중요하지 않다."],["end","동/명","끝나다 / 끝, 말","The festival ends on the Sunday.","축제는 일요일에 끝난다."],["Mexican","명/형","멕시코 사람 / 멕시코의","Many Mexicans believe that dead people come back home.","많은 멕시코 사람들은 죽은 사람들이 집에 돌아온다고 믿는다."],["burn","동","타다, 태우다","The fallas are burned on the last day of the festival.","fallas는 축제의 마지막 날에 태워진다."],["call","동","~라고 부르다; 전화하다","They call this day the Day of the Dead.","그들은 이날을 죽은 자들의 날이라고 부른다."],["celebrate","동","축하하다, 기념하다","To celebrate the longest day of the year, they have a special festival.","일 년 중 가장 긴 날을 기념하기 위해 그들은 특별한 축제를 연다."],["decorate","동","장식하다, 꾸미다","People decorate a tall pole with flowers.","사람들은 키 큰 기둥을 꽃으로 장식한다."],["guess","동/명","추측하다 (= suppose) / 추측","I guess we can ride bikes or go for a boat ride.","자전거를 타거나 보트를 타러 갈 수 있을 것 같아."],["hold","동","들고 있다; 개최하다, 열다","Mexicans hold a festival on November 1 and 2.","멕시코 사람들은 11월 1일과 2일에 축제를 연다."],["miss","동","놓치다; 그리워하다","Then, don't miss his cooking class.","그렇다면 그의 요리 수업을 놓치지 마세요."],["order","동/명","주문하다 / 주문, 순서","Then, let's order tteokbokki.","그럼 떡볶이를 주문하자."],["participate","동","참가하다 (participate in)","People who participate in this race wear fun costumes.","이 경주에 참가하는 사람들은 재미있는 의상을 입는다."],["set","동","(해·달이) 지다 (set-set-set)","The sun hardly sets at this time of year in Sweden.","스웨덴에서는 매년 이맘때 해가 거의 지지 않는다."],["symbolize","동","상징하다 (= represent)","Burning them symbolizes saying goodbye to old things.","그것들을 태우는 것은 옛것에 작별하는 것을 상징한다."],["wear","동","입고[쓰고/신고] 있다","People wear fun costumes.","사람들은 재미있는 의상을 입는다."],["welcome","동","환영하다, 반기다","The people there especially welcome summer.","그곳 사람들은 특히 여름을 반긴다."],["dark","형/명","어두운 / 어둠","Winter in Sweden is long and dark.","스웨덴의 겨울은 길고 어둡다."],["dead","형","죽은","To welcome dead people, Mexicans hold a festival.","죽은 사람들을 맞이하기 위해 멕시코 사람들은 축제를 연다."],["giant","형/명","거대한 (= huge) / 거인","The stars of the festival are giant wooden statues.","축제의 주인공은 거대한 나무 조각상이다."],["live","형","라이브의, 실황인 [laiv]","People travel to California to enjoy live music.","사람들은 라이브 음악을 즐기러 캘리포니아로 여행한다."],["playful","형","장난기 많은, 놀기 좋아하는","I think dogs are more playful.","개가 더 장난기가 많은 것 같아."],["possible","형","가능한 (↔ impossible)","Is it possible to do so?","그렇게 하는 것이 가능할까?"],["seasonal","형","계절의, 계절적인","Seasonal Festivals Around the World","전 세계의 계절 축제들"],["spicy","형","매운 (= hot)","I like spicy food.","나는 매운 음식을 좋아해."],["traditional","형","전통의, 전통적인","People enjoy traditional dances around it.","사람들은 그 주위에서 전통 춤을 즐긴다."],["various","형","다양한 (= diverse)","Visitors can enjoy various winter sports.","방문객들은 다양한 겨울 스포츠를 즐길 수 있다."],["wooden","형","나무로 된","The fallas are giant wooden statues.","fallas는 거대한 나무 조각상이다."],["especially","부","특히 (= particularly)","The people there especially welcome summer.","그곳 사람들은 특히 여름을 반긴다."],["hardly","부","거의 ~ 않다 (= barely)","The sun hardly sets at this time of year.","매년 이맘때는 해가 거의 지지 않는다."],["once","부","한 번 (= one time)","Once a year, dead people come back home.","일 년에 한 번 죽은 사람들이 집에 돌아온다."],["surprisingly","부","놀랍게도","Surprisingly, the fallas are burned on the last day.","놀랍게도 fallas는 마지막 날에 태워진다."],["during","전","~ 동안","During the festival, people enjoy parades and fireworks.","축제 동안 사람들은 퍼레이드와 불꽃놀이를 즐긴다."],["until","전","~까지 (= till)","Let's do something together until then.","그때까지 같이 뭐 하자."]]},{"k":"wordlist","title":"대화문·기타 지문 단어 12개","items":[["face painting","명","페이스 페인팅","We can do face painting or play VR games.","우리는 페이스 페인팅을 하거나 VR 게임을 할 수 있어."],["delicious","형","맛있는","It looks delicious.","맛있어 보인다."],["chef","명","요리사","Every year, we invite great chefs from around the world.","해마다 우리는 전 세계의 훌륭한 요리사들을 초대한다."],["invite","동","초대하다","This year, we invited Mr. Kumar.","올해 우리는 Kumar 씨를 초대했다."],["world-famous","형","세계적으로 유명한","Mr. Kumar is a world-famous Indian chef.","Kumar 씨는 세계적으로 유명한 인도 요리사이다."],["gift","명","선물","I'm looking for a gift for my grandmother.","나는 할머니께 드릴 선물을 찾고 있다."],["light","형","가벼운","It's big but very light.","그것은 크지만 아주 가볍다."],["perfect","형","완벽한, 딱 맞는","It's perfect for older women.","그것은 나이 드신 여성분들께 딱 좋다."],["exam","명","시험","I have an exam on Monday.","나는 월요일에 시험이 있다."],["gather","동","모이다 (= come together)","They gather in the streets.","그들은 거리에 모인다."],["throw","동","던지다 (throw-threw-thrown)","They throw tomatoes at each other for fun.","그들은 재미로 서로에게 토마토를 던진다."],["director","명","감독","Directors, actors, and film lovers gather to watch new films.","감독, 배우, 영화 애호가들이 새 영화를 보러 모인다."]]},{"k":"html","html":"<div class=\"anal\"><h4>📌 달 이름 — 대문자로 시작!</h4><div class=\"tw\"><table class=\"t\">\n<tr><td>1월 January</td><td>2월 February</td><td>3월 March</td><td>4월 April</td></tr>\n<tr><td>5월 May</td><td>6월 June</td><td>7월 July</td><td>8월 August</td></tr>\n<tr><td>9월 September</td><td>10월 October</td><td>11월 November</td><td>12월 December</td></tr>\n</table></div><div class=\"tip\">전치사: 달 앞은 <b>in</b> (in March) / 날짜·요일 앞은 <b>on</b> (on November 1, on the Sunday) / 철자 주의: Feb<b>r</b>uary, Wed<b>n</b>esday</div></div>"},{"k":"qset","title":"바로 확인 — 뜻 보고 단어 쓰기","note":"철자까지 정확하게!","qs":[{"t":"in","q":"기념하다, 축하하다","a":"celebrate"},{"t":"in","q":"장식하다, 꾸미다","a":"decorate"},{"t":"in","q":"조각상","a":"statue"},{"t":"in","q":"기념품","a":"souvenir"},{"t":"in","q":"해골","a":"skeleton"},{"t":"in","q":"묘지","a":"cemetery"},{"t":"in","q":"상징하다","a":"symbolize|symbolise"},{"t":"in","q":"거의 ~ 않다","a":"hardly"},{"t":"in","q":"다양한","a":"various"},{"t":"in","q":"2월","a":"February"}]}]},{"name":"🧬 품사 묶음","intro":"<b>뿌리 단어를 보고 알맞은 형태를 고르세요.</b> 맞히든 틀리든 확인을 누르면 그 묶음 전체가 🔊과 함께 나와요. 철자가 비슷한 함정이 섞여 있어요!","blocks":[{"k":"qset","title":"알맞은 형태 고르기","note":"<b>꼬리말로 품사 찾기</b> — 명사: -tion · -ness · -th · -ant · -or / 동사: -ize · -en / 형용사: -al · -ful · -en · -ous · -y / 부사: 형용사 + ly","qs":[{"t":"mc","q":"celebrate (기념하다, 동) → <b>명사</b> \"기념, 축하\"","o":["celebratement","celebrity","celebration","celebrance"],"a":2,"e":"[[celebrate]] 동 · [[celebration]] 명 — celebrity는 \"유명 인사\"라는 다른 단어! (함정)"},{"t":"mc","q":"decorate (장식하다, 동) → <b>명사</b> \"장식\"","o":["decoratement","decoration","decorative","decorater"],"a":1,"e":"[[decorate]] 동 · [[decoration]] 명 · [[decorative]] 형(장식용의)"},{"t":"mc","q":"die (죽다, 동) → <b>형용사</b> \"죽은\"","o":["died","death","dead","dying"],"a":2,"e":"[[die]] 동 · [[death]] 명 · [[dead]] 형 — died는 과거형, dying은 \"죽어 가는\""},{"t":"mc","q":"die (죽다, 동) → <b>명사</b> \"죽음\"","o":["dead","death","dying","deadness"],"a":1,"e":"[[death]] — dead(형)와 철자가 비슷해서 자주 틀려요."},{"t":"mc","q":"dark (어두운, 형) → <b>명사</b> \"어둠\"","o":["darkment","darkity","darkness","darken"],"a":2,"e":"[[dark]] 형 · [[darkness]] 명 · [[darken]] 동(어둡게 하다)"},{"t":"mc","q":"season (계절, 명) → <b>형용사</b> \"계절의\"","o":["seasonly","seasonal","seasonful","seasoned"],"a":1,"e":"명사 + al = 형용사 → [[seasonal]]. seasoned는 \"양념한\"이라는 다른 뜻"},{"t":"mc","q":"tradition (전통, 명) → <b>형용사</b> \"전통의\"","o":["traditionful","traditive","traditional","traditionly"],"a":2,"e":"[[tradition]] 명 · [[traditional]] 형 · [[traditionally]] 부"},{"t":"mc","q":"symbol (상징, 명) → <b>동사</b> \"상징하다\"","o":["symbolize","symbolate","symbolen","symbolic"],"a":0,"e":"명사 + ize = 동사 → [[symbolize]]. symbolic은 형용사(상징적인)"},{"t":"mc","q":"surprise (놀라게 하다) → <b>부사</b> \"놀랍게도\"","o":["surprisedly","surprisely","surprisingly","surprisinly"],"a":2,"e":"[[surprising]] 형 + ly → [[surprisingly]]"},{"t":"mc","q":"participate (참가하다, 동) → <b>사람</b> \"참가자\"","o":["participater","participant","participation","particiant"],"a":1,"e":"[[participant]] 참가자 · [[participation]] 참가(행동) — -er이 아니라 -ant!"},{"t":"mc","q":"visit (방문하다, 동) → <b>사람</b> \"방문객\"","o":["visiter","visitor","visitant","visition"],"a":1,"e":"[[visitor]] — -er이 아니라 -or"},{"t":"mc","q":"possible (가능한, 형) → <b>반대말</b> \"불가능한\"","o":["unpossible","inpossible","impossible","dispossible"],"a":2,"e":"p 앞에서는 im- → [[impossible]]"},{"t":"mc","q":"wood (나무, 명) → <b>형용사</b> \"나무로 된\"","o":["woody","wooden","woodful","woodish"],"a":1,"e":"명사 + en = 재료 형용사 → [[wooden]] (golden, woolen도 같은 방식). woody는 \"나무가 우거진\"이라는 다른 뜻"},{"t":"mc","q":"play (놀다, 동) → <b>형용사</b> \"장난기 많은\"","o":["playfull","playly","playful","playable"],"a":2,"e":"-ful은 l이 하나! [[playful]]"},{"t":"mc","q":"Mexico (멕시코) → \"멕시코 사람, 멕시코의\"","o":["Mexicoan","Mexican","Mexicish","Mexicon"],"a":1,"e":"[[Mexican]] — 명사(멕시코 사람)·형용사(멕시코의) 둘 다"},{"t":"mc","q":"vary (다르다, 동) → <b>형용사</b> \"다양한\"","o":["varyous","various","variety","varyful"],"a":1,"e":"[[various]] 형 · [[variety]] 명(다양성) — y가 i로 바뀌어요."},{"t":"mc","q":"spice (양념, 명) → <b>형용사</b> \"매운\"","o":["spicey","spicy","spiceful","spicily"],"a":1,"e":"e를 빼고 y → [[spicy]]"},{"t":"mc","q":"hard (어려운·단단한, 형) → \"열심히\"라는 <b>부사</b>는?","o":["hardly","hard","hardily","hardness"],"a":1,"tag":"함정","e":"hard는 형용사·부사가 같은 모양! [[hardly]]는 \"거의 ~않다\"라는 다른 뜻이에요."}]},{"k":"html","html":"<details class=\"sum\"><summary>📋 품사 묶음 정리표 (펼치기)</summary><div class=\"tw\"><table class=\"t\">\n<tr><th>명사</th><th>동사</th><th>형용사</th><th>부사</th></tr>\n<tr><td>celebration</td><td>celebrate</td><td>-</td><td>-</td></tr>\n<tr><td>decoration</td><td>decorate</td><td>decorative</td><td>-</td></tr>\n<tr><td>death</td><td>die</td><td>dead</td><td>-</td></tr>\n<tr><td>darkness</td><td>darken</td><td>dark</td><td>darkly</td></tr>\n<tr><td>season</td><td>-</td><td>seasonal</td><td>-</td></tr>\n<tr><td>tradition</td><td>-</td><td>traditional</td><td>traditionally</td></tr>\n<tr><td>symbol</td><td>symbolize</td><td>symbolic</td><td>-</td></tr>\n<tr><td>surprise</td><td>surprise</td><td>surprised · surprising</td><td>surprisingly</td></tr>\n<tr><td>participant · participation</td><td>participate</td><td>-</td><td>-</td></tr>\n<tr><td>visitor · visit</td><td>visit</td><td>-</td><td>-</td></tr>\n<tr><td>possibility</td><td>-</td><td>possible ↔ impossible</td><td>possibly</td></tr>\n<tr><td>wood</td><td>-</td><td>wooden</td><td>-</td></tr>\n<tr><td>variety</td><td>vary</td><td>various</td><td>-</td></tr>\n<tr><td>spice</td><td>-</td><td>spicy</td><td>-</td></tr>\n<tr><td>-</td><td>-</td><td>special</td><td>especially · specially</td></tr>\n</table></div></details>"}]},{"name":"🔤 품사 자리·구별","intro":"<b>자리를 보고 품사를 고르세요.</b> the·소유격 뒤는 명사, 명사 앞은 형용사, be동사·look·sound·get 뒤 보어는 형용사, 동사를 꾸미면 부사예요. 고르면 바로 채점돼요. 아래에는 <b>한 단어가 여러 품사로 쓰이는 것</b>을 모아 두었어요.","blocks":[{"k":"qset","title":"문장에 맞는 형태 고르기","qs":[{"t":"mc","inline":1,"q":"People in Valencia celebrate the ______ of spring.","o":["come","coming"],"a":1,"e":"the 뒤 = 명사 자리 → <b>coming</b>(오는 것, 도래)"},{"t":"mc","inline":1,"q":"______, the fallas are burned on the last day.","o":["Surprising","Surprisingly"],"a":1,"e":"문장 전체를 꾸밈 → 부사 <b>Surprisingly</b>"},{"t":"mc","inline":1,"q":"Winter in Sweden is long and ______.","o":["dark","darkness"],"a":0,"e":"be동사 뒤 보어, long과 병렬 → 형용사 <b>dark</b>"},{"t":"mc","inline":1,"q":"People enjoy ______ dances around the pole.","o":["tradition","traditional"],"a":1,"e":"명사 dances 앞 → 형용사 <b>traditional</b>"},{"t":"mc","inline":1,"q":"They believe it is important to remember ______ people.","o":["dead","death"],"a":0,"e":"명사 people 앞 → 형용사 <b>dead</b>"},{"t":"mc","inline":1,"q":"Visitors can enjoy ______ winter sports.","o":["various","variety"],"a":0,"e":"명사 앞 → 형용사 <b>various</b>"},{"t":"mc","inline":1,"q":"The ______ of the city was beautiful at night.","o":["decorate","decoration"],"a":1,"e":"the 뒤 → 명사 <b>decoration</b>"},{"t":"mc","inline":1,"q":"I think dogs are more ______.","o":["play","playful"],"a":1,"e":"be동사 뒤 보어 → 형용사 <b>playful</b>"},{"t":"mc","inline":1,"q":"It is ______ to run faster than reindeer.","o":["impossible","impossibly"],"a":0,"e":"가주어 It is 뒤 보어 → 형용사"},{"t":"mc","inline":1,"q":"Many ______ believe that dead people come back home.","o":["Mexico","Mexicans"],"a":1,"e":"Many 뒤 → 복수 명사 <b>Mexicans</b>(멕시코 사람들)"},{"t":"mc","inline":1,"q":"The sun ______ sets at this time of year.","o":["hard","hardly"],"a":1,"e":"\"거의 지지 않는다\" → <b>hardly</b>"},{"t":"mc","inline":1,"q":"Burning them ______ a new start.","o":["symbol","symbolizes"],"a":1,"e":"주어 Burning them 뒤 동사 자리 → <b>symbolizes</b>"}]},{"k":"flip","title":"한 단어 · 여러 품사 — 자리로 구별하기","note":"<b>판단 순서</b> — ① 단어 바로 앞을 본다 (a·the·소유격 → 명사 / 주어 → 동사) ② 단어 바로 뒤를 본다 (명사가 오면 형용사) ③ 동사·문장 전체를 꾸미면 부사","rows":[["The festival starts on the Friday evening and <b>ends</b> on the Sunday.","동사 — 끝나다 (주어 뒤, -s)","↔ At the <b>end</b> of February 명사 — 끝, 말 (the 뒤)"],["Not really, but it doesn't <b>matter</b>.","동사 — 중요하다 (doesn't 뒤)","↔ This is a family <b>matter</b>. 명사 — 문제, 일 / made of <b>matter</b> 물질"],["The sun hardly <b>sets</b> at this time of year.","동사 — (해가) 지다","↔ a <b>set</b> of costumes 명사 — 한 벌, 세트 · set up = 세우다"],["The <b>stars</b> of the festival are fallas.","명사 — 주인공 (The 뒤)","↔ She <b>starred</b> in the movie. 동사 — 주연을 맡다"],["The people there especially <b>welcome</b> summer.","동사 — 반기다 (주어 뒤)","↔ <b>Welcome</b> to the ABC World Food Festival! 감탄사 — 환영합니다 / You're <b>welcome</b>. 형용사"],["Winter in Sweden is long and <b>dark</b>.","형용사 — 어두운 (be동사 뒤)","↔ I am afraid of the <b>dark</b>. 명사 — 어둠 (the 뒤)"],["The stars of the festival are fallas, <b>giant</b> wooden statues.","형용사 — 거대한 (명사 앞)","↔ The <b>giant</b> lived on the hill. 명사 — 거인 (The 뒤)"],["Many <b>Mexicans</b> believe that dead people come back home.","명사 — 멕시코 사람 (Many 뒤, 복수)","↔ I love <b>Mexican</b> food. 형용사 — 멕시코의 (명사 앞)"],["I <b>guess</b> we can ride bikes.","동사 — 짐작하다 (주어 뒤)","↔ Take a <b>guess</b>! 명사 — 추측 (a 뒤)"],["Then, let's <b>order</b> tteokbokki.","동사 — 주문하다 (let's 뒤)","↔ Put the words in the right <b>order</b>. 명사 — 순서"],["People travel to California to enjoy <b>live</b> music.","형용사 — 라이브의 [laiv] (명사 앞)","↔ Many people <b>live</b> in Seoul. 동사 — 살다 [liv] · 발음도 달라요!"],["It's big but very <b>light</b>.","형용사 — 가벼운 (very 뒤)","↔ Turn on the <b>light</b>. 명사 — 빛, 전등 (the 뒤)"],["The fallas are burned on the <b>last</b> day of the festival.","형용사 — 마지막의 (명사 앞)","↔ How long will the fireworks <b>last</b>? 동사 — 지속되다 (will 뒤)"],["People wear <b>fun</b> costumes.","형용사 — 재미있는 (명사 앞)","↔ Everyone is just having <b>fun</b>! 명사 — 재미 (have fun) · 비교급은 more fun"],["I guess we can go for a boat <b>ride</b>.","명사 — 타기 (a boat 뒤)","↔ We can <b>ride</b> bikes. 동사 — 타다 (can 뒤)"],["Hi, Jihan. What a <b>surprise</b>!","명사 — 놀라운 일 (a 뒤)","↔ The news <b>surprised</b> me. 동사 — 놀라게 하다"],["People who participate in this <b>race</b> wear fun costumes.","명사 — 경주 (this 뒤)","↔ Let's <b>race</b> to the tree. 동사 — 경주하다 (let's 뒤)"],["In some areas, people dress up <b>like</b> skeletons.","전치사 — ~처럼 (뒤에 명사)","↔ I <b>like</b> winter more. 동사 — 좋아하다 (주어 뒤)"],["Let's do something together <b>until</b> then.","전치사 — ~까지 (뒤에 명사 then)","↔ Wait <b>until</b> I come back. 접속사 — ~할 때까지 (뒤에 주어 + 동사)"],["<b>once</b> a year dead people come back home","부사 — 한 번 (a year와 함께)","↔ <b>Once</b> you start, you can't stop. 접속사 — 일단 ~하면 (뒤에 주어 + 동사)"],["Winter is long and dark, <b>so</b> the people there welcome summer.","접속사 — 그래서 (쉼표 뒤, 문장 + 문장)","↔ Is it possible to do <b>so</b>? 부사 — 그렇게 / I'm <b>so</b> hungry! 부사 — 아주"],["Many Mexicans believe <b>that</b> once a year dead people come back home.","접속사 — ~라는 것 (생략 가능)","↔ <b>That</b> is a nice picture. 대명사 — 저것 / <b>that</b> bag 형용사 — 저"]]},{"k":"qset","title":"밑줄 친 단어의 품사 고르기","note":"고르면 바로 채점! 앞뒤 단어를 먼저 보세요.","qs":[{"t":"mc","inline":1,"q":"The festival <u>ends</u> on the Sunday.","o":["명사","동사","형용사","부사"],"a":1,"e":"주어 The festival 뒤 + -s → 동사 (끝나다)"},{"t":"mc","inline":1,"q":"At the <u>end</u> of February, people hold the Fur Rondy festival.","o":["명사","동사","형용사","부사"],"a":0,"e":"the 뒤 → 명사 (끝, 말)"},{"t":"mc","inline":1,"q":"Not really, but it doesn't <u>matter</u>.","o":["명사","동사","형용사","부사"],"a":1,"e":"doesn't 뒤 → 동사 (중요하다)"},{"t":"mc","inline":1,"q":"We need to talk about this <u>matter</u>.","o":["명사","동사","형용사","부사"],"a":0,"e":"this 뒤 → 명사 (문제)"},{"t":"mc","inline":1,"q":"Winter in Sweden is long and <u>dark</u>.","o":["명사","동사","형용사","부사"],"a":2,"e":"be동사 뒤 보어 → 형용사"},{"t":"mc","inline":1,"q":"Many children are afraid of the <u>dark</u>.","o":["명사","동사","형용사","부사"],"a":0,"e":"the 뒤 → 명사 (어둠)"},{"t":"mc","inline":1,"q":"People wear <u>fun</u> costumes.","o":["명사","동사","형용사","부사"],"a":2,"e":"명사 costumes 앞 → 형용사"},{"t":"mc","inline":1,"q":"Everyone is just having <u>fun</u>!","o":["명사","동사","형용사","부사"],"a":0,"e":"having(have)의 목적어 → 명사"},{"t":"mc","inline":1,"q":"The fireworks will <u>last</u> for an hour.","o":["명사","동사","형용사","부사"],"a":1,"e":"will 뒤 → 동사 (지속되다)"},{"t":"mc","inline":1,"q":"The fallas are burned on the <u>last</u> day.","o":["명사","동사","형용사","부사"],"a":2,"e":"명사 day 앞 → 형용사 (마지막의)"},{"t":"mc","inline":1,"q":"We can go for a boat <u>ride</u>.","o":["명사","동사","형용사","부사"],"a":0,"e":"a boat 뒤 → 명사 (타기)"},{"t":"mc","inline":1,"q":"People enjoy <u>live</u> music from famous artists.","o":["명사","동사","형용사","부사"],"a":2,"e":"명사 music 앞 → 형용사 (라이브의 [laiv])"},{"t":"mc","inline":1,"q":"People dress up <u>like</u> skeletons.","o":["동사","전치사","접속사","부사"],"a":1,"e":"뒤에 명사 skeletons → 전치사 (~처럼)"},{"t":"mc","inline":1,"q":"Let's do something together <u>until</u> then.","o":["동사","전치사","접속사","부사"],"a":1,"e":"뒤에 명사(then) → 전치사"},{"t":"mc","inline":1,"q":"Wait here <u>until</u> the fireworks start.","o":["동사","전치사","접속사","부사"],"a":2,"e":"뒤에 주어 + 동사 → 접속사"},{"t":"mc","inline":1,"q":"Is it possible to do <u>so</u>?","o":["형용사","부사","접속사","전치사"],"a":1,"e":"do를 꾸밈 → 부사 (그렇게)"}]},{"k":"qset","title":"시험처럼 — 같은 품사 · 다른 품사 찾기","qs":[{"t":"mc","q":"밑줄 친 단어의 품사가 나머지와 <b>다른</b> 것은?","o":["People wear <u>fun</u> costumes.","They enjoy <u>traditional</u> dances.","The fallas are <u>giant</u> statues.","Everyone is having <u>fun</u>.","We enjoyed <u>live</u> music."],"a":3,"e":"④ 명사 (have fun). 나머지는 명사를 꾸미는 형용사"},{"t":"mc","q":"밑줄 친 단어가 <b>동사</b>로 쓰인 것은?","o":["At the <u>end</u> of the day, I was tired.","The <u>stars</u> of the festival are fallas.","It doesn't <u>matter</u> to me.","Take a <u>guess</u>!","Put them in <u>order</u>."],"a":2,"e":"③ doesn't 뒤 → 동사 (중요하다). 나머지는 명사"},{"t":"mc","q":"밑줄 친 like의 쓰임이 〈보기〉와 같은 것은?<br>〈보기〉 In some areas, people dress up <u>like</u> skeletons.","o":["I <u>like</u> spicy food.","Which do you <u>like</u> more?","She sings <u>like</u> a bird.","They <u>like</u> playing games.","Do you <u>like</u> dogs?"],"a":2,"e":"〈보기〉와 ③은 전치사 (~처럼). 나머지는 동사 (좋아하다)"},{"t":"mc","q":"밑줄 친 that의 쓰임이 〈보기〉와 같은 것은?<br>〈보기〉 Many Mexicans believe <u>that</u> dead people come back home.","o":["<u>That</u> is my favorite costume.","Look at <u>that</u> tall pole.","I think <u>that</u> dogs are cuter.","<u>That</u> was a long trip.","Who is <u>that</u> girl?"],"a":2,"e":"〈보기〉와 ③은 접속사 that (생략 가능). ① ④ 대명사, ② ⑤ 지시형용사"},{"t":"mc","q":"밑줄 친 so의 쓰임이 〈보기〉와 같은 것은?<br>〈보기〉 Winter in Sweden is long and dark, <u>so</u> the people there especially welcome summer.","o":["I'm <u>so</u> hungry!","Is it possible to do <u>so</u>?","It was <u>so</u> cold today.","It rained, <u>so</u> we stayed home.","Thank you <u>so</u> much."],"a":3,"e":"④ 접속사 (그래서). 나머지는 부사"},{"t":"mc","q":"밑줄 친 live의 발음과 품사가 나머지와 <b>다른</b> 것은?","o":["Where do you <u>live</u>?","Fish <u>live</u> in water.","We watched a <u>live</u> show.","They <u>live</u> near the sea.","I want to <u>live</u> in Alaska."],"a":2,"e":"③ 형용사 [laiv] 라이브의. 나머지는 동사 [liv] 살다"},{"t":"in","q":"빈칸에 공통으로 들어갈 말을 쓰세요. (한 단어, 필요하면 형태 변화)<br>• The festival ______s on the Sunday.<br>• At the ______ of February, people hold the Fur Rondy festival.","a":"end","e":"동사 end (끝나다) / 명사 end (끝)"},{"t":"in","q":"빈칸에 공통으로 들어갈 말을 쓰세요.<br>• Your health ______s most. (중요하다)<br>• It's just a ______ of time. (문제)","a":"matter","e":"동사 matter / 명사 matter"}]}]},{"name":"📈 비교급·최상급","intro":"<b>본문과 대화문에 비교급·최상급이 많이 나와요!</b> 원급 🔊 → 비교급 → 최상급 순서로 눌러 채우고, 아래 문제로 확인해요.","blocks":[{"k":"tap","title":"순서대로 눌러 채우기","note":"▢ 1 → ▢ 2 순서로 누르세요.","rows":[{"s":"long - {longer} - {longest}"},{"s":"big - {bigger} - {biggest}"},{"s":"fast - {faster} - {fastest}"},{"s":"cute - {cuter} - {cutest}"},{"s":"pretty - {prettier} - {prettiest}"},{"s":"spicy - {spicier} - {spiciest}"},{"s":"good - {better} - {best}"},{"s":"many - {more} - {most}"},{"s":"playful - {more playful} - {most playful}"},{"s":"famous - {more famous} - {most famous}"},{"s":"delicious - {more delicious} - {most delicious}"},{"s":"fun - {more fun} - {most fun}"}]},{"k":"html","html":"<div class=\"anal\"><h4>📌 만드는 규칙</h4><ol>\n<li><b>대부분</b> -er / -est — long → longer → longest, fast → faster → fastest</li>\n<li><b>e로 끝나면</b> -r / -st — cute → cuter → cutest</li>\n<li><b>단모음 + 단자음</b>이면 자음을 한 번 더 — big → bi<b>gg</b>er → bi<b>gg</b>est</li>\n<li><b>자음 + y</b>면 y를 i로 — pretty → prett<b>i</b>er, spicy → spic<b>i</b>er</li>\n<li><b>긴 단어</b>(-ful, -ous 등)는 more / most — more playful, most famous, more fun</li>\n<li><b>불규칙</b> — good/well → better → best, many/much → more → most</li>\n</ol><div class=\"tip\">비교급 앞에서 \"훨씬\"은 <b>much · even · far · a lot · still</b> (very ✗) / 최상급 앞에는 <b>the</b> / 범위는 of + 기간·복수(of the year), in + 장소(in the world)</div></div>"},{"k":"qset","title":"알맞은 형태 쓰기","note":"본문·대화문에 나온 문장이에요.","qs":[{"t":"in","q":"To celebrate the ______ day of the year, they have a special festival. (long)","a":"longest"},{"t":"in","q":"Fur Rondy is one of the ______ winter festivals in the world. (big)","a":"biggest"},{"t":"in","q":"People try to run ______ than reindeer. (fast)","a":"faster"},{"t":"in","q":"I think dogs are ______. (cute)","a":"cuter"},{"t":"in","q":"I think dogs are ______ ______. (playful)","a":"more playful"},{"t":"in","q":"Going for a boat ride. I think it'll be ______ ______. (fun)","a":"more fun"},{"t":"in","q":"I like tteokbokki much ______. (good)","a":"better"},{"t":"mc","inline":1,"q":"Fur Rondy is one of the biggest winter ______.","o":["festival","festivals"],"a":1,"e":"one of the + 최상급 + <b>복수 명사</b>"},{"t":"mc","q":"비교급·최상급이 <b>틀린</b> 것은?","o":["cute - cuter - cutest","big - biger - bigest","fun - more fun - most fun","good - better - best","spicy - spicier - spiciest"],"a":1,"tag":"함정","e":"big → bi<b>gg</b>er → bi<b>gg</b>est"},{"t":"mc","q":"빈칸에 들어갈 수 <b>없는</b> 것은? I like tteokbokki ______ better.","o":["much","even","far","very","a lot"],"a":3}]}]},{"name":"🎯 다의어","intro":"<b>한 단어, 여러 뜻!</b> 카드의 \"뜻 ▾\"로 확인한 다음 문제를 풀어요. 시험에는 \"같은 뜻으로 쓰인 것\"을 고르는 문제로 나와요.","blocks":[{"k":"flip","title":"다의어 카드","rows":[["Mexicans <b>hold</b> a festival on November 1 and 2.","개최하다, 열다","↔ <b>Hold</b> the cup with both hands. 들고 있다 / This box can <b>hold</b> ten books. 담다, 수용하다"],["Not really, but it doesn't <b>matter</b>.","중요하다 (동사)","↔ a family <b>matter</b> 문제, 일 / Everything around us is made of <b>matter</b>. 물질"],["The <b>stars</b> of the festival are fallas.","주인공","↔ Look at the <b>stars</b> in the sky. 별"],["The sun hardly <b>sets</b> at this time of year.","(해가) 지다","↔ <b>set</b> up altars 세우다 / <b>set</b> the table 차리다"],["People celebrate the coming of <b>spring</b>.","봄","↔ hot <b>spring</b> 온천, 샘 / a bed <b>spring</b> 용수철"],["Don't <b>miss</b> his cooking class.","놓치다","↔ I <b>miss</b> my grandmother. 그리워하다"],["Let's <b>get</b> a souvenir.","사다","↔ I <b>got</b> a letter. 받다 / He <b>got</b> home late. 도착하다 / She <b>got</b> sick. ~하게 되다"],["Let's <b>order</b> tteokbokki.","주문하다","↔ in alphabetical <b>order</b> 순서 / follow an <b>order</b> 명령"],["It's big but very <b>light</b>.","가벼운","↔ Turn off the <b>light</b>. 빛, 전등"],["Then, I'll <b>take</b> it.","(물건을) 사다","↔ <b>take</b> a picture 찍다 / It <b>takes</b> ten minutes. (시간이) 걸리다"],["People <b>call</b> it the Midsummer festival.","~라고 부르다","↔ I will <b>call</b> you tonight. 전화하다"]]},{"k":"qset","title":"같은 뜻 찾기","qs":[{"t":"mc","q":"〈보기〉의 밑줄 친 hold와 같은 뜻으로 쓰인 것은?<br>〈보기〉 Mexicans <u>hold</u> a festival on November 1 and 2.","o":["Can you <u>hold</u> my umbrella?","The bus can <u>hold</u> 40 people.","Our town <u>holds</u> a music festival every May.","<u>Hold</u> my hand tightly.","She <u>held</u> a baby in her arms."],"a":2,"e":"개최하다 → ③. ①④⑤ 들고 있다, ② 수용하다"},{"t":"mc","q":"〈보기〉의 밑줄 친 matter와 같은 뜻으로 쓰인 것은?<br>〈보기〉 Every student's idea <u>matters</u>.","o":["That's a different <u>matter</u>.","Being kind <u>matters</u> a lot.","What's the <u>matter</u>?","Water is a kind of <u>matter</u>.","It's a family <u>matter</u>."],"a":1,"e":"중요하다(동사) → ③"},{"t":"mc","q":"밑줄 친 star의 뜻이 나머지와 <b>다른</b> 것은?","o":["The <u>stars</u> of the festival are fallas.","She is the <u>star</u> of the show.","He became a movie <u>star</u>.","The <u>star</u> of the game was Tom.","We saw many <u>stars</u> in the night sky."],"a":4,"e":"⑤ 별. 나머지는 주인공·스타"},{"t":"mc","q":"\"Let's <u>get</u> a souvenir.\"의 get과 같은 뜻은?","o":["I <u>got</u> a call from Mom.","Can you <u>get</u> me a cap at the gift shop?","It is <u>getting</u> dark.","How can I <u>get</u> to the station?","She <u>got</u> angry."],"a":1,"e":"사다 → ②"},{"t":"mc","q":"\"Don't <u>miss</u> his cooking class.\"의 miss와 같은 뜻은?","o":["I <u>miss</u> you so much.","Hurry up, or you'll <u>miss</u> the bus.","She <u>misses</u> her old friends.","We <u>miss</u> our hometown."],"a":1,"e":"놓치다 → ②. 나머지는 그리워하다"},{"t":"mc","q":"빈칸에 공통으로 들어갈 단어는?<br>• The sun hardly ______s in summer in Sweden.<br>• People ______ up altars in their homes.","o":["hold","set","get","take","end"],"a":1},{"t":"mc","q":"빈칸에 공통으로 들어갈 단어는?<br>• It's big but very ______.<br>• Please turn on the ______.","o":["heavy","dark","light","live","bright"],"a":2},{"t":"mc","q":"빈칸에 공통으로 들어갈 단어는?<br>• Let's ______ pizza for lunch.<br>• Put the cards in the right ______.","o":["order","hold","call","get","miss"],"a":0}]}]},{"name":"📖 영영풀이","intro":"<b>풀이 속 핵심 단어</b>를 먼저 찾으세요. 예: \"a type of table used in <b>ceremonies</b>\" → 제단(altar)","blocks":[{"k":"flip","title":"영영풀이 카드","note":"굵은 글씨가 정답을 찾는 열쇠예요.","rows":[["<b>altar</b>: a type of <b>table used in ceremonies</b>","제단"],["<b>burn</b>: to destroy or damage something <b>with fire</b>","태우다"],["<b>celebrate</b>: to show that a day or an event is <b>important</b> by doing something special","기념하다"],["<b>costume</b>: a set of <b>clothes</b> worn to look like a particular person, animal, or thing","의상"],["<b>decorate</b>: to make something look <b>more attractive</b> by putting things on it","장식하다"],["<b>fireworks</b>: the pattern of <b>colorful explosions in the air</b> planned as a show","불꽃놀이"],["<b>giant</b>: <b>very large</b>","거대한"],["<b>matter</b>: to <b>be important</b>","중요하다"],["<b>parade</b>: a <b>line of people or vehicles moving together</b> through a public place in order to celebrate an important day or event","퍼레이드"],["<b>participate</b>: to <b>take part in</b> or become involved in an activity","참가하다"],["<b>pole</b>: a <b>long, thin stick</b> of wood or metal that is often used to support something","기둥, 막대기"],["<b>possible</b>: <b>able to be done</b> or achieved","가능한"],["<b>skeleton</b>: the structure of <b>bones</b> that support the body of a person or an animal","해골"],["<b>statue</b>: a large <b>art object of a person or an animal</b> that is made from a hard material like stone or metal","조각상"],["<b>symbolize</b>: to <b>represent</b> something","상징하다"]]},{"k":"qset","title":"풀이 보고 단어 쓰기","qs":[{"t":"in","q":"a type of table used in ceremonies","a":"altar"},{"t":"in","q":"to destroy or damage something with fire","a":"burn"},{"t":"in","q":"to make something look more attractive by putting things on it","a":"decorate"},{"t":"in","q":"very large","a":"giant"},{"t":"in","q":"to be important","a":"matter"},{"t":"in","q":"to take part in or become involved in an activity","a":"participate"},{"t":"in","q":"the structure of bones that support the body of a person or an animal","a":"skeleton"},{"t":"in","q":"to represent something","a":"symbolize|symbolise"},{"t":"in","q":"able to be done or achieved","a":"possible"},{"t":"in","q":"a long, thin stick of wood or metal that is often used to support something","a":"pole"}]},{"k":"qset","title":"단어 보고 풀이 고르기","qs":[{"t":"mc","q":"<b>celebrate</b>","o":["to destroy something with fire","to show that a day or an event is important by doing something special","to make something look more attractive","to represent something"],"a":1},{"t":"mc","q":"<b>costume</b>","o":["a type of table used in ceremonies","a set of clothes worn to look like a particular person, animal, or thing","a large art object made from stone or metal","a line of people moving together"],"a":1},{"t":"mc","q":"단어와 영영풀이가 <b>잘못</b> 짝지어진 것은?","o":["possible: able to be done or achieved","altar: a type of table used in ceremonies","burn: to destroy or damage something with fire","pole: a type of table used for eating","giant: very large"],"a":3,"e":"pole = 무언가를 지지하는 길고 가는 나무·금속 막대"}]}]},{"name":"↔ 유의어·반의어","intro":"<b>짝으로 외우기!</b> 시험에는 \"짝지어진 관계가 다른 것\" 고르기로 자주 나와요.","blocks":[{"k":"flip","title":"유의어 (=)","rows":[["area = region","지역"],["cemetery = graveyard","묘지"],["costume = outfit","의상"],["end = finish","끝나다"],["especially = particularly","특히"],["giant = huge","거대한"],["guess = suppose","추측하다"],["hardly = barely","거의 ~않다"],["matter = count","중요하다"],["pole = post","기둥"],["recipe book = cookbook","요리책"],["spicy = hot","매운"],["symbolize = represent","상징하다"],["until = till","~까지"],["various = diverse","다양한"],["once = one time","한 번"],["come together = gather","모이다"],["participate in = take part in = join","~에 참가하다"],["take place = be held","열리다"],["have fun = enjoy oneself","즐겁게 놀다"],["such as = like","~ 같은"]]},{"k":"flip","title":"반의어 (↔)","rows":[["dark ↔ bright","어두운 ↔ 밝은"],["possible ↔ impossible","가능한 ↔ 불가능한"],["set ↔ rise","(해가) 지다 ↔ 뜨다"],["say goodbye to ↔ say hello to","작별 인사하다 ↔ 인사하다"],["dead ↔ alive","죽은 ↔ 살아 있는"],["start ↔ end","시작하다 ↔ 끝나다"],["heavy ↔ light","무거운 ↔ 가벼운"],["first ↔ last","첫 번째의 ↔ 마지막의"],["remember ↔ forget","기억하다 ↔ 잊다"],["long ↔ short","긴 ↔ 짧은"]]},{"k":"qset","title":"짝 찾기","qs":[{"t":"mc","q":"짝지어진 단어의 관계가 나머지와 <b>다른</b> 것은?","o":["area : region","cemetery : graveyard","set : rise","especially : particularly","various : diverse"],"a":2,"e":"③만 반의어, 나머지는 유의어"},{"t":"mc","q":"짝지어진 단어의 관계가 나머지와 <b>다른</b> 것은?","o":["set : rise","dead : alive","possible : impossible","area : region","heavy : light"],"a":3,"e":"④만 유의어"},{"t":"mc","q":"밑줄 친 부분과 바꿔 쓸 수 있는 것은?<br>This festival <u>takes place</u> from March 15 to 19.","o":["takes part","is held","takes care","is finished","takes off"],"a":1},{"t":"mc","q":"밑줄 친 부분과 바꿔 쓸 수 있는 것을 <b>모두</b> 고르면?<br>People who <u>participate in</u> this race wear fun costumes.","o":["take part in","join","give up","set up","look for"],"a":[0,1],"e":"participate in = take part in = join (join 뒤에는 in을 쓰지 않아요)"},{"t":"in","q":"반의어 쓰기: The sun sets in the west. ↔ The sun ______ in the east.","a":"rises"},{"t":"in","q":"반의어 쓰기: possible ↔ ______","a":"impossible"},{"t":"in","q":"유의어 쓰기: various = d______","a":"diverse"},{"t":"in","q":"유의어 쓰기: cemetery = g______","a":"graveyard"}]}]},{"name":"🔗 숙어·표현","intro":"<b>전치사·부사별로 묶어서 외우기!</b> 🔊 듣고 → 뜻 ▾ 확인.","blocks":[{"k":"flip","title":"교과서 숙어 16개","rows":[["take place — This festival takes place from March 15 to 19.","열리다, 개최되다 (= be held)","이 축제는 3월 15일부터 19일까지 열린다."],["hundreds of — You can find hundreds of them all over the city.","수백의","도시 곳곳에서 수백 개의 그것들을 찾을 수 있다."],["say goodbye to — Burning them symbolizes saying goodbye to old things.","~에게 작별 인사를 하다 (↔ say hello to)","그것들을 태우는 것은 옛것에 작별하는 것을 상징한다."],["between A and B — The festival starts between June 19 and 25.","A와 B 사이에","축제는 6월 19일과 25일 사이에 시작한다."],["all night long — People can enjoy the festival all night long.","밤새도록","사람들은 밤새도록 축제를 즐길 수 있다."],["set up — People set up altars in their homes.","세우다, 설치하다","사람들은 집에 제단을 차린다."],["dress up — People dress up like skeletons.","분장하다, 차려입다","사람들은 해골처럼 분장한다."],["at the end of — At the end of February, people in Alaska hold the Fur Rondy festival.","~의 말[끝]에","2월 말에 알래스카 사람들은 Fur Rondy 축제를 연다."],["such as — They can enjoy many special events such as the Running of the Reindeer.","~ 같은 (= like)","그들은 순록 달리기 같은 많은 특별한 행사를 즐길 수 있다."],["participate in — People who participate in this race wear fun costumes.","~에 참가하다 (= take part in, join)","이 경주에 참가하는 사람들은 재미있는 의상을 입는다."],["have fun — Everyone is just having fun!","재미있게 놀다 (= enjoy oneself)","모두가 그저 즐겁게 놀고 있다!"],["for free — You can also get his recipe book for free.","무료로","그의 요리책도 무료로 받을 수 있다."],["come together — Many people come together to make gimchi.","모이다 (= gather)","많은 사람들이 김치를 담그러 모인다."],["each other — They throw tomatoes at each other.","서로","그들은 서로에게 토마토를 던진다."],["for fun — They throw tomatoes at each other for fun.","장난삼아, 재미로","그들은 재미로 서로에게 토마토를 던진다."],["keep a diary — She keeps a diary in English.","일기를 쓰다","그녀는 영어로 일기를 쓴다."]]},{"k":"flip","title":"전치사·부사별로 묶기","note":"같은 단어끼리 묶으면 잘 안 헷갈려요.","rows":[["<b>in</b>: participate in · in Valencia · in some areas · in the world · in their homes","~에 참가하다 · 발렌시아에서 · 어떤 지역에서 · 세계에서 · 그들의 집에"],["<b>of</b>: hundreds of · at the end of · the coming of spring · one of the biggest · the longest day of the year","수백의 · ~의 말에 · 봄이 오는 것 · 가장 큰 것 중 하나 · 일 년 중 가장 긴 날"],["<b>up</b>: set up · dress up","세우다 · 분장하다"],["<b>with</b>: decorate A with B · celebrate A with B","A를 B로 장식하다 · B로 A를 기념하다"],["<b>for</b>: for free · for fun · go for a boat ride · a gift for my grandmother","무료로 · 재미로 · 보트를 타러 가다 · 할머니께 드릴 선물"],["<b>to</b>: say goodbye to · from A to B · Welcome to ~ · try to run","~에게 작별 인사하다 · A부터 B까지 · ~에 오신 것을 환영합니다 · 달리려고 애쓰다"],["<b>at</b>: at the end of · at this time of year · at 7 p.m. · throw A at B","~의 말에 · 매년 이맘때 · 오후 7시에 · B에게 A를 던지다"],["<b>시간</b>: during the festival · all night long · once a year · until then · every year","축제 동안 · 밤새도록 · 일 년에 한 번 · 그때까지 · 해마다"],["<b>기타</b>: take place · such as · have fun · each other · between A and B · come together · keep a diary","열리다 · ~ 같은 · 재미있게 놀다 · 서로 · A와 B 사이에 · 모이다 · 일기를 쓰다"]]},{"k":"qset","title":"빈칸에 알맞은 말 쓰기","qs":[{"t":"in","q":"This festival takes ______ from March 15 to 19.","a":"place"},{"t":"in","q":"You can find ______ of them all over the city.","a":"hundreds"},{"t":"in","q":"Burning them symbolizes saying goodbye ______ old things.","a":"to"},{"t":"in","q":"The festival starts ______ June 19 and 25.","a":"between"},{"t":"in","q":"People can enjoy the festival all night ______.","a":"long"},{"t":"in","q":"People set ______ altars in their homes.","a":"up"},{"t":"in","q":"In some areas, people ______ up like skeletons.","a":"dress"},{"t":"in","q":"At the ______ of February, people hold the Fur Rondy festival.","a":"end"},{"t":"in","q":"They enjoy many special events ______ as the Running of the Reindeer.","a":"such"},{"t":"in","q":"You can get his recipe book ______ free.","a":"for"},{"t":"mc","q":"어법상 <b>바른</b> 것은?","o":["People participate this race.","People join in this race.","People take part in this race.","People participate on this race."],"a":2,"tag":"함정","e":"participate <b>in</b> = take part <b>in</b> = join (in 없이)"},{"t":"mc","q":"빈칸에 들어갈 말이 바르게 짝지어진 것은?<br>• People decorate a pole ______ flowers.<br>• They throw tomatoes ______ each other.","o":["with - at","by - to","in - at","with - for","of - with"],"a":0,"e":"decorate A <b>with</b> B / throw A <b>at</b> B"}]}]},{"name":"📝 총 시험","intro":"<b>총 30문항</b> (객관식 20 + 서술형 10). 다 푼 다음 <b>전체 채점</b> → <b>틀린 것만 다시</b>!","blocks":[{"k":"qset","title":"객관식 (1~20)","qs":[{"t":"mc","q":"다음 영영풀이에 해당하는 단어는?<br><i>to show that a day or an event is important by doing something special</i>","o":["parade","festival","welcome","decorate","celebrate"],"a":4},{"t":"mc","q":"짝지어진 단어의 관계가 〈보기〉와 같은 것은?<br>〈보기〉 tradition : traditional","o":["visit : visitor","season : seasonal","dark : darkness","possible : impossible","die : death"],"a":1,"e":"명사 : 형용사 → season : seasonal. ①동:명(사람) ③형:명 ④반의어 ⑤동:명"},{"t":"mc","q":"빈칸에 들어갈 말로 가장 알맞은 것은?<br>Mina was the ______ of our school play.","o":["star","pole","area","visitor","spring"],"a":0,"e":"star = 주인공"},{"t":"mc","q":"밑줄 친 부분의 해석이 <b>잘못된</b> 것은?","o":["We got the tickets <u>for free</u>. (무료로)","They <u>set up</u> a stage in the park. (무대에서 공연했다)","The kids <u>dressed up</u> like pirates. (분장했다)","He <u>said goodbye to</u> his teacher. (작별 인사를 했다)","The concert is <u>at the end of</u> May. (~말에)"],"a":1,"e":"set up = 세우다, 설치하다"},{"t":"mc","q":"빈칸에 공통으로 들어갈 단어는?<br>• Please ______ this cup for me.<br>• Our town ______s a music festival every May.","o":["hold","set","call","miss","order"],"a":0,"e":"들고 있다 / 개최하다"},{"t":"mc","q":"밑줄 친 단어의 쓰임이 <b>어색한</b> 것은?","o":["He <u>hardly</u> ate breakfast today.","We had lunch at a <u>Mexico</u> restaurant.","Fall is a good time for <u>seasonal</u> fruits.","<u>Surprisingly</u>, the old man ran very fast.","Children played <u>traditional</u> games."],"a":1,"e":"명사 food 앞 → 형용사 Mexican"},{"t":"mc","q":"빈칸에 한 번도 쓰이지 <b>않는</b> 것은?<br>• The museum is open ______ 6 p.m.<br>• She visits her aunt ______ a month.<br>• He found a ______ bird under the tree.<br>• I bought a key ring as a ______.","o":["burn","until","once","dead","souvenir"],"a":0},{"t":"mc","q":"우리말과 같도록 할 때 빈칸에 알맞은 것은?<br>나는 3시와 4시 사이에 집에 있을 거야. → I'll be home ______ 3 ______ 4.","o":["from - to","between - and","during - and","both - or","between - or"],"a":1},{"t":"mc","q":"밑줄 친 부분과 바꿔 쓸 수 있는 것은?<br>Lots of people <u>take part in</u> the festival.","o":["take place","participate in","set up","dress up","come back"],"a":1},{"t":"mc","q":"짝지어진 단어의 관계가 나머지와 <b>다른</b> 것은?","o":["decorate : decoration","celebrate : celebration","participate : participant","symbol : symbolize","visit : visitor"],"a":3,"e":"④만 명사 : 동사, 나머지는 동사 : 명사"},{"t":"mc","q":"빈칸에 알맞은 것은?<br>After the sun ______, the sky became dark.","o":["rose","set","burned","held","ended"],"a":1},{"t":"mc","q":"밑줄 친 like의 쓰임이 나머지와 <b>다른</b> 것은?","o":["People dress up <u>like</u> skeletons.","I love winter activities <u>like</u> skiing.","She sings <u>like</u> a bird.","Which do you <u>like</u> more?","It looks <u>like</u> a giant statue."],"a":3,"e":"④ 동사. 나머지는 전치사 (~처럼, ~ 같은)"},{"t":"mc","q":"빈칸에 알맞은 것은?<br>I like tteokbokki ______ better than gimbap.","o":["very","much","many","more","most"],"a":1},{"t":"mc","q":"다음 중 우리말 뜻이 <b>틀린</b> 것은?","o":["altar: 제단","pole: 기둥","reindeer: 사슴","souvenir: 기념품","cemetery: 묘지"],"a":2,"e":"reindeer = 순록"},{"t":"mc","q":"다음 중 나머지와 품사가 <b>다른</b> 것은?","o":["especially","surprisingly","hardly","once","during"],"a":4,"e":"⑤ 전치사. 나머지는 부사"},{"t":"mc","q":"밑줄 친 부분과 의미가 같은 것은?<br>The sun <u>hardly</u> sets at this time of year.","o":["hard","barely","always","often","quickly"],"a":1},{"t":"mc","q":"빈칸에 알맞은 것은?<br>______ the festival, people enjoy parades and fireworks.","o":["While","During","For","Since","Until"],"a":1,"e":"뒤에 명사(the festival) + 특정 기간 → During"},{"t":"mc","q":"다음 영영풀이에 해당하는 단어를 순서대로 짝지은 것은?<br>(A) a type of table used in ceremonies<br>(B) the structure of bones that support the body","o":["altar - statue","pole - skeleton","altar - skeleton","statue - skeleton","altar - costume"],"a":2},{"t":"mc","q":"밑줄 친 matter의 뜻이 나머지와 <b>다른</b> 것은?","o":["It doesn't <u>matter</u>.","Being on time <u>matters</u>.","Your ideas <u>matter</u> to us.","What's the <u>matter</u>?","Your health <u>matters</u> most."],"a":3,"e":"④ 명사 \"문제, 일\". 나머지는 동사 \"중요하다\""},{"t":"mc","q":"어법상 <b>바른</b> 것은?","o":["There are three hundreds students.","People decorate a pole by flowers.","He is one of the biggest player.","I prefer cake to cookies.","Dogs are more cute than cats."],"a":3,"e":"① three hundred ② with ③ players ⑤ cuter"}]},{"k":"qset","title":"서술형 (21~30)","start":21,"qs":[{"t":"in","q":"짝지어진 단어의 관계가 같도록: live : life = die : ______","a":"death"},{"t":"in","q":"짝지어진 단어의 관계가 같도록: invite : invitation = decorate : ______","a":"decoration"},{"t":"in","q":"짝지어진 단어의 관계가 같도록: wood : wooden = gold : ______","a":"golden"},{"t":"in","q":"우리말에 맞게: 그들은 밤새도록 춤을 췄다. → They danced ______ ______ ______.","a":"all night long","ph":"세 단어"},{"t":"in","q":"우리말에 맞게: 그 콘서트는 공원에서 열릴 것이다. → The concert will ______ ______ in the park.","a":"take place|be held"},{"t":"in","q":"우리말에 맞게: 수백 명의 학생들이 퍼레이드에 참가했다. → ______ ______ students joined the parade.","a":"Hundreds of"},{"t":"in","q":"우리말에 맞게: 나는 딸기 같은 과일을 좋아한다. → I like fruits ______ ______ strawberries.","a":"such as"},{"t":"in","q":"영영풀이 완성: statue = a large art object of a person or an animal that is made from a hard material like ______ or metal","a":"stone"},{"t":"in","q":"같은 뜻이 되도록: A lot of children took part in the race. = A lot of children ______ in the race. (과거형)","a":"participated"},{"t":"in","q":"11월을 영어로 쓰세요.","a":"November"}]}]}],"sents":[]};
+/* ===== DATA END ===== */
+</script>
+<script>/* ===== 강동미나 인터랙티브 엔진 (DATA는 CFG) ===== */
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+/* [[word]] → 발음 칩, {{12}} → 문장 번호 버튼 */
+function rich(s){
+  if(s==null)return '';
+  return String(s)
+    .replace(/\[\[([^\]]+)\]\]/g,function(m,w){return '<button class="sw" data-say="'+esc(w.replace(/<[^>]+>/g,''))+'">'+w+'</button>';})
+    .replace(/\{\{(\d+)\}\}/g,function(m,n){return '<button class="ref" data-n="'+n+'">'+n+'번</button>';});
+}
+/* ---------- TTS ---------- */
+var VOICE=null,ttsOK=('speechSynthesis' in window);
+function pickVoice(){
+  if(!ttsOK)return;
+  var vs=speechSynthesis.getVoices()||[];
+  VOICE=null;
+  for(var i=0;i<vs.length;i++){if(/william/i.test(vs[i].name)&&/^en/i.test(vs[i].lang)){VOICE=vs[i];break;}}
+  if(!VOICE){for(i=0;i<vs.length;i++){if(/^en[-_]US/i.test(vs[i].lang)){VOICE=vs[i];break;}}}
+}
+if(ttsOK){pickVoice();try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){}}
+var unlocked=false;
+function unlock(){
+  if(unlocked||!ttsOK)return;unlocked=true;
+  try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}catch(e){}
+  var h=$('#ttsHint');if(h)h.style.display='none';
+}
+['touchstart','mousedown','click'].forEach(function(ev){document.addEventListener(ev,unlock,{passive:true,capture:true});});
+function say(text,slow,onend){
+  if(!ttsOK){if(onend)onend();return;}
+  try{
+    speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(String(text).replace(/[“”]/g,'"'));
+    if(!VOICE)pickVoice();
+    if(VOICE){u.voice=VOICE;u.lang=VOICE.lang;}else u.lang='en-US';
+    u.rate=slow?0.7:0.92;
+    if(onend)u.onend=onend;
+    speechSynthesis.speak(u);
+  }catch(e){if(onend)onend();}
+}
+window.__say=say;
+/* ---------- 채점 정규화 ---------- */
+function norm(s){
+  return String(s).replace(/[’‘`]/g,"'").replace(/[“”]/g,'"').toLowerCase()
+    .replace(/[^a-z0-9\-\s가-힣]/g,' ').replace(/\s+/g,' ').trim();
+}
+function alts(a){return String(a).split('|').map(function(x){return x.trim();});}
+function okText(input,ans){var n=norm(input);if(!n)return false;return alts(ans).some(function(a){return norm(a)===n;});}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* ---------- 상단 ---------- */
+var app=$('#app');
+var head=el('header','top');
+head.innerHTML='<div class="brand">'+esc(CFG.brand)+'</div><h1>'+esc(CFG.title)+'</h1><div class="sub">'+esc(CFG.sub||'')+'</div>'+
+ '<div id="ttsHint" class="hint">🔊 소리가 안 나면 화면을 한 번 눌러 주세요.</div>';
+app.appendChild(head);
+var bar=el('nav','tabs');app.appendChild(bar);
+var main=el('main','wrap');app.appendChild(main);
+var ALLQ=[];window.__Q=ALLQ;
+var SENTS={};(CFG.sents||[]).forEach(function(s){SENTS[s.n]=s;});
+
+/* ---------- 공통 클릭 ---------- */
+document.addEventListener('click',function(ev){
+  var s=ev.target.closest('[data-say]');
+  if(s){ev.stopPropagation();say(s.getAttribute('data-say'),s.classList.contains('slow'));s.classList.add('playing');setTimeout(function(){s.classList.remove('playing');},700);return;}
+  var r=ev.target.closest('.ref');
+  if(r){
+    var n=r.getAttribute('data-n'),host=r.closest('li,td,p,.rp,.tip,.warnbox,.anal,.intro')||r.parentNode;
+    var ex=host.querySelector('.refbox[data-n="'+n+'"]');
+    if(ex){ex.remove();r.classList.remove('on');return;}
+    var st=SENTS[n];if(!st)return;
+    var bx=el('div','refbox','<b>'+n+'.</b> '+esc(st.en)+' <button class="mini" data-say="'+esc(st.en)+'">🔊</button>');
+    bx.setAttribute('data-n',n);host.appendChild(bx);r.classList.add('on');
+  }
+});
+
+/* ---------- 블록 ---------- */
+function renderBlock(b){
+  var f=R[b.k];if(!f){console.error('unknown block',b.k);return null;}
+  return f(b);
+}
+var R={};
+R.h=function(b){return el('h2','bh',rich(b.html));};
+R.html=function(b){return el('div','rich',rich(b.html));};
+R.wordlist=function(b){
+  var box=el('div','card');
+  box.appendChild(el('h3','ct',rich(b.title||'')));
+  var tg=el('div','row');
+  var hide=el('button','btn sm','뜻 가리기');var showAll=el('button','btn sm ghost','예문 해석 모두 보기');
+  tg.appendChild(hide);tg.appendChild(showAll);box.appendChild(tg);
+  var list=el('div','wl');
+  b.items.forEach(function(w,i){
+    // [en,pos,ko,ex,exKo]
+    var r=el('div','wi');
+    r.innerHTML='<div class="wtop"><span class="no">'+(i+1)+'</span><button class="wen" data-say="'+esc(w[0])+'">'+esc(w[0])+' <i>🔊</i></button>'+
+      (w[1]?'<span class="pos">'+esc(w[1])+'</span>':'')+'<span class="wko">'+rich(w[2])+'</span></div>'+
+      (w[3]?'<div class="wex"><button class="mini" data-say="'+esc(w[3])+'">🔊</button><span class="exen">'+rich(w[3])+'</span><div class="exko">'+esc(w[4]||'')+'</div></div>':'');
+    var exen=r.querySelector('.exen');if(exen)exen.onclick=function(){r.querySelector('.exko').classList.toggle('show');};
+    var ko=r.querySelector('.wko');ko.onclick=function(){if(list.classList.contains('hideko'))ko.classList.toggle('peek');};
+    list.appendChild(r);
+  });
+  hide.onclick=function(){var on=list.classList.toggle('hideko');hide.textContent=on?'뜻 보이기':'뜻 가리기';$$('.wko',list).forEach(function(k){k.classList.remove('peek');});};
+  showAll.onclick=function(){var any=$$('.exko:not(.show)',list).length>0;$$('.exko',list).forEach(function(k){k.classList.toggle('show',any);});};
+  box.appendChild(list);
+  return box;
+};
+R.flip=function(b){
+  var box=el('div','card');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  var all=el('button','btn sm ghost','뜻 모두 펼치기');box.appendChild(all);
+  b.rows.forEach(function(r){
+    var it=el('div','fl');
+    it.innerHTML='<div class="flen"><button class="mini" data-say="'+esc(r[0].replace(/<[^>]+>/g,''))+'">🔊</button><span>'+rich(r[0])+'</span><button class="tg">뜻 ▾</button></div>'+
+      '<div class="flko">'+rich(r[1])+(r[2]?'<div class="fltip">'+rich(r[2])+'</div>':'')+'</div>';
+    it.querySelector('.tg').onclick=function(){var o=it.classList.toggle('open');this.textContent=o?'뜻 ▴':'뜻 ▾';};
+    box.appendChild(it);
+  });
+  all.onclick=function(){var cl=$$('.fl:not(.open)',box).length>0;$$('.fl',box).forEach(function(x){x.classList.toggle('open',cl);x.querySelector('.tg').textContent=cl?'뜻 ▴':'뜻 ▾';});all.textContent=cl?'뜻 모두 접기':'뜻 모두 펼치기';};
+  return box;
+};
+R.dlg=function(b){
+  var box=el('div','card dlg');
+  box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  var row=el('div','row');var play=el('button','btn sm','▶ 전체 듣기');var tr=el('button','btn sm ghost','해석 모두 보기');row.appendChild(play);row.appendChild(tr);box.appendChild(row);
+  b.lines.forEach(function(l){
+    var it=el('div','dl');
+    it.innerHTML='<span class="spk">'+esc(l[0])+'</span><div class="dtx"><div class="den">'+rich(l[1])+' <button class="mini" data-say="'+esc(l[1].replace(/<[^>]+>/g,''))+'">🔊</button></div><div class="dko">'+esc(l[2]||'')+'</div></div>';
+    it.querySelector('.den').onclick=function(e){if(e.target.closest('[data-say]'))return;it.classList.toggle('open');};
+    box.appendChild(it);
+  });
+  tr.onclick=function(){var cl=$$('.dl:not(.open)',box).length>0;$$('.dl',box).forEach(function(x){x.classList.toggle('open',cl);});};
+  play.onclick=function(){var i=0,ls=b.lines,its=$$('.dl',box);(function nx(){its.forEach(function(x){x.classList.remove('now');});if(i>=ls.length)return;its[i].classList.add('now');say(ls[i][1].replace(/<[^>]+>/g,''),false,function(){i++;setTimeout(nx,250);});})();};
+  return box;
+};
+/* 순서대로 눌러 채우기: s 안의 {답} */
+R.tap=function(b){
+  var box=el('div','card');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  b.rows.forEach(function(r){
+    var it=el('div','tp');
+    var k=0;
+    var html=esc(r.s).replace(/\{([^}]+)\}/g,function(m,a){return '<button class="blank" data-i="'+(k++)+'" data-a="'+a+'">'+(k===1?'①':'')+'</button>';});
+    it.innerHTML='<div class="tps">'+html+' <button class="mini" data-say="'+esc(r.s.replace(/[{}]/g,''))+'">🔊</button></div>'+(r.ko?'<div class="tpko">'+rich(r.ko)+'</div>':'')+(r.tip?'<div class="tptip">'+rich(r.tip)+'</div>':'');
+    var bl=$$('.blank',it);
+    bl.forEach(function(x,i){x.textContent='▢ '+(i+1);});
+    var nextI=0;
+    function mark(){bl.forEach(function(x,i){x.classList.toggle('next',i===nextI);});if(nextI>=bl.length)it.classList.add('done');}
+    bl.forEach(function(x,i){x.onclick=function(){
+      if(i!==nextI){x.classList.add('shake');setTimeout(function(){x.classList.remove('shake');},400);return;}
+      x.textContent=x.getAttribute('data-a');x.classList.add('fill');nextI++;mark();
+    };});
+    mark();
+    box.appendChild(it);
+  });
+  var rs=el('button','btn sm ghost','다시 가리기');rs.onclick=function(){box.parentNode.replaceChild(R.tap(b),box);};box.appendChild(rs);
+  return box;
+};
+/* ---------- 문제 세트 ---------- */
+R.qset=function(b){
+  var box=el('div','card qset');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  if(b.psg){var ps=el('div','psg',rich(b.psg));box.appendChild(ps);}
+  var qs=[];
+  b.qs.forEach(function(q,i){var Q=makeQ(q,(b.start||1)+i);qs.push(Q);ALLQ.push(Q);box.appendChild(Q.node);});
+  var foot=el('div','qfoot');
+  var all=el('button','btn','전체 채점');var retry=el('button','btn ghost','틀린 것만 다시');var reset=el('button','btn ghost','처음부터');
+  var sc=el('div','score');
+  foot.appendChild(all);foot.appendChild(retry);foot.appendChild(reset);box.appendChild(foot);box.appendChild(sc);
+  function upd(){var ok=qs.filter(function(Q){return Q.state==='ok';}).length;var done=qs.filter(function(Q){return Q.state;}).length;
+    sc.innerHTML=done?('<b>'+ok+' / '+qs.length+'</b> 정답'+(done<qs.length?' · 안 푼 문제 '+(qs.length-done)+'개':'')+(ok===qs.length?' 🎉 모두 정답!':'')):'';}
+  qs.forEach(function(Q){Q.onchange=upd;});
+  all.onclick=function(){qs.forEach(function(Q){if(!Q.state&&Q.node.style.display!=='none')Q.check(true);});upd();var w=qs.filter(function(Q){return Q.state!=='ok';})[0];};
+  retry.onclick=function(){qs.forEach(function(Q){if(Q.state==='ok'){Q.node.style.display='none';}else{Q.node.style.display='';Q.reset();}});upd();try{box.scrollIntoView({block:'start'});}catch(e){}};
+  reset.onclick=function(){qs.forEach(function(Q){Q.node.style.display='';Q.reset();});upd();};
+  box.__qs=qs;
+  return box;
+};
+function makeQ(q,no){
+  var Q={q:q,state:null,node:el('div','q')};
+  var n=Q.node;
+  var tag=q.tag?'<span class="qtag">'+esc(q.tag)+'</span>':'';
+  if(q.ctx)n.appendChild(el('div','ctx',rich(q.ctx)));
+  n.appendChild(el('div','qq','<span class="qno">'+no+'</span>'+tag+rich(q.q||'')));
+  var body=el('div','qb');n.appendChild(body);
+  var btns=el('div','qbtn');var ck=el('button','btn sm','확인');var sh=el('button','btn sm ghost','정답 보기');btns.appendChild(ck);btns.appendChild(sh);n.appendChild(btns);
+  var fb=el('div','fb');n.appendChild(fb);
+  var T=TYPES[q.t];if(!T)throw new Error('bad type '+q.t);
+  T.build(Q,body);
+  Q.check=function(force){
+    var r=T.grade(Q);
+    if(r===null&&!force){fb.className='fb warn';fb.innerHTML='답을 먼저 골라 주세요.';return;}
+    Q.state=r?'ok':'no';
+    n.classList.remove('ok','no');n.classList.add(Q.state);
+    fb.className='fb '+(r?'good':'bad');
+    fb.innerHTML=(r?'⭕ 정답!':'❌ 다시 확인해요.')+'<div class="ans">정답: '+T.answer(Q)+'</div>'+(q.e?'<div class="ex">'+rich(q.e)+'</div>':'');
+    if(T.after)T.after(Q,r);
+    if(Q.onchange)Q.onchange();
+  };
+  Q.reset=function(){Q.state=null;n.classList.remove('ok','no');fb.className='fb';fb.innerHTML='';T.reset(Q);if(Q.onchange)Q.onchange();};
+  ck.onclick=function(){Q.check(false);};
+  sh.onclick=function(){if(!Q.state)Q.state='no';n.classList.add('no');fb.className='fb bad';fb.innerHTML='👀 정답 확인<div class="ans">정답: '+T.answer(Q)+'</div>'+(q.e?'<div class="ex">'+rich(q.e)+'</div>':'');if(T.after)T.after(Q,false);if(Q.onchange)Q.onchange();};
+  Q.T=T;
+  return Q;
+}
+var TYPES={};
+/* 객관식: a = 번호(0부터) 또는 배열(모두 고르기) */
+TYPES.mc={
+  build:function(Q,body){
+    var q=Q.q,multi=Array.isArray(q.a);
+    Q.sel=multi?[]:null;
+    var wrap=el('div','opts'+(q.inline?' inline':''));
+    var MK=['①','②','③','④','⑤','⑥','⑦'];
+    Q.order=q.o.map(function(x,i){return i;});
+    q.o.forEach(function(o,i){
+      var b=el('button','opt',(q.inline?'':'<span class="mk">'+MK[i]+'</span>')+rich(o));
+      b.onclick=function(e){if(e.target.closest('[data-say]'))return;
+        if(multi){var k=Q.sel.indexOf(i);if(k>=0)Q.sel.splice(k,1);else Q.sel.push(i);b.classList.toggle('pick');}
+        else{Q.sel=i;$$('.opt',wrap).forEach(function(x){x.classList.remove('pick');});b.classList.add('pick');if(q.inline||q.auto)Q.check(false);}
+      };
+      wrap.appendChild(b);
+    });
+    if(multi)body.appendChild(el('div','multi','※ 알맞은 것을 <b>모두</b> 고르세요.'));
+    body.appendChild(wrap);Q.wrap=wrap;
+  },
+  grade:function(Q){var q=Q.q;
+    if(Array.isArray(q.a)){if(!Q.sel.length)return null;var a=q.a.slice().sort().join(),s=Q.sel.slice().sort().join();return a===s;}
+    if(Q.sel===null)return null;return Q.sel===q.a;},
+  answer:function(Q){var q=Q.q,MK=['①','②','③','④','⑤','⑥','⑦'];var a=Array.isArray(q.a)?q.a:[q.a];
+    return a.map(function(i){return (q.inline?'':MK[i]+' ')+rich(q.o[i]);}).join(', ');},
+  after:function(Q){var q=Q.q,a=Array.isArray(q.a)?q.a:[q.a];$$('.opt',Q.wrap).forEach(function(b,i){b.classList.toggle('right',a.indexOf(i)>=0);});},
+  reset:function(Q){Q.sel=Array.isArray(Q.q.a)?[]:null;$$('.opt',Q.wrap).forEach(function(b){b.classList.remove('pick','right');});}
+};
+/* 주관식: a = '정답|다른정답' 또는 배열(빈칸 여러 개) */
+TYPES.in={
+  build:function(Q,body){
+    var q=Q.q,arr=Array.isArray(q.a)?q.a:[q.a];
+    Q.inputs=arr.map(function(a,i){
+      var w=el('div','inw');
+      if(arr.length>1)w.appendChild(el('span','inl',(q.lb&&q.lb[i])||('('+(i+1)+')')));
+      var inp=el('input','inp');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.setAttribute('spellcheck','false');
+      if(q.ph)inp.placeholder=q.ph;
+      inp.onkeydown=function(e){if(e.key==='Enter')Q.check(false);};
+      w.appendChild(inp);body.appendChild(w);return inp;});
+  },
+  grade:function(Q){var arr=Array.isArray(Q.q.a)?Q.q.a:[Q.q.a];
+    if(Q.inputs.every(function(i){return !i.value.trim();}))return null;
+    var ok=true;Q.inputs.forEach(function(inp,i){var g=okText(inp.value,arr[i]);inp.classList.toggle('good',g);inp.classList.toggle('bad',!g);if(!g)ok=false;});return ok;},
+  answer:function(Q){var arr=Array.isArray(Q.q.a)?Q.q.a:[Q.q.a];
+    return arr.map(function(a,i){var x=alts(a);return (arr.length>1?((Q.q.lb&&Q.q.lb[i])||'('+(i+1)+')')+' ':'')+'<b>'+esc(x[0])+'</b>'+(x.length>1?' <span class="alt">(= '+x.slice(1).map(esc).join(' / ')+')</span>':'');}).join(' &nbsp; ');},
+  reset:function(Q){Q.inputs.forEach(function(i){i.value='';i.classList.remove('good','bad');});}
+};
+/* 배열: c = 정답 순서 조각, x = 함정 조각 */
+TYPES.ord={
+  build:function(Q,body){
+    var q=Q.q;
+    if(q.p)body.appendChild(el('div','ordp',rich(q.p)));
+    var slot=el('div','oslot');slot.innerHTML='<span class="oh">아래 조각을 순서대로 누르세요</span>';
+    var pool=el('div','opool');
+    body.appendChild(slot);body.appendChild(pool);
+    Q.slot=slot;Q.pool=pool;Q.picked=[];
+    TYPES.ord.fill(Q);
+  },
+  fill:function(Q){
+    var q=Q.q;Q.pool.innerHTML='';Q.picked=[];
+    $$('.chip',Q.slot).forEach(function(c){c.remove();});
+    var oh=$('.oh',Q.slot);if(oh)oh.style.display='';
+    var items=q.c.map(function(t,i){return {t:t,cn:(q.cn||[]).indexOf(i)>=0};}).concat((q.x||[]).map(function(t){return {t:t,trap:1,cn:/^(and|but|so|because|if|then|or|when)$/i.test(t)};}));
+    var sh=shuffle(items),guard=0;
+    while(items.length>1&&sh.map(function(x){return x.t;}).join('␟')===items.map(function(x){return x.t;}).join('␟')&&guard++<10)sh=shuffle(items);
+    sh.forEach(function(it){
+      var c=el('button','chip'+(it.cn?' cn':''),esc(it.t));c.__t=it.t;
+      c.onclick=function(){
+        if(c.parentNode===Q.pool){Q.slot.appendChild(c);Q.picked.push(c);}
+        else{Q.pool.appendChild(c);Q.picked.splice(Q.picked.indexOf(c),1);}
+        var oh=$('.oh',Q.slot);if(oh)oh.style.display=Q.picked.length?'none':'';
+      };
+      Q.pool.appendChild(c);
+    });
+  },
+  grade:function(Q){if(!Q.picked.length)return null;
+    var got=Q.picked.map(function(c){return c.__t;});return got.join('␟')===Q.q.c.join('␟');},
+  answer:function(Q){return '<b>'+esc(Q.q.c.join(Q.q.sep!=null?Q.q.sep:' '))+'</b>'+(Q.q.sayAns!==false?' <button class="mini" data-say="'+esc(Q.q.c.join(' ').replace(/[“”]/g,''))+'">🔊</button>':'');},
+  reset:function(Q){TYPES.ord.fill(Q);}
+};
+/* 거꾸로 영작: a = 영어 문장 */
+TYPES.rw={
+  build:function(Q,body){
+    var q=Q.q;
+    if(q.hint)body.appendChild(el('div','rwh',rich(q.hint)));
+    var ta=el('textarea','inp ta');ta.rows=2;ta.setAttribute('autocapitalize','off');ta.setAttribute('spellcheck','false');ta.placeholder='영어로 쓰세요';
+    body.appendChild(ta);Q.ta=ta;Q.diff=el('div','diff');body.appendChild(Q.diff);
+  },
+  grade:function(Q){if(!Q.ta.value.trim())return null;
+    var ok=okText(Q.ta.value,Q.q.a);
+    var want=norm(alts(Q.q.a)[0]).split(' '),got=norm(Q.ta.value).split(' ');
+    Q.diff.innerHTML=want.map(function(w,i){return '<span class="'+(got[i]===w?'dg':'db')+'">'+esc(got[i]||'＿')+'</span>';}).join(' ')+(got.length>want.length?' <span class="db">+'+esc(got.slice(want.length).join(' '))+'</span>':'');
+    return ok;},
+  answer:function(Q){var a=alts(Q.q.a)[0];return '<b>'+esc(a)+'</b> <button class="mini" data-say="'+esc(a)+'">🔊</button>';},
+  reset:function(Q){Q.ta.value='';Q.diff.innerHTML='';}
+};
+
+CFG.tabs.forEach(function(t,ti){
+  var b=el('button','tab',esc(t.name));b.dataset.i=ti;
+  b.onclick=function(){showTab(ti);};bar.appendChild(b);
+  var sec=el('section','pane');sec.id='pane'+ti;
+  if(t.intro)sec.appendChild(el('div','intro',rich(t.intro)));
+  (t.blocks||[]).forEach(function(bk){var n=renderBlock(bk);if(n)sec.appendChild(n);});
+  var nav=el('div','pnav');
+  if(ti>0){var pv=el('button','btn ghost','← '+esc(CFG.tabs[ti-1].name));pv.onclick=function(){showTab(ti-1);};nav.appendChild(pv);}
+  if(ti<CFG.tabs.length-1){var nx=el('button','btn','다음: '+esc(CFG.tabs[ti+1].name)+' →');nx.onclick=function(){showTab(ti+1);};nav.appendChild(nx);}
+  sec.appendChild(nav);
+  main.appendChild(sec);
+});
+function showTab(i){
+  $$('.pane').forEach(function(p,k){p.style.display=(k===i)?'block':'none';});
+  $$('.tab').forEach(function(b,k){b.classList.toggle('on',k===i);});
+  var tb=$$('.tab')[i];if(tb&&tb.scrollIntoView){try{tb.scrollIntoView({block:'nearest',inline:'center'});}catch(e){}}
+  try{window.scrollTo(0,0);}catch(e){}
+}
+window.__showTab=showTab;
+showTab(0);
+
+
+/* ---------- 검사용 훅 ---------- */
+window.__test={
+  fillCorrect:function(Q){var q=Q.q;
+    if(q.t==='mc'){Q.T.reset(Q);var a=Array.isArray(q.a)?q.a:[q.a];a.forEach(function(i){$$('.opt',Q.wrap)[i].click();});if(!(q.inline||q.auto)||Array.isArray(q.a))Q.check(false);}
+    else if(q.t==='in'){var arr=Array.isArray(q.a)?q.a:[q.a];Q.inputs.forEach(function(inp,i){inp.value=alts(arr[i])[0];});Q.check(false);}
+    else if(q.t==='rw'){Q.ta.value=alts(q.a)[0];Q.check(false);}
+    else if(q.t==='ord'){Q.T.reset(Q);var pool=$$('.chip',Q.pool),used=[];q.c.forEach(function(t){for(var i=0;i<pool.length;i++){if(used.indexOf(i)<0&&pool[i].__t===t){used.push(i);pool[i].click();break;}}});Q.check(false);}
+  },
+  fillWrong:function(Q){var q=Q.q;
+    if(q.t==='mc'){Q.T.reset(Q);var a=Array.isArray(q.a)?q.a:[q.a];var w=-1;for(var i=0;i<q.o.length;i++)if(a.indexOf(i)<0){w=i;break;}$$('.opt',Q.wrap)[w].click();if(!(q.inline||q.auto)||Array.isArray(q.a))Q.check(false);}
+    else if(q.t==='in'){Q.inputs.forEach(function(inp){inp.value='zzzz';});Q.check(false);}
+    else if(q.t==='rw'){Q.ta.value='zzz zzz';Q.check(false);}
+    else if(q.t==='ord'){Q.T.reset(Q);var pool=$$('.chip',Q.pool);pool.slice().reverse().forEach(function(c){c.click();});
+      if(Q.picked.map(function(c){return c.__t;}).join('␟')===q.c.join('␟')){Q.picked[0].click();}
+      Q.check(false);}
+  }
+};
+})();
+</script>
+</body></html>
