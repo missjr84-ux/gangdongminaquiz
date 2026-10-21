@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lesson 7 Watch Out — 문법</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--p:#5b4fa8;--pd:#3b2f8a;--pl:#ece9f8;--bg:#f5f4fa;--ink:#24213a;--mut:#6b6788;--ok:#1f8a5b;--okl:#e3f5ec;--no:#c4423a;--nol:#fbe9e7;--ye:#fff6d6;--line:#dcd8ee}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:17px;line-height:1.7}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+.top{max-width:740px;margin:0 auto;padding:22px 16px 10px}
+.brand{font-size:13px;color:var(--p);font-weight:700;letter-spacing:.02em}
+.top h1{font-size:23px;margin:4px 0 2px;color:var(--pd);line-height:1.35}
+.sub{font-size:14px;color:var(--mut)}
+.hint{margin-top:8px;font-size:13px;color:var(--mut);background:#fff;border:1px dashed var(--line);border-radius:10px;padding:6px 10px}
+.tabs{position:sticky;top:0;z-index:20;background:rgba(245,244,250,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;padding:8px 12px;-webkit-overflow-scrolling:touch}
+.tab{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:15px;font-weight:600;color:var(--mut)}
+.tab.on{background:var(--p);border-color:var(--p);color:#fff}
+.tab:first-child{margin-left:auto}.tab:last-child{margin-right:auto}
+.wrap{max-width:740px;margin:0 auto;padding:12px 16px 80px}
+.intro{background:#fff;border-left:4px solid var(--p);border-radius:10px;padding:12px 14px;margin:6px 0 14px;font-size:15.5px}
+.bh{font-size:19px;color:var(--pd);margin:26px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--pl)}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.ct{margin:0 0 8px;font-size:17px;color:var(--pd)}
+.note{font-size:14.5px;background:var(--pl);border-radius:10px;padding:8px 12px;margin:6px 0 10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.btn{border:none;background:var(--p);color:#fff;border-radius:10px;padding:10px 16px;font-weight:600;min-height:44px}
+.btn.ghost{background:#fff;color:var(--p);border:1.5px solid var(--p)}
+.btn.sm{padding:6px 12px;font-size:14.5px;min-height:38px}
+.mini{border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 6px;font-size:13px;line-height:24px;vertical-align:middle}
+.mini.playing,.sw.playing,.wen.playing{background:var(--ye)}
+.sw{border:none;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px;font-weight:600;font-size:inherit}
+.sw::after{content:' 🔊';font-size:.75em}
+.ref{border:1px solid var(--p);background:#fff;color:var(--p);border-radius:6px;padding:0 6px;font-size:.9em;font-weight:700}
+.ref.on{background:var(--p);color:#fff}
+.refbox{display:block;margin:6px 0;padding:8px 10px;background:#faf9ff;border:1px dashed var(--p);border-radius:8px;font-family:Lora,Georgia,serif;font-size:16px}
+.rich p{margin:6px 0}
+.anal{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.anal h4{margin:14px 0 6px;color:var(--pd);font-size:16px}
+.anal h4:first-child{margin-top:0}
+.tw{overflow-x:auto}
+table.t{border-collapse:collapse;width:100%;font-size:15px;margin:8px 0}
+table.t th,table.t td{border:1px solid var(--line);padding:7px 8px;vertical-align:top;text-align:left}
+table.t th{background:var(--pl);color:var(--pd);font-weight:700}
+.tip{background:var(--ye);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.warnbox{background:var(--nol);border-radius:10px;padding:8px 12px;margin:8px 0;font-size:15px}
+.en{font-family:Lora,Georgia,serif}
+.rp{padding:8px 0;border-bottom:1px dashed var(--line)}
+.rp:last-child{border-bottom:none}
+.gl{display:inline-block;font-size:12.5px;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px;margin:2px 4px 0 0}
+/* 단어 */
+.wl.hideko .wko{color:transparent;background:#eeecf6;border-radius:6px;min-width:90px;display:inline-block}
+.wl.hideko .wko.peek{color:inherit;background:var(--ye)}
+.wi{padding:10px 0;border-bottom:1px dashed var(--line)}
+.wtop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.no{color:var(--mut);font-size:13px;min-width:20px}
+.wen{border:none;background:none;font-family:Lora,Georgia,serif;font-size:19px;font-weight:700;color:var(--pd);padding:0}
+.wen i{font-style:normal;font-size:14px}
+.pos{font-size:12.5px;background:var(--pl);color:var(--pd);border-radius:6px;padding:0 6px}
+.wko{font-size:16px}
+.wex{margin:4px 0 0 28px;font-size:15.5px}
+.exen{font-family:Lora,Georgia,serif;cursor:pointer;margin-left:6px}
+.exko{display:none;color:var(--mut);font-size:14.5px}
+.exko.show{display:block}
+/* 토글 */
+.fl{border-bottom:1px dashed var(--line);padding:8px 0}
+.flen{display:flex;align-items:center;gap:8px;font-family:Lora,Georgia,serif;font-size:17px}
+.flen span{flex:1}
+.tg{border:1.5px solid var(--p);color:var(--p);background:#fff;border-radius:8px;padding:2px 10px;font-size:14px;white-space:nowrap;font-family:'Noto Sans KR',sans-serif}
+.flko{display:none;margin:4px 0 0 34px;font-size:15.5px}
+.fl.open .flko{display:block}
+.fltip{font-size:14px;color:var(--p);margin-top:2px}
+/* 대화 */
+.dl{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.dl.now{background:var(--ye)}
+.spk{flex:0 0 auto;min-width:34px;font-weight:700;color:var(--p);font-size:15px}
+.dtx{flex:1}
+.den{font-family:Lora,Georgia,serif;font-size:17px;cursor:pointer}
+.dko{display:none;color:var(--mut);font-size:15px}
+.dl.open .dko{display:block}
+/* 채우기 */
+.tp{padding:10px 0;border-bottom:1px dashed var(--line)}
+.tps{font-family:Lora,Georgia,serif;font-size:18px;line-height:2.1}
+.blank{border:2px dashed var(--line);background:#fff;border-radius:8px;padding:0 10px;color:var(--mut);font-size:15px;font-family:'Noto Sans KR',sans-serif}
+.blank.next{border-color:var(--p);color:var(--p);background:var(--pl)}
+.blank.fill{border:2px solid var(--ok);background:var(--okl);color:var(--ok);font-weight:700;font-family:Lora,Georgia,serif;font-size:18px}
+.blank.shake{animation:sh .35s}
+@keyframes sh{0%,100%{transform:translateX(0)}30%{transform:translateX(-5px)}70%{transform:translateX(5px)}}
+.tpko{font-size:15px;color:var(--mut)}
+.tptip{display:none;font-size:14.5px;color:var(--p)}
+.tp.done .tptip{display:block}
+/* 문제 */
+.psg{position:sticky;top:58px;z-index:5;max-height:42vh;overflow-y:auto;background:#fdfcff;border:1.5px solid var(--p);border-radius:12px;padding:10px 12px;margin:6px 0 12px;font-family:Lora,Georgia,serif;font-size:16px;line-height:1.75;box-shadow:0 4px 12px rgba(59,47,138,.08)}
+.psg b,.psg u{font-family:inherit}
+.q{border-top:1px solid var(--line);padding:14px 0 10px}
+.q:first-of-type{border-top:none}
+.q.ok .qno{background:var(--ok)}
+.q.no .qno{background:var(--no)}
+.qq{font-size:16.5px;margin-bottom:8px}
+.qno{display:inline-block;min-width:26px;height:26px;line-height:26px;text-align:center;border-radius:13px;background:var(--p);color:#fff;font-size:13.5px;font-weight:700;margin-right:6px}
+.qtag{display:inline-block;font-size:12px;background:var(--no);color:#fff;border-radius:6px;padding:0 6px;margin-right:6px;vertical-align:middle}
+.ctx{background:#faf9ff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:8px;font-family:Lora,Georgia,serif;font-size:16px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts.inline{flex-direction:row;flex-wrap:wrap}
+.opt{text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;font-size:16px;min-height:44px}
+.opts.inline .opt{font-family:Lora,Georgia,serif;font-weight:600;min-width:120px;text-align:center}
+.opt .mk{color:var(--p);margin-right:6px;font-weight:700}
+.opt.pick{border-color:var(--p);background:var(--pl)}
+.opt.right{border-color:var(--ok);background:var(--okl)}
+.multi{font-size:13.5px;color:var(--no);margin-bottom:4px}
+.inw{display:flex;align-items:center;gap:6px;margin:4px 0}
+.inl{font-size:14px;color:var(--mut);white-space:nowrap}
+.inp{flex:1;width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:17px;font-family:Lora,Georgia,serif;background:#fff}
+.inp:focus{outline:none;border-color:var(--p)}
+.inp.good{border-color:var(--ok);background:var(--okl)}
+.inp.bad{border-color:var(--no);background:var(--nol)}
+.ta{resize:vertical;min-height:60px}
+.rwh{font-size:14px;color:var(--mut);margin-bottom:4px}
+.diff{font-family:Lora,Georgia,serif;font-size:16px;margin-top:4px}
+.dg{color:var(--ok)}.db{color:var(--no);text-decoration:underline}
+.ordp{font-size:15.5px;margin-bottom:6px}
+.oslot{min-height:52px;border:2px dashed var(--p);border-radius:10px;padding:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:#fdfcff}
+.oh{font-size:13.5px;color:var(--mut)}
+.opool{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-family:Lora,Georgia,serif;font-size:16.5px;min-height:44px}
+.oslot .chip{border-color:var(--p);background:var(--pl)}
+.chip.cn{border-color:#d9a400;background:#fffbea}
+.qbtn{display:flex;gap:8px;margin-top:10px}
+.fb{display:none;margin-top:8px;border-radius:10px;padding:8px 12px;font-size:15.5px}
+.fb.good,.fb.bad,.fb.warn{display:block}
+.fb.good{background:var(--okl)}
+.fb.bad{background:var(--nol)}
+.fb.warn{background:var(--ye)}
+.fb .ans{margin-top:2px}
+.fb .ans b{font-family:Lora,Georgia,serif}
+.fb .ex{margin-top:4px;color:#3d3a55;font-size:15px}
+.alt{color:var(--mut);font-size:14px}
+.qfoot{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:2px solid var(--pl)}
+.score{margin-top:8px;font-size:16px;color:var(--pd)}
+.pnav{display:flex;justify-content:space-between;gap:8px;margin-top:26px;flex-wrap:wrap}
+details.sum{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:12px 0}
+details.sum summary{font-weight:700;color:var(--p);cursor:pointer}
+@media (max-width:480px){body{font-size:16px}.top h1{font-size:20px}.wex{margin-left:0}.flko{margin-left:0}}
+</style></head>
+<body><div id="app"></div>
+<script>
+/* ===== DATA START ===== */
+var CFG={"brand":"강동미나 중고등부 · 중3 Lesson 7 (천재 이재영)","title":"Lesson 7 Watch Out — 문법","sub":"분사구문 (만들기 · 뜻 · 부정 · 과거분사 · having p.p.) · 조동사가 포함된 수동태","sents":[],"tabs":[{"name":"① 분사구문 만들기","intro":"<b>부사절을 짧게 줄인 것이 분사구문!</b> 3단계 순서대로 바꾸는 연습을 해요. 예문 빈칸은 ▢1 → ▢2 순서로 눌러 채워요.","blocks":[{"k":"html","html":"<div class=\"anal\"><h4>📌 공식: 접속사 + 주어 + 동사 ~, 주절 → 동사-ing ~, 주절</h4><ol><li><b>접속사 지우기</b> — <s>While</s> farmers were working on a cornfield, farmers found something surprising.</li><li><b>주어 확인하고 지우기</b> — 부사절 주어 = 주절 주어(farmers)면 지워요. <b>다르면 남겨요!</b></li><li><b>동사를 -ing로</b> — were working → <b>Working</b> on a cornfield, farmers found something surprising.</li></ol><div class=\"tip\">기본 점검: ① 시제가 같으면 동사원형 + -ing (was → Being, have → Having) ② 주절은 <b>그대로</b> 둬요 ③ 콤마(,)로 주절과 나눠요.</div></div>"},{"k":"tap","title":"순서대로 채우기 — 본문 · 교과서 문장","note":"다 채우면 아래에 원래 문장이 나와요.","rows":[{"s":"{Working} on a cornfield one day in 1943, farmers in Mexico found something surprising.","ko":"1943년 어느 날 옥수수밭에서 일하다가, 멕시코 농부들은 놀라운 것을 발견했다.","tip":"= While they were working on a cornfield ~ (때)"},{"s":"{Being} very powerful and dangerous, volcanoes do harm to people.","ko":"매우 강력하고 위험하기 때문에, 화산은 사람들에게 해를 끼친다.","tip":"= Because volcanoes are very powerful and dangerous ~ (이유)"},{"s":"{Looking} for fantastic scenery, millions of tourists visit Mt. Halla.","ko":"환상적인 경치를 찾아서, 수백만 명의 관광객이 한라산을 방문한다.","tip":"= Because they are looking for fantastic scenery ~ (이유)"},{"s":"I study math, {listening} to music.","ko":"나는 음악을 들으면서 수학을 공부한다.","tip":"= while I listen to music (동시 동작)"},{"s":"{Finishing} my dinner, I watched the news about the typhoon.","ko":"저녁을 다 먹은 후에 나는 태풍 뉴스를 보았다.","tip":"= After I finished my dinner ~ (때)"}]},{"k":"qset","title":"바꿔 쓰기 연습","qs":[{"t":"in","q":"While she was hiking up Mt. Halla, she saw a deer.<br>→ ______ ______ Mt. Halla, she saw a deer.","a":"Hiking up"},{"t":"in","q":"Because I had a map, I could find the cave easily.<br>→ ______ a map, I could find the cave easily.","a":"Having"},{"t":"in","q":"When the farmers saw the smoke, they ran away.<br>→ ______ the smoke, the farmers ran away.","a":"Seeing"},{"t":"in","q":"As he was hungry, he ate two sandwiches.<br>→ ______ hungry, he ate two sandwiches.","a":"Being"},{"t":"rw","q":"분사구문으로 바꿔 쓰기: Because it was very windy, we stayed inside.","a":"It being very windy, we stayed inside.","e":"주어(it)가 주절의 주어(we)와 달라서 남겨요!"},{"t":"rw","q":"분사구문으로 바꿔 쓰기: While I lay in my tent, I heard the rain.","a":"Lying in my tent, I heard the rain.","e":"lie(눕다) - lay - lain / -ing형은 lying"},{"t":"rw","q":"분사구문으로 바꿔 쓰기: If you take this road, you will get to the beach.","a":"Taking this road, you will get to the beach."},{"t":"rw","q":"분사구문으로 바꿔 쓰기: Because she studied hard, she passed the science test.","a":"Studying hard, she passed the science test."},{"t":"mc","q":"Because the scientists worked hard, they found the underwater volcano.<br>= ______, the scientists found the underwater volcano.","o":["Worked hard","Working hard","They working hard","Being worked hard","Because worked hard"],"a":1,"e":"주어가 같으니 they 지우기 / 과학자들이 일하는 쪽 → -ing"},{"t":"ord","q":"우리말에 맞게 배열: 그녀는 노래를 부르면서 설거지를 했다.","c":["She washed the dishes,","singing","a song."],"x":["sang"],"e":"동시 동작 → 콤마 뒤 -ing"}]}]},{"name":"② 분사구문의 뜻","intro":"<b>분사구문은 접속사가 없어서 뜻을 문맥으로 찾아야 해요!</b> 앞뒤 내용이 어떤 관계인지 보고 접속사를 골라요.","blocks":[{"k":"html","html":"<div class=\"anal\"><div class=\"tw\"><table class=\"t\">\n<tr><th>뜻</th><th>숨은 접속사</th><th>예문</th></tr>\n<tr><td><b>때</b> ~할 때, ~하는 동안, ~한 후에</td><td>when · while · after · as</td><td><b>Working</b> on a cornfield, farmers found something surprising.</td></tr>\n<tr><td><b>이유</b> ~해서, ~ 때문에</td><td>because · as · since</td><td><b>Being</b> very powerful and dangerous, volcanoes do harm to people.</td></tr>\n<tr><td><b>동시 동작</b> ~하면서</td><td>while · as</td><td>I study math, <b>listening</b> to music.</td></tr>\n<tr><td><b>연속 동작 · 결과</b> 그리고 ~하다</td><td>and</td><td>A volcanic eruption shoots ash into the air, <b>preventing</b> the sunlight from reaching Earth.</td></tr>\n<tr><td><b>조건</b> ~하면</td><td>if</td><td><b>Following</b> this map, you will find the cave.</td></tr>\n<tr><td><b>양보</b> ~이지만</td><td>although · though</td><td><b>Living</b> next to the volcano, they have never seen it erupt.</td></tr>\n</table></div>\n<div class=\"tip\">판별 순서: ① 앞뒤가 <b>반대</b>(~지만)인가? → 양보 ② 뒤가 <b>미래·명령</b>이고 \"~하면\" 말이 되나? → 조건 ③ 뒤가 <b>결과</b>인가? → 이유 ④ 같은 시간에 하나? → 동시 동작 / 시간 순서인가? → 때<br>뜻을 분명하게 하려고 접속사를 남기기도 해요: <b>When hearing</b> the warning, people left the area.</div></div>"},{"k":"qset","title":"숨은 접속사 고르기","qs":[{"t":"mc","inline":1,"q":"<u>Working on a cornfield</u>, farmers in Mexico found something surprising. → ______ they were working","o":["While","If"],"a":0,"e":"본문 15번"},{"t":"mc","inline":1,"q":"<u>Being very powerful and dangerous</u>, volcanoes do harm to people. → ______ volcanoes are","o":["Although","Because"],"a":1,"e":"본문 23번"},{"t":"mc","inline":1,"q":"<u>Following this map</u>, you will find the cave. → ______ you follow","o":["If","Though"],"a":0},{"t":"mc","inline":1,"q":"<u>Being only twelve</u>, she speaks three languages. → ______ she is only twelve","o":["Because","Though"],"a":1,"e":"열두 살밖에 안 됐다 ↔ 3개 국어 (반대)"},{"t":"mc","inline":1,"q":"<u>Not knowing the way</u>, we asked a police officer. → ______ we didn't know","o":["Because","Although"],"a":0},{"t":"mc","inline":1,"q":"<u>Living near the volcano</u>, they are not afraid of it. → ______ they live","o":["Because","Although"],"a":1,"e":"화산 가까이 사는데도 무서워하지 않음 (반대)"},{"t":"mc","inline":1,"q":"<u>Leaving now</u>, you will catch the last bus. → ______ you leave","o":["If","Although"],"a":0},{"t":"mc","inline":1,"q":"The guide smiled at us, <u>waving her hand</u>. → ______ she waved","o":["while","although"],"a":0,"e":"동시 동작"},{"t":"mc","q":"밑줄 친 분사구문의 생략된 접속사가 나머지와 <b>다른</b> 것은?","o":["<u>Feeling cold</u>, I closed the window.","<u>Having no umbrella</u>, I got wet.","<u>Not knowing the answer</u>, he kept quiet.","<u>Pressing this button</u>, you can call for help.","<u>Being sick</u>, she stayed in bed."],"a":3,"e":"④ 조건(If), 나머지는 이유(Because)"},{"t":"mc","q":"밑줄 친 분사구문의 생략된 접속사가 나머지와 <b>다른</b> 것은?","o":["<u>Singing a song</u>, she cleaned her room.","<u>Holding an umbrella</u>, he walked to school.","The children ran to the beach, <u>laughing loudly</u>.","<u>Waving her hand</u>, she got on the train.","<u>Feeling very tired</u>, I didn't stop working."],"a":4,"e":"⑤ 양보(Although), 나머지는 동시 동작(while/as)"},{"t":"mc","q":"밑줄 친 부분과 바꿔 쓸 수 있는 것은?<br><u>Living next to the volcano</u>, they have never seen it erupt.","o":["If they live","After they lived","Unless they live","When they lived","Though they live"],"a":4,"e":"옆에 사는데도 분출을 본 적이 없다 (반대)"},{"t":"mc","q":"빈칸에 들어갈 말로 알맞은 것을 <b>모두</b> 고르세요.<br>______, you can see the whole island.","o":["Climbing the mountain","If you climb the mountain","Being climbed the mountain","Unless climbing the mountain","As having climbed the mountain"],"a":[0,1]}]}]},{"name":"③ 주의할 분사구문","intro":"<b>시험에 나오는 함정 4가지!</b> 부정 · Being 생략 · 시제가 앞설 때 · 주어가 다를 때. 하나씩 판별 순서대로 확인해요.","blocks":[{"k":"html","html":"<div class=\"anal\"><h4>📌 함정 1: 부정 → Not을 맨 앞에</h4><ol><li>Because I <b>don't</b> know his address, I can't send the card.</li><li>→ <b>Not knowing</b> his address, I can't send the card.</li></ol><div class=\"tip\">Knowing not ✗ / Don't knowing ✗ / Not knowing ⭕ — not(never)은 분사 <b>바로 앞</b>!</div></div>"},{"k":"html","html":"<div class=\"anal\"><h4>📌 함정 2: Being은 생략할 수 있어요 → 과거분사·형용사로 시작</h4><ol><li>As he <b>was tired</b>, he went home early. → <b>(Being)</b> Tired, he went home early.</li><li>Because the guidebook <b>is written</b> in simple English, it is easy to read. → <b>(Being) Written</b> in simple English, the guidebook is easy to read.</li><li>When Jejudo <b>is seen</b> from the sky, it looks like a big leaf. → <b>Seen</b> from the sky, Jejudo looks like a big leaf.</li></ol><div class=\"tip\">판별: 주절의 주어가 <b>하는 쪽</b>이면 -ing / <b>당하는 쪽</b>이면 p.p.<br>안내서는 쓰는 게 아니라 <b>쓰여지는</b> 쪽 → Written ⭕ / Writing ✗</div></div>"},{"k":"html","html":"<div class=\"anal\"><h4>📌 함정 3: 부사절이 주절보다 앞선 일 → Having + p.p.</h4><ol><li>Because I <b>have visited</b> the island before, I know the way.</li><li>→ <b>Having visited</b> the island before, I know the way.</li><li>Because I <b>lost</b> my ticket, I can't get on the train. (과거 → 현재) → <b>Having lost</b> my ticket, ~</li></ol><div class=\"tip\">시제가 같으면 동사-ing / 부사절이 더 앞선 시제면 Having p.p.</div></div>"},{"k":"html","html":"<div class=\"anal\"><h4>📌 함정 4: 두 주어가 다르면 부사절의 주어를 남겨요</h4><ol><li>If the weather <b>is</b> fine, <b>we</b> will climb Mt. Halla. → <b>The weather being</b> fine, we will climb Mt. Halla.</li><li>Because <b>it</b> was so windy, <b>the flight</b> was canceled. → <b>It being</b> so windy, the flight was canceled.</li><li>Because <b>my bag</b> was lost, <b>I</b> had to buy new clothes. → <b>My bag (being) lost</b>, I had to buy new clothes.</li></ol><div class=\"tip\">함정: 주어를 지우면 뜻이 바뀌어요 — <s>Being rainy, we stayed home</s> (우리가 비가 오는 것?) → <b>It being rainy</b>, we stayed home.</div></div>"},{"k":"qset","title":"함정 판별 — 고르기","qs":[{"t":"mc","inline":1,"q":"______ the way, we got lost in the forest.","o":["Not knowing","Knowing not"],"a":0},{"t":"mc","inline":1,"q":"______ in simple English, the guidebook is easy to read.","o":["Writing","Written"],"a":1,"e":"안내서는 쓰여진 쪽"},{"t":"mc","inline":1,"q":"______ from the top of Mt. Halla, Jejudo looks beautiful.","o":["Seeing","Seen"],"a":1,"e":"제주도는 보여지는 쪽"},{"t":"mc","inline":1,"q":"______ the movie before, I know how it ends.","o":["Watching","Having watched"],"a":1,"e":"본 것이 먼저"},{"t":"mc","inline":1,"q":"______ by the strong wind, the old tree fell down.","o":["Hitting","Hit"],"a":1,"e":"나무는 바람에 맞은 쪽 (hit - hit - hit)"},{"t":"mc","inline":1,"q":"______ badly, the bike can't be used.","o":["Damaging","Damaged"],"a":1,"e":"자전거는 망가진 쪽"},{"t":"mc","inline":1,"q":"______ snowy, we couldn't go hiking.","o":["Being","It being"],"a":1,"e":"주어가 다르니 It을 남겨요"},{"t":"mc","inline":1,"q":"______ tired, she didn't stop running.","o":["Though","Because"],"a":0,"e":"피곤했는데도 계속 → 양보"},{"t":"mc","inline":1,"q":"______ hungry, I skipped dinner.","o":["Feeling not","Not feeling"],"a":1},{"t":"mc","inline":1,"q":"______ in a small town, he knew everyone.","o":["Lived","Living"],"a":1,"e":"그는 사는 쪽 → Living"},{"t":"mc","inline":1,"q":"______ as the Ring of Fire, the area has many volcanoes.","o":["Knowing","Known"],"a":1,"e":"그 지역은 알려진 쪽"},{"t":"mc","inline":1,"q":"______ by the typhoon, the house needs to be repaired.","o":["Destroying","Destroyed"],"a":1,"e":"집은 파괴된 쪽"}]},{"k":"qset","title":"함정 판별 — 바꿔 쓰기","qs":[{"t":"in","q":"Since she was surprised at the news, she shouted. → ______ at the news, she shouted. (1단어)","a":"Surprised|Being surprised"},{"t":"in","q":"Because the road was blocked, we took the subway. → The road ______, we took the subway.","a":"blocked|being blocked"},{"t":"in","q":"As I don't like spicy food, I didn't eat the soup. → ______ ______ spicy food, I didn't eat the soup.","a":"Not liking"},{"t":"in","q":"He didn't wear a helmet, so he got hurt. → ______ ______ a helmet, he got hurt.","a":"Not wearing"},{"t":"rw","q":"분사구문으로 바꿔 쓰기: Because I didn't check the weather report, I didn't bring an umbrella.","a":"Not checking the weather report, I didn't bring an umbrella.|Not having checked the weather report, I didn't bring an umbrella."},{"t":"rw","q":"분사구문으로 바꿔 쓰기: If the weather is fine, the festival will be held outside.","a":"The weather being fine, the festival will be held outside."},{"t":"mc","q":"어법상 <b>틀린</b> 문장은?","o":["Shocked by the news, I couldn't say anything.","The bus came down the road, making a loud noise.","Being writing in Spanish, the letter needs to be translated.","Not having a map, they asked for directions.","Having read the book twice, I know the story well."],"a":2,"e":"편지는 쓰여진 쪽 → Written in Spanish"},{"t":"mc","q":"괄호 안의 동사를 알맞게 바꾼 것끼리 짝지은 것은?<br>ⓐ (lose) my key, I can't open the door now.<br>ⓑ (make) in Korea, the phone is popular.<br>ⓒ (eat) all the cookies, I had nothing for dessert.","o":["Losing - Making - Eating","Losing - Made - Eaten","Being lost - Making - Eating","Having lost - Made - Having eaten","Having lost - Making - Eaten"],"a":3,"e":"ⓐ 먼저 일어난 일 ⓑ 수동 ⓒ 먼저 일어난 일(능동)"}]}]},{"name":"④ -ing 구별","intro":"<b>-ing라고 다 분사구문이 아니에요!</b> 문장에서 <b>무슨 자리</b>에 있는지부터 봐요.","blocks":[{"k":"html","html":"<div class=\"anal\"><div class=\"tw\"><table class=\"t\">\n<tr><th>종류</th><th>알아보는 법</th><th>예문</th></tr>\n<tr><td><b>분사구문</b></td><td>콤마로 나뉘고, 뒤(앞)에 <b>주어 + 동사</b>가 따로 있음</td><td><b>Climbing</b> the mountain, we saw a rainbow.</td></tr>\n<tr><td><b>동명사</b> (~하는 것)</td><td>주어 · 목적어 · 보어 · 전치사 뒤 <b>명사 자리</b></td><td><b>Climbing</b> mountains is my hobby. / He enjoys <b>climbing</b> mountains.</td></tr>\n<tr><td><b>진행형</b></td><td><b>be동사 + -ing</b></td><td>The boy <b>is walking</b> down the street.</td></tr>\n<tr><td><b>명사 수식</b> (~하는)</td><td>명사 <b>바로 뒤(앞)</b>에서 꾸밈</td><td>The boy <b>playing</b> soccer over there is my brother.</td></tr>\n</table></div>\n<div class=\"tip\">시험 포인트: \"The boy <b>playing</b> soccer over there is my brother.\" — 콤마가 없고 the boy를 꾸며요. 분사구문 ✗</div></div>"},{"k":"qset","title":"쓰임 구별","qs":[{"t":"mc","q":"〈보기〉의 밑줄 친 Climbing과 쓰임이 <b>다른</b> 것은?<br>〈보기〉 <u>Climbing</u> mountains is my favorite hobby.","o":["He enjoys <u>climbing</u> mountains.","I think <u>climbing</u> Mt. Halla is fun.","<u>Climbing</u> the mountain, we saw a rainbow.","They started <u>climbing</u> at 6 a.m.","She is good at <u>climbing</u> trees."],"a":2,"e":"③ 분사구문, 나머지는 동명사"},{"t":"mc","q":"밑줄 친 부분의 쓰임이 나머지와 <b>다른</b> 것은?","o":["She walked home, <u>singing</u> a song.","The boy <u>playing</u> soccer over there is my brother.","<u>Opening</u> the door, he said hello.","There <u>being</u> no bus, we walked home.","Dad <u>cooking</u> dinner, Mom set the table."],"a":1,"e":"② 명사를 꾸미는 분사, 나머지는 분사구문"},{"t":"mc","q":"상황: 소녀가 음악을 들으면서 공부하고 있다. 바르게 묘사한 것을 <b>모두</b> 고르세요.","o":["After listening to music, she studied.","The girl is studying, listening to music.","Not listening to music, the girl is studying.","As the girl is listening to music, she is studying.","When the girl studies, she doesn't listen to music."],"a":[1,3]},{"t":"mc","inline":1,"q":"My sister is doing her homework, ______ to music.","o":["listening","listens"],"a":0,"e":"두 문장 → 분사구문"},{"t":"rw","q":"두 문장을 분사구문으로 한 문장 쓰기 (분사구문으로 시작): My dad is washing the car. He is singing a song.","a":"Singing a song, my dad is washing the car."},{"t":"mc","inline":1,"q":"<u>Preventing</u> fires is very important. → 쓰임은?","o":["동명사","분사구문"],"a":0,"e":"주어 자리"},{"t":"mc","inline":1,"q":"A volcanic eruption shoots ash into the air, <u>preventing</u> some of the sunlight from reaching Earth. → 쓰임은?","o":["동명사","분사구문"],"a":1}]}]},{"name":"⑤ 조동사 + 수동태","intro":"<b>조동사 + be + p.p.</b> — 조동사 뒤는 <b>무조건 be</b>! 순서대로 바꾸는 연습을 해요.","blocks":[{"k":"html","html":"<div class=\"anal\"><h4>📌 공식: 조동사 + 동사원형 → 조동사 + be + p.p.</h4><ol><li><b>목적어를 주어로</b> — Anybody can see <b>the volcano</b> from here. → <b>The volcano</b> ~</li><li><b>조동사 그대로 + be</b> — can → <b>can be</b> (is ✗, are ✗, been ✗)</li><li><b>동사를 p.p.로</b> — see → <b>seen</b> → The volcano can be seen (by anybody) from here.</li><li><b>by + 목적격</b> — 행위자가 일반인(people, anybody, they)이면 생략해요.</li></ol><div class=\"tip\">부정: 조동사 + <b>not</b> + be + p.p. (cannot be fixed / should not be thrown / will not be finished)<br>의문: <b>조동사</b> + 주어 + be + p.p. ~? (Will the road be closed ~? / Can the tickets be bought ~?)</div></div>"},{"k":"tap","title":"순서대로 채우기 — 본문 문장","rows":[{"s":"Therefore, they {should} {be} {studied} and understood.","ko":"그러므로 화산은 연구되고 이해되어야 한다.","tip":"be 하나에 studied와 understood 둘이 걸려요"},{"s":"You may think volcanoes {can} {be} {found} only on Earth.","ko":"여러분은 화산이 지구에서만 발견될 수 있다고 생각할지도 모른다."},{"s":"Crops {may} {be} {destroyed}, and air traffic can be threatened.","ko":"농작물이 파괴될 수도 있고, 항공 교통이 위협받을 수도 있다."},{"s":"Volcanoes {can} {be} {used} to produce electricity, too.","ko":"화산은 전기를 만드는 데에도 이용될 수 있다."},{"s":"They are hopeful that more ways {will} {be} {found} soon.","ko":"그들은 더 많은 방법이 곧 발견되기를 바란다."},{"s":"The energy inside the earth {can} {be} {felt} in different ways.","ko":"지구 내부의 에너지는 다양한 방식으로 느껴질 수 있다.","tip":"Wrap Up 지문 · feel - felt - felt"},{"s":"The party {will} {be} {held} at 7 p.m.","ko":"파티는 오후 7시에 열릴 것이다.","tip":"hold - held - held"}]},{"k":"qset","title":"바꿔 쓰기 연습","qs":[{"t":"in","q":"We can see many stars from this hill.<br>→ Many stars ______ ______ ______ from this hill.","a":"can be seen"},{"t":"in","q":"People should not throw trash on the beach.<br>→ Trash ______ ______ ______ ______ on the beach.","a":"should not be thrown|shouldn't be thrown"},{"t":"in","q":"Scientists will study the new volcano.<br>→ The new volcano ______ ______ ______ by scientists.","a":"will be studied"},{"t":"in","q":"Visitors have to follow the safety rules.<br>→ The safety rules ______ ______ ______ ______.","a":"have to be followed"},{"t":"in","q":"Can they fix the elevator today?<br>→ ______ the elevator ______ ______ by them today?","a":["Can","be fixed"],"e":""},{"t":"in","q":"The city will issue a warning soon.<br>→ A warning ______ ______ ______ by the city soon.","a":"will be issued"},{"t":"mc","q":"They will build a new bridge next year.<br>= A new bridge ______ next year.","o":["be built","will built","will builded","will be build","will be built"],"a":4,"e":"build - built - built"},{"t":"mc","q":"Residents must follow the rules. → 수동태로 바르게 바꾼 것은?","o":["Residents are must followed the rules.","Residents must be followed by the rules.","The rules must be followed by residents.","The rules are must followed by residents.","The rules must been followed by residents."],"a":2},{"t":"mc","q":"Will the city close the road? → 수동태로 바르게 바꾼 것은?","o":["Will be closed the road by the city?","Is will the road closed by the city?","Is the road will closed by the city?","Will the road be closed by the city?","Does the road will be closed by the city?"],"a":3},{"t":"ord","q":"우리말에 맞게 배열: 그 분출은 잊히지 않을 것이다.","c":["The eruption","will","not","be","forgotten."],"e":"조동사 + not + be + p.p."},{"t":"ord","q":"우리말에 맞게 배열: 그 표는 온라인으로 살 수 있나요?","c":["Can","the tickets","be","bought","online?"],"e":"의문문: 조동사 + 주어 + be + p.p. (buy - bought - bought)"},{"t":"rw","q":"수동태로 쓰기: 그 다리는 내년까지 완성되지 않을 것이다. (finish)","a":"The bridge will not be finished by next year.|The bridge won't be finished by next year.","e":"will be not ✗ — not은 조동사 바로 뒤!"}]},{"k":"qset","title":"형태 · 어법 점검","note":"<b>기본 점검 3가지</b> — ① 조동사 뒤 be인가? ② be 뒤 p.p.인가(불규칙 동사 철자!)? ③ not은 조동사 바로 뒤인가?","qs":[{"t":"mc","inline":1,"q":"The elevator ______ right now.","o":["can't use","can't be used"],"a":1},{"t":"mc","inline":1,"q":"This paper can ______ easily.","o":["cut","be cut"],"a":1,"e":"cut - cut - cut"},{"t":"mc","inline":1,"q":"The door must ______ closed at night.","o":["keep","be kept"],"a":1},{"t":"mc","inline":1,"q":"That day will ______.","o":["be never forgotten","never be forgotten"],"a":1,"e":"부사 never는 조동사 뒤, be 앞"},{"t":"mc","inline":1,"q":"Volcanoes can ______ on other planets.","o":["be find","be found"],"a":1},{"t":"mc","inline":1,"q":"Where should the tent ______?","o":["put","be put"],"a":1,"e":"put - put - put"},{"t":"mc","inline":1,"q":"How can plastic bags ______?","o":["are reused","be reused"],"a":1},{"t":"mc","inline":1,"q":"The news will be able to ______ on the radio.","o":["hear","be heard"],"a":1},{"t":"mc","inline":1,"q":"Wild animals should not ______ in small cages.","o":["keep","be kept"],"a":1},{"t":"mc","inline":1,"q":"The bell can ______ from far away.","o":["hear","be heard"],"a":1},{"t":"mc","q":"어법상 <b>틀린</b> 문장은?","o":["Anyone can visit the museum for free.","The report must be finished by Friday.","The volcano was studied by many scientists.","Can the missing people rescue soon?","The flowers shouldn't be picked."],"a":3,"e":"사람들은 구조되는 쪽 → Can the missing people be rescued soon?"},{"t":"mc","q":"어법상 옳은 문장은?","o":["The letters can be send by email.","Being cloudy, we couldn't see the stars.","Most of the work may being done by robots.","Surprised by the noise, the cat ran away.","The letter will send tomorrow."],"a":3,"e":"① sent ② It being cloudy ③ may be done ⑤ will be sent"},{"t":"mc","q":"빈칸에 들어갈 말이 순서대로 바르게 짝지어진 것은?<br>A: Where can we ______ the museum?<br>B: It ______ easily near the station.","o":["be found - finds","be found - can find","are found - can be found","find - can find","find - can be found"],"a":4,"e":"우리가 찾는다(능동) / 박물관이 발견된다(수동)"},{"t":"mc","q":"우리말을 바르게 영작하지 <b>않은</b> 것은?","o":["이 쿠키는 어떻게 만들어져야 할까? → How should these cookies be made?","그 경기는 연기될지도 모른다. → The game might be put off.","이 사진은 언제 찍혔니? → When was this picture taken?","그 길은 내일까지 열리지 않을 것이다. → The road will be not opened by tomorrow.","그 콘서트는 온라인으로 볼 수 있을 것이다. → The concert will be watched online."],"a":3,"e":"will not be opened"}]}]},{"name":"⑥ 본문 속 문법","intro":"<b>본문 문장을 통째로 보면서</b> 이 과의 문법이 어디에 들어 있는지 확인해요.","blocks":[{"k":"html","html":"<div class=\"anal\">\n<div class=\"rp\"><b>15</b> <b>Working on a cornfield</b> one day in 1943, farmers in Mexico found something surprising.<br><span class=\"gl\">분사구문 (때)</span> = While they were working on a cornfield ~ / 주어 farmers가 일하는 쪽 → -ing</div>\n<div class=\"rp\"><b>23</b> <b>Being very powerful and dangerous</b>, volcanoes do harm to people in many ways.<br><span class=\"gl\">분사구문 (이유)</span> = Because volcanoes are very powerful and dangerous ~</div>\n<div class=\"rp\"><b>27</b> A volcanic eruption shoots lots of ash and dust into the air, <b>preventing</b> some of the sunlight from reaching Earth and thus <b>disturbing</b> usual weather patterns.<br><span class=\"gl\">분사구문 (연속 결과)</span> = and it prevents ~ and thus disturbs ~</div>\n<div class=\"rp\"><b>34</b> <b>Looking for fantastic scenery</b>, millions of tourists visit Mt. Halla in Jejudo every year.<br><span class=\"gl\">분사구문 (이유)</span> = Because they are looking for fantastic scenery ~</div>\n<div class=\"rp\"><b>6</b> Therefore, they <b>should be studied</b> and <b>understood</b>.<br><span class=\"gl\">조동사 수동태</span> should be p.p. — understood 앞의 be가 생략된 게 아니라 하나의 be를 같이 써요</div>\n<div class=\"rp\"><b>19</b> You may think volcanoes <b>can be found</b> only on Earth.<br><span class=\"gl\">조동사 수동태</span> can be found (can be find ✗ / can found ✗)</div>\n<div class=\"rp\"><b>25</b> Crops <b>may be destroyed</b>, and air traffic <b>can be threatened</b>.<br><span class=\"gl\">조동사 수동태</span> 농작물·항공 교통은 당하는 쪽</div>\n<div class=\"rp\"><b>35</b> Volcanoes <b>can be used to produce</b> electricity, too.<br><span class=\"gl\">조동사 수동태 + to부정사(목적)</span> ~하는 데 이용될 수 있다</div>\n<div class=\"rp\"><b>37</b> They are hopeful that more ways <b>will be found</b> soon.<br><span class=\"gl\">조동사 수동태</span> will be found</div>\n<div class=\"rp\"><b>18</b> The volcano, <b>called Paricutin</b>, kept growing.<br><span class=\"gl\">과거분사</span> ~라고 불리는 (= which was called) — 분사구문이 아니라 명사를 꾸며요</div>\n<div class=\"rp\"><b>20</b> However, they <b>have been discovered</b> on other planets, too.<br><span class=\"gl\">현재완료 수동태</span> have been p.p. (조동사 수동태와 헷갈리지 않게!)</div>\n</div>"},{"k":"qset","title":"본문 문법 확인","qs":[{"t":"mc","q":"본문 15번 Working on a cornfield ~를 부사절로 바르게 바꾼 것은?","o":["If they work on a cornfield","Although they worked on a cornfield","While they were working on a cornfield","Unless they were working on a cornfield","Before they work on a cornfield"],"a":2},{"t":"mc","q":"본문 34번 Looking for fantastic scenery ~를 because절로 바꾼 것은?","o":["Because they looked for fantastic scenery","Because they are looking for fantastic scenery","Because they will look for fantastic scenery","Because looking for fantastic scenery","Because they are looked for fantastic scenery"],"a":1},{"t":"in","q":"본문 23번을 분사구문으로: (매우 강력하고 위험하기 때문에) ______ very powerful and dangerous, volcanoes do harm to people.","a":"Being"},{"t":"in","q":"본문 25번: Crops may ______ (destroy), and air traffic can be threatened.","a":"be destroyed"},{"t":"in","q":"본문 19번: You may think volcanoes ______ ______ ______ only on Earth. (find)","a":"can be found"},{"t":"in","q":"본문 35번: Volcanoes ______ ______ ______ to produce electricity, too. (use, 조동사 can)","a":"can be used"},{"t":"mc","q":"본문 27번의 preventing ~ and thus disturbing ~이 뜻하는 것은?","o":["막기 위해 그리고 방해하기 위해","막아서 그리하여 방해한다","막는 것과 방해하는 것","막았지만 방해했다","막으면 방해할 것이다"],"a":1},{"t":"mc","q":"밑줄 친 ⓐ~ⓔ 중 어법상 <b>틀린</b> 것의 개수는?<br>ⓐ<u>Being</u> very powerful, volcanoes do harm. Crops may be destroyed, and air traffic ⓑ<u>can threaten</u>. It shoots ash into the air, ⓒ<u>disturbing</u> weather patterns. ⓓ<u>Being looked</u> for fantastic scenery, millions of tourists visit Mt. Halla. Volcanoes ⓔ<u>can be used</u> to produce electricity.","o":["1개","2개","3개","4개","5개"],"a":1,"e":"ⓑ can be threatened ⓓ Looking for"},{"t":"rw","q":"본문 37번 일부를 수동태로: 더 많은 방법이 곧 발견될 것이다.","a":"More ways will be found soon."}]}]},{"name":"📝 최종 테스트","intro":"<b>총 20문항.</b> 분사구문 + 조동사 수동태를 섞어서 시험처럼! 다 풀고 <b>전체 채점</b> → <b>틀린 것만 다시</b>.","blocks":[{"k":"qset","title":"최종 테스트","qs":[{"t":"mc","q":"다음 문장을 분사구문으로 바르게 고친 것은?<br>Because she was excited about the trip, she couldn't sleep.","o":["Excited about the trip, she couldn't sleep.","Exciting about the trip, she couldn't sleep.","Being exciting about the trip, she couldn't sleep.","Having excited about the trip, she couldn't sleep.","She exciting about the trip, she couldn't sleep."],"a":0,"e":"(Being) Excited — 그녀는 신이 난 쪽"},{"t":"mc","q":"우리말을 수동태로 영작할 때 5번째 오는 단어는?<br>그 섬은 배로 갈 수 있다. → The island ~","o":["be","can","by","reached","boat"],"a":3,"e":"The island can be reached by boat."},{"t":"mc","q":"밑줄 친 ⓐ~ⓔ 중 어법상 <b>틀린</b> 것은?<br>A: ⓐ<u>Badly damaging</u> by the storm, the roof ⓑ<u>must be repaired</u>.<br>B: I'll call someone ⓒ<u>to fix</u> it. ⓓ<u>Having</u> little money, I can't ⓔ<u>pay</u> much, though.","o":["ⓐ","ⓑ","ⓒ","ⓓ","ⓔ"],"a":0,"e":"지붕은 손상된 쪽 → Badly damaged"},{"t":"mc","q":"표지판 [사진 촬영 금지 — No photos inside] 의 내용을 바르게 나타낸 것은?","o":["The camera is broken now.","Photos are allowed to take inside.","All photos must be printed.","All cameras have been sold.","Photos cannot be taken inside."],"a":4},{"t":"mc","q":"수동태로 바꾼 문장이 <b>어색한</b> 것은?","o":["When can they open the store? → When can the store be opened by them?","Did your sister paint this picture? → Was this picture painted by your sister?","Tom used to clean the room. → The room was used to clean by Tom.","You must turn off the lights. → The lights must be turned off.","We should finish the report today. → The report should be finished today."],"a":2,"e":"used to는 그대로 → The room used to be cleaned by Tom."},{"t":"mc","q":"어법상 <b>틀린</b> 문장은?","o":["The visitors had to be checked at the gate.","How can the volcano is studied safely?","This problem cannot be solved by tomorrow.","The letters will be sent to the residents.","When will the new rules be announced?"],"a":1,"e":"How can the volcano be studied safely?"},{"t":"mc","q":"우리말과 같은 뜻이 되도록 할 때 빈칸에 알맞은 것은?<br>눈이 많이 와서 학교가 문을 닫았다.<br>= ______, the school was closed.","o":["It snowing a lot","Snowing a lot","Being snowy a lot","It being snow a lot","Snowed a lot"],"a":0,"e":"주어(it ↔ the school)가 달라서 It을 남김"},{"t":"mc","q":"우리말을 바르게 영작한 것은?<br>그녀는 무엇을 해야 할지 몰라서 선생님께 여쭤보았다.","o":["Not known what doing, she asked her teacher.","Not knowing what to do, she asked her teacher.","Being not known what to do, she asked her teacher.","Not having known what doing, she asked her teacher.","Knowing not what she should do, she asked her teacher."],"a":1},{"t":"mc","q":"다음 문장을 분사구문으로 바르게 나타낸 것은?<br>Because my phone was broken, I couldn't call you.","o":["My phone broken, I couldn't call you.","Breaking my phone, I couldn't call you.","My phone been broken, I couldn't call you.","Being my phone broken, I couldn't call you.","Being my phone breaking, I couldn't call you."],"a":0,"e":"주어가 달라서 My phone 남김 + (being) broken"},{"t":"mc","q":"어법상 옳은 문장은?","o":["Raining heavily, we stayed home.","Built 100 years ago, the house is very old.","Since badly hurting, he went to the hospital.","Though felt sick, she went to school.","Finished dinner, we went for a walk."],"a":1,"e":"① It raining ③ hurt ④ feeling ⑤ Having finished"},{"t":"mc","q":"두 문장의 의미가 같도록 할 때 빈칸에 알맞은 것은?<br>You're not allowed to feed the animals.<br>= The animals ______.","o":["cannot feed","won't be fed","should not be fed","must not let you feed","don't have to be fed"],"a":2},{"t":"mc","q":"어법상 <b>틀린</b> 문장을 <b>모두</b> 고르세요.","o":["How long has this bridge been used?","Both books and magazines can be borrowed here.","Are robots able to use for cooking?","This room must not be entered without permission.","Do you think the song will love by many people?"],"a":[2,4],"e":"③ be used ⑤ be loved"},{"t":"in","q":"우리말과 일치하도록 (find): 그 화산에 대한 더 많은 정보는 이 책에서 찾을 수 있다. → More information about the volcano ______ ______ ______ in this book.","a":"can be found"},{"t":"in","q":"우리말과 일치하도록 (throw): 쓰레기는 바다에 버려져서는 안 된다. → Trash ______ ______ ______ ______ into the sea.","a":"should not be thrown|shouldn't be thrown|must not be thrown|mustn't be thrown"},{"t":"in","q":"빈칸에 알맞은 말: He didn't listen to the warning, so he got hurt. → ______ ______ to the warning, he got hurt.","a":"Not listening"},{"t":"rw","q":"분사구문을 써서 다시 쓰세요 (Though는 남기기): Though she was tired, she kept walking.","a":"Though tired, she kept walking.|Though being tired, she kept walking."},{"t":"rw","q":"〈조건〉 접속사 Because로 시작, 부정어는 축약형: 우산을 가져오지 않아서 나는 비에 젖었다. (bring, my umbrella, get wet)","a":"Because I didn't bring my umbrella, I got wet."},{"t":"rw","q":"위 문장을 분사구문으로 다시 쓰세요.","a":"Not bringing my umbrella, I got wet.|Not having brought my umbrella, I got wet."},{"t":"rw","q":"조동사 수동태로 문장 완성 (should, hand in): 민호는 과학 보고서를 금요일까지 내야 해서 바쁘다. → Minho is busy because his science report ______ by Friday.","a":"Minho is busy because his science report should be handed in by Friday."},{"t":"rw","q":"수동태로 쓰기: A: When will they open the new library? B: The new library ______ next month.","a":"The new library will be opened next month."}]}]}]};
+/* ===== DATA END ===== */
+</script>
+<script>/* ===== 강동미나 인터랙티브 엔진 (DATA는 CFG) ===== */
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+/* [[word]] → 발음 칩, {{12}} → 문장 번호 버튼 */
+function rich(s){
+  if(s==null)return '';
+  return String(s)
+    .replace(/\[\[([^\]]+)\]\]/g,function(m,w){return '<button class="sw" data-say="'+esc(w.replace(/<[^>]+>/g,''))+'">'+w+'</button>';})
+    .replace(/\{\{(\d+)\}\}/g,function(m,n){return '<button class="ref" data-n="'+n+'">'+n+'번</button>';});
+}
+/* ---------- TTS ---------- */
+var VOICE=null,ttsOK=('speechSynthesis' in window);
+function pickVoice(){
+  if(!ttsOK)return;
+  var vs=speechSynthesis.getVoices()||[];
+  VOICE=null;
+  for(var i=0;i<vs.length;i++){if(/william/i.test(vs[i].name)&&/^en/i.test(vs[i].lang)){VOICE=vs[i];break;}}
+  if(!VOICE){for(i=0;i<vs.length;i++){if(/^en[-_]US/i.test(vs[i].lang)){VOICE=vs[i];break;}}}
+}
+if(ttsOK){pickVoice();try{speechSynthesis.onvoiceschanged=pickVoice;}catch(e){}}
+var unlocked=false;
+function unlock(){
+  if(unlocked||!ttsOK)return;unlocked=true;
+  try{var u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}catch(e){}
+  var h=$('#ttsHint');if(h)h.style.display='none';
+}
+['touchstart','mousedown','click'].forEach(function(ev){document.addEventListener(ev,unlock,{passive:true,capture:true});});
+function say(text,slow,onend){
+  if(!ttsOK){if(onend)onend();return;}
+  try{
+    speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(String(text).replace(/[“”]/g,'"'));
+    if(!VOICE)pickVoice();
+    if(VOICE){u.voice=VOICE;u.lang=VOICE.lang;}else u.lang='en-US';
+    u.rate=slow?0.7:0.92;
+    if(onend)u.onend=onend;
+    speechSynthesis.speak(u);
+  }catch(e){if(onend)onend();}
+}
+window.__say=say;
+/* ---------- 채점 정규화 ---------- */
+function norm(s){
+  return String(s).replace(/[’‘`]/g,"'").replace(/[“”]/g,'"').toLowerCase()
+    .replace(/[^a-z0-9\-\s가-힣]/g,' ').replace(/\s+/g,' ').trim();
+}
+function alts(a){return String(a).split('|').map(function(x){return x.trim();});}
+function okText(input,ans){var n=norm(input);if(!n)return false;return alts(ans).some(function(a){return norm(a)===n;});}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* ---------- 상단 ---------- */
+var app=$('#app');
+var head=el('header','top');
+head.innerHTML='<div class="brand">'+esc(CFG.brand)+'</div><h1>'+esc(CFG.title)+'</h1><div class="sub">'+esc(CFG.sub||'')+'</div>'+
+ '<div id="ttsHint" class="hint">🔊 소리가 안 나면 화면을 한 번 눌러 주세요.</div>';
+app.appendChild(head);
+var bar=el('nav','tabs');app.appendChild(bar);
+var main=el('main','wrap');app.appendChild(main);
+var ALLQ=[];window.__Q=ALLQ;
+var SENTS={};(CFG.sents||[]).forEach(function(s){SENTS[s.n]=s;});
+
+/* ---------- 공통 클릭 ---------- */
+document.addEventListener('click',function(ev){
+  var s=ev.target.closest('[data-say]');
+  if(s){ev.stopPropagation();say(s.getAttribute('data-say'),s.classList.contains('slow'));s.classList.add('playing');setTimeout(function(){s.classList.remove('playing');},700);return;}
+  var r=ev.target.closest('.ref');
+  if(r){
+    var n=r.getAttribute('data-n'),host=r.closest('li,td,p,.rp,.tip,.warnbox,.anal,.intro')||r.parentNode;
+    var ex=host.querySelector('.refbox[data-n="'+n+'"]');
+    if(ex){ex.remove();r.classList.remove('on');return;}
+    var st=SENTS[n];if(!st)return;
+    var bx=el('div','refbox','<b>'+n+'.</b> '+esc(st.en)+' <button class="mini" data-say="'+esc(st.en)+'">🔊</button>');
+    bx.setAttribute('data-n',n);host.appendChild(bx);r.classList.add('on');
+  }
+});
+
+/* ---------- 블록 ---------- */
+function renderBlock(b){
+  var f=R[b.k];if(!f){console.error('unknown block',b.k);return null;}
+  return f(b);
+}
+var R={};
+R.h=function(b){return el('h2','bh',rich(b.html));};
+R.html=function(b){return el('div','rich',rich(b.html));};
+R.wordlist=function(b){
+  var box=el('div','card');
+  box.appendChild(el('h3','ct',rich(b.title||'')));
+  var tg=el('div','row');
+  var hide=el('button','btn sm','뜻 가리기');var showAll=el('button','btn sm ghost','예문 해석 모두 보기');
+  tg.appendChild(hide);tg.appendChild(showAll);box.appendChild(tg);
+  var list=el('div','wl');
+  b.items.forEach(function(w,i){
+    // [en,pos,ko,ex,exKo]
+    var r=el('div','wi');
+    r.innerHTML='<div class="wtop"><span class="no">'+(i+1)+'</span><button class="wen" data-say="'+esc(w[0])+'">'+esc(w[0])+' <i>🔊</i></button>'+
+      (w[1]?'<span class="pos">'+esc(w[1])+'</span>':'')+'<span class="wko">'+rich(w[2])+'</span></div>'+
+      (w[3]?'<div class="wex"><button class="mini" data-say="'+esc(w[3])+'">🔊</button><span class="exen">'+rich(w[3])+'</span><div class="exko">'+esc(w[4]||'')+'</div></div>':'');
+    var exen=r.querySelector('.exen');if(exen)exen.onclick=function(){r.querySelector('.exko').classList.toggle('show');};
+    var ko=r.querySelector('.wko');ko.onclick=function(){if(list.classList.contains('hideko'))ko.classList.toggle('peek');};
+    list.appendChild(r);
+  });
+  hide.onclick=function(){var on=list.classList.toggle('hideko');hide.textContent=on?'뜻 보이기':'뜻 가리기';$$('.wko',list).forEach(function(k){k.classList.remove('peek');});};
+  showAll.onclick=function(){var any=$$('.exko:not(.show)',list).length>0;$$('.exko',list).forEach(function(k){k.classList.toggle('show',any);});};
+  box.appendChild(list);
+  return box;
+};
+R.flip=function(b){
+  var box=el('div','card');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  var all=el('button','btn sm ghost','뜻 모두 펼치기');box.appendChild(all);
+  b.rows.forEach(function(r){
+    var it=el('div','fl');
+    it.innerHTML='<div class="flen"><button class="mini" data-say="'+esc(r[0].replace(/<[^>]+>/g,''))+'">🔊</button><span>'+rich(r[0])+'</span><button class="tg">뜻 ▾</button></div>'+
+      '<div class="flko">'+rich(r[1])+(r[2]?'<div class="fltip">'+rich(r[2])+'</div>':'')+'</div>';
+    it.querySelector('.tg').onclick=function(){var o=it.classList.toggle('open');this.textContent=o?'뜻 ▴':'뜻 ▾';};
+    box.appendChild(it);
+  });
+  all.onclick=function(){var cl=$$('.fl:not(.open)',box).length>0;$$('.fl',box).forEach(function(x){x.classList.toggle('open',cl);x.querySelector('.tg').textContent=cl?'뜻 ▴':'뜻 ▾';});all.textContent=cl?'뜻 모두 접기':'뜻 모두 펼치기';};
+  return box;
+};
+R.dlg=function(b){
+  var box=el('div','card dlg');
+  box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  var row=el('div','row');var play=el('button','btn sm','▶ 전체 듣기');var tr=el('button','btn sm ghost','해석 모두 보기');row.appendChild(play);row.appendChild(tr);box.appendChild(row);
+  b.lines.forEach(function(l){
+    var it=el('div','dl');
+    it.innerHTML='<span class="spk">'+esc(l[0])+'</span><div class="dtx"><div class="den">'+rich(l[1])+' <button class="mini" data-say="'+esc(l[1].replace(/<[^>]+>/g,''))+'">🔊</button></div><div class="dko">'+esc(l[2]||'')+'</div></div>';
+    it.querySelector('.den').onclick=function(e){if(e.target.closest('[data-say]'))return;it.classList.toggle('open');};
+    box.appendChild(it);
+  });
+  tr.onclick=function(){var cl=$$('.dl:not(.open)',box).length>0;$$('.dl',box).forEach(function(x){x.classList.toggle('open',cl);});};
+  play.onclick=function(){var i=0,ls=b.lines,its=$$('.dl',box);(function nx(){its.forEach(function(x){x.classList.remove('now');});if(i>=ls.length)return;its[i].classList.add('now');say(ls[i][1].replace(/<[^>]+>/g,''),false,function(){i++;setTimeout(nx,250);});})();};
+  return box;
+};
+/* 순서대로 눌러 채우기: s 안의 {답} */
+R.tap=function(b){
+  var box=el('div','card');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  b.rows.forEach(function(r){
+    var it=el('div','tp');
+    var k=0;
+    var html=esc(r.s).replace(/\{([^}]+)\}/g,function(m,a){return '<button class="blank" data-i="'+(k++)+'" data-a="'+a+'">'+(k===1?'①':'')+'</button>';});
+    it.innerHTML='<div class="tps">'+html+' <button class="mini" data-say="'+esc(r.s.replace(/[{}]/g,''))+'">🔊</button></div>'+(r.ko?'<div class="tpko">'+rich(r.ko)+'</div>':'')+(r.tip?'<div class="tptip">'+rich(r.tip)+'</div>':'');
+    var bl=$$('.blank',it);
+    bl.forEach(function(x,i){x.textContent='▢ '+(i+1);});
+    var nextI=0;
+    function mark(){bl.forEach(function(x,i){x.classList.toggle('next',i===nextI);});if(nextI>=bl.length)it.classList.add('done');}
+    bl.forEach(function(x,i){x.onclick=function(){
+      if(i!==nextI){x.classList.add('shake');setTimeout(function(){x.classList.remove('shake');},400);return;}
+      x.textContent=x.getAttribute('data-a');x.classList.add('fill');nextI++;mark();
+    };});
+    mark();
+    box.appendChild(it);
+  });
+  var rs=el('button','btn sm ghost','다시 가리기');rs.onclick=function(){box.parentNode.replaceChild(R.tap(b),box);};box.appendChild(rs);
+  return box;
+};
+/* ---------- 문제 세트 ---------- */
+R.qset=function(b){
+  var box=el('div','card qset');
+  if(b.title)box.appendChild(el('h3','ct',rich(b.title)));
+  if(b.note)box.appendChild(el('div','note',rich(b.note)));
+  if(b.psg){var ps=el('div','psg',rich(b.psg));box.appendChild(ps);}
+  var qs=[];
+  b.qs.forEach(function(q,i){var Q=makeQ(q,(b.start||1)+i);qs.push(Q);ALLQ.push(Q);box.appendChild(Q.node);});
+  var foot=el('div','qfoot');
+  var all=el('button','btn','전체 채점');var retry=el('button','btn ghost','틀린 것만 다시');var reset=el('button','btn ghost','처음부터');
+  var sc=el('div','score');
+  foot.appendChild(all);foot.appendChild(retry);foot.appendChild(reset);box.appendChild(foot);box.appendChild(sc);
+  function upd(){var ok=qs.filter(function(Q){return Q.state==='ok';}).length;var done=qs.filter(function(Q){return Q.state;}).length;
+    sc.innerHTML=done?('<b>'+ok+' / '+qs.length+'</b> 정답'+(done<qs.length?' · 안 푼 문제 '+(qs.length-done)+'개':'')+(ok===qs.length?' 🎉 모두 정답!':'')):'';}
+  qs.forEach(function(Q){Q.onchange=upd;});
+  all.onclick=function(){qs.forEach(function(Q){if(!Q.state&&Q.node.style.display!=='none')Q.check(true);});upd();var w=qs.filter(function(Q){return Q.state!=='ok';})[0];};
+  retry.onclick=function(){qs.forEach(function(Q){if(Q.state==='ok'){Q.node.style.display='none';}else{Q.node.style.display='';Q.reset();}});upd();try{box.scrollIntoView({block:'start'});}catch(e){}};
+  reset.onclick=function(){qs.forEach(function(Q){Q.node.style.display='';Q.reset();});upd();};
+  box.__qs=qs;
+  return box;
+};
+function makeQ(q,no){
+  var Q={q:q,state:null,node:el('div','q')};
+  var n=Q.node;
+  var tag=q.tag?'<span class="qtag">'+esc(q.tag)+'</span>':'';
+  if(q.ctx)n.appendChild(el('div','ctx',rich(q.ctx)));
+  n.appendChild(el('div','qq','<span class="qno">'+no+'</span>'+tag+rich(q.q||'')));
+  var body=el('div','qb');n.appendChild(body);
+  var btns=el('div','qbtn');var ck=el('button','btn sm','확인');var sh=el('button','btn sm ghost','정답 보기');btns.appendChild(ck);btns.appendChild(sh);n.appendChild(btns);
+  var fb=el('div','fb');n.appendChild(fb);
+  var T=TYPES[q.t];if(!T)throw new Error('bad type '+q.t);
+  T.build(Q,body);
+  Q.check=function(force){
+    var r=T.grade(Q);
+    if(r===null&&!force){fb.className='fb warn';fb.innerHTML='답을 먼저 골라 주세요.';return;}
+    Q.state=r?'ok':'no';
+    n.classList.remove('ok','no');n.classList.add(Q.state);
+    fb.className='fb '+(r?'good':'bad');
+    fb.innerHTML=(r?'⭕ 정답!':'❌ 다시 확인해요.')+'<div class="ans">정답: '+T.answer(Q)+'</div>'+(q.e?'<div class="ex">'+rich(q.e)+'</div>':'');
+    if(T.after)T.after(Q,r);
+    if(Q.onchange)Q.onchange();
+  };
+  Q.reset=function(){Q.state=null;n.classList.remove('ok','no');fb.className='fb';fb.innerHTML='';T.reset(Q);if(Q.onchange)Q.onchange();};
+  ck.onclick=function(){Q.check(false);};
+  sh.onclick=function(){if(!Q.state)Q.state='no';n.classList.add('no');fb.className='fb bad';fb.innerHTML='👀 정답 확인<div class="ans">정답: '+T.answer(Q)+'</div>'+(q.e?'<div class="ex">'+rich(q.e)+'</div>':'');if(T.after)T.after(Q,false);if(Q.onchange)Q.onchange();};
+  Q.T=T;
+  return Q;
+}
+var TYPES={};
+/* 객관식: a = 번호(0부터) 또는 배열(모두 고르기) */
+TYPES.mc={
+  build:function(Q,body){
+    var q=Q.q,multi=Array.isArray(q.a);
+    Q.sel=multi?[]:null;
+    var wrap=el('div','opts'+(q.inline?' inline':''));
+    var MK=['①','②','③','④','⑤','⑥','⑦'];
+    Q.order=q.o.map(function(x,i){return i;});
+    q.o.forEach(function(o,i){
+      var b=el('button','opt',(q.inline?'':'<span class="mk">'+MK[i]+'</span>')+rich(o));
+      b.onclick=function(e){if(e.target.closest('[data-say]'))return;
+        if(multi){var k=Q.sel.indexOf(i);if(k>=0)Q.sel.splice(k,1);else Q.sel.push(i);b.classList.toggle('pick');}
+        else{Q.sel=i;$$('.opt',wrap).forEach(function(x){x.classList.remove('pick');});b.classList.add('pick');if(q.inline||q.auto)Q.check(false);}
+      };
+      wrap.appendChild(b);
+    });
+    if(multi)body.appendChild(el('div','multi','※ 알맞은 것을 <b>모두</b> 고르세요.'));
+    body.appendChild(wrap);Q.wrap=wrap;
+  },
+  grade:function(Q){var q=Q.q;
+    if(Array.isArray(q.a)){if(!Q.sel.length)return null;var a=q.a.slice().sort().join(),s=Q.sel.slice().sort().join();return a===s;}
+    if(Q.sel===null)return null;return Q.sel===q.a;},
+  answer:function(Q){var q=Q.q,MK=['①','②','③','④','⑤','⑥','⑦'];var a=Array.isArray(q.a)?q.a:[q.a];
+    return a.map(function(i){return (q.inline?'':MK[i]+' ')+rich(q.o[i]);}).join(', ');},
+  after:function(Q){var q=Q.q,a=Array.isArray(q.a)?q.a:[q.a];$$('.opt',Q.wrap).forEach(function(b,i){b.classList.toggle('right',a.indexOf(i)>=0);});},
+  reset:function(Q){Q.sel=Array.isArray(Q.q.a)?[]:null;$$('.opt',Q.wrap).forEach(function(b){b.classList.remove('pick','right');});}
+};
+/* 주관식: a = '정답|다른정답' 또는 배열(빈칸 여러 개) */
+TYPES.in={
+  build:function(Q,body){
+    var q=Q.q,arr=Array.isArray(q.a)?q.a:[q.a];
+    Q.inputs=arr.map(function(a,i){
+      var w=el('div','inw');
+      if(arr.length>1)w.appendChild(el('span','inl',(q.lb&&q.lb[i])||('('+(i+1)+')')));
+      var inp=el('input','inp');inp.type='text';inp.autocomplete='off';inp.setAttribute('autocapitalize','off');inp.setAttribute('spellcheck','false');
+      if(q.ph)inp.placeholder=q.ph;
+      inp.onkeydown=function(e){if(e.key==='Enter')Q.check(false);};
+      w.appendChild(inp);body.appendChild(w);return inp;});
+  },
+  grade:function(Q){var arr=Array.isArray(Q.q.a)?Q.q.a:[Q.q.a];
+    if(Q.inputs.every(function(i){return !i.value.trim();}))return null;
+    var ok=true;Q.inputs.forEach(function(inp,i){var g=okText(inp.value,arr[i]);inp.classList.toggle('good',g);inp.classList.toggle('bad',!g);if(!g)ok=false;});return ok;},
+  answer:function(Q){var arr=Array.isArray(Q.q.a)?Q.q.a:[Q.q.a];
+    return arr.map(function(a,i){var x=alts(a);return (arr.length>1?((Q.q.lb&&Q.q.lb[i])||'('+(i+1)+')')+' ':'')+'<b>'+esc(x[0])+'</b>'+(x.length>1?' <span class="alt">(= '+x.slice(1).map(esc).join(' / ')+')</span>':'');}).join(' &nbsp; ');},
+  reset:function(Q){Q.inputs.forEach(function(i){i.value='';i.classList.remove('good','bad');});}
+};
+/* 배열: c = 정답 순서 조각, x = 함정 조각 */
+TYPES.ord={
+  build:function(Q,body){
+    var q=Q.q;
+    if(q.p)body.appendChild(el('div','ordp',rich(q.p)));
+    var slot=el('div','oslot');slot.innerHTML='<span class="oh">아래 조각을 순서대로 누르세요</span>';
+    var pool=el('div','opool');
+    body.appendChild(slot);body.appendChild(pool);
+    Q.slot=slot;Q.pool=pool;Q.picked=[];
+    TYPES.ord.fill(Q);
+  },
+  fill:function(Q){
+    var q=Q.q;Q.pool.innerHTML='';Q.picked=[];
+    $$('.chip',Q.slot).forEach(function(c){c.remove();});
+    var oh=$('.oh',Q.slot);if(oh)oh.style.display='';
+    var items=q.c.map(function(t,i){return {t:t,cn:(q.cn||[]).indexOf(i)>=0};}).concat((q.x||[]).map(function(t){return {t:t,trap:1,cn:/^(and|but|so|because|if|then|or|when)$/i.test(t)};}));
+    var sh=shuffle(items),guard=0;
+    while(items.length>1&&sh.map(function(x){return x.t;}).join('␟')===items.map(function(x){return x.t;}).join('␟')&&guard++<10)sh=shuffle(items);
+    sh.forEach(function(it){
+      var c=el('button','chip'+(it.cn?' cn':''),esc(it.t));c.__t=it.t;
+      c.onclick=function(){
+        if(c.parentNode===Q.pool){Q.slot.appendChild(c);Q.picked.push(c);}
+        else{Q.pool.appendChild(c);Q.picked.splice(Q.picked.indexOf(c),1);}
+        var oh=$('.oh',Q.slot);if(oh)oh.style.display=Q.picked.length?'none':'';
+      };
+      Q.pool.appendChild(c);
+    });
+  },
+  grade:function(Q){if(!Q.picked.length)return null;
+    var got=Q.picked.map(function(c){return c.__t;});return got.join('␟')===Q.q.c.join('␟');},
+  answer:function(Q){return '<b>'+esc(Q.q.c.join(Q.q.sep!=null?Q.q.sep:' '))+'</b>'+(Q.q.sayAns!==false?' <button class="mini" data-say="'+esc(Q.q.c.join(' ').replace(/[“”]/g,''))+'">🔊</button>':'');},
+  reset:function(Q){TYPES.ord.fill(Q);}
+};
+/* 거꾸로 영작: a = 영어 문장 */
+TYPES.rw={
+  build:function(Q,body){
+    var q=Q.q;
+    if(q.hint)body.appendChild(el('div','rwh',rich(q.hint)));
+    var ta=el('textarea','inp ta');ta.rows=2;ta.setAttribute('autocapitalize','off');ta.setAttribute('spellcheck','false');ta.placeholder='영어로 쓰세요';
+    body.appendChild(ta);Q.ta=ta;Q.diff=el('div','diff');body.appendChild(Q.diff);
+  },
+  grade:function(Q){if(!Q.ta.value.trim())return null;
+    var ok=okText(Q.ta.value,Q.q.a);
+    var want=norm(alts(Q.q.a)[0]).split(' '),got=norm(Q.ta.value).split(' ');
+    Q.diff.innerHTML=want.map(function(w,i){return '<span class="'+(got[i]===w?'dg':'db')+'">'+esc(got[i]||'＿')+'</span>';}).join(' ')+(got.length>want.length?' <span class="db">+'+esc(got.slice(want.length).join(' '))+'</span>':'');
+    return ok;},
+  answer:function(Q){var a=alts(Q.q.a)[0];return '<b>'+esc(a)+'</b> <button class="mini" data-say="'+esc(a)+'">🔊</button>';},
+  reset:function(Q){Q.ta.value='';Q.diff.innerHTML='';}
+};
+
+CFG.tabs.forEach(function(t,ti){
+  var b=el('button','tab',esc(t.name));b.dataset.i=ti;
+  b.onclick=function(){showTab(ti);};bar.appendChild(b);
+  var sec=el('section','pane');sec.id='pane'+ti;
+  if(t.intro)sec.appendChild(el('div','intro',rich(t.intro)));
+  (t.blocks||[]).forEach(function(bk){var n=renderBlock(bk);if(n)sec.appendChild(n);});
+  var nav=el('div','pnav');
+  if(ti>0){var pv=el('button','btn ghost','← '+esc(CFG.tabs[ti-1].name));pv.onclick=function(){showTab(ti-1);};nav.appendChild(pv);}
+  if(ti<CFG.tabs.length-1){var nx=el('button','btn','다음: '+esc(CFG.tabs[ti+1].name)+' →');nx.onclick=function(){showTab(ti+1);};nav.appendChild(nx);}
+  sec.appendChild(nav);
+  main.appendChild(sec);
+});
+function showTab(i){
+  $$('.pane').forEach(function(p,k){p.style.display=(k===i)?'block':'none';});
+  $$('.tab').forEach(function(b,k){b.classList.toggle('on',k===i);});
+  var tb=$$('.tab')[i];if(tb&&tb.scrollIntoView){try{tb.scrollIntoView({block:'nearest',inline:'center'});}catch(e){}}
+  try{window.scrollTo(0,0);}catch(e){}
+}
+window.__showTab=showTab;
+showTab(0);
+
+
+/* ---------- 검사용 훅 ---------- */
+window.__test={
+  fillCorrect:function(Q){var q=Q.q;
+    if(q.t==='mc'){Q.T.reset(Q);var a=Array.isArray(q.a)?q.a:[q.a];a.forEach(function(i){$$('.opt',Q.wrap)[i].click();});if(!(q.inline||q.auto)||Array.isArray(q.a))Q.check(false);}
+    else if(q.t==='in'){var arr=Array.isArray(q.a)?q.a:[q.a];Q.inputs.forEach(function(inp,i){inp.value=alts(arr[i])[0];});Q.check(false);}
+    else if(q.t==='rw'){Q.ta.value=alts(q.a)[0];Q.check(false);}
+    else if(q.t==='ord'){Q.T.reset(Q);var pool=$$('.chip',Q.pool),used=[];q.c.forEach(function(t){for(var i=0;i<pool.length;i++){if(used.indexOf(i)<0&&pool[i].__t===t){used.push(i);pool[i].click();break;}}});Q.check(false);}
+  },
+  fillWrong:function(Q){var q=Q.q;
+    if(q.t==='mc'){Q.T.reset(Q);var a=Array.isArray(q.a)?q.a:[q.a];var w=-1;for(var i=0;i<q.o.length;i++)if(a.indexOf(i)<0){w=i;break;}$$('.opt',Q.wrap)[w].click();if(!(q.inline||q.auto)||Array.isArray(q.a))Q.check(false);}
+    else if(q.t==='in'){Q.inputs.forEach(function(inp){inp.value='zzzz';});Q.check(false);}
+    else if(q.t==='rw'){Q.ta.value='zzz zzz';Q.check(false);}
+    else if(q.t==='ord'){Q.T.reset(Q);var pool=$$('.chip',Q.pool);pool.slice().reverse().forEach(function(c){c.click();});
+      if(Q.picked.map(function(c){return c.__t;}).join('␟')===q.c.join('␟')){Q.picked[0].click();}
+      Q.check(false);}
+  }
+};
+})();
+</script>
+</body></html>
