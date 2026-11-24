@@ -1,0 +1,1792 @@
+{
+ "acad": "강동미나 중고등부 · 중3 천재(이재영)",
+ "words": [
+  {
+   "w": "season",
+   "m": "계절",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "fill",
+   "m": "채우다",
+   "syn": "",
+   "ant": "empty"
+  },
+  {
+   "w": "ready",
+   "m": "준비된",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "count",
+   "m": "세다, 헤아리다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "memory",
+   "m": "추억, 기억",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "loneliness",
+   "m": "외로움, 쓸쓸함",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "longing",
+   "m": "동경, 갈망",
+   "syn": "desire",
+   "ant": ""
+  },
+  {
+   "w": "poetry",
+   "m": "시 (전체를 묶어 이르는 말)",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "poem",
+   "m": "시 (한 편)",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "poet",
+   "m": "시인",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "line",
+   "m": "(시의) 행, 구절; 선; 줄",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "remain",
+   "m": "남다; 여전히 ~이다",
+   "syn": "stay",
+   "ant": ""
+  },
+  {
+   "w": "favorite",
+   "m": "가장 좋아하는",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "sew",
+   "m": "바느질하다 (sewed–sewn)",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "uniform",
+   "m": "유니폼, 제복",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "literature",
+   "m": "문학",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "literary",
+   "m": "문학의",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "magazine",
+   "m": "잡지",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "cousin",
+   "m": "사촌",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "borrow",
+   "m": "빌리다",
+   "syn": "",
+   "ant": "lend"
+  },
+  {
+   "w": "copy",
+   "m": "베끼다; (책) 한 부",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "whole",
+   "m": "전체의, 모든",
+   "syn": "entire",
+   "ant": ""
+  },
+  {
+   "w": "rare",
+   "m": "희귀한, 드문",
+   "syn": "uncommon",
+   "ant": "common"
+  },
+  {
+   "w": "express",
+   "m": "표현하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "hometown",
+   "m": "고향",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "graduation",
+   "m": "졸업",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "publish",
+   "m": "출판하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "title",
+   "m": "제목",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "professor",
+   "m": "교수",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "advise",
+   "m": "충고하다 (명사 advice)",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "allow",
+   "m": "허락하다",
+   "syn": "permit",
+   "ant": ""
+  },
+  {
+   "w": "publication",
+   "m": "출판, 발행",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "government",
+   "m": "정부",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "further",
+   "m": "더, 더 나아가",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "arrest",
+   "m": "체포하다",
+   "syn": "",
+   "ant": "release"
+  },
+  {
+   "w": "movement",
+   "m": "(사회적) 운동; 움직임",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "charge",
+   "m": "혐의; 요금",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "prison",
+   "m": "감옥",
+   "syn": "jail",
+   "ant": ""
+  },
+  {
+   "w": "harsh",
+   "m": "가혹한, 혹독한",
+   "syn": "cruel",
+   "ant": "gentle"
+  },
+  {
+   "w": "treatment",
+   "m": "대우, 처우; 치료",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "achieve",
+   "m": "이루다, 성취하다",
+   "syn": "accomplish",
+   "ant": ""
+  },
+  {
+   "w": "independence",
+   "m": "독립",
+   "syn": "",
+   "ant": "dependence"
+  },
+  {
+   "w": "finally",
+   "m": "마침내",
+   "syn": "at last",
+   "ant": ""
+  },
+  {
+   "w": "brightly",
+   "m": "밝게",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "thus",
+   "m": "따라서",
+   "syn": "therefore",
+   "ant": ""
+  }
+ ],
+ "idioms": [
+  {
+   "w": "in a hurry",
+   "m": "서둘러, 급히",
+   "syn": "quickly",
+   "ant": ""
+  },
+  {
+   "w": "part of",
+   "m": "~의 일부",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "one of + 복수 명사",
+   "m": "~ 중 하나",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "be born",
+   "m": "태어나다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "so + 부사 + that",
+   "m": "너무 ~해서 …하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "by hand",
+   "m": "손으로",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "hang out with",
+   "m": "~와 어울리다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "under the title",
+   "m": "~라는 제목으로",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "advise against",
+   "m": "~에 반대하는 충고를 하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "give up",
+   "m": "포기하다",
+   "syn": "",
+   "ant": "keep trying"
+  },
+  {
+   "w": "take part in",
+   "m": "~에 참가하다",
+   "syn": "participate in",
+   "ant": ""
+  },
+  {
+   "w": "on the same charges",
+   "m": "같은 혐의로",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "think of",
+   "m": "~을 생각해 내다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "people of all ages",
+   "m": "모든 연령의 사람들",
+   "syn": "",
+   "ant": ""
+  }
+ ],
+ "defs": [
+  {
+   "w": "literature",
+   "d": "books, poems, and plays that are thought to have artistic value",
+   "ko": "예술적 가치가 있다고 여겨지는 책, 시, 희곡"
+  },
+  {
+   "w": "poet",
+   "d": "a person who writes poems",
+   "ko": "시를 쓰는 사람"
+  },
+  {
+   "w": "publish",
+   "d": "to print a book or magazine and sell it to the public",
+   "ko": "책이나 잡지를 인쇄해서 사람들에게 팔다"
+  },
+  {
+   "w": "graduation",
+   "d": "the act of finishing your studies at a school or college",
+   "ko": "학교나 대학에서 공부를 마치는 일"
+  },
+  {
+   "w": "rare",
+   "d": "not seen or found very often",
+   "ko": "자주 보이거나 발견되지 않는"
+  },
+  {
+   "w": "arrest",
+   "d": "(of the police) to take someone away because they may have broken the law",
+   "ko": "(경찰이) 법을 어겼을 수도 있는 사람을 데려가다"
+  },
+  {
+   "w": "prison",
+   "d": "a building where criminals are kept as a punishment",
+   "ko": "벌로 죄지은 사람을 가두어 두는 건물"
+  },
+  {
+   "w": "independence",
+   "d": "freedom from control by another country",
+   "ko": "다른 나라의 지배로부터 벗어난 자유"
+  },
+  {
+   "w": "harsh",
+   "d": "cruel, severe, and unkind",
+   "ko": "잔인하고 혹독하며 불친절한"
+  },
+  {
+   "w": "hometown",
+   "d": "the town or city where you were born or grew up",
+   "ko": "태어나거나 자란 마을이나 도시"
+  },
+  {
+   "w": "professor",
+   "d": "a teacher at a university or college",
+   "ko": "대학교의 선생님"
+  },
+  {
+   "w": "borrow",
+   "d": "to take and use something that belongs to someone else and give it back later",
+   "ko": "다른 사람의 것을 가져다 쓰고 나중에 돌려주다"
+  },
+  {
+   "w": "copy",
+   "d": "one book or magazine of many that are the same",
+   "ko": "똑같은 여러 권 가운데 한 권"
+  },
+  {
+   "w": "longing",
+   "d": "a strong feeling of wanting something or someone",
+   "ko": "무언가나 누군가를 원하는 강한 마음"
+  },
+  {
+   "w": "remain",
+   "d": "to continue to be in the same state",
+   "ko": "같은 상태로 계속 있다"
+  }
+ ],
+ "rows": [
+  {
+   "n": 1,
+   "para": "시 「별 헤는 밤」 (1~10)",
+   "en": "In the sky where seasons pass in a hurry",
+   "kr": "계절이 지나가는 하늘에는",
+   "ch": [
+    [
+     "In the sky",
+     "하늘에는"
+    ],
+    [
+     "where",
+     "(그곳에서)"
+    ],
+    [
+     "seasons pass",
+     "계절이 지나가는"
+    ],
+    [
+     "in a hurry",
+     "서둘러"
+    ]
+   ],
+   "tip": "관계부사 where (= in which): 뒤에 완전한 문장(seasons pass). in a hurry = 서둘러.",
+   "key": [
+    [
+     "계절이 지나가는 하늘에는",
+     "In the sky where seasons pass"
+    ]
+   ]
+  },
+  {
+   "n": 2,
+   "para": "시 「별 헤는 밤」 (1~10)",
+   "en": "Autumn fills the air.",
+   "kr": "가을로 가득 차 있습니다.",
+   "ch": [
+    [
+     "Autumn",
+     "가을이"
+    ],
+    [
+     "fills the air.",
+     "공기를 채운다"
+    ]
+   ],
+   "tip": "한글 \"가을로 가득 차 있다\" → 영어는 \"가을이 공기를 채운다\". 주어가 바뀌는 지점!",
+   "key": [
+    [
+     "가을로 가득 차 있습니다",
+     "Autumn fills the air"
+    ]
+   ]
+  },
+  {
+   "n": 3,
+   "para": "시 「별 헤는 밤」 (1~10)",
+   "en": "And ready I stand, without a worry,",
+   "kr": "나는 아무 걱정도 없이",
+   "ch": [
+    [
+     "And",
+     "그리고"
+    ],
+    [
+     "ready I stand,",
+     "나는 준비된 채 서 있다"
+    ],
+    [
+     "without a worry,",
+     "아무 걱정 없이"
+    ]
+   ],
+   "tip": "도치 : I stand ready → ready I stand (ready를 앞으로). 다음 줄 To count와 이어져요(ready to count).",
+   "key": [
+    [
+     "아무 걱정도 없이",
+     "without a worry"
+    ]
+   ]
+  },
+  {
+   "n": 4,
+   "para": "시 「별 헤는 밤」 (1~10)",
+   "en": "To count all the stars there.",
+   "kr": "가을 속의 별들을 다 헤일 듯합니다.",
+   "ch": [
+    [
+     "To count",
+     "헤아릴 (준비가 된)"
+    ],
+    [
+     "all the stars there.",
+     "그곳의 모든 별을"
+    ]
+   ],
+   "tip": "3번의 ready와 연결: ready + to부정사(~할 준비가 된).",
+   "key": [
+    [
+     "별들을 다 헤일 듯합니다",
+     "To count all the stars"
+    ]
+   ]
+  },
+  {
+   "n": 5,
+   "para": "시 「별 헤는 밤」 (1~10)",
+   "en": "Memory for one star,",
+   "kr": "별 하나에 추억과",
+   "ch": [
+    [
+     "Memory",
+     "추억"
+    ],
+    [
+     "for one star,",
+     "별 하나에"
+    ]
+   ],
+   "tip": "여러 개를 나열할 때 첫 번째는 one .",
+   "key": [
+    [
+     "별 하나에 추억과",
+     "Memory for one star"
+    ]
+   ]
+  },
+  {
+   "n": 6,
+   "para": "시 「별 헤는 밤」 (1~10)",
+   "en": "Love for another star,",
+   "kr": "별 하나에 사랑과",
+   "ch": [
+    [
+     "Love",
+     "사랑"
+    ],
+    [
+     "for another star,",
+     "또 다른 별 하나에"
+    ]
+   ],
+   "tip": "그다음은 another (또 하나의).",
+   "key": [
+    [
+     "별 하나에 사랑과",
+     "Love for another star"
+    ]
+   ]
+  },
+  {
+   "n": 7,
+   "para": "시 「별 헤는 밤」 (1~10)",
+   "en": "Loneliness for another star,",
+   "kr": "별 하나에 쓸쓸함과",
+   "ch": [
+    [
+     "Loneliness",
+     "쓸쓸함"
+    ],
+    [
+     "for another star,",
+     "또 다른 별 하나에"
+    ]
+   ],
+   "tip": "loneliness: 외로움, 쓸쓸함 (lonely의 명사).",
+   "key": [
+    [
+     "별 하나에 쓸쓸함과",
+     "Loneliness for another star"
+    ]
+   ]
+  },
+  {
+   "n": 8,
+   "para": "시 「별 헤는 밤」 (1~10)",
+   "en": "Longing for another star,",
+   "kr": "별 하나에 동경과",
+   "ch": [
+    [
+     "Longing",
+     "동경"
+    ],
+    [
+     "for another star,",
+     "또 다른 별 하나에"
+    ]
+   ],
+   "tip": "longing: 동경, 갈망.",
+   "key": [
+    [
+     "별 하나에 동경과",
+     "Longing for another star"
+    ]
+   ]
+  },
+  {
+   "n": 9,
+   "para": "시 「별 헤는 밤」 (1~10)",
+   "en": "Poetry for another star,",
+   "kr": "별 하나에 시와",
+   "ch": [
+    [
+     "Poetry",
+     "시"
+    ],
+    [
+     "for another star,",
+     "또 다른 별 하나에"
+    ]
+   ],
+   "tip": "poetry: (집합적) 시. a poem: 시 한 편.",
+   "key": [
+    [
+     "별 하나에 시와",
+     "Poetry for another star"
+    ]
+   ]
+  },
+  {
+   "n": 10,
+   "para": "시 「별 헤는 밤」 (1~10)",
+   "en": "And, oh, mother, mother for another star.",
+   "kr": "별 하나에 어머니, 어머니,",
+   "ch": [
+    [
+     "And, oh, mother, mother",
+     "그리고, 아, 어머니, 어머니"
+    ],
+    [
+     "for another star.",
+     "또 다른 별 하나에"
+    ]
+   ],
+   "tip": "시에서는 마지막도 another — 셋 중 마지막을 the other / the last one으로 쓰는 26번과 비교!",
+   "key": [
+    [
+     "별 하나에 어머니",
+     "mother for another star"
+    ]
+   ]
+  },
+  {
+   "n": 11,
+   "para": "시인 소개 (11~13)",
+   "en": "Have you read these lines before?",
+   "kr": "당신은 이 시 구절을 읽어 본 적이 있는가?",
+   "ch": [
+    [
+     "Have you read",
+     "당신은 읽어 본 적이 있는가"
+    ],
+    [
+     "these lines",
+     "이 시 구절을"
+    ],
+    [
+     "before?",
+     "전에"
+    ]
+   ],
+   "tip": "현재완료 경험. line: (시의) 행, 구절.",
+   "key": [
+    [
+     "읽어 본 적이 있는가",
+     "Have you read"
+    ]
+   ]
+  },
+  {
+   "n": 12,
+   "para": "시인 소개 (11~13)",
+   "en": "They are part of the poem \"Counting Stars at Night\" by Yoon Dong-ju.",
+   "kr": "이것은 윤동주의 시 '별 헤는 밤'의 일부이다.",
+   "ch": [
+    [
+     "They",
+     "이것들은"
+    ],
+    [
+     "are part of",
+     "~의 일부이다"
+    ],
+    [
+     "the poem \"Counting Stars at Night\"",
+     "'별 헤는 밤'이라는 시"
+    ],
+    [
+     "by Yoon Dong-ju.",
+     "윤동주가 쓴"
+    ]
+   ],
+   "tip": "They = these lines. by = ~가 쓴. 한글 \"윤동주의\"가 영어에선 맨 뒤.",
+   "key": [
+    [
+     "윤동주의 시",
+     "by Yoon Dong-ju"
+    ],
+    [
+     "일부",
+     "part of"
+    ]
+   ]
+  },
+  {
+   "n": 13,
+   "para": "시인 소개 (11~13)",
+   "en": "The poem was written a long time ago but still remains one of Korea's favorite poems.",
+   "kr": "시는 오래전에 쓰였지만 여전히 한국이 가장 좋아하는 시 중의 하나로 남아 있다.",
+   "ch": [
+    [
+     "The poem",
+     "그 시는"
+    ],
+    [
+     "was written",
+     "쓰였다"
+    ],
+    [
+     "a long time ago",
+     "오래전에"
+    ],
+    [
+     "but still remains",
+     "하지만 여전히 남아 있다"
+    ],
+    [
+     "one of Korea's favorite poems.",
+     "한국이 가장 좋아하는 시 중 하나로"
+    ]
+   ],
+   "tip": "수동태 was written. remain + 명사(보어). one of + 복수 명사.",
+   "key": [
+    [
+     "오래전에 쓰였지만",
+     "was written a long time ago but"
+    ],
+    [
+     "가장 좋아하는 시 중의 하나로 남아 있다",
+     "remains one of Korea's favorite poems"
+    ]
+   ]
+  },
+  {
+   "n": 14,
+   "para": "어린 시절과 중학교 (14~21)",
+   "en": "Dong-ju was born in 1917 near Yanbin, China.",
+   "kr": "동주는 중국 연변 근처에서 1917년에 태어났다.",
+   "ch": [
+    [
+     "Dong-ju",
+     "동주는"
+    ],
+    [
+     "was born",
+     "태어났다"
+    ],
+    [
+     "in 1917",
+     "1917년에"
+    ],
+    [
+     "near Yanbin, China.",
+     "중국 연변 근처에서"
+    ]
+   ],
+   "tip": "한글은 장소가 먼저, 영어는 시간 → 장소 순서로 뒤에.",
+   "key": [
+    [
+     "태어났다",
+     "was born"
+    ]
+   ]
+  },
+  {
+   "n": 15,
+   "para": "어린 시절과 중학교 (14~21)",
+   "en": "As a young boy, he loved sports, and he was a soccer player for his school.",
+   "kr": "어린 소년이었을 때 그는 운동을 좋아했고, 학교의 축구 선수였다.",
+   "ch": [
+    [
+     "As a young boy,",
+     "어린 소년이었을 때"
+    ],
+    [
+     "he loved sports,",
+     "그는 운동을 좋아했다"
+    ],
+    [
+     "and he was a soccer player",
+     "그리고 축구 선수였다"
+    ],
+    [
+     "for his school.",
+     "학교의"
+    ]
+   ],
+   "tip": "as = ~일 때(전치사).",
+   "key": [
+    [
+     "어린 소년이었을 때",
+     "As a young boy"
+    ]
+   ]
+  },
+  {
+   "n": 16,
+   "para": "어린 시절과 중학교 (14~21)",
+   "en": "He also loved sewing so much that he sewed the numbers on all his friends' soccer uniforms.",
+   "kr": "그는 또한 바느질하는 것을 무척 좋아해서 모든 친구들의 축구 유니폼에 번호를 바느질해 주기도 했다.",
+   "ch": [
+    [
+     "He also loved sewing",
+     "그는 또한 바느질을 좋아했다"
+    ],
+    [
+     "so much that",
+     "너무 많이 ~해서"
+    ],
+    [
+     "he sewed the numbers",
+     "그는 번호를 바느질했다"
+    ],
+    [
+     "on all his friends' soccer uniforms.",
+     "모든 친구들의 축구 유니폼에"
+    ]
+   ],
+   "tip": "so + 부사 + that : 너무 ~해서 …하다. friends'(복수 소유격).",
+   "key": [
+    [
+     "무척 좋아해서",
+     "so much that"
+    ],
+    [
+     "바느질해 주기도 했다",
+     "sewed the numbers"
+    ]
+   ]
+  },
+  {
+   "n": 17,
+   "para": "어린 시절과 중학교 (14~21)",
+   "en": "However, it was literature that he loved most.",
+   "kr": "그러나 그가 가장 사랑한 것은 문학이었다.",
+   "ch": [
+    [
+     "However,",
+     "그러나"
+    ],
+    [
+     "it was literature",
+     "(바로) 문학이었다"
+    ],
+    [
+     "that he loved most.",
+     "그가 가장 사랑한 것은"
+    ]
+   ],
+   "tip": "It ~ that 강조 : 목적어 literature 강조 (= He loved literature most). 앞의 운동·바느질과 대조!",
+   "key": [
+    [
+     "그러나",
+     "However"
+    ],
+    [
+     "그가 가장 사랑한 것은 문학이었다",
+     "it was literature that he loved most"
+    ]
+   ]
+  },
+  {
+   "n": 18,
+   "para": "어린 시절과 중학교 (14~21)",
+   "en": "In elementary school he wrote a lot of poems.",
+   "kr": "초등학교에 다닐 때 그는 많은 시를 썼다.",
+   "ch": [
+    [
+     "In elementary school",
+     "초등학교에 다닐 때"
+    ],
+    [
+     "he wrote",
+     "그는 썼다"
+    ],
+    [
+     "a lot of poems.",
+     "많은 시를"
+    ]
+   ],
+   "tip": "write-wrote-written.",
+   "key": [
+    [
+     "많은 시를 썼다",
+     "wrote a lot of poems"
+    ]
+   ]
+  },
+  {
+   "n": 19,
+   "para": "어린 시절과 중학교 (14~21)",
+   "en": "He even made a literary magazine with his cousin, Song Mong-gyu.",
+   "kr": "심지어 사촌 송몽규와 문학잡지를 만들기도 했다.",
+   "ch": [
+    [
+     "He even made",
+     "그는 심지어 만들었다"
+    ],
+    [
+     "a literary magazine",
+     "문학잡지를"
+    ],
+    [
+     "with his cousin, Song Mong-gyu.",
+     "사촌 송몽규와"
+    ]
+   ],
+   "tip": "동격 콤마 : his cousin = Song Mong-gyu. literary(문학의) ↔ literature(문학).",
+   "key": [
+    [
+     "심지어",
+     "even"
+    ],
+    [
+     "문학잡지를",
+     "a literary magazine"
+    ]
+   ]
+  },
+  {
+   "n": 20,
+   "para": "어린 시절과 중학교 (14~21)",
+   "en": "In middle school he once borrowed a poetry book by a famous poet of the time, Baek Seok, and copied the whole book by hand.",
+   "kr": "그가 중학교에 다니던 때 한번은 당대의 유명한 시인, 백석의 시집을 빌려 와서 책 전체를 필사하기도 했다.",
+   "ch": [
+    [
+     "In middle school",
+     "중학교에 다닐 때"
+    ],
+    [
+     "he once borrowed a poetry book",
+     "그는 한번은 시집을 빌렸다"
+    ],
+    [
+     "by a famous poet of the time, Baek Seok,",
+     "당대의 유명한 시인 백석이 쓴"
+    ],
+    [
+     "and copied the whole book",
+     "그리고 책 전체를 베꼈다"
+    ],
+    [
+     "by hand.",
+     "손으로"
+    ]
+   ],
+   "tip": "동격 콤마: a famous poet of the time = Baek Seok. by hand: 손으로(직접).",
+   "key": [
+    [
+     "당대의 유명한 시인",
+     "a famous poet of the time"
+    ],
+    [
+     "빌려 와서",
+     "borrowed"
+    ],
+    [
+     "책 전체를 필사하기도",
+     "copied the whole book by hand"
+    ]
+   ]
+  },
+  {
+   "n": 21,
+   "para": "어린 시절과 중학교 (14~21)",
+   "en": "He really wanted to have his own copy of the rare book.",
+   "kr": "그는 정말로 그 희귀한 책을 한 부 갖고 싶었던 것이다.",
+   "ch": [
+    [
+     "He really wanted",
+     "그는 정말 원했다"
+    ],
+    [
+     "to have his own copy",
+     "자신의 책 한 부를 갖기를"
+    ],
+    [
+     "of the rare book.",
+     "그 희귀한 책의"
+    ]
+   ],
+   "tip": "the rare book = 백석의 시집. copy: (책) 한 부. 20번에서 필사한 이유 를 설명하는 문장.",
+   "key": [
+    [
+     "그 희귀한 책을 한 부",
+     "his own copy of the rare book"
+    ]
+   ]
+  },
+  {
+   "n": 22,
+   "para": "대학과 시집의 꿈 (22~28)",
+   "en": "His parents wanted him to be a doctor, but Dong-ju chose to study literature at a college in Seoul.",
+   "kr": "그의 부모는 그가 의사가 되기를 바랐지만 동주는 서울에 있는 대학에서 문학 공부를 하기로 했다.",
+   "ch": [
+    [
+     "His parents wanted him",
+     "그의 부모는 그가 ~하기를 원했다"
+    ],
+    [
+     "to be a doctor,",
+     "의사가 되기를"
+    ],
+    [
+     "but Dong-ju chose",
+     "하지만 동주는 선택했다"
+    ],
+    [
+     "to study literature",
+     "문학을 공부하는 것을"
+    ],
+    [
+     "at a college in Seoul.",
+     "서울에 있는 대학에서"
+    ]
+   ],
+   "tip": "want + 목적어 + to부정사 . but: 부모의 바람 ↔ 동주의 선택 대조.",
+   "key": [
+    [
+     "그가 의사가 되기를 바랐지만",
+     "wanted him to be a doctor"
+    ],
+    [
+     "문학 공부를 하기로 했다",
+     "chose to study literature"
+    ]
+   ]
+  },
+  {
+   "n": 23,
+   "para": "대학과 시집의 꿈 (22~28)",
+   "en": "During his college years, he often hung out with other young poets and wrote poetry where he expressed feelings about his hometown and lost country.",
+   "kr": "대학 시절에 그는 종종 다른 젊은 시인들과 어울려 다녔고, 고향과 잃어버린 조국에 대한 심정을 표현하는 시를 썼다.",
+   "ch": [
+    [
+     "During his college years,",
+     "대학 시절에"
+    ],
+    [
+     "he often hung out with other young poets",
+     "그는 종종 다른 젊은 시인들과 어울렸다"
+    ],
+    [
+     "and wrote poetry",
+     "그리고 시를 썼다"
+    ],
+    [
+     "where he expressed feelings",
+     "(그 시에서) 그는 감정을 표현했다"
+    ],
+    [
+     "about his hometown and lost country.",
+     "고향과 잃어버린 조국에 대한"
+    ]
+   ],
+   "tip": "during + 기간 명사. hang out with(hung). 관계부사 where = in which(시 속에서). lost country = 일제강점기의 나라.",
+   "key": [
+    [
+     "다른 젊은 시인들과 어울려 다녔고",
+     "hung out with other young poets"
+    ],
+    [
+     "심정을 표현하는 시를",
+     "poetry where he expressed feelings"
+    ]
+   ]
+  },
+  {
+   "n": 24,
+   "para": "대학과 시집의 꿈 (22~28)",
+   "en": "To celebrate his graduation, he wished to publish 19 of his poems under the title, Heaven, Wind, Stars, and Poetry.",
+   "kr": "졸업을 기념하여 그는 〈하늘과 바람과 별과 시〉라는 제목으로 자신의 시 19편을 출판하고 싶어 했다.",
+   "ch": [
+    [
+     "To celebrate his graduation,",
+     "졸업을 기념하기 위해"
+    ],
+    [
+     "he wished to publish",
+     "그는 출판하고 싶어 했다"
+    ],
+    [
+     "19 of his poems",
+     "그의 시 19편을"
+    ],
+    [
+     "under the title, Heaven, Wind, Stars, and Poetry.",
+     "〈하늘과 바람과 별과 시〉라는 제목으로"
+    ]
+   ],
+   "tip": "To celebrate = 목적(~하기 위해). under the title: ~라는 제목으로.",
+   "key": [
+    [
+     "졸업을 기념하여",
+     "To celebrate his graduation"
+    ],
+    [
+     "라는 제목으로",
+     "under the title"
+    ],
+    [
+     "출판하고 싶어 했다",
+     "wished to publish"
+    ]
+   ]
+  },
+  {
+   "n": 25,
+   "para": "대학과 시집의 꿈 (22~28)",
+   "en": "He made three copies of the book by hand.",
+   "kr": "그는 책 세 부를 손으로 만들었다.",
+   "ch": [
+    [
+     "He made",
+     "그는 만들었다"
+    ],
+    [
+     "three copies of the book",
+     "책 세 부를"
+    ],
+    [
+     "by hand.",
+     "손으로"
+    ]
+   ],
+   "tip": "copy의 복수 copies. 다음 문장의 One / another / the last one이 이 세 부를 가리켜요.",
+   "key": [
+    [
+     "책 세 부를",
+     "three copies of the book"
+    ],
+    [
+     "손으로",
+     "by hand"
+    ]
+   ]
+  },
+  {
+   "n": 26,
+   "para": "대학과 시집의 꿈 (22~28)",
+   "en": "One was given to his close friend, Jeong Byeong-uk, another was presented to his favorite professor, and the last one was kept for himself.",
+   "kr": "한 부는 가까운 친구인 정병욱에게 주었고, 또 하나는 그가 가장 좋아하는 교수에게 선물했으며, 마지막 하나는 자신이 보관했다.",
+   "ch": [
+    [
+     "One was given",
+     "한 부는 주어졌다"
+    ],
+    [
+     "to his close friend, Jeong Byeong-uk,",
+     "가까운 친구 정병욱에게"
+    ],
+    [
+     "another was presented",
+     "또 하나는 선물되었다"
+    ],
+    [
+     "to his favorite professor,",
+     "가장 좋아하는 교수에게"
+    ],
+    [
+     "and the last one was kept",
+     "그리고 마지막 하나는 보관되었다"
+    ],
+    [
+     "for himself.",
+     "자신을 위해"
+    ]
+   ],
+   "tip": "셋 중 One / another / the last one(= the other). 세 동사 모두 수동태 (was given / was presented / was kept) — 한글은 능동(\"주었다\")이라 함정!",
+   "key": [
+    [
+     "한 부는",
+     "One was given"
+    ],
+    [
+     "또 하나는",
+     "another was presented"
+    ],
+    [
+     "마지막 하나는",
+     "the last one was kept"
+    ]
+   ]
+  },
+  {
+   "n": 27,
+   "para": "대학과 시집의 꿈 (22~28)",
+   "en": "However, his professor advised against his plan because he thought the Japanese government would not allow the publication.",
+   "kr": "그러나 그의 교수는 일본 정부가 출판을 허가하지 않으리라 여겨, 그의 계획에 반대하는 충고를 했다.",
+   "ch": [
+    [
+     "However,",
+     "그러나"
+    ],
+    [
+     "his professor advised against his plan",
+     "그의 교수는 그의 계획에 반대하는 충고를 했다"
+    ],
+    [
+     "because he thought",
+     "왜냐하면 그는 생각했기 때문에"
+    ],
+    [
+     "the Japanese government would not allow",
+     "일본 정부가 허락하지 않을 것이라고"
+    ],
+    [
+     "the publication.",
+     "출판을"
+    ]
+   ],
+   "tip": "against: ~에 반대하여. he = 교수. thought (that) — that 생략. 한글은 이유가 앞, 영어는 because절이 뒤.",
+   "key": [
+    [
+     "출판을 허가하지 않으리라",
+     "would not allow the publication"
+    ],
+    [
+     "반대하는 충고를 했다",
+     "advised against his plan"
+    ]
+   ]
+  },
+  {
+   "n": 28,
+   "para": "대학과 시집의 꿈 (22~28)",
+   "en": "Dong-ju followed his advice and gave up the idea.",
+   "kr": "동주는 그의 충고를 따랐고 그 생각을 포기했다.",
+   "ch": [
+    [
+     "Dong-ju followed his advice",
+     "동주는 그의 충고를 따랐다"
+    ],
+    [
+     "and gave up the idea.",
+     "그리고 그 생각을 포기했다"
+    ]
+   ],
+   "tip": "his advice = 교수의 충고. the idea = 시 19편을 출판하는 것. give up(gave).",
+   "key": [
+    [
+     "그의 충고를 따랐고",
+     "followed his advice"
+    ],
+    [
+     "그 생각을 포기했다",
+     "gave up the idea"
+    ]
+   ]
+  },
+  {
+   "n": 29,
+   "para": "일본 유학과 비극 (29~34)",
+   "en": "Dong-ju decided to study further in the country where his father had studied before.",
+   "kr": "동주는 그의 아버지가 예전에 공부했던 나라에서 학업을 이어 가기로 했다.",
+   "ch": [
+    [
+     "Dong-ju decided",
+     "동주는 결정했다"
+    ],
+    [
+     "to study further",
+     "더 공부하기로"
+    ],
+    [
+     "in the country",
+     "그 나라에서"
+    ],
+    [
+     "where his father had studied before.",
+     "그의 아버지가 예전에 공부했던"
+    ]
+   ],
+   "tip": "과거완료 had studied: 아버지의 공부가 동주의 결정(decided)보다 더 먼저 . 관계부사 where.",
+   "key": [
+    [
+     "아버지가 예전에 공부했던 나라에서",
+     "in the country where his father had studied before"
+    ]
+   ]
+  },
+  {
+   "n": 30,
+   "para": "일본 유학과 비극 (29~34)",
+   "en": "So, in 1942, Dong-ju and his cousin began to study in Japan.",
+   "kr": "그리하여 1942년에 동주와 그의 사촌은 일본에서 공부를 시작했다.",
+   "ch": [
+    [
+     "So,",
+     "그리하여"
+    ],
+    [
+     "in 1942,",
+     "1942년에"
+    ],
+    [
+     "Dong-ju and his cousin",
+     "동주와 그의 사촌은"
+    ],
+    [
+     "began to study in Japan.",
+     "일본에서 공부하기 시작했다"
+    ]
+   ],
+   "tip": "So: 29번 결정의 결과. begin + to부정사 / 동명사 둘 다 가능.",
+   "key": [
+    [
+     "그리하여",
+     "So"
+    ],
+    [
+     "공부를 시작했다",
+     "began to study"
+    ]
+   ]
+  },
+  {
+   "n": 31,
+   "para": "일본 유학과 비극 (29~34)",
+   "en": "On July 10 the following year, his cousin was arrested by the Japanese police for taking part in an independence movement.",
+   "kr": "다음 해 7월 10일에 그의 사촌은 독립운동에 가담했다는 이유로 일본 경찰에 체포되었다.",
+   "ch": [
+    [
+     "On July 10 the following year,",
+     "다음 해 7월 10일에"
+    ],
+    [
+     "his cousin was arrested",
+     "그의 사촌은 체포되었다"
+    ],
+    [
+     "by the Japanese police",
+     "일본 경찰에 의해"
+    ],
+    [
+     "for taking part in an independence movement.",
+     "독립운동에 가담했다는 이유로"
+    ]
+   ],
+   "tip": "the following year = 1943년 . 수동태 was arrested by. for(이유) + 동명사.",
+   "key": [
+    [
+     "독립운동에 가담했다는 이유로",
+     "for taking part in an independence movement"
+    ],
+    [
+     "일본 경찰에 체포되었다",
+     "was arrested by the Japanese police"
+    ]
+   ]
+  },
+  {
+   "n": 32,
+   "para": "일본 유학과 비극 (29~34)",
+   "en": "Four days later, Dong-ju was also arrested on the same charges.",
+   "kr": "나흘 뒤 동주 역시 같은 혐의로 체포되었다.",
+   "ch": [
+    [
+     "Four days later,",
+     "나흘 뒤"
+    ],
+    [
+     "Dong-ju was also arrested",
+     "동주도 체포되었다"
+    ],
+    [
+     "on the same charges.",
+     "같은 혐의로"
+    ]
+   ],
+   "tip": "the same charges = 독립운동에 가담한 혐의. on ~ charges: ~ 혐의로.",
+   "key": [
+    [
+     "역시",
+     "also"
+    ],
+    [
+     "같은 혐의로",
+     "on the same charges"
+    ]
+   ]
+  },
+  {
+   "n": 33,
+   "para": "일본 유학과 비극 (29~34)",
+   "en": "In 1945, Dong-ju and his cousin died in prison after harsh treatment by the police.",
+   "kr": "1945년에 동주와 그의 사촌은 경찰의 가혹 행위를 당한 후 감옥에서 사망했다.",
+   "ch": [
+    [
+     "In 1945,",
+     "1945년에"
+    ],
+    [
+     "Dong-ju and his cousin",
+     "동주와 그의 사촌은"
+    ],
+    [
+     "died in prison",
+     "감옥에서 죽었다"
+    ],
+    [
+     "after harsh treatment by the police.",
+     "경찰의 가혹한 대우 후에"
+    ]
+   ],
+   "tip": "after + 명사. harsh: 가혹한. 한글 \"당한 후\"(앞) → 영어 after 구(뒤).",
+   "key": [
+    [
+     "가혹 행위를 당한 후",
+     "after harsh treatment"
+    ],
+    [
+     "감옥에서 사망했다",
+     "died in prison"
+    ]
+   ]
+  },
+  {
+   "n": 34,
+   "para": "일본 유학과 비극 (29~34)",
+   "en": "It was just a few months later that Korea achieved independence from Japan.",
+   "kr": "한국이 일본으로부터 독립을 이룬 것은 불과 몇 달 후의 일이었다.",
+   "ch": [
+    [
+     "It was just a few months later",
+     "(바로) 불과 몇 달 후였다"
+    ],
+    [
+     "that Korea achieved independence",
+     "한국이 독립을 이룬 것은"
+    ],
+    [
+     "from Japan.",
+     "일본으로부터"
+    ]
+   ],
+   "tip": "It ~ that 강조 : 시간 표현 강조 (that 대신 when 가능). 죽음 직후 독립 — 글쓴이가 안타까움을 강조한 문장.",
+   "key": [
+    [
+     "독립을 이룬 것은",
+     "achieved independence"
+    ],
+    [
+     "불과 몇 달 후의 일이었다",
+     "It was just a few months later that"
+    ]
+   ]
+  },
+  {
+   "n": 35,
+   "para": "출판과 지금 (35~37)",
+   "en": "In 1948, Jeong Byeong-uk brought Dong-ju's poems to the poet's brother, and they were finally published.",
+   "kr": "1948년에 정병욱이 동주의 시를 시인의 동생에게 가져다주었고, 마침내 그것들은 출판되었다.",
+   "ch": [
+    [
+     "In 1948,",
+     "1948년에"
+    ],
+    [
+     "Jeong Byeong-uk brought Dong-ju's poems",
+     "정병욱이 동주의 시를 가져갔다"
+    ],
+    [
+     "to the poet's brother,",
+     "시인의 동생에게"
+    ],
+    [
+     "and they were finally published.",
+     "그리고 그것들은 마침내 출판되었다"
+    ]
+   ],
+   "tip": "the poet's brother = 동주의 동생. they = Dong-ju's poems → 수동태 were published.",
+   "key": [
+    [
+     "마침내 그것들은 출판되었다",
+     "they were finally published"
+    ]
+   ]
+  },
+  {
+   "n": 36,
+   "para": "출판과 지금 (35~37)",
+   "en": "The book was given the title the poet had thought of many years before.",
+   "kr": "책에는 시인이 수년 전에 생각해 두었던 그 제목이 붙었다.",
+   "ch": [
+    [
+     "The book was given",
+     "그 책은 받았다(붙여졌다)"
+    ],
+    [
+     "the title",
+     "제목을"
+    ],
+    [
+     "the poet had thought of many years before.",
+     "시인이 수년 전에 생각해 두었던"
+    ]
+   ],
+   "tip": "과거완료 had thought of: 제목을 생각한 것이 책에 제목이 붙은 것(was given)보다 먼저. title 뒤 which[that] 생략. was given + 명사(4형식 수동).",
+   "key": [
+    [
+     "수년 전에 생각해 두었던",
+     "had thought of many years before"
+    ],
+    [
+     "제목이 붙었다",
+     "was given the title"
+    ]
+   ]
+  },
+  {
+   "n": 37,
+   "para": "출판과 지금 (35~37)",
+   "en": "His poems are loved by people of all ages, and thus they still shine brightly in our hearts like the stars in the autumn night sky.",
+   "kr": "그의 시는 모든 세대의 사랑을 받고 있고, 따라서 그것들은 가을밤 하늘의 별처럼 우리 가슴 속에 여전히 밝게 빛나고 있다.",
+   "ch": [
+    [
+     "His poems are loved",
+     "그의 시는 사랑받는다"
+    ],
+    [
+     "by people of all ages,",
+     "모든 연령의 사람들에게"
+    ],
+    [
+     "and thus they still shine brightly",
+     "따라서 그것들은 여전히 밝게 빛난다"
+    ],
+    [
+     "in our hearts",
+     "우리 가슴 속에서"
+    ],
+    [
+     "like the stars in the autumn night sky.",
+     "가을밤 하늘의 별처럼"
+    ]
+   ],
+   "tip": "수동태 are loved by. thus: 따라서(결과). like: ~처럼. 첫 시의 별·가을과 연결되는 수미상관 마무리.",
+   "key": [
+    [
+     "모든 세대의 사랑을 받고 있고",
+     "are loved by people of all ages"
+    ],
+    [
+     "따라서",
+     "thus"
+    ],
+    [
+     "별처럼",
+     "like the stars"
+    ]
+   ]
+  }
+ ],
+ "grammar": [
+  {
+   "title": "핵심문법 1  It ~ that 강조 구문",
+   "short": "핵심문법 1",
+   "formula": "It + be동사 + 강조할 말 + that + 나머지",
+   "concept": [
+    [
+     "공식",
+     "It + [be동사] + 강조할 말 + [that] + 나머지  ·  \"~한 것은 바로 …이다\""
+    ],
+    [
+     "만드는 법",
+     "He loved literature most. → It was [literature] that he loved most."
+    ],
+    [
+     "강조할 수 있는 것",
+     "주어 · 목적어 · [부사(구)]는 된다  ·  동사는 [안 된다]"
+    ],
+    [
+     "시제",
+     "원래 문장이 과거면 It [was] ~ that"
+    ],
+    [
+     "that 대신",
+     "사람은 [who], 때는 [when], 장소는 [where]도 쓸 수 있다"
+    ],
+    [
+     "예문",
+     "It was just a few months later [that] Korea achieved independence."
+    ],
+    [
+     "판별법",
+     "It was와 that을 지웠을 때 [완전한] 문장이 남으면 강조 구문"
+    ],
+    [
+     "가주어와 구별",
+     "It is important that ~ → It is·that을 지우면 \"important ~\"만 남음 → [가주어]"
+    ]
+   ],
+   "write": [
+    [
+     "그가 가장 사랑한 것은 바로 문학이었다.",
+     "It, literature, most",
+     "It was literature that he loved most."
+    ],
+    [
+     "한국이 일본으로부터 독립을 이룬 것은 불과 몇 달 뒤였다.",
+     "It, just a few months later",
+     "It was just a few months later that Korea achieved independence from Japan."
+    ],
+    [
+     "그 시집을 손으로 베낀 사람은 바로 동주였다.",
+     "It, Dong-ju, copy",
+     "It was Dong-ju that[who] copied the poetry book by hand."
+    ],
+    [
+     "내가 어제 공원에서 만난 사람은 바로 Mina였다.",
+     "It, meet, in the park",
+     "It was Mina that[who] I met in the park yesterday."
+    ],
+    [
+     "내가 그 책을 잃어버린 곳은 바로 도서관이었다.",
+     "It, in the library, lose",
+     "It was in the library that I lost the book."
+    ],
+    [
+     "그가 일본으로 떠난 것은 바로 1942년이었다.",
+     "It, in 1942, leave for",
+     "It was in 1942 that he left for Japan."
+    ],
+    [
+     "그들이 원했던 것은 바로 자유였다.",
+     "It, freedom, want",
+     "It was freedom that they wanted."
+    ],
+    [
+     "우리를 도와준 사람은 바로 너였다.",
+     "It, you, help",
+     "It was you that[who] helped us."
+    ],
+    [
+     "내가 가장 좋아하는 계절은 바로 가을이다.",
+     "It, autumn, like",
+     "It is autumn that I like most."
+    ],
+    [
+     "우리가 처음 만난 것은 바로 작년 여름이었다.",
+     "It, last summer, meet",
+     "It was last summer that we first met."
+    ]
+   ]
+  },
+  {
+   "title": "핵심문법 2  과거완료 had p.p.",
+   "short": "핵심문법 2",
+   "formula": "had + 과거분사(p.p.)",
+   "concept": [
+    [
+     "공식",
+     "[had] + [과거분사]"
+    ],
+    [
+     "쓰임",
+     "과거의 어느 때보다 [더 먼저] 일어난 일"
+    ],
+    [
+     "예문 ①",
+     "He decided to study in the country where his father [had studied] before."
+    ],
+    [
+     "예문 ②",
+     "The book was given the title the poet [had thought of] many years before."
+    ],
+    [
+     "순서 정하기",
+     "먼저 일어난 일 → [had p.p.]  /  나중 일 → [과거]"
+    ],
+    [
+     "예문 ③",
+     "When I arrived, the train [had] already [left]. (내가 도착하기 전에 이미 떠남)"
+    ],
+    [
+     "부정",
+     "had + [not] + p.p.  ·  She had never seen such stars before."
+    ],
+    [
+     "현재완료와 구별",
+     "현재완료는 기준이 [지금], 과거완료는 기준이 [과거]"
+    ],
+    [
+     "시험 포인트",
+     "글에서는 나중에 나와도 실제로 [먼저] 일어난 일 → \"먼저 일어난 일은?\" 순서 문제"
+    ]
+   ],
+   "write": [
+    [
+     "동주는 그의 아버지가 예전에 공부했던 나라에서 공부하기로 결심했다.",
+     "decide, the country where, before",
+     "Dong-ju decided to study in the country where his father had studied before."
+    ],
+    [
+     "그 책에는 시인이 수년 전에 생각해 두었던 제목이 붙었다.",
+     "give, the title, think of",
+     "The book was given the title the poet had thought of many years before."
+    ],
+    [
+     "내가 역에 도착했을 때, 기차는 이미 떠났었다.",
+     "arrive, already, leave",
+     "When I arrived at the station, the train had already left."
+    ],
+    [
+     "그녀는 전에 그렇게 아름다운 별들을 본 적이 없었다.",
+     "never, see, before",
+     "She had never seen such beautiful stars before."
+    ],
+    [
+     "나는 엄마가 사 주셨던 책을 잃어버렸다.",
+     "lose, buy",
+     "I lost the book (that) my mom had bought for me."
+    ],
+    [
+     "우리가 극장에 들어갔을 때 영화는 이미 시작했었다.",
+     "enter, already, begin",
+     "When we entered the theater, the movie had already begun."
+    ],
+    [
+     "그는 그 시를 읽기 전에 그 시인의 이름을 들어 본 적이 있었다.",
+     "hear of, before, read",
+     "He had heard of the poet before he read the poem."
+    ],
+    [
+     "내가 집에 왔을 때, 누군가 창문을 깨 놓았었다.",
+     "come home, break",
+     "When I came home, someone had broken the window."
+    ],
+    [
+     "그 교수는 동주가 이미 책 세 부를 만들었다는 것을 알았다.",
+     "know, already, three copies",
+     "The professor knew (that) Dong-ju had already made three copies of the book."
+    ],
+    [
+     "Tom은 그가 열쇠를 집에 두고 왔다는 것을 깨달았다.",
+     "realize, leave, key",
+     "Tom realized (that) he had left his key at home."
+    ]
+   ]
+  }
+ ],
+ "wordNoteAns": "정답 — 본문에서 뽑은 단어예요. 뜻은 본문에 쓰인 뜻을 먼저 적었어요. '—'는 짝으로 외울 유의어·반의어가 없는 단어예요."
+}

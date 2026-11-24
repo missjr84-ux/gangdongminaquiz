@@ -1,0 +1,1632 @@
+{
+ "acad": "강동미나 중고등부 · 중2 동아(윤정미)",
+ "words": [
+  {
+   "w": "altar",
+   "m": "제단",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "area",
+   "m": "지역",
+   "syn": "region",
+   "ant": ""
+  },
+  {
+   "w": "cemetery",
+   "m": "묘지",
+   "syn": "graveyard",
+   "ant": ""
+  },
+  {
+   "w": "costume",
+   "m": "의상, 복장",
+   "syn": "outfit",
+   "ant": ""
+  },
+  {
+   "w": "firework",
+   "m": "(-s) 불꽃놀이",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "fur",
+   "m": "모피, (동물의) 털",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "midsummer",
+   "m": "한여름",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "parade",
+   "m": "퍼레이드, 행진",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "pole",
+   "m": "기둥, 막대기",
+   "syn": "post",
+   "ant": ""
+  },
+  {
+   "w": "recipe book",
+   "m": "요리책",
+   "syn": "cookbook",
+   "ant": ""
+  },
+  {
+   "w": "reindeer",
+   "m": "순록 (복수도 reindeer)",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "skeleton",
+   "m": "해골",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "souvenir",
+   "m": "기념품",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "spring",
+   "m": "봄",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "star",
+   "m": "별; 주인공",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "statue",
+   "m": "조각상",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "visitor",
+   "m": "방문객",
+   "syn": "guest",
+   "ant": ""
+  },
+  {
+   "w": "matter",
+   "m": "문제, 물질; 중요하다",
+   "syn": "count",
+   "ant": ""
+  },
+  {
+   "w": "end",
+   "m": "끝나다; 끝",
+   "syn": "finish",
+   "ant": "start"
+  },
+  {
+   "w": "Mexican",
+   "m": "멕시코 사람; 멕시코의",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "burn",
+   "m": "타다, 태우다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "call",
+   "m": "~라고 부르다; 전화하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "celebrate",
+   "m": "축하하다, 기념하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "decorate",
+   "m": "장식하다, 꾸미다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "guess",
+   "m": "추측하다; 추측",
+   "syn": "suppose",
+   "ant": ""
+  },
+  {
+   "w": "hold",
+   "m": "들고 있다; 개최하다, 열다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "miss",
+   "m": "놓치다; 그리워하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "order",
+   "m": "주문하다; 주문, 순서",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "participate",
+   "m": "참가하다 (participate in)",
+   "syn": "take part",
+   "ant": ""
+  },
+  {
+   "w": "set",
+   "m": "(해·달이) 지다 (set-set-set)",
+   "syn": "",
+   "ant": "rise"
+  },
+  {
+   "w": "symbolize",
+   "m": "상징하다",
+   "syn": "represent",
+   "ant": ""
+  },
+  {
+   "w": "wear",
+   "m": "입고[쓰고/신고] 있다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "welcome",
+   "m": "환영하다, 반기다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "dark",
+   "m": "어두운; 어둠",
+   "syn": "",
+   "ant": "bright"
+  },
+  {
+   "w": "dead",
+   "m": "죽은",
+   "syn": "",
+   "ant": "alive"
+  },
+  {
+   "w": "giant",
+   "m": "거대한; 거인",
+   "syn": "huge",
+   "ant": ""
+  },
+  {
+   "w": "live",
+   "m": "라이브의, 실황인 [laiv]",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "playful",
+   "m": "장난기 많은, 놀기 좋아하는",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "possible",
+   "m": "가능한",
+   "syn": "",
+   "ant": "impossible"
+  },
+  {
+   "w": "seasonal",
+   "m": "계절의, 계절적인",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "spicy",
+   "m": "매운",
+   "syn": "hot",
+   "ant": ""
+  },
+  {
+   "w": "traditional",
+   "m": "전통의, 전통적인",
+   "syn": "",
+   "ant": "modern"
+  },
+  {
+   "w": "various",
+   "m": "다양한",
+   "syn": "diverse",
+   "ant": ""
+  },
+  {
+   "w": "wooden",
+   "m": "나무로 된",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "especially",
+   "m": "특히",
+   "syn": "particularly",
+   "ant": ""
+  },
+  {
+   "w": "hardly",
+   "m": "거의 ~ 않다",
+   "syn": "barely",
+   "ant": ""
+  },
+  {
+   "w": "once",
+   "m": "한 번",
+   "syn": "one time",
+   "ant": ""
+  },
+  {
+   "w": "surprisingly",
+   "m": "놀랍게도",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "during",
+   "m": "~ 동안",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "until",
+   "m": "~까지",
+   "syn": "till",
+   "ant": ""
+  },
+  {
+   "w": "delicious",
+   "m": "맛있는",
+   "syn": "tasty",
+   "ant": ""
+  },
+  {
+   "w": "chef",
+   "m": "요리사",
+   "syn": "cook",
+   "ant": ""
+  },
+  {
+   "w": "invite",
+   "m": "초대하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "world-famous",
+   "m": "세계적으로 유명한",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "gift",
+   "m": "선물",
+   "syn": "present",
+   "ant": ""
+  },
+  {
+   "w": "light",
+   "m": "가벼운",
+   "syn": "",
+   "ant": "heavy"
+  },
+  {
+   "w": "perfect",
+   "m": "완벽한, 딱 맞는",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "gather",
+   "m": "모이다",
+   "syn": "come together",
+   "ant": ""
+  },
+  {
+   "w": "throw",
+   "m": "던지다 (throw-threw-thrown)",
+   "syn": "",
+   "ant": "catch"
+  },
+  {
+   "w": "director",
+   "m": "감독",
+   "syn": "",
+   "ant": ""
+  }
+ ],
+ "idioms": [
+  {
+   "w": "take place",
+   "m": "열리다, 개최되다",
+   "syn": "be held",
+   "ant": ""
+  },
+  {
+   "w": "hundreds of",
+   "m": "수백의",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "say goodbye to",
+   "m": "~에게 작별 인사를 하다",
+   "syn": "",
+   "ant": "say hello to"
+  },
+  {
+   "w": "between A and B",
+   "m": "A와 B 사이에",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "all night long",
+   "m": "밤새도록",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "set up",
+   "m": "세우다, 설치하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "dress up",
+   "m": "분장하다, 차려입다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "at the end of",
+   "m": "~의 말[끝]에",
+   "syn": "",
+   "ant": "at the beginning of"
+  },
+  {
+   "w": "such as",
+   "m": "~ 같은",
+   "syn": "like",
+   "ant": ""
+  },
+  {
+   "w": "participate in",
+   "m": "~에 참가하다",
+   "syn": "take part in",
+   "ant": ""
+  },
+  {
+   "w": "have fun",
+   "m": "재미있게 놀다",
+   "syn": "enjoy oneself",
+   "ant": ""
+  },
+  {
+   "w": "for free",
+   "m": "무료로",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "come together",
+   "m": "모이다",
+   "syn": "gather",
+   "ant": ""
+  },
+  {
+   "w": "each other",
+   "m": "서로",
+   "syn": "one another",
+   "ant": ""
+  },
+  {
+   "w": "for fun",
+   "m": "장난삼아, 재미로",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "keep a diary",
+   "m": "일기를 쓰다",
+   "syn": "",
+   "ant": ""
+  }
+ ],
+ "defs": [
+  {
+   "w": "altar",
+   "d": "a type of table used in ceremonies",
+   "ko": "의식에 쓰이는 탁자의 한 종류"
+  },
+  {
+   "w": "burn",
+   "d": "to destroy or damage something with fire",
+   "ko": "무언가를 불로 파괴하거나 손상시키다"
+  },
+  {
+   "w": "celebrate",
+   "d": "to show that a day or an event is important by doing something special",
+   "ko": "특별한 일을 해서 어떤 날이나 행사가 중요하다는 것을 보여 주다"
+  },
+  {
+   "w": "costume",
+   "d": "a set of clothes worn to look like a particular person, animal, or thing",
+   "ko": "특정한 사람, 동물, 물건처럼 보이려고 입는 한 벌의 옷"
+  },
+  {
+   "w": "decorate",
+   "d": "to make something look more attractive by putting things on it",
+   "ko": "무언가를 붙이거나 올려서 더 보기 좋게 만들다"
+  },
+  {
+   "w": "fireworks",
+   "d": "the pattern of colorful explosions in the air planned as a show",
+   "ko": "볼거리로 계획된 공중의 화려한 폭발 무늬"
+  },
+  {
+   "w": "giant",
+   "d": "very large",
+   "ko": "매우 큰"
+  },
+  {
+   "w": "matter",
+   "d": "to be important",
+   "ko": "중요하다"
+  },
+  {
+   "w": "parade",
+   "d": "a line of people or vehicles moving together through a public place in order to celebrate an important day or event",
+   "ko": "중요한 날이나 행사를 기념하려고 공공장소를 함께 지나가는 사람이나 차량의 줄"
+  },
+  {
+   "w": "participate",
+   "d": "to take part in or become involved in an activity",
+   "ko": "어떤 활동에 참여하거나 관여하게 되다"
+  },
+  {
+   "w": "pole",
+   "d": "a long, thin stick of wood or metal that is often used to support something",
+   "ko": "무언가를 받치는 데 자주 쓰이는, 나무나 금속으로 된 길고 가는 막대"
+  },
+  {
+   "w": "possible",
+   "d": "able to be done or achieved",
+   "ko": "할 수 있거나 이룰 수 있는"
+  },
+  {
+   "w": "skeleton",
+   "d": "the structure of bones that support the body of a person or an animal",
+   "ko": "사람이나 동물의 몸을 지탱하는 뼈의 구조"
+  },
+  {
+   "w": "statue",
+   "d": "a large art object of a person or an animal that is made from a hard material like stone or metal",
+   "ko": "돌이나 금속 같은 단단한 재료로 만든 사람이나 동물의 큰 예술품"
+  },
+  {
+   "w": "symbolize",
+   "d": "to represent something",
+   "ko": "무언가를 나타내다"
+  }
+ ],
+ "rows": [
+  {
+   "n": 1,
+   "para": "봄 — Fallas",
+   "en": "People in Valencia celebrate the coming of spring with the Fallas festival.",
+   "kr": "발렌시아 사람들은 Fallas 축제로 봄이 오는 것을 기념한다.",
+   "ch": [
+    [
+     "People in Valencia",
+     ""
+    ],
+    [
+     "celebrate",
+     ""
+    ],
+    [
+     "the coming of spring",
+     ""
+    ],
+    [
+     "with the Fallas festival.",
+     ""
+    ]
+   ],
+   "tip": "the coming of spring = 봄이 오는 것 (coming은 명사)",
+   "key": [
+    [
+     "봄이 오는 것을 기념한다",
+     "celebrate the coming of spring"
+    ]
+   ]
+  },
+  {
+   "n": 2,
+   "para": "봄 — Fallas",
+   "en": "This festival takes place from March 15 to 19.",
+   "kr": "이 축제는 3월 15일부터 19일까지 열린다.",
+   "ch": [
+    [
+     "This festival",
+     ""
+    ],
+    [
+     "takes place",
+     ""
+    ],
+    [
+     "from March 15",
+     ""
+    ],
+    [
+     "to 19.",
+     ""
+    ]
+   ],
+   "tip": "take place = be held / from A to B",
+   "key": [
+    [
+     "3월 15일부터 19일까지",
+     "from March 15 to 19"
+    ],
+    [
+     "열린다",
+     "takes place"
+    ]
+   ]
+  },
+  {
+   "n": 3,
+   "para": "봄 — Fallas",
+   "en": "During the festival, people enjoy parades and fireworks.",
+   "kr": "축제 동안 사람들은 퍼레이드와 불꽃놀이를 즐긴다.",
+   "ch": [
+    [
+     "During the festival,",
+     ""
+    ],
+    [
+     "people enjoy",
+     ""
+    ],
+    [
+     "parades and fireworks.",
+     ""
+    ]
+   ],
+   "tip": "during + 특정 기간 (for + 시간의 길이)",
+   "key": [
+    [
+     "축제 동안",
+     "During the festival"
+    ]
+   ]
+  },
+  {
+   "n": 4,
+   "para": "봄 — Fallas",
+   "en": "The stars of the festival are fallas, giant wooden statues.",
+   "kr": "축제의 주인공은 거대한 나무 조각상인 fallas이다.",
+   "ch": [
+    [
+     "The stars of the festival",
+     ""
+    ],
+    [
+     "are fallas,",
+     ""
+    ],
+    [
+     "giant wooden statues.",
+     ""
+    ]
+   ],
+   "tip": "star = 주인공 / 콤마 뒤는 fallas를 다시 설명 (동격)",
+   "key": [
+    [
+     "축제의 주인공은",
+     "The stars of the festival"
+    ],
+    [
+     "거대한 나무 조각상",
+     "giant wooden statues"
+    ]
+   ]
+  },
+  {
+   "n": 5,
+   "para": "봄 — Fallas",
+   "en": "You can find hundreds of them all over the city.",
+   "kr": "도시 곳곳에서 수백 개의 fallas를 찾아볼 수 있다.",
+   "ch": [
+    [
+     "You can find",
+     ""
+    ],
+    [
+     "hundreds of them",
+     ""
+    ],
+    [
+     "all over the city.",
+     ""
+    ]
+   ],
+   "tip": "hundreds of = 수백의 / them = fallas",
+   "key": [
+    [
+     "수백 개의 fallas를",
+     "hundreds of them"
+    ],
+    [
+     "도시 곳곳에서",
+     "all over the city"
+    ]
+   ]
+  },
+  {
+   "n": 6,
+   "para": "봄 — Fallas",
+   "en": "Surprisingly, the fallas are burned on the last day of the festival.",
+   "kr": "놀랍게도, fallas는 축제의 마지막 날에 불태워진다.",
+   "ch": [
+    [
+     "Surprisingly,",
+     ""
+    ],
+    [
+     "the fallas are burned",
+     ""
+    ],
+    [
+     "on the last day",
+     ""
+    ],
+    [
+     "of the festival.",
+     ""
+    ]
+   ],
+   "tip": "수동태 are burned / 특정한 날 앞 on",
+   "key": [
+    [
+     "놀랍게도",
+     "Surprisingly"
+    ],
+    [
+     "불태워진다",
+     "are burned"
+    ],
+    [
+     "축제의 마지막 날에",
+     "on the last day of the festival"
+    ]
+   ]
+  },
+  {
+   "n": 7,
+   "para": "봄 — Fallas",
+   "en": "Burning them symbolizes saying goodbye to old things and hello to a new start.",
+   "kr": "그것들을 태우는 것은 옛것에는 작별 인사를, 새로운 시작에는 반가운 인사를 하는 것을 상징한다.",
+   "ch": [
+    [
+     "Burning them",
+     ""
+    ],
+    [
+     "symbolizes",
+     ""
+    ],
+    [
+     "saying goodbye to old things",
+     ""
+    ],
+    [
+     "and",
+     ""
+    ],
+    [
+     "hello to a new start.",
+     ""
+    ]
+   ],
+   "tip": "동명사 주어 → 단수 동사 symbolizes",
+   "key": [
+    [
+     "그것들을 태우는 것은",
+     "Burning them"
+    ],
+    [
+     "작별 인사를",
+     "saying goodbye to"
+    ],
+    [
+     "상징한다",
+     "symbolizes"
+    ]
+   ]
+  },
+  {
+   "n": 8,
+   "para": "여름 — Midsummer",
+   "en": "Winter in Sweden is long and dark, so the people there especially welcome summer.",
+   "kr": "스웨덴의 겨울은 길고 어두워서, 그곳 사람들은 여름을 특히 반긴다.",
+   "ch": [
+    [
+     "Winter in Sweden",
+     ""
+    ],
+    [
+     "is long and dark,",
+     ""
+    ],
+    [
+     "so",
+     ""
+    ],
+    [
+     "the people there",
+     ""
+    ],
+    [
+     "especially welcome summer.",
+     ""
+    ]
+   ],
+   "tip": "so = 그래서 (결과) / there = in Sweden",
+   "key": [
+    [
+     "길고 어두워서",
+     "is long and dark, so"
+    ],
+    [
+     "여름을 특히 반긴다",
+     "especially welcome summer"
+    ]
+   ]
+  },
+  {
+   "n": 9,
+   "para": "여름 — Midsummer",
+   "en": "To celebrate the longest day of the year, they have a special festival.",
+   "kr": "일 년 중 가장 긴 날을 기념하기 위해 그들은 특별한 축제를 연다.",
+   "ch": [
+    [
+     "To celebrate",
+     ""
+    ],
+    [
+     "the longest day of the year,",
+     ""
+    ],
+    [
+     "they have",
+     ""
+    ],
+    [
+     "a special festival.",
+     ""
+    ]
+   ],
+   "tip": "To celebrate = 기념하기 위해 (목적) / the + 최상급 + of + 기간",
+   "key": [
+    [
+     "일 년 중 가장 긴 날을",
+     "the longest day of the year"
+    ],
+    [
+     "기념하기 위해",
+     "To celebrate"
+    ]
+   ]
+  },
+  {
+   "n": 10,
+   "para": "여름 — Midsummer",
+   "en": "They call it the Midsummer festival.",
+   "kr": "그들은 그것을 Midsummer 축제라고 부른다.",
+   "ch": [
+    [
+     "They call it",
+     ""
+    ],
+    [
+     "the Midsummer festival.",
+     ""
+    ]
+   ],
+   "tip": "call A B = A를 B라고 부르다 (it = a special festival)",
+   "key": [
+    [
+     "그것을 Midsummer 축제라고 부른다",
+     "call it the Midsummer festival"
+    ]
+   ]
+  },
+  {
+   "n": 11,
+   "para": "여름 — Midsummer",
+   "en": "The festival starts on the Friday evening between June 19 and 25 and ends on the Sunday.",
+   "kr": "축제는 6월 19일과 25일 사이에 있는 금요일 저녁에 시작해서 일요일에 끝난다.",
+   "ch": [
+    [
+     "The festival starts",
+     ""
+    ],
+    [
+     "on the Friday evening",
+     ""
+    ],
+    [
+     "between June 19 and 25",
+     ""
+    ],
+    [
+     "and",
+     ""
+    ],
+    [
+     "ends on the Sunday.",
+     ""
+    ]
+   ],
+   "tip": "between A and B / starts와 ends가 병렬",
+   "key": [
+    [
+     "6월 19일과 25일 사이에",
+     "between June 19 and 25"
+    ],
+    [
+     "일요일에 끝난다",
+     "ends on the Sunday"
+    ]
+   ]
+  },
+  {
+   "n": 12,
+   "para": "여름 — Midsummer",
+   "en": "During the festival, people decorate a tall pole with flowers and green leaves and enjoy traditional dances around it.",
+   "kr": "축제 동안 사람들은 키 큰 기둥을 꽃과 초록 잎으로 장식하고 그 주위에서 전통 춤을 즐긴다.",
+   "ch": [
+    [
+     "During the festival,",
+     ""
+    ],
+    [
+     "people decorate a tall pole",
+     ""
+    ],
+    [
+     "with flowers and green leaves",
+     ""
+    ],
+    [
+     "and",
+     ""
+    ],
+    [
+     "enjoy traditional dances",
+     ""
+    ],
+    [
+     "around it.",
+     ""
+    ]
+   ],
+   "tip": "decorate A with B / it = a tall pole",
+   "key": [
+    [
+     "꽃과 초록 잎으로 장식하고",
+     "decorate a tall pole with flowers and green leaves"
+    ],
+    [
+     "그 주위에서",
+     "around it"
+    ]
+   ]
+  },
+  {
+   "n": 13,
+   "para": "여름 — Midsummer",
+   "en": "Because the sun hardly sets at this time of year in Sweden, people can enjoy the festival all night long.",
+   "kr": "스웨덴에서는 매년 이맘때 해가 거의 지지 않기 때문에 사람들은 밤새도록 축제를 즐길 수 있다.",
+   "ch": [
+    [
+     "Because",
+     ""
+    ],
+    [
+     "the sun hardly sets",
+     ""
+    ],
+    [
+     "at this time of year",
+     ""
+    ],
+    [
+     "in Sweden,",
+     ""
+    ],
+    [
+     "people can enjoy the festival",
+     ""
+    ],
+    [
+     "all night long.",
+     ""
+    ]
+   ],
+   "tip": "hardly = 거의 ~않다 (not과 같이 안 씀)",
+   "key": [
+    [
+     "해가 거의 지지 않기 때문에",
+     "Because the sun hardly sets"
+    ],
+    [
+     "매년 이맘때",
+     "at this time of year"
+    ],
+    [
+     "밤새도록",
+     "all night long"
+    ]
+   ]
+  },
+  {
+   "n": 14,
+   "para": "가을 — Day of the Dead",
+   "en": "Many Mexicans believe that once a year dead people come back home to meet their family and friends.",
+   "kr": "많은 멕시코 사람들은 일 년에 한 번 죽은 사람들이 가족과 친구들을 만나러 집에 돌아온다고 믿는다.",
+   "ch": [
+    [
+     "Many Mexicans believe",
+     ""
+    ],
+    [
+     "that",
+     ""
+    ],
+    [
+     "once a year",
+     ""
+    ],
+    [
+     "dead people come back home",
+     ""
+    ],
+    [
+     "to meet their family and friends.",
+     ""
+    ]
+   ],
+   "tip": "believe that ~ (that 생략 가능) / to meet = 만나기 위해",
+   "key": [
+    [
+     "일 년에 한 번",
+     "once a year"
+    ],
+    [
+     "집에 돌아온다고",
+     "come back home"
+    ],
+    [
+     "만나러",
+     "to meet"
+    ]
+   ]
+  },
+  {
+   "n": 15,
+   "para": "가을 — Day of the Dead",
+   "en": "They call this day the Day of the Dead.",
+   "kr": "그들은 이날을 죽은 자들의 날이라고 부른다.",
+   "ch": [
+    [
+     "They call this day",
+     ""
+    ],
+    [
+     "the Day of the Dead.",
+     ""
+    ]
+   ],
+   "tip": "call A B / the Dead = 죽은 사람들 (the + 형용사)",
+   "key": [
+    [
+     "이날을 죽은 자들의 날이라고 부른다",
+     "call this day the Day of the Dead"
+    ]
+   ]
+  },
+  {
+   "n": 16,
+   "para": "가을 — Day of the Dead",
+   "en": "To welcome dead people, Mexicans hold a festival on November 1 and 2.",
+   "kr": "죽은 사람들을 맞이하기 위해 멕시코 사람들은 11월 1일과 2일에 축제를 연다.",
+   "ch": [
+    [
+     "To welcome dead people,",
+     ""
+    ],
+    [
+     "Mexicans hold a festival",
+     ""
+    ],
+    [
+     "on November 1 and 2.",
+     ""
+    ]
+   ],
+   "tip": "To welcome = 맞이하기 위해 (목적) / hold = 개최하다",
+   "key": [
+    [
+     "죽은 사람들을 맞이하기 위해",
+     "To welcome dead people"
+    ],
+    [
+     "축제를 연다",
+     "hold a festival"
+    ]
+   ]
+  },
+  {
+   "n": 17,
+   "para": "가을 — Day of the Dead",
+   "en": "They believe it is important to remember dead people.",
+   "kr": "그들은 죽은 사람들을 기억하는 것이 중요하다고 믿는다.",
+   "ch": [
+    [
+     "They believe",
+     ""
+    ],
+    [
+     "it is important",
+     ""
+    ],
+    [
+     "to remember",
+     ""
+    ],
+    [
+     "dead people.",
+     ""
+    ]
+   ],
+   "tip": "가주어 it ~ 진주어 to remember (believe 뒤 that 생략)",
+   "key": [
+    [
+     "죽은 사람들을 기억하는 것이 중요하다고",
+     "it is important to remember dead people"
+    ]
+   ]
+  },
+  {
+   "n": 18,
+   "para": "가을 — Day of the Dead",
+   "en": "So, people set up altars in their homes and have big parties in cemeteries.",
+   "kr": "그래서 사람들은 집에 제단을 차리고 묘지에서 큰 파티를 연다.",
+   "ch": [
+    [
+     "So,",
+     ""
+    ],
+    [
+     "people set up altars",
+     ""
+    ],
+    [
+     "in their homes",
+     ""
+    ],
+    [
+     "and",
+     ""
+    ],
+    [
+     "have big parties",
+     ""
+    ],
+    [
+     "in cemeteries.",
+     ""
+    ]
+   ],
+   "tip": "set up = 세우다, 설치하다 / have a party",
+   "key": [
+    [
+     "제단을 차리고",
+     "set up altars"
+    ],
+    [
+     "큰 파티를 연다",
+     "have big parties"
+    ]
+   ]
+  },
+  {
+   "n": 19,
+   "para": "가을 — Day of the Dead",
+   "en": "In some areas, people dress up like skeletons and hold big parades.",
+   "kr": "어떤 지역에서는 사람들이 해골처럼 분장하고 큰 퍼레이드를 연다.",
+   "ch": [
+    [
+     "In some areas,",
+     ""
+    ],
+    [
+     "people dress up",
+     ""
+    ],
+    [
+     "like skeletons",
+     ""
+    ],
+    [
+     "and",
+     ""
+    ],
+    [
+     "hold big parades.",
+     ""
+    ]
+   ],
+   "tip": "dress up = 분장하다 / like = ~처럼 (전치사)",
+   "key": [
+    [
+     "어떤 지역에서는",
+     "In some areas"
+    ],
+    [
+     "해골처럼 분장하고",
+     "dress up like skeletons"
+    ]
+   ]
+  },
+  {
+   "n": 20,
+   "para": "겨울 — Fur Rondy",
+   "en": "At the end of February, people in Alaska hold the Fur Rondy festival, one of the biggest winter festivals in the world.",
+   "kr": "2월 말에 알래스카 사람들은 세계에서 가장 큰 겨울 축제 중 하나인 Fur Rondy 축제를 연다.",
+   "ch": [
+    [
+     "At the end of February,",
+     ""
+    ],
+    [
+     "people in Alaska",
+     ""
+    ],
+    [
+     "hold the Fur Rondy festival,",
+     ""
+    ],
+    [
+     "one of the biggest winter festivals",
+     ""
+    ],
+    [
+     "in the world.",
+     ""
+    ]
+   ],
+   "tip": "one of the + 최상급 + 복수 명사",
+   "key": [
+    [
+     "2월 말에",
+     "At the end of February"
+    ],
+    [
+     "가장 큰 겨울 축제 중 하나인",
+     "one of the biggest winter festivals"
+    ]
+   ]
+  },
+  {
+   "n": 21,
+   "para": "겨울 — Fur Rondy",
+   "en": "During this festival, visitors can enjoy various winter sports and Alaskan traditional games.",
+   "kr": "이 축제 동안 방문객들은 다양한 겨울 스포츠와 알래스카 전통 놀이를 즐길 수 있다.",
+   "ch": [
+    [
+     "During this festival,",
+     ""
+    ],
+    [
+     "visitors can enjoy",
+     ""
+    ],
+    [
+     "various winter sports",
+     ""
+    ],
+    [
+     "and Alaskan traditional games.",
+     ""
+    ]
+   ],
+   "tip": "various + 복수 명사",
+   "key": [
+    [
+     "다양한 겨울 스포츠",
+     "various winter sports"
+    ]
+   ]
+  },
+  {
+   "n": 22,
+   "para": "겨울 — Fur Rondy",
+   "en": "They can also enjoy many special events such as the Running of the Reindeer.",
+   "kr": "그들은 또한 순록 달리기 같은 특별한 행사도 많이 즐길 수 있다.",
+   "ch": [
+    [
+     "They can also enjoy",
+     ""
+    ],
+    [
+     "many special events",
+     ""
+    ],
+    [
+     "such as",
+     ""
+    ],
+    [
+     "the Running of the Reindeer.",
+     ""
+    ]
+   ],
+   "tip": "such as = ~ 같은 (= like)",
+   "key": [
+    [
+     "순록 달리기 같은",
+     "such as the Running of the Reindeer"
+    ]
+   ]
+  },
+  {
+   "n": 23,
+   "para": "겨울 — Fur Rondy",
+   "en": "People who participate in this race wear fun costumes and try to run faster than reindeer.",
+   "kr": "이 경주에 참가하는 사람들은 재미있는 의상을 입고 순록보다 더 빨리 달리려고 애쓴다.",
+   "ch": [
+    [
+     "People who participate",
+     ""
+    ],
+    [
+     "in this race",
+     ""
+    ],
+    [
+     "wear fun costumes",
+     ""
+    ],
+    [
+     "and",
+     ""
+    ],
+    [
+     "try to run",
+     ""
+    ],
+    [
+     "faster than reindeer.",
+     ""
+    ]
+   ],
+   "tip": "주격 관계대명사 who / try to = ~하려고 애쓰다 / 비교급 + than",
+   "key": [
+    [
+     "이 경주에 참가하는 사람들은",
+     "People who participate in this race"
+    ],
+    [
+     "순록보다 더 빨리 달리려고 애쓴다",
+     "try to run faster than reindeer"
+    ]
+   ]
+  },
+  {
+   "n": 24,
+   "para": "겨울 — Fur Rondy",
+   "en": "Is it possible to do so?",
+   "kr": "그렇게 하는 것이 가능할까?",
+   "ch": [
+    [
+     "Is it possible",
+     ""
+    ],
+    [
+     "to do so?",
+     ""
+    ]
+   ],
+   "tip": "가주어 it ~ 진주어 to do so (so = 순록보다 빨리 달리기)",
+   "key": [
+    [
+     "그렇게 하는 것이 가능할까",
+     "Is it possible to do so"
+    ]
+   ]
+  },
+  {
+   "n": 25,
+   "para": "겨울 — Fur Rondy",
+   "en": "Not really, but it doesn't matter.",
+   "kr": "사실 그렇지는 않지만, 그건 중요하지 않다.",
+   "ch": [
+    [
+     "Not really,",
+     ""
+    ],
+    [
+     "but",
+     ""
+    ],
+    [
+     "it doesn't matter.",
+     ""
+    ]
+   ],
+   "tip": "matter = 중요하다 (동사)",
+   "key": [
+    [
+     "그건 중요하지 않다",
+     "it doesn't matter"
+    ]
+   ]
+  },
+  {
+   "n": 26,
+   "para": "겨울 — Fur Rondy",
+   "en": "Everyone is just having fun!",
+   "kr": "모두가 그저 즐겁게 놀고 있을 뿐이다!",
+   "ch": [
+    [
+     "Everyone is",
+     ""
+    ],
+    [
+     "just having fun!",
+     ""
+    ]
+   ],
+   "tip": "Everyone + 단수 동사 is / have fun",
+   "key": [
+    [
+     "즐겁게 놀고 있을 뿐이다",
+     "just having fun"
+    ]
+   ]
+  }
+ ],
+ "grammar": [
+  {
+   "title": "핵심문법 1  가주어 It ~ to부정사",
+   "short": "핵심문법 1",
+   "formula": "It is + 형용사 (+ for/of + 목적격) + to + 동사원형",
+   "concept": [
+    [
+     "기본 문장",
+     "[To remember] dead people is important.  →  주어가 너무 길다"
+    ],
+    [
+     "1단계",
+     "주어 덩어리 찾기 — 동사 is [앞]까지"
+    ],
+    [
+     "2단계",
+     "주어 덩어리를 문장 맨 [뒤]로 보낸다"
+    ],
+    [
+     "3단계",
+     "빈 주어 자리에 [It]을 쓴다  ·  It is important to remember dead people."
+    ],
+    [
+     "이름",
+     "It = [가주어]  /  to ~ = [진주어]"
+    ],
+    [
+     "해석",
+     "It은 [해석하지 않는다]  ·  to부터 \"~하는 것은\"으로 읽기"
+    ],
+    [
+     "의문문",
+     "[Is it] possible to do so?  (그렇게 하는 것이 가능할까?)"
+    ],
+    [
+     "의미상 주어 1",
+     "보통 형용사(hard, easy, possible ...) → [for] + 목적격  ·  It is not possible for people to run faster than reindeer."
+    ],
+    [
+     "의미상 주어 2",
+     "사람의 성격·태도 형용사(kind, nice, wise, careless ...) → [of] + 목적격  ·  It is very kind of you to invite me."
+    ],
+    [
+     "주의",
+     "for/of 뒤에는 [목적격]  ·  for them (for they ✗)"
+    ]
+   ],
+   "write": [
+    [
+     "죽은 사람들을 기억하는 것은 중요하다.",
+     "It, important, remember",
+     "It is important to remember dead people."
+    ],
+    [
+     "그렇게 하는 것이 가능할까?",
+     "it, possible, do so",
+     "Is it possible to do so?"
+    ],
+    [
+     "함께 김치를 담그는 것은 재미있을 것이다.",
+     "It, fun, make, together",
+     "It will be fun to make gimchi together."
+    ],
+    [
+     "불꽃놀이를 보는 것은 신난다.",
+     "It, exciting, watch",
+     "It is exciting to watch the fireworks."
+    ],
+    [
+     "여동생에게 줄 기념품을 찾는 것은 어려웠다.",
+     "It, hard, find, souvenir",
+     "It was hard to find a souvenir for my sister."
+    ],
+    [
+     "밤새도록 깨어 있는 것은 쉽지 않다.",
+     "It, easy, stay up, all night long",
+     "It isn't easy to stay up all night long."
+    ],
+    [
+     "To learn about other cultures is important.를 가주어 It으로 바꾸시오.",
+     "It",
+     "It is important to learn about other cultures."
+    ],
+    [
+     "사람들이 순록보다 빨리 달리는 것은 가능하지 않다.",
+     "It, possible, for, run, faster than",
+     "It is not possible for people to run faster than reindeer."
+    ],
+    [
+     "나를 축제에 초대해 주다니 너는 정말 친절하구나.",
+     "It, kind, of, invite",
+     "It is very kind of you to invite me to the festival."
+    ],
+    [
+     "그녀가 순록과 함께 달린 것은 용감했다.",
+     "It, brave, of, run with",
+     "It was brave of her to run with the reindeer."
+    ]
+   ]
+  },
+  {
+   "title": "핵심문법 2  call A B",
+   "short": "핵심문법 2",
+   "formula": "주어 + call + A(목적어) + B(명사)  →  A를 B라고 부르다",
+   "concept": [
+    [
+     "공식",
+     "주어 + call + [목적어] + [명사]  ·  A를 B라고 부르다"
+    ],
+    [
+     "A 자리",
+     "부르는 [대상]  ·  it, this day, the race"
+    ],
+    [
+     "B 자리",
+     "부르는 [이름] (명사)  ·  the Midsummer festival"
+    ],
+    [
+     "확인",
+     "A [=] B  ·  it = the Midsummer festival ✓"
+    ],
+    [
+     "예문",
+     "They call [this day] [the Day of the Dead]."
+    ],
+    [
+     "함정 1",
+     "A가 대명사면 [목적격]  ·  call him (call he ✗)"
+    ],
+    [
+     "함정 2",
+     "A와 B 사이에 [as]를 넣지 않는다  ·  call it as the Midsummer festival ✗"
+    ],
+    [
+     "함정 3",
+     "A와 B의 순서를 바꾸면 [뜻이 바뀐다]"
+    ],
+    [
+     "같은 구조",
+     "name A B (A를 B라고 [이름 짓다])  ·  make A B (A를 B로 [만들다])"
+    ],
+    [
+     "구별",
+     "A = B면 5형식 \"A를 B로\" / A ≠ B면 [4형식] \"A에게 B를\"  ·  Mom made me a costume."
+    ]
+   ],
+   "write": [
+    [
+     "그들은 그것을 Midsummer 축제라고 부른다.",
+     "call, it",
+     "They call it the Midsummer festival."
+    ],
+    [
+     "그들은 이날을 죽은 자들의 날이라고 부른다.",
+     "call, this day",
+     "They call this day the Day of the Dead."
+    ],
+    [
+     "사람들은 그 경주를 순록 달리기라고 부른다.",
+     "call, the race",
+     "People call the race the Running of the Reindeer."
+    ],
+    [
+     "내 친구들은 나를 꼬마 요리사라고 부른다.",
+     "call, Little Chef",
+     "My friends call me Little Chef."
+    ],
+    [
+     "발렌시아 사람들은 그 조각상들을 fallas라고 부른다.",
+     "call, the statues",
+     "People in Valencia call the statues fallas."
+    ],
+    [
+     "우리는 그 개를 Max라고 부른다.",
+     "call, the dog",
+     "We call the dog Max."
+    ],
+    [
+     "사람들은 그 도시를 꽃의 도시라고 부른다.",
+     "call, the City of Flowers",
+     "People call the city the City of Flowers."
+    ],
+    [
+     "우리는 그녀를 Mina라고 부른다.",
+     "call, her",
+     "We call her Mina."
+    ],
+    [
+     "우리는 그 조각상을 Big Joe라고 이름 지었다.",
+     "name, the statue, 과거",
+     "We named the statue Big Joe."
+    ],
+    [
+     "그 축제는 그 마을을 인기 있는 곳으로 만들었다.",
+     "make, a popular place, 과거",
+     "The festival made the town a popular place."
+    ]
+   ]
+  }
+ ]
+}
