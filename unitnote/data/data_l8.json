@@ -1,0 +1,675 @@
+{
+ "acad": "강동미나 중고등부 · 중1 능률(김기택)",
+ "words": [
+  {
+   "w": "add",
+   "m": "추가하다, 덧붙이다",
+   "syn": "",
+   "ant": "remove"
+  },
+  {
+   "w": "adventure",
+   "m": "모험",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "amount",
+   "m": "총액; (무엇의) 양",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "balloon",
+   "m": "풍선",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "break",
+   "m": "깨지다; 고장 나다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "carefully",
+   "m": "조심스럽게",
+   "syn": "",
+   "ant": "carelessly"
+  },
+  {
+   "w": "champion",
+   "m": "챔피언, 우승자",
+   "syn": "winner",
+   "ant": ""
+  },
+  {
+   "w": "character",
+   "m": "성격; 특징; 등장인물",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "close",
+   "m": "가까운; 친한; 아슬아슬한; 닫다",
+   "syn": "",
+   "ant": "far; open"
+  },
+  {
+   "w": "curious",
+   "m": "궁금한",
+   "syn": "interested",
+   "ant": ""
+  },
+  {
+   "w": "danger",
+   "m": "위험",
+   "syn": "",
+   "ant": "safety"
+  },
+  {
+   "w": "deep",
+   "m": "깊은",
+   "syn": "",
+   "ant": "shallow"
+  },
+  {
+   "w": "emotion",
+   "m": "감정, 정서",
+   "syn": "feeling",
+   "ant": ""
+  },
+  {
+   "w": "exactly",
+   "m": "정확히, 꼭",
+   "syn": "precisely",
+   "ant": ""
+  },
+  {
+   "w": "explain",
+   "m": "설명하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "factory",
+   "m": "공장",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "fall",
+   "m": "떨어지다; 넘어지다",
+   "syn": "drop",
+   "ant": "rise"
+  },
+  {
+   "w": "fantasy",
+   "m": "상상, 환상",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "friendship",
+   "m": "우정",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "itch",
+   "m": "가렵다; 근질거리다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "juggle",
+   "m": "(공 등으로) 저글링 하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "laugh",
+   "m": "(소리 내어) 웃다",
+   "syn": "",
+   "ant": "cry"
+  },
+  {
+   "w": "lesson",
+   "m": "수업; 교훈",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "loudly",
+   "m": "크게",
+   "syn": "",
+   "ant": "quietly"
+  },
+  {
+   "w": "miss",
+   "m": "놓치다; 그리워하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "mistake",
+   "m": "실수",
+   "syn": "error",
+   "ant": ""
+  },
+  {
+   "w": "neighbor",
+   "m": "이웃",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "nervous",
+   "m": "불안해하는",
+   "syn": "worried",
+   "ant": "calm"
+  },
+  {
+   "w": "novel",
+   "m": "소설",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "opinion",
+   "m": "의견, 견해",
+   "syn": "view",
+   "ant": ""
+  },
+  {
+   "w": "pepper",
+   "m": "후추",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "perfect",
+   "m": "완벽한",
+   "syn": "",
+   "ant": "imperfect"
+  },
+  {
+   "w": "planet",
+   "m": "행성",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "refrigerator",
+   "m": "냉장고",
+   "syn": "fridge",
+   "ant": ""
+  },
+  {
+   "w": "return",
+   "m": "돌아오다; 반납하다",
+   "syn": "come back",
+   "ant": ""
+  },
+  {
+   "w": "slippery",
+   "m": "미끄러운",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "step",
+   "m": "(발)걸음; 단계; 밟다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "suddenly",
+   "m": "갑자기",
+   "syn": "all of a sudden",
+   "ant": ""
+  },
+  {
+   "w": "surprise",
+   "m": "놀라운 일; 놀라게 하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "talent show",
+   "m": "장기 자랑",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "throw",
+   "m": "던지다",
+   "syn": "",
+   "ant": "catch"
+  },
+  {
+   "w": "viewer",
+   "m": "시청자",
+   "syn": "",
+   "ant": ""
+  }
+ ],
+ "idioms": [
+  {
+   "w": "any other",
+   "m": "어느 다른",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "at first",
+   "m": "처음에는",
+   "syn": "",
+   "ant": "at last"
+  },
+  {
+   "w": "be about to + 동사원형",
+   "m": "막 ~하려고 하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "be full of",
+   "m": "~로 가득 차다",
+   "syn": "be filled with",
+   "ant": ""
+  },
+  {
+   "w": "be good at",
+   "m": "~을 잘하다",
+   "syn": "",
+   "ant": "be poor at"
+  },
+  {
+   "w": "be ready for",
+   "m": "~할 준비가 되다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "both of",
+   "m": "~의 양쪽 모두",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "call A B",
+   "m": "A를 B라고 부르다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "check out",
+   "m": "(도서관 등에서) 대출하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "each other",
+   "m": "서로",
+   "syn": "one another",
+   "ant": ""
+  },
+  {
+   "w": "for the first time ever",
+   "m": "난생처음으로",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "have butterflies in one's stomach",
+   "m": "걱정하다, 마음이 편치 않다",
+   "syn": "be nervous",
+   "ant": ""
+  },
+  {
+   "w": "into the air",
+   "m": "공중으로",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "make a mistake",
+   "m": "실수하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "mess up",
+   "m": "엉망으로 만들다, 다 망치다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "no longer",
+   "m": "더 이상 ~ 아닌",
+   "syn": "not ~ anymore",
+   "ant": ""
+  },
+  {
+   "w": "on one's way to",
+   "m": "~로 가는 길에",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "on top of",
+   "m": "~의 위에",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "run off",
+   "m": "도망가다",
+   "syn": "run away",
+   "ant": ""
+  },
+  {
+   "w": "step on",
+   "m": "~을 밟다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "take A out of B",
+   "m": "B에서 A를 꺼내다",
+   "syn": "",
+   "ant": "put A into B"
+  },
+  {
+   "w": "turn around",
+   "m": "방향을 바꾸다, 뒤돌아보다",
+   "syn": "",
+   "ant": ""
+  }
+ ],
+ "defs": [
+  {
+   "w": "adventure",
+   "d": "an exciting experience in which unusual things happen",
+   "ko": "특이한 일들이 일어나는 신나는 경험"
+  },
+  {
+   "w": "balloon",
+   "d": "a small rubber bag that is filled with air or gas",
+   "ko": "공기나 가스로 채운 작은 고무 주머니"
+  },
+  {
+   "w": "champion",
+   "d": "a person who has won a competition",
+   "ko": "대회에서 우승한 사람"
+  },
+  {
+   "w": "curious",
+   "d": "wanting to know or learn about something",
+   "ko": "무언가에 대해 알거나 배우고 싶어 하는"
+  },
+  {
+   "w": "factory",
+   "d": "a building where things are made by machines",
+   "ko": "기계로 물건을 만드는 건물"
+  },
+  {
+   "w": "friendship",
+   "d": "a relationship between friends",
+   "ko": "친구 사이의 관계"
+  },
+  {
+   "w": "juggle",
+   "d": "to keep throwing and catching several objects in the air",
+   "ko": "여러 물건을 공중에 계속 던지고 받다"
+  },
+  {
+   "w": "neighbor",
+   "d": "a person who lives near you",
+   "ko": "가까이에 사는 사람"
+  },
+  {
+   "w": "nervous",
+   "d": "worried or afraid about something that will happen",
+   "ko": "앞으로 일어날 일에 대해 걱정하거나 두려워하는"
+  },
+  {
+   "w": "novel",
+   "d": "a long written story about imaginary people and events",
+   "ko": "상상 속 인물과 사건에 관한 긴 이야기"
+  },
+  {
+   "w": "opinion",
+   "d": "what you think or feel about something",
+   "ko": "무언가에 대해 생각하거나 느끼는 것"
+  },
+  {
+   "w": "planet",
+   "d": "a large round object in space that moves around a star",
+   "ko": "별 주위를 도는 우주의 크고 둥근 물체"
+  },
+  {
+   "w": "refrigerator",
+   "d": "a machine that keeps food cold",
+   "ko": "음식을 차갑게 보관하는 기계"
+  },
+  {
+   "w": "slippery",
+   "d": "difficult to hold or stand on because it is wet or smooth",
+   "ko": "젖거나 매끄러워서 잡거나 딛고 서기 어려운"
+  },
+  {
+   "w": "viewer",
+   "d": "a person who watches something, such as TV",
+   "ko": "TV 같은 것을 보는 사람"
+  },
+  {
+   "w": "explain",
+   "d": "to tell someone about something so that they can understand it",
+   "ko": "누군가가 이해할 수 있도록 무언가에 대해 말해 주다"
+  },
+  {
+   "w": "mistake",
+   "d": "an action or idea that is wrong",
+   "ko": "틀린 행동이나 생각"
+  }
+ ],
+ "rows": [],
+ "grammar": [
+  {
+   "title": "핵심문법 1  감탄문",
+   "short": "핵심문법 1",
+   "formula": "How + 형용사/부사 (+ 주어 + 동사)!   What + a(n) + 형용사 + 명사 (+ 주어 + 동사)!",
+   "concept": [
+    [
+     "How 감탄문",
+     "How + [형용사/부사] (+ 주어 + 동사)!  ·  How wonderful she was!"
+    ],
+    [
+     "What 감탄문",
+     "What + [a(n)] + 형용사 + [명사] (+ 주어 + 동사)!  ·  What a good start!"
+    ],
+    [
+     "뜻",
+     "\"정말 ~하구나!\"  ·  끝에는 [느낌표]"
+    ],
+    [
+     "고르는 법",
+     "형용사 뒤에 명사가 있으면 [What], 없으면 [How]"
+    ],
+    [
+     "a(n) 빼기",
+     "복수·셀 수 없는 명사 앞에는 a(n)을 [쓰지 않는다]  ·  What big bears they are!"
+    ],
+    [
+     "an",
+     "모음 소리 앞은 an  ·  What [an] easy test!"
+    ],
+    [
+     "a 위치",
+     "What [a] pretty dress! (What pretty a dress ✗)"
+    ],
+    [
+     "어순",
+     "주어 + 동사는 [맨 뒤]  ·  How wise you are! ✓ / How you are wise! ✗"
+    ],
+    [
+     "바꾸기",
+     "He is very handsome. → very를 지우고 → [How handsome he is!]"
+    ],
+    [
+     "생략",
+     "주어 + 동사는 [생략할 수 있다]  ·  What a good start (it is)!"
+    ]
+   ],
+   "write": [
+    [
+     "그녀는 정말 멋졌구나!",
+     "How, wonderful",
+     "How wonderful she was!"
+    ],
+    [
+     "정말 좋은 출발이구나!",
+     "What, start",
+     "What a good start!"
+    ],
+    [
+     "그는 정말 빨리 달리는구나!",
+     "How, fast",
+     "How fast he runs!"
+    ],
+    [
+     "그것은 정말 흥미진진한 경기였구나!",
+     "What, exciting, game",
+     "What an exciting game it was!"
+    ],
+    [
+     "그것은 정말 재미있는 책이구나!",
+     "What, interesting, book",
+     "What an interesting book it is!"
+    ],
+    [
+     "이 강아지는 정말 귀엽구나!",
+     "How, cute, puppy",
+     "How cute this puppy is!"
+    ],
+    [
+     "그들은 정말 큰 곰들이구나!",
+     "What, big, bears",
+     "What big bears they are!"
+    ],
+    [
+     "너는 정말 현명하구나!",
+     "How, wise",
+     "How wise you are!"
+    ],
+    [
+     "She sings very beautifully.를 감탄문으로 바꾸시오.",
+     "How",
+     "How beautifully she sings!"
+    ],
+    [
+     "It is a very nice day.를 감탄문으로 바꾸시오.",
+     "What",
+     "What a nice day it is!"
+    ]
+   ]
+  },
+  {
+   "title": "핵심문법 2  -thing + 형용사",
+   "short": "핵심문법 2",
+   "formula": "-thing / -body / -one + 형용사 (+ to부정사)",
+   "concept": [
+    [
+     "공식",
+     "-thing / -body / -one + [형용사] (+ to부정사)"
+    ],
+    [
+     "자리",
+     "보통 형용사는 명사 앞, 부정대명사는 형용사가 [뒤]에서 꾸민다"
+    ],
+    [
+     "예문",
+     "When she turned around, she stepped on something [slippery]."
+    ],
+    [
+     "어순",
+     "sweet something ✗ → [something sweet] ✓"
+    ],
+    [
+     "to부정사까지",
+     "형용사 → to부정사 순서  ·  something [cold] to drink (something to drink cold ✗)"
+    ],
+    [
+     "some / any",
+     "긍정문 [something]  /  부정문·의문문 [anything]"
+    ],
+    [
+     "권유할 때",
+     "의문문이라도 권유는 [something]  ·  Would you like something to drink?"
+    ],
+    [
+     "사람",
+     "someone [famous]  ·  nobody special  ·  anyone new"
+    ],
+    [
+     "단수 취급",
+     "Something strange [is] happening."
+    ]
+   ],
+   "write": [
+    [
+     "그녀는 미끄러운 무언가를 밟았다.",
+     "step on, slippery",
+     "She stepped on something slippery."
+    ],
+    [
+     "나는 달콤한 무언가를 먹고 싶다.",
+     "want, sweet",
+     "I want to eat something sweet."
+    ],
+    [
+     "우리는 유명한 누군가를 만날 것이다.",
+     "meet, famous",
+     "We will meet someone famous."
+    ],
+    [
+     "오늘 새로운 것이 있니?",
+     "Is there, new",
+     "Is there anything new today?"
+    ],
+    [
+     "나는 너에게 말할 특별한 것이 없다.",
+     "nothing, special, tell",
+     "I have nothing special to tell you."
+    ],
+    [
+     "나는 마실 따뜻한 것을 원한다.",
+     "warm, drink",
+     "I want something warm to drink."
+    ],
+    [
+     "그녀는 재미있는 무언가를 하고 싶어 한다.",
+     "want, do, fun",
+     "She wants to do something fun."
+    ],
+    [
+     "나는 가방에서 이상한 것을 발견했다.",
+     "find, strange, in my bag",
+     "I found something strange in my bag."
+    ],
+    [
+     "그는 그 상자 안에서 흥미로운 것을 아무것도 보지 못했다.",
+     "see, anything, interesting",
+     "He didn't see anything interesting in the box."
+    ],
+    [
+     "마실 시원한 것 좀 드실래요?",
+     "Would you like, cold, drink",
+     "Would you like something cold to drink?"
+    ]
+   ]
+  }
+ ]
+}
