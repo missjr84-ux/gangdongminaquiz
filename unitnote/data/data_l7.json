@@ -1,0 +1,1727 @@
+{
+ "words": [
+  {
+   "w": "about",
+   "m": "~에 관하여; 대략",
+   "syn": "around (대략)",
+   "ant": ""
+  },
+  {
+   "w": "activity",
+   "m": "활동",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "below",
+   "m": "아래에",
+   "syn": "",
+   "ant": "above"
+  },
+  {
+   "w": "bin",
+   "m": "쓰레기통; 통",
+   "syn": "trash can",
+   "ant": ""
+  },
+  {
+   "w": "change",
+   "m": "바꾸다; 변화",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "clean",
+   "m": "깨끗한; 깨끗하게 하다",
+   "syn": "",
+   "ant": "dirty"
+  },
+  {
+   "w": "clever",
+   "m": "영리한",
+   "syn": "intelligent, smart",
+   "ant": "foolish"
+  },
+  {
+   "w": "completely",
+   "m": "완전히",
+   "syn": "totally",
+   "ant": ""
+  },
+  {
+   "w": "container",
+   "m": "그릇, 용기",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "correct",
+   "m": "올바른, 알맞은",
+   "syn": "right",
+   "ant": "incorrect, wrong"
+  },
+  {
+   "w": "delivery",
+   "m": "배달",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "difference",
+   "m": "차이; 변화",
+   "syn": "",
+   "ant": "similarity"
+  },
+  {
+   "w": "eco",
+   "m": "자연[생태] 환경",
+   "syn": "ecology",
+   "ant": ""
+  },
+  {
+   "w": "environment",
+   "m": "환경",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "global",
+   "m": "세계적인, 지구의",
+   "syn": "worldwide",
+   "ant": "local"
+  },
+  {
+   "w": "global warming",
+   "m": "지구 온난화",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "greenhouse gas",
+   "m": "온실가스",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "hurt",
+   "m": "다치게 하다, 해치다",
+   "syn": "harm",
+   "ant": ""
+  },
+  {
+   "w": "important",
+   "m": "중요한",
+   "syn": "",
+   "ant": "unimportant"
+  },
+  {
+   "w": "item",
+   "m": "항목; 물품",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "join",
+   "m": "연결하다; 가입하다; 함께하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "luckily",
+   "m": "다행히",
+   "syn": "fortunately",
+   "ant": "unluckily"
+  },
+  {
+   "w": "match",
+   "m": "연결시키다; 어울리다; 경기; 성냥",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "melt",
+   "m": "녹다; 녹이다",
+   "syn": "",
+   "ant": "freeze"
+  },
+  {
+   "w": "ocean",
+   "m": "대양, 바다",
+   "syn": "sea",
+   "ant": ""
+  },
+  {
+   "w": "pollution",
+   "m": "오염",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "problem",
+   "m": "문제",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "properly",
+   "m": "제대로, 적절히",
+   "syn": "correctly",
+   "ant": ""
+  },
+  {
+   "w": "protect",
+   "m": "보호하다",
+   "syn": "guard",
+   "ant": ""
+  },
+  {
+   "w": "quick",
+   "m": "빠른",
+   "syn": "fast",
+   "ant": "slow"
+  },
+  {
+   "w": "recycle",
+   "m": "재활용하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "reduce",
+   "m": "줄이다",
+   "syn": "",
+   "ant": "increase"
+  },
+  {
+   "w": "resource",
+   "m": "자원",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "rise",
+   "m": "오르다 (rose-risen)",
+   "syn": "",
+   "ant": "drop, fall"
+  },
+  {
+   "w": "save",
+   "m": "구하다; 모으다; 절약하다",
+   "syn": "",
+   "ant": "waste"
+  },
+  {
+   "w": "serious",
+   "m": "심각한; 진지한",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "side",
+   "m": "면; 측면",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "superhero",
+   "m": "슈퍼히어로",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "tap",
+   "m": "가볍게 두드리다; 수도꼭지",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "temperature",
+   "m": "온도, 기온",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "useful",
+   "m": "유용한",
+   "syn": "",
+   "ant": "useless"
+  },
+  {
+   "w": "waste",
+   "m": "낭비하다; 낭비; 쓰레기",
+   "syn": "",
+   "ant": "save"
+  },
+  {
+   "w": "while",
+   "m": "~하는 동안",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "without",
+   "m": "~ 없이",
+   "syn": "",
+   "ant": "with"
+  },
+  {
+   "w": "wizard",
+   "m": "마법사",
+   "syn": "",
+   "ant": ""
+  }
+ ],
+ "idioms": [
+  {
+   "w": "turn off",
+   "m": "(전기·수도를) 끄다",
+   "syn": "",
+   "ant": "turn on"
+  },
+  {
+   "w": "throw away",
+   "m": "버리다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "break down",
+   "m": "분해되다; 고장 나다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "pick up",
+   "m": "줍다; 들어 올리다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "take part in",
+   "m": "~에 참가하다",
+   "syn": "participate in",
+   "ant": ""
+  },
+  {
+   "w": "for example",
+   "m": "예를 들어",
+   "syn": "for instance",
+   "ant": ""
+  },
+  {
+   "w": "for a long time",
+   "m": "오랫동안",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "from A to B",
+   "m": "A에서 B까지",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "look like",
+   "m": "~처럼 보이다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "a piece of",
+   "m": "~ 한 조각(장)",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "take a shower",
+   "m": "샤워를 하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "take + 시간 + to",
+   "m": "~하는 데 (시간)이 걸리다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "make sure",
+   "m": "~인지 확인하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "brush one's teeth",
+   "m": "양치질을 하다",
+   "syn": "",
+   "ant": ""
+  }
+ ],
+ "defs": [
+  {
+   "w": "bin",
+   "d": "a container that is used to put waste in",
+   "ko": "쓰레기를 넣는 데 쓰이는 용기"
+  },
+  {
+   "w": "environment",
+   "d": "the natural world, including the water, the air, and the soil",
+   "ko": "물, 공기, 흙을 포함한 자연 세계"
+  },
+  {
+   "w": "protect",
+   "d": "to keep someone or something safe from danger",
+   "ko": "누군가나 무언가를 위험으로부터 안전하게 지키다"
+  },
+  {
+   "w": "recycle",
+   "d": "to use something again to make something new",
+   "ko": "무언가를 다시 사용해서 새로운 것을 만들다"
+  },
+  {
+   "w": "reduce",
+   "d": "to make something smaller in size, amount, number, etc.",
+   "ko": "무언가를 크기, 양, 수 등에서 더 작게 만들다"
+  },
+  {
+   "w": "resource",
+   "d": "things that exist in nature and can be used by people",
+   "ko": "자연에 존재하며 사람이 사용할 수 있는 것들"
+  },
+  {
+   "w": "temperature",
+   "d": "a measure of how hot or cold a place or thing is",
+   "ko": "어떤 장소나 물건이 얼마나 뜨겁거나 차가운지를 재는 정도"
+  },
+  {
+   "w": "wizard",
+   "d": "someone in stories who has magic powers",
+   "ko": "이야기 속에서 마법의 힘을 가진 사람"
+  },
+  {
+   "w": "pollution",
+   "d": "the action or process of making air, water, soil, etc. dirty",
+   "ko": "공기, 물, 흙 등을 더럽게 만드는 행동이나 과정"
+  },
+  {
+   "w": "below",
+   "d": "at or to a lower level, position or place",
+   "ko": "더 낮은 높이, 위치, 장소에 또는 그곳으로"
+  },
+  {
+   "w": "clean",
+   "d": "not dirty; to make something tidy",
+   "ko": "더럽지 않은; 무언가를 깔끔하게 만들다"
+  },
+  {
+   "w": "important",
+   "d": "having great meaning or value",
+   "ko": "큰 의미나 가치를 가진"
+  },
+  {
+   "w": "item",
+   "d": "one thing in a list, group, or set of things",
+   "ko": "목록, 무리, 세트 안에 있는 것 하나"
+  },
+  {
+   "w": "rise",
+   "d": "to reach a higher level or position",
+   "ko": "더 높은 수준이나 위치에 이르다"
+  },
+  {
+   "w": "save",
+   "d": "to use less of something than you need to use",
+   "ko": "필요한 것보다 무언가를 덜 쓰다"
+  },
+  {
+   "w": "useful",
+   "d": "helping to do something",
+   "ko": "무언가를 하는 데 도움이 되는"
+  },
+  {
+   "w": "waste",
+   "d": "to use too much of something; something that is no longer needed and thrown away",
+   "ko": "무언가를 너무 많이 쓰다; 더 이상 필요 없어 버려진 것"
+  }
+ ],
+ "rows": [
+  {
+   "n": 1,
+   "para": "도입 (1~4)",
+   "en": "Pollution is a big problem.",
+   "kr": "오염은 큰 문제입니다.",
+   "ch": [
+    [
+     "Pollution",
+     "오염은"
+    ],
+    [
+     "is a big problem.",
+     "큰 문제입니다"
+    ]
+   ],
+   "tip": "한글 끝 \"~입니다\"가 영어에선 주어 바로 뒤 is로 와요.",
+   "key": []
+  },
+  {
+   "n": 2,
+   "para": "도입 (1~4)",
+   "en": "Luckily, three superheroes are working to protect the environment.",
+   "kr": "다행히, 세 명의 슈퍼히어로가 환경을 보호하기 위해서 일하고 있습니다.",
+   "ch": [
+    [
+     "Luckily,",
+     "다행히"
+    ],
+    [
+     "three superheroes",
+     "세 명의 슈퍼히어로가"
+    ],
+    [
+     "are working",
+     "일하고 있습니다"
+    ],
+    [
+     "to protect the environment.",
+     "환경을 보호하기 위해서"
+    ]
+   ],
+   "tip": "한글 맨 끝 \"일하고 있다\"가 주어 바로 뒤로! \"~하기 위해서\" = to + 동사원형, 맨 뒤.",
+   "key": [
+    [
+     "다행히",
+     "Luckily"
+    ],
+    [
+     "환경을 보호하기 위해서",
+     "to protect the environment"
+    ]
+   ]
+  },
+  {
+   "n": 3,
+   "para": "도입 (1~4)",
+   "en": "They want to make the world clean.",
+   "kr": "그들은 세상을 깨끗하게 만들기를 원합니다.",
+   "ch": [
+    [
+     "They",
+     "그들은"
+    ],
+    [
+     "want",
+     "원합니다"
+    ],
+    [
+     "to make",
+     "만들기를"
+    ],
+    [
+     "the world",
+     "세상을"
+    ],
+    [
+     "clean.",
+     "깨끗하게"
+    ]
+   ],
+   "tip": "make + 목적어 + 형용사. \"깨끗하게\"지만 cleanly ✗ → clean ✓",
+   "key": [
+    [
+     "세상을 깨끗하게 만들기를",
+     "to make the world clean"
+    ]
+   ]
+  },
+  {
+   "n": 4,
+   "para": "도입 (1~4)",
+   "en": "Will you join them?",
+   "kr": "여러분도 그들과 함께하시겠어요?",
+   "ch": [
+    [
+     "Will you",
+     "여러분은 ~하시겠어요?"
+    ],
+    [
+     "join",
+     "함께하다"
+    ],
+    [
+     "them?",
+     "그들과"
+    ]
+   ],
+   "tip": "\"그들과\"지만 with 없이 join them. (join with them ✗)",
+   "key": [
+    [
+     "그들과 함께하시겠어요",
+     "join them"
+    ]
+   ]
+  },
+  {
+   "n": 5,
+   "para": "Recycle Wizard (5~14)",
+   "en": "Hi! I'm Recycle Wizard.",
+   "kr": "안녕하세요! 저는 재활용 마법사예요.",
+   "ch": null,
+   "tip": "",
+   "key": []
+  },
+  {
+   "n": 6,
+   "para": "Recycle Wizard (5~14)",
+   "en": "People waste too many resources.",
+   "kr": "사람들은 너무 많은 자원을 낭비해요.",
+   "ch": [
+    [
+     "People",
+     "사람들은"
+    ],
+    [
+     "waste",
+     "낭비해요"
+    ],
+    [
+     "too many resources.",
+     "너무 많은 자원을"
+    ]
+   ],
+   "tip": "resources는 복수 → many (much ✗).",
+   "key": [
+    [
+     "너무 많은 자원을",
+     "too many resources"
+    ]
+   ]
+  },
+  {
+   "n": 7,
+   "para": "Recycle Wizard (5~14)",
+   "en": "But recycling can save them.",
+   "kr": "하지만 재활용은 그것들을 절약할 수 있어요.",
+   "ch": [
+    [
+     "But",
+     "하지만"
+    ],
+    [
+     "recycling",
+     "재활용은"
+    ],
+    [
+     "can save",
+     "절약할 수 있어요"
+    ],
+    [
+     "them.",
+     "그것들을"
+    ]
+   ],
+   "tip": "연결어 But: 앞(낭비) ↔ 뒤(절약) 반대. them = resources. 주어 자리 → recycling(동명사).",
+   "key": [
+    [
+     "하지만",
+     "But"
+    ],
+    [
+     "재활용은",
+     "recycling"
+    ]
+   ]
+  },
+  {
+   "n": 8,
+   "para": "Recycle Wizard (5~14)",
+   "en": "For example, recycling 1,000 kilograms of paper can save about 19 trees and 29,000 liters of water.",
+   "kr": "예를 들어, 종이 1,000kg을 재활용하는 것은 약 19그루의 나무와 29,000리터의 물을 절약할 수 있어요.",
+   "ch": [
+    [
+     "For example,",
+     "예를 들어"
+    ],
+    [
+     "recycling 1,000 kilograms of paper",
+     "종이 1,000kg을 재활용하는 것은"
+    ],
+    [
+     "can save",
+     "절약할 수 있어요"
+    ],
+    [
+     "about 19 trees",
+     "약 19그루의 나무"
+    ],
+    [
+     "and 29,000 liters of water.",
+     "와 29,000리터의 물을"
+    ]
+   ],
+   "tip": "\"종이 1,000kg\" → 1,000 kilograms of paper (순서 뒤집힘). about = 대략.",
+   "key": [
+    [
+     "예를 들어",
+     "For example"
+    ],
+    [
+     "종이 1,000kg을 재활용하는 것은",
+     "recycling 1,000 kilograms of paper"
+    ],
+    [
+     "약",
+     "about"
+    ]
+   ]
+  },
+  {
+   "n": 9,
+   "para": "Recycle Wizard (5~14)",
+   "en": "Do you want to be a wizard at recycling?",
+   "kr": "여러분은 재활용의 마법사가 되고 싶나요?",
+   "ch": [
+    [
+     "Do you want",
+     "여러분은 ~하고 싶나요?"
+    ],
+    [
+     "to be a wizard",
+     "마법사가 되기를"
+    ],
+    [
+     "at recycling?",
+     "재활용에 있어서"
+    ]
+   ],
+   "tip": "\"재활용의 마법사\" = a wizard at recycling (of ✗). at 뒤 동명사.",
+   "key": [
+    [
+     "재활용의 마법사가",
+     "a wizard at recycling"
+    ]
+   ]
+  },
+  {
+   "n": 10,
+   "para": "Recycle Wizard (5~14)",
+   "en": "Then you should recycle properly!",
+   "kr": "그렇다면 여러분은 제대로 재활용을 해야 해요!",
+   "ch": [
+    [
+     "Then",
+     "그렇다면"
+    ],
+    [
+     "you",
+     "여러분은"
+    ],
+    [
+     "should recycle",
+     "재활용을 해야 해요"
+    ],
+    [
+     "properly!",
+     "제대로"
+    ]
+   ],
+   "tip": "연결어 Then: 앞 질문(되고 싶다면?)을 받아 \"그렇다면\".",
+   "key": [
+    [
+     "그렇다면",
+     "Then"
+    ],
+    [
+     "제대로",
+     "properly"
+    ]
+   ]
+  },
+  {
+   "n": 11,
+   "para": "Recycle Wizard (5~14)",
+   "en": "Put plastic, paper, food waste, and glass in the correct bins.",
+   "kr": "플라스틱, 종이, 음식물 쓰레기, 그리고 유리를 알맞은 쓰레기통에 넣으세요.",
+   "ch": [
+    [
+     "Put",
+     "넣으세요"
+    ],
+    [
+     "plastic, paper, food waste, and glass",
+     "플라스틱, 종이, 음식물 쓰레기, 그리고 유리를"
+    ],
+    [
+     "in the correct bins.",
+     "알맞은 쓰레기통에"
+    ]
+   ],
+   "tip": "명령문: 한글 맨 끝 \"넣으세요\"가 영어 맨 앞 동사원형 Put.",
+   "key": [
+    [
+     "알맞은 쓰레기통에",
+     "in the correct bins"
+    ]
+   ]
+  },
+  {
+   "n": 12,
+   "para": "Recycle Wizard (5~14)",
+   "en": "Look at the waste below.",
+   "kr": "아래 쓰레기를 보세요.",
+   "ch": [
+    [
+     "Look at",
+     "보세요"
+    ],
+    [
+     "the waste",
+     "쓰레기를"
+    ],
+    [
+     "below.",
+     "아래"
+    ]
+   ],
+   "tip": "\"아래\"는 한글에선 앞, 영어에선 뒤에서 꾸며요.",
+   "key": [
+    [
+     "아래 쓰레기를",
+     "the waste below"
+    ]
+   ]
+  },
+  {
+   "n": 13,
+   "para": "Recycle Wizard (5~14)",
+   "en": "Draw a line from each piece of waste to the right bin.",
+   "kr": "각 쓰레기 조각에서 알맞은 쓰레기통까지 선을 그어보세요.",
+   "ch": [
+    [
+     "Draw",
+     "그어보세요"
+    ],
+    [
+     "a line",
+     "선을"
+    ],
+    [
+     "from each piece of waste",
+     "각 쓰레기 조각에서"
+    ],
+    [
+     "to the right bin.",
+     "알맞은 쓰레기통까지"
+    ]
+   ],
+   "tip": "from A to B. each + 단수 piece (pieces ✗).",
+   "key": [
+    [
+     "각 쓰레기 조각에서 알맞은 쓰레기통까지",
+     "from each piece of waste to the right bin"
+    ]
+   ]
+  },
+  {
+   "n": 14,
+   "para": "Recycle Wizard (5~14)",
+   "en": "Good job!",
+   "kr": "잘했어요!",
+   "ch": null,
+   "tip": "",
+   "key": []
+  },
+  {
+   "n": 15,
+   "para": "Fashion Clever (15~26)",
+   "en": "I'm Fashion Clever.",
+   "kr": "저는 패션 똑똑이예요.",
+   "ch": null,
+   "tip": "",
+   "key": []
+  },
+  {
+   "n": 16,
+   "para": "Fashion Clever (15~26)",
+   "en": "People throw away clothes too often.",
+   "kr": "사람들은 옷을 너무 자주 버려요.",
+   "ch": [
+    [
+     "People",
+     "사람들은"
+    ],
+    [
+     "throw away",
+     "버려요"
+    ],
+    [
+     "clothes",
+     "옷을"
+    ],
+    [
+     "too often.",
+     "너무 자주"
+    ]
+   ],
+   "tip": "\"너무 자주\"는 한글 중간, 영어는 맨 뒤.",
+   "key": [
+    [
+     "버려요",
+     "throw away"
+    ],
+    [
+     "너무 자주",
+     "too often"
+    ]
+   ]
+  },
+  {
+   "n": 17,
+   "para": "Fashion Clever (15~26)",
+   "en": "They become waste and hurt the environment.",
+   "kr": "그것들은 쓰레기가 되어 환경을 해쳐요.",
+   "ch": [
+    [
+     "They",
+     "그것들은"
+    ],
+    [
+     "become waste",
+     "쓰레기가 되고"
+    ],
+    [
+     "and",
+     "그리고"
+    ],
+    [
+     "hurt the environment.",
+     "환경을 해쳐요"
+    ]
+   ],
+   "tip": "\"되어\"에 숨은 연결어 and! They(=clothes) 복수 → become, hurt (hurts ✗).",
+   "key": [
+    [
+     "쓰레기가 되어",
+     "become waste and"
+    ]
+   ]
+  },
+  {
+   "n": 18,
+   "para": "Fashion Clever (15~26)",
+   "en": "Did you know that some clothes take over 200 years to break down?",
+   "kr": "여러분은 몇몇 옷들은 분해되는 데 200년이 넘게 걸린다는 것을 알고 있었나요?",
+   "ch": [
+    [
+     "Did you know",
+     "여러분은 알고 있었나요"
+    ],
+    [
+     "that",
+     "~라는 것을"
+    ],
+    [
+     "some clothes",
+     "몇몇 옷들은"
+    ],
+    [
+     "take over 200 years",
+     "200년이 넘게 걸린다"
+    ],
+    [
+     "to break down?",
+     "분해되는 데"
+    ]
+   ],
+   "tip": "know + that절. take + 시간 + to부정사. Did 뒤 know(원형).",
+   "key": [
+    [
+     "분해되는 데 200년이 넘게 걸린다",
+     "take over 200 years to break down"
+    ],
+    [
+     "것을 알고 있었나요",
+     "Did you know that"
+    ]
+   ]
+  },
+  {
+   "n": 19,
+   "para": "Fashion Clever (15~26)",
+   "en": "Don't buy too many clothes.",
+   "kr": "너무 많은 옷을 사지 마세요.",
+   "ch": [
+    [
+     "Don't buy",
+     "사지 마세요"
+    ],
+    [
+     "too many clothes.",
+     "너무 많은 옷을"
+    ]
+   ],
+   "tip": "부정 명령문: Don't + 동사원형.",
+   "key": [
+    [
+     "사지 마세요",
+     "Don't buy"
+    ]
+   ]
+  },
+  {
+   "n": 20,
+   "para": "Fashion Clever (15~26)",
+   "en": "Wear your clothes for a long time.",
+   "kr": "여러분의 옷을 오랫동안 입으세요.",
+   "ch": [
+    [
+     "Wear",
+     "입으세요"
+    ],
+    [
+     "your clothes",
+     "여러분의 옷을"
+    ],
+    [
+     "for a long time.",
+     "오랫동안"
+    ]
+   ],
+   "tip": "for a long time (in ✗).",
+   "key": [
+    [
+     "오랫동안",
+     "for a long time"
+    ]
+   ]
+  },
+  {
+   "n": 21,
+   "para": "Fashion Clever (15~26)",
+   "en": "You can also create new items from your old clothes!",
+   "kr": "여러분의 헌 옷으로 새로운 물건을 만들 수도 있어요!",
+   "ch": [
+    [
+     "You can also create",
+     "여러분은 ~ 만들 수도 있어요"
+    ],
+    [
+     "new items",
+     "새로운 물건을"
+    ],
+    [
+     "from your old clothes!",
+     "여러분의 헌 옷으로"
+    ]
+   ],
+   "tip": "\"~도\" = also (can 뒤). 재료 \"~으로\" = from.",
+   "key": [
+    [
+     "헌 옷으로",
+     "from your old clothes"
+    ],
+    [
+     "만들 수도",
+     "can also create"
+    ]
+   ]
+  },
+  {
+   "n": 22,
+   "para": "Fashion Clever (15~26)",
+   "en": "Let's make old clothes useful.",
+   "kr": "헌 옷을 유용하게 만들어 봅시다.",
+   "ch": [
+    [
+     "Let's make",
+     "만들어 봅시다"
+    ],
+    [
+     "old clothes",
+     "헌 옷을"
+    ],
+    [
+     "useful.",
+     "유용하게"
+    ]
+   ],
+   "tip": "make + 목적어 + 형용사 → useful (usefully ✗). Let's 뒤 동사원형.",
+   "key": [
+    [
+     "헌 옷을 유용하게 만들어",
+     "make old clothes useful"
+    ]
+   ]
+  },
+  {
+   "n": 23,
+   "para": "Fashion Clever (15~26)",
+   "en": "There are some items below.",
+   "kr": "아래에 몇 가지 물건들이 있어요.",
+   "ch": [
+    [
+     "There are",
+     "~이 있어요"
+    ],
+    [
+     "some items",
+     "몇 가지 물건들"
+    ],
+    [
+     "below.",
+     "아래에"
+    ]
+   ],
+   "tip": "items 복수 → There are.",
+   "key": [
+    [
+     "몇 가지 물건들이 있어요",
+     "There are some items"
+    ]
+   ]
+  },
+  {
+   "n": 24,
+   "para": "Fashion Clever (15~26)",
+   "en": "What can you make with these old clothes?",
+   "kr": "여러분은 이 헌 옷들로 무엇을 만들 수 있나요?",
+   "ch": [
+    [
+     "What",
+     "무엇을"
+    ],
+    [
+     "can you make",
+     "여러분은 만들 수 있나요"
+    ],
+    [
+     "with these old clothes?",
+     "이 헌 옷들로"
+    ]
+   ],
+   "tip": "의문사 + 조동사 + 주어 + 동사원형. clothes 복수 → these (this ✗).",
+   "key": [
+    [
+     "이 헌 옷들로",
+     "with these old clothes"
+    ]
+   ]
+  },
+  {
+   "n": 25,
+   "para": "Fashion Clever (15~26)",
+   "en": "Match the old clothes with the correct new items.",
+   "kr": "헌 옷과 알맞은 새 물건들을 연결해 보세요.",
+   "ch": [
+    [
+     "Match",
+     "연결해 보세요"
+    ],
+    [
+     "the old clothes",
+     "헌 옷을"
+    ],
+    [
+     "with the correct new items.",
+     "알맞은 새 물건들과"
+    ]
+   ],
+   "tip": "match A with B: A를 B와 연결시키다.",
+   "key": [
+    [
+     "헌 옷과 알맞은 새 물건들을 연결해",
+     "Match the old clothes with the correct new items"
+    ]
+   ]
+  },
+  {
+   "n": 26,
+   "para": "Fashion Clever (15~26)",
+   "en": "Now you can be clever at fashion too!",
+   "kr": "이제 여러분도 패션에 영리해질 수 있어요!",
+   "ch": [
+    [
+     "Now",
+     "이제"
+    ],
+    [
+     "you can be clever",
+     "여러분은 영리해질 수 있어요"
+    ],
+    [
+     "at fashion",
+     "패션에"
+    ],
+    [
+     "too!",
+     "~도"
+    ]
+   ],
+   "tip": "too(또한)는 문장 끝. can 뒤 be(원형).",
+   "key": [
+    [
+     "패션에 영리해질",
+     "be clever at fashion"
+    ]
+   ]
+  },
+  {
+   "n": 27,
+   "para": "Water Saver (27~40)",
+   "en": "Hi! I'm Water Saver!",
+   "kr": "안녕하세요! 저는 물 절약가예요!",
+   "ch": null,
+   "tip": "",
+   "key": []
+  },
+  {
+   "n": 28,
+   "para": "Water Saver (27~40)",
+   "en": "Water is very important.",
+   "kr": "물은 매우 중요해요.",
+   "ch": [
+    [
+     "Water",
+     "물은"
+    ],
+    [
+     "is very important.",
+     "매우 중요해요"
+    ]
+   ],
+   "tip": "importance(명사) ✗ → important(형용사).",
+   "key": []
+  },
+  {
+   "n": 29,
+   "para": "Water Saver (27~40)",
+   "en": "We can't live without it.",
+   "kr": "우리는 그것 없이 살 수 없어요.",
+   "ch": [
+    [
+     "We",
+     "우리는"
+    ],
+    [
+     "can't live",
+     "살 수 없어요"
+    ],
+    [
+     "without it.",
+     "그것 없이"
+    ]
+   ],
+   "tip": "it = water. without(~ 없이) ↔ with.",
+   "key": [
+    [
+     "그것 없이",
+     "without it"
+    ]
+   ]
+  },
+  {
+   "n": 30,
+   "para": "Water Saver (27~40)",
+   "en": "But people waste a lot of water.",
+   "kr": "하지만 사람들은 많은 물을 낭비해요.",
+   "ch": [
+    [
+     "But",
+     "하지만"
+    ],
+    [
+     "people",
+     "사람들은"
+    ],
+    [
+     "waste",
+     "낭비해요"
+    ],
+    [
+     "a lot of water.",
+     "많은 물을"
+    ]
+   ],
+   "tip": "연결어 But: 중요한데(앞) ↔ 낭비(뒤). a lot of water.",
+   "key": [
+    [
+     "많은 물을",
+     "a lot of water"
+    ]
+   ]
+  },
+  {
+   "n": 31,
+   "para": "Water Saver (27~40)",
+   "en": "It makes me sad.",
+   "kr": "그것이 저를 슬프게 만들어요.",
+   "ch": [
+    [
+     "It",
+     "그것이"
+    ],
+    [
+     "makes",
+     "만들어요"
+    ],
+    [
+     "me",
+     "저를"
+    ],
+    [
+     "sad.",
+     "슬프게"
+    ]
+   ],
+   "tip": "It = 사람들이 많은 물을 낭비하는 것. sadly ✗ → sad.",
+   "key": [
+    [
+     "저를 슬프게 만들어요",
+     "makes me sad"
+    ]
+   ]
+  },
+  {
+   "n": 32,
+   "para": "Water Saver (27~40)",
+   "en": "How can we save water?",
+   "kr": "우리는 어떻게 물을 절약할 수 있을까요?",
+   "ch": [
+    [
+     "How",
+     "어떻게"
+    ],
+    [
+     "can we save",
+     "우리는 절약할 수 있을까요"
+    ],
+    [
+     "water?",
+     "물을"
+    ]
+   ],
+   "tip": "How + 조동사 + 주어 + 동사원형? (How we can ✗)",
+   "key": []
+  },
+  {
+   "n": 33,
+   "para": "Water Saver (27~40)",
+   "en": "Take quick showers.",
+   "kr": "샤워를 빨리 하세요.",
+   "ch": [
+    [
+     "Take",
+     "하세요"
+    ],
+    [
+     "quick showers.",
+     "빠른 샤워를"
+    ]
+   ],
+   "tip": "\"빨리\"지만 showers 앞 → 형용사 quick.",
+   "key": [
+    [
+     "샤워를 빨리 하세요",
+     "Take quick showers"
+    ]
+   ]
+  },
+  {
+   "n": 34,
+   "para": "Water Saver (27~40)",
+   "en": "Turn off the water while you brush your teeth.",
+   "kr": "여러분이 이를 닦는 동안에는 물을 잠그세요.",
+   "ch": [
+    [
+     "Turn off",
+     "잠그세요"
+    ],
+    [
+     "the water",
+     "물을"
+    ],
+    [
+     "while",
+     "~하는 동안"
+    ],
+    [
+     "you brush your teeth.",
+     "여러분이 이를 닦다"
+    ]
+   ],
+   "tip": "한글은 \"이를 닦는 동안\"이 앞, 영어는 while절이 뒤. teeth 복수.",
+   "key": [
+    [
+     "이를 닦는 동안에는",
+     "while you brush your teeth"
+    ],
+    [
+     "물을 잠그세요",
+     "Turn off the water"
+    ]
+   ]
+  },
+  {
+   "n": 35,
+   "para": "Water Saver (27~40)",
+   "en": "Also, make sure that you turn off the tap completely.",
+   "kr": "또한, 여러분이 수도꼭지를 완전히 잠갔는지 확인하세요.",
+   "ch": [
+    [
+     "Also,",
+     "또한"
+    ],
+    [
+     "make sure",
+     "확인하세요"
+    ],
+    [
+     "that",
+     "~인지"
+    ],
+    [
+     "you turn off the tap",
+     "여러분이 수도꼭지를 잠그다"
+    ],
+    [
+     "completely.",
+     "완전히"
+    ]
+   ],
+   "tip": "연결어 Also: 방법 하나 더 추가. make sure + that절.",
+   "key": [
+    [
+     "또한",
+     "Also"
+    ],
+    [
+     "완전히",
+     "completely"
+    ],
+    [
+     "확인하세요",
+     "make sure that"
+    ]
+   ]
+  },
+  {
+   "n": 36,
+   "para": "Water Saver (27~40)",
+   "en": "Look at the pictures below.",
+   "kr": "아래 그림들을 보세요.",
+   "ch": [
+    [
+     "Look at",
+     "보세요"
+    ],
+    [
+     "the pictures",
+     "그림들을"
+    ],
+    [
+     "below.",
+     "아래"
+    ]
+   ],
+   "tip": "",
+   "key": []
+  },
+  {
+   "n": 37,
+   "para": "Water Saver (27~40)",
+   "en": "Which are ways to save water and which are not?",
+   "kr": "물을 절약하는 방법들과 그렇지 않은 방법들은 무엇인가요?",
+   "ch": [
+    [
+     "Which are",
+     "어느 것이 ~인가요"
+    ],
+    [
+     "ways to save water",
+     "물을 절약하는 방법들"
+    ],
+    [
+     "and which are not?",
+     "그리고 어느 것이 아닌가요"
+    ]
+   ],
+   "tip": "to save가 ways를 뒤에서 꾸밈. which are not 뒤 ways to save water 생략.",
+   "key": [
+    [
+     "물을 절약하는 방법들",
+     "ways to save water"
+    ]
+   ]
+  },
+  {
+   "n": 38,
+   "para": "Water Saver (27~40)",
+   "en": "Write an ○ or × on each picture.",
+   "kr": "각 그림에 ○ 또는 ×를 쓰세요.",
+   "ch": null,
+   "tip": "each + 단수 picture.",
+   "key": []
+  },
+  {
+   "n": 39,
+   "para": "Water Saver (27~40)",
+   "en": "I'm sure that you got the right answers.",
+   "kr": "저는 여러분이 정답을 맞혔다고 확신해요.",
+   "ch": [
+    [
+     "I'm sure",
+     "저는 확신해요"
+    ],
+    [
+     "that",
+     "~라고"
+    ],
+    [
+     "you got",
+     "여러분이 맞혔다"
+    ],
+    [
+     "the right answers.",
+     "정답을"
+    ]
+   ],
+   "tip": "be sure + that절 (when ✗, what ✗).",
+   "key": [
+    [
+     "정답을 맞혔다",
+     "got the right answers"
+    ],
+    [
+     "확신해요",
+     "I'm sure that"
+    ]
+   ]
+  },
+  {
+   "n": 40,
+   "para": "Water Saver (27~40)",
+   "en": "You are amazing at saving water!",
+   "kr": "여러분은 물을 절약하는 것에 정말 뛰어나요!",
+   "ch": [
+    [
+     "You are amazing",
+     "여러분은 정말 뛰어나요"
+    ],
+    [
+     "at saving water!",
+     "물을 절약하는 것에"
+    ]
+   ],
+   "tip": "at + 동명사 saving (saved ✗).",
+   "key": [
+    [
+     "물을 절약하는 것에 정말 뛰어나요",
+     "amazing at saving water"
+    ]
+   ]
+  }
+ ],
+ "grammar": [
+  {
+   "title": "핵심문법 1  동사 + 목적어 + 형용사",
+   "short": "핵심문법 1",
+   "formula": "주어 + make / keep / find + 목적어 + 형용사",
+   "concept": [
+    [
+     "공식",
+     "주어 + make / keep / find + [목적어] + [형용사]"
+    ],
+    [
+     "make",
+     "make + O + 형용사 = O를 [~하게 만들다]  ·  It makes me sad."
+    ],
+    [
+     "keep",
+     "keep + O + 형용사 = O를 [~한 상태로 유지하다]  ·  He keeps his car clean."
+    ],
+    [
+     "find",
+     "find + O + 형용사 = O가 [~하다는 것을 알게 되다]  ·  We found the book interesting."
+    ],
+    [
+     "목적어 자리",
+     "대명사는 [목적격] 으로 쓴다  ·  made she confused → made [her] confused"
+    ],
+    [
+     "보어 자리 ①",
+     "\"~하게\"로 해석돼도 [부사](-ly)는 못 쓴다  ·  made me happily → made me [happy]"
+    ],
+    [
+     "보어 자리 ②",
+     "명사형도 못 쓴다  ·  made him fame → made him [famous]"
+    ],
+    [
+     "예외",
+     "-ly로 끝나도 형용사인 단어는 보어로 쓸 수 있다  ·  lovely, [friendly], [lonely]"
+    ],
+    [
+     "감정 형용사",
+     "목적어가 느끼면 [-ed], 느끼게 하면 [-ing]  ·  The game made us [excited]."
+    ],
+    [
+     "확인법",
+     "목적어 [=] 보어 관계면 이 공식  ·  Dad made me a kite. → me ≠ kite → [4]형식"
+    ],
+    [
+     "명사 보어",
+     "make / call / name + O + [명사]  ·  The movie made him [a star]."
+    ]
+   ],
+   "write": [
+    [
+     "그 선물은 그를 행복하게 만들었다.",
+     "gift, make",
+     "The gift made him happy."
+    ],
+    [
+     "장갑은 너의 손을 따뜻하게 유지해 준다.",
+     "gloves, keep",
+     "Gloves keep your hands warm."
+    ],
+    [
+     "나는 그 영화가 지루하다는 것을 알게 되었다.",
+     "find, boring",
+     "I found the movie boring."
+    ],
+    [
+     "그 소식은 우리를 놀라게 만들었다.",
+     "news, surprised",
+     "The news made us surprised."
+    ],
+    [
+     "그들은 세상을 깨끗하게 만들기를 원한다.",
+     "want, world, clean",
+     "They want to make the world clean."
+    ],
+    [
+     "사람들은 그를 영웅이라고 불렀다.",
+     "call, hero",
+     "People called him a hero."
+    ],
+    [
+     "짠 음식은 우리를 목마르게 만든다.",
+     "salty food, thirsty",
+     "Salty food makes us thirsty."
+    ],
+    [
+     "나무들은 공기를 깨끗하고 신선하게 유지한다.",
+     "trees, keep, fresh",
+     "Trees keep the air clean and fresh."
+    ],
+    [
+     "헌 옷을 유용하게 만들어 봅시다.",
+     "Let's, useful",
+     "Let's make old clothes useful."
+    ],
+    [
+     "나는 그 수학 문제가 쉽다는 것을 알게 되었다.",
+     "find, math problem",
+     "I found the math problem easy."
+    ]
+   ]
+  },
+  {
+   "title": "핵심문법 2  접속사 that",
+   "short": "핵심문법 2",
+   "formula": "that + 주어 + 동사 ~ = \"~라는 것 / ~라고\"",
+   "concept": [
+    [
+     "공식",
+     "that + [주어] + [동사] ~ = \"~라는 것 / ~라고\""
+    ],
+    [
+     "주어 자리",
+     "That he likes her is true. = [It] is true that he likes her.  ·  that 생략 [✗]"
+    ],
+    [
+     "목적어 자리",
+     "I think (that) she is very kind.  ·  that 생략 [O]"
+    ],
+    [
+     "보어 자리",
+     "The problem is [that] I lost my wallet.  ·  that 생략 [✗]"
+    ],
+    [
+     "자주 쓰는 말",
+     "think · know · [believe] · [hope] · say · hear · agree · make sure · be sure + that절"
+    ],
+    [
+     "that 뒤",
+     "주어와 동사가 다 있는 [완전한] 문장  ·  that the movie sad → that the movie [was] sad"
+    ],
+    [
+     "헷갈리는 말",
+     "\"~라는 것\"이고 뒤가 완전하면 what · because ✗ → [that]"
+    ],
+    [
+     "가주어",
+     "주어 자리 that절은 뒤로 보내고 [It]으로 시작  ·  This is true that ~ ✗"
+    ],
+    [
+     "that 구분",
+     "뒤에 주어+동사 → [접속사]  /  뒤에 명사 → [지시형용사]  /  혼자 → [지시대명사]"
+    ],
+    [
+     "부정문",
+     "부정은 주절에  ·  I [don't] think that he is young."
+    ]
+   ],
+   "write": [
+    [
+     "나는 그녀가 곧 돌아올 것이라고 생각한다.",
+     "think, come back, soon",
+     "I think (that) she will come back soon."
+    ],
+    [
+     "그가 그 경기에서 이겼다는 것은 놀랍다.",
+     "가주어 It, surprising, won",
+     "It is surprising that he won the game."
+    ],
+    [
+     "2번 문장을 That으로 시작해서 다시 쓰시오.",
+     "That",
+     "That he won the game is surprising."
+    ],
+    [
+     "문제는 내가 지갑을 잃어버렸다는 것이다.",
+     "problem, lost, wallet",
+     "The problem is that I lost my wallet."
+    ],
+    [
+     "나는 그가 정직하다고 생각하지 않는다.",
+     "think, honest",
+     "I don't think (that) he is honest."
+    ],
+    [
+     "수도꼭지를 완전히 잠갔는지 확인하세요.",
+     "make sure, tap, completely",
+     "Make sure (that) you turn off the tap completely."
+    ],
+    [
+     "나는 네가 정답을 맞혔다고 확신한다.",
+     "sure, got, right answers",
+     "I'm sure (that) you got the right answers."
+    ],
+    [
+     "너는 몇몇 옷들은 분해되는 데 200년이 넘게 걸린다는 것을 알고 있었니?",
+     "know, take, break down",
+     "Did you know (that) some clothes take over 200 years to break down?"
+    ],
+    [
+     "내가 시험에 합격한 것은 사실이다.",
+     "가주어 It, true, passed",
+     "It is true that I passed the test."
+    ],
+    [
+     "우리는 그가 그 경기에서 이길 것이라고 믿는다.",
+     "believe, win",
+     "We believe (that) he will win the game."
+    ]
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1709 @@
+{
+ "acad": "강동미나 중고등부 · 중2 천재(이상기)",
+ "words": [
+  {
+   "w": "achieve",
+   "m": "이루다, 성취하다",
+   "syn": "accomplish",
+   "ant": ""
+  },
+  {
+   "w": "admire",
+   "m": "존경하다",
+   "syn": "respect",
+   "ant": ""
+  },
+  {
+   "w": "adventure",
+   "m": "모험",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "alive",
+   "m": "살아 있는",
+   "syn": "",
+   "ant": "dead"
+  },
+  {
+   "w": "astronaut",
+   "m": "우주 비행사",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "awesome",
+   "m": "굉장한, 멋진",
+   "syn": "great",
+   "ant": "awful, terrible"
+  },
+  {
+   "w": "behavior",
+   "m": "행동",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "brave",
+   "m": "용감한",
+   "syn": "courageous",
+   "ant": "afraid"
+  },
+  {
+   "w": "caring",
+   "m": "배려하는, 돌봐주는",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "catch",
+   "m": "잡다 (caught–caught)",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "ceiling",
+   "m": "천장",
+   "syn": "",
+   "ant": "floor"
+  },
+  {
+   "w": "celebrate",
+   "m": "기념하다, 축하하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "chimpanzee",
+   "m": "침팬지",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "clearly",
+   "m": "분명하게",
+   "syn": "obviously",
+   "ant": ""
+  },
+  {
+   "w": "comfortable",
+   "m": "편안한",
+   "syn": "",
+   "ant": "uncomfortable"
+  },
+  {
+   "w": "decorate",
+   "m": "장식하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "detailed",
+   "m": "자세한, 세밀한",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "display",
+   "m": "전시하다; 전시",
+   "syn": "show",
+   "ant": ""
+  },
+  {
+   "w": "engine",
+   "m": "엔진",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "enter",
+   "m": "들어가다; 입학하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "exploration",
+   "m": "탐험",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "female",
+   "m": "여성의",
+   "syn": "",
+   "ant": "male"
+  },
+  {
+   "w": "flight",
+   "m": "비행",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "forest",
+   "m": "숲",
+   "syn": "woods",
+   "ant": ""
+  },
+  {
+   "w": "garage",
+   "m": "차고, 격납고",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "goggles",
+   "m": "고글, 보호 안경",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "greatness",
+   "m": "위대함",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "guide",
+   "m": "안내하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "hang",
+   "m": "매달리다; 매달다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "hard",
+   "m": "단단한; 어려운; 열심히",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "honeybee",
+   "m": "꿀벌",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "however",
+   "m": "하지만, 그러나",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "independence",
+   "m": "독립",
+   "syn": "",
+   "ant": "dependence"
+  },
+  {
+   "w": "insect",
+   "m": "곤충",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "invent",
+   "m": "발명하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "invitation",
+   "m": "초대; 초대장",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "journey",
+   "m": "여행, 여정",
+   "syn": "trip",
+   "ant": ""
+  },
+  {
+   "w": "kindness",
+   "m": "친절함",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "knowledge",
+   "m": "지식",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "leather",
+   "m": "가죽",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "ordinary",
+   "m": "보통의, 평범한",
+   "syn": "normal",
+   "ant": "unusual"
+  },
+  {
+   "w": "pilot",
+   "m": "조종사, 비행사",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "plant",
+   "m": "식물; 심다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "receive",
+   "m": "받다",
+   "syn": "get",
+   "ant": "send"
+  },
+  {
+   "w": "shining",
+   "m": "빛나는, 반짝이는",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "step",
+   "m": "걸음; 단계; 발을 내딛다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "stop",
+   "m": "멈추다; 정류장; 방문지",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "suddenly",
+   "m": "갑자기",
+   "syn": "all of a sudden",
+   "ant": ""
+  },
+  {
+   "w": "treat",
+   "m": "치료하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "truly",
+   "m": "진심으로, 정말로",
+   "syn": "really",
+   "ant": ""
+  },
+  {
+   "w": "wild",
+   "m": "거친; 야생의; 야생",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "wise",
+   "m": "현명한, 지혜로운",
+   "syn": "",
+   "ant": "foolish"
+  }
+ ],
+ "idioms": [
+  {
+   "w": "at that time",
+   "m": "그 당시에",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "be filled with",
+   "m": "~로 가득 차다",
+   "syn": "be full of",
+   "ant": ""
+  },
+  {
+   "w": "be moved by",
+   "m": "~에 의해 감동을 받다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "can't wait to + 동사원형",
+   "m": "빨리 ~하고 싶다",
+   "syn": "look forward to + -ing",
+   "ant": ""
+  },
+  {
+   "w": "come true",
+   "m": "이루어지다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "fight against",
+   "m": "~에 맞서 싸우다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "give up",
+   "m": "포기하다",
+   "syn": "",
+   "ant": "keep trying"
+  },
+  {
+   "w": "hang from",
+   "m": "~에 매달리다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "in need",
+   "m": "어려움에 처한",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "in surprise",
+   "m": "놀라서",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "make a mistake",
+   "m": "실수를 하다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "more than",
+   "m": "~ 이상",
+   "syn": "over",
+   "ant": ""
+  },
+  {
+   "w": "one day",
+   "m": "어느 날",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "pick up",
+   "m": "집다, 집어 들다",
+   "syn": "",
+   "ant": ""
+  },
+  {
+   "w": "put on",
+   "m": "(옷 등을) 입다, 착용하다",
+   "syn": "",
+   "ant": "take off"
+  },
+  {
+   "w": "step into",
+   "m": "~로 들어가다",
+   "syn": "",
+   "ant": "step out of"
+  }
+ ],
+ "defs": [
+  {
+   "w": "achieve",
+   "d": "to successfully do something or get a good result, especially by working hard",
+   "ko": "특히 열심히 노력해서 무언가를 성공적으로 해내거나 좋은 결과를 얻다"
+  },
+  {
+   "w": "adventure",
+   "d": "an exciting experience in which dangerous or unusual things happen",
+   "ko": "위험하거나 특이한 일이 일어나는 신나는 경험"
+  },
+  {
+   "w": "celebrate",
+   "d": "to do something special to show that a person or event is important",
+   "ko": "어떤 사람이나 일이 중요하다는 것을 보여 주려고 특별한 일을 하다"
+  },
+  {
+   "w": "decorate",
+   "d": "to make something look nice by putting things on it",
+   "ko": "무언가를 붙이거나 올려서 보기 좋게 만들다"
+  },
+  {
+   "w": "display",
+   "d": "to put something in a place where people can see it easily",
+   "ko": "사람들이 쉽게 볼 수 있는 곳에 무언가를 두다"
+  },
+  {
+   "w": "engine",
+   "d": "the part of a vehicle that produces power to make it move",
+   "ko": "탈것이 움직이도록 힘을 만들어 내는 부분"
+  },
+  {
+   "w": "garage",
+   "d": "a building where a car or other vehicle is kept",
+   "ko": "차나 다른 탈것을 보관하는 건물"
+  },
+  {
+   "w": "leather",
+   "d": "animal skin that is used to make shoes, bags, etc.",
+   "ko": "신발, 가방 등을 만드는 데 쓰이는 동물 가죽"
+  },
+  {
+   "w": "pilot",
+   "d": "someone who drives or controls an airplane",
+   "ko": "비행기를 운전하거나 조종하는 사람"
+  },
+  {
+   "w": "invitation",
+   "d": "a written message that asks someone to go somewhere",
+   "ko": "누군가에게 어딘가로 와 달라고 부탁하는 글로 쓴 메시지"
+  },
+  {
+   "w": "detailed",
+   "d": "with many specific facts or pieces of information",
+   "ko": "구체적인 사실이나 정보가 많이 들어 있는"
+  },
+  {
+   "w": "ordinary",
+   "d": "not special or different in any way",
+   "ko": "어떤 면에서도 특별하거나 다르지 않은"
+  },
+  {
+   "w": "forest",
+   "d": "a large area of land covered with trees and plants",
+   "ko": "나무와 식물로 덮인 넓은 땅"
+  },
+  {
+   "w": "independence",
+   "d": "a situation in which a country has its own government and is not ruled by another country",
+   "ko": "한 나라가 자기 정부를 가지고 다른 나라의 지배를 받지 않는 상태"
+  },
+  {
+   "w": "exploration",
+   "d": "the act of going to a place or looking around to learn more about it",
+   "ko": "어떤 곳에 가거나 둘러보며 그곳에 대해 더 알아보는 일"
+  }
+ ],
+ "rows": [
+  {
+   "n": 1,
+   "para": "도입 (1~4)",
+   "en": "One day, Emily received an invitation from a museum.",
+   "kr": "어느 날, Emily는 박물관으로부터 초대장을 받았습니다.",
+   "ch": [
+    [
+     "One day,",
+     "어느 날"
+    ],
+    [
+     "Emily received",
+     "Emily는 받았다"
+    ],
+    [
+     "an invitation",
+     "초대장을"
+    ],
+    [
+     "from a museum.",
+     "박물관으로부터"
+    ]
+   ],
+   "tip": "한글 끝 \"받았다\"가 영어에선 주어 바로 뒤.",
+   "key": [
+    [
+     "초대장을 받았습니다",
+     "received an invitation"
+    ],
+    [
+     "박물관으로부터",
+     "from a museum"
+    ]
+   ]
+  },
+  {
+   "n": 2,
+   "para": "도입 (1~4)",
+   "en": "This museum wasn't any ordinary museum.",
+   "kr": "이 박물관은 평범한 박물관이 아니었습니다.",
+   "ch": [
+    [
+     "This museum",
+     "이 박물관은"
+    ],
+    [
+     "wasn't",
+     "~이 아니었다"
+    ],
+    [
+     "any ordinary museum.",
+     "평범한 박물관"
+    ]
+   ],
+   "tip": "not any = 전혀 ~아닌. ordinary = 평범한.",
+   "key": [
+    [
+     "평범한 박물관이 아니었습니다",
+     "wasn't any ordinary museum"
+    ]
+   ]
+  },
+  {
+   "n": 3,
+   "para": "도입 (1~4)",
+   "en": "It had rooms that celebrated great people.",
+   "kr": "그곳에는 위대한 사람들을 기념하는 방들이 있었습니다.",
+   "ch": [
+    [
+     "It had rooms",
+     "그곳에는 방들이 있었다"
+    ],
+    [
+     "that celebrated great people.",
+     "위대한 사람들을 기념하는"
+    ]
+   ],
+   "tip": "주격 관계대명사 that : 한글 \"기념하는 방\"(꾸밈이 앞) → 영어는 rooms 뒤 .",
+   "key": [
+    [
+     "위대한 사람들을 기념하는 방들",
+     "rooms that celebrated great people"
+    ]
+   ]
+  },
+  {
+   "n": 4,
+   "para": "도입 (1~4)",
+   "en": "She was excited to begin her exploration.",
+   "kr": "그녀는 그녀의 탐험을 시작하게 되어 들떠 있었습니다.",
+   "ch": [
+    [
+     "She was excited",
+     "그녀는 들떠 있었다"
+    ],
+    [
+     "to begin her exploration.",
+     "그녀의 탐험을 시작하게 되어"
+    ]
+   ],
+   "tip": "감정 형용사 + to부정사(감정의 원인). 사람이 느끼는 감정 → excit ed .",
+   "key": [
+    [
+     "시작하게 되어 들떠 있었습니다",
+     "was excited to begin"
+    ]
+   ]
+  },
+  {
+   "n": 5,
+   "para": "첫 번째 방 (5~13)",
+   "en": "Her first stop was a room that looked like an old airplane garage.",
+   "kr": "그녀의 첫 방문지는 오래된 비행기 격납고처럼 보이는 방이었습니다.",
+   "ch": [
+    [
+     "Her first stop",
+     "그녀의 첫 방문지는"
+    ],
+    [
+     "was a room",
+     "방이었다"
+    ],
+    [
+     "that looked like",
+     "~처럼 보이는"
+    ],
+    [
+     "an old airplane garage.",
+     "오래된 비행기 격납고"
+    ]
+   ],
+   "tip": "stop = 방문지(다의어). look like + 명사.",
+   "key": [
+    [
+     "첫 방문지",
+     "first stop"
+    ],
+    [
+     "격납고처럼 보이는",
+     "looked like an old airplane garage"
+    ]
+   ]
+  },
+  {
+   "n": 6,
+   "para": "첫 번째 방 (5~13)",
+   "en": "Model airplanes were hanging from the ceiling.",
+   "kr": "모형 비행기들이 천장에 매달려 있었습니다.",
+   "ch": [
+    [
+     "Model airplanes",
+     "모형 비행기들이"
+    ],
+    [
+     "were hanging",
+     "매달려 있었다"
+    ],
+    [
+     "from the ceiling.",
+     "천장에"
+    ]
+   ],
+   "tip": "과거진행 were + -ing. hang from : ~에 매달리다.",
+   "key": [
+    [
+     "천장에 매달려 있었습니다",
+     "were hanging from the ceiling"
+    ]
+   ]
+  },
+  {
+   "n": 7,
+   "para": "첫 번째 방 (5~13)",
+   "en": "A leather pilot jacket and goggles were displayed.",
+   "kr": "가죽 비행사 재킷과 고글이 전시되어 있었습니다.",
+   "ch": [
+    [
+     "A leather pilot jacket and goggles",
+     "가죽 비행사 재킷과 고글이"
+    ],
+    [
+     "were displayed.",
+     "전시되어 있었다"
+    ]
+   ],
+   "tip": "수동태 be + p.p. A and B = 복수 → were.",
+   "key": [
+    [
+     "전시되어 있었습니다",
+     "were displayed"
+    ]
+   ]
+  },
+  {
+   "n": 8,
+   "para": "첫 번째 방 (5~13)",
+   "en": "When Emily put them on, she could hear the sounds of airplane engines.",
+   "kr": "Emily가 그것들을 착용했을 때, 그녀는 비행기 엔진 소리를 들을 수 있었습니다.",
+   "ch": [
+    [
+     "When Emily put them on,",
+     "Emily가 그것들을 착용했을 때"
+    ],
+    [
+     "she could hear",
+     "그녀는 들을 수 있었다"
+    ],
+    [
+     "the sounds of airplane engines.",
+     "비행기 엔진 소리를"
+    ]
+   ],
+   "tip": "them = 재킷과 고글. 대명사는 put과 on 사이 (put on them ✗).",
+   "key": [
+    [
+     "그것들을 착용했을 때",
+     "When Emily put them on"
+    ],
+    [
+     "소리를 들을 수 있었습니다",
+     "could hear the sounds"
+    ]
+   ]
+  },
+  {
+   "n": 9,
+   "para": "첫 번째 방 (5~13)",
+   "en": "She looked around the room in surprise.",
+   "kr": "그녀는 놀라서 방을 둘러보았습니다.",
+   "ch": [
+    [
+     "She looked around",
+     "그녀는 둘러보았다"
+    ],
+    [
+     "the room",
+     "방을"
+    ],
+    [
+     "in surprise.",
+     "놀라서"
+    ]
+   ],
+   "tip": "한글 \"놀라서\"(앞) → 영어 in surprise(맨 뒤).",
+   "key": [
+    [
+     "놀라서",
+     "in surprise"
+    ],
+    [
+     "방을 둘러보았습니다",
+     "looked around the room"
+    ]
+   ]
+  },
+  {
+   "n": 10,
+   "para": "첫 번째 방 (5~13)",
+   "en": "On the wall, there was a picture of a woman.",
+   "kr": "벽에는 한 여성의 사진이 있었습니다.",
+   "ch": [
+    [
+     "On the wall,",
+     "벽에는"
+    ],
+    [
+     "there was",
+     "~이 있었다"
+    ],
+    [
+     "a picture of a woman.",
+     "한 여성의 사진"
+    ]
+   ],
+   "tip": "There was + 단수 명사. \"한 여성의 사진\" → a picture of a woman (순서 뒤집힘).",
+   "key": [
+    [
+     "벽에는",
+     "On the wall"
+    ],
+    [
+     "한 여성의 사진이 있었습니다",
+     "there was a picture of a woman"
+    ]
+   ]
+  },
+  {
+   "n": 11,
+   "para": "첫 번째 방 (5~13)",
+   "en": "She looked brave and strong.",
+   "kr": "그녀는 용감하고 강해 보였습니다.",
+   "ch": [
+    [
+     "She",
+     "그녀는"
+    ],
+    [
+     "looked",
+     "보였다"
+    ],
+    [
+     "brave and strong.",
+     "용감하고 강해"
+    ]
+   ],
+   "tip": "look + 형용사 (bravely ✗).",
+   "key": [
+    [
+     "용감하고 강해 보였습니다",
+     "looked brave and strong"
+    ]
+   ]
+  },
+  {
+   "n": 12,
+   "para": "첫 번째 방 (5~13)",
+   "en": "Her name was Kwon Ki-ok.",
+   "kr": "그녀의 이름은 권기옥이었습니다.",
+   "ch": [
+    [
+     "Her name",
+     "그녀의 이름은"
+    ],
+    [
+     "was Kwon Ki-ok.",
+     "권기옥이었다"
+    ]
+   ],
+   "tip": "",
+   "key": []
+  },
+  {
+   "n": 13,
+   "para": "첫 번째 방 (5~13)",
+   "en": "She was the first female pilot in Korea.",
+   "kr": "그녀는 한국 최초의 여성 비행사였습니다.",
+   "ch": [
+    [
+     "She was",
+     "그녀는 ~였다"
+    ],
+    [
+     "the first female pilot",
+     "최초의 여성 비행사"
+    ],
+    [
+     "in Korea.",
+     "한국의"
+    ]
+   ],
+   "tip": "\"한국 최초의\" → 영어는 in Korea가 맨 뒤.",
+   "key": [
+    [
+     "최초의 여성 비행사",
+     "the first female pilot"
+    ]
+   ]
+  },
+  {
+   "n": 14,
+   "para": "권기옥의 삶 (14~19)",
+   "en": "Emily also found an old newspaper on the desk.",
+   "kr": "Emily는 책상 위에서 오래된 신문도 발견했습니다.",
+   "ch": [
+    [
+     "Emily also found",
+     "Emily는 또한 발견했다"
+    ],
+    [
+     "an old newspaper",
+     "오래된 신문을"
+    ],
+    [
+     "on the desk.",
+     "책상 위에서"
+    ]
+   ],
+   "tip": "also(~도)는 일반동사 앞. find-found-found.",
+   "key": [
+    [
+     "오래된 신문도 발견했습니다",
+     "also found an old newspaper"
+    ]
+   ]
+  },
+  {
+   "n": 15,
+   "para": "권기옥의 삶 (14~19)",
+   "en": "It read, \"At that time, women couldn't enter flight schools.\"",
+   "kr": "그것에는 이렇게 쓰여 있었습니다. \"당시에 여성들은 비행 학교에 들어갈 수 없었다.\"",
+   "ch": [
+    [
+     "It read,",
+     "그것에는 ~라고 쓰여 있었다"
+    ],
+    [
+     "\"At that time,",
+     "당시에"
+    ],
+    [
+     "women couldn't enter",
+     "여성들은 들어갈 수 없었다"
+    ],
+    [
+     "flight schools.\"",
+     "비행 학교에"
+    ]
+   ],
+   "tip": "read = ~라고 쓰여 있다 (사물 주어). enter는 전치사 없이 바로 목적어 (enter into ✗).",
+   "key": [
+    [
+     "이렇게 쓰여 있었습니다",
+     "It read"
+    ],
+    [
+     "당시에",
+     "At that time"
+    ],
+    [
+     "비행 학교에 들어갈 수 없었다",
+     "couldn't enter flight schools"
+    ]
+   ]
+  },
+  {
+   "n": 16,
+   "para": "권기옥의 삶 (14~19)",
+   "en": "\"However, Kwon Ki-ok didn't give up and worked hard to achieve her dream.\"",
+   "kr": "\"하지만 권기옥은 포기하지 않았고 꿈을 이루기 위해 열심히 노력했다.\"",
+   "ch": [
+    [
+     "\"However,",
+     "하지만"
+    ],
+    [
+     "Kwon Ki-ok didn't give up",
+     "권기옥은 포기하지 않았다"
+    ],
+    [
+     "and worked hard",
+     "그리고 열심히 노력했다"
+    ],
+    [
+     "to achieve her dream.\"",
+     "꿈을 이루기 위해"
+    ]
+   ],
+   "tip": "연결어 However: 앞(입학 불가) ↔ 뒤(포기 안 함). to achieve = 목적(~하기 위해). hard = 열심히.",
+   "key": [
+    [
+     "포기하지 않았고",
+     "didn't give up"
+    ],
+    [
+     "꿈을 이루기 위해",
+     "to achieve her dream"
+    ]
+   ]
+  },
+  {
+   "n": 17,
+   "para": "권기옥의 삶 (14~19)",
+   "en": "Kwon Ki-ok did not just fly airplanes.",
+   "kr": "권기옥은 단지 비행기만 조종한 것이 아니었습니다.",
+   "ch": [
+    [
+     "Kwon Ki-ok did not just fly",
+     "권기옥은 단지 조종한 것이 아니었다"
+    ],
+    [
+     "airplanes.",
+     "비행기를"
+    ]
+   ],
+   "tip": "fly = (비행기를) 조종하다 . not just ~ = 단지 ~만 한 게 아니다 → 다음 문장에 \"또 다른 일\"이 나와요.",
+   "key": [
+    [
+     "단지 비행기만 조종한 것이 아니었습니다",
+     "did not just fly airplanes"
+    ]
+   ]
+  },
+  {
+   "n": 18,
+   "para": "권기옥의 삶 (14~19)",
+   "en": "She also fought against Japan for Korea's independence.",
+   "kr": "그녀는 한국의 독립을 위해 일본에 맞서 싸우기도 했습니다.",
+   "ch": [
+    [
+     "She also fought against Japan",
+     "그녀는 일본에 맞서 싸우기도 했다"
+    ],
+    [
+     "for Korea's independence.",
+     "한국의 독립을 위해"
+    ]
+   ],
+   "tip": "also = 17번 not just와 짝. fight-fought-fought / fight against.",
+   "key": [
+    [
+     "일본에 맞서 싸우기도 했습니다",
+     "also fought against Japan"
+    ],
+    [
+     "한국의 독립을 위해",
+     "for Korea's independence"
+    ]
+   ]
+  },
+  {
+   "n": 19,
+   "para": "권기옥의 삶 (14~19)",
+   "en": "Emily was moved by the great life story of Kwon Ki-ok.",
+   "kr": "Emily는 권기옥의 위대한 삶의 이야기에 감동을 받았습니다.",
+   "ch": [
+    [
+     "Emily was moved",
+     "Emily는 감동을 받았다"
+    ],
+    [
+     "by the great life story",
+     "위대한 삶의 이야기에"
+    ],
+    [
+     "of Kwon Ki-ok.",
+     "권기옥의"
+    ]
+   ],
+   "tip": "수동태 be moved by. 한글 \"권기옥의\"(앞) → of Kwon Ki-ok(뒤).",
+   "key": [
+    [
+     "감동을 받았습니다",
+     "was moved by"
+    ]
+   ]
+  },
+  {
+   "n": 20,
+   "para": "두 번째 방 (20~30)",
+   "en": "Emily stepped into the next room.",
+   "kr": "Emily는 다음 방으로 들어갔습니다.",
+   "ch": [
+    [
+     "Emily stepped into",
+     "Emily는 ~로 들어갔다"
+    ],
+    [
+     "the next room.",
+     "다음 방"
+    ]
+   ],
+   "tip": "step into ↔ step out of (35번).",
+   "key": [
+    [
+     "다음 방으로 들어갔습니다",
+     "stepped into the next room"
+    ]
+   ]
+  },
+  {
+   "n": 21,
+   "para": "두 번째 방 (20~30)",
+   "en": "The room was filled with many books and drawings of insects and plants.",
+   "kr": "그 방은 많은 책들과 곤충과 식물의 그림들로 가득 차 있었습니다.",
+   "ch": [
+    [
+     "The room",
+     "그 방은"
+    ],
+    [
+     "was filled with",
+     "~로 가득 차 있었다"
+    ],
+    [
+     "many books and drawings",
+     "많은 책들과 그림들"
+    ],
+    [
+     "of insects and plants.",
+     "곤충과 식물의"
+    ]
+   ],
+   "tip": "수동태 be filled with (= be full of). 주어 The room(단수) → was.",
+   "key": [
+    [
+     "가득 차 있었습니다",
+     "was filled with"
+    ]
+   ]
+  },
+  {
+   "n": 22,
+   "para": "두 번째 방 (20~30)",
+   "en": "It looked like a small forest.",
+   "kr": "그곳은 작은 숲처럼 보였습니다.",
+   "ch": [
+    [
+     "It",
+     "그곳은"
+    ],
+    [
+     "looked like",
+     "~처럼 보였다"
+    ],
+    [
+     "a small forest.",
+     "작은 숲"
+    ]
+   ],
+   "tip": "look like + 명사 / look + 형용사 (11번과 비교!).",
+   "key": [
+    [
+     "작은 숲처럼 보였습니다",
+     "looked like a small forest"
+    ]
+   ]
+  },
+  {
+   "n": 23,
+   "para": "두 번째 방 (20~30)",
+   "en": "When she closed the door, drawings on the desk suddenly started to fly around the room.",
+   "kr": "그녀가 문을 닫았을 때, 책상 위의 그림들이 갑자기 방 안 여기저기를 날아다니기 시작했습니다.",
+   "ch": [
+    [
+     "When she closed the door,",
+     "그녀가 문을 닫았을 때"
+    ],
+    [
+     "drawings on the desk",
+     "책상 위의 그림들이"
+    ],
+    [
+     "suddenly started",
+     "갑자기 시작했다"
+    ],
+    [
+     "to fly around the room.",
+     "방 안 여기저기를 날아다니기"
+    ]
+   ],
+   "tip": "start + to부정사 = start + -ing. 주어는 drawings(복수).",
+   "key": [
+    [
+     "갑자기",
+     "suddenly"
+    ],
+    [
+     "날아다니기 시작했습니다",
+     "started to fly around the room"
+    ]
+   ]
+  },
+  {
+   "n": 24,
+   "para": "두 번째 방 (20~30)",
+   "en": "She caught one of them.",
+   "kr": "그녀는 그것들 중 하나를 잡았습니다.",
+   "ch": [
+    [
+     "She caught",
+     "그녀는 잡았다"
+    ],
+    [
+     "one of them.",
+     "그것들 중 하나를"
+    ]
+   ],
+   "tip": "them = drawings. catch-caught-caught. one of + 복수.",
+   "key": [
+    [
+     "그것들 중 하나를",
+     "one of them"
+    ]
+   ]
+  },
+  {
+   "n": 25,
+   "para": "두 번째 방 (20~30)",
+   "en": "It was a drawing of a honeybee.",
+   "kr": "그것은 꿀벌의 그림이었습니다.",
+   "ch": [
+    [
+     "It was",
+     "그것은 ~이었다"
+    ],
+    [
+     "a drawing of a honeybee.",
+     "꿀벌의 그림"
+    ]
+   ],
+   "tip": "It = 잡은 그림 하나.",
+   "key": [
+    [
+     "꿀벌의 그림",
+     "a drawing of a honeybee"
+    ]
+   ]
+  },
+  {
+   "n": 26,
+   "para": "두 번째 방 (20~30)",
+   "en": "It was so detailed that the honeybee looked alive.",
+   "kr": "그것은 너무 자세해서 꿀벌이 살아 있는 것처럼 보였습니다.",
+   "ch": [
+    [
+     "It was so detailed",
+     "그것은 너무 자세했다"
+    ],
+    [
+     "that the honeybee looked alive.",
+     "그래서 꿀벌이 살아 있는 것처럼 보였다"
+    ]
+   ],
+   "tip": "so + 형용사 + that : 원인(자세함) → 결과(살아 보임). look + 형용사 alive.",
+   "key": [
+    [
+     "너무 자세해서",
+     "so detailed that"
+    ],
+    [
+     "살아 있는 것처럼 보였습니다",
+     "looked alive"
+    ]
+   ]
+  },
+  {
+   "n": 27,
+   "para": "두 번째 방 (20~30)",
+   "en": "From one of the bookshelves, Emily found a shining book.",
+   "kr": "책장 중 하나에서, Emily는 빛나는 책을 발견했습니다.",
+   "ch": [
+    [
+     "From one of the bookshelves,",
+     "책장 중 하나에서"
+    ],
+    [
+     "Emily found",
+     "Emily는 발견했다"
+    ],
+    [
+     "a shining book.",
+     "빛나는 책을"
+    ]
+   ],
+   "tip": "one of + 복수 명사(bookshelves). shining: 형용사.",
+   "key": [
+    [
+     "책장 중 하나에서",
+     "From one of the bookshelves"
+    ],
+    [
+     "빛나는 책을",
+     "a shining book"
+    ]
+   ]
+  },
+  {
+   "n": 28,
+   "para": "두 번째 방 (20~30)",
+   "en": "She picked it up.",
+   "kr": "그녀는 그것을 집어 들었습니다.",
+   "ch": [
+    [
+     "She",
+     "그녀는"
+    ],
+    [
+     "picked it up.",
+     "그것을 집어 들었다"
+    ]
+   ],
+   "tip": "대명사 it은 picked와 up 사이 . it = the shining book.",
+   "key": [
+    [
+     "집어 들었습니다",
+     "picked it up"
+    ]
+   ]
+  },
+  {
+   "n": 29,
+   "para": "두 번째 방 (20~30)",
+   "en": "She saw the name Jean-Henri Fabre on its cover.",
+   "kr": "그녀는 표지에서 Jean-Henri Fabre라는 이름을 보았습니다.",
+   "ch": [
+    [
+     "She saw",
+     "그녀는 보았다"
+    ],
+    [
+     "the name Jean-Henri Fabre",
+     "Jean-Henri Fabre라는 이름을"
+    ],
+    [
+     "on its cover.",
+     "그것의 표지에서"
+    ]
+   ],
+   "tip": "the name = Jean-Henri Fabre (동격). its = 그 책의 (it's ✗).",
+   "key": [
+    [
+     "표지에서",
+     "on its cover"
+    ]
+   ]
+  },
+  {
+   "n": 30,
+   "para": "두 번째 방 (20~30)",
+   "en": "When she opened the book, she found an old letter from Charles Darwin.",
+   "kr": "그녀는 책을 열었을 때, Charles Darwin에게서 온 오래된 편지를 발견했습니다.",
+   "ch": [
+    [
+     "When she opened the book,",
+     "그녀가 책을 열었을 때"
+    ],
+    [
+     "she found",
+     "그녀는 발견했다"
+    ],
+    [
+     "an old letter",
+     "오래된 편지를"
+    ],
+    [
+     "from Charles Darwin.",
+     "Charles Darwin에게서 온"
+    ]
+   ],
+   "tip": "한글 \"Darwin에게서 온 편지\"(앞) → a letter from Darwin(뒤).",
+   "key": [
+    [
+     "Charles Darwin에게서 온 오래된 편지를",
+     "an old letter from Charles Darwin"
+    ]
+   ]
+  },
+  {
+   "n": 31,
+   "para": "파브르의 삶과 마무리 (31~36)",
+   "en": "It said, \"Thank you for sending me your book.\"",
+   "kr": "그것에는 이렇게 쓰여 있었습니다. \"저에게 당신의 책을 보내 주셔서 감사합니다.\"",
+   "ch": [
+    [
+     "It said,",
+     "그것에는 ~라고 쓰여 있었다"
+    ],
+    [
+     "\"Thank you",
+     "감사합니다"
+    ],
+    [
+     "for sending me your book.\"",
+     "저에게 당신의 책을 보내 주셔서"
+    ]
+   ],
+   "tip": "say = ~라고 쓰여 있다 (15번 read와 같은 뜻). Thank you for + -ing . send me your book = send your book to me.",
+   "key": [
+    [
+     "보내 주셔서 감사합니다",
+     "Thank you for sending me your book"
+    ]
+   ]
+  },
+  {
+   "n": 32,
+   "para": "파브르의 삶과 마무리 (31~36)",
+   "en": "\"I truly love your work about insects.\"",
+   "kr": "\"저는 곤충에 관한 당신의 연구를 진심으로 사랑합니다.\"",
+   "ch": [
+    [
+     "\"I truly love",
+     "저는 진심으로 사랑합니다"
+    ],
+    [
+     "your work",
+     "당신의 연구를"
+    ],
+    [
+     "about insects.\"",
+     "곤충에 관한"
+    ]
+   ],
+   "tip": "truly(진심으로) — true + ly에서 e 빠짐. work = 연구, 작품.",
+   "key": [
+    [
+     "곤충에 관한 당신의 연구를",
+     "your work about insects"
+    ],
+    [
+     "진심으로 사랑합니다",
+     "truly love"
+    ]
+   ]
+  },
+  {
+   "n": 33,
+   "para": "파브르의 삶과 마무리 (31~36)",
+   "en": "Emily learned that Fabre wrote many books about insects for more than thirty years.",
+   "kr": "Emily는 Fabre가 30년 넘게 곤충에 관한 많은 책들을 썼다는 것을 알게 되었습니다.",
+   "ch": [
+    [
+     "Emily learned",
+     "Emily는 알게 되었다"
+    ],
+    [
+     "that Fabre wrote many books",
+     "Fabre가 많은 책들을 썼다는 것을"
+    ],
+    [
+     "about insects",
+     "곤충에 관한"
+    ],
+    [
+     "for more than thirty years.",
+     "30년 넘게"
+    ]
+   ],
+   "tip": "접속사 that(생략 가능). more than = over.",
+   "key": [
+    [
+     "30년 넘게",
+     "for more than thirty years"
+    ],
+    [
+     "썼다는 것을 알게 되었습니다",
+     "learned that Fabre wrote"
+    ]
+   ]
+  },
+  {
+   "n": 34,
+   "para": "파브르의 삶과 마무리 (31~36)",
+   "en": "His true love for nature was shown clearly in every corner of the room.",
+   "kr": "자연에 대한 그의 진정한 사랑은 방의 모든 구석에서 분명하게 보여졌습니다.",
+   "ch": [
+    [
+     "His true love for nature",
+     "자연에 대한 그의 진정한 사랑은"
+    ],
+    [
+     "was shown clearly",
+     "분명하게 보여졌다"
+    ],
+    [
+     "in every corner of the room.",
+     "방의 모든 구석에서"
+    ]
+   ],
+   "tip": "수동태 was shown(show-showed-shown). every + 단수 corner. 주어 love(단수) → was.",
+   "key": [
+    [
+     "자연에 대한 그의 진정한 사랑은",
+     "His true love for nature"
+    ],
+    [
+     "분명하게 보여졌습니다",
+     "was shown clearly"
+    ]
+   ]
+  },
+  {
+   "n": 35,
+   "para": "파브르의 삶과 마무리 (31~36)",
+   "en": "Emily stepped out of the last room.",
+   "kr": "Emily는 마지막 방에서 나왔습니다.",
+   "ch": [
+    [
+     "Emily stepped out of",
+     "Emily는 ~에서 나왔다"
+    ],
+    [
+     "the last room.",
+     "마지막 방"
+    ]
+   ],
+   "tip": "step out of ↔ step into(20번).",
+   "key": [
+    [
+     "마지막 방에서 나왔습니다",
+     "stepped out of the last room"
+    ]
+   ]
+  },
+  {
+   "n": 36,
+   "para": "파브르의 삶과 마무리 (31~36)",
+   "en": "She was so excited that she could not wait to tell her friends about her adventure.",
+   "kr": "그녀는 너무 신이 나서 친구들에게 자신의 모험에 대해 빨리 이야기하고 싶었습니다.",
+   "ch": [
+    [
+     "She was so excited",
+     "그녀는 너무 신이 났다"
+    ],
+    [
+     "that she could not wait",
+     "그래서 기다릴 수 없었다(빨리 ~하고 싶었다)"
+    ],
+    [
+     "to tell her friends",
+     "친구들에게 이야기하는 것을"
+    ],
+    [
+     "about her adventure.",
+     "자신의 모험에 대해"
+    ]
+   ],
+   "tip": "so ~ that + can't wait to(빨리 ~하고 싶다). 과거라 could not. 4번(excited to begin)과 수미상관!",
+   "key": [
+    [
+     "너무 신이 나서",
+     "so excited that"
+    ],
+    [
+     "빨리 이야기하고 싶었습니다",
+     "could not wait to tell"
+    ]
+   ]
+  }
+ ],
+ "grammar": [
+  {
+   "title": "핵심문법 1  수동태",
+   "short": "핵심문법 1",
+   "formula": "주어 + be동사 + 과거분사(p.p.) + (by + 목적격)",
+   "concept": [
+    [
+     "공식",
+     "주어 + [be동사] + [과거분사] (+ by + 목적격)  ·  \"~되다, ~당하다\""
+    ],
+    [
+     "만드는 순서",
+     "능동태의 [목적어]를 주어 자리로 → be동사는 원래 동사의 [시제]와 새 주어의 [수]로 정한다"
+    ],
+    [
+     "수 일치",
+     "A leather pilot jacket and goggles [were] displayed. (주어 복수 + 과거)"
+    ],
+    [
+     "by + 목적격",
+     "She bought the car. → The car was bought by [her]."
+    ],
+    [
+     "과거분사",
+     "write → [written]  ·  catch → [caught]  ·  show → [shown]  ·  build → [built]"
+    ],
+    [
+     "못 쓰는 동사",
+     "happen · appear · disappear는 수동태 ✗  ·  A strange thing was happened. → A strange thing [happened]."
+    ],
+    [
+     "동사구",
+     "한 덩어리로 옮긴다  ·  The dogs are taken care [of] by the old lady."
+    ],
+    [
+     "by 말고",
+     "be filled [with]  ·  be interested [in]  ·  be made [of] (재료가 보임) / [from] (재료가 변함)"
+    ],
+    [
+     "조동사",
+     "should / can + [be] + p.p.  ·  The forest should be protected."
+    ],
+    [
+     "부정·의문",
+     "I [wasn't] invited.  ·  [Was] the window broken by the boy?"
+    ]
+   ],
+   "write": [
+    [
+     "가죽 비행사 재킷과 고글이 전시되어 있었다.",
+     "leather pilot jacket, goggles, display",
+     "A leather pilot jacket and goggles were displayed."
+    ],
+    [
+     "Emily는 권기옥의 삶의 이야기에 감동을 받았다.",
+     "move, story",
+     "Emily was moved by the life story of Kwon Ki-ok."
+    ],
+    [
+     "그 방은 책들로 가득 차 있었다.",
+     "fill",
+     "The room was filled with books."
+    ],
+    [
+     "한글은 세종대왕에 의해 만들어졌다.",
+     "Hangeul, create, King Sejong",
+     "Hangeul was created by King Sejong."
+    ],
+    [
+     "그 편지는 그녀에 의해 쓰이지 않았다.",
+     "letter, write",
+     "The letter was not written by her."
+    ],
+    [
+     "그 창문은 Tom에 의해 닦여야 한다.",
+     "window, should, clean",
+     "The window should be cleaned by Tom."
+    ],
+    [
+     "자연에 대한 그의 사랑은 분명하게 보여졌다.",
+     "love for nature, show, clearly",
+     "His love for nature was shown clearly."
+    ],
+    [
+     "그 파티는 밤에 열렸다.",
+     "party, hold, at night",
+     "The party was held at night."
+    ],
+    [
+     "Tom은 특별한 파티에 초대되었다.",
+     "invite, special party",
+     "Tom was invited to a special party."
+    ],
+    [
+     "그 도둑들은 경찰에 의해 잡혔니?",
+     "thieves, catch, police",
+     "Were the thieves caught by the police?"
+    ]
+   ]
+  },
+  {
+   "title": "핵심문법 2  so ~ that",
+   "short": "핵심문법 2",
+   "formula": "so + 형용사/부사 + that + 주어 + 동사",
+   "concept": [
+    [
+     "공식",
+     "so + [형용사/부사] + that + [주어] + [동사]  ·  \"너무[매우] ~해서 …하다\""
+    ],
+    [
+     "so 자리",
+     "very는 못 쓴다  ·  He was [so] hungry that he ate all the food."
+    ],
+    [
+     "that 뒤",
+     "주어와 동사가 다 있는 [완전한] 문장"
+    ],
+    [
+     "시제",
+     "앞이 과거면 뒤도 과거  ·  She was so excited that she [could] not wait to tell her friends."
+    ],
+    [
+     "바꿔 쓰기 ①",
+     "so ~ that + 주어 + can = 형용사/부사 + [enough] + to부정사"
+    ],
+    [
+     "바꿔 쓰기 ②",
+     "so ~ that + 주어 + can't = [too] + 형용사/부사 + to부정사"
+    ],
+    [
+     "주어가 다를 때",
+     "The box is too heavy [for me] to lift.  (for + 목적격)"
+    ],
+    [
+     "헷갈리는 말",
+     "I opened the door [so that] they could come in. → \"~하도록\" (목적)"
+    ],
+    [
+     "명사가 있으면",
+     "It was [such] a funny movie that we laughed a lot."
+    ]
+   ],
+   "write": [
+    [
+     "그것은 너무 자세해서 꿀벌이 살아 있는 것처럼 보였다.",
+     "so ~ that, detailed, look",
+     "It was so detailed that the honeybee looked alive."
+    ],
+    [
+     "그녀는 너무 신이 나서 친구들에게 빨리 이야기하고 싶었다.",
+     "so ~ that, can't wait to",
+     "She was so excited that she couldn't wait to tell her friends."
+    ],
+    [
+     "그는 매우 현명해서 항상 좋은 조언을 해 준다.",
+     "so ~ that, wise, advice",
+     "He is so wise that he always has good advice."
+    ],
+    [
+     "그 영화는 너무 웃겨서 나는 많이 웃었다.",
+     "so ~ that, funny, laugh",
+     "The movie was so funny that I laughed a lot."
+    ],
+    [
+     "그는 너무 바빠서 친구에게 전화할 수 없었다.",
+     "so ~ that, busy, call",
+     "He was so busy that he couldn't call his friend."
+    ],
+    [
+     "그녀는 매우 똑똑해서 그 문제를 풀 수 있다.",
+     "enough to",
+     "She is smart enough to solve the problem."
+    ],
+    [
+     "그 상자는 너무 무거워서 내가 들 수 없다.",
+     "too ~ to, for me",
+     "The box is too heavy for me to lift."
+    ],
+    [
+     "그는 너무 피곤해서 일찍 잠자리에 들었다.",
+     "so ~ that, tired, go to bed",
+     "He was so tired that he went to bed early."
+    ],
+    [
+     "그녀는 매우 배려심이 깊어서 인도의 많은 사람들을 도왔다.",
+     "so ~ that, caring",
+     "She was so caring that she helped many people in India."
+    ],
+    [
+     "물이 너무 차가워서 우리는 그 안에서 수영할 수 없었다.",
+     "so ~ that, cold, swim in",
+     "The water was so cold that we couldn't swim in it."
+    ]
+   ]
+  }
+ ]
+}
