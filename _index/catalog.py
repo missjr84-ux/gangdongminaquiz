@@ -95,10 +95,10 @@ ROWS = [
 ("festivalsgrammar.html","중2","동아 (윤정미)","7과","Let's Enjoy Festivals","문법",""),
 ("festivalsdialogue.html","중2","동아 (윤정미)","7과","Let's Enjoy Festivals","대화문","⚠ 실제 내용은 문법 파일과 완전히 동일 — 대화문 아님"),
 ("festivalswriting.html","중2","동아 (윤정미)","7과","Seasonal Festivals Around the World","본문",""),
-("lifeinspacevoca.html","중2","동아 (윤정미)","7과 표기","Life in Space","단어","7과 자료가 둘 — 과 번호 확인 필요"),
-("lifeinspacedial.html","중2","동아 (윤정미)","7과 표기","Life in Space","대화문","7과 자료가 둘 — 과 번호 확인 필요"),
-("lifeinspacegrammar.html","중2","동아 (윤정미)","7과 표기","Life in Space","문법","7과 자료가 둘 — 과 번호 확인 필요"),
-("liefeinspacewriting.html","중2","동아 (윤정미)","7과 표기","The Best New Thing","본문","파일명 오타 (liefe)"),
+("lifeinspacevoca.html","중2","동아 (윤정미)","7과(옛)","Life in Space","단어","단원명을 잘못 알고 만든 것 — 실제 7과는 Let's Enjoy Festivals. 안 쓰면 지워도 됨"),
+("lifeinspacedial.html","중2","동아 (윤정미)","7과(옛)","Life in Space","대화문","단원명을 잘못 알고 만든 것 — 실제 7과는 Let's Enjoy Festivals. 안 쓰면 지워도 됨"),
+("lifeinspacegrammar.html","중2","동아 (윤정미)","7과(옛)","Life in Space","문법","단원명을 잘못 알고 만든 것 — 실제 7과는 Let's Enjoy Festivals. 안 쓰면 지워도 됨"),
+("liefeinspacewriting.html","중2","동아 (윤정미)","7과(옛)","The Best New Thing","본문","단원명을 잘못 알고 만든 것 · 파일명 오타(liefe). 안 쓰면 지워도 됨"),
 ("meetingfriedsafter.html","중2","동아 (윤정미)","","Meeting Friends Again after 20 Years","통합학습","파일명 오타 (frieds)"),
 
 # ── 중2 천재 (정사열) ────────────────────────────────────────

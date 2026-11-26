@@ -4,7 +4,10 @@ import json, os, sys, html, datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import catalog, chats, guides
 
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'index.html')
+# 레포가 공개라 최상위 index.html은 쓰지 않습니다.
+# 주소만 치면 자료 목록 전체가 보이게 되므로, 추측 불가 파일명으로 서비스합니다.
+OUTNAME = 'jaryo-7q2m4x8b1e.html'
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', OUTNAME)
 
 WITH_EXAM = {"중고등 자료", "모의고사"}
 NO_COMMON = {"창작"}
